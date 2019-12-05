@@ -1,0 +1,45 @@
+server:
+  port: 10002
+nacos:
+  hostname: nacos
+  port: 8848
+  namespace:
+  app-names:
+    - user-api
+spring:
+  main:
+    banner-mode: 'OFF'
+  application:
+    name: user-web
+  cloud:
+    nacos:
+      config:
+        server-addr: ${nacos.hostname}:${nacos.port}
+        file-extension: yml
+        shared-dataids: global.yml,db.yml,mq.yml
+        refreshable-dataids: ${spring.cloud.nacos.config.shared-dataids}
+        namespace: ${nacos.namespace}
+      discovery:
+        server-addr: ${nacos.hostname}:${nacos.port}
+        namespace: ${nacos.namespace}
+logging:
+  level:
+    root: ERROR
+    net.guerlab.smart.platform: INFO
+swagger:
+  enable: true
+  dockets:
+    - base-package: net.guerlab.smart.platform.user.server.controller.commons
+      group-name: user-commons
+      api-info:
+        title: 用户(Commons)
+        version: 1.0
+    - base-package: net.guerlab.smart.platform.user.server.controller.user
+      group-name: user-user
+      api-info:
+        title: 用户(User)
+        version: 1.0
+      global-operation-parameters:
+        - param-type: header
+          name: Authorization
+          description: 身份令牌(Type user)

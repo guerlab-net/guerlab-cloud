@@ -1,0 +1,43 @@
+server:
+  port: 11000
+nacos:
+  hostname: nacos
+  port: 8848
+  namespace:
+spring:
+  main:
+    banner-mode: 'OFF'
+  application:
+    name: commons-web
+  cloud:
+    nacos:
+      config:
+        server-addr: ${nacos.hostname}:${nacos.port}
+        file-extension: yml
+        shared-dataids: global.yml,swagger.yml
+        refreshable-dataids: ${spring.cloud.nacos.config.shared-dataids}
+        namespace: ${nacos.namespace}
+      discovery:
+        server-addr: ${nacos.hostname}:${nacos.port}
+        namespace: ${nacos.namespace}
+logging:
+  level:
+    root: ERROR
+    net.guerlab.smart.platform: INFO
+swagger:
+  enable: true
+  dockets:
+    - base-package: net.guerlab.smart.platform.commons.server.controller.user
+      group-name: commons-user
+      api-info:
+        title: 公共(User)
+        version: 1.0
+      global-operation-parameters:
+        - param-type: header
+          name: Authorization
+          description: 身份令牌(Type user)
+    - base-package: net.guerlab.smart.platform.commons.server.controller.wx
+      group-name: commons-wx
+      api-info:
+        title: 公共(wx)
+        version: 1.0

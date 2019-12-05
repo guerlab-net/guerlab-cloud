@@ -1,0 +1,15 @@
+swagger:
+  enable: true
+  resources:
+    commons-user:
+      name: commons-user
+      path: commons-web
+      group: commons-user
+    user-commons:
+      name: user-commons
+      path: user-web
+      group: user-commons
+    user-user:
+      name: user-user
+      path: user-web
+      group: user-user

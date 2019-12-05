@@ -1,0 +1,33 @@
+{
+  "groups": [
+    {
+      "name": "nacos",
+      "type": "net.guerlab.smart.platform.server.properties.NacosServerProperties",
+      "sourceType": "net.guerlab.smart.platform.server.properties.NacosServerProperties",
+      "description": "NACOS服务配置."
+    }
+  ],
+  "properties": [
+    {
+      "name": "nacos.hostname",
+      "type": "java.lang.String",
+      "sourceType": "net.guerlab.smart.platform.server.properties.NacosServerProperties",
+      "description": "主机地址.",
+      "defaultValue": "nacos"
+    },
+    {
+      "name": "nacos.port",
+      "type": "java.lang.Integer",
+      "sourceType": "net.guerlab.smart.platform.server.properties.NacosServerProperties",
+      "description": "端口.",
+      "defaultValue": 8848
+    },
+    {
+      "name": "nacos.namespace",
+      "type": "java.lang.String",
+      "sourceType": "net.guerlab.smart.platform.server.properties.NacosServerProperties",
+      "description": "命名空间.",
+      "defaultValue": ""
+    }
+  ]
+}

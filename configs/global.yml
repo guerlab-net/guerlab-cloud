@@ -1,0 +1,90 @@
+spring:
+  messages:
+    basename: |
+      messages/basic,
+      messages/commons,
+      messages/user
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+      order-map-entries-by-keys: true
+      write-char-arrays-as-json-arrays: true
+      write-bigdecimal-as-plain: true
+    deserialization:
+      fail-on-unknown-properties: false
+    default-property-inclusion: non_null
+    format:
+      format-long-class: true
+  http:
+    encoding:
+      force: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  i18n:
+    default-locale: zh_CN
+    locale-change-interceptor:
+      param-name: lang
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: -1
+      max-request-size: -1
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeout-in-milliseconds: 60000
+ribbon:
+  read-timeout: 60000
+  connect-timeout: 60000
+feign:
+  client:
+    config:
+      default:
+        connect-timeout: 60000
+        read-timeout: 60000
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
+  httpclient:
+    connection-timeout: 60000
+    connection-timer-repeat: 60000
+    disable-ssl-validation: true
+logging:
+  level:
+    root: ERROR
+    net.guerlab.smart.platform: INFO
+    com.netflix: 'OFF'
+    com.sun: 'OFF'
+    freemarker: 'OFF'
+    javax.xml.bind: 'OFF'
+    org.apache: 'OFF'
+    org.hibernate: 'OFF'
+    org.springframework: ERROR
+    springfox: 'OFF'
+    com.alibaba.nacos: 'OFF'
+swagger:
+  enable: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+jwt:
+  user:
+    access-token-expire: 86400000
+    access-token-signing-key: access-token-signing-key
+    refresh-token-expire: 172800000
+    refresh-token-signing-key: refresh-token-signing-key
+auth:
+  user:
+    include-patterns: /user/**

@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    gateway:
+      rewrite-to-polymerization:
+        enable: false
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+          route-id-prefix: discovery_
+          include-expression: serviceId.endsWith('web') && !uri.toString().contains('inside')
+      routes:
+        - id: swagger
+          uri: lb://commons-web
+          predicates:
+            - Path=/swagger-ui.html,/webjars/springfox-swagger-ui/**,/swagger-resources/**
+logging:
+  level:
+    net.guerlab.smart.platform.basic.gateway: INFO

@@ -1,0 +1,24 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>smart-platform-basic</artifactId>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>net.guerlab.smart-platform</groupId>
+        <artifactId>smart-platform-parent</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <properties>
+        <main.basedir>${basedir}/..</main.basedir>
+    </properties>
+
+    <modules>
+        <module>smart-platform-basic-gateway</module>
+        <module>smart-platform-basic-swagger</module>
+        <module>smart-platform-basic-api</module>
+        <module>smart-platform-basic-auth</module>
+    </modules>
+</project>

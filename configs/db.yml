@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${db.host}:${db.port:3306}/${db.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&autoReconnect=true&rewriteBatchedStatements=true&cachePrepStmts=true&useSSL=false
+    username: ${db.username}
+    password: ${db.password}
+    hikari:
+      connection-init-sqls:
+        set names utf8mb4;
+mybatis:
+  type-handlers-package: net.guerlab.spring.mybatis.typehandlers
+  mapper-locations:
+    - classpath*:mapper/**/*Mapper.xml
+mapper:
+  not-empty: false
+  identity: MYSQL
+  style: normal
+  enum-as-simple-type: true
+  use-simple-type: false
+  mappers:
+    - tk.mybatis.mapper.common.Mapper

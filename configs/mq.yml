@@ -1,0 +1,25 @@
+spring:
+  rabbitmq:
+    host: ${mq.host}
+    username: ${mq.username}
+    password: ${mq.password}
+  cloud:
+    stream:
+      bindings:
+        ## user
+        department_add_input:
+          destination: department.add
+        department_add_output:
+          destination: department.add
+        department_update_input:
+          destination: department.update
+        department_update_output:
+          destination: department.update
+        user_add_input:
+          destination: user.add
+        user_add_output:
+          destination: user.add
+        user_update_input:
+          destination: user.update
+        user_update_output:
+          destination: user.update

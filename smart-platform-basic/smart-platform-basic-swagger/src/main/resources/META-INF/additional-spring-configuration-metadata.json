@@ -1,0 +1,33 @@
+{
+  "groups": [
+    {
+      "name": "nacos",
+      "type": "net.guerlab.smart.platform.basic.swagger.NacosClientProperties",
+      "sourceType": "net.guerlab.smart.platform.basic.swagger.NacosClientProperties",
+      "description": "认证基础配置."
+    }
+  ],
+  "properties": [
+    {
+      "name": "nacos.hostname",
+      "type": "java.lang.String",
+      "sourceType": "net.guerlab.smart.platform.basic.swagger.NacosClientProperties",
+      "description": "权限检查服务名称.",
+      "defaultValue": "nacos"
+    },
+    {
+      "name": "nacos.port",
+      "type": "java.lang.Integer",
+      "sourceType": "net.guerlab.smart.platform.basic.swagger.NacosClientProperties",
+      "description": "权限检查服务名称.",
+      "defaultValue": 8848
+    },
+    {
+      "name": "nacos.namespace",
+      "type": "java.lang.String",
+      "sourceType": "net.guerlab.smart.platform.basic.swagger.NacosClientProperties",
+      "description": "权限检查服务名称.",
+      "defaultValue": ""
+    }
+  ]
+}
