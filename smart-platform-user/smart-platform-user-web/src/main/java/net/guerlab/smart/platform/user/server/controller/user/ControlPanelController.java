@@ -282,7 +282,13 @@ public class ControlPanelController {
         User user = findCurrentUser();
         FileInfo fileInfo = UploadFileHelper.upload(file, UserService.DEFAULT_AVATAR_PATH);
         user.setAvatar(fileInfo.getWebPath());
-        service.updateSelectiveById(user);
+
+        User update = new User();
+        update.setUserId(user.getUserId());
+        update.setAvatar(user.getAvatar());
+        update.setVersion(user.getVersion());
+
+        service.updateSelectiveById(update);
         return user.toDTO();
     }
 
