@@ -17,9 +17,14 @@ import java.util.Optional;
 public interface UserService extends BaseService<User, Long> {
 
     /**
+     * 默认头像文件夹路径
+     */
+    String DEFAULT_AVATAR_PATH = "avatar";
+
+    /**
      * 默认头像地址
      */
-    String DEFAULT_AVATAR = "/avatar/default.png";
+    String DEFAULT_AVATAR = "/" + DEFAULT_AVATAR_PATH + "/default.png";
 
     /**
      * 查询分页数据

@@ -14,12 +14,15 @@ import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
 import net.guerlab.smart.platform.user.server.domain.UserModifyDTO;
 import net.guerlab.smart.platform.user.server.entity.User;
 import net.guerlab.smart.platform.user.server.service.UserService;
+import net.guerlab.spring.upload.entity.FileInfo;
+import net.guerlab.spring.upload.helper.UploadFileHelper;
 import net.guerlab.web.result.ListObject;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 import java.util.Objects;
@@ -124,6 +127,12 @@ public class UserController {
         }
 
         service.deleteById(id, force);
+    }
+
+    @ApiOperation(value = "头像上传")
+    @PostMapping("/uploadAvatar")
+    public FileInfo avatar(@ApiParam(value = "头像图片文件", required = true) @RequestParam MultipartFile file) {
+        return UploadFileHelper.upload(file, UserService.DEFAULT_AVATAR_PATH);
     }
 
     private User findOne0(Long id) {

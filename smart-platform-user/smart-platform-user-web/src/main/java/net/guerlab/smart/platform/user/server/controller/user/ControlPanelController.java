@@ -280,7 +280,7 @@ public class ControlPanelController {
     @PostMapping("/avatar")
     public UserDTO avatar(@ApiParam(value = "头像图片文件", required = true) @RequestParam MultipartFile file) {
         User user = findCurrentUser();
-        FileInfo fileInfo = UploadFileHelper.upload(file, "upload/avatar", user.getUserId().toString());
+        FileInfo fileInfo = UploadFileHelper.upload(file, UserService.DEFAULT_AVATAR_PATH);
         user.setAvatar(fileInfo.getWebPath());
         service.updateSelectiveById(user);
         return user.toDTO();

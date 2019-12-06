@@ -144,13 +144,6 @@
                 <version>${revision}</version>
             </dependency>
 
-            <!-- smart-platform commons web -->
-            <dependency>
-                <groupId>net.guerlab.smart-platform</groupId>
-                <artifactId>smart-platform-commons-web</artifactId>
-                <version>${revision}</version>
-            </dependency>
-
             <!-- smart-platform server parent -->
             <dependency>
                 <groupId>net.guerlab.smart-platform</groupId>
@@ -228,7 +221,6 @@
         <module>smart-platform-basic</module>
         <module>smart-platform-commons</module>
         <module>smart-platform-server-parent</module>
-        <module>smart-platform-commons-web</module>
         <module>smart-platform-user</module>
         <module>smart-platform-stream</module>
     </modules>
