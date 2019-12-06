@@ -115,12 +115,7 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- smart-platform -->
-            <dependency>
-                <groupId>net.guerlab.smart-platform</groupId>
-                <artifactId>smart-platform-commons</artifactId>
-                <version>${revision}</version>
-            </dependency>
+            <!-- smart-platform basic -->
             <dependency>
                 <groupId>net.guerlab.smart-platform</groupId>
                 <artifactId>smart-platform-basic-api</artifactId>
@@ -133,16 +128,44 @@
             </dependency>
             <dependency>
                 <groupId>net.guerlab.smart-platform</groupId>
+                <artifactId>smart-platform-basic-gateway</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.smart-platform</groupId>
+                <artifactId>smart-platform-basic-swagger</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- smart-platform commons -->
+            <dependency>
+                <groupId>net.guerlab.smart-platform</groupId>
+                <artifactId>smart-platform-commons</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- smart-platform commons web -->
+            <dependency>
+                <groupId>net.guerlab.smart-platform</groupId>
+                <artifactId>smart-platform-commons-web</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- smart-platform server parent -->
+            <dependency>
+                <groupId>net.guerlab.smart-platform</groupId>
                 <artifactId>smart-platform-server-parent</artifactId>
                 <version>${revision}</version>
             </dependency>
+
+            <!-- smart-platform stream -->
             <dependency>
                 <groupId>net.guerlab.smart-platform</groupId>
                 <artifactId>smart-platform-stream</artifactId>
                 <version>${revision}</version>
             </dependency>
 
-            <!-- smart-platform-user -->
+            <!-- smart-platform user -->
             <dependency>
                 <groupId>net.guerlab.smart-platform</groupId>
                 <artifactId>smart-platform-user-api</artifactId>
