@@ -276,7 +276,7 @@ public class ControlPanelController {
         service.updateSelectiveById(user);
     }
 
-    @ApiOperation(value = "头像上传")
+    @ApiOperation("头像上传")
     @PostMapping("/avatar")
     public UserDTO avatar(@ApiParam(value = "头像图片文件", required = true) @RequestParam MultipartFile file) {
         User user = findCurrentUser();
@@ -290,6 +290,14 @@ public class ControlPanelController {
 
         service.updateSelectiveById(update);
         return user.toDTO();
+    }
+
+    @ApiOperation("删除头像")
+    @PostMapping("/deleteAvatar")
+    public UserDTO deleteAvatar() {
+        service.deleteAvatar(UserContextHandler.getUserId());
+        User user = service.selectById(UserContextHandler.getUserId());
+        return BeanConvertUtils.toObject(user);
     }
 
     private void setNoUpdateField(User user, Long userId) {
@@ -329,13 +337,13 @@ public class ControlPanelController {
         return user;
     }
 
-    @ApiOperation(value = "获取权限关键字列表")
+    @ApiOperation("获取权限关键字列表")
     @GetMapping("/permissionKeys")
     public Collection<String> permissionKeys() {
         return service.getPermissionKeys(UserContextHandler.getUserId());
     }
 
-    @ApiOperation(value = "获取菜单列表")
+    @ApiOperation("获取菜单列表")
     @GetMapping("/menus")
     public Collection<MenuDTO> getMenus() {
         Long userId = UserContextHandler.getUserId();
@@ -352,7 +360,7 @@ public class ControlPanelController {
         return TreeUtils.tree(BeanConvertUtils.toList(menus));
     }
 
-    @ApiOperation(value = "获取职位信息列表")
+    @ApiOperation("获取职位信息列表")
     @GetMapping("/takeOffice")
     public Collection<TakeOfficeDataDTO> getTakeOffice() {
         Collection<TakeOffice> takeOffices = takeOfficeService.findByUserId(UserContextHandler.getUserId());

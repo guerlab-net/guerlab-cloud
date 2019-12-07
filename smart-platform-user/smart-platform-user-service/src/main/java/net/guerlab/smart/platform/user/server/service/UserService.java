@@ -122,6 +122,14 @@ public interface UserService extends BaseService<User, Long> {
     boolean isAdmin(Long userId);
 
     /**
+     * 删除头像
+     *
+     * @param userId
+     *         用户ID
+     */
+    void deleteAvatar(Long userId);
+
+    /**
      * 获取实体类型
      *
      * @return 实体类型

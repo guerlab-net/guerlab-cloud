@@ -129,6 +129,21 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
     }
 
     @Override
+    public void deleteAvatar(Long userId) {
+        if (!NumberHelper.greaterZero(userId)) {
+            throw new UserIdInvalidException();
+        }
+
+        UserSearchParams searchParams = new UserSearchParams();
+        searchParams.setUserId(userId);
+
+        User user = new User();
+        user.setAvatar(DEFAULT_AVATAR);
+
+        mapper.updateByExampleSelective(user, getExample(searchParams));
+    }
+
+    @Override
     protected void insertBefore(User entity) {
         checkProperties(entity);
         initProperties(entity);

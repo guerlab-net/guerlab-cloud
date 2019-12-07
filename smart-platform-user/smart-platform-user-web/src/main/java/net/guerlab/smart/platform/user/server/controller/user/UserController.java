@@ -129,7 +129,15 @@ public class UserController {
         service.deleteById(id, force);
     }
 
-    @ApiOperation(value = "头像上传")
+    @ApiOperation("删除头像")
+    @PostMapping("/{id}/deleteAvatar")
+    public UserDTO deleteAvatar(@ApiParam(value = "id", required = true) @PathVariable Long id) {
+        service.deleteAvatar(id);
+        User user = service.selectById(id);
+        return BeanConvertUtils.toObject(user);
+    }
+
+    @ApiOperation("头像上传")
     @PostMapping("/uploadAvatar")
     public FileInfo avatar(@ApiParam(value = "头像图片文件", required = true) @RequestParam MultipartFile file) {
         return UploadFileHelper.upload(file, UserService.DEFAULT_AVATAR_PATH);
