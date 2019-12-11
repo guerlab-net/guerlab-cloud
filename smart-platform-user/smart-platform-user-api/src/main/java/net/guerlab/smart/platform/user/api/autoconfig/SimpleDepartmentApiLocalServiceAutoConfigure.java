@@ -6,7 +6,7 @@ import net.guerlab.smart.platform.user.api.SimpleDepartmentApi;
 import net.guerlab.smart.platform.user.core.domain.SimpleDepartmentDTO;
 import net.guerlab.smart.platform.user.core.exception.DepartmentInvalidException;
 import net.guerlab.smart.platform.user.core.searchparams.DepartmentSearchParams;
-import net.guerlab.smart.platform.user.server.service.DepartmentService;
+import net.guerlab.smart.platform.user.service.service.DepartmentService;
 import net.guerlab.web.result.ListObject;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.*;
@@ -36,7 +36,7 @@ public class SimpleDepartmentApiLocalServiceAutoConfigure {
         public boolean matches(@NonNull ConditionContext context, @NonNull AnnotatedTypeMetadata metadata) {
             try {
                 return WrapperCondition.class.getClassLoader()
-                        .loadClass("net.guerlab.smart.platform.user.server.service.DepartmentService") != null;
+                        .loadClass("net.guerlab.smart.platform.user.service.service.DepartmentService") != null;
             } catch (Exception e) {
                 return false;
             }

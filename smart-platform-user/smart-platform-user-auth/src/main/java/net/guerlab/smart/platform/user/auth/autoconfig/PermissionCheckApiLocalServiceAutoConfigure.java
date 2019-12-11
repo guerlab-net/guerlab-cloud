@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import net.guerlab.smart.platform.user.auth.PermissionCheckApi;
 import net.guerlab.smart.platform.user.core.entity.PermissionCheckRequest;
 import net.guerlab.smart.platform.user.core.entity.PermissionCheckResponse;
-import net.guerlab.smart.platform.user.server.service.PermissionCheckService;
+import net.guerlab.smart.platform.user.service.service.PermissionCheckService;
 import org.springframework.context.annotation.*;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.lang.NonNull;
@@ -28,7 +28,7 @@ public class PermissionCheckApiLocalServiceAutoConfigure {
         public boolean matches(@NonNull ConditionContext context, @NonNull AnnotatedTypeMetadata metadata) {
             try {
                 return WrapperCondition.class.getClassLoader()
-                        .loadClass("net.guerlab.smart.platform.user.server.service.PermissionCheckService") != null;
+                        .loadClass("net.guerlab.smart.platform.user.service.service.PermissionCheckService") != null;
             } catch (Exception e) {
                 return false;
             }

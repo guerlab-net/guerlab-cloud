@@ -33,7 +33,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>net.guerlab.smart.platform.user.server.UserWebStarter</mainClass>
+                    <mainClass>net.guerlab.smart.platform.user.service.UserWebStarter</mainClass>
                     <layout>ZIP</layout>
                 </configuration>
                 <executions>

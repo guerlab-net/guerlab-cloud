@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import net.guerlab.smart.platform.user.auth.OtpCheckApi;
 import net.guerlab.smart.platform.user.core.entity.OtpCheckRequest;
 import net.guerlab.smart.platform.user.core.entity.OtpCheckResponse;
-import net.guerlab.smart.platform.user.server.service.OtpCheckService;
+import net.guerlab.smart.platform.user.service.service.OtpCheckService;
 import org.springframework.context.annotation.*;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.lang.NonNull;
@@ -28,7 +28,7 @@ public class OtpCheckApiLocalServiceAutoConfigure {
         public boolean matches(@NonNull ConditionContext context, @NonNull AnnotatedTypeMetadata metadata) {
             try {
                 return WrapperCondition.class.getClassLoader()
-                        .loadClass("net.guerlab.smart.platform.user.server.service.OtpCheckService") != null;
+                        .loadClass("net.guerlab.smart.platform.user.service.service.OtpCheckService") != null;
             } catch (Exception e) {
                 return false;
             }

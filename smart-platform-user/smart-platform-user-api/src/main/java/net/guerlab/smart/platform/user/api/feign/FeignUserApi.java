@@ -1,6 +1,7 @@
 package net.guerlab.smart.platform.user.api.feign;
 
 import net.guerlab.smart.platform.user.api.feign.factory.FeignUserApiFallbackFactory;
+import net.guerlab.smart.platform.user.core.domain.TakeOfficeDataDTO;
 import net.guerlab.smart.platform.user.core.domain.UserDTO;
 import net.guerlab.web.result.ListObject;
 import net.guerlab.web.result.Result;
@@ -49,4 +50,24 @@ public interface FeignUserApi {
      */
     @PostMapping("/all")
     Result<List<UserDTO>> findAll(@RequestBody Map<String, Object> searchParams);
+
+    /**
+     * 通过用户ID获取权限关键字列表
+     *
+     * @param userId
+     *         用户id
+     * @return 权限关键字列表
+     */
+    @PostMapping("/{userId}/permissionKeys")
+    Result<List<String>> permissionKeys(@PathVariable("userId") Long userId);
+
+    /**
+     * 通过用户ID获取职位信息列表
+     *
+     * @param userId
+     *         用户id
+     * @return 职位信息列表
+     */
+    @PostMapping("/{userId}/takeOffice")
+    Result<List<TakeOfficeDataDTO>> getTakeOffice(@PathVariable("userId") Long userId);
 }

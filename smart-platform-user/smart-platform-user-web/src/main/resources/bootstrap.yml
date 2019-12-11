@@ -29,12 +29,12 @@ logging:
 swagger:
   enable: true
   dockets:
-    - base-package: net.guerlab.smart.platform.user.server.controller.commons
+    - base-package: net.guerlab.smart.platform.user.web.controller.commons
       group-name: user-commons
       api-info:
         title: 用户(Commons)
         version: 1.0
-    - base-package: net.guerlab.smart.platform.user.server.controller.user
+    - base-package: net.guerlab.smart.platform.user.web.controller.user
       group-name: user-user
       api-info:
         title: 用户(User)

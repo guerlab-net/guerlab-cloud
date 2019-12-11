@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import net.guerlab.smart.platform.commons.exception.UserInvalidException;
 import net.guerlab.smart.platform.user.api.UserApi;
 import net.guerlab.smart.platform.user.api.feign.FeignUserApi;
+import net.guerlab.smart.platform.user.core.domain.TakeOfficeDataDTO;
 import net.guerlab.smart.platform.user.core.domain.UserDTO;
 import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
 import net.guerlab.spring.searchparams.SearchParamsUtils;
@@ -50,6 +51,16 @@ public class UserApiFeignAutoConfigure {
             Map<String, Object> params = new HashMap<>(8);
             SearchParamsUtils.handler(searchParams, params);
             return Optional.ofNullable(api.findAll(params).getData()).orElse(Collections.emptyList());
+        }
+
+        @Override
+        public List<String> permissionKeys(Long userId) {
+            return Optional.ofNullable(api.permissionKeys(userId).getData()).orElse(Collections.emptyList());
+        }
+
+        @Override
+        public List<TakeOfficeDataDTO> getTakeOffice(Long userId) {
+            return Optional.ofNullable(api.getTakeOffice(userId).getData()).orElse(Collections.emptyList());
         }
     }
 

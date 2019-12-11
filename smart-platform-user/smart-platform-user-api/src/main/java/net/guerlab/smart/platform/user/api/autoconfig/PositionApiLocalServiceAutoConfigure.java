@@ -6,7 +6,7 @@ import net.guerlab.smart.platform.user.api.PositionApi;
 import net.guerlab.smart.platform.user.core.domain.PositionDTO;
 import net.guerlab.smart.platform.user.core.exception.PositionInvalidException;
 import net.guerlab.smart.platform.user.core.searchparams.PositionSearchParams;
-import net.guerlab.smart.platform.user.server.service.PositionService;
+import net.guerlab.smart.platform.user.service.service.PositionService;
 import net.guerlab.web.result.ListObject;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.*;
@@ -36,7 +36,7 @@ public class PositionApiLocalServiceAutoConfigure {
         public boolean matches(@NonNull ConditionContext context, @NonNull AnnotatedTypeMetadata metadata) {
             try {
                 return WrapperCondition.class.getClassLoader()
-                        .loadClass("net.guerlab.smart.platform.user.server.service.PositionService") != null;
+                        .loadClass("net.guerlab.smart.platform.user.service.service.PositionService") != null;
             } catch (Exception e) {
                 return false;
             }

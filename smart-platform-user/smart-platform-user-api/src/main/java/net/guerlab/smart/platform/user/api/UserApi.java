@@ -1,5 +1,6 @@
 package net.guerlab.smart.platform.user.api;
 
+import net.guerlab.smart.platform.user.core.domain.TakeOfficeDataDTO;
 import net.guerlab.smart.platform.user.core.domain.UserDTO;
 import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
 import net.guerlab.web.result.ListObject;
@@ -39,4 +40,22 @@ public interface UserApi {
      * @return 用户列表
      */
     List<UserDTO> findAll(UserSearchParams searchParams);
+
+    /**
+     * 通过用户ID获取权限关键字列表
+     *
+     * @param userId
+     *         用户id
+     * @return 权限关键字列表
+     */
+    List<String> permissionKeys(Long userId);
+
+    /**
+     * 通过用户ID获取职位信息列表
+     *
+     * @param userId
+     *         用户id
+     * @return 职位信息列表
+     */
+    List<TakeOfficeDataDTO> getTakeOffice(Long userId);
 }

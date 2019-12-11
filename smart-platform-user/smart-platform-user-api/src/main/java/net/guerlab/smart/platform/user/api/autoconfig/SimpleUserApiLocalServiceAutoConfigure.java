@@ -6,7 +6,7 @@ import net.guerlab.smart.platform.commons.util.BeanConvertUtils;
 import net.guerlab.smart.platform.user.api.SimpleUserApi;
 import net.guerlab.smart.platform.user.core.domain.SimpleUserDTO;
 import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
-import net.guerlab.smart.platform.user.server.service.UserService;
+import net.guerlab.smart.platform.user.service.service.UserService;
 import net.guerlab.web.result.ListObject;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.*;
@@ -36,7 +36,7 @@ public class SimpleUserApiLocalServiceAutoConfigure {
         public boolean matches(@NonNull ConditionContext context, @NonNull AnnotatedTypeMetadata metadata) {
             try {
                 return WrapperCondition.class.getClassLoader()
-                        .loadClass("net.guerlab.smart.platform.user.server.service.UserService") != null;
+                        .loadClass("net.guerlab.smart.platform.user.service.service.UserService") != null;
             } catch (Exception e) {
                 return false;
             }
