@@ -23,7 +23,7 @@ public class SimpleUserController {
 
     private UserService service;
 
-    @PostMapping("/{id}")
+    @GetMapping("/{id}")
     public SimpleUserDTO findOne(@ApiParam(value = "id", required = true) @PathVariable Long id) {
         return BeanConvertUtils
                 .toObject(service.selectByIdOptional(id).orElseThrow(UserInvalidException::new), SimpleUserDTO.class);

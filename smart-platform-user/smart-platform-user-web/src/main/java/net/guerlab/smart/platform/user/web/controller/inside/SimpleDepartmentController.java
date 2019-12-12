@@ -25,7 +25,7 @@ public class SimpleDepartmentController {
 
     private DepartmentService service;
 
-    @PostMapping("/{id}")
+    @GetMapping("/{id}")
     public SimpleDepartmentDTO findOne(@ApiParam(value = "id", required = true) @PathVariable Long id) {
         return BeanConvertUtils.toObject(service.selectByIdOptional(id).orElseThrow(DepartmentInvalidException::new),
                 SimpleDepartmentDTO.class);

@@ -5,6 +5,7 @@ import net.guerlab.smart.platform.user.core.domain.PositionDTO;
 import net.guerlab.web.result.ListObject;
 import net.guerlab.web.result.Result;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +28,7 @@ public interface FeignPositionApi {
      *         职位id
      * @return 职位
      */
-    @PostMapping("/{positionId}")
+    @GetMapping("/{positionId}")
     Result<PositionDTO> findOne(@PathVariable("positionId") Long positionId);
 
     /**

@@ -5,6 +5,7 @@ import net.guerlab.smart.platform.user.core.domain.DepartmentTypeDTO;
 import net.guerlab.web.result.ListObject;
 import net.guerlab.web.result.Result;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +28,7 @@ public interface FeignDepartmentTypeApi {
      *         部门类型关键字
      * @return 部门类型
      */
-    @PostMapping("/{departmentTypeKey}")
+    @GetMapping("/{departmentTypeKey}")
     Result<DepartmentTypeDTO> findOne(@PathVariable("departmentTypeKey") String departmentTypeKey);
 
     /**

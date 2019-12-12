@@ -25,7 +25,7 @@ public class PositionController {
 
     private PositionService service;
 
-    @PostMapping("/{id}")
+    @GetMapping("/{id}")
     public PositionDTO findOne(@ApiParam(value = "id", required = true) @PathVariable Long id) {
         return service.selectByIdOptional(id).orElseThrow(PositionInvalidException::new).toDTO();
     }

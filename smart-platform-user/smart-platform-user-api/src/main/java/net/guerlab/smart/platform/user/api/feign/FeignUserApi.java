@@ -6,6 +6,7 @@ import net.guerlab.smart.platform.user.core.domain.UserDTO;
 import net.guerlab.web.result.ListObject;
 import net.guerlab.web.result.Result;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +29,7 @@ public interface FeignUserApi {
      *         用户id
      * @return 用户
      */
-    @PostMapping("/{userId}")
+    @GetMapping("/{userId}")
     Result<UserDTO> findOne(@PathVariable("userId") Long userId);
 
     /**
@@ -58,7 +59,7 @@ public interface FeignUserApi {
      *         用户id
      * @return 权限关键字列表
      */
-    @PostMapping("/{userId}/permissionKeys")
+    @GetMapping("/{userId}/permissionKeys")
     Result<List<String>> permissionKeys(@PathVariable("userId") Long userId);
 
     /**
@@ -68,6 +69,6 @@ public interface FeignUserApi {
      *         用户id
      * @return 职位信息列表
      */
-    @PostMapping("/{userId}/takeOffice")
+    @GetMapping("/{userId}/takeOffice")
     Result<List<TakeOfficeDataDTO>> getTakeOffice(@PathVariable("userId") Long userId);
 }

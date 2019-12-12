@@ -27,7 +27,7 @@ public class UserController {
 
     private TakeOfficeGetHandler takeOfficeGetHandler;
 
-    @PostMapping("/{id}")
+    @GetMapping("/{id}")
     public UserDTO findOne(@ApiParam(value = "id", required = true) @PathVariable Long id) {
         return service.selectByIdOptional(id).orElseThrow(UserInvalidException::new).toDTO();
     }
@@ -42,12 +42,12 @@ public class UserController {
         return BeanConvertUtils.toList(service.queryAll(searchParams));
     }
 
-    @PostMapping("/{id}/permissionKeys")
+    @GetMapping("/{id}/permissionKeys")
     public Collection<String> permissionKeys(@ApiParam(value = "id", required = true) @PathVariable Long id) {
         return service.getPermissionKeys(id);
     }
 
-    @PostMapping("/{id}/takeOffice")
+    @GetMapping("/{id}/takeOffice")
     public Collection<TakeOfficeDataDTO> getTakeOffice(@ApiParam(value = "id", required = true) @PathVariable Long id) {
         return takeOfficeGetHandler.getTakeOffice(id);
     }

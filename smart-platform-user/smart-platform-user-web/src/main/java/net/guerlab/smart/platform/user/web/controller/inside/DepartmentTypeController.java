@@ -25,7 +25,7 @@ public class DepartmentTypeController {
 
     private DepartmentTypeService service;
 
-    @PostMapping("/{id}")
+    @GetMapping("/{id}")
     public DepartmentTypeDTO findOne(@ApiParam(value = "id", required = true) @PathVariable String id) {
         return service.selectByIdOptional(id).orElseThrow(DepartmentTypeInvalidException::new).toDTO();
     }
