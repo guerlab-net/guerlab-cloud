@@ -17,7 +17,7 @@
         <plugin.deploy.version>2.8.2</plugin.deploy.version>
         <project.encoding>UTF-8</project.encoding>
 
-        <guerlab-spring.version>2.3.4</guerlab-spring.version>
+        <guerlab-spring.version>2.3.5</guerlab-spring.version>
 
         <spring-cloud-alibaba.version>2.1.1.RELEASE</spring-cloud-alibaba.version>
 
