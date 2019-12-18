@@ -41,9 +41,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 控制面板
@@ -347,19 +349,63 @@ public class ControlPanelController {
 
     @ApiOperation("获取菜单列表")
     @GetMapping("/menus")
-    public Collection<MenuDTO> getMenus() {
+    public Collection<MenuDTO> getMenus(
+            @ApiParam(value = "域列表") @RequestParam(value = "domains", required = false) String domains) {
         Long userId = UserContextHandler.getUserId();
+
+        Collection<String> domainList;
+        String domainsString = StringUtils.trimToNull(domains);
+        if (domainsString == null) {
+            domainList = Collections.emptyList();
+        } else {
+            domainList = Arrays.asList(domainsString.split(",")).parallelStream().map(StringUtils::trimToNull)
+                    .filter(Objects::nonNull).collect(Collectors.toSet());
+        }
+
         Collection<Menu> menus;
 
-        if (service.isAdmin(userId)) {
-            menus = menuService.selectAll();
+        if (domainList.isEmpty()) {
+            menus = getMenusWithoutDomain(userId);
         } else {
-            Collection<String> permissionKeys = service.getPermissionKeys(userId);
-            Collection<Long> menuIds = getMenuIds(permissionKeys);
-            menus = getMenus(menuIds);
+            menus = getMenusWithDomain(userId, domainList);
         }
 
         return TreeUtils.tree(BeanConvertUtils.toList(menus));
+    }
+
+    private Collection<Menu> getMenusWithDomain(Long userId, Collection<String> domainList) {
+        if (service.isAdmin(userId)) {
+            MenuSearchParams searchParams = new MenuSearchParams();
+            searchParams.setDomains(domainList);
+
+            return menuService.selectAll(searchParams);
+        }
+
+        Collection<Long> menuIds = getMenuIds(service.getPermissionKeys(userId));
+        if (CollectionUtil.isBlank(menuIds)) {
+            return Collections.emptyList();
+        }
+
+        MenuSearchParams searchParams = new MenuSearchParams();
+        searchParams.setMenuIds(menuIds);
+        searchParams.setDomains(domainList);
+
+        return menuService.selectAll(searchParams);
+    }
+
+    private Collection<Menu> getMenusWithoutDomain(Long userId) {
+        if (service.isAdmin(userId)) {
+            return menuService.selectAll();
+        }
+
+        Collection<Long> menuIds = getMenuIds(service.getPermissionKeys(userId));
+        if (CollectionUtil.isBlank(menuIds)) {
+            return Collections.emptyList();
+        }
+
+        MenuSearchParams searchParams = new MenuSearchParams();
+        searchParams.setMenuIds(menuIds);
+        return menuService.selectAll(searchParams);
     }
 
     @ApiOperation("获取职位信息列表")
@@ -377,17 +423,6 @@ public class ControlPanelController {
         searchParams.setPermissionKeys(permissionKeys);
 
         return menuPermissionService.findMenuIdList(searchParams);
-    }
-
-    private Collection<Menu> getMenus(Collection<Long> menuIds) {
-        if (CollectionUtil.isBlank(menuIds)) {
-            return Collections.emptyList();
-        }
-
-        MenuSearchParams searchParams = new MenuSearchParams();
-        searchParams.setMenuIds(menuIds);
-
-        return menuService.selectAll(searchParams);
     }
 
     @Autowired
