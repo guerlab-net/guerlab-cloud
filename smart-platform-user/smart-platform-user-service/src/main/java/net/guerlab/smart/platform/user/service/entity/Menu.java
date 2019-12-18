@@ -41,6 +41,16 @@ public class Menu extends BaseOrderEntity<Menu> implements DefaultConvertDTO<Men
     private String displayName;
 
     /**
+     * 域
+     */
+    private String domain;
+
+    /**
+     * 模块
+     */
+    private String module;
+
+    /**
      * 访问路径
      */
     private String path;

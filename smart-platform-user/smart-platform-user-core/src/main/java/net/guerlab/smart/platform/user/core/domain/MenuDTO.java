@@ -46,6 +46,18 @@ public class MenuDTO extends BaseOrderTreeEntity<MenuDTO> {
     private String displayName;
 
     /**
+     * 域
+     */
+    @ApiModelProperty("域")
+    private String domain;
+
+    /**
+     * 模块
+     */
+    @ApiModelProperty("模块")
+    private String module;
+
+    /**
      * 访问路径
      */
     @ApiModelProperty("访问路径")

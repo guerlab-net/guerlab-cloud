@@ -42,6 +42,26 @@ public class MenuSearchParams extends OrderSearchParams {
     private Long parentId;
 
     /**
+     * 域
+     */
+    @ApiModelProperty("域")
+    private String domain;
+
+    /**
+     * 域列表
+     */
+    @ApiModelProperty("域列表")
+    @Column(name = "domain")
+    @SearchModel(SearchModelType.IN)
+    private Collection<String> domains;
+
+    /**
+     * 模块
+     */
+    @ApiModelProperty("模块")
+    private String module;
+
+    /**
      * 是否隐藏
      */
     @ApiModelProperty("是否隐藏")

@@ -44,6 +44,8 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu, Long, MenuMapper> imp
         entity.setMenuId(sequence.nextId());
         entity.setName(name);
         entity.setPath(path);
+        entity.setDomain(StringUtils.trimToEmpty(entity.getDomain()));
+        entity.setModule(StringUtils.trimToEmpty(entity.getModule()));
         entity.setComponentPath(Optional.ofNullable(componentPath).orElse(MenuDTO.DEFAULT_COMPONENT_PATH));
         if (!NumberHelper.greaterZero(entity.getParentId())) {
             entity.setParentId(Constants.DEFAULT_PARENT_ID);
@@ -55,11 +57,6 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu, Long, MenuMapper> imp
             entity.setLeaf(false);
         }
         OrderEntityUtils.propertiesCheck(entity);
-    }
-
-    @Override
-    protected void updateAfter(Menu entity) {
-        clearMenuPermission(entity.getMenuId());
     }
 
     @Override
