@@ -1,7 +1,6 @@
 package net.guerlab.smart.platform.user.api.autoconfig;
 
 import lombok.AllArgsConstructor;
-import net.guerlab.smart.platform.user.api.DepartmentApi;
 import net.guerlab.smart.platform.user.api.SimpleDepartmentApi;
 import net.guerlab.smart.platform.user.api.feign.FeignSimpleDepartmentApi;
 import net.guerlab.smart.platform.user.core.domain.SimpleDepartmentDTO;
@@ -24,7 +23,7 @@ import java.util.*;
 public class SimpleDepartmentApiFeignAutoConfigure {
 
     @Bean
-    @ConditionalOnMissingBean(DepartmentApi.class)
+    @ConditionalOnMissingBean(SimpleDepartmentApi.class)
     public SimpleDepartmentApi simpleDepartmentApiFeignWrapper(FeignSimpleDepartmentApi api) {
         return new SimpleDepartmentApiFeignWrapper(api);
     }
