@@ -398,24 +398,28 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department, Long, Dep
     public void removeDirectorUser(Long departmentId) {
         removeManager(departmentId, UserAuthConstants.POSITION_ID_DIRECTOR);
 
+        DepartmentSearchParams searchParams = new DepartmentSearchParams();
+        searchParams.setDepartmentId(departmentId);
+
         Department department = new Department();
-        department.setDepartmentId(departmentId);
         department.setDirectorUserId(Constants.EMPTY_ID);
         department.setDirectorUserName(Constants.EMPTY_NAME);
 
-        mapper.updateByPrimaryKeySelective(department);
+        mapper.updateByExampleSelective(department, getExample(searchParams));
     }
 
     @Override
     public void removeChargeUser(Long departmentId) {
         removeManager(departmentId, UserAuthConstants.POSITION_ID_CHARGE);
 
+        DepartmentSearchParams searchParams = new DepartmentSearchParams();
+        searchParams.setDepartmentId(departmentId);
+
         Department department = new Department();
-        department.setDepartmentId(departmentId);
         department.setChargeUserId(Constants.EMPTY_ID);
         department.setChargeUserName(Constants.EMPTY_NAME);
 
-        mapper.updateByPrimaryKeySelective(department);
+        mapper.updateByExampleSelective(department, getExample(searchParams));
     }
 
     private void removeManager(Long departmentId, Long positionId) {
