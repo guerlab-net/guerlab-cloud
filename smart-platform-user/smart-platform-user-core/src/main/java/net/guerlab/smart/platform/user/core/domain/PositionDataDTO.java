@@ -11,13 +11,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel("用户职位信息")
-public class PositionDTO {
-
-    /**
-     * 用户id
-     */
-    @ApiModelProperty("用户id")
-    private Long userId;
+public class PositionDataDTO {
 
     /**
      * 部门ID
@@ -32,20 +26,14 @@ public class PositionDTO {
     private Long dutyId;
 
     /**
-     * 用户
+     * 部门名称
      */
-    @ApiModelProperty("用户")
-    private UserDTO user;
+    @ApiModelProperty("部门名称")
+    private String departmentName;
 
     /**
-     * 部门
+     * 职务名称
      */
-    @ApiModelProperty("部门")
-    private DepartmentDTO department;
-
-    /**
-     * 职务
-     */
-    @ApiModelProperty("职务")
-    private DutyDTO duty;
+    @ApiModelProperty("职务名称")
+    private String dutyName;
 }

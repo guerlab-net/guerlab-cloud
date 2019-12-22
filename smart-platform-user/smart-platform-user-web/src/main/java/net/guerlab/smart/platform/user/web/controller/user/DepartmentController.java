@@ -12,8 +12,8 @@ import net.guerlab.smart.platform.user.core.domain.DepartmentDTO;
 import net.guerlab.smart.platform.user.core.exception.DepartmentInvalidException;
 import net.guerlab.smart.platform.user.core.searchparams.DepartmentSearchParams;
 import net.guerlab.smart.platform.user.service.entity.Department;
-import net.guerlab.smart.platform.user.service.entity.DepartmentPositionDistribution;
-import net.guerlab.smart.platform.user.service.service.DepartmentPositionDistributionService;
+import net.guerlab.smart.platform.user.service.entity.DepartmentDutyDistribution;
+import net.guerlab.smart.platform.user.service.service.DepartmentDutyDistributionService;
 import net.guerlab.smart.platform.user.service.service.DepartmentService;
 import net.guerlab.smart.platform.user.web.domain.ManagerSetterDTO;
 import org.springframework.beans.BeanUtils;
@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
 public class DepartmentController
         extends BaseController<DepartmentDTO, Department, DepartmentService, DepartmentSearchParams, Long> {
 
-    private DepartmentPositionDistributionService distributionService;
+    private DepartmentDutyDistributionService distributionService;
 
     @Override
     public DepartmentDTO update(@ApiParam(value = "id", required = true) @PathVariable Long id,
@@ -93,33 +93,32 @@ public class DepartmentController
         service.removeChargeUser(departmentId);
     }
 
-    @ApiOperation("查询部门已分配的职位ID")
+    @ApiOperation("查询部门已分配的职务ID")
     @GetMapping("/distribution/{departmentId}")
     public Collection<Long> getDistribution(
             @ApiParam(value = "部门id", required = true) @PathVariable Long departmentId) {
-        return distributionService.findPositionIdByDepartmentId(departmentId);
+        return distributionService.findDutyIdByDepartmentId(departmentId);
     }
 
-    @ApiOperation("设置部门可分配的职位")
+    @ApiOperation("设置部门可分配的职务")
     @PostMapping("/distribution/{departmentId}")
     @Transactional(rollbackFor = Exception.class)
     public void setDistribution(@ApiParam(value = "部门id", required = true) @PathVariable Long departmentId,
-            @ApiParam(value = "职位ID集合", required = true) @RequestBody Collection<Long> positionIds) {
+            @ApiParam(value = "职务ID集合", required = true) @RequestBody Collection<Long> dutyIds) {
         distributionService.deleteByDepartmentId(departmentId);
 
-        if (CollectionUtil.isEmpty(positionIds)) {
+        if (CollectionUtil.isEmpty(dutyIds)) {
             return;
         }
 
-        Collection<DepartmentPositionDistribution> list = positionIds.stream()
-                .map(positionId -> new DepartmentPositionDistribution(departmentId, positionId))
-                .collect(Collectors.toList());
+        Collection<DepartmentDutyDistribution> list = dutyIds.stream()
+                .map(dutyId -> new DepartmentDutyDistribution(departmentId, dutyId)).collect(Collectors.toList());
 
         distributionService.save(list);
     }
 
     @Autowired
-    public void setDistributionService(DepartmentPositionDistributionService distributionService) {
+    public void setDistributionService(DepartmentDutyDistributionService distributionService) {
         this.distributionService = distributionService;
     }
 }

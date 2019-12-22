@@ -4,8 +4,9 @@ import feign.hystrix.FallbackFactory;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.smart.platform.user.api.feign.FeignUserApi;
-import net.guerlab.smart.platform.user.core.domain.TakeOfficeDataDTO;
+import net.guerlab.smart.platform.user.core.domain.PositionDataDTO;
 import net.guerlab.smart.platform.user.core.domain.UserDTO;
+import net.guerlab.smart.platform.user.core.domain.UserModifyDTO;
 import net.guerlab.web.result.Fail;
 import net.guerlab.web.result.ListObject;
 import net.guerlab.web.result.Result;
@@ -60,9 +61,15 @@ public class FeignUserApiFallbackFactory implements FallbackFactory<FeignUserApi
         }
 
         @Override
-        public Result<List<TakeOfficeDataDTO>> getTakeOffice(Long userId) {
-            log.error("getTakeOffice fallback", cause);
+        public Result<List<PositionDataDTO>> getPosition(Long userId) {
+            log.error("getPosition fallback", cause);
             return new Fail<>("fallback", Collections.emptyList());
+        }
+
+        @Override
+        public Result<UserDTO> add(UserModifyDTO user) {
+            log.error("add fallback", cause);
+            return new Fail<>("fallback");
         }
     }
 }

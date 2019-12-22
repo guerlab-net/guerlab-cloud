@@ -3,10 +3,10 @@ package net.guerlab.smart.platform.user.service.service.impl;
 import net.guerlab.commons.collection.CollectionUtil;
 import net.guerlab.commons.number.NumberHelper;
 import net.guerlab.smart.platform.user.core.entity.PermissionCheckResponse;
-import net.guerlab.smart.platform.user.service.entity.TakeOffice;
+import net.guerlab.smart.platform.user.service.entity.Position;
+import net.guerlab.smart.platform.user.service.service.DutyPermissionService;
 import net.guerlab.smart.platform.user.service.service.PermissionCheckService;
-import net.guerlab.smart.platform.user.service.service.PositionPermissionService;
-import net.guerlab.smart.platform.user.service.service.TakeOfficeService;
+import net.guerlab.smart.platform.user.service.service.PositionService;
 import net.guerlab.smart.platform.user.service.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +28,9 @@ public class PermissionCheckServiceImpl implements PermissionCheckService {
 
     private UserService userService;
 
-    private TakeOfficeService takeOfficeService;
+    private PositionService positionService;
 
-    private PositionPermissionService positionPermissionService;
+    private DutyPermissionService dutyPermissionService;
 
     @Override
     public PermissionCheckResponse acceptByPermissionKeys(Long userId, Collection<String> permissionKeys) {
@@ -69,9 +69,9 @@ public class PermissionCheckServiceImpl implements PermissionCheckService {
     }
 
     private Collection<String> getPermissionKeysByUserId(Long userId) {
-        Collection<TakeOffice> takeOffices = takeOfficeService.findByUserId(userId);
+        Collection<Position> positions = positionService.findByUserId(userId);
 
-        return positionPermissionService.findPermissionKeyList(takeOffices);
+        return dutyPermissionService.findPermissionKeyList(positions);
     }
 
     @Autowired
@@ -80,12 +80,12 @@ public class PermissionCheckServiceImpl implements PermissionCheckService {
     }
 
     @Autowired
-    public void setTakeOfficeService(TakeOfficeService takeOfficeService) {
-        this.takeOfficeService = takeOfficeService;
+    public void setPositionService(PositionService positionService) {
+        this.positionService = positionService;
     }
 
     @Autowired
-    public void setPositionPermissionService(PositionPermissionService positionPermissionService) {
-        this.positionPermissionService = positionPermissionService;
+    public void setDutyPermissionService(DutyPermissionService dutyPermissionService) {
+        this.dutyPermissionService = dutyPermissionService;
     }
 }

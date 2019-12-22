@@ -1,14 +1,17 @@
 package net.guerlab.smart.platform.user.api.autoconfig;
 
 import lombok.AllArgsConstructor;
+import net.guerlab.commons.exception.ApplicationException;
 import net.guerlab.smart.platform.commons.exception.UserInvalidException;
 import net.guerlab.smart.platform.user.api.UserApi;
 import net.guerlab.smart.platform.user.api.feign.FeignUserApi;
-import net.guerlab.smart.platform.user.core.domain.TakeOfficeDataDTO;
+import net.guerlab.smart.platform.user.core.domain.PositionDataDTO;
 import net.guerlab.smart.platform.user.core.domain.UserDTO;
+import net.guerlab.smart.platform.user.core.domain.UserModifyDTO;
 import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
 import net.guerlab.spring.searchparams.SearchParamsUtils;
 import net.guerlab.web.result.ListObject;
+import net.guerlab.web.result.Result;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -59,8 +62,19 @@ public class UserApiFeignAutoConfigure {
         }
 
         @Override
-        public List<TakeOfficeDataDTO> getTakeOffice(Long userId) {
-            return Optional.ofNullable(api.getTakeOffice(userId).getData()).orElse(Collections.emptyList());
+        public List<PositionDataDTO> getPosition(Long userId) {
+            return Optional.ofNullable(api.getPosition(userId).getData()).orElse(Collections.emptyList());
+        }
+
+        @Override
+        public UserDTO add(UserModifyDTO user) {
+            Result<UserDTO> result = api.add(user);
+
+            if (result.isStatus() && result.getData() != null) {
+                return result.getData();
+            }
+
+            throw new ApplicationException(result.getMessage(), result.getErrorCode());
         }
     }
 

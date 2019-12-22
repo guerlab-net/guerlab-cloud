@@ -1,30 +1,20 @@
 package net.guerlab.smart.platform.user.service.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import net.guerlab.smart.platform.user.core.domain.PositionDTO;
+import net.guerlab.smart.platform.user.core.domain.DutyPermissionDTO;
 import net.guerlab.spring.commons.dto.DefaultConvertDTO;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * 职位
+ * 职务权限
  *
  * @author guer
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "user_position")
-public class Position implements DefaultConvertDTO<PositionDTO> {
-
-    /**
-     * 用户id
-     */
-    @Id
-    private Long userId;
+@Table(name = "user_duty_permission")
+public class DutyPermission implements DefaultConvertDTO<DutyPermissionDTO> {
 
     /**
      * 部门ID
@@ -37,4 +27,15 @@ public class Position implements DefaultConvertDTO<PositionDTO> {
      */
     @Id
     private Long dutyId;
+
+    /**
+     * 权限关键字
+     */
+    @Id
+    private String permissionKey;
+
+    /**
+     * 部门职务
+     */
+    private String departmentDuty;
 }

@@ -17,7 +17,7 @@ import net.guerlab.smart.platform.commons.util.TwoFactorAuthentication;
 import net.guerlab.smart.platform.user.auth.UserContextHandler;
 import net.guerlab.smart.platform.user.auth.utils.UserJwtHelper;
 import net.guerlab.smart.platform.user.core.domain.MenuDTO;
-import net.guerlab.smart.platform.user.core.domain.TakeOfficeDataDTO;
+import net.guerlab.smart.platform.user.core.domain.PositionDataDTO;
 import net.guerlab.smart.platform.user.core.domain.UserDTO;
 import net.guerlab.smart.platform.user.core.entity.IJwtInfo;
 import net.guerlab.smart.platform.user.core.exception.NeedPasswordException;
@@ -73,7 +73,7 @@ public class ControlPanelController {
 
     private PermissionService permissionService;
 
-    private TakeOfficeGetHandler takeOfficeGetHandler;
+    private PositionGetHandler positionGetHandler;
 
     @IgnoreLogin
     @ApiOperation("登录")
@@ -408,10 +408,10 @@ public class ControlPanelController {
         return menuService.selectAll(searchParams);
     }
 
-    @ApiOperation("获取职位信息列表")
-    @GetMapping("/takeOffice")
-    public Collection<TakeOfficeDataDTO> getTakeOffice() {
-        return takeOfficeGetHandler.getTakeOffice(UserContextHandler.getUserId());
+    @ApiOperation("获取职位数据列表")
+    @GetMapping("/positions")
+    public Collection<PositionDataDTO> getPositions() {
+        return positionGetHandler.getPosition(UserContextHandler.getUserId());
     }
 
     private Collection<Long> getMenuIds(Collection<String> permissionKeys) {
@@ -451,7 +451,7 @@ public class ControlPanelController {
     }
 
     @Autowired
-    public void setTakeOfficeGetHandler(TakeOfficeGetHandler takeOfficeGetHandler) {
-        this.takeOfficeGetHandler = takeOfficeGetHandler;
+    public void setPositionGetHandler(PositionGetHandler positionGetHandler) {
+        this.positionGetHandler = positionGetHandler;
     }
 }

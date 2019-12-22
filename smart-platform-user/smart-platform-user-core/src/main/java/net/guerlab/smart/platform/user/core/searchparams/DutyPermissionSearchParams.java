@@ -1,5 +1,6 @@
 package net.guerlab.smart.platform.user.core.searchparams;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -12,28 +13,14 @@ import javax.persistence.Column;
 import java.util.Collection;
 
 /**
- * 职位信息搜索参数
+ * 职务权限搜索参数
  *
  * @author guer
  */
-@Setter
 @Getter
-@ApiModel("职位信息搜索参数")
-public class PositionSearchParams extends AbstractSearchParams {
-
-    /**
-     * 用户id
-     */
-    @ApiModelProperty("用户id")
-    private Long userId;
-
-    /**
-     * 用户ID列表
-     */
-    @ApiModelProperty("用户ID列表")
-    @Column(name = "userId")
-    @SearchModel(SearchModelType.IN)
-    private Collection<Long> userIds;
+@Setter
+@ApiModel("职务权限搜索参数")
+public class DutyPermissionSearchParams extends AbstractSearchParams {
 
     /**
      * 部门ID
@@ -62,4 +49,34 @@ public class PositionSearchParams extends AbstractSearchParams {
     @Column(name = "dutyId")
     @SearchModel(SearchModelType.IN)
     private Collection<Long> dutyIds;
+
+    /**
+     * 权限关键字
+     */
+    @ApiModelProperty("权限关键字")
+    private String permissionKey;
+
+    /**
+     * 权限关键字列表
+     */
+    @ApiModelProperty("权限关键字列表")
+    @Column(name = "permissionKey")
+    @SearchModel(SearchModelType.IN)
+    private Collection<String> permissionKeys;
+
+    /**
+     * 部门职务
+     */
+    @JsonIgnore
+    @ApiModelProperty(hidden = true)
+    private String departmentDuty;
+
+    /**
+     * 部门职务列表
+     */
+    @JsonIgnore
+    @ApiModelProperty(hidden = true)
+    @Column(name = "departmentDuty")
+    @SearchModel(SearchModelType.IN)
+    private Collection<String> departmentDutys;
 }

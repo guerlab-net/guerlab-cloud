@@ -3,28 +3,20 @@ package net.guerlab.smart.platform.user.service.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import net.guerlab.smart.platform.user.core.domain.PositionDTO;
-import net.guerlab.spring.commons.dto.DefaultConvertDTO;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * 职位
+ * 部门职务分配
  *
  * @author guer
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user_position")
-public class Position implements DefaultConvertDTO<PositionDTO> {
-
-    /**
-     * 用户id
-     */
-    @Id
-    private Long userId;
+@Table(name = "user_department_duty_distribution")
+public class DepartmentDutyDistribution {
 
     /**
      * 部门ID

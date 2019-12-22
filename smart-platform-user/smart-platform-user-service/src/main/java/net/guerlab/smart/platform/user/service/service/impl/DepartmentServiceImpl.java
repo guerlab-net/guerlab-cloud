@@ -11,7 +11,7 @@ import net.guerlab.smart.platform.stream.utils.MessageUtils;
 import net.guerlab.smart.platform.user.core.UserAuthConstants;
 import net.guerlab.smart.platform.user.core.exception.*;
 import net.guerlab.smart.platform.user.core.searchparams.DepartmentSearchParams;
-import net.guerlab.smart.platform.user.core.searchparams.TakeOfficeSearchParams;
+import net.guerlab.smart.platform.user.core.searchparams.PositionSearchParams;
 import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
 import net.guerlab.smart.platform.user.service.entity.*;
 import net.guerlab.smart.platform.user.service.mapper.DepartmentMapper;
@@ -41,7 +41,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department, Long, Dep
 
     private static final Collection<DepartmentParents> EMPTY_DEPARTMENT_PARENTS = Collections.emptyList();
 
-    private TakeOfficeService takeOfficeService;
+    private PositionService positionService;
 
     private UserService userService;
 
@@ -49,7 +49,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department, Long, Dep
 
     private DepartmentTypeService departmentTypeService;
 
-    private DepartmentPositionDistributionService distributionService;
+    private DepartmentDutyDistributionService distributionService;
 
     private DepartmentAddSenderChannel departmentAddSenderChannel;
 
@@ -147,17 +147,17 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department, Long, Dep
 
         Long departmentId = entity.getDepartmentId();
 
-        List<TakeOffice> takeOffices = new ArrayList<>(2);
+        List<Position> positions = new ArrayList<>(2);
 
         if (NumberHelper.greaterZero(entity.getDirectorUserId())) {
             if (userService.selectById(entity.getDirectorUserId()) == null) {
                 throw new UserInvalidException();
             }
 
-            TakeOffice takeOffice = new TakeOffice(entity.getDirectorUserId(), departmentId,
+            Position position = new Position(entity.getDirectorUserId(), departmentId,
                     UserAuthConstants.POSITION_ID_DIRECTOR);
 
-            takeOffices.add(takeOffice);
+            positions.add(position);
         }
 
         if (NumberHelper.greaterZero(entity.getChargeUserId())) {
@@ -165,13 +165,13 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department, Long, Dep
                 throw new UserInvalidException();
             }
 
-            TakeOffice takeOffice = new TakeOffice(entity.getChargeUserId(), departmentId,
+            Position position = new Position(entity.getChargeUserId(), departmentId,
                     UserAuthConstants.POSITION_ID_CHARGE);
 
-            takeOffices.add(takeOffice);
+            positions.add(position);
         }
 
-        takeOfficeService.save(takeOffices);
+        positionService.save(positions);
     }
 
     @Override
@@ -326,9 +326,9 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department, Long, Dep
 
     @Override
     protected void deleteByIdAfter(Long id, Boolean force) {
-        TakeOfficeSearchParams takeOfficeSearchParams = new TakeOfficeSearchParams();
-        takeOfficeSearchParams.setDepartmentId(id);
-        takeOfficeService.delete(takeOfficeSearchParams);
+        PositionSearchParams positionSearchParams = new PositionSearchParams();
+        positionSearchParams.setDepartmentId(id);
+        positionService.delete(positionSearchParams);
 
         distributionService.deleteByDepartmentId(id);
 
@@ -375,21 +375,21 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department, Long, Dep
         return userService.selectByIdOptional(userId).orElseThrow(UserInvalidException::new);
     }
 
-    private User setManager(Department department, Long userId, Long positionId) {
+    private User setManager(Department department, Long userId, Long dutyId) {
         User user = getUser(userId);
 
-        TakeOfficeSearchParams searchParams = new TakeOfficeSearchParams();
+        PositionSearchParams searchParams = new PositionSearchParams();
         searchParams.setDepartmentId(department.getDepartmentId());
-        searchParams.setPositionId(positionId);
+        searchParams.setDutyId(dutyId);
 
-        takeOfficeService.delete(searchParams);
+        positionService.delete(searchParams);
 
-        TakeOffice takeOffice = new TakeOffice();
-        takeOffice.setDepartmentId(department.getDepartmentId());
-        takeOffice.setPositionId(positionId);
-        takeOffice.setUserId(userId);
+        Position position = new Position();
+        position.setDepartmentId(department.getDepartmentId());
+        position.setDutyId(dutyId);
+        position.setUserId(userId);
 
-        takeOfficeService.save(takeOffice);
+        positionService.save(position);
 
         return user;
     }
@@ -422,12 +422,12 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department, Long, Dep
         mapper.updateByExampleSelective(department, getExample(searchParams));
     }
 
-    private void removeManager(Long departmentId, Long positionId) {
-        TakeOfficeSearchParams searchParams = new TakeOfficeSearchParams();
+    private void removeManager(Long departmentId, Long dutyId) {
+        PositionSearchParams searchParams = new PositionSearchParams();
         searchParams.setDepartmentId(departmentId);
-        searchParams.setPositionId(positionId);
+        searchParams.setDutyId(dutyId);
 
-        takeOfficeService.delete(searchParams);
+        positionService.delete(searchParams);
     }
 
     @Override
@@ -447,8 +447,8 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department, Long, Dep
     }
 
     @Autowired
-    public void setTakeOfficeService(TakeOfficeService takeOfficeService) {
-        this.takeOfficeService = takeOfficeService;
+    public void setPositionService(PositionService positionService) {
+        this.positionService = positionService;
     }
 
     @Autowired
@@ -467,7 +467,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department, Long, Dep
     }
 
     @Autowired
-    public void setDistributionService(DepartmentPositionDistributionService distributionService) {
+    public void setDistributionService(DepartmentDutyDistributionService distributionService) {
         this.distributionService = distributionService;
     }
 

@@ -33,22 +33,22 @@ public interface UserAuthConstants {
     String DEPARTMENT_NAME = "departmentName";
 
     /**
-     * 主管领导职位id
+     * 主管领导职务id
      */
     Long POSITION_ID_DIRECTOR = 1L;
 
     /**
-     * 分管领导职位id
+     * 分管领导职务id
      */
     Long POSITION_ID_CHARGE = 2L;
 
     /**
-     * 默认职位
+     * 默认职务
      */
     Long POSITION_ID_DEFAULT = 3L;
 
     /**
-     * 系统职位范围
+     * 系统职务范围
      */
     Long SYSTEM_POSITION_ID_RANGE = 100L;
 

@@ -151,9 +151,9 @@ public class UserSearchParams extends AbstractSearchParams {
     private Boolean enabled;
 
     /**
-     * 职位ID
+     * 职务ID
      */
-    @ApiModelProperty("职位ID")
+    @ApiModelProperty("职务ID")
     @SearchModel(SearchModelType.IGNORE)
-    private Long positionId;
+    private Long dutyId;
 }

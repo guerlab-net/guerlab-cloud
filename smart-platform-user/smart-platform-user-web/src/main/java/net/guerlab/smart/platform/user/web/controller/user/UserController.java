@@ -7,15 +7,15 @@ import net.guerlab.smart.platform.commons.exception.PermissionsErrorException;
 import net.guerlab.smart.platform.commons.exception.UserInvalidException;
 import net.guerlab.smart.platform.commons.util.BeanConvertUtils;
 import net.guerlab.smart.platform.user.auth.UserContextHandler;
-import net.guerlab.smart.platform.user.core.domain.TakeOfficeDataDTO;
+import net.guerlab.smart.platform.user.core.domain.PositionDataDTO;
 import net.guerlab.smart.platform.user.core.domain.UserDTO;
+import net.guerlab.smart.platform.user.core.domain.UserModifyDTO;
 import net.guerlab.smart.platform.user.core.exception.NeedPasswordException;
 import net.guerlab.smart.platform.user.core.exception.UserCannotDeleteException;
 import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
 import net.guerlab.smart.platform.user.service.entity.User;
-import net.guerlab.smart.platform.user.service.service.TakeOfficeGetHandler;
+import net.guerlab.smart.platform.user.service.service.PositionGetHandler;
 import net.guerlab.smart.platform.user.service.service.UserService;
-import net.guerlab.smart.platform.user.web.domain.UserModifyDTO;
 import net.guerlab.spring.upload.entity.FileInfo;
 import net.guerlab.spring.upload.helper.UploadFileHelper;
 import net.guerlab.web.result.ListObject;
@@ -41,7 +41,7 @@ public class UserController {
 
     private UserService service;
 
-    private TakeOfficeGetHandler takeOfficeGetHandler;
+    private PositionGetHandler positionGetHandler;
 
     @ApiOperation("查询详情")
     @GetMapping("/{id}")
@@ -153,10 +153,10 @@ public class UserController {
         return service.getPermissionKeys(id);
     }
 
-    @ApiOperation("获取职位信息列表")
-    @GetMapping("/{id}/takeOffice")
-    public Collection<TakeOfficeDataDTO> getTakeOffice(@ApiParam(value = "id", required = true) @PathVariable Long id) {
-        return takeOfficeGetHandler.getTakeOffice(id);
+    @ApiOperation("获取职务信息列表")
+    @GetMapping("/{id}/position")
+    public Collection<PositionDataDTO> getPosition(@ApiParam(value = "id", required = true) @PathVariable Long id) {
+        return positionGetHandler.getPosition(id);
     }
 
     private User findOne0(Long id) {
@@ -169,7 +169,7 @@ public class UserController {
     }
 
     @Autowired
-    public void setTakeOfficeGetHandler(TakeOfficeGetHandler takeOfficeGetHandler) {
-        this.takeOfficeGetHandler = takeOfficeGetHandler;
+    public void setPositionGetHandler(PositionGetHandler positionGetHandler) {
+        this.positionGetHandler = positionGetHandler;
     }
 }

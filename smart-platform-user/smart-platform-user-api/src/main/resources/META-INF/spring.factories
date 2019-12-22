@@ -3,8 +3,8 @@ net.guerlab.smart.platform.user.api.autoconfig.DepartmentApiFeignAutoConfigure,\
 net.guerlab.smart.platform.user.api.autoconfig.DepartmentApiLocalServiceAutoConfigure,\
 net.guerlab.smart.platform.user.api.autoconfig.DepartmentTypeApiFeignAutoConfigure,\
 net.guerlab.smart.platform.user.api.autoconfig.DepartmentTypeApiLocalServiceAutoConfigure,\
-net.guerlab.smart.platform.user.api.autoconfig.PositionApiFeignAutoConfigure,\
-net.guerlab.smart.platform.user.api.autoconfig.PositionApiLocalServiceAutoConfigure,\
+net.guerlab.smart.platform.user.api.autoconfig.DutyApiFeignAutoConfigure,\
+net.guerlab.smart.platform.user.api.autoconfig.DutyApiLocalServiceAutoConfigure,\
 net.guerlab.smart.platform.user.api.autoconfig.SimpleDepartmentApiFeignAutoConfigure,\
 net.guerlab.smart.platform.user.api.autoconfig.SimpleDepartmentApiLocalServiceAutoConfigure,\
 net.guerlab.smart.platform.user.api.autoconfig.SimpleUserApiFeignAutoConfigure,\
@@ -14,7 +14,7 @@ net.guerlab.smart.platform.user.api.autoconfig.UserApiLocalServiceAutoConfigure,
 net.guerlab.smart.platform.user.api.feign.autoconfig.FeignAutoConfigure,\
 net.guerlab.smart.platform.user.api.feign.factory.FeignDepartmentApiFallbackFactory,\
 net.guerlab.smart.platform.user.api.feign.factory.FeignDepartmentTypeApiFallbackFactory,\
-net.guerlab.smart.platform.user.api.feign.factory.FeignPositionApiFallbackFactory,\
+net.guerlab.smart.platform.user.api.feign.factory.FeignDutyApiFallbackFactory,\
 net.guerlab.smart.platform.user.api.feign.factory.FeignSimpleDepartmentApiFallbackFactory,\
 net.guerlab.smart.platform.user.api.feign.factory.FeignSimpleUserApiFallbackFactory,\
 net.guerlab.smart.platform.user.api.feign.factory.FeignUserApiFallbackFactory

@@ -4,12 +4,17 @@ import lombok.AllArgsConstructor;
 import net.guerlab.smart.platform.commons.exception.UserInvalidException;
 import net.guerlab.smart.platform.commons.util.BeanConvertUtils;
 import net.guerlab.smart.platform.user.api.UserApi;
-import net.guerlab.smart.platform.user.core.domain.TakeOfficeDataDTO;
+import net.guerlab.smart.platform.user.core.domain.PositionDataDTO;
 import net.guerlab.smart.platform.user.core.domain.UserDTO;
+import net.guerlab.smart.platform.user.core.domain.UserModifyDTO;
+import net.guerlab.smart.platform.user.core.exception.NeedPasswordException;
 import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
-import net.guerlab.smart.platform.user.service.service.TakeOfficeGetHandler;
+import net.guerlab.smart.platform.user.service.entity.User;
+import net.guerlab.smart.platform.user.service.service.PositionGetHandler;
 import net.guerlab.smart.platform.user.service.service.UserService;
 import net.guerlab.web.result.ListObject;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.*;
 import org.springframework.core.type.AnnotatedTypeMetadata;
@@ -28,8 +33,8 @@ public class UserApiLocalServiceAutoConfigure {
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean
     @ConditionalOnBean(UserService.class)
-    public UserApi userApiLocalServiceWrapper(UserService service, TakeOfficeGetHandler takeOfficeGetHandler) {
-        return new UserApiLocalServiceWrapper(service, takeOfficeGetHandler);
+    public UserApi userApiLocalServiceWrapper(UserService service, PositionGetHandler positionGetHandler) {
+        return new UserApiLocalServiceWrapper(service, positionGetHandler);
     }
 
     @SuppressWarnings("WeakerAccess")
@@ -41,7 +46,7 @@ public class UserApiLocalServiceAutoConfigure {
                 return WrapperCondition.class.getClassLoader()
                         .loadClass("net.guerlab.smart.platform.user.service.service.UserService") != null &&
                         WrapperCondition.class.getClassLoader()
-                                .loadClass("net.guerlab.smart.platform.user.service.service.TakeOfficeGetHandler")
+                                .loadClass("net.guerlab.smart.platform.user.service.service.PositionGetHandler")
                                 != null;
             } catch (Exception e) {
                 return false;
@@ -54,7 +59,7 @@ public class UserApiLocalServiceAutoConfigure {
 
         private UserService service;
 
-        private TakeOfficeGetHandler takeOfficeGetHandler;
+        private PositionGetHandler positionGetHandler;
 
         @Override
         public UserDTO findOne(Long userId) {
@@ -72,13 +77,31 @@ public class UserApiLocalServiceAutoConfigure {
         }
 
         @Override
+        public UserDTO add(UserModifyDTO dto) {
+            String password = StringUtils.trimToNull(dto.getPassword());
+
+            if (password == null) {
+                throw new NeedPasswordException();
+            }
+
+            User user = new User();
+
+            BeanUtils.copyProperties(dto, user);
+            user.setAdmin(false);
+
+            service.insertSelective(user);
+
+            return user.toDTO();
+        }
+
+        @Override
         public List<String> permissionKeys(Long userId) {
             return new ArrayList<>(service.getPermissionKeys(userId));
         }
 
         @Override
-        public List<TakeOfficeDataDTO> getTakeOffice(Long userId) {
-            return takeOfficeGetHandler.getTakeOffice(userId);
+        public List<PositionDataDTO> getPosition(Long userId) {
+            return positionGetHandler.getPosition(userId);
         }
     }
 }

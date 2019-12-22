@@ -1,7 +1,8 @@
 package net.guerlab.smart.platform.user.api;
 
-import net.guerlab.smart.platform.user.core.domain.TakeOfficeDataDTO;
+import net.guerlab.smart.platform.user.core.domain.PositionDataDTO;
 import net.guerlab.smart.platform.user.core.domain.UserDTO;
+import net.guerlab.smart.platform.user.core.domain.UserModifyDTO;
 import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
 import net.guerlab.web.result.ListObject;
 
@@ -51,11 +52,20 @@ public interface UserApi {
     List<String> permissionKeys(Long userId);
 
     /**
-     * 通过用户ID获取职位信息列表
+     * 通过用户ID获取职务信息列表
      *
      * @param userId
      *         用户id
-     * @return 职位信息列表
+     * @return 职务信息列表
      */
-    List<TakeOfficeDataDTO> getTakeOffice(Long userId);
+    List<PositionDataDTO> getPosition(Long userId);
+
+    /**
+     * 添加用户
+     *
+     * @param user
+     *         用户
+     * @return 用户
+     */
+    UserDTO add(UserModifyDTO user);
 }

@@ -4,13 +4,13 @@ import net.guerlab.smart.platform.server.service.BaseServiceImpl;
 import net.guerlab.smart.platform.user.core.exception.PermissionKeyInvalidException;
 import net.guerlab.smart.platform.user.core.exception.PermissionKeyRepeatException;
 import net.guerlab.smart.platform.user.core.exception.PermissionNameInvalidException;
+import net.guerlab.smart.platform.user.core.searchparams.DutyPermissionSearchParams;
 import net.guerlab.smart.platform.user.core.searchparams.MenuPermissionSearchParams;
-import net.guerlab.smart.platform.user.core.searchparams.PositionPermissionSearchParams;
 import net.guerlab.smart.platform.user.service.entity.Permission;
 import net.guerlab.smart.platform.user.service.mapper.PermissionMapper;
+import net.guerlab.smart.platform.user.service.service.DutyPermissionService;
 import net.guerlab.smart.platform.user.service.service.MenuPermissionService;
 import net.guerlab.smart.platform.user.service.service.PermissionService;
-import net.guerlab.smart.platform.user.service.service.PositionPermissionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 public class PermissionServiceImpl extends BaseServiceImpl<Permission, String, PermissionMapper>
         implements PermissionService {
 
-    private PositionPermissionService positionPermissionService;
+    private DutyPermissionService dutyPermissionService;
 
     private MenuPermissionService menuPermissionService;
 
@@ -60,15 +60,15 @@ public class PermissionServiceImpl extends BaseServiceImpl<Permission, String, P
             return;
         }
 
-        clearPositionPermission(key);
+        clearDutyPermission(key);
         clearMenuPermission(key);
     }
 
-    private void clearPositionPermission(String key) {
-        PositionPermissionSearchParams searchParams = new PositionPermissionSearchParams();
+    private void clearDutyPermission(String key) {
+        DutyPermissionSearchParams searchParams = new DutyPermissionSearchParams();
         searchParams.setPermissionKey(key);
 
-        positionPermissionService.delete(searchParams);
+        dutyPermissionService.delete(searchParams);
     }
 
     private void clearMenuPermission(String key) {
@@ -79,8 +79,8 @@ public class PermissionServiceImpl extends BaseServiceImpl<Permission, String, P
     }
 
     @Autowired
-    public void setPositionPermissionService(PositionPermissionService positionPermissionService) {
-        this.positionPermissionService = positionPermissionService;
+    public void setDutyPermissionService(DutyPermissionService dutyPermissionService) {
+        this.dutyPermissionService = dutyPermissionService;
     }
 
     @Autowired

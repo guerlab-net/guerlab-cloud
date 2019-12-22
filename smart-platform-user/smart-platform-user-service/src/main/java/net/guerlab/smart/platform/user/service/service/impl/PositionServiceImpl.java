@@ -1,24 +1,15 @@
 package net.guerlab.smart.platform.user.service.service.impl;
 
 import net.guerlab.commons.number.NumberHelper;
-import net.guerlab.smart.platform.commons.util.OrderEntityUtils;
-import net.guerlab.smart.platform.server.service.BaseServiceImpl;
-import net.guerlab.smart.platform.user.core.UserAuthConstants;
-import net.guerlab.smart.platform.user.core.exception.PositionIdInvalidException;
-import net.guerlab.smart.platform.user.core.exception.PositionInvalidException;
-import net.guerlab.smart.platform.user.core.exception.PositionNameInvalidException;
-import net.guerlab.smart.platform.user.core.exception.SystemPositionCannotOperationException;
-import net.guerlab.smart.platform.user.core.searchparams.TakeOfficeSearchParams;
+import net.guerlab.smart.platform.server.service.BaseBatchServiceImpl;
+import net.guerlab.smart.platform.user.core.searchparams.PositionSearchParams;
 import net.guerlab.smart.platform.user.service.entity.Position;
 import net.guerlab.smart.platform.user.service.mapper.PositionMapper;
-import net.guerlab.smart.platform.user.service.service.DepartmentPositionDistributionService;
 import net.guerlab.smart.platform.user.service.service.PositionService;
-import net.guerlab.smart.platform.user.service.service.TakeOfficeService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.guerlab.web.result.ListObject;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.util.Collection;
 
 /**
  * 职位服务实现
@@ -26,86 +17,47 @@ import java.time.LocalDateTime;
  * @author guer
  */
 @Service
-public class PositionServiceImpl extends BaseServiceImpl<Position, Long, PositionMapper> implements PositionService {
-
-    private TakeOfficeService takeOfficeService;
-
-    private DepartmentPositionDistributionService distributionService;
+public class PositionServiceImpl extends BaseBatchServiceImpl<Position, Long, PositionMapper>
+        implements PositionService {
 
     @Override
-    protected void insertBefore(Position entity) {
-        String positionName = StringUtils.trimToNull(entity.getPositionName());
-        if (positionName == null) {
-            throw new PositionNameInvalidException();
-        }
-
-        entity.setPositionId(sequence.nextId());
-        entity.setPositionName(positionName);
-        entity.setUpdateTime(LocalDateTime.now());
-        OrderEntityUtils.propertiesCheck(entity);
+    protected Position batchSaveBefore(Position entity) {
+        return entity != null && NumberHelper
+                .allGreaterZero(entity.getDepartmentId(), entity.getDutyId(), entity.getUserId()) ? entity : null;
     }
 
     @Override
-    protected void updateBefore(Position entity) {
-        systemPositionCheck(entity);
-        entity.setUpdateTime(LocalDateTime.now());
+    public Class<Position> getEntityClass() {
+        return Position.class;
     }
 
     @Override
-    protected void deleteBefore(Position entity, Boolean force) {
-        systemPositionCheck(entity);
+    public Position findOne(PositionSearchParams searchParams) {
+        return mapper.selectOneByExample(getExample(searchParams));
     }
 
     @Override
-    protected void deleteByIdBefore(Long positionId, Boolean force) {
-        idCheck(positionId);
+    public Collection<Position> findList(PositionSearchParams searchParams) {
+        return mapper.selectByExample(getExample(searchParams));
     }
 
     @Override
-    protected void deleteAfter(Position entity, Boolean force) {
-        deleteByIdAfter(entity.getPositionId(), force);
+    public ListObject<Position> findPage(PositionSearchParams searchParams) {
+        return super.selectPage(searchParams);
     }
 
     @Override
-    protected void deleteByIdAfter(Long positionId, Boolean force) {
-        if (!NumberHelper.greaterZero(positionId)) {
-            throw new PositionIdInvalidException();
-        }
-
-        TakeOfficeSearchParams searchParams = new TakeOfficeSearchParams();
-        searchParams.setPositionId(positionId);
-
-        takeOfficeService.delete(searchParams);
-
-        distributionService.deleteByPositionId(positionId);
+    public void save(Collection<Position> list) {
+        replaceBatchInsert(list);
     }
 
-    private void systemPositionCheck(Position entity) {
-        if (entity == null) {
-            throw new PositionInvalidException();
-        }
-
-        idCheck(entity.getPositionId());
+    @Override
+    public void delete(PositionSearchParams searchParams) {
+        mapper.deleteByExample(getExample(searchParams));
     }
 
-    private void idCheck(Long positionId) {
-        if (!NumberHelper.greaterZero(positionId)) {
-            throw new PositionIdInvalidException();
-        }
-
-        if (positionId < UserAuthConstants.SYSTEM_POSITION_ID_RANGE) {
-            throw new SystemPositionCannotOperationException();
-        }
+    @Override
+    public void delete(Position entity) {
+        mapper.delete(entity);
     }
-
-    @Autowired
-    public void setTakeOfficeService(TakeOfficeService takeOfficeService) {
-        this.takeOfficeService = takeOfficeService;
-    }
-
-    @Autowired
-    public void setDistributionService(DepartmentPositionDistributionService distributionService) {
-        this.distributionService = distributionService;
-    }
-
 }

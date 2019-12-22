@@ -11,10 +11,10 @@ import net.guerlab.smart.platform.user.core.UserAuthConstants;
 import net.guerlab.smart.platform.user.core.exception.DepartmentInvalidException;
 import net.guerlab.smart.platform.user.core.exception.NeedPasswordException;
 import net.guerlab.smart.platform.user.core.searchparams.DepartmentSearchParams;
-import net.guerlab.smart.platform.user.core.searchparams.TakeOfficeSearchParams;
+import net.guerlab.smart.platform.user.core.searchparams.PositionSearchParams;
 import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
 import net.guerlab.smart.platform.user.service.entity.Department;
-import net.guerlab.smart.platform.user.service.entity.TakeOffice;
+import net.guerlab.smart.platform.user.service.entity.Position;
 import net.guerlab.smart.platform.user.service.entity.User;
 import net.guerlab.smart.platform.user.service.mapper.UserMapper;
 import net.guerlab.smart.platform.user.service.service.*;
@@ -44,9 +44,9 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
 
     private DepartmentService departmentService;
 
-    private TakeOfficeService takeOfficeService;
+    private PositionService positionService;
 
-    private PositionPermissionService positionPermissionService;
+    private DutyPermissionService dutyPermissionService;
 
     private PasswordEncoder passwordEncoder;
 
@@ -116,9 +116,9 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
 
     @Override
     public Collection<String> getPermissionKeys(Long userId) {
-        Collection<TakeOffice> takeOffices = takeOfficeService.findByUserId(userId);
+        Collection<Position> positions = positionService.findByUserId(userId);
 
-        return positionPermissionService.findPermissionKeyList(takeOffices);
+        return dutyPermissionService.findPermissionKeyList(positions);
     }
 
     @Override
@@ -152,7 +152,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
 
     @Override
     protected void insertAfter(User entity) {
-        takeOfficeService.save(entity.getUserId(), entity.getDepartmentId(), UserAuthConstants.POSITION_ID_DEFAULT);
+        positionService.save(entity.getUserId(), entity.getDepartmentId(), UserAuthConstants.POSITION_ID_DEFAULT);
         MessageUtils.send(userAddSenderChannel.output(), entity);
     }
 
@@ -176,8 +176,8 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
             entity.setDepartmentName(department.getDepartmentName());
 
             Long userId = entity.getUserId();
-            takeOfficeService.delete(userId, entity.getOldDepartmentId(), UserAuthConstants.POSITION_ID_DEFAULT);
-            takeOfficeService.save(userId, departmentId, UserAuthConstants.POSITION_ID_DEFAULT);
+            positionService.delete(userId, entity.getOldDepartmentId(), UserAuthConstants.POSITION_ID_DEFAULT);
+            positionService.save(userId, departmentId, UserAuthConstants.POSITION_ID_DEFAULT);
         } else {
             entity.setDepartmentId(null);
             entity.setDepartmentName(null);
@@ -197,22 +197,22 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
 
     @Override
     protected void deleteByIdAfter(Long id, Boolean force) {
-        removeTakeOffice(id);
+        removePosition(id);
         removeCharge(id);
         removeDirector(id);
     }
 
     private Collection<Long> getUserIds(UserSearchParams searchParams) {
-        TakeOfficeSearchParams takeOfficeSearchParams = new TakeOfficeSearchParams();
+        PositionSearchParams positionSearchParams = new PositionSearchParams();
 
         boolean needSearch = false;
 
         if (NumberHelper.greaterZero(searchParams.getDepartmentId())) {
-            takeOfficeSearchParams.setDepartmentId(searchParams.getDepartmentId());
+            positionSearchParams.setDepartmentId(searchParams.getDepartmentId());
             needSearch = true;
         }
-        if (NumberHelper.greaterZero(searchParams.getPositionId())) {
-            takeOfficeSearchParams.setPositionId(searchParams.getPositionId());
+        if (NumberHelper.greaterZero(searchParams.getDutyId())) {
+            positionSearchParams.setDutyId(searchParams.getDutyId());
             needSearch = true;
         }
 
@@ -222,7 +222,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
             return null;
         }
 
-        return takeOfficeService.findUserIdList(takeOfficeSearchParams);
+        return positionService.findUserIdList(positionSearchParams);
     }
 
     private void checkProperties(User entity) {
@@ -361,10 +361,10 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
         return passwordEncoder.encode(rawPassword.trim());
     }
 
-    private void removeTakeOffice(Long id) {
-        TakeOfficeSearchParams searchParams = new TakeOfficeSearchParams();
+    private void removePosition(Long id) {
+        PositionSearchParams searchParams = new PositionSearchParams();
         searchParams.setUserId(id);
-        takeOfficeService.delete(searchParams);
+        positionService.delete(searchParams);
     }
 
     private void removeCharge(Long id) {
@@ -410,13 +410,13 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
     }
 
     @Autowired
-    public void setTakeOfficeService(TakeOfficeService takeOfficeService) {
-        this.takeOfficeService = takeOfficeService;
+    public void setPositionService(PositionService positionService) {
+        this.positionService = positionService;
     }
 
     @Autowired
-    public void setPositionPermissionService(PositionPermissionService positionPermissionService) {
-        this.positionPermissionService = positionPermissionService;
+    public void setDutyPermissionService(DutyPermissionService dutyPermissionService) {
+        this.dutyPermissionService = dutyPermissionService;
     }
 
     @Autowired
