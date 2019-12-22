@@ -12,10 +12,12 @@ import org.springframework.lang.NonNull;
 /**
  * @author guer
  */
+@SuppressWarnings("SpringFacetCodeInspection")
 @Configuration
 @Conditional(PermissionCheckApiLocalServiceAutoConfigure.WrapperCondition.class)
 public class PermissionCheckApiLocalServiceAutoConfigure {
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean
     public PermissionCheckApi permissionCheckApiLocalServiceWrapper(PermissionCheckService service) {
         return new PermissionCheckApiLocalServiceWrapper(service);

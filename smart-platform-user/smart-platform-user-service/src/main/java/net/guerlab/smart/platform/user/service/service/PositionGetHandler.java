@@ -51,7 +51,7 @@ public class PositionGetHandler {
         Map<Long, List<PositionDataDTO>> dutyGroup = CollectionUtil.group(positionDTO, PositionDataDTO::getDutyId);
 
         Collection<Department> departments = getDepartments(departmentGroup.keySet());
-        Collection<Duty> dutys = getDutys(dutyGroup.keySet());
+        Collection<Duty> duties = getDuties(dutyGroup.keySet());
 
         for (Department department : departments) {
             List<PositionDataDTO> positionList = departmentGroup.get(department.getDepartmentId());
@@ -62,7 +62,7 @@ public class PositionGetHandler {
             }
         }
 
-        for (Duty duty : dutys) {
+        for (Duty duty : duties) {
             List<PositionDataDTO> positionList = dutyGroup.get(duty.getDutyId());
 
             if (CollectionUtil.isNotEmpty(positionList)) {
@@ -80,7 +80,7 @@ public class PositionGetHandler {
         return departmentService.selectAll(searchParams);
     }
 
-    private Collection<Duty> getDutys(Collection<Long> dutyIdList) {
+    private Collection<Duty> getDuties(Collection<Long> dutyIdList) {
         DutySearchParams searchParams = new DutySearchParams();
         searchParams.setDutyIds(dutyIdList);
 

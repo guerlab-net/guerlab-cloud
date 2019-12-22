@@ -125,6 +125,7 @@ public abstract class AbstractJwtHelper<T, P extends JwtProperties> {
      *
      * @return 前缀
      */
+    @SuppressWarnings("SameReturnValue")
     protected abstract String getPrefix();
 
     @Autowired

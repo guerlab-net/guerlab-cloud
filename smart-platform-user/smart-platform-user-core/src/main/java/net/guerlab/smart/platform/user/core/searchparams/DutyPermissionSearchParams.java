@@ -78,5 +78,5 @@ public class DutyPermissionSearchParams extends AbstractSearchParams {
     @ApiModelProperty(hidden = true)
     @Column(name = "departmentDuty")
     @SearchModel(SearchModelType.IN)
-    private Collection<String> departmentDutys;
+    private Collection<String> departmentDuties;
 }

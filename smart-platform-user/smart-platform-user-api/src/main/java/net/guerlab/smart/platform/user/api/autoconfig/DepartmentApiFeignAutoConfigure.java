@@ -22,6 +22,7 @@ import java.util.*;
 @AutoConfigureAfter(DepartmentApiLocalServiceAutoConfigure.class)
 public class DepartmentApiFeignAutoConfigure {
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean
     @ConditionalOnMissingBean(DepartmentApi.class)
     public DepartmentApi departmentApiFeignWrapper(FeignDepartmentApi api) {

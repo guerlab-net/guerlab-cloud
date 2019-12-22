@@ -20,7 +20,7 @@ public class OrderEntityUtils {
      * @param entity
      *         可排序对象
      */
-    public static void propertiesCheck(IOrderEntity entity) {
+    public static void propertiesCheck(IOrderEntity<?> entity) {
         if (entity != null && entity.getOrderNum() == null) {
             entity.setOrderNum(Constants.DEFAULT_ORDER_NUM);
         }

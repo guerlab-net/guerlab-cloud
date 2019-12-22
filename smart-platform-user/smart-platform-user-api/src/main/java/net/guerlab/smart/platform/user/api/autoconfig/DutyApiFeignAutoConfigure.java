@@ -22,6 +22,7 @@ import java.util.*;
 @AutoConfigureAfter(DutyApiLocalServiceAutoConfigure.class)
 public class DutyApiFeignAutoConfigure {
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean
     @ConditionalOnMissingBean(DutyApi.class)
     public DutyApi dutyApiFeignWrapper(FeignDutyApi api) {

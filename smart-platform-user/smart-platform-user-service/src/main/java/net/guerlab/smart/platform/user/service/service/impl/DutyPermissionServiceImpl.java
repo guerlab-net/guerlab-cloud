@@ -33,13 +33,13 @@ public class DutyPermissionServiceImpl extends BaseServiceImpl<DutyPermission, L
     private PermissionService permissionService;
 
     private static Set<String> getKeys(Collection<Position> list) {
-        Set<String> departmentDutys = CollectionUtil.toSet(list, DutyPermissionServiceImpl::getDepartmentDuty);
+        Set<String> departmentDuties = CollectionUtil.toSet(list, DutyPermissionServiceImpl::getDepartmentDuty);
         Set<String> departmentIds = CollectionUtil.toSet(list, DutyPermissionServiceImpl::getDepartment);
         Set<String> dutyIds = CollectionUtil.toSet(list, DutyPermissionServiceImpl::getDuty);
 
-        Set<String> keys = new HashSet<>(departmentDutys.size() + departmentIds.size() + dutyIds.size() + 1);
+        Set<String> keys = new HashSet<>(departmentDuties.size() + departmentIds.size() + dutyIds.size() + 1);
         keys.add(ALL_DEPARTMENT_POSITION);
-        keys.addAll(departmentDutys);
+        keys.addAll(departmentDuties);
         keys.addAll(departmentIds);
         keys.addAll(dutyIds);
 
@@ -95,7 +95,7 @@ public class DutyPermissionServiceImpl extends BaseServiceImpl<DutyPermission, L
         }
 
         DutyPermissionSearchParams searchParams = new DutyPermissionSearchParams();
-        searchParams.setDepartmentDutys(getKeys(list));
+        searchParams.setDepartmentDuties(getKeys(list));
 
         return findList(searchParams);
     }
