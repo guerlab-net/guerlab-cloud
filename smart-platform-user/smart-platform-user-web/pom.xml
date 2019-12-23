@@ -6,7 +6,7 @@
     <artifactId>smart-platform-user-web</artifactId>
 
     <parent>
-        <groupId>net.guerlab.smart-platform</groupId>
+        <groupId>net.guerlab.smart.platform</groupId>
         <artifactId>smart-platform-user</artifactId>
         <version>${revision}</version>
     </parent>
@@ -17,12 +17,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.guerlab.smart-platform</groupId>
+            <groupId>net.guerlab.smart.platform</groupId>
             <artifactId>smart-platform-user-service</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>net.guerlab.smart-platform</groupId>
+            <groupId>net.guerlab.smart.platform</groupId>
             <artifactId>smart-platform-user-auth</artifactId>
         </dependency>
     </dependencies>

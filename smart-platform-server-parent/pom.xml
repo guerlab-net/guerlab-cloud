@@ -5,7 +5,7 @@
     <artifactId>smart-platform-server-parent</artifactId>
 
     <parent>
-        <groupId>net.guerlab.smart-platform</groupId>
+        <groupId>net.guerlab.smart.platform</groupId>
         <artifactId>smart-platform-parent</artifactId>
         <version>${revision}</version>
     </parent>
@@ -16,7 +16,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.guerlab.smart-platform</groupId>
+            <groupId>net.guerlab.smart.platform</groupId>
             <artifactId>smart-platform-commons</artifactId>
         </dependency>
 

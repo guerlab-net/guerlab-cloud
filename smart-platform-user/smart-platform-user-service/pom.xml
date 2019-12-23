@@ -5,7 +5,7 @@
     <artifactId>smart-platform-user-service</artifactId>
 
     <parent>
-        <groupId>net.guerlab.smart-platform</groupId>
+        <groupId>net.guerlab.smart.platform</groupId>
         <artifactId>smart-platform-user</artifactId>
         <version>${revision}</version>
     </parent>
@@ -16,16 +16,16 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.guerlab.smart-platform</groupId>
+            <groupId>net.guerlab.smart.platform</groupId>
             <artifactId>smart-platform-user-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.guerlab.smart-platform</groupId>
+            <groupId>net.guerlab.smart.platform</groupId>
             <artifactId>smart-platform-server-parent</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>net.guerlab.smart-platform</groupId>
+            <groupId>net.guerlab.smart.platform</groupId>
             <artifactId>smart-platform-user-stream</artifactId>
         </dependency>
 

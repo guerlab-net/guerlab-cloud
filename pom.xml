@@ -2,7 +2,7 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.guerlab.smart-platform</groupId>
+    <groupId>net.guerlab.smart.platform</groupId>
     <artifactId>smart-platform-parent</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
@@ -117,75 +117,75 @@
 
             <!-- smart-platform basic -->
             <dependency>
-                <groupId>net.guerlab.smart-platform</groupId>
+                <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-basic-api</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart-platform</groupId>
+                <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-basic-auth</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart-platform</groupId>
+                <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-basic-gateway</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart-platform</groupId>
+                <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-basic-swagger</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <!-- smart-platform commons -->
             <dependency>
-                <groupId>net.guerlab.smart-platform</groupId>
+                <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-commons</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <!-- smart-platform server parent -->
             <dependency>
-                <groupId>net.guerlab.smart-platform</groupId>
+                <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-server-parent</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <!-- smart-platform stream -->
             <dependency>
-                <groupId>net.guerlab.smart-platform</groupId>
+                <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-stream</artifactId>
                 <version>${revision}</version>
             </dependency>
 
             <!-- smart-platform user -->
             <dependency>
-                <groupId>net.guerlab.smart-platform</groupId>
+                <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-user-api</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart-platform</groupId>
+                <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-user-auth</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart-platform</groupId>
+                <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-user-core</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart-platform</groupId>
+                <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-user-service</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart-platform</groupId>
+                <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-user-stream</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart-platform</groupId>
+                <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-user-web</artifactId>
                 <version>${revision}</version>
             </dependency>

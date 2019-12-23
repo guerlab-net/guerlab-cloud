@@ -5,7 +5,7 @@
     <artifactId>smart-platform-basic-api</artifactId>
 
     <parent>
-        <groupId>net.guerlab.smart-platform</groupId>
+        <groupId>net.guerlab.smart.platform</groupId>
         <artifactId>smart-platform-basic</artifactId>
         <version>${revision}</version>
     </parent>
