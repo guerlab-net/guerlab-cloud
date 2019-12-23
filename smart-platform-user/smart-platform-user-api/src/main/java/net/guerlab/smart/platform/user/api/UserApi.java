@@ -7,6 +7,7 @@ import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
 import net.guerlab.web.result.ListObject;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 用户服务接口
@@ -59,6 +60,15 @@ public interface UserApi {
      * @return 职务信息列表
      */
     List<PositionDataDTO> getPosition(Long userId);
+
+    /**
+     * 通过用户ID获取职务信息关键字列表
+     *
+     * @param userId
+     *         用户id
+     * @return 职务信息关键字列表
+     */
+    Set<String> getPositionKeys(Long userId);
 
     /**
      * 添加用户

@@ -9,8 +9,10 @@ import net.guerlab.smart.platform.user.core.domain.UserDTO;
 import net.guerlab.smart.platform.user.core.domain.UserModifyDTO;
 import net.guerlab.smart.platform.user.core.exception.NeedPasswordException;
 import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
+import net.guerlab.smart.platform.user.core.utils.PositionUtils;
 import net.guerlab.smart.platform.user.service.entity.User;
 import net.guerlab.smart.platform.user.service.service.PositionGetHandler;
+import net.guerlab.smart.platform.user.service.service.PositionService;
 import net.guerlab.smart.platform.user.service.service.UserService;
 import net.guerlab.web.result.ListObject;
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +24,7 @@ import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author guer
@@ -33,8 +36,9 @@ public class UserApiLocalServiceAutoConfigure {
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean
     @ConditionalOnBean(UserService.class)
-    public UserApi userApiLocalServiceWrapper(UserService service, PositionGetHandler positionGetHandler) {
-        return new UserApiLocalServiceWrapper(service, positionGetHandler);
+    public UserApi userApiLocalServiceWrapper(UserService service, PositionGetHandler positionGetHandler,
+            PositionService positionService) {
+        return new UserApiLocalServiceWrapper(service, positionGetHandler, positionService);
     }
 
     @SuppressWarnings("WeakerAccess")
@@ -43,11 +47,11 @@ public class UserApiLocalServiceAutoConfigure {
         @Override
         public boolean matches(@NonNull ConditionContext context, @NonNull AnnotatedTypeMetadata metadata) {
             try {
-                return WrapperCondition.class.getClassLoader()
-                        .loadClass("net.guerlab.smart.platform.user.service.service.UserService") != null &&
-                        WrapperCondition.class.getClassLoader()
-                                .loadClass("net.guerlab.smart.platform.user.service.service.PositionGetHandler")
-                                != null;
+                ClassLoader classLoader = WrapperCondition.class.getClassLoader();
+                String packageName = "net.guerlab.smart.platform.user.service.service.";
+                return classLoader.loadClass(packageName + "UserService") != null
+                        && classLoader.loadClass(packageName + "PositionGetHandler") != null
+                        && classLoader.loadClass(packageName + "PositionService") != null;
             } catch (Exception e) {
                 return false;
             }
@@ -60,6 +64,8 @@ public class UserApiLocalServiceAutoConfigure {
         private UserService service;
 
         private PositionGetHandler positionGetHandler;
+
+        private PositionService positionService;
 
         @Override
         public UserDTO findOne(Long userId) {
@@ -102,6 +108,11 @@ public class UserApiLocalServiceAutoConfigure {
         @Override
         public List<PositionDataDTO> getPosition(Long userId) {
             return positionGetHandler.getPosition(userId);
+        }
+
+        @Override
+        public Set<String> getPositionKeys(Long userId) {
+            return PositionUtils.getKeys(positionService.findByUserId(userId));
         }
     }
 }

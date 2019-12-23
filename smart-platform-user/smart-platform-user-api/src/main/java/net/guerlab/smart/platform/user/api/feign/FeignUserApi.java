@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 用户服务接口
@@ -72,6 +73,16 @@ public interface FeignUserApi {
      */
     @GetMapping("/{userId}/position")
     Result<List<PositionDataDTO>> getPosition(@PathVariable("userId") Long userId);
+
+    /**
+     * 通过用户ID获取职务信息关键字列表
+     *
+     * @param userId
+     *         用户id
+     * @return 职务信息关键字列表
+     */
+    @GetMapping("/{userId}/positionKeys")
+    Result<Set<String>> getPositionKeys(@PathVariable("userId") Long userId);
 
     /**
      * 添加用户

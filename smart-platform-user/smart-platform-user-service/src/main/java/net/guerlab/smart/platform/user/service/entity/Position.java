@@ -3,6 +3,7 @@ package net.guerlab.smart.platform.user.service.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import net.guerlab.smart.platform.user.core.domain.IPosition;
 import net.guerlab.smart.platform.user.core.domain.PositionDTO;
 import net.guerlab.spring.commons.dto.DefaultConvertDTO;
 
@@ -18,7 +19,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user_position")
-public class Position implements DefaultConvertDTO<PositionDTO> {
+public class Position implements DefaultConvertDTO<PositionDTO>, IPosition {
 
     /**
      * 用户id

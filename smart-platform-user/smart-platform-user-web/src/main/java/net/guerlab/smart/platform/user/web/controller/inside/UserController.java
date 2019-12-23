@@ -8,8 +8,10 @@ import net.guerlab.smart.platform.user.core.domain.UserDTO;
 import net.guerlab.smart.platform.user.core.domain.UserModifyDTO;
 import net.guerlab.smart.platform.user.core.exception.NeedPasswordException;
 import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
+import net.guerlab.smart.platform.user.core.utils.PositionUtils;
 import net.guerlab.smart.platform.user.service.entity.User;
 import net.guerlab.smart.platform.user.service.service.PositionGetHandler;
+import net.guerlab.smart.platform.user.service.service.PositionService;
 import net.guerlab.smart.platform.user.service.service.UserService;
 import net.guerlab.web.result.ListObject;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +33,8 @@ public class UserController {
     private UserService service;
 
     private PositionGetHandler positionGetHandler;
+
+    private PositionService positionService;
 
     @GetMapping("/{id}")
     public UserDTO findOne(@ApiParam(value = "id", required = true) @PathVariable Long id) {
@@ -55,6 +59,11 @@ public class UserController {
     @GetMapping("/{id}/position")
     public Collection<PositionDataDTO> getPosition(@ApiParam(value = "id", required = true) @PathVariable Long id) {
         return positionGetHandler.getPosition(id);
+    }
+
+    @GetMapping("/{id}/positionKeys")
+    public Collection<String> getPositionKeys(@ApiParam(value = "id", required = true) @PathVariable Long id) {
+        return PositionUtils.getKeys(positionService.findByUserId(id));
     }
 
     @PostMapping("/add")
@@ -83,5 +92,10 @@ public class UserController {
     @Autowired
     public void setPositionGetHandler(PositionGetHandler positionGetHandler) {
         this.positionGetHandler = positionGetHandler;
+    }
+
+    @Autowired
+    public void setPositionService(PositionService positionService) {
+        this.positionService = positionService;
     }
 }

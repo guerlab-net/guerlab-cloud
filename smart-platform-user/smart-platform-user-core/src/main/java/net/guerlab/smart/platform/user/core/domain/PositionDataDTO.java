@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel("用户职位信息")
-public class PositionDataDTO {
+public class PositionDataDTO implements IPosition {
 
     /**
      * 部门ID

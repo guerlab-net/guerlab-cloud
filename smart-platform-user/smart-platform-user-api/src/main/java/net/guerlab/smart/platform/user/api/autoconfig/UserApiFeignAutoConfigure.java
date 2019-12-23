@@ -9,6 +9,7 @@ import net.guerlab.smart.platform.user.core.domain.PositionDataDTO;
 import net.guerlab.smart.platform.user.core.domain.UserDTO;
 import net.guerlab.smart.platform.user.core.domain.UserModifyDTO;
 import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
+import net.guerlab.smart.platform.user.core.utils.PositionUtils;
 import net.guerlab.spring.searchparams.SearchParamsUtils;
 import net.guerlab.web.result.ListObject;
 import net.guerlab.web.result.Result;
@@ -65,6 +66,12 @@ public class UserApiFeignAutoConfigure {
         @Override
         public List<PositionDataDTO> getPosition(Long userId) {
             return Optional.ofNullable(api.getPosition(userId).getData()).orElse(Collections.emptyList());
+        }
+
+        @Override
+        public Set<String> getPositionKeys(Long userId) {
+            return Optional.ofNullable(api.getPositionKeys(userId).getData())
+                    .orElse(Collections.singleton(PositionUtils.ALL_DEPARTMENT_POSITION));
         }
 
         @Override

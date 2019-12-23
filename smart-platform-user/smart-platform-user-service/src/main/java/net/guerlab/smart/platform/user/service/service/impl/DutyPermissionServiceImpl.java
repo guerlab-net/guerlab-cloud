@@ -2,10 +2,10 @@ package net.guerlab.smart.platform.user.service.service.impl;
 
 import net.guerlab.commons.collection.CollectionUtil;
 import net.guerlab.commons.number.NumberHelper;
-import net.guerlab.smart.platform.commons.Constants;
 import net.guerlab.smart.platform.server.service.BaseServiceImpl;
 import net.guerlab.smart.platform.user.core.searchparams.DutyPermissionSearchParams;
 import net.guerlab.smart.platform.user.core.searchparams.PermissionSearchParams;
+import net.guerlab.smart.platform.user.core.utils.PositionUtils;
 import net.guerlab.smart.platform.user.service.entity.DutyPermission;
 import net.guerlab.smart.platform.user.service.entity.Permission;
 import net.guerlab.smart.platform.user.service.entity.Position;
@@ -28,43 +28,7 @@ import java.util.stream.Collectors;
 public class DutyPermissionServiceImpl extends BaseServiceImpl<DutyPermission, Long, DutyPermissionMapper>
         implements DutyPermissionService {
 
-    private static final String ALL_DEPARTMENT_POSITION = "0:0";
-
     private PermissionService permissionService;
-
-    private static Set<String> getKeys(Collection<Position> list) {
-        Set<String> departmentDuties = CollectionUtil.toSet(list, DutyPermissionServiceImpl::getDepartmentDuty);
-        Set<String> departmentIds = CollectionUtil.toSet(list, DutyPermissionServiceImpl::getDepartment);
-        Set<String> dutyIds = CollectionUtil.toSet(list, DutyPermissionServiceImpl::getDuty);
-
-        Set<String> keys = new HashSet<>(departmentDuties.size() + departmentIds.size() + dutyIds.size() + 1);
-        keys.add(ALL_DEPARTMENT_POSITION);
-        keys.addAll(departmentDuties);
-        keys.addAll(departmentIds);
-        keys.addAll(dutyIds);
-
-        return keys;
-    }
-
-    private static String getDepartmentDuty(Position position) {
-        return format(position.getDepartmentId(), position.getDutyId());
-    }
-
-    private static String getDepartment(Position position) {
-        return format(position.getDepartmentId(), Constants.EMPTY_ID);
-    }
-
-    private static String getDuty(Position position) {
-        return format(Constants.EMPTY_ID, position.getDutyId());
-    }
-
-    private static String format(Long departmentId, Long dutyId) {
-        return getValue(departmentId) + ":" + getValue(dutyId);
-    }
-
-    private static Long getValue(Long value) {
-        return NumberHelper.greaterZero(value) ? value : Constants.EMPTY_ID;
-    }
 
     private static DutyPermission saveBeforeHandler(DutyPermission dutyPermission) {
         if (StringUtils.isBlank(dutyPermission.getPermissionKey()) || !NumberHelper
@@ -72,7 +36,8 @@ public class DutyPermissionServiceImpl extends BaseServiceImpl<DutyPermission, L
             return null;
         }
 
-        dutyPermission.setDepartmentDuty(format(dutyPermission.getDepartmentId(), dutyPermission.getDutyId()));
+        dutyPermission
+                .setDepartmentDuty(PositionUtils.format(dutyPermission.getDepartmentId(), dutyPermission.getDutyId()));
         dutyPermission.setPermissionKey(dutyPermission.getPermissionKey());
 
         return dutyPermission;
@@ -95,7 +60,7 @@ public class DutyPermissionServiceImpl extends BaseServiceImpl<DutyPermission, L
         }
 
         DutyPermissionSearchParams searchParams = new DutyPermissionSearchParams();
-        searchParams.setDepartmentDuties(getKeys(list));
+        searchParams.setDepartmentDuties(PositionUtils.getKeys(list));
 
         return findList(searchParams);
     }
