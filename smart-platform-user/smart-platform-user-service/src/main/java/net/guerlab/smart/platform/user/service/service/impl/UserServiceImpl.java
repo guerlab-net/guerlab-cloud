@@ -3,6 +3,7 @@ package net.guerlab.smart.platform.user.service.service.impl;
 import net.guerlab.commons.collection.CollectionUtil;
 import net.guerlab.commons.number.NumberHelper;
 import net.guerlab.smart.platform.commons.Constants;
+import net.guerlab.smart.platform.commons.RegexConstants;
 import net.guerlab.smart.platform.commons.enums.Gender;
 import net.guerlab.smart.platform.commons.exception.*;
 import net.guerlab.smart.platform.server.service.BaseServiceImpl;
@@ -14,7 +15,6 @@ import net.guerlab.smart.platform.user.core.searchparams.DepartmentSearchParams;
 import net.guerlab.smart.platform.user.core.searchparams.PositionSearchParams;
 import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
 import net.guerlab.smart.platform.user.service.entity.Department;
-import net.guerlab.smart.platform.user.service.entity.Position;
 import net.guerlab.smart.platform.user.service.entity.User;
 import net.guerlab.smart.platform.user.service.mapper.UserMapper;
 import net.guerlab.smart.platform.user.service.service.*;
@@ -31,6 +31,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 /**
  * 用户服务实现
@@ -110,21 +111,18 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
 
     @Override
     public boolean checkPasswordError(User user, String password) {
-        return user == null || StringUtils.isBlank(password) || !passwordEncoder
-                .matches(password.trim(), user.getPassword());
+        String pwd = StringUtils.trimToNull(password);
+        return user == null || pwd == null || !passwordEncoder.matches(pwd, user.getPassword());
     }
 
     @Override
     public Collection<String> getPermissionKeys(Long userId) {
-        Collection<Position> positions = positionService.findByUserId(userId);
-
-        return dutyPermissionService.findPermissionKeyList(positions);
+        return dutyPermissionService.findPermissionKeyList(positionService.findByUserId(userId));
     }
 
     @Override
     public boolean isAdmin(Long userId) {
         User user = selectById(userId);
-
         return user != null && user.getAdmin() != null && user.getAdmin();
     }
 
@@ -183,8 +181,9 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
             entity.setDepartmentName(null);
         }
 
-        if (StringUtils.isNotBlank(entity.getPassword())) {
-            entity.setPassword(getPassword(entity.getPassword()));
+        String pwd = StringUtils.trimToNull(entity.getPassword());
+        if (pwd != null) {
+            entity.setPassword(getPassword(pwd));
         }
 
         entity.setUpdateTime(LocalDateTime.now());
@@ -238,7 +237,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
         if (name == null) {
             throw new FullNameInvalidException();
         }
-        if (usernameSameCheck(username, entity.getUserId())) {
+        if (sameCheck(selectByUsername(username), entity.getUserId())) {
             throw new UsernameRepeatException();
         }
 
@@ -252,55 +251,29 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
         String phone = StringUtils.trimToNull(entity.getPhone());
         String email = StringUtils.trimToNull(entity.getEmail());
 
-        if (phoneSameCheck(phone, entity.getUserId())) {
-            throw new PhoneNoRepeatException();
+        if (email != null) {
+            if (!Pattern.matches(RegexConstants.EMAIL_REG, email)) {
+                throw new EmailFormatErrorException();
+            }
+            if (sameCheck(selectByEmail(email), entity.getUserId())) {
+                throw new EmailRepeatException();
+            }
         }
-        if (emailSameCheck(email, entity.getUserId())) {
-            throw new EmailRepeatException();
+        if (phone != null) {
+            if (!Pattern.matches(RegexConstants.PHONE_REG, phone)) {
+                throw new PhoneFormatErrorException();
+            }
+            if (sameCheck(selectByPhone(phone), entity.getUserId())) {
+                throw new PhoneNoRepeatException();
+            }
         }
 
         entity.setPhone(phone);
         entity.setEmail(email);
     }
 
-    private boolean usernameSameCheck(String username, Long userId) {
-        if (StringUtils.isBlank(username)) {
-            return false;
-        }
-        UserSearchParams searchParams = new UserSearchParams();
-        searchParams.setUsername(username);
-
-        return sameCheck(searchParams, userId);
-    }
-
-    private boolean phoneSameCheck(String phone, Long userId) {
-        if (StringUtils.isBlank(phone)) {
-            return false;
-        }
-        UserSearchParams searchParams = new UserSearchParams();
-        searchParams.setPhone(phone);
-
-        return sameCheck(searchParams, userId);
-    }
-
-    private boolean emailSameCheck(String email, Long userId) {
-        if (StringUtils.isBlank(email)) {
-            return false;
-        }
-        UserSearchParams searchParams = new UserSearchParams();
-        searchParams.setEmail(email);
-
-        return sameCheck(searchParams, userId);
-    }
-
-    private boolean sameCheck(UserSearchParams searchParams, Long userId) {
-        User user = selectOne(searchParams);
-
-        if (user == null) {
-            return false;
-        }
-
-        return !NumberHelper.greaterZero(userId) || !Objects.equals(userId, user.getUserId());
+    private boolean sameCheck(User user, Long userId) {
+        return user != null && (!NumberHelper.greaterZero(userId) || !Objects.equals(userId, user.getUserId()));
     }
 
     private void initProperties(User entity) {
@@ -317,10 +290,10 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
         if (entity.getGender() == null) {
             entity.setGender(Gender.OTHER);
         }
-        if (StringUtils.isBlank(entity.getEmail())) {
+        if (entity.getEmail() == null) {
             entity.setEmail(Constants.EMPTY_NAME);
         }
-        if (StringUtils.isBlank(entity.getPhone())) {
+        if (entity.getPhone() == null) {
             entity.setPhone(Constants.EMPTY_NAME);
         }
         if (StringUtils.isBlank(entity.getAvatar())) {
@@ -354,11 +327,11 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
     }
 
     private String getPassword(String rawPassword) {
-        if (StringUtils.isBlank(rawPassword)) {
+        String pwd = StringUtils.trimToNull(rawPassword);
+        if (pwd == null) {
             throw new NeedPasswordException();
         }
-
-        return passwordEncoder.encode(rawPassword.trim());
+        return passwordEncoder.encode(pwd);
     }
 
     private void removePosition(Long id) {

@@ -79,21 +79,21 @@ public class ControlPanelController {
     @ApiOperation("登录")
     @PostMapping("/login")
     public LoginResponse login(@ApiParam(value = "登录信息", required = true) @RequestBody LoginRequest request) {
-        return login0(request, service.findByUsername(request.getUsername()));
+        return login0(request, service.selectByUsername(request.getUsername()));
     }
 
     @IgnoreLogin
     @ApiOperation("手机号码登录")
     @PostMapping("/loginByPhone")
     public LoginResponse loginByPhone(@ApiParam(value = "登录信息", required = true) @RequestBody LoginRequest request) {
-        return login0(request, service.findByPhone(request.getUsername()));
+        return login0(request, service.selectByPhone(request.getUsername()));
     }
 
     @IgnoreLogin
     @ApiOperation("邮箱地址登录")
     @PostMapping("/loginByEmail")
     public LoginResponse loginByEmail(@ApiParam(value = "登录信息", required = true) @RequestBody LoginRequest request) {
-        return login0(request, service.findByPhone(request.getUsername()));
+        return login0(request, service.selectByEmail(request.getUsername()));
     }
 
     private LoginResponse login0(LoginRequest request, User user) {

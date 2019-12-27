@@ -50,7 +50,7 @@ public interface UserService extends BaseService<User, Long> {
      *         用户名
      * @return 用户
      */
-    default User findByUsername(String username) {
+    default User selectByUsername(String username) {
         String value = StringUtils.trimToNull(username);
         if (value == null) {
             return null;
@@ -69,7 +69,7 @@ public interface UserService extends BaseService<User, Long> {
      *         手机号码
      * @return 用户
      */
-    default User findByPhone(String phone) {
+    default User selectByPhone(String phone) {
         String value = StringUtils.trimToNull(phone);
         if (value == null) {
             return null;
@@ -88,7 +88,7 @@ public interface UserService extends BaseService<User, Long> {
      *         邮箱地址
      * @return 用户
      */
-    default User findByEmail(String email) {
+    default User selectByEmail(String email) {
         String value = StringUtils.trimToNull(email);
         if (value == null) {
             return null;
