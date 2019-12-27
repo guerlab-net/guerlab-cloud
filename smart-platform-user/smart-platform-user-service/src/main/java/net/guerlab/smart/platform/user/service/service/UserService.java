@@ -7,7 +7,6 @@ import net.guerlab.web.result.ListObject;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collection;
-import java.util.Optional;
 
 /**
  * 用户服务
@@ -64,22 +63,41 @@ public interface UserService extends BaseService<User, Long> {
     }
 
     /**
-     * 通过用户名查询用户
+     * 通过手机号码查询用户
      *
-     * @param username
-     *         用户名
+     * @param phone
+     *         手机号码
      * @return 用户
      */
-    default Optional<User> findByUsernameOptional(String username) {
-        String value = StringUtils.trimToNull(username);
+    default User findByPhone(String phone) {
+        String value = StringUtils.trimToNull(phone);
         if (value == null) {
-            return Optional.empty();
+            return null;
         }
 
         UserSearchParams searchParams = new UserSearchParams();
-        searchParams.setUsername(value);
+        searchParams.setPhone(value);
 
-        return selectOneOptional(searchParams);
+        return selectOne(searchParams);
+    }
+
+    /**
+     * 通过邮箱地址查询用户
+     *
+     * @param email
+     *         邮箱地址
+     * @return 用户
+     */
+    default User findByEmail(String email) {
+        String value = StringUtils.trimToNull(email);
+        if (value == null) {
+            return null;
+        }
+
+        UserSearchParams searchParams = new UserSearchParams();
+        searchParams.setEmail(value);
+
+        return selectOne(searchParams);
     }
 
     /**

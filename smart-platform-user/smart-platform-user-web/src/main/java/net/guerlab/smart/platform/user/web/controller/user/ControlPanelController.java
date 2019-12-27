@@ -79,7 +79,27 @@ public class ControlPanelController {
     @ApiOperation("登录")
     @PostMapping("/login")
     public LoginResponse login(@ApiParam(value = "登录信息", required = true) @RequestBody LoginRequest request) {
-        User user = service.findByUsernameOptional(request.getUsername()).orElseThrow(UserNotFindException::new);
+        return login0(request, service.findByUsername(request.getUsername()));
+    }
+
+    @IgnoreLogin
+    @ApiOperation("手机号码登录")
+    @PostMapping("/loginByPhone")
+    public LoginResponse loginByPhone(@ApiParam(value = "登录信息", required = true) @RequestBody LoginRequest request) {
+        return login0(request, service.findByPhone(request.getUsername()));
+    }
+
+    @IgnoreLogin
+    @ApiOperation("邮箱地址登录")
+    @PostMapping("/loginByEmail")
+    public LoginResponse loginByEmail(@ApiParam(value = "登录信息", required = true) @RequestBody LoginRequest request) {
+        return login0(request, service.findByPhone(request.getUsername()));
+    }
+
+    private LoginResponse login0(LoginRequest request, User user) {
+        if (user == null) {
+            throw new UserNotFindException();
+        }
 
         if (!user.getEnabled()) {
             throw new UserUnableException();
@@ -90,31 +110,12 @@ public class ControlPanelController {
         }
 
         if (!user.getEnableTwoFactorAuthentication()) {
-            return login0(user);
+            return buildLoginResponse(user);
         }
 
         checkTwoFactorAuthentication(request, user);
 
-        return login0(user);
-    }
-
-    @IgnoreLogin
-    @ApiOperation("动态密码登录")
-    @PostMapping("/loginByOpt")
-    public LoginResponse loginByOpt(@ApiParam(value = "登录信息", required = true) @RequestBody LoginRequest request) {
-        User user = service.findByUsernameOptional(request.getUsername()).orElseThrow(UserNotFindException::new);
-
-        if (!user.getEnabled()) {
-            throw new UserUnableException();
-        }
-
-        if (!user.getEnableTwoFactorAuthentication()) {
-            throw new UnableTwoFactorAuthenticationException();
-        }
-
-        checkTwoFactorAuthentication(request, user);
-
-        return login0(user);
+        return buildLoginResponse(user);
     }
 
     @IgnoreLogin
@@ -132,7 +133,7 @@ public class ControlPanelController {
         return getLoginSucceedDTO(service.selectById(infoFromToken.getUserId()));
     }
 
-    private LoginResponse login0(User user) {
+    private LoginResponse buildLoginResponse(User user) {
         LoginResponse loginResponse = getLoginSucceedDTO(user);
 
         UserSearchParams searchParams = new UserSearchParams();
@@ -215,7 +216,7 @@ public class ControlPanelController {
 
         user.setEnableTwoFactorAuthentication(true);
 
-        return login0(user);
+        return getLoginSucceedDTO(user);
     }
 
     @ApiOperation("禁用双因子认证")
@@ -241,7 +242,7 @@ public class ControlPanelController {
         user.setEnableTwoFactorAuthentication(false);
         user.setTwoFactorAuthenticationToken(Constants.EMPTY_NAME);
 
-        return login0(user);
+        return getLoginSucceedDTO(user);
     }
 
     @ApiOperation("修改密码")
