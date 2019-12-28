@@ -32,6 +32,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * 用户服务实现
@@ -204,24 +205,38 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
     private Collection<Long> getUserIds(UserSearchParams searchParams) {
         PositionSearchParams positionSearchParams = new PositionSearchParams();
 
+        Collection<Long> originUserIds = searchParams.getUserIds();
         boolean needSearch = false;
 
         if (NumberHelper.greaterZero(searchParams.getDepartmentId())) {
             positionSearchParams.setDepartmentId(searchParams.getDepartmentId());
+            positionSearchParams.setUserIds(originUserIds);
             needSearch = true;
         }
         if (NumberHelper.greaterZero(searchParams.getDutyId())) {
             positionSearchParams.setDutyId(searchParams.getDutyId());
+            positionSearchParams.setUserIds(originUserIds);
             needSearch = true;
         }
 
         searchParams.setDepartmentId(null);
 
         if (!needSearch) {
-            return null;
+            return originUserIds;
         }
 
-        return positionService.findUserIdList(positionSearchParams);
+        if (originUserIds == null || originUserIds.isEmpty()) {
+            return positionService.findUserIdList(positionSearchParams);
+        }
+
+        Collection<Long> userIds = positionService.findUserIdList(positionSearchParams);
+
+        if (userIds == null) {
+            return Collections.emptyList();
+        }
+
+        return originUserIds.stream().filter(NumberHelper::greaterZero).filter(userIds::contains)
+                .collect(Collectors.toList());
     }
 
     private void checkProperties(User entity) {
