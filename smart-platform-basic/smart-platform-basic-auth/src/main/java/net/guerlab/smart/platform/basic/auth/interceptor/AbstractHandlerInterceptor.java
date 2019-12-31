@@ -31,6 +31,8 @@ public abstract class AbstractHandlerInterceptor extends HandlerInterceptorAdapt
      *         处理方法
      * @param annotationClass
      *         注解类
+     * @param <A>
+     *         注解类
      * @return 注解对象
      */
     protected static <A extends Annotation> A getAnnotation(HandlerMethod handlerMethod, Class<A> annotationClass) {

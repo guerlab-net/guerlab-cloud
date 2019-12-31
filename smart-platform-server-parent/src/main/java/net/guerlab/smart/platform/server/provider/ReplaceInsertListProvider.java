@@ -27,6 +27,7 @@ public class ReplaceInsertListProvider extends MapperTemplate {
      *
      * @param ms
      *         MappedStatement
+     * @return xml模板
      */
     public String replaceInsertList(MappedStatement ms) {
         final Class<?> entityClass = getEntityClass(ms);

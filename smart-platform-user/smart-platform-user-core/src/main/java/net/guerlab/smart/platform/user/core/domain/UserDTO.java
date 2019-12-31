@@ -47,6 +47,18 @@ public class UserDTO {
     private String departmentName;
 
     /**
+     * 主职务ID
+     */
+    @ApiModelProperty("主职务ID")
+    private Long mainDutyId;
+
+    /**
+     * 主职务名称
+     */
+    @ApiModelProperty("主职务名称")
+    private String mainDutyName;
+
+    /**
      * 性别
      */
     @ApiModelProperty("性别")

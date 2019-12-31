@@ -30,4 +30,10 @@ public class SimpleUserDTO {
      */
     @ApiModelProperty("部门名称")
     private String departmentName;
+
+    /**
+     * 主职务名称
+     */
+    @ApiModelProperty("主职务名称")
+    private String mainDutyName;
 }

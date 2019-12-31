@@ -69,6 +69,24 @@ public class User extends BaseEntity implements DefaultConvertDTO<UserDTO>, IJwt
     private String departmentName;
 
     /**
+     * 旧主职务ID
+     */
+    @Transient
+    private Long oldMainDutyId;
+
+    /**
+     * 主职务ID
+     */
+    @Column(name = "mainDutyId")
+    private Long mainDutyId;
+
+    /**
+     * 主职务名称
+     */
+    @Column(name = "mainDutyName")
+    private String mainDutyName;
+
+    /**
      * 性别
      */
     @Column(name = "gender", nullable = false)

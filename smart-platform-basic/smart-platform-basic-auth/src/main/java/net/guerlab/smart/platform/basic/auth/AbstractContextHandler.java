@@ -29,6 +29,8 @@ public abstract class AbstractContextHandler {
      *
      * @param key
      *         key
+     * @param <T>
+     *         值类型
      * @return 内容
      */
     @SuppressWarnings("unchecked")

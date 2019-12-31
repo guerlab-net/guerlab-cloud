@@ -95,6 +95,20 @@ public class UserSearchParams extends AbstractSearchParams {
     private Collection<Long> mainDepartmentIds;
 
     /**
+     * 主职务ID
+     */
+    @ApiModelProperty("主职务ID")
+    private Long mainDutyId;
+
+    /**
+     * 主职务ID列表
+     */
+    @ApiModelProperty("主职务ID列表")
+    @Column(name = "mainDutyId")
+    @SearchModel(SearchModelType.IN)
+    private Collection<Long> mainDutyIds;
+
+    /**
      * 性别
      */
     @ApiModelProperty("性别")

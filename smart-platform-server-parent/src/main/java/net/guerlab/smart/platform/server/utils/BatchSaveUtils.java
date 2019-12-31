@@ -25,6 +25,8 @@ public class BatchSaveUtils {
      *
      * @param collection
      *         待保存集合
+     * @param filter
+     *         批量保存过滤器
      * @param <T>
      *         实体类型
      * @return 过滤后可保存集合

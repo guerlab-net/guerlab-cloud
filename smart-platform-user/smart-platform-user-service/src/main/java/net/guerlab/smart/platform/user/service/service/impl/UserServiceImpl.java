@@ -2,7 +2,6 @@ package net.guerlab.smart.platform.user.service.service.impl;
 
 import net.guerlab.commons.collection.CollectionUtil;
 import net.guerlab.commons.number.NumberHelper;
-import net.guerlab.smart.platform.commons.Constants;
 import net.guerlab.smart.platform.commons.RegexConstants;
 import net.guerlab.smart.platform.commons.enums.Gender;
 import net.guerlab.smart.platform.commons.exception.*;
@@ -10,6 +9,7 @@ import net.guerlab.smart.platform.server.service.BaseServiceImpl;
 import net.guerlab.smart.platform.stream.utils.MessageUtils;
 import net.guerlab.smart.platform.user.core.UserAuthConstants;
 import net.guerlab.smart.platform.user.core.exception.DepartmentInvalidException;
+import net.guerlab.smart.platform.user.core.exception.DutyInvalidException;
 import net.guerlab.smart.platform.user.core.exception.NeedPasswordException;
 import net.guerlab.smart.platform.user.core.searchparams.DepartmentSearchParams;
 import net.guerlab.smart.platform.user.core.searchparams.PositionSearchParams;
@@ -34,6 +34,8 @@ import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static net.guerlab.smart.platform.commons.Constants.*;
+
 /**
  * 用户服务实现
  *
@@ -49,6 +51,8 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
     private PositionService positionService;
 
     private DutyPermissionService dutyPermissionService;
+
+    private DutyService dutyService;
 
     private PasswordEncoder passwordEncoder;
 
@@ -147,6 +151,17 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
         checkProperties(entity);
         initProperties(entity);
         departmentCheck(entity);
+
+        Long mainDutyId = entity.getMainDutyId();
+
+        if (mainDutyId == null || mainDutyId < UserAuthConstants.SYSTEM_POSITION_ID_RANGE) {
+            entity.setMainDutyId(EMPTY_ID);
+            entity.setMainDutyName(EMPTY_NAME);
+        } else {
+            entity.setMainDutyName(
+                    dutyService.selectByIdOptional(mainDutyId).orElseThrow(DutyInvalidException::new).getDutyName());
+            positionService.save(entity.getUserId(), entity.getDepartmentId(), mainDutyId);
+        }
     }
 
     @Override
@@ -159,7 +174,9 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
     protected void updateBefore(User entity) {
         checkPhoneAndEmail(entity);
 
+        Long userId = entity.getUserId();
         Long departmentId = entity.getDepartmentId();
+        Long oldDepartmentId = entity.getOldDepartmentId();
 
         if (entity.getEnableTwoFactorAuthentication() == null) {
             entity.setTwoFactorAuthenticationToken(null);
@@ -174,12 +191,32 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
 
             entity.setDepartmentName(department.getDepartmentName());
 
-            Long userId = entity.getUserId();
-            positionService.delete(userId, entity.getOldDepartmentId(), UserAuthConstants.POSITION_ID_DEFAULT);
+            positionService.delete(userId, oldDepartmentId, UserAuthConstants.POSITION_ID_DEFAULT);
             positionService.save(userId, departmentId, UserAuthConstants.POSITION_ID_DEFAULT);
         } else {
             entity.setDepartmentId(null);
             entity.setDepartmentName(null);
+        }
+
+        Long mainDutyId = entity.getMainDutyId();
+        Long oldMainDutyId = entity.getOldMainDutyId();
+
+        if (NumberHelper.greaterZero(mainDutyId) && !Objects.equals(mainDutyId, oldMainDutyId)) {
+            if (NumberHelper.greaterZero(oldMainDutyId)) {
+                positionService.delete(userId, oldDepartmentId, oldMainDutyId);
+            }
+            if (mainDutyId < UserAuthConstants.SYSTEM_POSITION_ID_RANGE) {
+                entity.setMainDutyId(EMPTY_ID);
+                entity.setMainDutyName(EMPTY_NAME);
+            } else {
+                Long depId = departmentId == null ? oldDepartmentId : departmentId;
+                entity.setMainDutyName(dutyService.selectByIdOptional(mainDutyId).orElseThrow(DutyInvalidException::new)
+                        .getDutyName());
+                positionService.save(userId, depId, mainDutyId);
+            }
+        } else {
+            entity.setMainDutyId(null);
+            entity.setMainDutyName(null);
         }
 
         String pwd = StringUtils.trimToNull(entity.getPassword());
@@ -300,16 +337,16 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
         entity.setUpdateTime(now);
         entity.setPassword(getPassword(entity.getPassword()));
         entity.setEnableTwoFactorAuthentication(false);
-        entity.setTwoFactorAuthenticationToken(Constants.EMPTY_NAME);
+        entity.setTwoFactorAuthenticationToken(EMPTY_NAME);
 
         if (entity.getGender() == null) {
             entity.setGender(Gender.OTHER);
         }
         if (entity.getEmail() == null) {
-            entity.setEmail(Constants.EMPTY_NAME);
+            entity.setEmail(EMPTY_NAME);
         }
         if (entity.getPhone() == null) {
-            entity.setPhone(Constants.EMPTY_NAME);
+            entity.setPhone(EMPTY_NAME);
         }
         if (StringUtils.isBlank(entity.getAvatar())) {
             entity.setAvatar(DEFAULT_AVATAR);
@@ -329,7 +366,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
         }
 
         DepartmentSearchParams searchParams = new DepartmentSearchParams();
-        searchParams.setParentId(Constants.DEFAULT_PARENT_ID);
+        searchParams.setParentId(DEFAULT_PARENT_ID);
 
         Department department = departmentService.selectOne(searchParams);
 
@@ -360,8 +397,8 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
         searchParams.setChargeUserId(id);
 
         Department department = new Department();
-        department.setChargeUserId(Constants.EMPTY_ID);
-        department.setChargeUserName(Constants.EMPTY_NAME);
+        department.setChargeUserId(EMPTY_ID);
+        department.setChargeUserName(EMPTY_NAME);
 
         updateDepartment(searchParams, department);
     }
@@ -371,8 +408,8 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
         searchParams.setDirectorUserId(id);
 
         Department department = new Department();
-        department.setDirectorUserId(Constants.EMPTY_ID);
-        department.setDirectorUserName(Constants.EMPTY_NAME);
+        department.setDirectorUserId(EMPTY_ID);
+        department.setDirectorUserName(EMPTY_NAME);
 
         updateDepartment(searchParams, department);
     }
@@ -405,6 +442,11 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
     @Autowired
     public void setDutyPermissionService(DutyPermissionService dutyPermissionService) {
         this.dutyPermissionService = dutyPermissionService;
+    }
+
+    @Autowired
+    public void setDutyService(DutyService dutyService) {
+        this.dutyService = dutyService;
     }
 
     @Autowired
