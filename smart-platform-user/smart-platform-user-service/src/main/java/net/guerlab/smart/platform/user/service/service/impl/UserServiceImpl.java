@@ -201,7 +201,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, Long, UserMapper>
         Long mainDutyId = entity.getMainDutyId();
         Long oldMainDutyId = entity.getOldMainDutyId();
 
-        if (NumberHelper.greaterZero(mainDutyId) && !Objects.equals(mainDutyId, oldMainDutyId)) {
+        if (NumberHelper.greaterOrEqualZero(mainDutyId) && !Objects.equals(mainDutyId, oldMainDutyId)) {
             if (NumberHelper.greaterZero(oldMainDutyId)) {
                 positionService.delete(userId, oldDepartmentId, oldMainDutyId);
             }
