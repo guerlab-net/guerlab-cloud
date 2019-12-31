@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiParam;
 import net.guerlab.commons.collection.CollectionUtil;
 import net.guerlab.commons.number.NumberHelper;
 import net.guerlab.smart.platform.commons.exception.UserIdInvalidException;
+import net.guerlab.smart.platform.commons.exception.UserInvalidException;
 import net.guerlab.smart.platform.commons.util.BeanConvertUtils;
 import net.guerlab.smart.platform.user.core.UserAuthConstants;
 import net.guerlab.smart.platform.user.core.domain.DepartmentDTO;
@@ -14,12 +15,14 @@ import net.guerlab.smart.platform.user.core.domain.PositionDTO;
 import net.guerlab.smart.platform.user.core.domain.UserDTO;
 import net.guerlab.smart.platform.user.core.exception.DepartmentIdInvalidException;
 import net.guerlab.smart.platform.user.core.exception.DepartmentNotHasDutyDistributionException;
+import net.guerlab.smart.platform.user.core.exception.MainDutyCannotDeleteException;
 import net.guerlab.smart.platform.user.core.exception.SystemDutyCannotOperationException;
 import net.guerlab.smart.platform.user.core.searchparams.DepartmentSearchParams;
 import net.guerlab.smart.platform.user.core.searchparams.DutySearchParams;
 import net.guerlab.smart.platform.user.core.searchparams.PositionSearchParams;
 import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
 import net.guerlab.smart.platform.user.service.entity.Position;
+import net.guerlab.smart.platform.user.service.entity.User;
 import net.guerlab.smart.platform.user.service.service.*;
 import net.guerlab.web.result.ListObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 职位
@@ -96,6 +100,12 @@ public class PositionController {
             @ApiParam(value = "部门id", required = true) @PathVariable Long departmentId,
             @ApiParam(value = "职务id", required = true) @PathVariable Long dutyId) {
         paramsCheck(userId, departmentId, dutyId);
+
+        User user = userService.selectByIdOptional(userId).orElseThrow(UserInvalidException::new);
+
+        if (Objects.equals(user.getDepartmentId(), departmentId) && Objects.equals(user.getMainDutyId(), dutyId)) {
+            throw new MainDutyCannotDeleteException();
+        }
 
         PositionSearchParams searchParams = new PositionSearchParams();
         searchParams.setUserId(userId);
