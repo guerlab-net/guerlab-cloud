@@ -25,7 +25,7 @@ spring:
 logging:
   level:
     root: ERROR
-    net.guerlab.smart.platform: DEBUG
+    net.guerlab.smart.platform: INFO
 swagger:
   enable: true
   dockets:

@@ -99,18 +99,18 @@ public class UserController {
         BeanUtils.copyProperties(dto, user);
 
         user.setUserId(id);
+        user.setOldDepartmentId(nowDepartmentId);
+        user.setOldMainDutyId(nowMainDutyId);
 
         if (Objects.equals(departmentId, nowDepartmentId)) {
             user.setDepartmentId(null);
         } else {
             user.setDepartmentId(departmentId);
-            user.setOldDepartmentId(nowDepartmentId);
         }
         if (Objects.equals(mainDutyId, nowMainDutyId)) {
             user.setMainDutyId(null);
         } else {
             user.setMainDutyId(mainDutyId);
-            user.setOldMainDutyId(nowMainDutyId);
         }
 
         if (!service.isAdmin(UserContextHandler.getUserId())) {
