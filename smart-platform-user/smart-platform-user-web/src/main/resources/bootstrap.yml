@@ -16,7 +16,7 @@ spring:
       config:
         server-addr: ${nacos.hostname}:${nacos.port}
         file-extension: yml
-        shared-dataids: global.yml,db.yml,mq.yml
+        shared-dataids: global.yml,db.yml,mq.yml,redis.yml,wx.yml
         refreshable-dataids: ${spring.cloud.nacos.config.shared-dataids}
         namespace: ${nacos.namespace}
       discovery:

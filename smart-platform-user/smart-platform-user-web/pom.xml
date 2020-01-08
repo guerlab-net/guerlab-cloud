@@ -25,6 +25,12 @@
             <groupId>net.guerlab.smart.platform</groupId>
             <artifactId>smart-platform-user-auth</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>net.guerlab.smart.wx</groupId>
+            <artifactId>smart-wx-lib-cp</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

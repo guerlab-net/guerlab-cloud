@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import net.guerlab.smart.platform.basic.auth.domain.AbstractLoginResponse;
 import net.guerlab.smart.platform.user.core.domain.UserDTO;
+import net.guerlab.smart.platform.user.core.entity.UserOauthDTO;
 
 import java.util.Collection;
 
@@ -24,5 +25,11 @@ public class LoginResponse extends AbstractLoginResponse<UserDTO> {
      */
     @ApiModelProperty("权限关键字列表")
     private Collection<String> permissionKeys;
+
+    /**
+     * 用户oauth信息
+     */
+    @ApiModelProperty("用户oauth信息")
+    private UserOauthDTO thirdParty;
 
 }
