@@ -14,7 +14,6 @@ import net.guerlab.smart.platform.user.auth.UserContextHandler;
 import net.guerlab.smart.platform.user.auth.utils.UserJwtHelper;
 import net.guerlab.smart.platform.user.core.domain.UserDTO;
 import net.guerlab.smart.platform.user.core.exception.UserHasBoundException;
-import net.guerlab.smart.platform.user.core.searchparams.UserSearchParams;
 import net.guerlab.smart.platform.user.service.entity.User;
 import net.guerlab.smart.platform.user.service.entity.UserOauth;
 import net.guerlab.smart.platform.user.service.searchparams.UserOauthSearchParams;
@@ -28,8 +27,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 
 /**
  * 企业微信-控制面板
@@ -126,7 +123,7 @@ public class WxCpControlPanelController {
     }
 
     private LoginResponse getLoginSucceedDTO(User user, String openId) {
-        LoginResponse loginResponse = user == null ? new LoginResponse() : getLoginSucceedDTO(afterLogin(user));
+        LoginResponse loginResponse = user == null ? new LoginResponse() : getLoginSucceedDTO(user);
 
         UserOauth userOauth = new UserOauth();
         userOauth.setUserId(user == null ? null : user.getUserId());
@@ -160,23 +157,6 @@ public class WxCpControlPanelController {
         return userService.selectById(userOauth.getUserId());
     }
 
-    protected User afterLogin(User user) {
-        Long userId = user.getUserId();
-
-        LocalDateTime now = LocalDateTime.now();
-
-        User update = new User();
-        update.setLastLoginTime(now);
-        update.setLastLoginTime(now);
-
-        UserSearchParams searchParams = new UserSearchParams();
-        searchParams.setUserId(userId);
-
-        userService.updateByExampleSelective(update, userService.getExample(searchParams));
-
-        return user;
-    }
-
     protected LoginResponse getLoginSucceedDTO(User user) {
         UserDTO dto = user.toDTO();
 
@@ -195,7 +175,6 @@ public class WxCpControlPanelController {
         return wxCpService;
     }
 
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired(required = false)
     public void setWxCpService(WxCpService wxCpService) {
         this.wxCpService = wxCpService;
