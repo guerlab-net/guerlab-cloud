@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <revision>0.1.0</revision>
+        <revision>0.2.0</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>11</java.version>
@@ -158,38 +158,6 @@
                 <version>${revision}</version>
             </dependency>
 
-            <!-- smart-platform user -->
-            <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-user-api</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-user-auth</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-user-core</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-user-service</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-user-stream</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-user-web</artifactId>
-                <version>${revision}</version>
-            </dependency>
-
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
@@ -221,7 +189,6 @@
         <module>smart-platform-basic</module>
         <module>smart-platform-commons</module>
         <module>smart-platform-server-parent</module>
-        <module>smart-platform-user</module>
         <module>smart-platform-stream</module>
     </modules>
 </project>
