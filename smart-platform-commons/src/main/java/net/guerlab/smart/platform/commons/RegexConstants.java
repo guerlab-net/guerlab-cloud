@@ -10,7 +10,7 @@ public interface RegexConstants {
     /**
      * 邮箱正则表达式
      */
-    String EMAIL_REG = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
+    String EMAIL_REG = "^[\\.a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
 
     /**
      * 电话号码正则表达式
