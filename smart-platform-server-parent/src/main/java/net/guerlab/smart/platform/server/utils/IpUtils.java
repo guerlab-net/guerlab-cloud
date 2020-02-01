@@ -13,19 +13,10 @@ public class IpUtils {
 
     private static final String UNKNOWN = "unknown";
 
-    private static final String HEADER_CDN_SRC_IP = "Cdn-Src-Ip";
+    private static final char SPLIT = ',';
 
-    private static final String HEADER_X_FORWARDED_FOR = "X-Forwarded-For";
-
-    private static final String HEADER_PROXY_CLIENT_IP = "Proxy-Client-IP";
-
-    private static final String HEADER_WL_PROXY_CLIENT_IP = "WL-Proxy-Client-IP";
-
-    private static final String HEADER_HTTP_CLIENT_IP = "HTTP_CLIENT_IP";
-
-    private static final String HEADER_HTTP_X_FORWARDED_FOR = "HTTP_X_FORWARDED_FOR";
-
-    private static final String HEADER_X_REAL_IP = "X-Real-IP";
+    private static final String[] HEADERS = new String[] { "X-Forwarded-For", "Cdn-Src-Ip", "Proxy-Client-IP",
+            "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR", "X-Real-IP", };
 
     private IpUtils() {
 
@@ -39,38 +30,35 @@ public class IpUtils {
      * @return ip地址
      */
     public static String getIp(HttpServletRequest request) {
-        String ip = request.getHeader(HEADER_CDN_SRC_IP);
-        if (isNull(ip)) {
-            String ips = request.getHeader(HEADER_X_FORWARDED_FOR);
-            if (!isNull(ips)) {
-                int index = ips.indexOf(',');
-                if (index != -1) {
-                    ip = ips.substring(index + 1).trim();
-                } else {
-                    ip = ips;
-                }
+        for (String headerName : HEADERS) {
+            String ip = getIpByHeader(request, headerName);
+            if (ip != null) {
+                return ip;
             }
         }
-        if (isNull(ip)) {
-            ip = request.getHeader(HEADER_PROXY_CLIENT_IP);
-        }
-        if (isNull(ip)) {
-            ip = request.getHeader(HEADER_WL_PROXY_CLIENT_IP);
-        }
-        if (isNull(ip)) {
-            ip = request.getHeader(HEADER_HTTP_CLIENT_IP);
-        }
-        if (isNull(ip)) {
-            ip = request.getHeader(HEADER_HTTP_X_FORWARDED_FOR);
-        }
-        if (isNull(ip)) {
-            ip = request.getHeader(HEADER_X_REAL_IP);
-        }
-        if (isNull(ip)) {
-            ip = request.getRemoteAddr();
-        }
+        return request.getRemoteAddr();
+    }
 
-        return ip;
+    /**
+     * 通过请求头获取请求的ip地址
+     *
+     * @param request
+     *         请求
+     * @param headerName
+     *         请求头名称
+     * @return ip地址
+     */
+    private static String getIpByHeader(HttpServletRequest request, String headerName) {
+        String headerValue = request.getHeader(headerName);
+        if (isNull(headerName)) {
+            return null;
+        }
+        int index = headerValue.indexOf(SPLIT);
+        if (index != -1) {
+            return headerValue.substring(0, index).trim();
+        } else {
+            return headerValue;
+        }
     }
 
     private static boolean isNull(String ip) {
