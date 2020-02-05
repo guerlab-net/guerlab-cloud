@@ -4,9 +4,6 @@ FROM adoptopenjdk:11-jre-openj9
 # 设置时区为 UTF+8
 ENV TZ=Asia/Shanghai
 
-# 设置端口
-EXPOSE 8080/tcp
-
 # 设置应用启动sh文件
 ENTRYPOINT ["/app.sh"]
 
