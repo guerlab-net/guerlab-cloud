@@ -49,15 +49,15 @@ public class IpUtils {
      * @return ip地址
      */
     private static String getIpByHeader(HttpServletRequest request, String headerName) {
-        String headerValue = request.getHeader(headerName);
-        if (isNull(headerName)) {
+        String value = request.getHeader(headerName);
+        if (isNull(value)) {
             return null;
         }
-        int index = headerValue.indexOf(SPLIT);
+        int index = value.indexOf(SPLIT);
         if (index != -1) {
-            return headerValue.substring(0, index).trim();
+            return value.substring(0, index).trim();
         } else {
-            return headerValue;
+            return value;
         }
     }
 
