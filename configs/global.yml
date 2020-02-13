@@ -63,15 +63,6 @@ logging:
   level:
     root: ERROR
     net.guerlab.smart.platform: INFO
-    com.netflix: 'OFF'
-    com.sun: 'OFF'
-    freemarker: 'OFF'
-    javax.xml.bind: 'OFF'
-    org.apache: 'OFF'
-    org.hibernate: 'OFF'
-    org.springframework: ERROR
-    springfox: 'OFF'
-    com.alibaba.nacos: 'OFF'
 swagger:
   enable: true
 management:

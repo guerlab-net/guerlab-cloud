@@ -3,13 +3,13 @@ swagger:
   resources:
     commons-user:
       name: commons-user
-      path: commons-web
+      path: commons
       group: commons-user
     user-commons:
       name: user-commons
-      path: user-web
+      path: user
       group: user-commons
     user-user:
       name: user-user
-      path: user-web
+      path: user
       group: user-user
