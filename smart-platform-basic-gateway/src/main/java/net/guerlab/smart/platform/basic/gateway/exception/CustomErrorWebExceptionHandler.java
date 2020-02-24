@@ -54,7 +54,7 @@ class CustomErrorWebExceptionHandler extends DefaultErrorWebExceptionHandler {
     }
 
     @Override
-    protected HttpStatus getHttpStatus(Map<String, Object> errorAttributes) {
-        return HttpStatus.OK;
+    protected int getHttpStatus(Map<String, Object> errorAttributes) {
+        return HttpStatus.OK.value();
     }
 }

@@ -3,6 +3,7 @@ spring:
     basename: |
       messages/basic,
       messages/commons,
+      messages/searchparams,
       messages/user
   jackson:
     serialization:

@@ -14,9 +14,10 @@ spring:
       config:
         server-addr: ${nacos.hostname}:${nacos.port}
         file-extension: yml
-        shared-dataids: global.yml,swagger.yml
-        refreshable-dataids: ${spring.cloud.nacos.config.shared-dataids}
         namespace: ${nacos.namespace}
+        shared-configs:
+          - data-id: global.yml
+          - data-id: swagger.yml
       discovery:
         server-addr: ${nacos.hostname}:${nacos.port}
         namespace: ${nacos.namespace}

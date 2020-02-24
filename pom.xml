@@ -8,7 +8,7 @@
     <packaging>pom</packaging>
 
     <properties>
-        <revision>0.2.3</revision>
+        <revision>0.3.0-SNAPSHOT</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>11</java.version>
@@ -17,9 +17,9 @@
         <plugin.deploy.version>2.8.2</plugin.deploy.version>
         <project.encoding>UTF-8</project.encoding>
 
-        <guerlab-spring.version>2.3.5</guerlab-spring.version>
+        <guerlab-spring.version>3.0.0-SNAPSHOT</guerlab-spring.version>
 
-        <spring-cloud-alibaba.version>2.1.1.RELEASE</spring-cloud-alibaba.version>
+        <spring-cloud-alibaba.version>2.2.0.RELEASE</spring-cloud-alibaba.version>
 
         <jjwt.version>0.9.1</jjwt.version>
         <guava.version>20.0</guava.version>
@@ -187,7 +187,10 @@
     </dependencies>
 
     <modules>
-        <module>smart-platform-basic</module>
+        <module>smart-platform-basic-api</module>
+        <module>smart-platform-basic-auth</module>
+        <module>smart-platform-basic-gateway</module>
+        <module>smart-platform-basic-swagger</module>
         <module>smart-platform-commons</module>
         <module>smart-platform-server-parent</module>
         <module>smart-platform-stream</module>

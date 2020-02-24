@@ -6,12 +6,12 @@
 
     <parent>
         <groupId>net.guerlab.smart.platform</groupId>
-        <artifactId>smart-platform-basic</artifactId>
+        <artifactId>smart-platform-parent</artifactId>
         <version>${revision}</version>
     </parent>
 
     <properties>
-        <main.basedir>${basedir}/../..</main.basedir>
+        <main.basedir>${basedir}/..</main.basedir>
     </properties>
 
     <dependencies>

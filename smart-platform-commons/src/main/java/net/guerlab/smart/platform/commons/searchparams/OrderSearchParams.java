@@ -25,6 +25,6 @@ public class OrderSearchParams extends AbstractSearchParams {
     @ApiModelProperty(hidden = true)
     @JsonIgnore
     @Column(name = "orderNum")
-    @OrderByIndex(-999)
+    @OrderByIndex(-10)
     private OrderByType orderNumOrderByType = OrderByType.DESC;
 }
