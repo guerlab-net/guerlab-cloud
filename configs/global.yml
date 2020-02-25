@@ -3,8 +3,7 @@ spring:
     basename: |
       messages/basic,
       messages/commons,
-      messages/searchparams,
-      messages/user
+      messages/searchparams
   jackson:
     serialization:
       fail-on-empty-beans: false
@@ -71,12 +70,3 @@ management:
     web:
       exposure:
         include: '*'
-jwt:
-  user:
-    access-token-expire: 86400000
-    access-token-signing-key: access-token-signing-key
-    refresh-token-expire: 172800000
-    refresh-token-signing-key: refresh-token-signing-key
-auth:
-  user:
-    include-patterns: /user/**

@@ -17,7 +17,9 @@ spring:
         namespace: ${nacos.namespace}
         shared-configs:
           - data-id: global.yml
+            refresh: true
           - data-id: gateway.yml
+            refresh: true
       discovery:
         server-addr: ${nacos.hostname}:${nacos.port}
         namespace: ${nacos.namespace}
