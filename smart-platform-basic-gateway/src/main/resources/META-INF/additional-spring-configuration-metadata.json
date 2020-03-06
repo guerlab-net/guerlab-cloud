@@ -11,6 +11,12 @@
       "type": "net.guerlab.smart.platform.basic.gateway.polymerization.RewriteToPolymerizationProperties",
       "sourceType": "net.guerlab.smart.platform.basic.gateway.polymerization.RewriteToPolymerizationProperties",
       "description": "重新请求至聚合服务配置."
+    },
+    {
+      "name": "spring.cloud.gateway.gray",
+      "type": "net.guerlab.smart.platform.basic.gateway.gray.GrayLoadBalancerClientFilterProperties",
+      "sourceType": "net.guerlab.smart.platform.basic.gateway.gray.GrayLoadBalancerClientFilterProperties",
+      "description": "灰度配置s."
     }
   ],
   "properties": [
@@ -54,6 +60,12 @@
       "type": "java.util.Map<java.lang.String, net.guerlab.smart.platform.basic.gateway.polymerization.RewriteToPolymerizationInstanceProperties>",
       "sourceType": "net.guerlab.smart.platform.basic.gateway.polymerization.RewriteToPolymerizationProperties",
       "description": "单服务配置表."
+    },
+    {
+      "name": "spring.cloud.gateway.gray.version-key",
+      "type": "java.lang.String",
+      "sourceType": "net.guerlab.smart.platform.basic.gateway.gray.GrayLoadBalancerClientFilterProperties",
+      "description": "版本号关键字."
     }
   ]
 }

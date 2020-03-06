@@ -12,7 +12,6 @@ import org.springframework.boot.web.context.WebServerInitializedEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -26,9 +25,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MultiNacosApplicationAutoConfigure
         implements ApplicationListener<WebServerInitializedEvent>, DisposableBean {
 
-    private static final Map<String, String> META_DATA = Collections
-            .singletonMap("preserved.register.source", "SPRING_CLOUD");
-
     private final NamingService namingService;
 
     private final NacosDiscoveryProperties discoveryProperties;
@@ -39,6 +35,7 @@ public class MultiNacosApplicationAutoConfigure
 
     private final AtomicInteger port = new AtomicInteger(0);
 
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public MultiNacosApplicationAutoConfigure(NacosServerProperties serverProperties,
             NacosDiscoveryProperties discoveryProperties) {
         this.serverProperties = serverProperties;
@@ -67,7 +64,7 @@ public class MultiNacosApplicationAutoConfigure
         instance.setIp(discoveryProperties.getIp());
         instance.setPort(port.get());
         instance.setClusterName(clusterName);
-        instance.setMetadata(META_DATA);
+        instance.setMetadata(discoveryProperties.getMetadata());
 
         if (instanceMap.putIfAbsent(clusterName, instance) == null) {
             try {

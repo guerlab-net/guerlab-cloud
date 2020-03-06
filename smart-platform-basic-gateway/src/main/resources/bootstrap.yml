@@ -23,6 +23,9 @@ spring:
       discovery:
         server-addr: ${nacos.hostname}:${nacos.port}
         namespace: ${nacos.namespace}
+    gateway:
+      gray:
+        version-key: app-version
 logging:
   level:
     root: ERROR
