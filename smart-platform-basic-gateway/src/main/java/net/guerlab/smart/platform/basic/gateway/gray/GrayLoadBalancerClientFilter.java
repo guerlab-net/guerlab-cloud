@@ -14,6 +14,7 @@ import org.springframework.web.server.ServerWebExchange;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -67,8 +68,15 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
 
         List<ServiceInstance> instanceList = instances.stream().filter(instance -> {
             Integer instanceVersion = parseVersion(instance.getMetadata().get(versionKey));
-            return instanceVersion != null && instanceVersion >= requestVersion;
+            return instanceVersion != null && Objects.equals(instanceVersion, requestVersion);
         }).collect(Collectors.toList());
+
+        if (instanceList.isEmpty()) {
+            instanceList = instances.stream().filter(instance -> {
+                Integer instanceVersion = parseVersion(instance.getMetadata().get(versionKey));
+                return instanceVersion != null && instanceVersion > requestVersion;
+            }).collect(Collectors.toList());
+        }
 
         if (instanceList.isEmpty()) {
             return null;
