@@ -1,6 +1,7 @@
 package net.guerlab.smart.platform.basic.gateway.gray;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -60,19 +61,20 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
 
         List<ServiceInstance> instances = discoveryClient.getInstances(instancesId);
 
-        if (instances != null && !instances.isEmpty()) {
-            List<ServiceInstance> instanceList = instances.stream().filter(instance -> {
-                Integer instanceVersion = parseVersion(instance.getMetadata().get(versionKey));
-                return instanceVersion != null && instanceVersion >= requestVersion;
-            }).collect(Collectors.toList());
-
-            if (instanceList.isEmpty()) {
-                return super.choose(exchange);
-            }
-
-            return instanceList.get(0);
+        if (instances == null || instances.isEmpty()) {
+            return super.choose(exchange);
         }
-        return super.choose(exchange);
+
+        List<ServiceInstance> instanceList = instances.stream().filter(instance -> {
+            Integer instanceVersion = parseVersion(instance.getMetadata().get(versionKey));
+            return instanceVersion != null && instanceVersion >= requestVersion;
+        }).collect(Collectors.toList());
+
+        if (instanceList.isEmpty()) {
+            return null;
+        }
+
+        return instanceList.get(RandomUtils.nextInt(0, instanceList.size()));
     }
 
     @Autowired

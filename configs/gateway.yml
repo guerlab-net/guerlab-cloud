@@ -13,6 +13,8 @@ spring:
           uri: lb://swagger
           predicates:
             - Path=/swagger-ui.html,/webjars/springfox-swagger-ui/**,/swagger-resources/**
+      gray:
+        version-key: #版本号控制header
 logging:
   level:
     net.guerlab.smart.platform.basic.gateway: INFO
