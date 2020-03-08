@@ -9,12 +9,11 @@ import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.cloud.gateway.config.LoadBalancerProperties;
 import org.springframework.cloud.gateway.filter.LoadBalancerClientFilter;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
-import org.springframework.http.HttpHeaders;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -32,14 +31,6 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
         super(loadBalancer, properties);
     }
 
-    private static Integer parseVersion(String version) {
-        try {
-            return Integer.parseInt(version);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     @Override
     protected ServiceInstance choose(ServerWebExchange exchange) {
         String versionKey = StringUtils.trimToNull(properties.getVersionKey());
@@ -47,8 +38,7 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
         if (versionKey == null) {
             return super.choose(exchange);
         }
-        HttpHeaders httpHeaders = exchange.getRequest().getHeaders();
-        Integer requestVersion = parseVersion(StringUtils.trimToNull(httpHeaders.getFirst(versionKey)));
+        Version requestVersion = parseVersion(versionKey, exchange.getRequest());
 
         if (requestVersion == null) {
             return super.choose(exchange);
@@ -67,14 +57,14 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
         }
 
         List<ServiceInstance> instanceList = instances.stream().filter(instance -> {
-            Integer instanceVersion = parseVersion(instance.getMetadata().get(versionKey));
-            return instanceVersion != null && Objects.equals(instanceVersion, requestVersion);
+            Version instanceVersion = Version.parse(instance.getMetadata().get(versionKey), false);
+            return instanceVersion != null && instanceVersion.match(requestVersion);
         }).collect(Collectors.toList());
 
         if (instanceList.isEmpty()) {
             instanceList = instances.stream().filter(instance -> {
-                Integer instanceVersion = parseVersion(instance.getMetadata().get(versionKey));
-                return instanceVersion != null && instanceVersion > requestVersion;
+                Version instanceVersion = Version.parse(instance.getMetadata().get(versionKey), false);
+                return instanceVersion != null && instanceVersion.match(requestVersion);
             }).collect(Collectors.toList());
         }
 
@@ -83,6 +73,15 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
         }
 
         return instanceList.get(RandomUtils.nextInt(0, instanceList.size()));
+    }
+
+    private Version parseVersion(String versionKey, ServerHttpRequest request) {
+        String versionString = StringUtils.trimToNull(request.getHeaders().getFirst(versionKey));
+        if (versionString == null) {
+            versionString = StringUtils.trimToNull(request.getQueryParams().getFirst(versionKey));
+        }
+
+        return Version.parse(versionString, true);
     }
 
     @Autowired
