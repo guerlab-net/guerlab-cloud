@@ -33,12 +33,13 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
 
     @Override
     protected ServiceInstance choose(ServerWebExchange exchange) {
-        String versionKey = StringUtils.trimToNull(properties.getVersionKey());
+        String requestKey = StringUtils.trimToNull(properties.getRequestKey());
+        String metadataKey = StringUtils.trimToNull(properties.getMetadataKey());
 
-        if (versionKey == null) {
+        if (requestKey == null || metadataKey == null) {
             return super.choose(exchange);
         }
-        Version requestVersion = parseVersion(versionKey, exchange.getRequest());
+        Version requestVersion = parseVersion(requestKey, exchange.getRequest());
 
         if (requestVersion == null) {
             return super.choose(exchange);
@@ -57,13 +58,13 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
         }
 
         List<ServiceInstance> instanceList = instances.stream().filter(instance -> {
-            Version instanceVersion = Version.parse(instance.getMetadata().get(versionKey), false);
+            Version instanceVersion = Version.parse(instance.getMetadata().get(metadataKey), false);
             return instanceVersion != null && instanceVersion.match(requestVersion);
         }).collect(Collectors.toList());
 
         if (instanceList.isEmpty()) {
             instanceList = instances.stream().filter(instance -> {
-                Version instanceVersion = Version.parse(instance.getMetadata().get(versionKey), false);
+                Version instanceVersion = Version.parse(instance.getMetadata().get(metadataKey), false);
                 return instanceVersion != null && instanceVersion.match(requestVersion);
             }).collect(Collectors.toList());
         }
@@ -75,10 +76,10 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
         return instanceList.get(RandomUtils.nextInt(0, instanceList.size()));
     }
 
-    private Version parseVersion(String versionKey, ServerHttpRequest request) {
-        String versionString = StringUtils.trimToNull(request.getHeaders().getFirst(versionKey));
+    private Version parseVersion(String requestKey, ServerHttpRequest request) {
+        String versionString = StringUtils.trimToNull(request.getHeaders().getFirst(requestKey));
         if (versionString == null) {
-            versionString = StringUtils.trimToNull(request.getQueryParams().getFirst(versionKey));
+            versionString = StringUtils.trimToNull(request.getQueryParams().getFirst(requestKey));
         }
 
         return Version.parse(versionString, true);

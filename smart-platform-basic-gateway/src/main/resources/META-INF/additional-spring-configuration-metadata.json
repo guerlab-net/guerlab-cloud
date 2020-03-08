@@ -62,10 +62,16 @@
       "description": "单服务配置表."
     },
     {
-      "name": "spring.cloud.gateway.gray.version-key",
+      "name": "spring.cloud.gateway.gray.request-key",
       "type": "java.lang.String",
       "sourceType": "net.guerlab.smart.platform.basic.gateway.gray.GrayLoadBalancerClientFilterProperties",
-      "description": "版本号关键字."
+      "description": "请求关键字."
+    },
+    {
+      "name": "spring.cloud.gateway.gray.metadata-key",
+      "type": "java.lang.String",
+      "sourceType": "net.guerlab.smart.platform.basic.gateway.gray.GrayLoadBalancerClientFilterProperties",
+      "description": "元信息关键字."
     }
   ]
 }

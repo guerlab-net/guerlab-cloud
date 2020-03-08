@@ -15,7 +15,12 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 public class GrayLoadBalancerClientFilterProperties {
 
     /**
-     * 版本号关键字
+     * 请求关键字
      */
-    private String versionKey;
+    private String requestKey;
+
+    /**
+     * 元信息关键字
+     */
+    private String metadataKey;
 }
