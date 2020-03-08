@@ -1,5 +1,6 @@
 package net.guerlab.smart.platform.basic.gateway.gray;
 
+import net.guerlab.commons.collection.CollectionUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.server.ServerWebExchange;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -57,16 +59,21 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
             return super.choose(exchange);
         }
 
-        List<ServiceInstance> instanceList = instances.stream().filter(instance -> {
-            Version instanceVersion = Version.parse(instance.getMetadata().get(metadataKey), false);
-            return instanceVersion != null && instanceVersion.match(requestVersion);
-        }).collect(Collectors.toList());
+        Map<ServiceInstance, Version> versionMap = CollectionUtil
+                .toMap(instances, e -> e, instance -> Version.parse(instance.getMetadata().get(metadataKey), false));
+
+        if (versionMap.isEmpty()) {
+            return super.choose(exchange);
+        }
+
+        List<ServiceInstance> instanceList = versionMap.entrySet().stream()
+                .filter(entry -> entry.getValue() != null && entry.getValue().equals(requestVersion))
+                .map(Map.Entry::getKey).collect(Collectors.toList());
 
         if (instanceList.isEmpty()) {
-            instanceList = instances.stream().filter(instance -> {
-                Version instanceVersion = Version.parse(instance.getMetadata().get(metadataKey), false);
-                return instanceVersion != null && instanceVersion.match(requestVersion);
-            }).collect(Collectors.toList());
+            instanceList = versionMap.entrySet().stream()
+                    .filter(entry -> entry.getValue() != null && entry.getValue().match(requestVersion))
+                    .map(Map.Entry::getKey).collect(Collectors.toList());
         }
 
         if (instanceList.isEmpty()) {
