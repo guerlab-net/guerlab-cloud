@@ -1,6 +1,5 @@
-package net.guerlab.smart.platform.basic.gateway.gray;
+package net.guerlab.smart.platform.basic.gateway.vc;
 
-import net.guerlab.commons.collection.CollectionUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +13,21 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
- * 灰度控制
+ * 版本控制过滤器
  *
  * @author guer
  */
-public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
+public class VersionControlFilter extends LoadBalancerClientFilter {
 
     private DiscoveryClient discoveryClient;
 
-    private GrayLoadBalancerClientFilterProperties properties;
+    private VersionControlProperties properties;
 
-    public GrayLoadBalancerClientFilter(LoadBalancerClient loadBalancer, LoadBalancerProperties properties) {
+    public VersionControlFilter(LoadBalancerClient loadBalancer, LoadBalancerProperties properties) {
         super(loadBalancer, properties);
     }
 
@@ -59,27 +57,38 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
             return super.choose(exchange);
         }
 
-        Map<ServiceInstance, Version> versionMap = CollectionUtil
-                .toMap(instances, e -> e, instance -> Version.parse(instance.getMetadata().get(metadataKey), false));
+        // 空列表
+        List<ServiceInstance> hasNotVersions = new ArrayList<>(instances.size());
+        // 相等列表
+        List<ServiceInstance> equalsVersions = new ArrayList<>(instances.size());
+        // 可匹配列表
+        List<ServiceInstance> matchVersions = new ArrayList<>(instances.size());
 
-        if (versionMap.isEmpty()) {
-            return super.choose(exchange);
-        }
+        // 按照解析出的版本号信息进行分组
+        instances.forEach(instance -> {
+            Version version = Version.parse(instance.getMetadata().get(metadataKey));
+            if (version == null) {
+                hasNotVersions.add(instance);
+            } else if (version.equals(requestVersion)) {
+                equalsVersions.add(instance);
+            } else if (version.match(requestVersion)) {
+                matchVersions.add(instance);
+            }
+            // 其他情况进行忽略
+        });
 
-        List<ServiceInstance> instanceList = versionMap.entrySet().stream()
-                .filter(entry -> entry.getValue() != null && entry.getValue().equals(requestVersion))
-                .map(Map.Entry::getKey).collect(Collectors.toList());
-
-        if (instanceList.isEmpty()) {
-            instanceList = versionMap.entrySet().stream()
-                    .filter(entry -> entry.getValue() != null && entry.getValue().match(requestVersion))
-                    .map(Map.Entry::getKey).collect(Collectors.toList());
-        }
-
-        if (instanceList.isEmpty()) {
+        if (!matchVersions.isEmpty()) {
+            return choose0(matchVersions);
+        } else if (!equalsVersions.isEmpty()) {
+            return choose0(equalsVersions);
+        } else if (!hasNotVersions.isEmpty()) {
+            return choose0(hasNotVersions);
+        } else {
             return null;
         }
+    }
 
+    private ServiceInstance choose0(List<ServiceInstance> instanceList) {
         return instanceList.get(RandomUtils.nextInt(0, instanceList.size()));
     }
 
@@ -89,7 +98,7 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
             versionString = StringUtils.trimToNull(request.getQueryParams().getFirst(requestKey));
         }
 
-        return Version.parse(versionString, true);
+        return Version.parse(versionString, false);
     }
 
     @Autowired
@@ -98,7 +107,7 @@ public class GrayLoadBalancerClientFilter extends LoadBalancerClientFilter {
     }
 
     @Autowired
-    public void setProperties(GrayLoadBalancerClientFilterProperties properties) {
+    public void setProperties(VersionControlProperties properties) {
         this.properties = properties;
     }
 }

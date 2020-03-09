@@ -1,4 +1,4 @@
-package net.guerlab.smart.platform.basic.gateway.gray;
+package net.guerlab.smart.platform.basic.gateway.vc;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -8,18 +8,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * 灰度控制自动配置
+ * 版本控制自动配置
  *
  * @author guer
  */
 @Configuration
-@EnableConfigurationProperties(GrayLoadBalancerClientFilterProperties.class)
-public class GrayLoadBalancerClientFilterAutoConfigure {
+@EnableConfigurationProperties(VersionControlProperties.class)
+public class VersionControlAutoConfigure {
 
     @Bean
-    @ConditionalOnMissingBean(GrayLoadBalancerClientFilter.class)
-    public GrayLoadBalancerClientFilter grayLoadBalancerClientFilter(LoadBalancerClient loadBalancer,
+    @ConditionalOnMissingBean(VersionControlFilter.class)
+    public VersionControlFilter versionControlFilter(LoadBalancerClient loadBalancer,
             LoadBalancerProperties properties) {
-        return new GrayLoadBalancerClientFilter(loadBalancer, properties);
+        return new VersionControlFilter(loadBalancer, properties);
     }
 }

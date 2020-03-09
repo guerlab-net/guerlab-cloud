@@ -1,4 +1,4 @@
-package net.guerlab.smart.platform.basic.gateway.gray;
+package net.guerlab.smart.platform.basic.gateway.vc;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,6 +21,7 @@ public class Version implements Comparable<Version> {
     /**
      * 匹配方式
      */
+    @EqualsAndHashCode.Exclude
     private VersionMatchType matchType;
 
     /**
@@ -52,29 +53,39 @@ public class Version implements Comparable<Version> {
      *
      * @param string
      *         版本号字符串
-     * @param ignoreMatchType
-     *         忽略匹配方式
      * @return 版本号对象
      */
-    public static Version parse(String string, boolean ignoreMatchType) {
+    public static Version parse(String string) {
+        return parse(string, true);
+    }
+
+    /**
+     * 解析版本号
+     *
+     * @param string
+     *         版本号字符串
+     * @param parseMatchType
+     *         解析匹配方式
+     * @return 版本号对象
+     */
+    public static Version parse(String string, boolean parseMatchType) {
         if (string == null) {
             return null;
         }
         Version version = new Version();
+        version.matchType = VersionMatchType.EQUALS;
 
-        if (string.startsWith("+")) {
-            if (!ignoreMatchType) {
-                version.matchType = VersionMatchType.UP;
+        for (VersionMatchType matchType : VersionMatchType.values()) {
+            if (matchType.symbol == null) {
+                continue;
             }
-            string = string.substring(1);
-        } else if (string.startsWith("-")) {
-            if (!ignoreMatchType) {
-                version.matchType = VersionMatchType.DOWN;
-            }
-            string = string.substring(1);
-        } else {
-            if (!ignoreMatchType) {
-                version.matchType = VersionMatchType.EQUALS;
+
+            if (string.endsWith(matchType.symbol)) {
+                if (parseMatchType) {
+                    version.matchType = matchType;
+                }
+                string = string.substring(0, string.length() - 1);
+                break;
             }
         }
 
@@ -133,32 +144,24 @@ public class Version implements Comparable<Version> {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder("Version[");
-        builder.append(matchType.display);
-        if (major == null) {
-            builder.append("unknow]");
-            return builder.toString();
-        }
-        builder.append(major);
+        builder.append(major == null ? "unknow" : major);
 
-        if (minor == null) {
-            return builder.append("]").toString();
-        }
-        builder.append(".");
-        builder.append(minor);
+        if (minor != null) {
+            builder.append(".");
+            builder.append(minor);
 
-        if (revision == null) {
-            return builder.append("]").toString();
-        }
-        builder.append(".");
-        builder.append(revision);
+            if (revision != null) {
+                builder.append(".");
+                builder.append(revision);
 
-        if (ext == null) {
-            return builder.append("]").toString();
+                if (ext != null) {
+                    builder.append(".");
+                    builder.append(ext);
+                }
+            }
         }
-        builder.append(".");
-        builder.append(ext);
 
-        return builder.append("]").toString();
+        return builder.append(matchType.display).append("]").toString();
     }
 
     @Override

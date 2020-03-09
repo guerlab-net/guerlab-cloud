@@ -14,8 +14,8 @@
     },
     {
       "name": "spring.cloud.gateway.gray",
-      "type": "net.guerlab.smart.platform.basic.gateway.gray.GrayLoadBalancerClientFilterProperties",
-      "sourceType": "net.guerlab.smart.platform.basic.gateway.gray.GrayLoadBalancerClientFilterProperties",
+      "type": "net.guerlab.smart.platform.basic.gateway.vc.VersionControlProperties",
+      "sourceType": "net.guerlab.smart.platform.basic.gateway.vc.VersionControlProperties",
       "description": "灰度配置s."
     }
   ],
@@ -62,15 +62,15 @@
       "description": "单服务配置表."
     },
     {
-      "name": "spring.cloud.gateway.gray.request-key",
+      "name": "spring.cloud.gateway.version-control.request-key",
       "type": "java.lang.String",
-      "sourceType": "net.guerlab.smart.platform.basic.gateway.gray.GrayLoadBalancerClientFilterProperties",
+      "sourceType": "net.guerlab.smart.platform.basic.gateway.vc.VersionControlProperties",
       "description": "请求关键字."
     },
     {
-      "name": "spring.cloud.gateway.gray.metadata-key",
+      "name": "spring.cloud.gateway.version-control.metadata-key",
       "type": "java.lang.String",
-      "sourceType": "net.guerlab.smart.platform.basic.gateway.gray.GrayLoadBalancerClientFilterProperties",
+      "sourceType": "net.guerlab.smart.platform.basic.gateway.vc.VersionControlProperties",
       "description": "元信息关键字."
     }
   ]
