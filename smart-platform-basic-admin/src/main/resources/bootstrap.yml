@@ -1,0 +1,29 @@
+server:
+  port: 48080
+nacos:
+  hostname: nacos
+  port: 8848
+  namespace:
+spring:
+  main:
+    banner-mode: 'OFF'
+  application:
+    name: admin
+  cloud:
+    nacos:
+      config:
+        server-addr: ${nacos.hostname}:${nacos.port}
+        file-extension: yml
+        namespace: ${nacos.namespace}
+        shared-configs:
+          - data-id: global.yml
+            refresh: true
+          - data-id: security.yml
+            refresh: true
+      discovery:
+        server-addr: ${nacos.hostname}:${nacos.port}
+        namespace: ${nacos.namespace}
+logging:
+  level:
+    root: ERROR
+    net.guerlab.smart.platform: INFO

@@ -71,6 +71,12 @@
             <artifactId>spring-cloud-security</artifactId>
         </dependency>
 
+        <!-- spring boot admin -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>
+
         <!-- Seata -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
