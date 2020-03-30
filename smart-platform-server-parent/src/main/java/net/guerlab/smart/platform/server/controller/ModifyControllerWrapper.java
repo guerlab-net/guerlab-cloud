@@ -1,5 +1,6 @@
 package net.guerlab.smart.platform.server.controller;
 
+import net.guerlab.smart.platform.commons.entity.BaseEntity;
 import net.guerlab.spring.commons.dto.ConvertDTO;
 import org.springframework.beans.BeanUtils;
 
@@ -27,7 +28,14 @@ public interface ModifyControllerWrapper<D, E extends ConvertDTO<D>, PK> {
      *         主键
      */
     default void copyProperties(D dto, E entity, PK id) {
-        BeanUtils.copyProperties(dto, entity);
+        if (entity instanceof BaseEntity) {
+            BaseEntity tempEntity = (BaseEntity) entity;
+            Long version = tempEntity.getVersion();
+            BeanUtils.copyProperties(dto, entity);
+            tempEntity.setVersion(version);
+        } else {
+            BeanUtils.copyProperties(dto, entity);
+        }
     }
 
 }
