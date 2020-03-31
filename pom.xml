@@ -46,7 +46,7 @@
     </issueManagement>
 
     <properties>
-        <revision>1.0.1</revision>
+        <revision>1.0.2</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>11</java.version>
@@ -217,6 +217,13 @@
                 <version>${revision}</version>
             </dependency>
 
+            <!-- smart-platform cache -->
+            <dependency>
+                <groupId>net.guerlab.smart.platform</groupId>
+                <artifactId>smart-platform-cache-redis</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
             <!-- smart-platform commons -->
             <dependency>
                 <groupId>net.guerlab.smart.platform</groupId>
@@ -270,6 +277,7 @@
         <module>smart-platform-basic-auth</module>
         <module>smart-platform-basic-gateway</module>
         <module>smart-platform-basic-swagger</module>
+        <module>smart-platform-cache-redis</module>
         <module>smart-platform-commons</module>
         <module>smart-platform-server-parent</module>
         <module>smart-platform-stream</module>
