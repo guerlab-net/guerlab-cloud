@@ -46,7 +46,7 @@
     </issueManagement>
 
     <properties>
-        <revision>1.0.2</revision>
+        <revision>1.1.0</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>11</java.version>
@@ -237,6 +237,11 @@
                 <artifactId>smart-platform-server-parent</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>net.guerlab.smart.platform</groupId>
+                <artifactId>smart-platform-server-orm</artifactId>
+                <version>${revision}</version>
+            </dependency>
 
             <!-- smart-platform stream -->
             <dependency>
@@ -282,5 +287,6 @@
         <module>smart-platform-server-parent</module>
         <module>smart-platform-stream</module>
         <module>smart-platform-basic-admin</module>
+        <module>smart-platform-server-orm</module>
     </modules>
 </project>

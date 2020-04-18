@@ -32,20 +32,6 @@
             </exclusions>
         </dependency>
 
-        <!-- tk.mapper -->
-        <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.guerlab.spring</groupId>
-            <artifactId>guerlab-spring-searchparams-tkmapper</artifactId>
-        </dependency>
-
         <!-- spring boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -75,13 +61,6 @@
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
-        </dependency>
-
-        <!-- Seata -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-            <optional>true</optional>
         </dependency>
 
         <!-- spring cloud alibaba -->
