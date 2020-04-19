@@ -1,13 +1,15 @@
 spring:
   cloud:
     gateway:
-      rewrite-to-polymerization:
-        enable: false
+      rewrite-to-polymerization: #聚合服务
+        enable: false #是否启用
+        service-names: polymerization-web #聚合目标
       discovery:
         locator:
           enabled: true
           lower-case-service-id: true
           route-id-prefix: discovery_
+          include-expression: ((!serviceId.endsWith('-api')) && (!serviceId.endsWith('-internal')))
       routes:
         - id: swagger
           uri: lb://swagger

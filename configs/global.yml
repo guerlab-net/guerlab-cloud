@@ -31,6 +31,9 @@ spring:
       enabled: true
       max-file-size: -1
       max-request-size: -1
+  sleuth:
+    sampler:
+      probability: 1
 hystrix:
   command:
     default:
