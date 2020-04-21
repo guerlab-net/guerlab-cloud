@@ -36,8 +36,30 @@ public interface DeleteController<D, E extends ConvertDTO<D>, S extends BaseServ
     @DeleteMapping("/{id}")
     default void delete(@ApiParam(value = "id", required = true) @PathVariable PK id,
             @ApiParam(value = "强制删除标志") @RequestParam(required = false) Boolean force) {
-        findOne0(id);
+        E entity = findOne0(id);
+        beforeDelete(entity);
         getService().deleteById(id, force);
+        afterDelete(entity);
+    }
+
+    /**
+     * 删除前置
+     *
+     * @param entity
+     *         实体
+     */
+    default void beforeDelete(E entity) {
+
+    }
+
+    /**
+     * 删除后置
+     *
+     * @param entity
+     *         实体
+     */
+    default void afterDelete(E entity) {
+
     }
 
 }

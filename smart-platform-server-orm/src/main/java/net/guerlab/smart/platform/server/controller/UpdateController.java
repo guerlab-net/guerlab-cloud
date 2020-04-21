@@ -38,12 +38,35 @@ public interface UpdateController<D, E extends ConvertDTO<D>, S extends BaseServ
     default D update(@ApiParam(value = "id", required = true) @PathVariable PK id,
             @ApiParam(value = "对象数据", required = true) @RequestBody D dto) {
         E entity = findOne0(id);
-
+        beforeUpdate(entity, dto);
         copyProperties(dto, entity, id);
-
         getService().updateSelectiveById(entity);
-
+        afterUpdate(entity, dto);
         return getService().selectById(id).toDTO();
+    }
+
+    /**
+     * 编辑前置
+     *
+     * @param entity
+     *         实体
+     * @param dto
+     *         dto对象
+     */
+    default void beforeUpdate(E entity, D dto) {
+
+    }
+
+    /**
+     * 编辑后置
+     *
+     * @param entity
+     *         实体
+     * @param dto
+     *         dto对象
+     */
+    default void afterUpdate(E entity, D dto) {
+
     }
 
 }

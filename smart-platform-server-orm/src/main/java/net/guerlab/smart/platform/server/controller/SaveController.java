@@ -34,12 +34,33 @@ public interface SaveController<D, E extends ConvertDTO<D>, S extends BaseServic
     @PostMapping
     default D save(@ApiParam(value = "对象数据", required = true) @RequestBody D dto) {
         E entity = newEntity();
-
+        beforeSave(dto);
         copyProperties(dto, entity, null);
-
         getService().insert(entity);
-
+        afterSave(entity, dto);
         return entity.toDTO();
+    }
+
+    /**
+     * 保存前置
+     *
+     * @param dto
+     *         dto对象
+     */
+    default void beforeSave(D dto) {
+
+    }
+
+    /**
+     * 保存后置
+     *
+     * @param entity
+     *         实体
+     * @param dto
+     *         dto对象
+     */
+    default void afterSave(E entity, D dto) {
+
     }
 
 }
