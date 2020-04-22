@@ -38,6 +38,7 @@ spring:
     base-url:
   cloud:
     sentinel:
+      eager: true
       transport:
         dashboard:
 hystrix:

@@ -1,5 +1,8 @@
 spring:
   cloud:
+    sentinel:
+      scg:
+        enabled: true
     gateway:
       rewrite-to-polymerization: #聚合服务
         enable: false #是否启用
