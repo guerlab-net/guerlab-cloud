@@ -160,6 +160,7 @@ public class ExcelUtils {
         builder.registerConverter(GenderConverter.INSTANCE);
         builder.registerConverter(MultiIdConverter.INSTANCE);
         builder.registerConverter(MultiStringConverter.INSTANCE);
+        builder.registerConverter(LongConverter.INSTANCE);
         return builder;
     }
 }
