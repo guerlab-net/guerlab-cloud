@@ -157,6 +157,9 @@ public class ExcelUtils {
         builder.registerConverter(LocalDateTimeConverter.INSTANCE);
         builder.registerConverter(LocalTimeConverter.INSTANCE);
         builder.registerConverter(BooleanConverter.INSTANCE);
+        builder.registerConverter(GenderConverter.INSTANCE);
+        builder.registerConverter(MultiIdConverter.INSTANCE);
+        builder.registerConverter(MultiStringConverter.INSTANCE);
         return builder;
     }
 }
