@@ -46,7 +46,7 @@
     </issueManagement>
 
     <properties>
-        <revision>20.0.3</revision>
+        <revision>20.1.0</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>11</java.version>
