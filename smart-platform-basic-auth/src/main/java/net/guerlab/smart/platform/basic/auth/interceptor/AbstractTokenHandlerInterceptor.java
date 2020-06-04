@@ -1,7 +1,9 @@
 package net.guerlab.smart.platform.basic.auth.interceptor;
 
+import net.guerlab.smart.platform.basic.auth.properties.AuthProperties;
 import net.guerlab.smart.platform.commons.Constants;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 
 import javax.servlet.http.Cookie;
@@ -10,11 +12,18 @@ import java.util.Arrays;
 import java.util.Optional;
 
 /**
- * token处理
+ * 抽象token处理
  *
+ * @param <A>
+ *         授权配置类型
  * @author guer
  */
-public abstract class AbstractTokenHandlerInterceptor extends AbstractHandlerInterceptor {
+public abstract class AbstractTokenHandlerInterceptor<A extends AuthProperties> extends AbstractHandlerInterceptor {
+
+    /**
+     * 授权配置
+     */
+    protected A authProperties;
 
     @Override
     protected void preHandle0(HttpServletRequest request, HandlerMethod handlerMethod) {
@@ -66,5 +75,25 @@ public abstract class AbstractTokenHandlerInterceptor extends AbstractHandlerInt
         }
 
         return request.getParameter(Constants.TOKEN);
+    }
+
+    /**
+     * 获取授权配置
+     *
+     * @return 授权配置
+     */
+    public A getAuthProperties() {
+        return authProperties;
+    }
+
+    /**
+     * 设置授权配置
+     *
+     * @param authProperties
+     *         授权配置
+     */
+    @Autowired
+    public void setAuthProperties(A authProperties) {
+        this.authProperties = authProperties;
     }
 }
