@@ -21,7 +21,6 @@ public abstract class AbstractHandlerInterceptor extends HandlerInterceptorAdapt
 
     private static final String[] METHODS = new String[] { "OPTIONS", "TRACE" };
 
-    @Autowired
     protected ResponseAdvisorProperties responseAdvisorProperties;
 
     /**
@@ -87,5 +86,10 @@ public abstract class AbstractHandlerInterceptor extends HandlerInterceptorAdapt
         String uri = request.getRequestURI();
 
         return responseAdvisorProperties.getExcluded().stream().anyMatch(uri::startsWith);
+    }
+
+    @Autowired
+    public void setResponseAdvisorProperties(ResponseAdvisorProperties responseAdvisorProperties) {
+        this.responseAdvisorProperties = responseAdvisorProperties;
     }
 }
