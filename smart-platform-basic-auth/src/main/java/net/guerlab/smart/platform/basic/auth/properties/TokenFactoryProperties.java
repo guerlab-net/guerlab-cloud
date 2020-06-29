@@ -2,13 +2,25 @@ package net.guerlab.smart.platform.basic.auth.properties;
 
 import lombok.Data;
 
+import java.util.Collection;
+
 /**
- * jwt配置
+ * token 工厂配置
  *
  * @author guer
  */
 @Data
-public class JwtProperties {
+public class TokenFactoryProperties {
+
+    /**
+     * 允许的IP列表
+     */
+    private Collection<String> allowIpList;
+
+    /**
+     * 拒绝的IP列表
+     */
+    private Collection<String> denyIpList;
 
     /**
      * accessToken SigningKey

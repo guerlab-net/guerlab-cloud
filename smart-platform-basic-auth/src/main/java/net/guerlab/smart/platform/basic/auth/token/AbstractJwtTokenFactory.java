@@ -1,10 +1,9 @@
-package net.guerlab.smart.platform.basic.auth.utils;
+package net.guerlab.smart.platform.basic.auth.token;
 
 import io.jsonwebtoken.*;
 import net.guerlab.smart.platform.basic.auth.domain.TokenInfo;
 import net.guerlab.smart.platform.basic.auth.enums.TokenType;
-import net.guerlab.smart.platform.basic.auth.properties.JwtProperties;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.guerlab.smart.platform.basic.auth.properties.JwtTokenFactoryProperties;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
@@ -14,15 +13,12 @@ import java.time.ZoneId;
 import java.util.Date;
 
 /**
- * 抽象jwt助手
+ * 抽象jwt token工厂
  *
  * @author guer
  */
-public abstract class AbstractJwtHelper<T, P extends JwtProperties> {
-
-    public static final String CONNECTORS = " ";
-
-    private P properties;
+public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProperties>
+        extends AbstractTokenFactory<T, P> {
 
     private static JwtBuilder builder() {
         JwtBuilder builder = Jwts.builder();
@@ -57,9 +53,9 @@ public abstract class AbstractJwtHelper<T, P extends JwtProperties> {
         return tokenInfo;
     }
 
-    private static Jws<Claims> parserToken(String token, String key, TokenType tokenType) {
+    private static Jws<Claims> parserToken(String token, String signingKey, TokenType tokenType) {
         try {
-            return Jwts.parser().setSigningKey(createKey(key)).parseClaimsJws(token);
+            return Jwts.parser().setSigningKey(createKey(signingKey)).parseClaimsJws(token);
         } catch (ExpiredJwtException e) {
             throw tokenType.expiredException();
         } catch (MalformedJwtException | SignatureException | UnsupportedJwtException | IllegalArgumentException e) {
@@ -71,10 +67,7 @@ public abstract class AbstractJwtHelper<T, P extends JwtProperties> {
         return DatatypeConverter.parseBase64Binary(key == null ? "" : key);
     }
 
-    protected static String getObjectValue(Object obj) {
-        return obj == null ? "" : obj.toString();
-    }
-
+    @Override
     public final TokenInfo generateByAccessToken(T entity) {
         JwtBuilder builder = builder();
         generateToken0(builder, entity);
@@ -83,6 +76,7 @@ public abstract class AbstractJwtHelper<T, P extends JwtProperties> {
                 properties.getAccessTokenSigningKey());
     }
 
+    @Override
     public final TokenInfo generateByRefreshToken(T entity) {
         JwtBuilder builder = builder();
         generateToken0(builder, entity);
@@ -91,12 +85,14 @@ public abstract class AbstractJwtHelper<T, P extends JwtProperties> {
                 properties.getRefreshTokenSigningKey());
     }
 
-    public final T parseByAccessTokenKey(String token) {
+    @Override
+    public final T parseByAccessToken(String token) {
         Claims body = parserToken(token, properties.getAccessTokenSigningKey(), TokenType.ACCESS_TOKEN).getBody();
         return parse0(body);
     }
 
-    public final T parseByRefreshTokenKey(String token) {
+    @Override
+    public final T parseByRefreshToken(String token) {
         Claims body = parserToken(token, properties.getRefreshTokenSigningKey(), TokenType.REFRESH_TOKEN).getBody();
         return parse0(body);
     }
@@ -119,18 +115,4 @@ public abstract class AbstractJwtHelper<T, P extends JwtProperties> {
      *         实体
      */
     protected abstract void generateToken0(JwtBuilder builder, T entity);
-
-    /**
-     * 获取前缀
-     *
-     * @return 前缀
-     */
-    @SuppressWarnings("SameReturnValue")
-    protected abstract String getPrefix();
-
-    @Autowired
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    public void setProperties(P properties) {
-        this.properties = properties;
-    }
 }
