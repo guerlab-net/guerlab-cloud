@@ -54,7 +54,7 @@ public abstract class BaseServiceImpl<T, PK, M extends Mapper<T>> implements Bas
 
     @Override
     public T selectOne(AbstractSearchParams searchParams) {
-        Example example = getExample(searchParams);
+        Example example = getExampleWithSelectMethod(searchParams);
         return mapper.selectOneByExample(example);
     }
 
@@ -80,14 +80,14 @@ public abstract class BaseServiceImpl<T, PK, M extends Mapper<T>> implements Bas
 
     @Override
     public Collection<T> selectAll(AbstractSearchParams searchParams) {
-        Example example = getExample(searchParams);
+        Example example = getExampleWithSelectMethod(searchParams);
 
         return mapper.selectByExample(example);
     }
 
     @Override
     public ListObject<T> selectPage(AbstractSearchParams searchParams) {
-        Example example = getExample(searchParams);
+        Example example = getExampleWithSelectMethod(searchParams);
 
         int pageId = Math.max(searchParams.getPageId(), 1);
         int pageSize = searchParams.getPageSize();
@@ -112,7 +112,7 @@ public abstract class BaseServiceImpl<T, PK, M extends Mapper<T>> implements Bas
 
     @Override
     public int selectCount(AbstractSearchParams searchParams) {
-        Example example = getExample(searchParams);
+        Example example = getExampleWithSelectMethod(searchParams);
 
         return mapper.selectCountByExample(example);
     }
