@@ -15,12 +15,12 @@ public class TokenFactoryProperties {
     /**
      * 启用标志
      */
-    private boolean enabled;
+    private boolean enabled = true;
 
     /**
      * 默认工厂
      */
-    private boolean defaultFactory;
+    private boolean defaultFactory = false;
 
     /**
      * 允许的IP列表

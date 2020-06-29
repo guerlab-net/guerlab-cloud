@@ -1,4 +1,4 @@
-package net.guerlab.smart.platform.basic.auth.token;
+package net.guerlab.smart.platform.basic.auth.factory;
 
 import net.guerlab.smart.platform.basic.auth.domain.TokenInfo;
 import net.guerlab.smart.platform.basic.auth.enums.TokenType;
@@ -28,8 +28,7 @@ public abstract class AbstractMd5TokenFactory<T, P extends Md5TokenFactoryProper
 
     private static final String TOKEN_CONNECTORS = ".";
 
-    private static TokenInfo build(String prefix, TokenType tokenType, Map<String, String> data, long expire,
-            String signingKey) {
+    private static TokenInfo build(String prefix, Map<String, String> data, long expire, String signingKey) {
         long nowMillis = System.currentTimeMillis();
         Date exp = null;
         LocalDateTime expireAt = null;
@@ -52,7 +51,7 @@ public abstract class AbstractMd5TokenFactory<T, P extends Md5TokenFactoryProper
         TokenInfo tokenInfo = new TokenInfo();
         tokenInfo.setExpire(exp == null ? -1 : expire);
         tokenInfo.setExpireAt(expireAt);
-        tokenInfo.setToken(prefix + CONNECTORS + tokenType.simpleName() + CONNECTORS + builder);
+        tokenInfo.setToken(prefix + builder);
 
         return tokenInfo;
     }
@@ -65,7 +64,13 @@ public abstract class AbstractMd5TokenFactory<T, P extends Md5TokenFactoryProper
         }
 
         String dataString = new String(Base64.getDecoder().decode(token.substring(0, index)));
-        String tokenSign = token.substring(index);
+        String tokenSign = token.substring(index + 1);
+
+        String sign = DigestUtils.md5Hex(dataString + TOKEN_CONNECTORS + signingKey);
+
+        if (!Objects.equals(sign, tokenSign)) {
+            throw tokenType.invalidException();
+        }
 
         Map<String, String> data = new HashMap<>(8);
 
@@ -75,12 +80,6 @@ public abstract class AbstractMd5TokenFactory<T, P extends Md5TokenFactoryProper
                 continue;
             }
             data.put(keyValues[0], keyValues[1]);
-        }
-
-        String sign = DigestUtils.md5Hex(dataString + TOKEN_CONNECTORS + signingKey);
-
-        if (Objects.equals(sign, tokenSign)) {
-            throw tokenType.invalidException();
         }
 
         long now = System.currentTimeMillis();
@@ -116,7 +115,7 @@ public abstract class AbstractMd5TokenFactory<T, P extends Md5TokenFactoryProper
         Map<String, String> data = new HashMap<>(8);
         generateToken0(data, entity);
 
-        return build(getPrefix(), TokenType.ACCESS_TOKEN, data, properties.getAccessTokenExpire(),
+        return build(getAccessTokenPrefix(), data, properties.getAccessTokenExpire(),
                 properties.getAccessTokenSigningKey());
     }
 
@@ -125,19 +124,23 @@ public abstract class AbstractMd5TokenFactory<T, P extends Md5TokenFactoryProper
         Map<String, String> data = new HashMap<>(8);
         generateToken0(data, entity);
 
-        return build(getPrefix(), TokenType.REFRESH_TOKEN, data, properties.getRefreshTokenExpire(),
+        return build(getRefreshTokenPrefix(), data, properties.getRefreshTokenExpire(),
                 properties.getRefreshTokenSigningKey());
     }
 
     @Override
     public final T parseByAccessToken(String token) {
-        Map<String, String> body = parserToken(token, properties.getAccessTokenSigningKey(), TokenType.ACCESS_TOKEN);
+        String accessToken = token.substring(getAccessTokenPrefix().length());
+        Map<String, String> body = parserToken(accessToken, properties.getAccessTokenSigningKey(),
+                TokenType.ACCESS_TOKEN);
         return parse0(body);
     }
 
     @Override
     public final T parseByRefreshToken(String token) {
-        Map<String, String> body = parserToken(token, properties.getRefreshTokenSigningKey(), TokenType.REFRESH_TOKEN);
+        String refreshToken = token.substring(getRefreshTokenPrefix().length());
+        Map<String, String> body = parserToken(refreshToken, properties.getRefreshTokenSigningKey(),
+                TokenType.REFRESH_TOKEN);
         return parse0(body);
     }
 

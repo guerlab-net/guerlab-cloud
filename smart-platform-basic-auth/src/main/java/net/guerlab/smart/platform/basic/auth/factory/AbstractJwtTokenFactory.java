@@ -1,4 +1,4 @@
-package net.guerlab.smart.platform.basic.auth.token;
+package net.guerlab.smart.platform.basic.auth.factory;
 
 import io.jsonwebtoken.*;
 import net.guerlab.smart.platform.basic.auth.domain.TokenInfo;
@@ -27,8 +27,7 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
         return builder;
     }
 
-    private static TokenInfo build(String prefix, TokenType tokenType, JwtBuilder builder, long expire,
-            String signingKey) {
+    private static TokenInfo build(String prefix, JwtBuilder builder, long expire, String signingKey) {
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
         Date exp = null;
@@ -48,7 +47,7 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
         TokenInfo tokenInfo = new TokenInfo();
         tokenInfo.setExpire(exp == null ? -1 : expire);
         tokenInfo.setExpireAt(expireAt);
-        tokenInfo.setToken(prefix + CONNECTORS + tokenType.simpleName() + CONNECTORS + builder.compact());
+        tokenInfo.setToken(prefix + builder.compact());
 
         return tokenInfo;
     }
@@ -72,7 +71,7 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
         JwtBuilder builder = builder();
         generateToken0(builder, entity);
 
-        return build(getPrefix(), TokenType.ACCESS_TOKEN, builder, properties.getAccessTokenExpire(),
+        return build(getAccessTokenPrefix(), builder, properties.getAccessTokenExpire(),
                 properties.getAccessTokenSigningKey());
     }
 
@@ -81,19 +80,22 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
         JwtBuilder builder = builder();
         generateToken0(builder, entity);
 
-        return build(getPrefix(), TokenType.REFRESH_TOKEN, builder, properties.getRefreshTokenExpire(),
+        return build(getRefreshTokenPrefix(), builder, properties.getRefreshTokenExpire(),
                 properties.getRefreshTokenSigningKey());
     }
 
     @Override
     public final T parseByAccessToken(String token) {
-        Claims body = parserToken(token, properties.getAccessTokenSigningKey(), TokenType.ACCESS_TOKEN).getBody();
+        String accessToken = token.substring(getAccessTokenPrefix().length());
+        Claims body = parserToken(accessToken, properties.getAccessTokenSigningKey(), TokenType.ACCESS_TOKEN).getBody();
         return parse0(body);
     }
 
     @Override
     public final T parseByRefreshToken(String token) {
-        Claims body = parserToken(token, properties.getRefreshTokenSigningKey(), TokenType.REFRESH_TOKEN).getBody();
+        String refreshToken = token.substring(getRefreshTokenPrefix().length());
+        Claims body = parserToken(refreshToken, properties.getRefreshTokenSigningKey(), TokenType.REFRESH_TOKEN)
+                .getBody();
         return parse0(body);
     }
 

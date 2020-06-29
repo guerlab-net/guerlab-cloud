@@ -1,5 +1,6 @@
-package net.guerlab.smart.platform.basic.auth.token;
+package net.guerlab.smart.platform.basic.auth.factory;
 
+import net.guerlab.smart.platform.basic.auth.enums.TokenType;
 import net.guerlab.smart.platform.basic.auth.properties.TokenFactoryProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,6 +34,11 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
         return obj == null ? "" : obj.toString();
     }
 
+    @Override
+    public final String getAccessTokenPrefix() {
+        return getPrefix() + TokenFactory.CONNECTORS + TokenType.SIMPLE_NAME_ACCESS_TOKEN + TokenFactory.CONNECTORS;
+    }
+
     /**
      * 获取前缀
      *
@@ -40,6 +46,11 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
      */
     @SuppressWarnings("SameReturnValue")
     protected abstract String getPrefix();
+
+    @Override
+    public final String getRefreshTokenPrefix() {
+        return getPrefix() + TokenFactory.CONNECTORS + TokenType.SIMPLE_NAME_REFRESH_TOKEN + TokenFactory.CONNECTORS;
+    }
 
     @Autowired
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
