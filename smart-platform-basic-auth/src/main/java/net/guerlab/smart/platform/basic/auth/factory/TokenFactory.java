@@ -10,7 +10,7 @@ import org.springframework.core.Ordered;
  *         数据实体类型
  * @author guer
  */
-public interface TokenFactory<T> extends Ordered {
+public interface TokenFactory<T> extends Ordered, Comparable<TokenFactory<?>> {
 
     /**
      * 链接符

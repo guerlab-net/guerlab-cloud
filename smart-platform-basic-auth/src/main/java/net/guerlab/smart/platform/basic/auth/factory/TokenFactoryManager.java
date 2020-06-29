@@ -2,10 +2,8 @@ package net.guerlab.smart.platform.basic.auth.factory;
 
 import net.guerlab.smart.platform.commons.exception.NotFoundCanUseTokenFactoryException;
 import net.guerlab.spring.commons.util.SpringApplicationContextUtil;
-import org.springframework.core.Ordered;
 
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -83,6 +81,6 @@ public class TokenFactoryManager {
             }
         }
 
-        return streamBuilder.build().filter(TokenFactory::enabled).sorted(Comparator.comparingInt(Ordered::getOrder));
+        return streamBuilder.build().filter(TokenFactory::enabled).sorted();
     }
 }

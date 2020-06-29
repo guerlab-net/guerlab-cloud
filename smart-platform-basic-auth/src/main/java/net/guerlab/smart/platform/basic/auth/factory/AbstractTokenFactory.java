@@ -71,6 +71,23 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
         return properties.getOrder();
     }
 
+    @Override
+    public int compareTo(TokenFactory<?> o) {
+        if (o == null) {
+            return -1;
+        }
+
+        if (isDefault() && o.isDefault()) {
+            return getOrder() - o.getOrder();
+        } else if (isDefault()) {
+            return -1;
+        } else if (o.isDefault()) {
+            return 1;
+        }
+
+        return getOrder() - o.getOrder();
+    }
+
     @Autowired
     public void setProperties(P properties) {
         this.properties = properties;
