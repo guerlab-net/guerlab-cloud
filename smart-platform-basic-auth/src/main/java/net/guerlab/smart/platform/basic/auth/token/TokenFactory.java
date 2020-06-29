@@ -17,6 +17,20 @@ public interface TokenFactory<T> {
     String CONNECTORS = " ";
 
     /**
+     * 是否已启用
+     *
+     * @return 已启用
+     */
+    boolean enabled();
+
+    /**
+     * 是否为默认token工厂
+     *
+     * @return 否为默认token工厂
+     */
+    boolean isDefault();
+
+    /**
      * 构造access token
      *
      * @param entity

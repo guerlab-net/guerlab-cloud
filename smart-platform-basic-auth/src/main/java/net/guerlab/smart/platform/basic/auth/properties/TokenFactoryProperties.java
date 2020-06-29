@@ -13,6 +13,16 @@ import java.util.Collection;
 public class TokenFactoryProperties {
 
     /**
+     * 启用标志
+     */
+    private boolean enabled;
+
+    /**
+     * 默认工厂
+     */
+    private boolean defaultFactory;
+
+    /**
      * 允许的IP列表
      */
     private Collection<String> allowIpList;

@@ -19,6 +19,16 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
      */
     protected P properties;
 
+    @Override
+    public boolean enabled() {
+        return properties.isEnabled();
+    }
+
+    @Override
+    public boolean isDefault() {
+        return properties.isDefaultFactory();
+    }
+
     protected static String getObjectValue(Object obj) {
         return obj == null ? "" : obj.toString();
     }
