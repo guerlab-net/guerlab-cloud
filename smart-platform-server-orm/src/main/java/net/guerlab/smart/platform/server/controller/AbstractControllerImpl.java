@@ -2,8 +2,8 @@ package net.guerlab.smart.platform.server.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.commons.exception.ApplicationException;
+import net.guerlab.smart.platform.commons.util.ParameterizedTypeUtils;
 import net.guerlab.smart.platform.server.service.BaseFindService;
-import net.guerlab.smart.platform.server.utils.ParameterizedTypeUtils;
 import net.guerlab.spring.commons.dto.ConvertDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 

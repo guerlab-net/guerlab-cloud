@@ -1,4 +1,4 @@
-package net.guerlab.smart.platform.server.utils;
+package net.guerlab.smart.platform.commons.util;
 
 import net.guerlab.spring.commons.util.SpringApplicationContextUtil;
 import org.springframework.core.env.Environment;

@@ -2,6 +2,7 @@ package net.guerlab.smart.platform.basic.auth.factory;
 
 import net.guerlab.smart.platform.basic.auth.enums.TokenType;
 import net.guerlab.smart.platform.basic.auth.properties.TokenFactoryProperties;
+import net.guerlab.smart.platform.commons.ip.IpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -30,15 +31,6 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
         return properties.isDefaultFactory();
     }
 
-    protected static String getObjectValue(Object obj) {
-        return obj == null ? "" : obj.toString();
-    }
-
-    @Override
-    public final String getAccessTokenPrefix() {
-        return getPrefix() + TokenFactory.CONNECTORS + TokenType.SIMPLE_NAME_ACCESS_TOKEN + TokenFactory.CONNECTORS;
-    }
-
     /**
      * 获取前缀
      *
@@ -47,14 +39,40 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
     @SuppressWarnings("SameReturnValue")
     protected abstract String getPrefix();
 
+    protected static String getObjectValue(Object obj) {
+        return obj == null ? "" : obj.toString();
+    }
+
     @Override
     public final String getRefreshTokenPrefix() {
         return getPrefix() + TokenFactory.CONNECTORS + TokenType.SIMPLE_NAME_REFRESH_TOKEN + TokenFactory.CONNECTORS;
     }
 
+    @Override
+    public final String getAccessTokenPrefix() {
+        return getPrefix() + TokenFactory.CONNECTORS + TokenType.SIMPLE_NAME_ACCESS_TOKEN + TokenFactory.CONNECTORS;
+    }
+
+    @Override
+    public final boolean acceptIp(String ip) {
+        if (IpUtils.inList(properties.getDenyIpList(), ip)) {
+            return false;
+        }
+
+        if (properties.getAllowIpList() == null || properties.getAllowIpList().isEmpty()) {
+            return true;
+        }
+
+        return IpUtils.inList(properties.getAllowIpList(), ip);
+    }
+
     @Autowired
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public void setProperties(P properties) {
         this.properties = properties;
+    }
+
+    @Override
+    public final int getOrder() {
+        return properties.getOrder();
     }
 }

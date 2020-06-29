@@ -1,8 +1,11 @@
-package net.guerlab.smart.platform.server.utils;
+package net.guerlab.smart.platform.commons.ip;
 
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * IP地址工具类
@@ -20,6 +23,38 @@ public class IpUtils {
 
     private IpUtils() {
 
+    }
+
+    public static boolean inList(Collection<String> ips, String ip) {
+        if (ips == null || ips.isEmpty() || ip == null) {
+            return false;
+        }
+
+        IPv4Address address;
+        try {
+            address = new IPv4Address(ip);
+        } catch (Exception e) {
+            return false;
+        }
+        Collection<IPv4AddressRange> ranges = ips.stream().map(IpUtils::buildIPv4AddressRange).filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        if (ranges.isEmpty()) {
+            return false;
+        }
+
+        final IPv4Address iPv4Address = address;
+
+        return ips.stream().map(IpUtils::buildIPv4AddressRange).filter(Objects::nonNull)
+                .anyMatch(range -> range.contains(iPv4Address));
+    }
+
+    private static IPv4AddressRange buildIPv4AddressRange(String ipRange) {
+        try {
+            return new IPv4AddressRange(ipRange);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**

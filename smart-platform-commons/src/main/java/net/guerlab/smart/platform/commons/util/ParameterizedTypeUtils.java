@@ -1,4 +1,4 @@
-package net.guerlab.smart.platform.server.utils;
+package net.guerlab.smart.platform.commons.util;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

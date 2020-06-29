@@ -1,6 +1,7 @@
 package net.guerlab.smart.platform.basic.auth.factory;
 
 import net.guerlab.smart.platform.basic.auth.domain.TokenInfo;
+import org.springframework.core.Ordered;
 
 /**
  * 抽象token工厂
@@ -9,7 +10,7 @@ import net.guerlab.smart.platform.basic.auth.domain.TokenInfo;
  *         数据实体类型
  * @author guer
  */
-public interface TokenFactory<T> {
+public interface TokenFactory<T> extends Ordered {
 
     /**
      * 链接符
@@ -76,6 +77,15 @@ public interface TokenFactory<T> {
     default boolean acceptRefreshToken(String token) {
         return token != null && token.startsWith(getRefreshTokenPrefix());
     }
+
+    /**
+     * 判断是否使用该token工厂
+     *
+     * @param ip
+     *         ip
+     * @return 是否使用
+     */
+    boolean acceptIp(String ip);
 
     /**
      * 获取可使用的对象类型

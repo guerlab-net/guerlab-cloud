@@ -27,9 +27,9 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthProperties> 
 
     @Override
     protected void preHandle0(HttpServletRequest request, HandlerMethod handlerMethod) {
-        String token = StringUtils.trim(getToken(request));
+        String token = StringUtils.trimToNull(getToken(request));
 
-        if (StringUtils.isNotBlank(token) && accept(token)) {
+        if (token != null && accept(token, request)) {
             setTokenInfo(token);
         }
     }
@@ -39,9 +39,11 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthProperties> 
      *
      * @param token
      *         token
+     * @param request
+     *         请求对象
      * @return 是否处理该token
      */
-    protected abstract boolean accept(String token);
+    protected abstract boolean accept(String token, HttpServletRequest request);
 
     /**
      * 设置Token信息

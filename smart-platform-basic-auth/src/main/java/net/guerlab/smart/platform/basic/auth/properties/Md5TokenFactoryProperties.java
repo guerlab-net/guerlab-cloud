@@ -10,4 +10,25 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Md5TokenFactoryProperties extends TokenFactoryProperties {}
+public class Md5TokenFactoryProperties extends TokenFactoryProperties {
+
+    /**
+     * accessToken SigningKey
+     */
+    private String accessTokenSigningKey = "signingKey";
+
+    /**
+     * refreshToken SigningKey
+     */
+    private String refreshTokenSigningKey = "signingKey";
+
+    /**
+     * accessToken 过期时间
+     */
+    private long accessTokenExpire = 86400000;
+
+    /**
+     * refreshToken 过期时间
+     */
+    private long refreshTokenExpire = 2 * 86400000;
+}

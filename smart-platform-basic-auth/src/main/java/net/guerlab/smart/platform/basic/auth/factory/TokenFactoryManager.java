@@ -1,9 +1,11 @@
 package net.guerlab.smart.platform.basic.auth.factory;
 
-import net.guerlab.commons.exception.ApplicationException;
+import net.guerlab.smart.platform.commons.exception.NotFoundCanUseTokenFactoryException;
 import net.guerlab.spring.commons.util.SpringApplicationContextUtil;
+import org.springframework.core.Ordered;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -23,95 +25,17 @@ public class TokenFactoryManager {
     /**
      * 获取token工厂列表
      *
-     * @param factoryClass
-     *         token工厂类型
-     * @param <T>
-     *         实体类型
-     * @param <F>
-     *         token工厂类型
-     * @return token工厂列表
-     */
-    public static <T, F extends TokenFactory<T>> Collection<F> getTokenFactoriesByFactoryClass(Class<F> factoryClass) {
-        return getTokenFactoriesByFactoryClass0(factoryClass).collect(Collectors.toList());
-    }
-
-    /**
-     * 获取已启用的token工厂列表
-     *
-     * @param factoryClass
-     *         token工厂类型
-     * @param <T>
-     *         实体类型
-     * @param <F>
-     *         token工厂类型
-     * @return 已启用的token工厂列表
-     */
-    public static <T, F extends TokenFactory<T>> Collection<F> getEnabledTokenFactoriesByFactoryClass(
-            Class<F> factoryClass) {
-        return getTokenFactoriesByFactoryClass0(factoryClass).filter(TokenFactory::enabled)
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * 获取token工厂
-     *
-     * @param factoryClass
-     *         token工厂类型
-     * @param <T>
-     *         实体类型
-     * @param <F>
-     *         token工厂类型
-     * @return token工厂
-     */
-    public static <T, F extends TokenFactory<T>> F getDefaultTokenFactoryByFactoryClass(Class<F> factoryClass) {
-        List<F> factories = getTokenFactoriesByFactoryClass0(factoryClass).filter(TokenFactory::enabled)
-                .collect(Collectors.toList());
-
-        if (factories.isEmpty()) {
-            throw new ApplicationException("TokenFactory not found with factory type " + factoryClass.getTypeName());
-        }
-
-        for (F factory : factories) {
-            if (factory.isDefault()) {
-                return factory;
-            }
-        }
-
-        return factories.get(0);
-    }
-
-    private static <T, F extends TokenFactory<T>> Stream<F> getTokenFactoriesByFactoryClass0(Class<F> factoryClass) {
-        Collection<F> factories = SpringApplicationContextUtil.getContext().getBeansOfType(factoryClass).values();
-        return factories.stream().filter(Objects::nonNull);
-    }
-
-    /**
-     * 获取token工厂列表
-     *
      * @param entityClass
      *         实体类型
      * @param <T>
      *         实体类型
      * @return token工厂列表
      */
-    public static <T> Collection<TokenFactory<T>> getTokenFactoriesByEntityClass(Class<T> entityClass) {
+    public static <T> Collection<TokenFactory<T>> getTokenFactories(Class<T> entityClass) {
         return getTokenFactoriesByEntityClass0(entityClass).collect(Collectors.toList());
     }
 
     /**
-     * 获取已启用的token工厂列表
-     *
-     * @param entityClass
-     *         实体类型
-     * @param <T>
-     *         实体类型
-     * @return 已启用的token工厂列表
-     */
-    public static <T> Collection<TokenFactory<T>> getEnabledTokenFactoriesByEntityClass(Class<T> entityClass) {
-        return getTokenFactoriesByEntityClass0(entityClass).filter(TokenFactory::enabled).collect(Collectors.toList());
-    }
-
-    /**
      * 获取token工厂
      *
      * @param entityClass
@@ -120,12 +44,11 @@ public class TokenFactoryManager {
      *         实体类型
      * @return token工厂
      */
-    public static <T> TokenFactory<T> getDefaultTokenFactoryByEntityClass(Class<T> entityClass) {
-        List<TokenFactory<T>> factories = getTokenFactoriesByEntityClass0(entityClass).filter(TokenFactory::enabled)
-                .collect(Collectors.toList());
+    public static <T> TokenFactory<T> getDefaultTokenFactory(Class<T> entityClass) {
+        List<TokenFactory<T>> factories = getTokenFactoriesByEntityClass0(entityClass).collect(Collectors.toList());
 
         if (factories.isEmpty()) {
-            throw new ApplicationException("TokenFactory not found with entity type " + entityClass.getTypeName());
+            throw new NotFoundCanUseTokenFactoryException();
         }
 
         for (TokenFactory<T> factory : factories) {
@@ -160,6 +83,6 @@ public class TokenFactoryManager {
             }
         }
 
-        return streamBuilder.build();
+        return streamBuilder.build().filter(TokenFactory::enabled).sorted(Comparator.comparingInt(Ordered::getOrder));
     }
 }

@@ -3,6 +3,7 @@ package net.guerlab.smart.platform.basic.auth.properties;
 import lombok.Data;
 
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * token 工厂配置
@@ -15,7 +16,7 @@ public class TokenFactoryProperties {
     /**
      * 启用标志
      */
-    private boolean enabled = true;
+    private boolean enabled = false;
 
     /**
      * 默认工厂
@@ -23,32 +24,17 @@ public class TokenFactoryProperties {
     private boolean defaultFactory = false;
 
     /**
+     * 排序值
+     */
+    private int order = 0;
+
+    /**
      * 允许的IP列表
      */
-    private Collection<String> allowIpList;
+    private Collection<String> allowIpList = Collections.emptyList();
 
     /**
      * 拒绝的IP列表
      */
-    private Collection<String> denyIpList;
-
-    /**
-     * accessToken SigningKey
-     */
-    private String accessTokenSigningKey = "signingKey";
-
-    /**
-     * refreshToken SigningKey
-     */
-    private String refreshTokenSigningKey = "signingKey";
-
-    /**
-     * accessToken 过期时间
-     */
-    private long accessTokenExpire = 86400000;
-
-    /**
-     * refreshToken 过期时间
-     */
-    private long refreshTokenExpire = 2 * 86400000;
+    private Collection<String> denyIpList = Collections.emptyList();
 }
