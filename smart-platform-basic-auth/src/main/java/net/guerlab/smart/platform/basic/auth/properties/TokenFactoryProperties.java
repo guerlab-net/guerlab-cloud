@@ -16,7 +16,7 @@ public class TokenFactoryProperties {
     /**
      * 启用标志
      */
-    private boolean enabled = false;
+    private boolean enable = false;
 
     /**
      * 默认工厂

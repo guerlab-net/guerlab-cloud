@@ -21,16 +21,6 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
      */
     protected P properties;
 
-    @Override
-    public boolean enabled() {
-        return properties.isEnabled();
-    }
-
-    @Override
-    public boolean isDefault() {
-        return properties.isDefaultFactory();
-    }
-
     /**
      * 获取前缀
      *
@@ -66,13 +56,23 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
         return IpUtils.inList(properties.getAllowIpList(), ip);
     }
 
-    @Autowired
-    public void setProperties(P properties) {
-        this.properties = properties;
+    @Override
+    public final boolean enabled() {
+        return properties.isEnable();
+    }
+
+    @Override
+    public final boolean isDefault() {
+        return properties.isDefaultFactory();
     }
 
     @Override
     public final int getOrder() {
         return properties.getOrder();
+    }
+
+    @Autowired
+    public void setProperties(P properties) {
+        this.properties = properties;
     }
 }
