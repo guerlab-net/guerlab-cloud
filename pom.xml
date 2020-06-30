@@ -46,7 +46,7 @@
     </issueManagement>
 
     <properties>
-        <revision>20.1.1</revision>
+        <revision>20.2.0-SNAPSHOT</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>11</java.version>
@@ -198,23 +198,18 @@
             <!-- smart-platform basic -->
             <dependency>
                 <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-basic-api</artifactId>
+                <artifactId>smart-platform-api</artifactId>
                 <type>pom</type>
                 <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-basic-auth</artifactId>
+                <artifactId>smart-platform-auth</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-basic-gateway</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-basic-swagger</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -243,6 +238,11 @@
                 <artifactId>smart-platform-server-orm</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.version}</version>
+            </dependency>
 
             <!-- smart-platform stream -->
             <dependency>
@@ -257,29 +257,21 @@
                 <artifactId>smart-platform-excel</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easyexcel.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper-spring-boot-starter</artifactId>
-                <version>${pagehelper.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>easyexcel</artifactId>
-                <version>${easyexcel.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -292,15 +284,12 @@
     </dependencies>
 
     <modules>
-        <module>smart-platform-basic-api</module>
-        <module>smart-platform-basic-auth</module>
-        <module>smart-platform-basic-gateway</module>
-        <module>smart-platform-basic-swagger</module>
+        <module>smart-platform-api</module>
+        <module>smart-platform-auth</module>
         <module>smart-platform-cache-redis</module>
         <module>smart-platform-commons</module>
         <module>smart-platform-server-parent</module>
         <module>smart-platform-stream</module>
-        <module>smart-platform-basic-admin</module>
         <module>smart-platform-server-orm</module>
         <module>smart-platform-excel</module>
     </modules>

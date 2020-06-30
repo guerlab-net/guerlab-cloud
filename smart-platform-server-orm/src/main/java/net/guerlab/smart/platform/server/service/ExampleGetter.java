@@ -20,6 +20,26 @@ public interface ExampleGetter<T> {
      *         搜索对象
      * @return Example
      */
+    default Example getExampleWithSelectMethod(AbstractSearchParams searchParams) {
+        return getExample(searchParams);
+    }
+
+    /**
+     * 获取Example
+     *
+     * @return Example
+     */
+    default Example getExampleWithSelectMethod() {
+        return getExample();
+    }
+
+    /**
+     * 获取Example，并通过searchParams对象对Example进行赋值
+     *
+     * @param searchParams
+     *         搜索对象
+     * @return Example
+     */
     default Example getExample(AbstractSearchParams searchParams) {
         Example example = getExample();
 
