@@ -35,9 +35,9 @@ public abstract class AbstractHandlerInterceptor extends HandlerInterceptorAdapt
      * @return 注解对象
      */
     protected static <A extends Annotation> A getAnnotation(HandlerMethod handlerMethod, Class<A> annotationClass) {
-        A annotation = handlerMethod.getBeanType().getAnnotation(annotationClass);
+        A annotation = handlerMethod.getMethodAnnotation(annotationClass);
         if (annotation == null) {
-            annotation = handlerMethod.getMethodAnnotation(annotationClass);
+            annotation = handlerMethod.getBeanType().getAnnotation(annotationClass);
         }
         return annotation;
     }
