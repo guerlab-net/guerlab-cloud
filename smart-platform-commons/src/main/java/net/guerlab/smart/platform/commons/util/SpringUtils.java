@@ -47,4 +47,17 @@ public class SpringUtils {
     public static <T> Collection<T> getBeans(Class<T> clazz) {
         return SpringApplicationContextUtil.getContext().getBeansOfType(clazz).values();
     }
+
+    /**
+     * 根据bean类型获取bean实例
+     *
+     * @param clazz
+     *         bean类型
+     * @param <T>
+     *         bean类型
+     * @return bean实例
+     */
+    public static <T> T getBean(Class<T> clazz) {
+        return SpringApplicationContextUtil.getContext().getBean(clazz);
+    }
 }
