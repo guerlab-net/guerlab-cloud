@@ -1,5 +1,11 @@
 spring:
   cloud:
+    debug:
+      enable: false
+      gateway-proxy-url: http://gateway/proxy/
+      proxy-header-name: GUERLAB-PROXY
+      proxy-header-value: GUERLAB-PROXY
+      local-services:
     sentinel:
       scg:
         enabled: true
