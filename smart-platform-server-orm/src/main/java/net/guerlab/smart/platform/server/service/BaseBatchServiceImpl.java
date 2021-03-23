@@ -3,8 +3,10 @@ package net.guerlab.smart.platform.server.service;
 import net.guerlab.commons.collection.CollectionUtil;
 import net.guerlab.smart.platform.server.mappers.BatchMapper;
 import net.guerlab.smart.platform.server.utils.BatchSaveUtils;
+import net.guerlab.spring.searchparams.AbstractSearchParams;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -17,18 +19,20 @@ import java.util.List;
  *         主键类型
  * @param <M>
  *         Mapper类型
+ * @param <SP>
+ *         搜索参数类型
  * @author guer
  */
 @Transactional(rollbackFor = Exception.class)
-public abstract class BaseBatchServiceImpl<T, PK, M extends BatchMapper<T>> extends BaseServiceImpl<T, PK, M>
-        implements BaseBatchSaveService<T> {
+public abstract class BaseBatchServiceImpl<T, PK extends Serializable, M extends BatchMapper<T>, SP extends AbstractSearchParams>
+        extends BaseServiceImpl<T, PK, M, SP> implements BaseBatchSaveService<T, SP> {
 
     @Override
     public Collection<T> batchInsert(Collection<T> collection) {
         List<T> list = BatchSaveUtils.filter(collection, this::batchSaveBefore);
 
         if (CollectionUtil.isNotEmpty(list)) {
-            mapper.insertList(list);
+            saveBatch(list);
         }
 
         return list;
@@ -39,7 +43,7 @@ public abstract class BaseBatchServiceImpl<T, PK, M extends BatchMapper<T>> exte
         List<T> list = BatchSaveUtils.filter(collection, this::batchSaveBefore);
 
         if (CollectionUtil.isNotEmpty(list)) {
-            mapper.replaceInsertList(list);
+            getBaseMapper().replaceInsertList(list);
         }
 
         return list;

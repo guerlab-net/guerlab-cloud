@@ -1,15 +1,16 @@
 package net.guerlab.smart.platform.server.controller;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import net.guerlab.smart.platform.commons.util.BeanConvertUtils;
 import net.guerlab.smart.platform.server.service.BaseFindService;
-import net.guerlab.spring.commons.dto.ConvertDTO;
+import net.guerlab.spring.commons.dto.Convert;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
 import net.guerlab.web.result.ListObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ import java.util.List;
  *         主键类型
  * @author guer
  */
-public interface FindController<D, E extends ConvertDTO<D>, S extends BaseFindService<E, PK>, SP extends AbstractSearchParams, PK>
+public interface FindController<D, E extends Convert<D>, S extends BaseFindService<E, PK, SP>, SP extends AbstractSearchParams, PK extends Serializable>
         extends IController<E, S, PK> {
 
     /**
@@ -37,10 +38,10 @@ public interface FindController<D, E extends ConvertDTO<D>, S extends BaseFindSe
      *         主键ID
      * @return 对象
      */
-    @ApiOperation("查询详情")
+    @Operation(summary = "查询详情")
     @GetMapping("/{id}")
-    default D findOne(@ApiParam(value = "id", required = true) @PathVariable PK id) {
-        return findOne0(id).toDTO();
+    default D findOne(@Parameter(description = "id", required = true) @PathVariable PK id) {
+        return findOne0(id).convert();
     }
 
     /**
@@ -50,7 +51,7 @@ public interface FindController<D, E extends ConvertDTO<D>, S extends BaseFindSe
      *         搜索参数
      * @return 对象列表
      */
-    @ApiOperation("查询列表")
+    @Operation(summary = "查询列表")
     @GetMapping
     default ListObject<D> findList(SP searchParams) {
         beforeFind(searchParams);
@@ -64,7 +65,7 @@ public interface FindController<D, E extends ConvertDTO<D>, S extends BaseFindSe
      *         搜索参数
      * @return 对象列表
      */
-    @ApiOperation("查询全部")
+    @Operation(summary = "查询全部")
     @GetMapping("/all")
     default List<D> findAll(SP searchParams) {
         beforeFind(searchParams);

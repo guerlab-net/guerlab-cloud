@@ -1,9 +1,10 @@
 package net.guerlab.smart.platform.server.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
 import net.guerlab.web.result.ListObject;
-import tk.mybatis.mapper.entity.Example;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -14,9 +15,12 @@ import java.util.Optional;
  *         数据类型
  * @param <PK>
  *         主键类型
+ * @param <SP>
+ *         搜索参数类型
  * @author guer
  */
-public interface BaseFindService<T, PK> extends ExampleGetter<T> {
+public interface BaseFindService<T, PK extends Serializable, SP extends AbstractSearchParams>
+        extends QueryWrapperGetter<T, SP> {
 
     /**
      * 查询单一结果，根据实体内非null字段按照值相等方式查询
@@ -45,7 +49,7 @@ public interface BaseFindService<T, PK> extends ExampleGetter<T> {
      *         搜索参数对象
      * @return 实体
      */
-    T selectOne(AbstractSearchParams searchParams);
+    T selectOne(SP searchParams);
 
     /**
      * 查询单一结果，根据搜索参数进行筛选
@@ -54,7 +58,7 @@ public interface BaseFindService<T, PK> extends ExampleGetter<T> {
      *         搜索参数对象
      * @return Optional
      */
-    default Optional<T> selectOneOptional(AbstractSearchParams searchParams) {
+    default Optional<T> selectOneOptional(SP searchParams) {
         return Optional.ofNullable(selectOne(searchParams));
     }
 
@@ -90,11 +94,11 @@ public interface BaseFindService<T, PK> extends ExampleGetter<T> {
     /**
      * 查询列表
      *
-     * @param example
-     *         Example查询对象
+     * @param queryWrapper
+     *         查询条件
      * @return 实体列表
      */
-    Collection<T> selectList(Example example);
+    Collection<T> selectList(QueryWrapper<T> queryWrapper);
 
     /**
      * 获取所有对象
@@ -110,7 +114,7 @@ public interface BaseFindService<T, PK> extends ExampleGetter<T> {
      *         搜索参数对象
      * @return 实体列表
      */
-    Collection<T> selectAll(AbstractSearchParams searchParams);
+    Collection<T> selectAll(SP searchParams);
 
     /**
      * 查询列表
@@ -119,7 +123,7 @@ public interface BaseFindService<T, PK> extends ExampleGetter<T> {
      *         搜索参数对象
      * @return 实体列表
      */
-    ListObject<T> selectPage(AbstractSearchParams searchParams);
+    ListObject<T> selectPage(SP searchParams);
 
     /**
      * 查询总记录数
@@ -137,6 +141,6 @@ public interface BaseFindService<T, PK> extends ExampleGetter<T> {
      *         搜索参数对象
      * @return 实体总数
      */
-    int selectCount(AbstractSearchParams searchParams);
+    int selectCount(SP searchParams);
 
 }

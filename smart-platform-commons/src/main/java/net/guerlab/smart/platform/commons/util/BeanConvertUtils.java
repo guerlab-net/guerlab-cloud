@@ -2,7 +2,7 @@ package net.guerlab.smart.platform.commons.util;
 
 import net.guerlab.commons.collection.CollectionUtil;
 import net.guerlab.commons.exception.ApplicationException;
-import net.guerlab.spring.commons.dto.ConvertDTO;
+import net.guerlab.spring.commons.dto.Convert;
 import net.guerlab.web.result.ListObject;
 import org.springframework.beans.BeanUtils;
 
@@ -21,99 +21,99 @@ public class BeanConvertUtils {
     }
 
     /**
-     * 转换为DTO
+     * 转换为目标类型
      *
-     * @param <D>
-     *         DTO类型
+     * @param <T>
+     *         目标类型
      * @param <E>
      *         实体类型
      * @param entity
      *         实体
-     * @return DTO
+     * @return 目标类型
      */
-    public static <D, E extends ConvertDTO<D>> D toObject(E entity) {
-        return entity == null ? null : entity.toDTO();
+    public static <T, E extends Convert<T>> T toObject(E entity) {
+        return entity == null ? null : entity.convert();
     }
 
     /**
-     * 转换为DTO
+     * 转换为目标类型
      *
-     * @param <D>
-     *         DTO类型
+     * @param <T>
+     *         目标类型
      * @param <E>
      *         实体类型
      * @param entity
      *         实体
-     * @param dtoClass
-     *         DTO类型
-     * @return DTO
+     * @param targetClass
+     *         目标类型
+     * @return 目标类型
      */
-    public static <D, E> D toObject(E entity, Class<D> dtoClass) {
+    public static <T, E> T toObject(E entity, Class<T> targetClass) {
         if (entity == null) {
             return null;
         }
 
-        D dto;
+        T target;
         try {
-            dto = dtoClass.getDeclaredConstructor().newInstance();
+            target = targetClass.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new ApplicationException(e.getLocalizedMessage(), e);
         }
 
-        BeanUtils.copyProperties(entity, dto);
+        BeanUtils.copyProperties(entity, target);
 
-        return dto;
+        return target;
     }
 
     /**
-     * 转换为DTO列表
+     * 转换为目标列表
      *
-     * @param <D>
-     *         DTO类型
+     * @param <T>
+     *         目标类型
      * @param <E>
      *         实体类型
      * @param entityList
      *         实体列表
-     * @return DTO列表
+     * @return 目标列表
      */
-    public static <D, E extends ConvertDTO<D>> List<D> toList(Collection<E> entityList) {
-        return CollectionUtil.toList(entityList, ConvertDTO::toDTO);
+    public static <T, E extends Convert<T>> List<T> toList(Collection<E> entityList) {
+        return CollectionUtil.toList(entityList, Convert::convert);
     }
 
     /**
-     * 转换为DTO列表
+     * 转换为目标列表
      *
-     * @param <D>
-     *         DTO类型
+     * @param <T>
+     *         目标类型
      * @param <E>
      *         实体类型
      * @param entityList
      *         实体列表
-     * @param dtoClass
-     *         DTO类型
-     * @return DTO列表
+     * @param targetClass
+     *         目标类型
+     * @return 目标列表
      */
-    public static <D, E> List<D> toList(Collection<E> entityList, Class<D> dtoClass) {
-        return CollectionUtil.toList(entityList, e -> toObject(e, dtoClass));
+    public static <T, E> List<T> toList(Collection<E> entityList, Class<T> targetClass) {
+        return CollectionUtil.toList(entityList, e -> toObject(e, targetClass));
     }
 
     /**
-     * 转换为DTO列表对象
+     * 转换为目标列表对象
      *
-     * @param <D>
-     *         DTO类型
+     * @param <T>
+     *         目标类型
      * @param <E>
      *         实体类型
      * @param list
      *         实体列表对象
-     * @return DTO列表对象
+     * @return 目标列表对象
      */
-    public static <D, E extends ConvertDTO<D>> ListObject<D> toListObject(ListObject<E> list) {
+    public static <T, E extends Convert<T>> ListObject<T> toListObject(ListObject<E> list) {
         if (list == null || CollectionUtil.isEmpty(list.getList())) {
             return ListObject.empty();
         }
 
-        ListObject<D> result = copyListObject(list);
+        ListObject<T> result = copyListObject(list);
 
         result.setList(toList(list.getList()));
 
@@ -121,32 +121,32 @@ public class BeanConvertUtils {
     }
 
     /**
-     * 转换为DTO列表对象
+     * 转换为目标列表对象
      *
-     * @param <D>
-     *         DTO类型
+     * @param <T>
+     *         目标类型
      * @param <E>
      *         实体类型
      * @param list
      *         实体列表对象
      * @param dtoClass
-     *         DTO类型
-     * @return DTO列表对象
+     *         目标类型
+     * @return 目标列表对象
      */
-    public static <D, E> ListObject<D> toListObject(ListObject<E> list, Class<D> dtoClass) {
+    public static <T, E> ListObject<T> toListObject(ListObject<E> list, Class<T> dtoClass) {
         if (list == null || CollectionUtil.isEmpty(list.getList())) {
             return ListObject.empty();
         }
 
-        ListObject<D> result = copyListObject(list);
+        ListObject<T> result = copyListObject(list);
 
         result.setList(toList(list.getList(), dtoClass));
 
         return result;
     }
 
-    private static <D> ListObject<D> copyListObject(ListObject<?> origin) {
-        ListObject<D> result = new ListObject<>();
+    private static <T> ListObject<T> copyListObject(ListObject<?> origin) {
+        ListObject<T> result = new ListObject<>();
         result.setPageSize(origin.getPageSize());
         result.setCount(origin.getCount());
         result.setCurrentPageId(origin.getCurrentPageId());

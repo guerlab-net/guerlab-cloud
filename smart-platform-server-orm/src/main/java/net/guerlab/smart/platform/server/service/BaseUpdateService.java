@@ -1,17 +1,19 @@
 package net.guerlab.smart.platform.server.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
-import tk.mybatis.mapper.entity.Example;
 
 /**
  * 基本更新服务接口
  *
  * @param <T>
  *         数据类型
+ * @param <SP>
+ *         搜索参数类型
  * @author guer
  */
 @SuppressWarnings("UnusedReturnValue")
-public interface BaseUpdateService<T> extends ExampleGetter<T> {
+public interface BaseUpdateService<T, SP extends AbstractSearchParams> extends QueryWrapperGetter<T, SP> {
 
     /**
      * 根据id更新
@@ -23,35 +25,15 @@ public interface BaseUpdateService<T> extends ExampleGetter<T> {
     boolean updateById(T entity);
 
     /**
-     * 不update null
-     *
-     * @param entity
-     *         实体
-     * @return 是否更新成功
-     */
-    boolean updateSelectiveById(T entity);
-
-    /**
      * 根据条件更新
      *
      * @param entity
      *         实体
-     * @param example
+     * @param queryWrapper
      *         条件
      * @return 是否更新成功
      */
-    boolean updateByExample(T entity, Example example);
-
-    /**
-     * 根据条件更新 不update null
-     *
-     * @param entity
-     *         实体
-     * @param example
-     *         条件
-     * @return 是否更新成功
-     */
-    boolean updateByExampleSelective(T entity, Example example);
+    boolean updateByQueryWrapper(T entity, QueryWrapper<T> queryWrapper);
 
     /**
      * 根据条件更新
@@ -62,17 +44,6 @@ public interface BaseUpdateService<T> extends ExampleGetter<T> {
      *         搜索条件
      * @return 是否更新成功
      */
-    boolean updateBySearchParams(T entity, AbstractSearchParams searchParams);
-
-    /**
-     * 根据条件更新 不update null
-     *
-     * @param entity
-     *         实体
-     * @param searchParams
-     *         搜索条件
-     * @return 是否更新成功
-     */
-    boolean updateBySearchParamsSelective(T entity, AbstractSearchParams searchParams);
+    boolean updateBySearchParams(T entity, SP searchParams);
 
 }

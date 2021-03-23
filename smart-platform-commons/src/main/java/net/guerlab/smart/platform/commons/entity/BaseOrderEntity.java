@@ -1,10 +1,9 @@
 package net.guerlab.smart.platform.commons.entity;
 
-import io.swagger.annotations.ApiModelProperty;
+import com.baomidou.mybatisplus.annotation.TableField;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.Column;
 
 /**
  * 可排序实体
@@ -20,7 +19,7 @@ public abstract class BaseOrderEntity<E extends BaseOrderEntity<?>> extends Base
     /**
      * 排序值
      */
-    @ApiModelProperty("排序值")
-    @Column(name = "orderNum", nullable = false)
+    @Schema(name = "排序值")
+    @TableField(value = "ORDER_NUM")
     protected Integer orderNum;
 }

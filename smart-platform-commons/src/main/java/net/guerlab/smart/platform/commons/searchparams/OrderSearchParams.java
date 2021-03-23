@@ -1,7 +1,7 @@
 package net.guerlab.smart.platform.commons.searchparams;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
@@ -22,7 +22,7 @@ public class OrderSearchParams extends AbstractSearchParams {
     /**
      * 排序值排序方式
      */
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     @JsonIgnore
     @Column(name = "orderNum")
     @OrderByIndex(-10)

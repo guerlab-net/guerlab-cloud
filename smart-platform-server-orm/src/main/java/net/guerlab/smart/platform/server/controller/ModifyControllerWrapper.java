@@ -1,8 +1,10 @@
 package net.guerlab.smart.platform.server.controller;
 
 import net.guerlab.smart.platform.commons.entity.BaseEntity;
-import net.guerlab.spring.commons.dto.ConvertDTO;
+import net.guerlab.spring.commons.dto.Convert;
 import org.springframework.beans.BeanUtils;
+
+import java.io.Serializable;
 
 /**
  * 提供控制器层的数据修改增强
@@ -15,7 +17,7 @@ import org.springframework.beans.BeanUtils;
  *         主键类型
  * @author guer
  */
-public interface ModifyControllerWrapper<D, E extends ConvertDTO<D>, PK> {
+public interface ModifyControllerWrapper<D, E extends Convert<D>, PK extends Serializable> {
 
     /**
      * 拷贝属性

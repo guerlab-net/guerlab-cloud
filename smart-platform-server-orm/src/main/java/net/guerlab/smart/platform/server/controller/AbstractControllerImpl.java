@@ -4,8 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import net.guerlab.commons.exception.ApplicationException;
 import net.guerlab.smart.platform.commons.util.ParameterizedTypeUtils;
 import net.guerlab.smart.platform.server.service.BaseFindService;
-import net.guerlab.spring.commons.dto.ConvertDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import net.guerlab.spring.commons.dto.Convert;
+import net.guerlab.spring.searchparams.AbstractSearchParams;
+
+import javax.annotation.Resource;
+import java.io.Serializable;
 
 /**
  * 基础控制器
@@ -21,23 +24,18 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author guer
  */
 @Slf4j
-public abstract class AbstractControllerImpl<D, E extends ConvertDTO<D>, S extends BaseFindService<E, PK>, PK>
+public abstract class AbstractControllerImpl<D, E extends Convert<D>, S extends BaseFindService<E, PK, SP>, SP extends AbstractSearchParams, PK extends Serializable>
         implements IController<E, S, PK> {
 
     /**
      * 服务接口
      */
+    @Resource
     protected S service;
 
     @Override
     public S getService() {
         return service;
-    }
-
-    @Autowired
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    public void setService(S service) {
-        this.service = service;
     }
 
     /**

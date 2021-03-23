@@ -3,7 +3,8 @@ package net.guerlab.smart.platform.auth.factory;
 import net.guerlab.smart.platform.auth.enums.TokenType;
 import net.guerlab.smart.platform.auth.properties.TokenFactoryProperties;
 import net.guerlab.smart.platform.commons.ip.IpUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.Resource;
 
 /**
  * 抽象token工厂
@@ -19,6 +20,7 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
     /**
      * 配置文件
      */
+    @Resource
     protected P properties;
 
     protected static String getObjectValue(Object obj) {
@@ -86,10 +88,5 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
         }
 
         return getOrder() - o.getOrder();
-    }
-
-    @Autowired
-    public void setProperties(P properties) {
-        this.properties = properties;
     }
 }

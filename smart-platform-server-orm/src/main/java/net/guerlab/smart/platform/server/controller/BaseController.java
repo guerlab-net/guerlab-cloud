@@ -1,8 +1,10 @@
 package net.guerlab.smart.platform.server.controller;
 
 import net.guerlab.smart.platform.server.service.BaseService;
-import net.guerlab.spring.commons.dto.ConvertDTO;
+import net.guerlab.spring.commons.dto.Convert;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
+
+import java.io.Serializable;
 
 /**
  * 基础控制器
@@ -19,8 +21,8 @@ import net.guerlab.spring.searchparams.AbstractSearchParams;
  *         实体主键类型
  * @author guer
  */
-public abstract class BaseController<D, E extends ConvertDTO<D>, S extends BaseService<E, PK>, SP extends AbstractSearchParams, PK>
+public abstract class BaseController<D, E extends Convert<D>, S extends BaseService<E, PK, SP>, SP extends AbstractSearchParams, PK extends Serializable>
         extends BaseFindController<D, E, S, SP, PK>
-        implements SaveController<D, E, S, PK>, UpdateController<D, E, S, PK>, DeleteController<D, E, S, PK> {
+        implements SaveController<D, E, S, SP, PK>, UpdateController<D, E, S, SP, PK>, DeleteController<D, E, S, SP, PK> {
 
 }

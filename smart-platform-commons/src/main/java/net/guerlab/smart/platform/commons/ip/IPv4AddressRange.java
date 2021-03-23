@@ -50,7 +50,7 @@ public class IPv4AddressRange {
 
     public IPv4AddressRange(String ipRange) {
         reset();
-        parseIPRange(ipRange);
+        parseIpRange(ipRange);
     }
 
     protected static String toDecimalString(String inBinaryIpAddress) {
@@ -78,8 +78,11 @@ public class IPv4AddressRange {
 
     /**
      * 分析IP地址，格式有4种，1.2.3.4,  1.2.3.4-12, 1.2.3.4-1.2.3.12, 1.2.3.4/32
+     *
+     * @param ipRange
+     *         ip范围
      */
-    protected void parseIPRange(String ipRange) {
+    protected void parseIpRange(String ipRange) {
         rawString = ipRange;
         ipRange = StringUtils.trimToNull(ipRange);
         if (ipRange == null) {

@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
  */
 public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthProperties> implements WebMvcConfigurer {
 
+    @Resource
     private A properties;
 
     private List<? extends AbstractHandlerInterceptor> tokenHandlerInterceptors;
@@ -60,12 +62,6 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthPropert
         List<String> excludePatterns = properties.getExcludePatterns();
 
         interceptor.pathMatcher(pathMatcher).addPathPatterns(includePatterns).excludePathPatterns(excludePatterns);
-    }
-
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @Autowired
-    public void setProperties(A properties) {
-        this.properties = properties;
     }
 
     @Autowired(required = false)

@@ -1,5 +1,7 @@
 package net.guerlab.smart.platform.server.controller;
 
+import java.io.Serializable;
+
 /**
  * 控制器接口
  *
@@ -11,7 +13,7 @@ package net.guerlab.smart.platform.server.controller;
  *         实体主键类型
  * @author guer
  */
-public interface IController<E, S, PK> {
+public interface IController<E, S, PK extends Serializable> {
 
     /**
      * 获取服务对象

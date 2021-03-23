@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 net.guerlab.smart.platform.server.autoconfigure.BlockExceptionHandlerAutoconfigure,\
-net.guerlab.smart.platform.server.autoconfigure.MultiNacosApplicationAutoConfigure
+net.guerlab.smart.platform.server.autoconfigure.MultiNacosApplicationAutoConfigure,\
+net.guerlab.smart.platform.server.autoconfigure.OpenApiAutoconfigure

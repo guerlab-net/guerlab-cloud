@@ -1,12 +1,15 @@
 package net.guerlab.smart.platform.server.controller;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import net.guerlab.smart.platform.server.service.BaseService;
-import net.guerlab.spring.commons.dto.ConvertDTO;
+import net.guerlab.spring.commons.dto.Convert;
+import net.guerlab.spring.searchparams.AbstractSearchParams;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.io.Serializable;
 
 /**
  * 基础删除控制器接口
@@ -21,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  *         主键类型
  * @author guer
  */
-public interface DeleteController<D, E extends ConvertDTO<D>, S extends BaseService<E, PK>, PK>
+public interface DeleteController<D, E extends Convert<D>, S extends BaseService<E, PK, SP>, SP extends AbstractSearchParams, PK extends Serializable>
         extends IController<E, S, PK> {
 
     /**
@@ -32,10 +35,10 @@ public interface DeleteController<D, E extends ConvertDTO<D>, S extends BaseServ
      * @param force
      *         强制删除标志
      */
-    @ApiOperation("删除")
+    @Operation(summary = "删除")
     @DeleteMapping("/{id}")
-    default void delete(@ApiParam(value = "id", required = true) @PathVariable PK id,
-            @ApiParam(value = "强制删除标志") @RequestParam(required = false) Boolean force) {
+    default void delete(@Parameter(description = "id", required = true) @PathVariable PK id,
+            @Parameter(description = "强制删除标志") @RequestParam(required = false) Boolean force) {
         E entity = findOne0(id);
         beforeDelete(entity);
         getService().deleteById(id, force);

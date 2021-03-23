@@ -20,18 +20,14 @@
             <artifactId>smart-platform-server-parent</artifactId>
         </dependency>
 
-        <!-- tk.mapper -->
+        <!-- mybatis-plus -->
         <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>net.guerlab.spring</groupId>
-            <artifactId>guerlab-spring-searchparams-tkmapper</artifactId>
+            <artifactId>guerlab-spring-searchparams-mybatisplus</artifactId>
         </dependency>
 
         <!-- Seata -->

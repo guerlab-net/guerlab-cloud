@@ -1,21 +1,14 @@
 package net.guerlab.smart.platform.server.mappers;
 
-import net.guerlab.smart.platform.server.provider.ReplaceInsertListProvider;
-import org.apache.ibatis.annotations.InsertProvider;
-import tk.mybatis.mapper.additional.insert.InsertListMapper;
-import tk.mybatis.mapper.common.Mapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * 批量操作Mapper
- *
- * @param <T>
- *         实体类型
  * @author guer
  */
-@tk.mybatis.mapper.annotation.RegisterMapper
-public interface BatchMapper<T> extends Mapper<T>, InsertListMapper<T> {
+public interface BatchMapper<T> extends BaseMapper<T> {
 
     /**
      * 批量插入，支持批量插入的数据库可以使用，例如MySQL,H2等
@@ -28,7 +21,5 @@ public interface BatchMapper<T> extends Mapper<T>, InsertListMapper<T> {
      *         待插入数据
      * @return insert result
      */
-    @SuppressWarnings("UnusedReturnValue")
-    @InsertProvider(type = ReplaceInsertListProvider.class, method = "dynamicSQL")
-    int replaceInsertList(List<? extends T> recordList);
+    int replaceInsertList(@Param("list") List<T> recordList);
 }

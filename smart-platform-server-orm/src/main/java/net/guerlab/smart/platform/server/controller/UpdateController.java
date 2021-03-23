@@ -1,12 +1,15 @@
 package net.guerlab.smart.platform.server.controller;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import net.guerlab.smart.platform.server.service.BaseService;
-import net.guerlab.spring.commons.dto.ConvertDTO;
+import net.guerlab.spring.commons.dto.Convert;
+import net.guerlab.spring.searchparams.AbstractSearchParams;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.io.Serializable;
 
 /**
  * 基础更新控制器接口
@@ -21,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  *         主键类型
  * @author guer
  */
-public interface UpdateController<D, E extends ConvertDTO<D>, S extends BaseService<E, PK>, PK>
+public interface UpdateController<D, E extends Convert<D>, S extends BaseService<E, PK, SP>, SP extends AbstractSearchParams, PK extends Serializable>
         extends IController<E, S, PK>, ModifyControllerWrapper<D, E, PK> {
 
     /**
@@ -33,16 +36,16 @@ public interface UpdateController<D, E extends ConvertDTO<D>, S extends BaseServ
      *         dto对象
      * @return 编辑后的dto对象
      */
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑")
     @PutMapping("/{id}")
-    default D update(@ApiParam(value = "id", required = true) @PathVariable PK id,
-            @ApiParam(value = "对象数据", required = true) @RequestBody D dto) {
+    default D update(@Parameter(description = "id", required = true) @PathVariable PK id,
+            @Parameter(description = "对象数据", required = true) @RequestBody D dto) {
         E entity = findOne0(id);
         beforeUpdate(entity, dto);
         copyProperties(dto, entity, id);
-        getService().updateSelectiveById(entity);
+        getService().updateById(entity);
         afterUpdate(entity, dto);
-        return getService().selectById(id).toDTO();
+        return getService().selectById(id).convert();
     }
 
     /**

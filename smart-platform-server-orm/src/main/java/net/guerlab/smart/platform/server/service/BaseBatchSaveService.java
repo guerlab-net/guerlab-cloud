@@ -1,5 +1,7 @@
 package net.guerlab.smart.platform.server.service;
 
+import net.guerlab.spring.searchparams.AbstractSearchParams;
+
 import java.util.Collection;
 
 /**
@@ -10,7 +12,7 @@ import java.util.Collection;
  * @author guer
  */
 @SuppressWarnings("WeakerAccess")
-public interface BaseBatchSaveService<T> extends ExampleGetter<T> {
+public interface BaseBatchSaveService<T, SP extends AbstractSearchParams> extends QueryWrapperGetter<T, SP> {
 
     /**
      * 批量保存

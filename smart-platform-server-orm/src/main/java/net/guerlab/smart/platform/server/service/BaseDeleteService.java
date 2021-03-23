@@ -1,5 +1,9 @@
 package net.guerlab.smart.platform.server.service;
 
+import net.guerlab.spring.searchparams.AbstractSearchParams;
+
+import java.io.Serializable;
+
 /**
  * 基本删除服务接口
  *
@@ -7,18 +11,21 @@ package net.guerlab.smart.platform.server.service;
  *         数据类型
  * @param <PK>
  *         主键类型
+ * @param <SP>
+ *         搜索参数类型
  * @author guer
  */
-public interface BaseDeleteService<T, PK> extends ExampleGetter<T> {
+public interface BaseDeleteService<T, PK extends Serializable, SP extends AbstractSearchParams>
+        extends QueryWrapperGetter<T, SP> {
 
     /**
      * 删除
      *
-     * @param entity
-     *         实体
+     * @param searchParams
+     *         搜索参数
      */
-    default void delete(T entity) {
-        delete(entity, false);
+    default void delete(SP searchParams) {
+        delete(searchParams, false);
     }
 
     /**
@@ -34,12 +41,12 @@ public interface BaseDeleteService<T, PK> extends ExampleGetter<T> {
     /**
      * 删除
      *
-     * @param entity
-     *         实体
+     * @param searchParams
+     *         搜索参数
      * @param force
      *         强制删除标志
      */
-    void delete(T entity, Boolean force);
+    void delete(SP searchParams, Boolean force);
 
     /**
      * 根据Id删除

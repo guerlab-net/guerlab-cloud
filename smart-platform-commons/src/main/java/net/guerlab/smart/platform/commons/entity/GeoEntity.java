@@ -1,6 +1,7 @@
 package net.guerlab.smart.platform.commons.entity;
 
-import io.swagger.annotations.ApiModelProperty;
+import com.baomidou.mybatisplus.annotation.TableField;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,18 +19,21 @@ public class GeoEntity extends BaseEntity implements IGeoEntity {
     /**
      * 经度
      */
-    @ApiModelProperty("经度")
+    @Schema(name = "经度")
+    @TableField(value = "LONGITUDE")
     private BigDecimal longitude;
 
     /**
      * 纬度
      */
-    @ApiModelProperty("纬度")
+    @Schema(name = "纬度")
+    @TableField(value = "LATITUDE")
     private BigDecimal latitude;
 
     /**
      * 地理hash
      */
-    @ApiModelProperty("地理hash")
+    @Schema(name = "地理hash")
+    @TableField(value = "GEO_HASH")
     private String geoHash;
 }
