@@ -2,6 +2,8 @@ package net.guerlab.smart.platform.server.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import net.guerlab.smart.platform.commons.Constants;
 import net.guerlab.smart.platform.server.service.BaseService;
 import net.guerlab.spring.commons.dto.Convert;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
@@ -35,7 +37,7 @@ public interface DeleteController<D, E extends Convert<D>, S extends BaseService
      * @param force
      *         强制删除标志
      */
-    @Operation(summary = "删除")
+    @Operation(summary = "删除", security = @SecurityRequirement(name = Constants.TOKEN))
     @DeleteMapping("/{id}")
     default void delete(@Parameter(description = "id", required = true) @PathVariable PK id,
             @Parameter(description = "强制删除标志") @RequestParam(required = false) Boolean force) {

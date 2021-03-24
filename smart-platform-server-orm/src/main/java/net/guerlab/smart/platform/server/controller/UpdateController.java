@@ -2,6 +2,8 @@ package net.guerlab.smart.platform.server.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import net.guerlab.smart.platform.commons.Constants;
 import net.guerlab.smart.platform.server.service.BaseService;
 import net.guerlab.spring.commons.dto.Convert;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
@@ -36,7 +38,7 @@ public interface UpdateController<D, E extends Convert<D>, S extends BaseService
      *         dto对象
      * @return 编辑后的dto对象
      */
-    @Operation(summary = "编辑")
+    @Operation(summary = "编辑", security = @SecurityRequirement(name = Constants.TOKEN))
     @PutMapping("/{id}")
     default D update(@Parameter(description = "id", required = true) @PathVariable PK id,
             @Parameter(description = "对象数据", required = true) @RequestBody D dto) {

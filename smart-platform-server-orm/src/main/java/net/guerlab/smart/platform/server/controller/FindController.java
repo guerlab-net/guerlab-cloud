@@ -2,6 +2,8 @@ package net.guerlab.smart.platform.server.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import net.guerlab.smart.platform.commons.Constants;
 import net.guerlab.smart.platform.commons.util.BeanConvertUtils;
 import net.guerlab.smart.platform.server.service.BaseFindService;
 import net.guerlab.spring.commons.dto.Convert;
@@ -38,7 +40,7 @@ public interface FindController<D, E extends Convert<D>, S extends BaseFindServi
      *         主键ID
      * @return 对象
      */
-    @Operation(summary = "查询详情")
+    @Operation(summary = "查询详情", security = @SecurityRequirement(name = Constants.TOKEN))
     @GetMapping("/{id}")
     default D findOne(@Parameter(description = "id", required = true) @PathVariable PK id) {
         return findOne0(id).convert();
@@ -51,7 +53,7 @@ public interface FindController<D, E extends Convert<D>, S extends BaseFindServi
      *         搜索参数
      * @return 对象列表
      */
-    @Operation(summary = "查询列表")
+    @Operation(summary = "查询列表", security = @SecurityRequirement(name = Constants.TOKEN))
     @GetMapping
     default ListObject<D> findList(SP searchParams) {
         beforeFind(searchParams);
@@ -65,7 +67,7 @@ public interface FindController<D, E extends Convert<D>, S extends BaseFindServi
      *         搜索参数
      * @return 对象列表
      */
-    @Operation(summary = "查询全部")
+    @Operation(summary = "查询全部", security = @SecurityRequirement(name = Constants.TOKEN))
     @GetMapping("/all")
     default List<D> findAll(SP searchParams) {
         beforeFind(searchParams);

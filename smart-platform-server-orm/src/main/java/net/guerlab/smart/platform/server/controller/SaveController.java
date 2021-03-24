@@ -2,6 +2,8 @@ package net.guerlab.smart.platform.server.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import net.guerlab.smart.platform.commons.Constants;
 import net.guerlab.smart.platform.server.service.BaseService;
 import net.guerlab.spring.commons.dto.Convert;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
@@ -33,7 +35,7 @@ public interface SaveController<D, E extends Convert<D>, S extends BaseService<E
      *         dto对象
      * @return 添加的dto对象
      */
-    @Operation(summary = "添加")
+    @Operation(summary = "添加", security = @SecurityRequirement(name = Constants.TOKEN))
     @PostMapping
     default D save(@Parameter(description = "对象数据", required = true) @RequestBody D dto) {
         E entity = newEntity();

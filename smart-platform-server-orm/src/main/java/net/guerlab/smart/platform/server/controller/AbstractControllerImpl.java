@@ -37,6 +37,7 @@ public abstract class AbstractControllerImpl<D, E extends Convert<D>, S extends 
         return service;
     }
 
+    @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired
     public void setService(S service) {
         this.service = service;
