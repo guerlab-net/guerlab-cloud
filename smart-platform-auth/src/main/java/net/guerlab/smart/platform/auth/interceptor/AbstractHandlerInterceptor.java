@@ -3,10 +3,10 @@ package net.guerlab.smart.platform.auth.interceptor;
 import net.guerlab.smart.platform.auth.AbstractContextHandler;
 import net.guerlab.smart.platform.auth.annotation.IgnoreLogin;
 import net.guerlab.spring.commons.properties.ResponseAdvisorProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.Annotation;
@@ -21,7 +21,6 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor {
 
     private static final String[] METHODS = new String[] { "OPTIONS", "TRACE" };
 
-    @Resource
     protected ResponseAdvisorProperties responseAdvisorProperties;
 
     /**
@@ -86,5 +85,10 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor {
         String uri = request.getRequestURI();
 
         return responseAdvisorProperties.getExcluded().stream().anyMatch(uri::startsWith);
+    }
+
+    @Autowired
+    public void setResponseAdvisorProperties(ResponseAdvisorProperties responseAdvisorProperties) {
+        this.responseAdvisorProperties = responseAdvisorProperties;
     }
 }

@@ -7,9 +7,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.guerlab.spring.commons.sequence.Sequence;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
 import net.guerlab.web.result.ListObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -33,7 +33,6 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
     /**
      * 序列
      */
-    @Resource
     protected Sequence sequence;
 
     @Override
@@ -239,4 +238,8 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
 
     }
 
+    @Autowired
+    public void setSequence(Sequence sequence) {
+        this.sequence = sequence;
+    }
 }

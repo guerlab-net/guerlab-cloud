@@ -6,8 +6,8 @@ import net.guerlab.smart.platform.commons.util.ParameterizedTypeUtils;
 import net.guerlab.smart.platform.server.service.BaseFindService;
 import net.guerlab.spring.commons.dto.Convert;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
 
 /**
@@ -30,12 +30,16 @@ public abstract class AbstractControllerImpl<D, E extends Convert<D>, S extends 
     /**
      * 服务接口
      */
-    @Resource
     protected S service;
 
     @Override
     public S getService() {
         return service;
+    }
+
+    @Autowired
+    public void setService(S service) {
+        this.service = service;
     }
 
     /**
