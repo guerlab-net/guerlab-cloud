@@ -1,6 +1,5 @@
 package net.guerlab.smart.platform.commons.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.Version;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +17,5 @@ public abstract class BaseEntity {
      * 乐观锁版本
      */
     @Version
-    @TableField(value = "version")
     protected Long version;
 }
