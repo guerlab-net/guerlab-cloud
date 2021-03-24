@@ -58,6 +58,7 @@
         <maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
         <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+        <spring-boot-maven-plugin.version>2.4.4</spring-boot-maven-plugin.version>
 
         <guerlab-spring.version>4.0.0-SNAPSHOT</guerlab-spring.version>
         <spring-cloud-alibaba.version>2020.0.RC1</spring-cloud-alibaba.version>
@@ -128,6 +129,11 @@
                         <charset>${project.encoding}</charset>
                         <docencoding>${project.encoding}</docencoding>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
