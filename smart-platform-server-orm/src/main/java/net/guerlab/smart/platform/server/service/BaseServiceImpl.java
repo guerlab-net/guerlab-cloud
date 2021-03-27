@@ -249,6 +249,16 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
 
     }
 
+    @Override
+    public void delete(LambdaQueryWrapper<T> queryWrapper) {
+        getBaseMapper().delete(queryWrapper);
+    }
+
+    @Override
+    public void delete(QueryWrapper<T> queryWrapper) {
+        getBaseMapper().delete(queryWrapper);
+    }
+
     @Autowired
     public void setSequence(Sequence sequence) {
         this.sequence = sequence;
