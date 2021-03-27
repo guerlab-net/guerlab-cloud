@@ -19,6 +19,6 @@ public abstract class BaseEntity {
      * 乐观锁版本
      */
     @Version
-    @Schema(description = "乐观锁版本")
+    @Schema(description = "乐观锁版本", accessMode = Schema.AccessMode.READ_ONLY)
     protected Long version;
 }

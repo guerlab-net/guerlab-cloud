@@ -66,7 +66,6 @@
         <jjwt.version>0.9.1</jjwt.version>
         <guava.version>20.0</guava.version>
         <easyexcel.version>2.2.3</easyexcel.version>
-        <swagger.version>2.1.7</swagger.version>
         <springdoc.version>1.5.5</springdoc.version>
     </properties>
 
@@ -272,11 +271,6 @@
             </dependency>
 
             <!-- swagger -->
-            <dependency>
-                <groupId>io.swagger.core.v3</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>

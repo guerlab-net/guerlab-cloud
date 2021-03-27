@@ -17,6 +17,7 @@ import javax.persistence.Column;
  */
 @Getter
 @Setter
+@Schema(name = "OrderSearchParams", description = "可排序搜索参数")
 public class OrderSearchParams extends AbstractSearchParams {
 
     /**

@@ -17,31 +17,31 @@ import java.math.BigDecimal;
  */
 @Setter
 @Getter
-@Schema(name = "地理信息实体搜索参数")
+@Schema(name = "GeoSearchParams", description = "地理信息实体搜索参数")
 public class GeoSearchParams extends AbstractSearchParams {
 
     /**
      * 经度
      */
-    @Schema(name = "经度")
+    @Schema(description = "经度")
     private BigDecimal longitude;
 
     /**
      * 纬度
      */
-    @Schema(name = "纬度")
+    @Schema(description = "纬度")
     private BigDecimal latitude;
 
     /**
      * 视图经度
      */
-    @Schema(name = "视图经度")
+    @Schema(description = "视图经度")
     private BigDecimal viewLongitude;
 
     /**
      * 视图纬度
      */
-    @Schema(name = "视图纬度")
+    @Schema(description = "视图纬度")
     private BigDecimal viewLatitude;
 
     /**
