@@ -1,5 +1,6 @@
 package net.guerlab.smart.platform.server.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -62,6 +63,11 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
 
     @Override
     public Collection<T> selectList(QueryWrapper<T> queryWrapper) {
+        return getBaseMapper().selectList(queryWrapper);
+    }
+
+    @Override
+    public Collection<T> selectList(LambdaQueryWrapper<T> queryWrapper) {
         return getBaseMapper().selectList(queryWrapper);
     }
 

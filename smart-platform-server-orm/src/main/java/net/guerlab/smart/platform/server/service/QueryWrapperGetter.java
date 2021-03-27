@@ -1,5 +1,6 @@
 package net.guerlab.smart.platform.server.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
 import net.guerlab.spring.searchparams.SearchParamsUtils;
@@ -57,6 +58,15 @@ public interface QueryWrapperGetter<T, SP extends AbstractSearchParams> {
      */
     default QueryWrapper<T> getQueryWrapper() {
         return new QueryWrapper<>();
+    }
+
+    /**
+     * 获取LambdaQueryWrapper
+     *
+     * @return LambdaQueryWrapper
+     */
+    default LambdaQueryWrapper<T> getLambdaQueryWrapper() {
+        return new LambdaQueryWrapper<>();
     }
 
     /**

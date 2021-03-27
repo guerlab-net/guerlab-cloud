@@ -1,5 +1,6 @@
 package net.guerlab.smart.platform.server.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
 import net.guerlab.web.result.ListObject;
@@ -99,6 +100,15 @@ public interface BaseFindService<T, PK extends Serializable, SP extends Abstract
      * @return 实体列表
      */
     Collection<T> selectList(QueryWrapper<T> queryWrapper);
+
+    /**
+     * 查询列表
+     *
+     * @param queryWrapper
+     *         查询条件
+     * @return 实体列表
+     */
+    Collection<T> selectList(LambdaQueryWrapper<T> queryWrapper);
 
     /**
      * 获取所有对象
