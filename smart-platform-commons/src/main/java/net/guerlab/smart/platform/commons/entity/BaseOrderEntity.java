@@ -13,11 +13,12 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Schema(name = "BaseOrderEntity", description = "可排序实体")
 public abstract class BaseOrderEntity<E extends BaseOrderEntity<?>> extends BaseEntity implements IOrderEntity<E> {
 
     /**
      * 排序值
      */
-    @Schema(name = "排序值")
+    @Schema(description = "排序值")
     protected Integer orderNum;
 }

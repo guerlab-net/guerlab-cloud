@@ -1,5 +1,6 @@
 package net.guerlab.smart.platform.auth.enums;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import net.guerlab.commons.exception.ApplicationException;
 import net.guerlab.smart.platform.commons.exception.AccessTokenExpiredException;
 import net.guerlab.smart.platform.commons.exception.AccessTokenInvalidException;
@@ -12,11 +13,13 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author guer
  */
+@Schema(name = "TokenType", description = "令牌类型")
 public enum TokenType {
 
     /**
      * AccessToken
      */
+    @Schema(description = "Access Token")
     ACCESS_TOKEN {
         @Override
         public String simpleName() {
@@ -37,6 +40,7 @@ public enum TokenType {
     /**
      * RefreshToken
      */
+    @Schema(description = "Refresh Token")
     REFRESH_TOKEN {
         @Override
         public String simpleName() {

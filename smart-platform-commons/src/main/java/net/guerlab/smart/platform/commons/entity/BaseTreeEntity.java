@@ -17,12 +17,13 @@ import java.util.Collection;
 @SuppressWarnings("WeakerAccess")
 @Getter
 @Setter
+@Schema(name = "BaseTreeEntity", description = "树形结构")
 public abstract class BaseTreeEntity<E extends BaseTreeEntity<E>> {
 
     /**
      * 下级列表
      */
-    @Schema(name = "下级列表")
+    @Schema(description = "下级列表")
     @TableField(exist = false)
     protected Collection<E> children;
 }

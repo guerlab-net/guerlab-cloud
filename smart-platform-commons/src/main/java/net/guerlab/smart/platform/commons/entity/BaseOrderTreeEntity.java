@@ -16,12 +16,13 @@ import java.util.Collection;
  */
 @Getter
 @Setter
+@Schema(name = "BaseOrderTreeEntity", description = "可排序树形结构")
 public abstract class BaseOrderTreeEntity<E extends BaseOrderTreeEntity<E>> extends BaseOrderEntity<E> {
 
     /**
      * 下级列表
      */
-    @Schema(name = "下级列表")
+    @Schema(description = "下级列表")
     @TableField(exist = false)
     protected Collection<E> children;
 

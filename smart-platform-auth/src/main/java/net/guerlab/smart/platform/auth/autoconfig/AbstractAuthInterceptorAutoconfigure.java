@@ -73,10 +73,8 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthPropert
             return;
         }
 
-        List<AbstractHandlerInterceptor> interceptors = Arrays.stream(tokenHandlerInterceptors).filter(Objects::nonNull)
+        this.tokenHandlerInterceptors = Arrays.stream(tokenHandlerInterceptors).filter(Objects::nonNull)
                 .filter(interceptor -> Objects.equals(interceptor.getAuthProperties(), this.properties))
                 .collect(Collectors.toList());
-
-        this.tokenHandlerInterceptors = interceptors;
     }
 }
