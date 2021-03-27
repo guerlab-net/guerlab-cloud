@@ -152,12 +152,17 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
     }
 
     @Override
-    public boolean updateByQueryWrapper(T entity, QueryWrapper<T> queryWrapper) {
+    public boolean update(T entity, LambdaQueryWrapper<T> queryWrapper) {
         return getBaseMapper().update(entity, queryWrapper) > 0;
     }
 
     @Override
-    public boolean updateBySearchParams(T entity, SP searchParams) {
+    public boolean update(T entity, QueryWrapper<T> queryWrapper) {
+        return getBaseMapper().update(entity, queryWrapper) > 0;
+    }
+
+    @Override
+    public boolean update(T entity, SP searchParams) {
         return getBaseMapper().update(entity, getQueryWrapper(searchParams)) > 0;
     }
 

@@ -1,5 +1,7 @@
 package net.guerlab.smart.platform.server.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
 
 import java.io.Serializable;
@@ -47,6 +49,22 @@ public interface BaseDeleteService<T, PK extends Serializable, SP extends Abstra
      *         强制删除标志
      */
     void delete(SP searchParams, Boolean force);
+
+    /**
+     * 删除，调用此方法会忽略删除检查逻辑
+     *
+     * @param queryWrapper
+     *         删除条件
+     */
+    void delete(LambdaQueryWrapper<T> queryWrapper);
+
+    /**
+     * 删除，调用此方法会忽略删除检查逻辑
+     *
+     * @param queryWrapper
+     *         删除条件
+     */
+    void delete(QueryWrapper<T> queryWrapper);
 
     /**
      * 根据Id删除
