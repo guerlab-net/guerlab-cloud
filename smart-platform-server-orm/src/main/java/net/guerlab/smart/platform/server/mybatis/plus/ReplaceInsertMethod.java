@@ -2,6 +2,7 @@ package net.guerlab.smart.platform.server.mybatis.plus;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.executor.keygen.NoKeyGenerator;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlSource;
@@ -26,8 +27,11 @@ public class ReplaceInsertMethod extends AbstractMethod {
     }
 
     private String prepareFieldSql(TableInfo tableInfo) {
+        String keyColumn = StringUtils.trimToNull(tableInfo.getKeyColumn());
         StringBuilder fieldSql = new StringBuilder();
-        fieldSql.append(tableInfo.getKeyColumn()).append(",");
+        if (keyColumn != null) {
+            fieldSql.append(tableInfo.getKeyColumn()).append(",");
+        }
         tableInfo.getFieldList().forEach(x -> fieldSql.append(x.getColumn()).append(","));
         fieldSql.delete(fieldSql.length() - 1, fieldSql.length());
         fieldSql.insert(0, "(");
@@ -36,10 +40,13 @@ public class ReplaceInsertMethod extends AbstractMethod {
     }
 
     private String prepareValuesSqlForMysqlBatch(TableInfo tableInfo) {
+        String keyColumn = StringUtils.trimToNull(tableInfo.getKeyColumn());
         final StringBuilder valueSql = new StringBuilder();
         valueSql.append(
                 "<foreach collection=\"list\" item=\"item\" index=\"index\" open=\"(\" separator=\"),(\" close=\")\">");
-        valueSql.append("#{item.").append(tableInfo.getKeyProperty()).append("},");
+        if (keyColumn != null) {
+            valueSql.append("#{item.").append(tableInfo.getKeyProperty()).append("},");
+        }
         tableInfo.getFieldList().forEach(x -> valueSql.append("#{item.").append(x.getProperty()).append("},"));
         valueSql.delete(valueSql.length() - 1, valueSql.length());
         valueSql.append("</foreach>");
