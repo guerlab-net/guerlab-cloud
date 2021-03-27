@@ -17,19 +17,19 @@ public class TokenInfo {
     /**
      * 令牌
      */
-    @Schema(name = "令牌")
+    @Schema(description = "令牌")
     private String token;
 
     /**
      * 过期时间
      */
-    @Schema(name = "过期时间")
+    @Schema(description = "过期时间")
     private LocalDateTime expireAt;
 
     /**
      * 过期时长
      */
-    @Schema(name = "过期时长")
+    @Schema(description = "过期时长")
     private Long expire;
 }
 

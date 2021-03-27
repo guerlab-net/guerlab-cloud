@@ -15,18 +15,18 @@ public class AbstractLoginResponse<T> {
     /**
      * accessToken
      */
-    @Schema(name = "accessToken")
+    @Schema(description = "accessToken")
     protected TokenInfo accessToken;
 
     /**
      * refreshToken
      */
-    @Schema(name = "refreshToken")
+    @Schema(description = "refreshToken")
     protected TokenInfo refreshToken;
 
     /**
      * 用户信息
      */
-    @Schema(name = "用户信息")
+    @Schema(description = "用户信息")
     protected T info;
 }
