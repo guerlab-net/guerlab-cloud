@@ -17,6 +17,8 @@ import java.util.Objects;
 @Slf4j
 public class DebugProxyRequestInterceptor implements RequestInterceptor {
 
+    private static final String PATH_SEPARATOR = "/";
+
     private final DebugProperties properties;
 
     public DebugProxyRequestInterceptor(DebugProperties properties) {
@@ -31,6 +33,9 @@ public class DebugProxyRequestInterceptor implements RequestInterceptor {
 
         String serviceName = requestTemplate.feignTarget().name();
 
+        if (serviceName.contains(PATH_SEPARATOR)) {
+            serviceName = serviceName.split(PATH_SEPARATOR)[0];
+        }
         if (isLocalService(serviceName)) {
             return;
         }
