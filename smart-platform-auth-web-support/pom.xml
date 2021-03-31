@@ -3,7 +3,7 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>smart-platform-auth</artifactId>
+    <artifactId>smart-platform-auth-web-support</artifactId>
 
     <parent>
         <groupId>net.guerlab.smart.platform</groupId>
@@ -18,9 +18,19 @@
     <dependencies>
         <dependency>
             <groupId>net.guerlab.smart.platform</groupId>
-            <artifactId>smart-platform-commons</artifactId>
+            <artifactId>smart-platform-auth</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>

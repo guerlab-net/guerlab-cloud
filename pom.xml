@@ -208,9 +208,16 @@
                 <artifactId>smart-platform-api</artifactId>
                 <version>${revision}</version>
             </dependency>
+
+            <!-- smart-platform auth -->
             <dependency>
                 <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-auth</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.smart.platform</groupId>
+                <artifactId>smart-platform-auth-web-support</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -304,6 +311,7 @@
     <modules>
         <module>smart-platform-api</module>
         <module>smart-platform-auth</module>
+        <module>smart-platform-auth-web-support</module>
         <module>smart-platform-cache-redis</module>
         <module>smart-platform-commons</module>
         <module>smart-platform-excel</module>
