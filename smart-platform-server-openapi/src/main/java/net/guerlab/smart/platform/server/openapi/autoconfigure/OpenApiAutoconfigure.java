@@ -7,7 +7,7 @@ import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import net.guerlab.smart.platform.commons.Constants;
 import net.guerlab.smart.platform.server.openapi.properties.ApiInfoProperties;
-import net.guerlab.spring.commons.properties.ResponseAdvisorProperties;
+import net.guerlab.spring.web.properties.ResponseAdvisorProperties;
 import org.springdoc.core.SpringDocConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

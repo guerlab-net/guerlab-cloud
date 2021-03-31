@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>net.guerlab.smart.platform</groupId>
-            <artifactId>smart-platform-server-parent</artifactId>
+            <artifactId>smart-platform-server-webmvc</artifactId>
         </dependency>
 
         <dependency>

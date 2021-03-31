@@ -2,7 +2,7 @@ package net.guerlab.smart.platform.auth.interceptor;
 
 import net.guerlab.smart.platform.auth.AbstractContextHandler;
 import net.guerlab.smart.platform.auth.annotation.IgnoreLogin;
-import net.guerlab.spring.commons.properties.ResponseAdvisorProperties;
+import net.guerlab.spring.web.properties.ResponseAdvisorProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;

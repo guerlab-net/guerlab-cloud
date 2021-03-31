@@ -37,12 +37,6 @@
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
 
-        <!-- spring boot admin -->
-        <dependency>
-            <groupId>de.codecentric</groupId>
-            <artifactId>spring-boot-admin-starter-client</artifactId>
-        </dependency>
-
         <!-- spring cloud alibaba -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

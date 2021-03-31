@@ -20,6 +20,17 @@
             <artifactId>smart-platform-server-parent</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>net.guerlab.spring</groupId>
+            <artifactId>guerlab-spring-web</artifactId>
+        </dependency>
+
+        <!-- spring boot admin -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>
+
         <!-- spring boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
