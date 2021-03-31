@@ -17,6 +17,10 @@ import java.util.Objects;
 @Slf4j
 public class DebugProxyRequestInterceptor implements RequestInterceptor {
 
+    private static final String SCHEME_HTTP = "http://";
+
+    private static final String SCHEME_HTTPS = "https://";
+
     private static final String PATH_SEPARATOR = "/";
 
     private final DebugProperties properties;
@@ -41,7 +45,14 @@ public class DebugProxyRequestInterceptor implements RequestInterceptor {
         }
 
         String targetUrl = requestTemplate.feignTarget().url();
-        String url = targetUrl.replace("http://", properties.getGatewayProxyUrl());
+        String url;
+
+        if (targetUrl.startsWith(SCHEME_HTTPS)) {
+            url = targetUrl.replace(SCHEME_HTTPS, properties.getGatewayProxyUrl());
+        } else {
+            url = targetUrl.replace(SCHEME_HTTP, properties.getGatewayProxyUrl());
+        }
+
         requestTemplate.target(url);
         requestTemplate.header(properties.getProxyHeaderName(), properties.getProxyHeaderValue());
 
