@@ -58,32 +58,4 @@ public interface BaseUpdateService<T, SP extends AbstractSearchParams> extends Q
      */
     boolean update(T entity, SP searchParams);
 
-    /**
-     * 根据条件更新
-     *
-     * @param entity
-     *         实体
-     * @param queryWrapper
-     *         条件
-     * @return 是否更新成功
-     */
-    @Deprecated
-    default boolean updateByQueryWrapper(T entity, QueryWrapper<T> queryWrapper) {
-        return update(entity, queryWrapper);
-    }
-
-    /**
-     * 根据条件更新
-     *
-     * @param entity
-     *         实体
-     * @param searchParams
-     *         搜索条件
-     * @return 是否更新成功
-     */
-    @Deprecated
-    default boolean updateBySearchParams(T entity, SP searchParams) {
-        return update(entity, searchParams);
-    }
-
 }
