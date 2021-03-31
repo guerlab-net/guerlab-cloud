@@ -1,4 +1,4 @@
-package net.guerlab.smart.platform.server.properties;
+package net.guerlab.smart.platform.server.openapi.properties;
 
 import io.swagger.v3.oas.models.info.Contact;
 import lombok.Data;

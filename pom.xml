@@ -231,12 +231,27 @@
             <!-- smart-platform server parent -->
             <dependency>
                 <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-server-parent</artifactId>
+                <artifactId>smart-platform-server-openapi</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-server-orm</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.smart.platform</groupId>
+                <artifactId>smart-platform-server-parent</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.smart.platform</groupId>
+                <artifactId>smart-platform-server-sentinel</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.smart.platform</groupId>
+                <artifactId>smart-platform-server-webmvc</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -291,9 +306,12 @@
         <module>smart-platform-auth</module>
         <module>smart-platform-cache-redis</module>
         <module>smart-platform-commons</module>
-        <module>smart-platform-server-parent</module>
-        <module>smart-platform-stream</module>
-        <module>smart-platform-server-orm</module>
         <module>smart-platform-excel</module>
+        <module>smart-platform-server-openapi</module>
+        <module>smart-platform-server-orm</module>
+        <module>smart-platform-server-parent</module>
+        <module>smart-platform-server-sentinel</module>
+        <module>smart-platform-server-webmvc</module>
+        <module>smart-platform-stream</module>
     </modules>
 </project>

@@ -1,4 +1,4 @@
-package net.guerlab.smart.platform.server.autoconfigure;
+package net.guerlab.smart.platform.server.openapi.autoconfigure;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -6,7 +6,7 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import net.guerlab.smart.platform.commons.Constants;
-import net.guerlab.smart.platform.server.properties.ApiInfoProperties;
+import net.guerlab.smart.platform.server.openapi.properties.ApiInfoProperties;
 import net.guerlab.spring.commons.properties.ResponseAdvisorProperties;
 import org.springdoc.core.SpringDocConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
