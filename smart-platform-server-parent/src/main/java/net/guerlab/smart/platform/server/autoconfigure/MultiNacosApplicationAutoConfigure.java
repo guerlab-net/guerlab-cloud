@@ -17,6 +17,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * 多实例注册自动配置
+ *
  * @author guer
  */
 @Slf4j

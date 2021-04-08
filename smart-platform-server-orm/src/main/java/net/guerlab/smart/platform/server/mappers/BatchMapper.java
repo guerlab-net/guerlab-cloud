@@ -1,11 +1,14 @@
 package net.guerlab.smart.platform.server.mappers;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
+ * 批量处理mapper
+ *
+ * @param <T>
+ *         实体类型
  * @author guer
  */
 public interface BatchMapper<T> extends BaseMapper<T> {
