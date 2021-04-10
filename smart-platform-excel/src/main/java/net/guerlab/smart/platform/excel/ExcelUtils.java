@@ -22,14 +22,14 @@ import java.util.Collection;
 @SuppressWarnings({ "rawtypes", "unused" })
 public class ExcelUtils {
 
-    private static final Collection<Converter> converters = new ArrayList<>();
+    private static final Collection<Converter> CONVERTERS = new ArrayList<>();
 
     static {
-        converters.add(BigDecimalConverter.INSTANCE);
-        converters.add(LocalDateConverter.INSTANCE);
-        converters.add(LocalDateTimeConverter.INSTANCE);
-        converters.add(LocalTimeConverter.INSTANCE);
-        converters.add(BooleanConverter.INSTANCE);
+        CONVERTERS.add(BigDecimalConverter.INSTANCE);
+        CONVERTERS.add(LocalDateConverter.INSTANCE);
+        CONVERTERS.add(LocalDateTimeConverter.INSTANCE);
+        CONVERTERS.add(LocalTimeConverter.INSTANCE);
+        CONVERTERS.add(BooleanConverter.INSTANCE);
     }
 
     /**
@@ -51,7 +51,7 @@ public class ExcelUtils {
         try {
             response.setContentType("application/vnd.ms-excel");
             response.setCharacterEncoding("utf-8");
-            response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+            response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xlsx");
             write(response.getOutputStream(), head).registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
                     .sheet().doWrite(BeanConvertUtils.toList(list, head));
         } catch (Exception e) {
@@ -147,11 +147,11 @@ public class ExcelUtils {
      *         转换器
      */
     public static void registerGlobalConverter(Converter converter) {
-        converters.add(converter);
+        CONVERTERS.add(converter);
     }
 
     private static ExcelWriterBuilder registerConverter(ExcelWriterBuilder builder) {
-        converters.forEach(builder::registerConverter);
+        CONVERTERS.forEach(builder::registerConverter);
         builder.registerConverter(BigDecimalConverter.INSTANCE);
         builder.registerConverter(LocalDateConverter.INSTANCE);
         builder.registerConverter(LocalDateTimeConverter.INSTANCE);

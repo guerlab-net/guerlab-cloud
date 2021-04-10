@@ -21,7 +21,6 @@ public class SnowflakeIdGeneratorAutoconfigure {
      *         雪花ID序列
      * @return 雪花ID生成器
      */
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean
     @ConditionalOnBean(Sequence.class)
     public SnowflakeIdGenerator snowflakeIdGenerator(Sequence sequence) {
