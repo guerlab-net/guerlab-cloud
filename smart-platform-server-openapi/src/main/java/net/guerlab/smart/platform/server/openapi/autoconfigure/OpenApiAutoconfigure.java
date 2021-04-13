@@ -1,18 +1,10 @@
 package net.guerlab.smart.platform.server.openapi.autoconfigure;
 
-import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.info.License;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import net.guerlab.smart.platform.commons.Constants;
-import net.guerlab.smart.platform.server.openapi.properties.ApiInfoProperties;
+import net.guerlab.smart.platform.server.openapi.properties.OpenApiProperties;
 import net.guerlab.spring.web.properties.ResponseAdvisorProperties;
 import org.springdoc.core.SpringDocConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Collections;
@@ -23,7 +15,7 @@ import java.util.Collections;
  * @author guer
  */
 @Configuration
-@EnableConfigurationProperties({ ApiInfoProperties.class })
+@EnableConfigurationProperties({ OpenApiProperties.class })
 public class OpenApiAutoconfigure {
 
     @Autowired(required = false)
@@ -32,45 +24,6 @@ public class OpenApiAutoconfigure {
         if (responseAdvisorProperties != null && properties != null) {
             responseAdvisorProperties.addExcluded(Collections.singletonList(properties.getApiDocs().getPath()));
         }
-    }
-
-    @ConditionalOnClass(ApiInfoProperties.class)
-    @Bean
-    public Info customerInfo(ApiInfoProperties properties) {
-        License license = new License();
-        license.setName(properties.getLicense());
-        license.setUrl(properties.getLicenseUrl());
-
-        Info info = new Info();
-        info.title(properties.getTitle());
-        info.version(properties.getVersion());
-        info.description(properties.getDescription());
-        info.termsOfService(properties.getTermsOfServiceUrl());
-        info.license(license);
-
-        return info;
-    }
-
-    @Bean
-    public Components customerComponents() {
-        SecurityScheme authorization = new SecurityScheme();
-        authorization.type(SecurityScheme.Type.APIKEY);
-        authorization.name(Constants.TOKEN);
-        authorization.in(SecurityScheme.In.HEADER);
-
-        Components components = new Components();
-        components.addSecuritySchemes(Constants.TOKEN, authorization);
-
-        return components;
-    }
-
-    @Bean
-    @ConditionalOnClass({ Info.class, Components.class })
-    public OpenAPI customOpenApi(Info info, Components components) {
-        OpenAPI openApi = new OpenAPI();
-        openApi.info(info);
-        openApi.components(components);
-        return openApi;
     }
 
 }
