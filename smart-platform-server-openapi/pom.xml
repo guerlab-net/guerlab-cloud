@@ -18,6 +18,7 @@
         <dependency>
             <groupId>net.guerlab.smart.platform</groupId>
             <artifactId>smart-platform-server-webmvc</artifactId>
+            <type>pom</type>
         </dependency>
 
         <!-- swagger -->
