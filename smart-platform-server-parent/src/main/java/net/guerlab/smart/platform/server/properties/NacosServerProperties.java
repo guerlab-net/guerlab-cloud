@@ -30,7 +30,17 @@ public class NacosServerProperties {
     private String namespace = "";
 
     /**
-     * 多应用名称列表
+     * 用户名
+     */
+    private String username;
+
+    /**
+     * 密码
+     */
+    private String password;
+
+    /**
+     * 批量注册应用名列表
      */
     private List<String> appNames;
 }

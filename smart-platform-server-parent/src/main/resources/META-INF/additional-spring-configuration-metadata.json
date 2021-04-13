@@ -28,6 +28,24 @@
       "sourceType": "net.guerlab.smart.platform.server.properties.NacosServerProperties",
       "description": "命名空间.",
       "defaultValue": ""
+    },
+    {
+      "name": "nacos.username",
+      "type": "java.lang.String",
+      "sourceType": "net.guerlab.smart.platform.server.properties.NacosServerProperties",
+      "description": "用户名."
+    },
+    {
+      "name": "nacos.password",
+      "type": "java.lang.String",
+      "sourceType": "net.guerlab.smart.platform.server.properties.NacosServerProperties",
+      "description": "密码."
+    },
+    {
+      "name": "nacos.app-names",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.smart.platform.server.properties.NacosServerProperties",
+      "description": "批量注册应用名列表."
     }
   ]
 }

@@ -46,7 +46,7 @@
     </issueManagement>
 
     <properties>
-        <revision>21.1.0</revision>
+        <revision>21.2.0</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>11</java.version>
@@ -67,6 +67,7 @@
         <guava.version>24.1.1-jre</guava.version>
         <easyexcel.version>2.2.8</easyexcel.version>
         <springdoc.version>1.5.5</springdoc.version>
+        <nacos.version>2.0.0</nacos.version>
     </properties>
 
     <distributionManagement>
@@ -297,6 +298,13 @@
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
                 <version>${springdoc.version}</version>
+            </dependency>
+
+            <!-- nacos -->
+            <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-client</artifactId>
+                <version>${nacos.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
