@@ -2,7 +2,8 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>smart-platform-server-openapi</artifactId>
+    <artifactId>smart-platform-server-webflux</artifactId>
+    <packaging>pom</packaging>
 
     <parent>
         <groupId>net.guerlab.smart.platform</groupId>
@@ -17,25 +18,24 @@
     <dependencies>
         <dependency>
             <groupId>net.guerlab.smart.platform</groupId>
-            <artifactId>smart-platform-server-openapi-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.guerlab.smart.platform</groupId>
-            <artifactId>smart-platform-server-webmvc</artifactId>
-            <type>pom</type>
+            <artifactId>smart-platform-server-parent</artifactId>
         </dependency>
 
-        <!-- swagger -->
         <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
+            <groupId>net.guerlab.spring</groupId>
+            <artifactId>guerlab-spring-web</artifactId>
+        </dependency>
+
+        <!-- spring boot admin -->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
         </dependency>
 
         <!-- spring boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
+            <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
     </dependencies>
 </project>

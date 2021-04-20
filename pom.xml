@@ -46,7 +46,7 @@
     </issueManagement>
 
     <properties>
-        <revision>21.2.0</revision>
+        <revision>21.3.0-SNAPSHOT</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>11</java.version>
@@ -66,6 +66,7 @@
         <jjwt.version>0.9.1</jjwt.version>
         <guava.version>24.1.1-jre</guava.version>
         <easyexcel.version>2.2.8</easyexcel.version>
+        <swagger.version>2.1.6</swagger.version>
         <springdoc.version>1.5.5</springdoc.version>
         <nacos.version>2.0.0</nacos.version>
     </properties>
@@ -244,6 +245,11 @@
             </dependency>
             <dependency>
                 <groupId>net.guerlab.smart.platform</groupId>
+                <artifactId>smart-platform-server-openapi-common</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-server-orm</artifactId>
                 <version>${revision}</version>
             </dependency>
@@ -255,6 +261,17 @@
             <dependency>
                 <groupId>net.guerlab.smart.platform</groupId>
                 <artifactId>smart-platform-server-sentinel</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.smart.platform</groupId>
+                <artifactId>smart-platform-server-webflux</artifactId>
+                <type>pom</type>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.smart.platform</groupId>
+                <artifactId>smart-platform-server-webflux-openapi</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -297,7 +314,17 @@
             <!-- swagger -->
             <dependency>
                 <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-common</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-webflux-ui</artifactId>
                 <version>${springdoc.version}</version>
             </dependency>
 
@@ -325,9 +352,12 @@
         <module>smart-platform-commons</module>
         <module>smart-platform-excel</module>
         <module>smart-platform-server-openapi</module>
+        <module>smart-platform-server-openapi-common</module>
         <module>smart-platform-server-orm</module>
         <module>smart-platform-server-parent</module>
         <module>smart-platform-server-sentinel</module>
+        <module>smart-platform-server-webflux</module>
+        <module>smart-platform-server-webflux-openapi</module>
         <module>smart-platform-server-webmvc</module>
         <module>smart-platform-stream</module>
     </modules>

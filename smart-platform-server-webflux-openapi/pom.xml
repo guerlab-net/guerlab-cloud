@@ -2,7 +2,7 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>smart-platform-server-openapi</artifactId>
+    <artifactId>smart-platform-server-webflux-openapi</artifactId>
 
     <parent>
         <groupId>net.guerlab.smart.platform</groupId>
@@ -21,14 +21,14 @@
         </dependency>
         <dependency>
             <groupId>net.guerlab.smart.platform</groupId>
-            <artifactId>smart-platform-server-webmvc</artifactId>
+            <artifactId>smart-platform-server-webflux</artifactId>
             <type>pom</type>
         </dependency>
 
         <!-- swagger -->
         <dependency>
             <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
+            <artifactId>springdoc-openapi-webflux-ui</artifactId>
         </dependency>
 
         <!-- spring boot -->
