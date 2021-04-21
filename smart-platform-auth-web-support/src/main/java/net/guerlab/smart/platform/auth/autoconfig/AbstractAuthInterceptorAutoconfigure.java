@@ -46,6 +46,7 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthPropert
      *         InterceptorRegistry实例
      */
     protected void addInterceptorsInternal(InterceptorRegistry registry) {
+        /* 默认空实现 */
     }
 
     /**

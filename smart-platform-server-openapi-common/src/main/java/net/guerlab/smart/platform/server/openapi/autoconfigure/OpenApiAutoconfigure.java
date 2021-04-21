@@ -5,6 +5,7 @@ import net.guerlab.spring.web.properties.ResponseAdvisorProperties;
 import org.springdoc.core.SpringDocConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Collections;
@@ -16,14 +17,19 @@ import java.util.Collections;
  */
 @Configuration
 @EnableConfigurationProperties({ OpenApiProperties.class })
+@ComponentScan("net.guerlab.smart.platform.server.openapi")
 public class OpenApiAutoconfigure {
 
     @Autowired(required = false)
     public void responseAdvisorAddExcluded(ResponseAdvisorProperties responseAdvisorProperties,
             SpringDocConfigProperties properties) {
-        if (responseAdvisorProperties != null && properties != null) {
+        if (responseAdvisorProperties == null) {
+            return;
+        }
+        if (properties != null) {
             responseAdvisorProperties.addExcluded(Collections.singletonList(properties.getApiDocs().getPath()));
         }
+        responseAdvisorProperties.addExcluded("/openapi-cloud");
     }
 
 }

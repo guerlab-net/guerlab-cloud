@@ -130,7 +130,7 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
      *         实体
      */
     protected void insertBefore(T entity) {
-
+        /* 默认空实现 */
     }
 
     /**
@@ -140,7 +140,7 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
      *         实体
      */
     protected void insertAfter(T entity) {
-
+        /* 默认空实现 */
     }
 
     @Override
@@ -173,7 +173,7 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
      *         实体
      */
     protected void updateBefore(T entity) {
-
+        /* 默认空实现 */
     }
 
     /**
@@ -183,7 +183,7 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
      *         实体
      */
     protected void updateAfter(T entity) {
-
+        /* 默认空实现 */
     }
 
     @Override
@@ -203,7 +203,7 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
      *         强制删除标签
      */
     protected void deleteBefore(SP searchParams, Boolean force) {
-
+        /* 默认空实现 */
     }
 
     /**
@@ -215,7 +215,7 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
      *         强制删除标签
      */
     protected void deleteAfter(SP searchParams, Boolean force) {
-
+        /* 默认空实现 */
     }
 
     @Override
@@ -234,7 +234,7 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
      *         强制删除标签
      */
     protected void deleteByIdBefore(PK id, Boolean force) {
-
+        /* 默认空实现 */
     }
 
     /**
@@ -246,7 +246,7 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
      *         强制删除标签
      */
     protected void deleteByIdAfter(PK id, Boolean force) {
-
+        /* 默认空实现 */
     }
 
     @Override
