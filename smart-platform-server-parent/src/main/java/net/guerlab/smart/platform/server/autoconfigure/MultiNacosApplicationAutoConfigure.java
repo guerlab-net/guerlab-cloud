@@ -1,3 +1,15 @@
+/*
+ * Copyright 2018-2021 guerlab.net and other contributors.
+ *
+ * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.guerlab.smart.platform.server.autoconfigure;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
@@ -24,8 +36,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 @Configuration
 @EnableConfigurationProperties(NacosServerProperties.class)
-public class MultiNacosApplicationAutoConfigure
-        implements ApplicationListener<WebServerInitializedEvent>, DisposableBean {
+public class MultiNacosApplicationAutoConfigure implements ApplicationListener<WebServerInitializedEvent>, DisposableBean {
 
     private final NamingService namingService;
 
@@ -38,8 +49,7 @@ public class MultiNacosApplicationAutoConfigure
     private final AtomicInteger port = new AtomicInteger(0);
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    public MultiNacosApplicationAutoConfigure(NacosServerProperties serverProperties,
-            NacosDiscoveryProperties discoveryProperties) {
+    public MultiNacosApplicationAutoConfigure(NacosServerProperties serverProperties, NacosDiscoveryProperties discoveryProperties) {
         this.serverProperties = serverProperties;
         this.discoveryProperties = discoveryProperties;
         this.namingService = discoveryProperties.namingServiceInstance();
