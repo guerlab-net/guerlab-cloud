@@ -13,6 +13,7 @@
 package net.guerlab.smart.platform.server.autoconfigure;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
+import com.alibaba.cloud.nacos.NacosServiceManager;
 import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import lombok.extern.slf4j.Slf4j;
@@ -49,10 +50,11 @@ public class MultiNacosApplicationAutoConfigure implements ApplicationListener<W
     private final AtomicInteger port = new AtomicInteger(0);
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    public MultiNacosApplicationAutoConfigure(NacosServerProperties serverProperties, NacosDiscoveryProperties discoveryProperties) {
+    public MultiNacosApplicationAutoConfigure(NacosServerProperties serverProperties,
+            NacosDiscoveryProperties discoveryProperties, NacosServiceManager nacosServiceManager) {
         this.serverProperties = serverProperties;
         this.discoveryProperties = discoveryProperties;
-        this.namingService = discoveryProperties.namingServiceInstance();
+        this.namingService = nacosServiceManager.getNamingService(discoveryProperties.getNacosProperties());
     }
 
     @Override
