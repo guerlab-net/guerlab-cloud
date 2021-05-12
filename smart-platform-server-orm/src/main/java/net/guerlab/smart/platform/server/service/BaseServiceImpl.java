@@ -15,8 +15,8 @@ package net.guerlab.smart.platform.server.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import net.guerlab.spring.commons.sequence.Sequence;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
 import net.guerlab.web.result.ListObject;
@@ -41,12 +41,36 @@ import java.util.Collection;
  */
 @Transactional(rollbackFor = Exception.class)
 public abstract class BaseServiceImpl<T, PK extends Serializable, M extends BaseMapper<T>, SP extends AbstractSearchParams>
-        extends ServiceImpl<M, T> implements BaseService<T, PK, SP> {
+        implements BaseService<T, PK, SP> {
 
     /**
      * 序列
      */
     protected Sequence sequence;
+
+    /**
+     * mapper
+     */
+    protected M baseMapper;
+
+    /**
+     * 实体类型
+     */
+    protected Class<T> entityClass = this.currentModelClass();
+
+    /**
+     * mapper类型
+     */
+    protected Class<T> mapperClass = this.currentMapperClass();
+
+    /**
+     * 获取mapper
+     *
+     * @return mapper
+     */
+    public final M getBaseMapper() {
+        return this.baseMapper;
+    }
 
     @Override
     public T selectOne(T entity) {
@@ -272,7 +296,22 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
     }
 
     @Autowired
+    public void setBaseMapper(M baseMapper) {
+        this.baseMapper = baseMapper;
+    }
+
+    @SuppressWarnings("unchecked")
+    protected Class<T> currentMapperClass() {
+        return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), 2);
+    }
+
+    @Autowired
     public void setSequence(Sequence sequence) {
         this.sequence = sequence;
+    }
+
+    @SuppressWarnings("unchecked")
+    protected Class<T> currentModelClass() {
+        return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), 0);
     }
 }

@@ -12,15 +12,21 @@
  */
 package net.guerlab.smart.platform.server.service;
 
+import com.baomidou.mybatisplus.core.enums.SqlMethod;
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import net.guerlab.commons.collection.CollectionUtil;
 import net.guerlab.smart.platform.server.mappers.BatchMapper;
 import net.guerlab.smart.platform.server.utils.BatchSaveUtils;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 /**
  * 基本服务实现
@@ -39,15 +45,32 @@ import java.util.List;
 public abstract class BaseBatchServiceImpl<T, PK extends Serializable, M extends BatchMapper<T>, SP extends AbstractSearchParams>
         extends BaseServiceImpl<T, PK, M, SP> implements BaseBatchSaveService<T, SP> {
 
+    protected static final int DEFAULT_BATCH_SIZE = 1000;
+
+    private final Log log = LogFactory.getLog(this.getClass());
+
+    protected <E> boolean executeBatch(Collection<E> list, BiConsumer<SqlSession, E> consumer) {
+        return executeBatch(list, DEFAULT_BATCH_SIZE, consumer);
+    }
+
+    protected <E> boolean executeBatch(Collection<E> list, int batchSize, BiConsumer<SqlSession, E> consumer) {
+        return SqlHelper.executeBatch(this.entityClass, this.log, list, batchSize, consumer);
+    }
+
     @Override
     public Collection<T> batchInsert(Collection<T> collection) {
         List<T> list = BatchSaveUtils.filter(collection, this::batchSaveBefore);
 
         if (CollectionUtil.isNotEmpty(list)) {
-            saveBatch(list);
+            saveBatch(list, DEFAULT_BATCH_SIZE);
         }
 
         return list;
+    }
+
+    protected final void saveBatch(Collection<T> entityList, int batchSize) {
+        String sqlStatement = SqlHelper.getSqlStatement(this.mapperClass, SqlMethod.INSERT_ONE);
+        this.executeBatch(entityList, batchSize, (sqlSession, entity) -> sqlSession.insert(sqlStatement, entity));
     }
 
     @Override
