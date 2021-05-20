@@ -114,24 +114,13 @@ public class SpringCloudSwaggerWelcomeWebFlux extends SwaggerWelcomeCommon {
     }
 
     @Override
-    protected String buildApiDocUrl(String contextPath) {
+    protected String buildApiDocUrl() {
         return buildUrl(getGatewayPath() + contextPath, springDocConfigProperties.getApiDocs().getPath());
     }
 
     @Override
-    protected String buildSwaggerConfigUrl(String contextPath) {
-        return this.apiDocsUrl + DEFAULT_PATH_SEPARATOR + SWAGGGER_CONFIG_FILE;
-    }
-
-    private String fromCurrentContextPath(ServerHttpRequest request) {
-        String contextPath = request.getPath().contextPath().value();
-        String url = UriComponentsBuilder.fromHttpRequest(request).toUriString();
-        if (!"/".equals(request.getPath().toString())) {
-            url = url.replace(request.getPath().toString(), "");
-        }
-
-        this.buildConfigUrl(contextPath, UriComponentsBuilder.fromUriString(url));
-        return contextPath;
+    protected String buildSwaggerConfigUrl() {
+        return apiDocsUrl + DEFAULT_PATH_SEPARATOR + SWAGGGER_CONFIG_FILE;
     }
 
     private String getGatewayPath() {
