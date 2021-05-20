@@ -12,15 +12,17 @@
  */
 package net.guerlab.smart.platform.stream.utils;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.guerlab.commons.exception.ApplicationException;
 import net.guerlab.spring.commons.util.SpringApplicationContextUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.core.env.Environment;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -30,7 +32,7 @@ import java.util.Objects;
  */
 public class MessageUtils {
 
-    private static final String ORANGE_APP_NAME = "orange-app-name";
+    private static final String ORIGIN_APP_NAME = "origin-app-name";
 
     private MessageUtils() {
     }
@@ -43,7 +45,7 @@ public class MessageUtils {
      * @param clazz
      *         待转换格式
      * @param <T>
-     *         目标格式乐新g
+     *         目标格式类型
      * @return 消息题中的数据
      */
     public static <T> T read(Message<String> message, Class<T> clazz) {
@@ -61,12 +63,62 @@ public class MessageUtils {
     }
 
     /**
+     * 读取消息体中的数据
+     *
+     * @param message
+     *         消息体
+     * @param valueTypeRef
+     *         类型引用
+     * @param <T>
+     *         目标格式类型
+     * @return 消息题中的数据
+     */
+    public static <T> T read(Message<String> message, TypeReference<T> valueTypeRef) {
+        String payload = message.getPayload();
+
+        if (StringUtils.isBlank(payload)) {
+            return null;
+        }
+
+        try {
+            return getMapper().readValue(payload, valueTypeRef);
+        } catch (Exception e) {
+            throw new ApplicationException(e.getLocalizedMessage(), e);
+        }
+    }
+
+    /**
+     * 读取消息体中的数据
+     *
+     * @param message
+     *         消息体
+     * @param javaType
+     *         java类型
+     * @param <T>
+     *         目标格式类型
+     * @return 消息题中的数据
+     */
+    public static <T> T read(Message<String> message, JavaType javaType) {
+        String payload = message.getPayload();
+
+        if (StringUtils.isBlank(payload)) {
+            return null;
+        }
+
+        try {
+            return getMapper().readValue(payload, javaType);
+        } catch (Exception e) {
+            throw new ApplicationException(e.getLocalizedMessage(), e);
+        }
+    }
+
+    /**
      * 获取ObjectMapper
      *
      * @return ObjectMapper
      */
     private static ObjectMapper getMapper() {
-        return SpringApplicationContextUtil.getContext().getBean(ObjectMapper.class);
+        return SpringApplicationContextUtil.getBean(ObjectMapper.class);
     }
 
     /**
@@ -79,7 +131,7 @@ public class MessageUtils {
      * @return 判断
      */
     public static boolean orangeAppNameSame(Message<?> message, String appName) {
-        return Objects.equals(toString(message.getHeaders().get(ORANGE_APP_NAME)), appName);
+        return Objects.equals(toString(message.getHeaders().get(ORIGIN_APP_NAME)), appName);
     }
 
     /**
@@ -102,7 +154,7 @@ public class MessageUtils {
      */
     @SuppressWarnings("unused")
     public static String getAppName(Message<?> message) {
-        return toString(message.getHeaders().get(ORANGE_APP_NAME));
+        return toString(message.getHeaders().get(ORIGIN_APP_NAME));
     }
 
     /**
@@ -121,8 +173,8 @@ public class MessageUtils {
      *         消息构造器
      * @return 消息是否已发送
      */
-    public static boolean send(MessageChannel channel, MessageBuilder<?> builder) {
-        builder.setHeader(MessageUtils.ORANGE_APP_NAME, getApplicationName());
+    public static boolean send(MessageChannel channel, @NotNull MessageBuilder<?> builder) {
+        builder.setHeader(MessageUtils.ORIGIN_APP_NAME, getApplicationName());
 
         return channel.send(builder.build());
     }
@@ -137,7 +189,7 @@ public class MessageUtils {
      * @return 消息是否已发送
      */
     public static boolean send(MessageChannel channel, MessageBuilder<?> builder, long timeout) {
-        builder.setHeader(MessageUtils.ORANGE_APP_NAME, getApplicationName());
+        builder.setHeader(MessageUtils.ORIGIN_APP_NAME, getApplicationName());
 
         return channel.send(builder.build(), timeout);
     }
@@ -189,20 +241,11 @@ public class MessageUtils {
     }
 
     /**
-     * 获取环境信息
-     *
-     * @return 环境信息
-     */
-    private static Environment getEnvironment() {
-        return SpringApplicationContextUtil.getContext().getEnvironment();
-    }
-
-    /**
      * 获取应用名称
      *
      * @return 应用名称
      */
     private static String getApplicationName() {
-        return getEnvironment().getProperty("spring.application.name");
+        return SpringApplicationContextUtil.getApplicationName();
     }
 }

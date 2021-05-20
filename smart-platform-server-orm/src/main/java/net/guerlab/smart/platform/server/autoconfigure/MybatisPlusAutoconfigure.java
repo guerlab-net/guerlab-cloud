@@ -27,6 +27,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MybatisPlusAutoconfigure {
 
+    /**
+     * 构造mybatisPlus拦截器
+     *
+     * @return mybatisPlus拦截器
+     */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();

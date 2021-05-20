@@ -46,7 +46,7 @@
     </issueManagement>
 
     <properties>
-        <revision>21.3.2</revision>
+        <revision>21.4.0-SNAPSHOT</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>11</java.version>

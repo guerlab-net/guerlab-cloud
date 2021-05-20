@@ -16,7 +16,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import net.guerlab.smart.platform.server.utils.PageUtils;
 import net.guerlab.spring.commons.sequence.Sequence;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
 import net.guerlab.web.result.ListObject;
@@ -81,8 +81,7 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
 
     @Override
     public T selectOne(SP searchParams) {
-        QueryWrapper<T> queryWrapper = getQueryWrapperWithSelectMethod(searchParams);
-        return getBaseMapper().selectOne(queryWrapper);
+        return getBaseMapper().selectOne(getQueryWrapperWithSelectMethod(searchParams));
     }
 
     @Override
@@ -114,28 +113,12 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
 
     @Override
     public Collection<T> selectAll(SP searchParams) {
-        QueryWrapper<T> queryWrapper = getQueryWrapperWithSelectMethod(searchParams);
-        return selectList(queryWrapper);
+        return selectList(getQueryWrapperWithSelectMethod(searchParams));
     }
 
     @Override
     public ListObject<T> selectPage(SP searchParams) {
-        int pageId = Math.max(searchParams.getPageId(), 1);
-        int pageSize = searchParams.getPageSize();
-
-        QueryWrapper<T> queryWrapper = getQueryWrapperWithSelectMethod(searchParams);
-
-        Page<T> result = getBaseMapper().selectPage(new Page<>(pageId, pageSize), queryWrapper);
-        Collection<T> list = result.getRecords();
-
-        long total = result.getTotal();
-
-        ListObject<T> listObject = new ListObject<>(searchParams.getPageSize(), total, list);
-
-        listObject.setCurrentPageId(pageId);
-        listObject.setMaxPageId((long) Math.ceil((double) total / pageSize));
-
-        return listObject;
+        return PageUtils.selectPage(this, searchParams, getBaseMapper());
     }
 
     @Override
@@ -147,9 +130,7 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
 
     @Override
     public int selectCount(SP searchParams) {
-        QueryWrapper<T> queryWrapper = getQueryWrapperWithSelectMethod(searchParams);
-
-        return getBaseMapper().selectCount(queryWrapper);
+        return getBaseMapper().selectCount(getQueryWrapperWithSelectMethod(searchParams));
     }
 
     @Override
@@ -295,23 +276,23 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
         getBaseMapper().delete(queryWrapper);
     }
 
-    @Autowired
-    public void setBaseMapper(M baseMapper) {
-        this.baseMapper = baseMapper;
-    }
-
     @SuppressWarnings("unchecked")
     protected Class<T> currentMapperClass() {
         return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), 2);
     }
 
-    @Autowired
-    public void setSequence(Sequence sequence) {
-        this.sequence = sequence;
-    }
-
     @SuppressWarnings("unchecked")
     protected Class<T> currentModelClass() {
         return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), 0);
+    }
+
+    @Autowired
+    public void setBaseMapper(M baseMapper) {
+        this.baseMapper = baseMapper;
+    }
+
+    @Autowired
+    public void setSequence(Sequence sequence) {
+        this.sequence = sequence;
     }
 }
