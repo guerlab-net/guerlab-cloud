@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.smart.platform.api.autoconfigure.DebugAutoconfigure
+net.guerlab.smart.platform.api.autoconfigure.DebugAutoconfigure,\
+net.guerlab.smart.platform.api.autoconfigure.FeignAutoconfigure

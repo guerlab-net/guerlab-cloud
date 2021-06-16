@@ -12,9 +12,15 @@ spring:
       write-bigdecimal-as-plain: true
     deserialization:
       fail-on-unknown-properties: false
+      fail-on-invalid-subtype: false
     default-property-inclusion: non_null
     format:
       format-long-class: true
+      format-long-type: true
+      format-float-class: true
+      format-float-type: true
+      format-double-class: true
+      format-double-type: true
   http:
     encoding:
       force: true
@@ -34,26 +40,35 @@ spring:
   sleuth:
     sampler:
       probability: 1
-  zipkin:
-    base-url:
   cloud:
+    loadbalancer:
+      stats:
+        micrometer:
+          enabled: false
+    debug:
+      enable: false
+      gateway-proxy-url: http://gateway/proxy/
+      proxy-header-name: GUERLAB-API-DEBUG-PROXY
+      proxy-header-value: GUERLAB-API-DEBUG-PROXY
     sentinel:
+      enabled: false
       eager: true
       transport:
-        dashboard:
-hystrix:
-  command:
-    default:
-      execution:
-        timeout:
-          enabled: false
-        isolation:
-          strategy: SEMAPHORE
-          thread:
-            timeout-in-milliseconds: 60000
-ribbon:
-  read-timeout: 60000
-  connect-timeout: 60000
+        dashboard: sentinel:8080
+  global-exception:
+    stack-trace-excludes:
+      - java
+      - jdk.internal
+      - javax.servlet
+      - org.springframework
+      - io.undertow
+      - org.jboss
+      - feign
+      - com.sun
+    stack-trace-includes:
+      - java.lang
+    log-ignore-paths:
+      - path: /favicon.ico
 feign:
   client:
     config:
@@ -69,14 +84,35 @@ feign:
     connection-timeout: 60000
     connection-timer-repeat: 60000
     disable-ssl-validation: true
-logging:
-  level:
-    root: ERROR
-    net.guerlab.smart.platform: INFO
-swagger:
-  enable: true
+web:
+  cors:
+    enable: true
+    allow-credentials: true
+    allowed-headers: "*"
+    allowed-methods: "*"
+    allowed-origin-patterns: "*"
+    max-age: 1800
 management:
+  endpoint:
+    health:
+      show-details: always
   endpoints:
     web:
       exposure:
         include: '*'
+openapi:
+  components:
+    security-schemes:
+      Authorization:
+        type: APIKEY
+        name: Authorization
+        in: HEADER
+  servers:
+    - url: http://localhost:${server.port}/
+      description: dev
+    - url: https://gateway/${spring.application.name}/
+      description: test
+logging:
+  level:
+    root: ERROR
+    net.guerlab.smart.platform: INFO
