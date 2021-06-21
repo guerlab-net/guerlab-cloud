@@ -4,6 +4,8 @@ import feign.Response;
 import org.springframework.core.Ordered;
 
 /**
+ * 可排序错误解析
+ *
  * @author guer
  */
 public interface OrderedErrorDecoder extends Ordered {

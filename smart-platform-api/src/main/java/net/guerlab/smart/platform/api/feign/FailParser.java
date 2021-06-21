@@ -2,15 +2,21 @@ package net.guerlab.smart.platform.api.feign;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import net.guerlab.commons.exception.ApplicationException;
+import net.guerlab.web.result.ApplicationStackTrace;
+import net.guerlab.web.result.RemoteException;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import static net.guerlab.smart.platform.api.feign.Constants.*;
 
 /**
+ * 失败解析
+ *
  * @author guer
  */
 public class FailParser {
@@ -19,9 +25,16 @@ public class FailParser {
 
     }
 
+    /**
+     * 解析异常
+     *
+     * @param rootNode
+     *         json节点
+     * @return 异常信息
+     */
     public static ApplicationException parse(JsonNode rootNode) {
         String message = getMessage(rootNode);
-        List<List<String>> stackTraces = getStackTraces(rootNode);
+        List<ApplicationStackTrace> stackTraces = getStackTraces(rootNode);
         int errorCode = getErrorCode(rootNode);
         RemoteException remoteException = RemoteException.build(message, stackTraces);
         return new ApplicationException(message, remoteException, errorCode);
@@ -60,43 +73,46 @@ public class FailParser {
      *         跟节点
      * @return 堆栈信息列表
      */
-    private static List<List<String>> getStackTraces(JsonNode rootNode) {
-        if (!rootNode.has(FIELD_STACK_TRACE)) {
+    private static List<ApplicationStackTrace> getStackTraces(JsonNode rootNode) {
+        if (!rootNode.has(FIELD_STACK_TRACES)) {
             return Collections.emptyList();
         }
 
-        JsonNode stackTraceNode = rootNode.get(FIELD_STACK_TRACE);
+        JsonNode stackTraceNode = rootNode.get(FIELD_STACK_TRACES);
 
         if (!stackTraceNode.isArray()) {
             return Collections.emptyList();
         }
 
-        List<List<String>> stackTrace = new ArrayList<>(stackTraceNode.size());
-        for (JsonNode node : stackTraceNode) {
-            stackTrace.add(getSubStackTraces(node));
-        }
-
-        return stackTrace;
+        return StreamSupport.stream(stackTraceNode.spliterator(), false).map(FailParser::parseApplicationStackTrace)
+                .filter(Objects::nonNull).collect(Collectors.toList());
     }
 
     /**
-     * 解析堆栈信息
+     * 解析应用堆栈信息
      *
-     * @param parentNode
-     *         父节点
-     * @return 堆栈信息
+     * @param node
+     *         节点
+     * @return 应用堆栈信息
      */
-    private static List<String> getSubStackTraces(JsonNode parentNode) {
-        if (!parentNode.isArray()) {
-            return Collections.emptyList();
+    private static ApplicationStackTrace parseApplicationStackTrace(JsonNode node) {
+        if (!node.has(FIELD_APPLICATION_NAME)) {
+            return null;
         }
 
-        List<String> stackTrace = new ArrayList<>(parentNode.size());
+        ApplicationStackTrace applicationStackTrace = new ApplicationStackTrace();
+        applicationStackTrace.setApplicationName(node.get(FIELD_APPLICATION_NAME).asText());
 
-        for (JsonNode node : parentNode) {
-            stackTrace.add(node.asText());
+        JsonNode stackTraceNode = node.get(FIELD_STACK_TRACE);
+
+        if (stackTraceNode == null || !stackTraceNode.isArray()) {
+            applicationStackTrace.setStackTrace(Collections.emptyList());
+        } else {
+            applicationStackTrace.setStackTrace(
+                    StreamSupport.stream(stackTraceNode.spliterator(), false).map(JsonNode::asText)
+                            .collect(Collectors.toList()));
         }
 
-        return stackTrace;
+        return applicationStackTrace;
     }
 }
