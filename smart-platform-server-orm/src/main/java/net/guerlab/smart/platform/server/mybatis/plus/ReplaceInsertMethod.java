@@ -13,11 +13,17 @@
 package net.guerlab.smart.platform.server.mybatis.plus;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
+import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
+import net.guerlab.commons.reflection.FieldUtil;
+import net.guerlab.smart.platform.commons.entity.BaseEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.executor.keygen.NoKeyGenerator;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlSource;
+
+import java.lang.reflect.Field;
+import java.util.Collection;
 
 /**
  * replace模式插入
@@ -25,6 +31,8 @@ import org.apache.ibatis.mapping.SqlSource;
  * @author guer
  */
 public class ReplaceInsertMethod extends AbstractMethod {
+
+    private static final Collection<Field> BASE_ENTITY_FIELDS = FieldUtil.getFields(BaseEntity.class);
 
     @Override
     public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
@@ -44,7 +52,8 @@ public class ReplaceInsertMethod extends AbstractMethod {
         if (keyColumn != null) {
             fieldSql.append(tableInfo.getKeyColumn()).append(",");
         }
-        tableInfo.getFieldList().forEach(x -> fieldSql.append(x.getColumn()).append(","));
+        tableInfo.getFieldList().stream().filter(x -> filedFilter(tableInfo, x))
+                .forEach(x -> fieldSql.append(x.getColumn()).append(","));
         fieldSql.delete(fieldSql.length() - 1, fieldSql.length());
         fieldSql.insert(0, "(");
         fieldSql.append(")");
@@ -59,9 +68,17 @@ public class ReplaceInsertMethod extends AbstractMethod {
         if (keyColumn != null) {
             valueSql.append("#{item.").append(tableInfo.getKeyProperty()).append("},");
         }
-        tableInfo.getFieldList().forEach(x -> valueSql.append("#{item.").append(x.getProperty()).append("},"));
+        tableInfo.getFieldList().stream().filter(x -> filedFilter(tableInfo, x))
+                .forEach(x -> valueSql.append("#{item.").append(x.getProperty()).append("},"));
         valueSql.delete(valueSql.length() - 1, valueSql.length());
         valueSql.append("</foreach>");
         return valueSql.toString();
+    }
+
+    private boolean filedFilter(TableInfo tableInfo, TableFieldInfo fieldInfo) {
+        if (BaseEntity.class.isAssignableFrom(tableInfo.getEntityType())) {
+            return !BASE_ENTITY_FIELDS.contains(fieldInfo.getField());
+        }
+        return true;
     }
 }
