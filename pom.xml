@@ -52,13 +52,13 @@
     </issueManagement>
 
     <properties>
-        <revision>21.6.1</revision>
+        <revision>21.7.0-SNAPSHOT</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>11</java.version>
         <project.encoding>UTF-8</project.encoding>
 
-        <guerlab-spring.version>4.2.0</guerlab-spring.version>
+        <guerlab-spring.version>5.0.0</guerlab-spring.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
         <spring-boot-admin.version>2.4.1</spring-boot-admin.version>
         <jjwt.version>0.9.1</jjwt.version>
