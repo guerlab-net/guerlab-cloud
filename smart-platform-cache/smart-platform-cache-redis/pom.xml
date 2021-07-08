@@ -3,32 +3,33 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>smart-platform-excel</artifactId>
-    <name>Guerlab Smart Platform Excel</name>
+    <artifactId>smart-platform-cache-redis</artifactId>
+    <name>Guerlab Smart Platform Cache Redis</name>
 
     <parent>
         <groupId>net.guerlab.smart.platform</groupId>
-        <artifactId>smart-platform-parent</artifactId>
+        <artifactId>smart-platform-cache</artifactId>
         <version>${revision}</version>
     </parent>
 
     <properties>
-        <main.basedir>${basedir}/..</main.basedir>
+        <main.basedir>${basedir}/../..</main.basedir>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>net.guerlab.smart.platform</groupId>
-            <artifactId>smart-platform-commons</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.guerlab.spring</groupId>
+            <artifactId>guerlab-spring-redis-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>easyexcel</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream-test-support</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

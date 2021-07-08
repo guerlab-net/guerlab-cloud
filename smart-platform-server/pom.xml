@@ -2,8 +2,8 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>smart-platform-auth</artifactId>
-    <name>Guerlab Smart Platform Auth</name>
+    <artifactId>smart-platform-server</artifactId>
+    <name>Guerlab Smart Platform Server</name>
     <packaging>pom</packaging>
 
     <parent>
@@ -17,7 +17,13 @@
     </properties>
 
     <modules>
-        <module>smart-platform-auth-commons</module>
-        <module>smart-platform-auth-web-support</module>
+        <module>smart-platform-server-commons</module>
+        <module>smart-platform-server-openapi-commons</module>
+        <module>smart-platform-server-openapi-webflux</module>
+        <module>smart-platform-server-openapi-webmvc</module>
+        <module>smart-platform-server-orm</module>
+        <module>smart-platform-server-sentinel</module>
+        <module>smart-platform-server-webflux</module>
+        <module>smart-platform-server-webmvc</module>
     </modules>
 </project>

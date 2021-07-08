@@ -26,8 +26,6 @@ import com.alibaba.excel.metadata.property.ExcelContentProperty;
 @SuppressWarnings("rawtypes")
 public class LongConverter implements Converter<Long> {
 
-    public static final LongConverter INSTANCE = new LongConverter();
-
     @Override
     public Class supportJavaTypeKey() {
         return Long.class;

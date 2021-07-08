@@ -1,13 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>smart-platform-api</artifactId>
-    <name>Guerlab Smart Platform Api</name>
+    <artifactId>smart-platform-auth-web-support</artifactId>
+    <name>Guerlab Smart Platform Auth Web Support</name>
 
     <parent>
         <groupId>net.guerlab.smart.platform</groupId>
-        <artifactId>smart-platform-parent</artifactId>
+        <artifactId>smart-platform-auth</artifactId>
         <version>${revision}</version>
     </parent>
 
@@ -17,26 +18,25 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.guerlab</groupId>
-            <artifactId>guerlab-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+            <groupId>net.guerlab.smart.platform</groupId>
+            <artifactId>smart-platform-auth-commons</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>net.guerlab.spring</groupId>
+            <artifactId>guerlab-spring-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>

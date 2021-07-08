@@ -28,8 +28,6 @@ import java.math.BigDecimal;
 @SuppressWarnings("rawtypes")
 public class BigDecimalConverter implements Converter<BigDecimal> {
 
-    public static final BigDecimalConverter INSTANCE = new BigDecimalConverter();
-
     @Override
     public Class supportJavaTypeKey() {
         return BigDecimal.class;

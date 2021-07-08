@@ -1,0 +1,8 @@
+net.guerlab.smart.platform.excel.converter.BigDecimalConverter
+net.guerlab.smart.platform.excel.converter.BooleanConverter
+net.guerlab.smart.platform.excel.converter.LocalDateConverter
+net.guerlab.smart.platform.excel.converter.LocalDateTimeConverter
+net.guerlab.smart.platform.excel.converter.LocalTimeConverter
+net.guerlab.smart.platform.excel.converter.LongConverter
+net.guerlab.smart.platform.excel.converter.MultiIdConverter
+net.guerlab.smart.platform.excel.converter.MultiStringConverter

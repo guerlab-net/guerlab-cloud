@@ -18,13 +18,14 @@ import com.alibaba.excel.write.builder.ExcelWriterBuilder;
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
 import net.guerlab.commons.exception.ApplicationException;
 import net.guerlab.smart.platform.commons.util.BeanConvertUtils;
-import net.guerlab.smart.platform.excel.converter.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.ServiceLoader;
+import java.util.stream.StreamSupport;
 
 /**
  * excel utils
@@ -37,11 +38,7 @@ public class ExcelUtils {
     private static final Collection<Converter> CONVERTERS = new ArrayList<>();
 
     static {
-        CONVERTERS.add(BigDecimalConverter.INSTANCE);
-        CONVERTERS.add(LocalDateConverter.INSTANCE);
-        CONVERTERS.add(LocalDateTimeConverter.INSTANCE);
-        CONVERTERS.add(LocalTimeConverter.INSTANCE);
-        CONVERTERS.add(BooleanConverter.INSTANCE);
+        StreamSupport.stream(ServiceLoader.load(Converter.class).spliterator(), false).forEach(CONVERTERS::add);
     }
 
     /**
@@ -164,15 +161,6 @@ public class ExcelUtils {
 
     private static ExcelWriterBuilder registerConverter(ExcelWriterBuilder builder) {
         CONVERTERS.forEach(builder::registerConverter);
-        builder.registerConverter(BigDecimalConverter.INSTANCE);
-        builder.registerConverter(LocalDateConverter.INSTANCE);
-        builder.registerConverter(LocalDateTimeConverter.INSTANCE);
-        builder.registerConverter(LocalTimeConverter.INSTANCE);
-        builder.registerConverter(BooleanConverter.INSTANCE);
-        builder.registerConverter(GenderConverter.INSTANCE);
-        builder.registerConverter(MultiIdConverter.INSTANCE);
-        builder.registerConverter(MultiStringConverter.INSTANCE);
-        builder.registerConverter(LongConverter.INSTANCE);
         return builder;
     }
 }

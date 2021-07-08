@@ -30,8 +30,6 @@ import java.util.Arrays;
 @SuppressWarnings("rawtypes")
 public class MultiStringConverter implements Converter<MultiString> {
 
-    public static final MultiStringConverter INSTANCE = new MultiStringConverter();
-
     @Override
     public Class supportJavaTypeKey() {
         return MultiString.class;

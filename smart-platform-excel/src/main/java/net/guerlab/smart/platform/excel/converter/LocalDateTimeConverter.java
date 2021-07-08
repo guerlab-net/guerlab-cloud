@@ -29,8 +29,6 @@ import java.time.LocalDateTime;
 @SuppressWarnings("rawtypes")
 public class LocalDateTimeConverter implements Converter<LocalDateTime> {
 
-    public static final LocalDateTimeConverter INSTANCE = new LocalDateTimeConverter();
-
     @Override
     public Class supportJavaTypeKey() {
         return LocalDateTime.class;

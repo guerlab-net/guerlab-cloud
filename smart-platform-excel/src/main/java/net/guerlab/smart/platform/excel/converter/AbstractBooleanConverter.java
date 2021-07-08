@@ -17,20 +17,33 @@ import com.alibaba.excel.enums.CellDataTypeEnum;
 import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
-import net.guerlab.smart.platform.commons.domain.MultiId;
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.Assert;
+
+import java.util.Objects;
 
 /**
- * MultiId Converter
+ * Boolean Converter
  *
  * @author guer
  */
 @SuppressWarnings("rawtypes")
-public class MultiIdConverter implements Converter<MultiId> {
+public class AbstractBooleanConverter implements Converter<Boolean> {
+
+    private final String trueValue;
+
+    private final String falseValue;
+
+    public AbstractBooleanConverter(String trueValue, String falseValue) {
+        Assert.hasText(trueValue, () -> "trueValue is empty");
+        Assert.hasText(falseValue, () -> "falseValue is empty");
+        Assert.isTrue(Objects.equals(trueValue, falseValue), () -> "trueValue and falseValue cannot be equals");
+        this.trueValue = trueValue;
+        this.falseValue = falseValue;
+    }
 
     @Override
     public Class supportJavaTypeKey() {
-        return MultiId.class;
+        return Boolean.class;
     }
 
     @Override
@@ -39,26 +52,14 @@ public class MultiIdConverter implements Converter<MultiId> {
     }
 
     @Override
-    public MultiId convertToJavaData(CellData cellData, ExcelContentProperty contentProperty,
+    public Boolean convertToJavaData(CellData cellData, ExcelContentProperty contentProperty,
             GlobalConfiguration globalConfiguration) {
-        String value = StringUtils.trimToEmpty(cellData.getStringValue());
-
-        MultiId multiString = new MultiId();
-
-        for (String val : value.split(",")) {
-            try {
-                multiString.add(Long.parseLong(val));
-            } catch (Exception ignored) {
-
-            }
-        }
-
-        return multiString;
+        return trueValue.equals(cellData.getStringValue());
     }
 
     @Override
-    public CellData convertToExcelData(MultiId value, ExcelContentProperty contentProperty,
+    public CellData convertToExcelData(Boolean value, ExcelContentProperty contentProperty,
             GlobalConfiguration globalConfiguration) {
-        return new CellData(StringUtils.join(value, ","));
+        return new CellData(value == null ? "" : value ? trueValue : falseValue);
     }
 }
