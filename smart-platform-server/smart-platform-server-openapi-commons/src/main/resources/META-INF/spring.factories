@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.smart.platform.server.openapi.autoconfigure.OpenApiAutoconfigure

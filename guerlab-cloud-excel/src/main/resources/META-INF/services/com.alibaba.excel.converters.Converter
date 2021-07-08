@@ -1,0 +1,8 @@
+net.guerlab.cloud.excel.converter.BigDecimalConverter
+net.guerlab.cloud.excel.converter.BooleanConverter
+net.guerlab.cloud.excel.converter.LocalDateConverter
+net.guerlab.cloud.excel.converter.LocalDateTimeConverter
+net.guerlab.cloud.excel.converter.LocalTimeConverter
+net.guerlab.cloud.excel.converter.LongConverter
+net.guerlab.cloud.excel.converter.MultiIdConverter
+net.guerlab.cloud.excel.converter.MultiStringConverter

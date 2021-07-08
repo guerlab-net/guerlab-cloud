@@ -28,4 +28,4 @@ spring:
         version-key: #版本号控制header
 logging:
   level:
-    net.guerlab.smart.platform.basic.gateway: INFO
+    net.guerlab.cloud.gateway: INFO

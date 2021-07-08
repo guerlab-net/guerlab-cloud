@@ -11,11 +11,3 @@ mybatis:
   type-handlers-package: net.guerlab.spring.mybatis.typehandlers
   mapper-locations:
     - classpath*:mapper/**/*Mapper.xml
-mapper:
-  not-empty: false
-  identity: MYSQL
-  style: normal
-  enum-as-simple-type: true
-  use-simple-type: false
-  mappers:
-    - tk.mybatis.mapper.common.Mapper

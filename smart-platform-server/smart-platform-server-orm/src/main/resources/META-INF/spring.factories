@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.smart.platform.server.autoconfigure.MybatisPlusAutoconfigure,\
-net.guerlab.smart.platform.server.autoconfigure.SnowflakeIdGeneratorAutoconfigure

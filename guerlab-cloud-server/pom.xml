@@ -1,0 +1,29 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>guerlab-cloud-server</artifactId>
+    <name>Guerlab Cloud Server</name>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>net.guerlab.cloud</groupId>
+        <artifactId>guerlab-cloud-parent</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <properties>
+        <main.basedir>${basedir}/..</main.basedir>
+    </properties>
+
+    <modules>
+        <module>guerlab-cloud-server-commons</module>
+        <module>guerlab-cloud-server-openapi-commons</module>
+        <module>guerlab-cloud-server-openapi-webflux</module>
+        <module>guerlab-cloud-server-openapi-webmvc</module>
+        <module>guerlab-cloud-server-orm</module>
+        <module>guerlab-cloud-server-sentinel</module>
+        <module>guerlab-cloud-server-webflux</module>
+        <module>guerlab-cloud-server-webmvc</module>
+    </modules>
+</project>

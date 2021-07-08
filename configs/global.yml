@@ -115,4 +115,4 @@ openapi:
 logging:
   level:
     root: ERROR
-    net.guerlab.smart.platform: INFO
+    net.guerlab.cloud: INFO

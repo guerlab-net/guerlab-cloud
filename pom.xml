@@ -2,14 +2,14 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.guerlab.smart.platform</groupId>
-    <artifactId>smart-platform-parent</artifactId>
+    <groupId>net.guerlab.cloud</groupId>
+    <artifactId>guerlab-cloud-parent</artifactId>
     <version>${revision}</version>
     <packaging>pom</packaging>
 
-    <name>Guerlab Smart Platform</name>
-    <description>guerlab smart platform</description>
-    <url>https://gitee.com/guerlab_com/smart-platform</url>
+    <name>Guerlab Cloud</name>
+    <description>Guerlab Cloud</description>
+    <url>https://gitee.com/guerlab_net/guerlab-cloud</url>
 
     <parent>
         <groupId>net.guerlab.builder</groupId>
@@ -40,15 +40,15 @@
     </organization>
 
     <scm>
-        <connection>scm:git:https://gitee.com/guerlab_com/smart-platform.git</connection>
-        <developerConnection>scm:git:https://gitee.com/guerlab_com/smart-platform.git</developerConnection>
-        <url>https://gitee.com/guerlab_com/smart-platform</url>
+        <connection>scm:git:https://gitee.com/guerlab_net/guerlab-cloud.git</connection>
+        <developerConnection>scm:git:https://gitee.com/guerlab_net/guerlab-cloud.git</developerConnection>
+        <url>https://gitee.com/guerlab_net/guerlab-cloud</url>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
         <system>gitee</system>
-        <url>https://gitee.com/guerlab_com/smart-platform/issues</url>
+        <url>https://gitee.com/guerlab_net/guerlab-cloud/issues</url>
     </issueManagement>
 
     <properties>
@@ -118,112 +118,112 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- smart-platform basic -->
+            <!-- guerlab-cloud basic -->
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-api</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-api</artifactId>
                 <version>${revision}</version>
             </dependency>
 
-            <!-- smart-platform auth -->
+            <!-- guerlab-cloud auth -->
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-auth</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-auth</artifactId>
                 <version>${revision}</version>
                 <type>pom</type>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-auth-commons</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-auth-commons</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-auth-web-support</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-auth-web-support</artifactId>
                 <version>${revision}</version>
             </dependency>
 
-            <!-- smart-platform cache -->
+            <!-- guerlab-cloud cache -->
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-cache</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-cache</artifactId>
                 <version>${revision}</version>
                 <type>pom</type>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-cache-redis</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-cache-redis</artifactId>
                 <version>${revision}</version>
             </dependency>
 
-            <!-- smart-platform commons -->
+            <!-- guerlab-cloud commons -->
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-commons</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-commons</artifactId>
                 <version>${revision}</version>
             </dependency>
 
-            <!-- smart-platform server -->
+            <!-- guerlab-cloud server -->
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-server</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-server</artifactId>
                 <version>${revision}</version>
                 <type>pom</type>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-server-commons</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-server-commons</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-server-openapi-commons</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-server-openapi-commons</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-server-openapi-webflux</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-server-openapi-webflux</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-server-openapi-webmvc</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-server-openapi-webmvc</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-server-orm</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-server-orm</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-server-sentinel</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-server-sentinel</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-server-webflux</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-server-webflux</artifactId>
                 <type>pom</type>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-server-webmvc</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-server-webmvc</artifactId>
                 <type>pom</type>
                 <version>${revision}</version>
             </dependency>
 
-            <!-- smart-platform stream -->
+            <!-- guerlab-cloud stream -->
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-stream</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-stream</artifactId>
                 <version>${revision}</version>
             </dependency>
 
-            <!-- smart-platform excel -->
+            <!-- guerlab-cloud excel -->
             <dependency>
-                <groupId>net.guerlab.smart.platform</groupId>
-                <artifactId>smart-platform-excel</artifactId>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-excel</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -277,12 +277,12 @@
     </dependencies>
 
     <modules>
-        <module>smart-platform-api</module>
-        <module>smart-platform-auth</module>
-        <module>smart-platform-cache</module>
-        <module>smart-platform-commons</module>
-        <module>smart-platform-excel</module>
-        <module>smart-platform-server</module>
-        <module>smart-platform-stream</module>
+        <module>guerlab-cloud-api</module>
+        <module>guerlab-cloud-auth</module>
+        <module>guerlab-cloud-cache</module>
+        <module>guerlab-cloud-commons</module>
+        <module>guerlab-cloud-excel</module>
+        <module>guerlab-cloud-server</module>
+        <module>guerlab-cloud-stream</module>
     </modules>
 </project>
