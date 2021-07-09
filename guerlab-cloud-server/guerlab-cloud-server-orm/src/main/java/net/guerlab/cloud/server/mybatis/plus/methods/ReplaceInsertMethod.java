@@ -10,9 +10,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.server.mybatis.plus;
+package net.guerlab.cloud.server.mybatis.plus.methods;
 
-import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import net.guerlab.cloud.commons.entity.BaseEntity;
@@ -30,7 +29,7 @@ import java.util.Collection;
  *
  * @author guer
  */
-public class ReplaceInsertMethod extends AbstractMethod {
+public class ReplaceInsertMethod extends AbstractAutoLoadMethod {
 
     private static final Collection<Field> BASE_ENTITY_FIELDS = FieldUtil.getFields(BaseEntity.class);
 

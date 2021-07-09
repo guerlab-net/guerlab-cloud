@@ -10,24 +10,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.server.mybatis.plus;
+package net.guerlab.cloud.server.mybatis.plus.methods;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 
 import java.util.List;
+import java.util.ServiceLoader;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
- * replace模式插入
+ * 自动加载注入方法加载器
  *
  * @author guer
  */
-public class ReplaceInsertSqlInjector extends DefaultSqlInjector {
+public class AutoLoadMethodLoader extends DefaultSqlInjector {
+
+    private final List<AbstractAutoLoadMethod> methods;
+
+    public AutoLoadMethodLoader() {
+        methods = StreamSupport.stream(ServiceLoader.load(AbstractAutoLoadMethod.class).spliterator(), false)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public List<AbstractMethod> getMethodList(Class<?> mapperClass) {
         List<AbstractMethod> methodList = super.getMethodList(mapperClass);
-        methodList.add(new ReplaceInsertMethod());
+        methodList.addAll(methods);
         return methodList;
     }
 }
