@@ -30,7 +30,7 @@ import java.util.Collections;
  */
 @Configuration
 @EnableConfigurationProperties({ OpenApiProperties.class })
-@ComponentScan("net.guerlab.smart.platform.server.openapi")
+@ComponentScan("net.guerlab.cloud.server.openapi")
 public class OpenApiAutoconfigure {
 
     @Autowired(required = false)

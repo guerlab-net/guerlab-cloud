@@ -2,8 +2,8 @@
   "groups": [
     {
       "name": "spring.cloud.debug",
-      "type": "DebugProperties",
-      "sourceType": "DebugProperties",
+      "type": "net.guerlab.cloud.api.properties.DebugProperties",
+      "sourceType": "net.guerlab.cloud.api.properties.DebugProperties",
       "description": "开发模式配置."
     }
   ],
@@ -11,35 +11,35 @@
     {
       "name": "spring.cloud.debug.enable",
       "type": "java.lang.Boolean",
-      "sourceType": "DebugProperties",
+      "sourceType": "net.guerlab.cloud.api.properties.DebugProperties",
       "description": "是否启用开发环境.",
       "defaultValue": "false"
     },
     {
       "name": "spring.cloud.debug.gateway-proxy-url",
       "type": "java.lang.String",
-      "sourceType": "DebugProperties",
+      "sourceType": "net.guerlab.cloud.api.properties.DebugProperties",
       "description": "网关代理地址.",
       "defaultValue": "http://gateway/proxy/"
     },
     {
       "name": "spring.cloud.debug.proxy-header-name",
       "type": "java.lang.String",
-      "sourceType": "DebugProperties",
+      "sourceType": "net.guerlab.cloud.api.properties.DebugProperties",
       "description": "代理请求头名.",
       "defaultValue": "GUERLAB-PROXY"
     },
     {
       "name": "spring.cloud.debug.proxy-header-value",
       "type": "java.lang.String",
-      "sourceType": "DebugProperties",
+      "sourceType": "net.guerlab.cloud.api.properties.DebugProperties",
       "description": "代理请求头值.",
       "defaultValue": "GUERLAB-PROXY"
     },
     {
       "name": "spring.cloud.debug.local-services",
       "type": "java.util.List<java.lang.String>",
-      "sourceType": "DebugProperties",
+      "sourceType": "net.guerlab.cloud.api.properties.DebugProperties",
       "description": "本地服务列表."
     }
   ]
