@@ -17,10 +17,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
+import net.guerlab.spring.searchparams.Column;
 import net.guerlab.spring.searchparams.OrderByIndex;
 import net.guerlab.spring.searchparams.OrderByType;
-
-import javax.persistence.Column;
 
 /**
  * 可排序搜索参数
