@@ -7,7 +7,7 @@
 
     <parent>
         <groupId>net.guerlab.cloud</groupId>
-        <artifactId>guerlab-cloud-parent</artifactId>
+        <artifactId>guerlab-cloud</artifactId>
         <version>${revision}</version>
     </parent>
 

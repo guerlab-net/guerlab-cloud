@@ -15,7 +15,7 @@ package net.guerlab.cloud.server.autoconfigure;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import net.guerlab.cloud.server.mybatis.plus.ReplaceInsertSqlInjector;
+import net.guerlab.cloud.server.mybatis.plus.methods.AutoLoadMethodLoader;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -41,13 +41,12 @@ public class MybatisPlusAutoconfigure {
     }
 
     /**
-     * 自定义 SqlInjector
-     * 里面包含自定义的全局方法
+     * 构造自动加载注入方法加载器
      *
-     * @return replace模式插入
+     * @return 自动加载注入方法加载器
      */
     @Bean
-    public ReplaceInsertSqlInjector replaceInsertSqlInjector() {
-        return new ReplaceInsertSqlInjector();
+    public AutoLoadMethodLoader autoLoadMethodLoader() {
+        return new AutoLoadMethodLoader();
     }
 }
