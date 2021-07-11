@@ -9,6 +9,11 @@
   ],
   "properties": [
     {
+      "name": "guerlab.cloud.api.names",
+      "type": "java.util.Map<java.lang.String, java.lang.String>",
+      "description": "api服务名称.用于重写api服务的serviceId."
+    },
+    {
       "name": "spring.cloud.debug.enable",
       "type": "java.lang.Boolean",
       "sourceType": "net.guerlab.cloud.api.properties.DebugProperties",
