@@ -25,7 +25,7 @@ public interface Constants {
     /**
      * cloud环境下相关配置-请求根路径
      */
-    String CLOUD_PREFIX = "${springdoc.cloud.path:#{T(net.guerlab.smart.platform.server.openapi.Constants).DEFAULT_CLOUD_PREFIX}}";
+    String CLOUD_PREFIX = "${springdoc.cloud.path:#{T(net.guerlab.cloud.server.openapi.Constants).DEFAULT_CLOUD_PREFIX}}";
 
     /**
      * cloud环境下相关配置-网关映射路径
