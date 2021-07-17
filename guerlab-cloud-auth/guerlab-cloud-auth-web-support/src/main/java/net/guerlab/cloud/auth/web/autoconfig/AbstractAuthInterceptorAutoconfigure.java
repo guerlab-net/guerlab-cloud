@@ -12,16 +12,17 @@
  */
 package net.guerlab.cloud.auth.web.autoconfig;
 
+import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.auth.web.interceptor.AbstractHandlerInterceptor;
 import net.guerlab.cloud.auth.web.interceptor.AbstractTokenHandlerInterceptor;
 import net.guerlab.cloud.auth.web.properties.AuthWebProperties;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -31,6 +32,7 @@ import java.util.stream.Collectors;
  *
  * @author guer
  */
+@Slf4j
 public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProperties> implements WebMvcConfigurer {
 
     private A properties;
@@ -44,10 +46,14 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProp
     }
 
     private void addTokenHandlerInterceptors(InterceptorRegistry registry) {
-        if (tokenHandlerInterceptors != null) {
-            for (AbstractHandlerInterceptor handlerInterceptor : tokenHandlerInterceptors) {
-                setPathPatterns(registry.addInterceptor(handlerInterceptor));
-            }
+        if (tokenHandlerInterceptors == null || tokenHandlerInterceptors.isEmpty()) {
+            log.debug("tokenHandlerInterceptors is empty");
+            return;
+        }
+
+        for (AbstractHandlerInterceptor interceptor : tokenHandlerInterceptors) {
+            log.debug("register token interceptor[{}]", interceptor);
+            setPathPatterns(registry.addInterceptor(interceptor).order(AbstractTokenHandlerInterceptor.DEFAULT_ORDER));
         }
     }
 
@@ -57,7 +63,7 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProp
      * @param registry
      *         InterceptorRegistry实例
      */
-    @SuppressWarnings("EmptyMethod")
+    @SuppressWarnings({ "EmptyMethod", "unused" })
     protected void addInterceptorsInternal(InterceptorRegistry registry) {
         /* 默认空实现 */
     }
@@ -83,12 +89,10 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProp
     }
 
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")
-    @Autowired
-    public void setTokenHandlerInterceptors(
-            ObjectProvider<List<AbstractTokenHandlerInterceptor<A>>> tokenHandlerInterceptorsProvider) {
-        tokenHandlerInterceptorsProvider.ifAvailable(
-                interceptors -> this.tokenHandlerInterceptors = interceptors.stream().filter(Objects::nonNull)
-                        .filter(interceptor -> Objects.equals(interceptor.getAuthProperties(), this.properties))
-                        .collect(Collectors.toList()));
+    @Autowired(required = false)
+    public void setTokenHandlerInterceptors(AbstractTokenHandlerInterceptor<A>[] tokenHandlerInterceptors) {
+        this.tokenHandlerInterceptors = Arrays.stream(tokenHandlerInterceptors).filter(Objects::nonNull)
+                .filter(interceptor -> Objects.equals(interceptor.getAuthProperties(), this.properties))
+                .collect(Collectors.toList());
     }
 }
