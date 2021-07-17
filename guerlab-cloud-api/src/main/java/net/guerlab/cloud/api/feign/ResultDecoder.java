@@ -1,5 +1,6 @@
 package net.guerlab.cloud.api.feign;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.BooleanNode;
@@ -9,6 +10,7 @@ import feign.Util;
 import feign.codec.Decoder;
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.commons.exception.ApplicationException;
+import net.guerlab.web.result.Result;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -38,20 +40,29 @@ public class ResultDecoder implements Decoder {
             return new Decoder.Default().decode(response, type);
         }
 
+        TypeReference<?> typeReference = new TypeReference<>() {
+
+            @Override
+            public Type getType() {
+                return type;
+            }
+        };
+
         String resultBody = Util.toString(response.body().asReader(StandardCharsets.UTF_8));
         JsonNode rootNode = objectMapper.readTree(resultBody);
         try {
-            Class<?> typeClass = Class.forName(type.getTypeName());
-            if (rootNode.has(FIELD_STATUS) && rootNode.has(FIELD_ERROR_CODE)) {
+            if (type instanceof Class && Result.class.isAssignableFrom((Class<?>) type)) {
+                return objectMapper.readValue(resultBody, typeReference);
+            } else if (rootNode.has(FIELD_STATUS) && rootNode.has(FIELD_ERROR_CODE)) {
                 if (!getStatus(rootNode)) {
                     throw FailParser.parse(rootNode);
                 } else if (!rootNode.has(FIELD_DATA)) {
                     return null;
                 }
 
-                return objectMapper.convertValue(rootNode.get(FIELD_DATA), typeClass);
+                return objectMapper.convertValue(rootNode.get(FIELD_DATA), typeReference);
             } else {
-                return objectMapper.readValue(resultBody, typeClass);
+                return objectMapper.readValue(resultBody, typeReference);
             }
         } catch (ApplicationException e) {
             throw e;
