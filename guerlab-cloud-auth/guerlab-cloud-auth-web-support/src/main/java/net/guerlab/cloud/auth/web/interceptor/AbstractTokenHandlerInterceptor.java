@@ -12,16 +12,13 @@
  */
 package net.guerlab.cloud.auth.web.interceptor;
 
+import lombok.extern.slf4j.Slf4j;
+import net.guerlab.cloud.auth.AbstractContextHandler;
 import net.guerlab.cloud.auth.web.properties.AuthWebProperties;
-import net.guerlab.cloud.commons.Constants;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Arrays;
-import java.util.Optional;
 
 /**
  * 抽象token处理
@@ -30,7 +27,10 @@ import java.util.Optional;
  *         授权配置类型
  * @author guer
  */
+@Slf4j
 public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebProperties> extends AbstractHandlerInterceptor {
+
+    public static final int DEFAULT_ORDER = -10;
 
     /**
      * 授权配置
@@ -39,9 +39,12 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebPropertie
 
     @Override
     protected void preHandle0(HttpServletRequest request, HandlerMethod handlerMethod) {
-        String token = StringUtils.trimToNull(getToken(request));
+        String token = AbstractContextHandler.getToken();
+        boolean accept = accept(token, request);
 
-        if (token != null && accept(token, request)) {
+        log.debug("token preHandler[instance = {}, accept = {}, token = {}]", getClass(), accept, token);
+
+        if (accept) {
             setTokenInfo(token);
         }
     }
@@ -64,32 +67,6 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebPropertie
      *         token
      */
     protected abstract void setTokenInfo(String token);
-
-    /**
-     * 获取token
-     *
-     * @param request
-     *         http请求对象
-     * @return token
-     */
-    private String getToken(HttpServletRequest request) {
-        String token = request.getHeader(Constants.TOKEN);
-
-        if (StringUtils.isNotBlank(token)) {
-            return token;
-        }
-
-        if (request.getCookies() != null) {
-            Optional<Cookie> optional = Arrays.stream(request.getCookies())
-                    .filter(cookie -> Constants.TOKEN.equals(cookie.getName())).findFirst();
-
-            if (optional.isPresent()) {
-                return optional.get().getValue();
-            }
-        }
-
-        return request.getParameter(Constants.TOKEN);
-    }
 
     /**
      * 获取授权配置

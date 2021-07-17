@@ -12,6 +12,8 @@
  */
 package net.guerlab.cloud.auth;
 
+import net.guerlab.cloud.commons.Constants;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,6 +40,7 @@ public abstract class AbstractContextHandler {
      * @param value
      *         内容
      */
+    @SuppressWarnings("SameParameterValue")
     protected static void set(String key, Object value) {
         THREAD_LOCAL.get().put(key, value);
     }
@@ -51,9 +54,28 @@ public abstract class AbstractContextHandler {
      *         值类型
      * @return 内容
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "SameParameterValue" })
     protected static <T> T get(String key) {
         return (T) THREAD_LOCAL.get().get(key);
+    }
+
+    /**
+     * 获取token
+     *
+     * @return token
+     */
+    public static String getToken() {
+        return get(Constants.TOKEN);
+    }
+
+    /**
+     * 设置token
+     *
+     * @param token
+     *         token
+     */
+    public static void setToken(String token) {
+        set(Constants.TOKEN, token);
     }
 
     /**

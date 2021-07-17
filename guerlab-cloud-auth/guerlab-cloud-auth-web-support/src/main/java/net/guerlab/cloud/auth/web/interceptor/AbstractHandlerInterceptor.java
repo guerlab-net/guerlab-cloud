@@ -12,24 +12,30 @@
  */
 package net.guerlab.cloud.auth.web.interceptor;
 
+import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.auth.AbstractContextHandler;
 import net.guerlab.cloud.auth.web.annotation.IgnoreLogin;
+import net.guerlab.cloud.commons.Constants;
 import net.guerlab.spring.web.properties.ResponseAdvisorProperties;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * 抽象拦截器处理
  *
  * @author guer
  */
+@Slf4j
 public abstract class AbstractHandlerInterceptor implements HandlerInterceptor {
 
     private static final String[] METHODS = new String[] { "OPTIONS", "TRACE" };
@@ -74,12 +80,22 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor {
             return true;
         }
 
+        log.debug("intercept request[interceptor = {}, request = [{} {}]]", getClass(), request.getMethod(),
+                request.getRequestURI());
+
         HandlerMethod handlerMethod = (HandlerMethod) handler;
 
-        IgnoreLogin ignoreLogin = getAnnotation(handlerMethod, IgnoreLogin.class);
+        boolean needLogin = getAnnotation(handlerMethod, IgnoreLogin.class) == null;
 
-        if (ignoreLogin == null) {
-            preHandle0(request, handlerMethod);
+        log.debug("needLoginCheck[handler = {}, needLogin = {}]", handler, needLogin);
+
+        if (needLogin) {
+            String token = getToken(request);
+
+            if (token != null) {
+                AbstractContextHandler.setToken(token);
+                preHandle0(request, handlerMethod);
+            }
         }
 
         return true;
@@ -89,6 +105,53 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
             @Nullable Exception ex) {
         AbstractContextHandler.clean();
+    }
+
+    /**
+     * 获取token
+     *
+     * @param request
+     *         http请求对象
+     * @return token
+     */
+    @Nullable
+    private String getToken(HttpServletRequest request) {
+        String token = AbstractContextHandler.getToken();
+
+        if (token != null) {
+            log.debug("get token by contextHandler[token = {}]", token);
+            return token;
+        }
+
+        token = StringUtils.trimToNull(request.getHeader(Constants.TOKEN));
+        if (token != null) {
+            log.debug("get token by header[token = {}]", token);
+            return token;
+        }
+
+        if (request.getCookies() != null) {
+            Optional<Cookie> optional = Arrays.stream(request.getCookies())
+                    .filter(cookie -> Constants.TOKEN.equals(cookie.getName())).findFirst();
+
+            if (optional.isPresent()) {
+                token = StringUtils.trimToNull(optional.get().getValue());
+            }
+        }
+
+        if (token != null) {
+            log.debug("get token by cookie[token = {}]", token);
+            return token;
+        }
+
+        token = StringUtils.trimToNull(request.getParameter(Constants.TOKEN));
+
+        if (token != null) {
+            log.debug("get token by parameter[token = {}]", token);
+        } else {
+            log.debug("get token fail");
+        }
+
+        return token;
     }
 
     /**
