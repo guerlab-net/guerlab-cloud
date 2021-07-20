@@ -22,10 +22,8 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * 抽象鉴权拦截器配置
@@ -37,7 +35,7 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProp
 
     private A properties;
 
-    private List<? extends AbstractHandlerInterceptor> tokenHandlerInterceptors;
+    private Collection<? extends AbstractHandlerInterceptor> tokenHandlerInterceptors;
 
     @Override
     public final void addInterceptors(InterceptorRegistry registry) {
@@ -90,9 +88,9 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProp
 
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired(required = false)
-    public void setTokenHandlerInterceptors(AbstractTokenHandlerInterceptor<A>[] tokenHandlerInterceptors) {
-        this.tokenHandlerInterceptors = Arrays.stream(tokenHandlerInterceptors).filter(Objects::nonNull)
-                .filter(interceptor -> Objects.equals(interceptor.getAuthProperties(), this.properties))
-                .collect(Collectors.toList());
+    public void setTokenHandlerInterceptors(
+            Collection<? extends AbstractTokenHandlerInterceptor<A>> tokenHandlerInterceptors) {
+        log.debug("input interceptors: {}", tokenHandlerInterceptors);
+        this.tokenHandlerInterceptors = tokenHandlerInterceptors;
     }
 }
