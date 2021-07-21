@@ -12,7 +12,7 @@
  */
 package net.guerlab.cloud.commons.ip;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -26,42 +26,42 @@ import static java.lang.Integer.parseInt;
  * @author guer
  */
 @SuppressWarnings("AlibabaUndefineMagicConstant")
-@Data
+@Getter
 @Slf4j
-public class IPv4AddressRange {
+public class Ipv4AddressRange implements IpAddress, Ipv4 {
 
     /**
      * 类型
      */
-    private IPType ipType;
+    private IpType ipType;
 
     /**
      * 起止IP，左闭右闭[start, end]
      */
-    private IPv4Address start, end;
+    private Ipv4Address start, end;
 
     /**
      * 子网掩码
      */
-    private IPv4Address subNetMask;
+    private Ipv4Address subNetMask;
 
     private int mask;
 
     /**
      * 子网
      */
-    private IPv4Address subNet;
+    private Ipv4Address subNet;
 
     /**
      * 原始字符串
      */
     private String rawString;
 
-    public IPv4AddressRange() {
+    public Ipv4AddressRange() {
         reset();
     }
 
-    public IPv4AddressRange(String ipRange) {
+    public Ipv4AddressRange(String ipRange) {
         reset();
         parseIpRange(ipRange);
     }
@@ -82,7 +82,7 @@ public class IPv4AddressRange {
     }
 
     public void reset() {
-        ipType = IPType.IPV4_SEGMENT;
+        ipType = IpType.IPV4_SEGMENT;
         start = end = null;
         subNetMask = subNet = null;
         mask = 0;
@@ -95,7 +95,6 @@ public class IPv4AddressRange {
      * @param ipRange
      *         ip范围
      */
-    @SuppressWarnings("AlibabaUndefineMagicConstant")
     protected void parseIpRange(String ipRange) {
         rawString = ipRange;
         ipRange = StringUtils.trimToNull(ipRange);
@@ -105,16 +104,16 @@ public class IPv4AddressRange {
         // 提取注释
         int s = ipRange.indexOf('-');
         if (s >= 0) {
-            start = new IPv4Address(StringUtils.trim(StringUtils.substring(ipRange, 0, s)));
+            start = new Ipv4Address(StringUtils.trim(StringUtils.substring(ipRange, 0, s)));
             ipRange = StringUtils.trim(StringUtils.substring(ipRange, s + 1));
             if (!ipRange.contains(".")) {
                 int tmpEnd = parseInt(ipRange);
-                if (tmpEnd < 0 || tmpEnd > 255) {
+                if (tmpEnd < 0 || tmpEnd > MAX_VALUE) {
                     throw new IllegalArgumentException("illegal ip ranges: " + rawString);
                 }
-                end = new IPv4Address((start.getIpAddress() & 0x0FFFFFF00) + tmpEnd);
+                end = new Ipv4Address((start.getIpAddress() & 0x0FFFFFF00) + tmpEnd);
             } else {
-                end = new IPv4Address(ipRange);
+                end = new Ipv4Address(ipRange);
             }
 
             return;
@@ -128,25 +127,25 @@ public class IPv4AddressRange {
             }
             // 带有子网掩码
             mask = prefix;
-            ipType = IPType.IPV4_SEGMENT_WITH_MASK;
+            ipType = IpType.IPV4_SEGMENT_WITH_MASK;
             // 子网掩码
             subNetMask = computeMaskFromNetworkPrefix(prefix);
-            IPv4Address tmp = new IPv4Address(StringUtils.trim(StringUtils.substring(ipRange, 0, s)));
+            Ipv4Address tmp = new Ipv4Address(StringUtils.trim(StringUtils.substring(ipRange, 0, s)));
             // 子网
-            subNet = new IPv4Address(subNetMask.getIpAddress() & tmp.getIpAddress());
+            subNet = new Ipv4Address(subNetMask.getIpAddress() & tmp.getIpAddress());
             // 设置起止地址
-            start = new IPv4Address(subNet.getIpAddress());
-            end = new IPv4Address(subNet.getIpAddress() + (1L << (32 - prefix)) - 1);
+            start = new Ipv4Address(subNet.getIpAddress());
+            end = new Ipv4Address(subNet.getIpAddress() + (1L << (32 - prefix)) - 1);
             return;
         }
 
-        start = new IPv4Address(ipRange);
-        end = new IPv4Address(ipRange);
+        start = new Ipv4Address(ipRange);
+        end = new Ipv4Address(ipRange);
 
     }
 
     @SuppressWarnings("AlibabaUndefineMagicConstant")
-    protected IPv4Address computeMaskFromNetworkPrefix(int prefix) {
+    protected Ipv4Address computeMaskFromNetworkPrefix(int prefix) {
         StringBuilder str = new StringBuilder();
 
         for (int decimalString = 0; decimalString < 32; ++decimalString) {
@@ -157,22 +156,22 @@ public class IPv4AddressRange {
             }
         }
 
-        return new IPv4Address(toDecimalString(str.toString()));
+        return new Ipv4Address(toDecimalString(str.toString()));
     }
 
-    public boolean contains(IPAddress ipAddress) {
+    public boolean contains(IpAddress ipAddress) {
         switch (ipAddress.getIpType()) {
             case IPV4:
-                return contains(start, end, (IPv4Address) ipAddress);
+                return contains(start, end, (Ipv4Address) ipAddress);
             case IPV4_SEGMENT:
             case IPV4_SEGMENT_WITH_MASK:
-                return contains(start, end, (IPv4AddressRange) ipAddress);
+                return contains(start, end, (Ipv4AddressRange) ipAddress);
             default:
                 return false;
         }
     }
 
-    private boolean contains(IPv4Address s, IPv4Address e, IPv4Address item) {
+    private boolean contains(Ipv4Address s, Ipv4Address e, Ipv4Address item) {
         if (item == null) {
             return false;
         }
@@ -181,7 +180,7 @@ public class IPv4AddressRange {
         return item.getIpAddress() >= min && item.getIpAddress() <= max;
     }
 
-    private boolean contains(IPv4Address s, IPv4Address e, IPv4AddressRange jiPv4AddressRange) {
+    private boolean contains(Ipv4Address s, Ipv4Address e, Ipv4AddressRange jiPv4AddressRange) {
         if (jiPv4AddressRange == null) {
             return false;
         }
@@ -198,7 +197,7 @@ public class IPv4AddressRange {
             return false;
         }
 
-        IPv4AddressRange range = (IPv4AddressRange) o;
+        Ipv4AddressRange range = (Ipv4AddressRange) o;
 
         return Objects.equals(start, range.start) && Objects.equals(end, range.end);
     }

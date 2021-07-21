@@ -13,42 +13,47 @@
 package net.guerlab.cloud.commons.ip;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
+ * ipv4地址
+ *
  * @author guer
  */
-@SuppressWarnings("AlibabaUndefineMagicConstant")
-public class IPv4Address implements IPAddress {
+@SuppressWarnings("unused")
+@Getter
+public class Ipv4Address implements IpAddress, Ipv4 {
 
     /**
      * 类型
      */
-    @Setter
-    @Getter
-    private IPType ipType;
+    private final IpType ipType = IpType.IPV4;
 
     /**
      * 用一个long来存储,以后可以用**其他的库**替代
      */
-    @Getter
-    private long ipAddress;
+    private final long ipAddress;
 
-    public IPv4Address() {
+    public Ipv4Address() {
         this(0);
     }
 
-    public IPv4Address(String ipAddressStr) {
+    public Ipv4Address(String ipAddressStr) {
         this(parseIpAddress(ipAddressStr));
     }
 
-    public IPv4Address(long address) {
-        reset();
+    public Ipv4Address(long address) {
         this.ipAddress = address;
     }
 
+    /**
+     * 将数值类型地址转变为字符串格式地址
+     *
+     * @param ipAddress
+     *         数值类型地址
+     * @return 字符串格式地址
+     */
     public static String convertString(long ipAddress) {
         StringBuilder result = new StringBuilder();
         long temp;
@@ -66,66 +71,56 @@ public class IPv4Address implements IPAddress {
         return result.toString();
     }
 
-    public void reset() {
-        ipType = IPType.IPV4;
-        ipAddress = 0;
-    }
-
-    public final boolean isClassA() {
-        return (this.ipAddress >> 31) == 0;
-    }
-
-    public final boolean isClassB() {
-        return (this.ipAddress >> 30) == 2;
-    }
-
-    public final boolean isClassC() {
-        return (this.ipAddress >> 29) == 6;
-    }
-
-    private static long parseIpAddress(String ipAddressStr) {
+    /**
+     * 解析字符串格式地址
+     *
+     * @param ipAddressStr
+     *         字符串格式地址
+     * @return 数值类型地址
+     */
+    public static long parseIpAddress(String ipAddressStr) {
         ipAddressStr = StringUtils.trimToNull(ipAddressStr);
-        long result = 0;
         if (ipAddressStr == null) {
             throw new IllegalArgumentException();
         }
 
         String ex = ipAddressStr;
         long offset = 24;
-
+        long result = 0;
         int index;
-        long number;
-        for (number = 0; number < 3; ++number) {
+        for (int segments = 0; segments < SEGMENTS_SIZE; ++segments) {
             index = ex.indexOf('.');
             if (index == -1) {
-                throw new IllegalArgumentException("Invalid IP Address [" + ipAddressStr + "]");
+                throwException(ipAddressStr);
             }
 
             String numberStr = ex.substring(0, index);
             long number1 = Integer.parseInt(numberStr);
-            if (number1 < 0 || number1 > 255) {
-                throw new IllegalArgumentException("Invalid IP Address [" + ipAddressStr + "]");
-            }
+            valueCheck(ipAddressStr, number1);
 
             result += number1 << offset;
             offset -= 8;
             ex = ex.substring(index + 1);
         }
 
-        if (StringUtils.isBlank(ex)) {
-            throw new IllegalArgumentException("Invalid IP Address [" + ipAddressStr + "]");
+        if (StringUtils.isBlank(ex) || !NumberUtils.isCreatable(ex)) {
+            throwException(ipAddressStr);
         }
-        if (!NumberUtils.isCreatable(ex)) {
-            throw new IllegalArgumentException("Invalid IP Address [" + ipAddressStr + "]");
-        }
-        number = Integer.parseInt(ex);
-        if (number >= 0 && number <= 255) {
-            result += number << offset;
-        } else {
-            throw new IllegalArgumentException("Invalid IP Address [" + ipAddressStr + "]");
-        }
+        long number = Integer.parseInt(ex);
+        valueCheck(ipAddressStr, number);
+        result += number << offset;
 
         return result;
+    }
+
+    private static void valueCheck(String ipAddressStr, long value) {
+        if (value < 0 || value > MAX_VALUE) {
+            throwException(ipAddressStr);
+        }
+    }
+
+    private static void throwException(String ipAddressStr) {
+        throw new IllegalArgumentException("Invalid IP Address [" + ipAddressStr + "]");
     }
 
     @Override
@@ -137,7 +132,7 @@ public class IPv4Address implements IPAddress {
             return false;
         }
 
-        IPv4Address that = (IPv4Address) o;
+        Ipv4Address that = (Ipv4Address) o;
 
         return ipAddress == that.ipAddress;
     }

@@ -10,23 +10,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.commons.exception;
-
-import net.guerlab.spring.commons.exception.AbstractI18nApplicationException;
-
 /**
- * 账户未启用
- *
  * @author guer
  */
-public class UserUnableException extends AbstractI18nApplicationException {
+@NonNullApi
+package net.guerlab.cloud.commons.util;
 
-    private static final long serialVersionUID = 1L;
-
-    private static final String MESSAGE_KEY = "message.exception.commons.userUnable";
-
-    @Override
-    protected String getKey() {
-        return MESSAGE_KEY;
-    }
-}
+import org.springframework.lang.NonNullApi;

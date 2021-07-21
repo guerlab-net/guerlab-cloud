@@ -21,7 +21,7 @@ import net.guerlab.spring.mybatis.AbstractTypeHandler;
  *
  * @author guer
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({ "WeakerAccess", "unused" })
 public class MultiStringTypeHandler extends AbstractTypeHandler<MultiString> {
 
     @Override

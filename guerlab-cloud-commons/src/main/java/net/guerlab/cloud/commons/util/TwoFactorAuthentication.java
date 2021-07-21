@@ -15,6 +15,7 @@ package net.guerlab.cloud.commons.util;
 import net.guerlab.commons.random.RandomUtil;
 import org.apache.commons.codec.binary.Base32;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.lang.Nullable;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -28,6 +29,7 @@ import java.util.Objects;
  *
  * @author guerlab
  */
+@SuppressWarnings("unused")
 public class TwoFactorAuthentication {
 
     private static final int SECRET_SIZE = 10;
@@ -57,6 +59,7 @@ public class TwoFactorAuthentication {
      *
      * @return secret key
      */
+    @Nullable
     public static String generateSecretKey() {
         try {
             SecureRandom sr = SecureRandom.getInstance(RANDOM_NUMBER_ALGORITHM);

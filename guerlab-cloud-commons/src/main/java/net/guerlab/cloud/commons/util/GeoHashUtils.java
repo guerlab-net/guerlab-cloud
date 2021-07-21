@@ -22,7 +22,6 @@ import java.math.BigDecimal;
  *
  * @author guer
  */
-@SuppressWarnings("ALL")
 public class GeoHashUtils {
 
     private static final int[] BITS = { 16, 8, 4, 2, 1 };
@@ -98,18 +97,18 @@ public class GeoHashUtils {
     }
 
     /**
-     * 获取相邻的geohash
+     * 获取相邻的geoHash
      *
-     * @param geohash
-     *         geohash
+     * @param geoHash
+     *         geoHash
      * @param length
      *         长度
-     * @return 相邻的geohash
+     * @return 相邻的geoHash
      */
-    public static GeoHash getGeoHashExpand(final String geohash, int length) {
-        int maxLength = Math.min(geohash.length(), length);
+    public static GeoHash getGeoHashExpand(final String geoHash, int length) {
+        int maxLength = Math.min(geoHash.length(), length);
 
-        String hash = geohash.substring(0, maxLength);
+        String hash = geoHash.substring(0, maxLength);
 
         String top = calculateAdjacent(hash, TOP);
         String bottom = calculateAdjacent(hash, BOTTOM);
@@ -127,11 +126,12 @@ public class GeoHashUtils {
     /**
      * 解析
      *
-     * @param geohash
-     *         geohash
+     * @param geoHash
+     *         geoHash
      * @return 地理对象
      */
-    public static Geo decode(String geohash) {
+    @SuppressWarnings("unused")
+    public static Geo decode(String geoHash) {
         boolean even = true;
         double[] lat = new double[3];
         double[] lon = new double[3];
@@ -141,8 +141,8 @@ public class GeoHashUtils {
         lon[0] = -180.0;
         lon[1] = 180.0;
 
-        for (int i = 0; i < geohash.length(); i++) {
-            char c = geohash.charAt(i);
+        for (int i = 0; i < geoHash.length(); i++) {
+            char c = geoHash.charAt(i);
             int cd = BASE32.indexOf(c);
             for (int mask : BITS) {
                 refineInterval(even ? lon : lat, cd, mask);
@@ -156,26 +156,26 @@ public class GeoHashUtils {
     }
 
     /**
-     * 编码geohash
+     * 编码geoHash
      *
      * @param longitude
      *         经度
      * @param latitude
      *         纬度
-     * @return geohash
+     * @return geoHash
      */
     public static String encode(BigDecimal longitude, BigDecimal latitude) {
         return encode(longitude.doubleValue(), latitude.doubleValue());
     }
 
     /**
-     * 编码geohash
+     * 编码geoHash
      *
      * @param longitude
      *         经度
      * @param latitude
      *         纬度
-     * @return geohash
+     * @return geoHash
      */
     public static String encode(double longitude, double latitude) {
         boolean even = true;
@@ -184,14 +184,14 @@ public class GeoHashUtils {
         int bit = 0;
         int ch = 0;
         int precision = 12;
-        StringBuilder geohash = new StringBuilder();
+        StringBuilder geoHash = new StringBuilder();
 
         lat[0] = -90.0;
         lat[1] = 90.0;
         lon[0] = -180.0;
         lon[1] = 180.0;
 
-        while (geohash.length() < precision) {
+        while (geoHash.length() < precision) {
             if (even) {
                 double mid = (lon[0] + lon[1]) / 2.0;
                 if (longitude > mid) {
@@ -213,11 +213,11 @@ public class GeoHashUtils {
             if (bit < 4) {
                 bit++;
             } else {
-                geohash.append(BASE32.charAt(ch));
+                geoHash.append(BASE32.charAt(ch));
                 bit = 0;
                 ch = 0;
             }
         }
-        return geohash.toString();
+        return geoHash.toString();
     }
 }

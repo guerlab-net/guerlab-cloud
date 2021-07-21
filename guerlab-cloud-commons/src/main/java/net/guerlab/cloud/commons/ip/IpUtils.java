@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
  *
  * @author guer
  */
-@SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
+@SuppressWarnings({ "AlibabaLowerCamelCaseVariableNaming", "unused" })
 public class IpUtils {
 
     private static final String UNKNOWN = "unknown";
@@ -43,28 +43,28 @@ public class IpUtils {
             return false;
         }
 
-        IPv4Address address;
+        Ipv4Address address;
         try {
-            address = new IPv4Address(ip);
+            address = new Ipv4Address(ip);
         } catch (Exception e) {
             return false;
         }
-        Collection<IPv4AddressRange> ranges = ips.stream().map(IpUtils::buildIPv4AddressRange).filter(Objects::nonNull)
+        Collection<Ipv4AddressRange> ranges = ips.stream().map(IpUtils::buildIPv4AddressRange).filter(Objects::nonNull)
                 .collect(Collectors.toList());
 
         if (ranges.isEmpty()) {
             return false;
         }
 
-        final IPv4Address iPv4Address = address;
+        final Ipv4Address iPv4Address = address;
 
         return ips.stream().map(IpUtils::buildIPv4AddressRange).filter(Objects::nonNull)
                 .anyMatch(range -> range.contains(iPv4Address));
     }
 
-    private static IPv4AddressRange buildIPv4AddressRange(String ipRange) {
+    private static Ipv4AddressRange buildIPv4AddressRange(String ipRange) {
         try {
-            return new IPv4AddressRange(ipRange);
+            return new Ipv4AddressRange(ipRange);
         } catch (Exception e) {
             return null;
         }

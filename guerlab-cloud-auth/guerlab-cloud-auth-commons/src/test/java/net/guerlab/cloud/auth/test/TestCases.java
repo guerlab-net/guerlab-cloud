@@ -35,12 +35,13 @@ public class TestCases {
         context = new AnnotationConfigApplicationContext();
         context.register(TestAuthAutoconfigure.class, TestJwtTokenFactory.class, TestMd5TokenFactory.class,
                 TestRc4TokenFactory.class);
-        TestPropertyValues.of("auth.test.token-factory.jwt.access-token-key=test-access-jwt").applyTo(context);
-        TestPropertyValues.of("auth.test.token-factory.jwt.refresh-token-key=test-refresh-jwt").applyTo(context);
-        TestPropertyValues.of("auth.test.token-factory.md5.access-token-key=test-access-md5").applyTo(context);
-        TestPropertyValues.of("auth.test.token-factory.md5.refresh-token-key=test-refresh-md5").applyTo(context);
-        TestPropertyValues.of("auth.test.token-factory.rc4.access-token-key=test-access-rc4").applyTo(context);
-        TestPropertyValues.of("auth.test.token-factory.rc4.refresh-token-key=test-refresh-rc4").applyTo(context);
+        String[] types = new String[] { "jwt", "md5", "rc4" };
+        for (String type : types) {
+            TestPropertyValues.of("auth.test.token-factory." + type + ".access-token-key=test-access-" + type)
+                    .applyTo(context);
+            TestPropertyValues.of("auth.test.token-factory." + type + ".refresh-token-key=test-refresh-" + type)
+                    .applyTo(context);
+        }
         context.refresh();
     }
 

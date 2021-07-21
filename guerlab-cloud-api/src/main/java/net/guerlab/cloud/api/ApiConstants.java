@@ -17,6 +17,7 @@ package net.guerlab.cloud.api;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 public interface ApiConstants {
 
     /**

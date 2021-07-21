@@ -17,7 +17,8 @@ package net.guerlab.cloud.commons.ip;
  *
  * @author guer
  */
-public enum IPType {
+@SuppressWarnings("unused")
+public enum IpType {
     /**
      * 未知
      */
@@ -58,7 +59,7 @@ public enum IPType {
      *         ip类型
      * @return 否为ipv4
      */
-    public static boolean isIpv4(IPType ipType) {
+    public static boolean isIpv4(IpType ipType) {
         return IPV4.equals(ipType) || IPV4_SEGMENT.equals(ipType) || IPV4_SEGMENT_WITH_MASK.equals(ipType);
     }
 
@@ -69,7 +70,7 @@ public enum IPType {
      *         ip类型
      * @return 否为ipv6
      */
-    public static boolean isIpv6(IPType ipType) {
+    public static boolean isIpv6(IpType ipType) {
         return IPV6.equals(ipType) || IPV6_SEGMENT.equals(ipType) || IPV6_SEGMENT_WITH_MASK.equals(ipType);
     }
 
@@ -80,7 +81,7 @@ public enum IPType {
      *         ip类型
      * @return 是否为IP范围段
      */
-    public static boolean isIpSegment(IPType ipType) {
+    public static boolean isIpSegment(IpType ipType) {
         return IPV4_SEGMENT.equals(ipType) || IPV4_SEGMENT_WITH_MASK.equals(ipType) || IPV6_SEGMENT.equals(ipType)
                 || IPV6_SEGMENT_WITH_MASK.equals(ipType);
     }

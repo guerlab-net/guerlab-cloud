@@ -19,6 +19,7 @@ import java.math.BigDecimal;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 public interface IGeoEntity {
 
     /**

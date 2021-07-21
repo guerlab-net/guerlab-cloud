@@ -22,6 +22,7 @@ import java.util.Map;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 public abstract class AbstractContextHandler {
 
     private final static InheritableThreadLocal<Map<String, Object>> THREAD_LOCAL = new InheritableThreadLocal<>() {
@@ -60,6 +61,13 @@ public abstract class AbstractContextHandler {
     }
 
     /**
+     * 清除当前内容
+     */
+    public static void clean() {
+        THREAD_LOCAL.remove();
+    }
+
+    /**
      * 获取token
      *
      * @return token
@@ -79,9 +87,61 @@ public abstract class AbstractContextHandler {
     }
 
     /**
-     * 清除当前内容
+     * 获取请求方法
+     *
+     * @return 请求方法
      */
-    public static void clean() {
-        THREAD_LOCAL.remove();
+    public static String getRequestMethod() {
+        return get(Constants.REQUEST_METHOD);
     }
+
+    /**
+     * 设置请求方法
+     *
+     * @param requestMethod
+     *         请求方法
+     */
+    public static void setRequestMethod(String requestMethod) {
+        set(Constants.REQUEST_METHOD, requestMethod);
+    }
+
+    /**
+     * 获取请求URI
+     *
+     * @return 请求URI
+     */
+    public static String getRequestUri() {
+        return get(Constants.REQUEST_URI);
+    }
+
+    /**
+     * 设置请求URI
+     *
+     * @param requestUri
+     *         请求URI
+     */
+    public static void setRequestUri(String requestUri) {
+        set(Constants.REQUEST_URI, requestUri);
+    }
+
+    /**
+     * 获取完整请求URI
+     *
+     * @return 完整请求URI
+     */
+    public static String getCompleteRequestUri() {
+        String uri = get(Constants.COMPLETE_REQUEST_URI);
+        return uri == null ? getRequestUri() : uri;
+    }
+
+    /**
+     * 设置完整请求URI
+     *
+     * @param requestUri
+     *         请求URI
+     */
+    public static void setCompleteRequestUri(String requestUri) {
+        set(Constants.COMPLETE_REQUEST_URI, requestUri);
+    }
+
 }

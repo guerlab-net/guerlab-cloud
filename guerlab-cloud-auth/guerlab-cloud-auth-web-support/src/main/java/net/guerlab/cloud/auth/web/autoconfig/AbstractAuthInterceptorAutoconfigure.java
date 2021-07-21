@@ -51,7 +51,7 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProp
 
         for (AbstractHandlerInterceptor interceptor : tokenHandlerInterceptors) {
             log.debug("register token interceptor[{}]", interceptor);
-            setPathPatterns(registry.addInterceptor(interceptor).order(AbstractTokenHandlerInterceptor.DEFAULT_ORDER));
+            setPathPatterns(registry.addInterceptor(interceptor).order(interceptor.getOrder()));
         }
     }
 

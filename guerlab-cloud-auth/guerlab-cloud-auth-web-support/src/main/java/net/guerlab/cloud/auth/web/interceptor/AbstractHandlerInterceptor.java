@@ -19,6 +19,7 @@ import net.guerlab.cloud.commons.Constants;
 import net.guerlab.spring.web.properties.ResponseAdvisorProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Ordered;
 import org.springframework.lang.Nullable;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -35,12 +36,23 @@ import java.util.Optional;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 @Slf4j
-public abstract class AbstractHandlerInterceptor implements HandlerInterceptor {
+public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, Ordered {
+
+    /**
+     * 默认排序
+     */
+    public static final int DEFAULT_ORDER = 0;
 
     private static final String[] METHODS = new String[] { "OPTIONS", "TRACE" };
 
     protected ResponseAdvisorProperties responseAdvisorProperties;
+
+    @Override
+    public int getOrder() {
+        return DEFAULT_ORDER;
+    }
 
     /**
      * 获取注解
@@ -99,12 +111,6 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor {
         }
 
         return true;
-    }
-
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
-            @Nullable Exception ex) {
-        AbstractContextHandler.clean();
     }
 
     /**

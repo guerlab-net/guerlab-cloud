@@ -10,23 +10,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.commons.exception;
-
-import net.guerlab.spring.commons.exception.AbstractI18nApplicationException;
+package net.guerlab.cloud.commons.ip;
 
 /**
- * 昵称无效
+ * IP地址
  *
  * @author guer
  */
-public class NicknameInvalidException extends AbstractI18nApplicationException {
+public interface IpAddress {
 
-    private static final long serialVersionUID = 1L;
-
-    private static final String MESSAGE_KEY = "message.exception.commons.nicknameInvalid";
-
-    @Override
-    protected String getKey() {
-        return MESSAGE_KEY;
-    }
+    /**
+     * 获取IP类型
+     *
+     * @return IP类型
+     */
+    IpType getIpType();
 }

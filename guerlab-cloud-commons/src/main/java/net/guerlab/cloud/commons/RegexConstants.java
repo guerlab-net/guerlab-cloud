@@ -17,6 +17,7 @@ package net.guerlab.cloud.commons;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 public interface RegexConstants {
 
     /**

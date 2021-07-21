@@ -19,6 +19,7 @@ import org.springdoc.core.SpringDocConfigProperties;
 import org.springdoc.core.SwaggerUiConfigParameters;
 import org.springdoc.core.SwaggerUiConfigProperties;
 import org.springdoc.webflux.ui.SwaggerWelcomeCommon;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.web.reactive.WebFluxProperties;
 import org.springframework.http.MediaType;
@@ -35,8 +36,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.web.util.pattern.PathPattern;
 
 import javax.annotation.PostConstruct;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import static org.springdoc.core.Constants.SWAGGER_CONFIG_URL;
 import static org.springdoc.core.Constants.SWAGGGER_CONFIG_FILE;
@@ -62,12 +66,12 @@ public class SpringCloudSwaggerWelcomeWebFlux extends SwaggerWelcomeCommon {
 
     public SpringCloudSwaggerWelcomeWebFlux(SwaggerUiConfigProperties swaggerUiConfig,
             SpringDocConfigProperties springDocConfigProperties, SwaggerUiConfigParameters swaggerUiConfigParameters,
-            Optional<WebFluxProperties> webFluxPropertiesOptional,
+            ObjectProvider<WebFluxProperties> webFluxPropertiesProvider,
             RequestMappingInfoHandlerMapping requestMappingHandlerMapping) {
         super(swaggerUiConfig, springDocConfigProperties, swaggerUiConfigParameters);
         this.requestMappingHandlerMapping = requestMappingHandlerMapping;
-        webFluxPropertiesOptional
-                .ifPresent((webFluxProperties) -> this.webfluxBasePath = webFluxProperties.getBasePath());
+        webFluxPropertiesProvider
+                .ifAvailable((webFluxProperties) -> this.webfluxBasePath = webFluxProperties.getBasePath());
     }
 
     @PostConstruct

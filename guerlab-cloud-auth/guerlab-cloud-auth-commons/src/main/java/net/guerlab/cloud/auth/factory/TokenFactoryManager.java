@@ -26,6 +26,7 @@ import java.util.stream.Stream;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 public class TokenFactoryManager {
 
     private TokenFactoryManager() {

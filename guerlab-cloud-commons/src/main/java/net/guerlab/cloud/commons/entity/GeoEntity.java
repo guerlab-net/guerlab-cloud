@@ -23,6 +23,7 @@ import java.math.BigDecimal;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 @Setter
 @Getter
 @Schema(name = "GeoEntity", description = "地理信息对象")

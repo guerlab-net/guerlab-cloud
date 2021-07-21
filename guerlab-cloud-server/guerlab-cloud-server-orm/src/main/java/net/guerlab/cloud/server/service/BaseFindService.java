@@ -32,6 +32,7 @@ import java.util.Optional;
  *         搜索参数类型
  * @author guer
  */
+@SuppressWarnings("unused")
 public interface BaseFindService<T, PK extends Serializable, SP extends AbstractSearchParams>
         extends QueryWrapperGetter<T, SP> {
 

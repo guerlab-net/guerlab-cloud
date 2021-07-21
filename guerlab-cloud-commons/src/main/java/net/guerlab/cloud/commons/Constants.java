@@ -17,6 +17,7 @@ package net.guerlab.cloud.commons;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 public interface Constants {
 
     /**
@@ -44,4 +45,18 @@ public interface Constants {
      */
     String EMPTY_NAME = "";
 
+    /**
+     * 请求方法
+     */
+    String REQUEST_METHOD = "Request-Method";
+
+    /**
+     * 请求URI
+     */
+    String REQUEST_URI = "Request-Uri";
+
+    /**
+     * 完整请求路径
+     */
+    String COMPLETE_REQUEST_URI = "Complete-Request-Uri";
 }

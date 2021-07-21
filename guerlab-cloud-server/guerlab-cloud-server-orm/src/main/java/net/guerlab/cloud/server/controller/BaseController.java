@@ -33,6 +33,7 @@ import java.io.Serializable;
  *         实体主键类型
  * @author guer
  */
+@SuppressWarnings("unused")
 public abstract class BaseController<D, E extends Convert<D>, S extends BaseService<E, PK, SP>, SP extends AbstractSearchParams, PK extends Serializable>
         extends BaseFindController<D, E, S, SP, PK>
         implements SaveController<D, E, S, SP, PK>, UpdateController<D, E, S, SP, PK>, DeleteController<D, E, S, SP, PK> {

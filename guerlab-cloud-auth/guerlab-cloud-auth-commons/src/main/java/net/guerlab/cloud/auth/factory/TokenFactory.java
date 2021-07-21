@@ -22,6 +22,7 @@ import org.springframework.core.Ordered;
  *         数据实体类型
  * @author guer
  */
+@SuppressWarnings("unused")
 public interface TokenFactory<T> extends Ordered, Comparable<TokenFactory<?>> {
 
     /**
