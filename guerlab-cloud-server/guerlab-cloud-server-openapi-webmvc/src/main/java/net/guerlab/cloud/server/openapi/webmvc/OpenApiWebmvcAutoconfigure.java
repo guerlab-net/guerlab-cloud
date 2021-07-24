@@ -10,14 +10,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.server.openapi.autoconfigure;
+package net.guerlab.cloud.server.openapi.webmvc;
 
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.spring.web.properties.ResponseAdvisorProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -27,7 +27,7 @@ import java.util.List;
  */
 @Slf4j
 @Configuration
-public class OpenApiAutoconfigure {
+public class OpenApiWebmvcAutoconfigure {
 
     @Autowired(required = false)
     public void responseAdvisorAddExcluded(ResponseAdvisorProperties responseAdvisorProperties) {
@@ -35,10 +35,7 @@ public class OpenApiAutoconfigure {
             return;
         }
 
-        List<String> excluded = Arrays.asList("org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiJson",
-                "org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiYaml",
-                "org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource#openapiJson",
-                "org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource#openapiYaml");
+        List<String> excluded = Collections.singletonList("org.springdoc.webmvc.ui.SwaggerWelcomeWebMvc#openapiJson");
 
         log.debug("add excluded: {}", excluded);
 

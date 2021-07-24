@@ -39,11 +39,24 @@ public class RequestInfoHandlerInterceptor implements HandlerInterceptor, Ordere
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         AbstractContextHandler.setRequestMethod(request.getMethod());
-        AbstractContextHandler.setRequestUri(request.getRequestURI());
+        AbstractContextHandler.setRequestUri(parseRequestUri(request));
         AbstractContextHandler
                 .setCompleteRequestUri(StringUtils.trimToNull(request.getHeader(Constants.COMPLETE_REQUEST_URI)));
         log.debug("save request info to AbstractContextHandler");
         return true;
+    }
+
+    private String parseRequestUri(HttpServletRequest request) {
+        String contextPath = request.getContextPath();
+        String requestUri = request.getRequestURI();
+
+        if (contextPath != null) {
+            String newRequestUri = requestUri.replaceFirst(contextPath, "");
+            log.debug("replace requestUri[form={}, to={}]", requestUri, newRequestUri);
+            requestUri = newRequestUri;
+        }
+
+        return requestUri;
     }
 
     @Override

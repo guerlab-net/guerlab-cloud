@@ -92,11 +92,10 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
             return true;
         }
 
-        log.debug("intercept request[interceptor = {}, request = [{} {}]]", getClass(), request.getMethod(),
-                request.getRequestURI());
+        log.debug("intercept request[interceptor = {}, request = [{}]]", getClass(),
+                AbstractContextHandler.getRequestUrl());
 
         HandlerMethod handlerMethod = (HandlerMethod) handler;
-
         boolean needLogin = getAnnotation(handlerMethod, IgnoreLogin.class) == null;
 
         log.debug("needLoginCheck[handler = {}, needLogin = {}]", handler, needLogin);
@@ -171,9 +170,8 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
     protected abstract void preHandle0(HttpServletRequest request, HandlerMethod handlerMethod);
 
     private boolean uriMatch(HttpServletRequest request) {
-        String uri = request.getRequestURI();
-
-        return responseAdvisorProperties.getExcluded().stream().anyMatch(uri::startsWith);
+        String requestUri = AbstractContextHandler.getRequestUri();
+        return responseAdvisorProperties.getExcluded().stream().anyMatch(requestUri::startsWith);
     }
 
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")

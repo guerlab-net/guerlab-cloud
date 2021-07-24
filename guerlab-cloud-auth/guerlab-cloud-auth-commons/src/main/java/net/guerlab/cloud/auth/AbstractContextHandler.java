@@ -125,6 +125,15 @@ public abstract class AbstractContextHandler {
     }
 
     /**
+     * 获取请求URL
+     *
+     * @return 请求URL
+     */
+    public static String getRequestUrl() {
+        return getRequestMethod() + " " + getRequestUri();
+    }
+
+    /**
      * 获取完整请求URI
      *
      * @return 完整请求URI
