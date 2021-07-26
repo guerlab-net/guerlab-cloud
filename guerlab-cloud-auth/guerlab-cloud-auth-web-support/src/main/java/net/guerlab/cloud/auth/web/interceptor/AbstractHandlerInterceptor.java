@@ -171,6 +171,9 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 
     private boolean uriMatch(HttpServletRequest request) {
         String requestUri = AbstractContextHandler.getRequestUri();
+        if (requestUri == null) {
+            requestUri = request.getRequestURI();
+        }
         return responseAdvisorProperties.getExcluded().stream().anyMatch(requestUri::startsWith);
     }
 
