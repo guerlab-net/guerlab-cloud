@@ -14,12 +14,14 @@ package net.guerlab.cloud.commons.util;
 
 import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.entity.IOrderEntity;
+import org.springframework.lang.Nullable;
 
 /**
  * 可排序对象工具类
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 public class OrderEntityUtils {
 
     private OrderEntityUtils() {
@@ -32,7 +34,7 @@ public class OrderEntityUtils {
      * @param entity
      *         可排序对象
      */
-    public static void propertiesCheck(IOrderEntity<?> entity) {
+    public static void propertiesCheck(@Nullable IOrderEntity<?> entity) {
         if (entity != null && entity.getOrderNum() == null) {
             entity.setOrderNum(Constants.DEFAULT_ORDER_NUM);
         }

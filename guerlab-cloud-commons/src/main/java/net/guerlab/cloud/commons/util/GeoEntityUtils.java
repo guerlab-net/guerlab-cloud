@@ -19,6 +19,7 @@ import net.guerlab.cloud.commons.exception.LatitudeInvalidException;
 import net.guerlab.cloud.commons.exception.LongitudeInvalidException;
 import net.guerlab.cloud.commons.searchparams.GeoSearchParams;
 import net.guerlab.spring.searchparams.SearchParamsUtils;
+import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -29,6 +30,7 @@ import java.util.Map;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 public class GeoEntityUtils {
 
     private GeoEntityUtils() {
@@ -41,7 +43,7 @@ public class GeoEntityUtils {
      * @param entity
      *         地理信息实体
      */
-    public static void propertiesCheck(IGeoEntity entity) {
+    public static void propertiesCheck(@Nullable IGeoEntity entity) {
         if (entity == null) {
             throw new GeoEntityInvalidException();
         }
@@ -59,7 +61,7 @@ public class GeoEntityUtils {
      * @param entity
      *         地理信息实体
      */
-    public static void setGeoInfo(IGeoEntity entity) {
+    public static void setGeoInfo(@Nullable IGeoEntity entity) {
         if (entity == null) {
             return;
         }

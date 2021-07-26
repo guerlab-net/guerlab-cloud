@@ -17,6 +17,7 @@ import net.guerlab.commons.exception.ApplicationException;
 import net.guerlab.spring.commons.dto.Convert;
 import net.guerlab.web.result.ListObject;
 import org.springframework.beans.BeanUtils;
+import org.springframework.lang.Nullable;
 
 import java.util.Collection;
 import java.util.List;
@@ -43,7 +44,8 @@ public class BeanConvertUtils {
      *         实体
      * @return 目标类型
      */
-    public static <T, E extends Convert<T>> T toObject(E entity) {
+    @Nullable
+    public static <T, E extends Convert<T>> T toObject(@Nullable E entity) {
         return entity == null ? null : entity.convert();
     }
 
@@ -60,7 +62,8 @@ public class BeanConvertUtils {
      *         目标类型
      * @return 目标类型
      */
-    public static <T, E> T toObject(E entity, Class<T> targetClass) {
+    @Nullable
+    public static <T, E> T toObject(@Nullable E entity, Class<T> targetClass) {
         if (entity == null) {
             return null;
         }
@@ -120,7 +123,7 @@ public class BeanConvertUtils {
      *         实体列表对象
      * @return 目标列表对象
      */
-    public static <T, E extends Convert<T>> ListObject<T> toListObject(ListObject<E> list) {
+    public static <T, E extends Convert<T>> ListObject<T> toListObject(@Nullable ListObject<E> list) {
         if (list == null || CollectionUtil.isEmpty(list.getList())) {
             return ListObject.empty();
         }
@@ -145,7 +148,7 @@ public class BeanConvertUtils {
      *         目标类型
      * @return 目标列表对象
      */
-    public static <T, E> ListObject<T> toListObject(ListObject<E> list, Class<T> dtoClass) {
+    public static <T, E> ListObject<T> toListObject(@Nullable ListObject<E> list, Class<T> dtoClass) {
         if (list == null || CollectionUtil.isEmpty(list.getList())) {
             return ListObject.empty();
         }

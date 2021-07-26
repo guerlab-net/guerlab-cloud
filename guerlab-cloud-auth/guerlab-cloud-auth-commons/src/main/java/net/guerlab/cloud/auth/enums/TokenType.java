@@ -25,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 @Schema(name = "TokenType", description = "令牌类型")
 public enum TokenType {
 

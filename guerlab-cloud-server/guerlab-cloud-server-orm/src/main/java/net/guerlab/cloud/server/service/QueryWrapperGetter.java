@@ -26,6 +26,7 @@ import net.guerlab.spring.searchparams.SearchParamsUtils;
  *         搜索参数类型
  * @author guer
  */
+@SuppressWarnings("unused")
 public interface QueryWrapperGetter<T, SP extends AbstractSearchParams> {
 
     /**

@@ -21,6 +21,7 @@ import java.util.Collections;
  *         实体类型
  * @author guer
  */
+@SuppressWarnings("unused")
 public interface ReplaceInsertMapper<T> extends BatchMapper<T> {
 
     /**

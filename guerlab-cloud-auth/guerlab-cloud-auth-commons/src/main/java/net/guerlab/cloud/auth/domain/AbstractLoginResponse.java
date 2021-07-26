@@ -20,6 +20,7 @@ import lombok.Data;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 @Data
 @Schema(name = "AbstractLoginResponse", description = "抽象登录成功信息")
 public class AbstractLoginResponse<T> {

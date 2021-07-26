@@ -12,42 +12,37 @@
  */
 package net.guerlab.cloud.server.openapi.autoconfigure;
 
-import net.guerlab.cloud.server.openapi.properties.OpenApiProperties;
+import lombok.extern.slf4j.Slf4j;
 import net.guerlab.spring.web.properties.ResponseAdvisorProperties;
-import org.apache.commons.lang3.StringUtils;
-import org.springdoc.core.SpringDocConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * OpenApi相关路径配置
  *
  * @author guer
  */
+@Slf4j
 @Configuration
-@EnableConfigurationProperties({ OpenApiProperties.class })
-@ComponentScan("net.guerlab.cloud.server.openapi")
 public class OpenApiAutoconfigure {
 
     @Autowired(required = false)
-    public void responseAdvisorAddExcluded(ResponseAdvisorProperties responseAdvisorProperties,
-            SpringDocConfigProperties properties, OpenApiProperties openApiProperties) {
+    public void responseAdvisorAddExcluded(ResponseAdvisorProperties responseAdvisorProperties) {
         if (responseAdvisorProperties == null) {
             return;
         }
-        if (properties != null) {
-            responseAdvisorProperties.addExcluded(Collections.singletonList(properties.getApiDocs().getPath()));
-        }
-        if (openApiProperties != null && openApiProperties.getCloud() != null) {
-            String path = StringUtils.trimToNull(openApiProperties.getCloud().getPath());
-            if (path != null) {
-                responseAdvisorProperties.addExcluded();
-            }
-        }
+
+        List<String> excluded = Arrays.asList("org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiJson",
+                "org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiYaml",
+                "org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource#openapiJson",
+                "org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource#openapiYaml");
+
+        log.debug("add excluded: {}", excluded);
+
+        responseAdvisorProperties.addExcluded(excluded);
     }
 
 }

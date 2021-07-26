@@ -41,6 +41,7 @@ import java.util.function.BiConsumer;
  *         搜索参数类型
  * @author guer
  */
+@SuppressWarnings("unused")
 @Transactional(rollbackFor = Exception.class)
 public abstract class BaseBatchServiceImpl<T, PK extends Serializable, M extends BatchMapper<T>, SP extends AbstractSearchParams>
         extends BaseServiceImpl<T, PK, M, SP> implements BaseBatchSaveService<T, SP> {

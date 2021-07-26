@@ -19,6 +19,7 @@ import net.guerlab.cloud.commons.Constants;
 import net.guerlab.spring.web.properties.ResponseAdvisorProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Ordered;
 import org.springframework.lang.Nullable;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -35,12 +36,23 @@ import java.util.Optional;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 @Slf4j
-public abstract class AbstractHandlerInterceptor implements HandlerInterceptor {
+public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, Ordered {
+
+    /**
+     * 默认排序
+     */
+    public static final int DEFAULT_ORDER = 0;
 
     private static final String[] METHODS = new String[] { "OPTIONS", "TRACE" };
 
     protected ResponseAdvisorProperties responseAdvisorProperties;
+
+    @Override
+    public int getOrder() {
+        return DEFAULT_ORDER;
+    }
 
     /**
      * 获取注解
@@ -80,11 +92,10 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        log.debug("intercept request[interceptor = {}, request = [{} {}]]", getClass(), request.getMethod(),
-                request.getRequestURI());
+        log.debug("intercept request[interceptor = {}, request = [{}]]", getClass(),
+                AbstractContextHandler.getRequestUrl());
 
         HandlerMethod handlerMethod = (HandlerMethod) handler;
-
         boolean needLogin = getAnnotation(handlerMethod, IgnoreLogin.class) == null;
 
         log.debug("needLoginCheck[handler = {}, needLogin = {}]", handler, needLogin);
@@ -99,12 +110,6 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor {
         }
 
         return true;
-    }
-
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
-            @Nullable Exception ex) {
-        AbstractContextHandler.clean();
     }
 
     /**
@@ -165,9 +170,11 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor {
     protected abstract void preHandle0(HttpServletRequest request, HandlerMethod handlerMethod);
 
     private boolean uriMatch(HttpServletRequest request) {
-        String uri = request.getRequestURI();
-
-        return responseAdvisorProperties.getExcluded().stream().anyMatch(uri::startsWith);
+        String requestUri = AbstractContextHandler.getRequestUri();
+        if (requestUri == null) {
+            requestUri = request.getRequestURI();
+        }
+        return responseAdvisorProperties.getExcluded().stream().anyMatch(requestUri::startsWith);
     }
 
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")

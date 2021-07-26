@@ -28,9 +28,4 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ToString(callSuper = true)
 @ConfigurationProperties(prefix = "openapi")
 public class OpenApiProperties extends OpenAPI {
-
-    /**
-     * cloud环境下相关配置
-     */
-    private CloudProperties cloud;
 }

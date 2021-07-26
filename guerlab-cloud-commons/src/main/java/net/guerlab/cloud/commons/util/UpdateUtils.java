@@ -12,6 +12,8 @@
  */
 package net.guerlab.cloud.commons.util;
 
+import org.springframework.lang.Nullable;
+
 import java.util.Objects;
 
 /**
@@ -19,6 +21,7 @@ import java.util.Objects;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 public class UpdateUtils {
 
     private UpdateUtils() {
@@ -36,6 +39,7 @@ public class UpdateUtils {
      *         内容格式
      * @return 更新内容
      */
+    @Nullable
     public static <T> T getUpdateValue(T newData, T oldData) {
         return Objects.equals(newData, oldData) ? null : newData;
     }

@@ -30,6 +30,7 @@ import java.util.Objects;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 public class MessageUtils {
 
     private static final String ORIGIN_APP_NAME = "origin-app-name";

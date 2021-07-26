@@ -18,10 +18,11 @@ import net.guerlab.cloud.auth.enums.TokenType;
 import net.guerlab.cloud.auth.properties.JwtTokenFactoryProperties;
 
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Base64;
 import java.util.Date;
 
 /**
@@ -75,7 +76,7 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
     }
 
     private static byte[] createKey(String key) {
-        return DatatypeConverter.parseBase64Binary(key == null ? "" : key);
+        return Base64.getEncoder().encode(key.getBytes(StandardCharsets.UTF_8));
     }
 
     @Override

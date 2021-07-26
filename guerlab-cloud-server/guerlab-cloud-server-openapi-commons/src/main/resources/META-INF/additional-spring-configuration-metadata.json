@@ -5,29 +5,9 @@
       "type": "net.guerlab.cloud.server.openapi.properties.OpenApiProperties",
       "sourceType": "net.guerlab.cloud.server.openapi.properties.OpenApiProperties",
       "description": "开放接口配置."
-    },
-    {
-      "name": "openapi.cloud",
-      "type": "net.guerlab.cloud.server.openapi.properties.CloudProperties",
-      "sourceType": "net.guerlab.cloud.server.openapi.properties.CloudProperties",
-      "description": "开放接口配置-cloud相关."
     }
   ],
   "properties": [
-    {
-      "name": "openapi.cloud.path",
-      "type": "java.lang.String",
-      "sourceType": "net.guerlab.cloud.server.openapi.properties.CloudProperties",
-      "description": "开放接口配置-cloud相关-请求根路径.",
-      "defaultValue": "/openapi-cloud"
-    },
-    {
-      "name": "openapi.cloud.gateway-path",
-      "type": "java.lang.String",
-      "sourceType": "net.guerlab.cloud.server.openapi.properties.CloudProperties",
-      "description": "开放接口配置-cloud相关-网关映射路径.",
-      "defaultValue": "${spring.application.name}"
-    },
     {
       "name": "openapi.openapi",
       "type": "java.lang.String",

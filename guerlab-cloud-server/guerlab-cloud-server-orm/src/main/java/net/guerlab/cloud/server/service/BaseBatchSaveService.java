@@ -23,7 +23,7 @@ import java.util.Collection;
  *         数据类型
  * @author guer
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({ "WeakerAccess", "unused" })
 public interface BaseBatchSaveService<T, SP extends AbstractSearchParams> extends QueryWrapperGetter<T, SP> {
 
     /**

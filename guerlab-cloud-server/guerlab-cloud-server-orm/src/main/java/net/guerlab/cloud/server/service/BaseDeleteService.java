@@ -29,6 +29,7 @@ import java.io.Serializable;
  *         搜索参数类型
  * @author guer
  */
+@SuppressWarnings("unused")
 public interface BaseDeleteService<T, PK extends Serializable, SP extends AbstractSearchParams>
         extends QueryWrapperGetter<T, SP> {
 

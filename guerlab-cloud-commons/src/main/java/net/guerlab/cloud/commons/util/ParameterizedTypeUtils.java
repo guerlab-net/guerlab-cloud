@@ -36,9 +36,6 @@ public class ParameterizedTypeUtils {
      * @return 范型类型
      */
     private static Type getType(Object obj, int index) {
-        if (obj == null) {
-            throw new NullPointerException("object is null");
-        }
         if (index < 0) {
             throw new IllegalArgumentException("index must >= 0");
         }
@@ -46,7 +43,7 @@ public class ParameterizedTypeUtils {
         Type type = obj.getClass().getGenericSuperclass();
 
         if (!(type instanceof ParameterizedType)) {
-            return null;
+            return type;
         }
 
         ParameterizedType parameterized = (ParameterizedType) type;

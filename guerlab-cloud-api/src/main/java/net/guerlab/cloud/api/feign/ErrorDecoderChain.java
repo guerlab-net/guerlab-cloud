@@ -15,6 +15,7 @@ import java.util.List;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 public class ErrorDecoderChain implements ErrorDecoder {
 
     /**

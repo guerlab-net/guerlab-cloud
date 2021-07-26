@@ -25,7 +25,7 @@ import net.guerlab.spring.searchparams.AbstractSearchParams;
  *         搜索参数类型
  * @author guer
  */
-@SuppressWarnings("UnusedReturnValue")
+@SuppressWarnings({ "UnusedReturnValue", "unused" })
 public interface BaseUpdateService<T, SP extends AbstractSearchParams> extends QueryWrapperGetter<T, SP> {
 
     /**

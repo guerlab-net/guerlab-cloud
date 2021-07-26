@@ -27,15 +27,19 @@ import javax.servlet.http.HttpServletRequest;
  *         授权配置类型
  * @author guer
  */
+@SuppressWarnings("unused")
 @Slf4j
 public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebProperties> extends AbstractHandlerInterceptor {
-
-    public static final int DEFAULT_ORDER = -10;
 
     /**
      * 授权配置
      */
     protected A authProperties;
+
+    @Override
+    public int getOrder() {
+        return DEFAULT_ORDER - 10;
+    }
 
     @Override
     protected void preHandle0(HttpServletRequest request, HandlerMethod handlerMethod) {
