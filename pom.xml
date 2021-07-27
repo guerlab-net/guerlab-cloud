@@ -52,7 +52,7 @@
     </issueManagement>
 
     <properties>
-        <revision>21.9.0</revision>
+        <revision>21.9.1</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>11</java.version>
