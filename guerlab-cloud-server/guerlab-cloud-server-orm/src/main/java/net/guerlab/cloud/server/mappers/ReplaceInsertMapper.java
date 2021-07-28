@@ -34,4 +34,15 @@ public interface ReplaceInsertMapper<T> extends BatchMapper<T> {
     default int replaceInsert(T record) {
         return replaceInsertList(Collections.singletonList(record));
     }
+
+    /**
+     * 插入或更新一个实体
+     *
+     * @param record
+     *         实体
+     * @return 影响行数
+     */
+    default int insertOrUpdate(T record) {
+        return insertOrUpdateList(Collections.singletonList(record));
+    }
 }

@@ -12,72 +12,25 @@
  */
 package net.guerlab.cloud.server.mybatis.plus.methods;
 
-import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
-import net.guerlab.cloud.commons.entity.BaseEntity;
-import net.guerlab.commons.reflection.FieldUtil;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.executor.keygen.NoKeyGenerator;
-import org.apache.ibatis.mapping.MappedStatement;
-import org.apache.ibatis.mapping.SqlSource;
-
-import java.lang.reflect.Field;
-import java.util.Collection;
 
 /**
  * replace模式插入
  *
  * @author guer
  */
-public class ReplaceInsertMethod extends AbstractAutoLoadMethod {
-
-    private static final Collection<Field> BASE_ENTITY_FIELDS = FieldUtil.getFields(BaseEntity.class);
+public class ReplaceInsertMethod extends AbstractMysqlBatchInsertMethod {
 
     @Override
-    public MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
-        final String sql = "<script>REPLACE INTO %s %s VALUES %s</script>";
-        final String fieldSql = prepareFieldSql(tableInfo);
-        final String valueSql = prepareValuesSqlForMysqlBatch(tableInfo);
-        final String sqlResult = String.format(sql, tableInfo.getTableName(), fieldSql, valueSql);
-        SqlSource sqlSource = languageDriver.createSqlSource(configuration, sqlResult, modelClass);
-        return this
-                .addInsertMappedStatement(mapperClass, modelClass, "replaceInsertList", sqlSource, new NoKeyGenerator(),
-                        null, null);
+    protected String methodName() {
+        return "replaceInsertList";
     }
 
-    private String prepareFieldSql(TableInfo tableInfo) {
-        String keyColumn = StringUtils.trimToNull(tableInfo.getKeyColumn());
-        StringBuilder fieldSql = new StringBuilder();
-        if (keyColumn != null) {
-            fieldSql.append(tableInfo.getKeyColumn()).append(",");
-        }
-        tableInfo.getFieldList().stream().filter(x -> filedFilter(tableInfo, x))
-                .forEach(x -> fieldSql.append(x.getColumn()).append(","));
-        fieldSql.delete(fieldSql.length() - 1, fieldSql.length());
-        fieldSql.insert(0, "(");
-        fieldSql.append(")");
-        return fieldSql.toString();
-    }
-
-    private String prepareValuesSqlForMysqlBatch(TableInfo tableInfo) {
-        String keyColumn = StringUtils.trimToNull(tableInfo.getKeyColumn());
-        final StringBuilder valueSql = new StringBuilder();
-        valueSql.append(
-                "<foreach collection=\"list\" item=\"item\" index=\"index\" open=\"(\" separator=\"),(\" close=\")\">");
-        if (keyColumn != null) {
-            valueSql.append("#{item.").append(tableInfo.getKeyProperty()).append("},");
-        }
-        tableInfo.getFieldList().stream().filter(x -> filedFilter(tableInfo, x))
-                .forEach(x -> valueSql.append("#{item.").append(x.getProperty()).append("},"));
-        valueSql.delete(valueSql.length() - 1, valueSql.length());
-        valueSql.append("</foreach>");
-        return valueSql.toString();
-    }
-
-    private boolean filedFilter(TableInfo tableInfo, TableFieldInfo fieldInfo) {
-        if (BaseEntity.class.isAssignableFrom(tableInfo.getEntityType())) {
-            return !BASE_ENTITY_FIELDS.contains(fieldInfo.getField());
-        }
-        return true;
+    @Override
+    protected String buildSqlResult(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
+        String sql = "<script>REPLACE INTO %s %s VALUES %s</script>";
+        String fieldSql = prepareFieldSql(tableInfo);
+        String valueSql = prepareValuesSqlForMysqlBatch(tableInfo);
+        return String.format(sql, tableInfo.getTableName(), fieldSql, valueSql);
     }
 }
