@@ -38,10 +38,18 @@ public class OpenApiAutoconfigure {
             return;
         }
 
-        List<String> excluded = Arrays.asList("org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiJson",
+        // @formatter:off
+        List<String> excluded = Arrays.asList(
+                "org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiJson",
                 "org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiYaml",
                 "org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource#openapiJson",
-                "org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource#openapiYaml");
+                "org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource#openapiYaml",
+                "org.springdoc.webflux.api.OpenApiWebfluxResource#openapiJson",
+                "org.springdoc.webflux.api.OpenApiWebfluxResource#openapiYaml",
+                "org.springdoc.webflux.api.MultipleOpenApiWebFluxResource#openapiJson",
+                "org.springdoc.webflux.api.MultipleOpenApiWebFluxResource#openapiYaml"
+        );
+        // @formatter:on
 
         log.debug("add excluded: {}", excluded);
 
