@@ -14,7 +14,7 @@
     <parent>
         <groupId>net.guerlab.builder</groupId>
         <artifactId>guerlab-builder</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </parent>
 
     <licenses>
@@ -232,6 +232,13 @@
                 <version>${easyexcel.version}</version>
             </dependency>
 
+            <!-- guerlab-cloud load balancer -->
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-loadbalancer</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
@@ -282,6 +289,7 @@
         <module>guerlab-cloud-cache</module>
         <module>guerlab-cloud-commons</module>
         <module>guerlab-cloud-excel</module>
+        <module>guerlab-cloud-loadbalancer</module>
         <module>guerlab-cloud-server</module>
         <module>guerlab-cloud-stream</module>
     </modules>

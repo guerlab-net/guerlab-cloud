@@ -1,4 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.api.autoconfigure.DebugAutoconfigure,\
 net.guerlab.cloud.api.autoconfigure.EndPointsAutoconfigure,\
-net.guerlab.cloud.api.autoconfigure.FeignAutoconfigure
+net.guerlab.cloud.api.autoconfigure.FeignAutoconfigure,\
+net.guerlab.cloud.api.autoconfigure.RequestInterceptorAutoconfigure
