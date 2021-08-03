@@ -42,6 +42,7 @@ public class RequestInterceptorAutoconfigure {
      *         版本控制配置
      * @return 负载均衡版本控制请求头注入拦截器
      */
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean
     public RequestInterceptor loadBalancerHeaderRequestInterceptor(VersionControlProperties properties) {
         return new LoadBalancerHeaderRequestInterceptor(properties);

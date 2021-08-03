@@ -88,6 +88,7 @@ public class GlobalLoadBalancerAutoConfiguration {
      *         相同集群配置
      * @return 相同集群策略
      */
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean
     public IRule clusterSameRule(NacosDiscoveryProperties nacosDiscoveryProperties, ClusterSameProperties properties) {
         String clusterName = nacosDiscoveryProperties.getClusterName();

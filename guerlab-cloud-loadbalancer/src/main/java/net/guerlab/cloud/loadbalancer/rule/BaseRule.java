@@ -12,7 +12,7 @@ public abstract class BaseRule<P extends BaseRuleProperties> implements IRule {
     /**
      * 排序
      */
-    protected P properties;
+    protected final P properties;
 
     public BaseRule(P properties) {
         this.properties = properties;

@@ -65,6 +65,8 @@ public class VersionCompareUtils {
 
     private static final String RIGHT_NOT_CONTAIN = ")";
 
+    private static final int GROUP_SIZE = 2;
+
     private VersionCompareUtils() {
     }
 
@@ -153,7 +155,7 @@ public class VersionCompareUtils {
         range = range.replace(RIGHT_NOT_CONTAIN, "");
 
         String[] rangeGroup = range.split(GROUP);
-        if (rangeGroup.length != 2) {
+        if (rangeGroup.length != GROUP_SIZE) {
             return false;
         }
 
