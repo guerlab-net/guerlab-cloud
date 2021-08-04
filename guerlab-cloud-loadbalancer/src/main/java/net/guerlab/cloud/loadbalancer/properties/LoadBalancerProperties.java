@@ -25,4 +25,10 @@ public class LoadBalancerProperties {
      */
     private boolean noMatchReturnEmpty = false;
 
+    /**
+     * 是否允许规则降级<br>
+     * 当允许的时候规则处理返回了空或空集合的时，使用规则处理链返回上一个有效集合
+     */
+    private boolean allowRuleReduce = false;
+
 }

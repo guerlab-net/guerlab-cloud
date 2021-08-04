@@ -28,6 +28,20 @@
       "defaultValue": "false"
     },
     {
+      "name": "spring.cloud.loadbalancer.allow-rule-reduce",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties",
+      "description": "是否允许规则降级.当允许的时候规则处理返回了空或空集合的时，使用规则处理链返回上一个有效集合.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.cloud.loadbalancer.policy",
+      "type": "java.lang.String",
+      "sourceType": "net.guerlab.cloud.loadbalancer.autoconfigure.LoadBalancerPolicyAutoconfigure",
+      "description": "负载均衡策略.可使用的类型有roundRobin、randomWithWeight、random.",
+      "defaultValue": "roundRobin"
+    },
+    {
       "name": "spring.cloud.loadbalancer.cluster-same.enabled",
       "type": "java.lang.Boolean",
       "sourceType": "net.guerlab.cloud.loadbalancer.properties.ClusterSameProperties",

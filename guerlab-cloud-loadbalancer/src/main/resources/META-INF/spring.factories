@@ -1,2 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.loadbalancer.autoconfigure.GlobalLoadBalancerAutoConfiguration
+net.guerlab.cloud.loadbalancer.autoconfigure.GlobalLoadBalancerAutoConfiguration,\
+net.guerlab.cloud.loadbalancer.autoconfigure.LoadBalancerPolicyAutoconfigure,\
+net.guerlab.cloud.loadbalancer.autoconfigure.RuleAutoconfigure

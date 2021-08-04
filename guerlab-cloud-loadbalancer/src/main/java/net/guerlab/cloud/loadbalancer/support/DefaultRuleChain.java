@@ -1,6 +1,7 @@
 package net.guerlab.cloud.loadbalancer.support;
 
 import lombok.extern.slf4j.Slf4j;
+import net.guerlab.cloud.loadbalancer.policy.LoadBalancerPolicy;
 import net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties;
 import net.guerlab.cloud.loadbalancer.rule.IRule;
 import net.guerlab.cloud.loadbalancer.rule.IRuleChain;
@@ -18,8 +19,6 @@ import reactor.core.publisher.Mono;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -38,37 +37,28 @@ public class DefaultRuleChain implements IRuleChain, ReactorServiceInstanceLoadB
 
     private final LoadBalancerProperties loadBalancerProperties;
 
-    private final AtomicInteger position;
+    private final LoadBalancerPolicy policy;
 
     public DefaultRuleChain(String serviceId,
             ObjectProvider<ServiceInstanceListSupplier> serviceInstanceListSupplierProvider,
-            ObjectProvider<List<IRule>> ruleProvider, LoadBalancerProperties loadBalancerProperties) {
+            ObjectProvider<List<IRule>> ruleProvider, LoadBalancerProperties loadBalancerProperties,
+            LoadBalancerPolicy policy) {
         this.serviceId = serviceId;
         this.serviceInstanceListSupplierProvider = serviceInstanceListSupplierProvider;
         this.ruleProvider = ruleProvider;
         this.loadBalancerProperties = loadBalancerProperties;
-        this.position = new AtomicInteger(new Random().nextInt(1000));
+        this.policy = policy;
     }
 
     @Override
     public Mono<Response<ServiceInstance>> choose(Request request) {
         ServiceInstanceListSupplier supplier = getSupplier();
         return supplier.get(request).next().map(instances -> {
-            ServiceInstance instance = choose(instances, request);
-
-            Response<ServiceInstance> serviceInstanceResponse;
-            if (instance != null) {
-                serviceInstanceResponse = new DefaultResponse(instance);
-            } else if (loadBalancerProperties.isNoMatchReturnEmpty()) {
-                serviceInstanceResponse = emptyResponse();
-            } else {
-                serviceInstanceResponse = buildInstanceResponse(instances);
+            Response<ServiceInstance> response = buildResponse(instances, request);
+            if (supplier instanceof SelectedInstanceCallback && response.hasServer()) {
+                ((SelectedInstanceCallback) supplier).selectedServiceInstance(response.getServer());
             }
-
-            if (supplier instanceof SelectedInstanceCallback && serviceInstanceResponse.hasServer()) {
-                ((SelectedInstanceCallback) supplier).selectedServiceInstance(serviceInstanceResponse.getServer());
-            }
-            return serviceInstanceResponse;
+            return response;
         });
     }
 
@@ -76,39 +66,69 @@ public class DefaultRuleChain implements IRuleChain, ReactorServiceInstanceLoadB
         return serviceInstanceListSupplierProvider.getIfAvailable(NoopServiceInstanceListSupplier::new);
     }
 
+    private Response<ServiceInstance> buildResponse(List<ServiceInstance> instances, Request<?> request) {
+        ServiceInstance instance;
+        if (instances.isEmpty()) {
+            return emptyResponse();
+        } else if ((instance = choose(instances, request)) != null) {
+            return new DefaultResponse(instance);
+        } else if (loadBalancerProperties.isNoMatchReturnEmpty()) {
+            return emptyResponse();
+        } else {
+            return new DefaultResponse(policy.choose(instances));
+        }
+    }
+
     private Response<ServiceInstance> emptyResponse() {
         log.debug("No servers available for service: " + serviceId);
         return new EmptyResponse();
     }
 
-    private Response<ServiceInstance> buildInstanceResponse(List<ServiceInstance> instances) {
-        if (instances.isEmpty()) {
-            return emptyResponse();
-        }
-        int pos = Math.abs(this.position.incrementAndGet());
-        ServiceInstance instance = instances.get(pos % instances.size());
-        return new DefaultResponse(instance);
-    }
-
     @Override
     public ServiceInstance choose(List<ServiceInstance> instances, Request<?> request) {
+        List<ServiceInstance> list = ruleFilter(instances, request);
+
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+
+        return policy.choose(list);
+    }
+
+    /**
+     * 根据规则链过滤实例
+     *
+     * @param instances
+     *         实例列表
+     * @param request
+     *         请求
+     * @return 过滤后的实例列表
+     */
+    private List<ServiceInstance> ruleFilter(List<ServiceInstance> instances, Request<?> request) {
         List<IRule> rules = ruleProvider.getIfUnique(Collections::emptyList).stream().filter(IRule::isEnabled).sorted()
                 .collect(Collectors.toList());
 
-        List<ServiceInstance> list = instances;
+        if (rules.isEmpty()) {
+            return instances;
+        }
 
-        if (!rules.isEmpty()) {
-            for (IRule rule : rules) {
-                list = rule.choose(list, request);
-                log.debug("invoke rule: {}", rule);
-                if (list == null || list.isEmpty()) {
-                    log.debug("rule return instance is empty");
+        List<ServiceInstance> currentList = instances;
+        List<ServiceInstance> preList;
+
+        for (IRule rule : rules) {
+            preList = currentList;
+            currentList = rule.choose(currentList, request);
+            log.debug("invoke rule: {}", rule);
+            if (currentList == null || currentList.isEmpty()) {
+                log.debug("rule return instances is empty");
+                if (loadBalancerProperties.isAllowRuleReduce()) {
+                    return preList;
+                } else {
                     return null;
                 }
             }
         }
 
-        int pos = Math.abs(this.position.incrementAndGet());
-        return list.get(pos % list.size());
+        return currentList;
     }
 }

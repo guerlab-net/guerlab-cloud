@@ -12,6 +12,7 @@
  */
 package net.guerlab.cloud.loadbalancer.autoconfigure;
 
+import net.guerlab.cloud.loadbalancer.policy.LoadBalancerPolicy;
 import net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties;
 import net.guerlab.cloud.loadbalancer.rule.IRule;
 import net.guerlab.cloud.loadbalancer.support.DefaultRuleChain;
@@ -46,15 +47,17 @@ public class CustomerLoadBalancerClientConfiguration {
      *         规则对象提供
      * @param loadBalancerProperties
      *         负载均衡配置
+     * @param policy
+     *         负载均衡策略
      * @return 服务实例的负载均衡器
      */
     @Bean
     public ReactorLoadBalancer<ServiceInstance> loadBalancer(Environment environment,
             LoadBalancerClientFactory loadBalancerClientFactory, ObjectProvider<List<IRule>> ruleProvider,
-            LoadBalancerProperties loadBalancerProperties) {
+            LoadBalancerProperties loadBalancerProperties, LoadBalancerPolicy policy) {
         String name = environment.getProperty(LoadBalancerClientFactory.PROPERTY_NAME);
         return new DefaultRuleChain(name,
                 loadBalancerClientFactory.getLazyProvider(name, ServiceInstanceListSupplier.class), ruleProvider,
-                loadBalancerProperties);
+                loadBalancerProperties, policy);
     }
 }
