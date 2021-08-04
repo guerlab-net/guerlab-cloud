@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.loadbalancer.policy.LoadBalancerPolicy;
 import net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties;
 import net.guerlab.cloud.loadbalancer.rule.IRule;
-import net.guerlab.cloud.loadbalancer.rule.IRuleChain;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.DefaultResponse;

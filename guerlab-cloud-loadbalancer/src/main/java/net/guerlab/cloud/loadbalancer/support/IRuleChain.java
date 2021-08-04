@@ -1,4 +1,4 @@
-package net.guerlab.cloud.loadbalancer.rule;
+package net.guerlab.cloud.loadbalancer.support;
 
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.Request;
