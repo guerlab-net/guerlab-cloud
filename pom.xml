@@ -66,6 +66,7 @@
         <easyexcel.version>2.2.9</easyexcel.version>
         <springdoc.version>1.5.8</springdoc.version>
         <nacos.version>2.0.2</nacos.version>
+        <findbugs.version>3.0.2</findbugs.version>
     </properties>
 
     <distributionManagement>
@@ -272,6 +273,13 @@
                 <groupId>com.alibaba.nacos</groupId>
                 <artifactId>nacos-client</artifactId>
                 <version>${nacos.version}</version>
+            </dependency>
+
+            <!-- findbugs -->
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>${findbugs.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
