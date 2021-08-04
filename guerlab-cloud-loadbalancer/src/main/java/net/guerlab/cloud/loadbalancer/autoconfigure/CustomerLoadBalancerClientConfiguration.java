@@ -15,7 +15,7 @@ package net.guerlab.cloud.loadbalancer.autoconfigure;
 import net.guerlab.cloud.loadbalancer.policy.LoadBalancerPolicy;
 import net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties;
 import net.guerlab.cloud.loadbalancer.rule.IRule;
-import net.guerlab.cloud.loadbalancer.support.DefaultRuleChain;
+import net.guerlab.cloud.loadbalancer.support.DefaultRuleChainReactiveLoadBalancer;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.cloud.client.ServiceInstance;
@@ -56,7 +56,7 @@ public class CustomerLoadBalancerClientConfiguration {
             LoadBalancerClientFactory loadBalancerClientFactory, ObjectProvider<List<IRule>> ruleProvider,
             LoadBalancerProperties loadBalancerProperties, LoadBalancerPolicy policy) {
         String name = environment.getProperty(LoadBalancerClientFactory.PROPERTY_NAME);
-        return new DefaultRuleChain(name,
+        return new DefaultRuleChainReactiveLoadBalancer(name,
                 loadBalancerClientFactory.getLazyProvider(name, ServiceInstanceListSupplier.class), ruleProvider,
                 loadBalancerProperties, policy);
     }

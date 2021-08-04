@@ -11,7 +11,6 @@ import org.springframework.cloud.client.loadbalancer.EmptyResponse;
 import org.springframework.cloud.client.loadbalancer.Request;
 import org.springframework.cloud.client.loadbalancer.Response;
 import org.springframework.cloud.loadbalancer.core.NoopServiceInstanceListSupplier;
-import org.springframework.cloud.loadbalancer.core.ReactorServiceInstanceLoadBalancer;
 import org.springframework.cloud.loadbalancer.core.SelectedInstanceCallback;
 import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier;
 import reactor.core.publisher.Mono;
@@ -21,12 +20,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 默认规则链
+ * 基于规则链的负责均衡的默认实现
  *
  * @author guer
  */
 @Slf4j
-public class DefaultRuleChain implements IRuleChain, ReactorServiceInstanceLoadBalancer {
+public class DefaultRuleChainReactiveLoadBalancer implements RuleChainReactiveLoadBalancer {
 
     private final String serviceId;
 
@@ -38,7 +37,7 @@ public class DefaultRuleChain implements IRuleChain, ReactorServiceInstanceLoadB
 
     private final LoadBalancerPolicy policy;
 
-    public DefaultRuleChain(String serviceId,
+    public DefaultRuleChainReactiveLoadBalancer(String serviceId,
             ObjectProvider<ServiceInstanceListSupplier> serviceInstanceListSupplierProvider,
             ObjectProvider<List<IRule>> ruleProvider, LoadBalancerProperties loadBalancerProperties,
             LoadBalancerPolicy policy) {

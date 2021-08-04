@@ -2,15 +2,16 @@ package net.guerlab.cloud.loadbalancer.support;
 
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.Request;
+import org.springframework.cloud.loadbalancer.core.ReactorServiceInstanceLoadBalancer;
 
 import java.util.List;
 
 /**
- * 规则链
+ * 基于规则链的负责均衡
  *
  * @author guer
  */
-public interface IRuleChain {
+public interface RuleChainReactiveLoadBalancer extends ReactorServiceInstanceLoadBalancer {
 
     /**
      * 选择实例
