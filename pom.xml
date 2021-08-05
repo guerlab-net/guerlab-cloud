@@ -14,7 +14,7 @@
     <parent>
         <groupId>net.guerlab.builder</groupId>
         <artifactId>guerlab-builder</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </parent>
 
     <licenses>
@@ -52,7 +52,7 @@
     </issueManagement>
 
     <properties>
-        <revision>21.9.0</revision>
+        <revision>21.9.1-SNAPSHOT</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>11</java.version>
@@ -66,6 +66,7 @@
         <easyexcel.version>2.2.9</easyexcel.version>
         <springdoc.version>1.5.8</springdoc.version>
         <nacos.version>2.0.2</nacos.version>
+        <findbugs.version>3.0.2</findbugs.version>
     </properties>
 
     <distributionManagement>
@@ -232,6 +233,13 @@
                 <version>${easyexcel.version}</version>
             </dependency>
 
+            <!-- guerlab-cloud load balancer -->
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-loadbalancer</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
@@ -266,6 +274,13 @@
                 <artifactId>nacos-client</artifactId>
                 <version>${nacos.version}</version>
             </dependency>
+
+            <!-- findbugs -->
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>${findbugs.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -282,6 +297,7 @@
         <module>guerlab-cloud-cache</module>
         <module>guerlab-cloud-commons</module>
         <module>guerlab-cloud-excel</module>
+        <module>guerlab-cloud-loadbalancer</module>
         <module>guerlab-cloud-server</module>
         <module>guerlab-cloud-stream</module>
     </modules>

@@ -1,0 +1,87 @@
+{
+  "groups": [
+    {
+      "name": "spring.cloud.loadbalancer",
+      "type": "net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties",
+      "description": "负载均衡配置."
+    },
+    {
+      "name": "spring.cloud.loadbalancer.cluster-same",
+      "type": "net.guerlab.cloud.loadbalancer.properties.ClusterSameProperties",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.ClusterSameProperties",
+      "description": "相同集群配置."
+    },
+    {
+      "name": "spring.cloud.loadbalancer.version-control",
+      "type": "net.guerlab.cloud.loadbalancer.properties.VersionControlProperties",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.VersionControlProperties",
+      "description": "版本控制配置."
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.cloud.loadbalancer.no-match-return-empty",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties",
+      "description": "未匹配的时候返回空可用服务集合.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.cloud.loadbalancer.allow-rule-reduce",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties",
+      "description": "是否允许规则降级.当允许的时候规则处理返回了空或空集合的时，使用规则处理链返回上一个有效集合.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.cloud.loadbalancer.policy",
+      "type": "java.lang.String",
+      "sourceType": "net.guerlab.cloud.loadbalancer.autoconfigure.LoadBalancerPolicyAutoconfigure",
+      "description": "负载均衡策略.可使用的类型有roundRobin、randomWithWeight、random.",
+      "defaultValue": "roundRobin"
+    },
+    {
+      "name": "spring.cloud.loadbalancer.cluster-same.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.ClusterSameProperties",
+      "description": "是否启用相同集群策略.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.cloud.loadbalancer.cluster-same.order",
+      "type": "java.lang.Integer",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.ClusterSameProperties",
+      "description": "排序.",
+      "defaultValue": "0"
+    },
+    {
+      "name": "spring.cloud.loadbalancer.version-control.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.VersionControlProperties",
+      "description": "是否启用版本控制.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.cloud.loadbalancer.version-control.order",
+      "type": "java.lang.Integer",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.VersionControlProperties",
+      "description": "排序.",
+      "defaultValue": "0"
+    },
+    {
+      "name": "spring.cloud.loadbalancer.version-control.request-key",
+      "type": "java.lang.String",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.VersionControlProperties",
+      "description": "请求头关键字.",
+      "defaultValue": "version"
+    },
+    {
+      "name": "spring.cloud.loadbalancer.version-control.metadata-key",
+      "type": "java.lang.String",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.VersionControlProperties",
+      "description": "服务元信息关键字.",
+      "defaultValue": "request-version-control"
+    }
+  ]
+}

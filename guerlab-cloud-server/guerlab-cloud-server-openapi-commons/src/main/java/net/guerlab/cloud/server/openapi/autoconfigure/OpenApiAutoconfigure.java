@@ -13,8 +13,10 @@
 package net.guerlab.cloud.server.openapi.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
+import net.guerlab.cloud.server.openapi.properties.OpenApiProperties;
 import net.guerlab.spring.web.properties.ResponseAdvisorProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
@@ -27,6 +29,7 @@ import java.util.List;
  */
 @Slf4j
 @Configuration
+@EnableConfigurationProperties(OpenApiProperties.class)
 public class OpenApiAutoconfigure {
 
     @Autowired(required = false)
@@ -35,10 +38,18 @@ public class OpenApiAutoconfigure {
             return;
         }
 
-        List<String> excluded = Arrays.asList("org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiJson",
+        // @formatter:off
+        List<String> excluded = Arrays.asList(
+                "org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiJson",
                 "org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiYaml",
                 "org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource#openapiJson",
-                "org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource#openapiYaml");
+                "org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource#openapiYaml",
+                "org.springdoc.webflux.api.OpenApiWebfluxResource#openapiJson",
+                "org.springdoc.webflux.api.OpenApiWebfluxResource#openapiYaml",
+                "org.springdoc.webflux.api.MultipleOpenApiWebFluxResource#openapiJson",
+                "org.springdoc.webflux.api.MultipleOpenApiWebFluxResource#openapiYaml"
+        );
+        // @formatter:on
 
         log.debug("add excluded: {}", excluded);
 
