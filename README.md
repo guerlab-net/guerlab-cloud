@@ -1,8 +1,13 @@
-# guerlab-cloud ![](https://img.shields.io/maven-central/v/net.guerlab.cloud/guerlab-cloud.svg)![](https://img.shields.io/badge/LICENSE-LGPL--3.0-brightgreen.svg)
+# guerlab-cloud
 
+![](https://img.shields.io/maven-central/v/net.guerlab.cloud/guerlab-cloud.svg)
+![](https://img.shields.io/badge/LICENSE-LGPL--3.0-brightgreen.svg)
+
+采用java14进行开发<br>
 基于Spring Cloud与Spring Cloud Alibaba的扩展框架，提供feign扩展、授权扩展、缓存扩展、excel扩展、server扩展与stream扩展<br>
 
 ## 依赖管理
+
 ```
 <dependencyManagement>
     <dependencies>
