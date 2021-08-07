@@ -164,6 +164,27 @@
                 <version>${revision}</version>
             </dependency>
 
+            <!-- guerlab-cloud excel -->
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-excel</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- guerlab-cloud load balancer -->
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-loadbalancer</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- guerlab-cloud log -->
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-log</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
             <!-- guerlab-cloud server -->
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
@@ -221,34 +242,24 @@
                 <version>${revision}</version>
             </dependency>
 
-            <!-- guerlab-cloud excel -->
             <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-excel</artifactId>
-                <version>${revision}</version>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
             </dependency>
+
+            <!-- excel -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>easyexcel</artifactId>
                 <version>${easyexcel.version}</version>
             </dependency>
 
-            <!-- guerlab-cloud load balancer -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-loadbalancer</artifactId>
-                <version>${revision}</version>
-            </dependency>
-
+            <!-- jwt -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
             </dependency>
 
             <!-- swagger -->
@@ -298,6 +309,7 @@
         <module>guerlab-cloud-commons</module>
         <module>guerlab-cloud-excel</module>
         <module>guerlab-cloud-loadbalancer</module>
+        <module>guerlab-cloud-log</module>
         <module>guerlab-cloud-server</module>
         <module>guerlab-cloud-stream</module>
     </modules>
