@@ -18,10 +18,7 @@ import net.guerlab.cloud.loadbalancer.support.CustomerLoadBalancerClientFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification;
 import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClients;
 import org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration;
@@ -29,7 +26,6 @@ import org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfigurati
 import org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Collections;
 import java.util.List;
@@ -50,19 +46,6 @@ public class GlobalLoadBalancerAutoConfiguration {
 
     public GlobalLoadBalancerAutoConfiguration(ObjectProvider<List<LoadBalancerClientSpecification>> configurations) {
         this.configurations = configurations;
-    }
-
-    /**
-     * 构造具有负载均衡支持的http请求客户端构造器
-     *
-     * @return 具有负载均衡支持的http请求客户端构造器
-     */
-    @Bean
-    @LoadBalanced
-    @ConditionalOnMissingBean
-    @ConditionalOnClass(name = "org.springframework.web.reactive.function.client.WebClient")
-    public WebClient.Builder loadBalancedWebClientBuilder() {
-        return WebClient.builder();
     }
 
     /**
