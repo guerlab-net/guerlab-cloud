@@ -52,7 +52,7 @@
     </issueManagement>
 
     <properties>
-        <revision>21.9.1-SNAPSHOT</revision>
+        <revision>21.10.0-SNAPSHOT</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>14</java.version>
