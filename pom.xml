@@ -55,7 +55,7 @@
         <revision>21.9.1-SNAPSHOT</revision>
         <main.basedir>${basedir}</main.basedir>
 
-        <java.version>11</java.version>
+        <java.version>14</java.version>
         <project.encoding>UTF-8</project.encoding>
 
         <guerlab-spring.version>5.1.2</guerlab-spring.version>
