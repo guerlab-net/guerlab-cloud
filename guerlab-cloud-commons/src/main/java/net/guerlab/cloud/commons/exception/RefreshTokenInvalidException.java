@@ -14,6 +14,8 @@ package net.guerlab.cloud.commons.exception;
 
 import net.guerlab.spring.commons.exception.AbstractI18nApplicationException;
 
+import java.io.Serial;
+
 /**
  * RefreshToken无效异常
  *
@@ -21,6 +23,7 @@ import net.guerlab.spring.commons.exception.AbstractI18nApplicationException;
  */
 public class RefreshTokenInvalidException extends AbstractI18nApplicationException {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private static final String MESSAGE_KEY = "message.exception.commons.refreshTokenInvalid";

@@ -160,15 +160,11 @@ public class Ipv4AddressRange implements IpAddress, Ipv4 {
     }
 
     public boolean contains(IpAddress ipAddress) {
-        switch (ipAddress.getIpType()) {
-            case IPV4:
-                return contains(start, end, (Ipv4Address) ipAddress);
-            case IPV4_SEGMENT:
-            case IPV4_SEGMENT_WITH_MASK:
-                return contains(start, end, (Ipv4AddressRange) ipAddress);
-            default:
-                return false;
-        }
+        return switch (ipAddress.getIpType()) {
+            case IPV4 -> contains(start, end, (Ipv4Address) ipAddress);
+            case IPV4_SEGMENT, IPV4_SEGMENT_WITH_MASK -> contains(start, end, (Ipv4AddressRange) ipAddress);
+            default -> false;
+        };
     }
 
     private boolean contains(Ipv4Address s, Ipv4Address e, Ipv4Address item) {

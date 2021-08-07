@@ -14,6 +14,8 @@ package net.guerlab.cloud.commons.exception;
 
 import net.guerlab.spring.commons.exception.AbstractI18nApplicationException;
 
+import java.io.Serial;
+
 /**
  * 未发现可使用的token工厂
  *
@@ -21,6 +23,7 @@ import net.guerlab.spring.commons.exception.AbstractI18nApplicationException;
  */
 public class NotFoundCanUseTokenFactoryException extends AbstractI18nApplicationException {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private static final String MESSAGE_KEY = "message.exception.commons.notFoundCanUseTokenFactory";
