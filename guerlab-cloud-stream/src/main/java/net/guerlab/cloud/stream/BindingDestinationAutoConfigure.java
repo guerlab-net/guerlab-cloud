@@ -1,41 +1,45 @@
 package net.guerlab.cloud.stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.cloud.stream.config.BindingProperties;
-import org.springframework.cloud.stream.config.BindingServiceConfiguration;
 import org.springframework.cloud.stream.config.BindingServiceProperties;
 
 import java.util.Map;
 
-import static net.guerlab.cloud.stream.BindingNameConstants.DEFAULT_OUT_PARAM_SUFFIX;
-
 /**
- * 消息Binding自动配置
+ * Binding目的地自动配置
  *
  * @author guer
  */
-@AutoConfigureAfter(BindingServiceConfiguration.class)
-public abstract class StreamBindingAutoConfigure {
+public abstract class BindingDestinationAutoConfigure {
 
     @Autowired
-    public void initUserStreamProviderBinding(BindingServiceProperties bindingServiceProperties) {
+    public void initBindingDestination(BindingServiceProperties bindingServiceProperties) {
         Map<String, BindingProperties> bindings = bindingServiceProperties.getBindings();
 
         Map<String, String> bindingDestinations = getBindingDestinations();
 
-        for (String bindingName : bindingDestinations.keySet()) {
-            bindingName = bindingName + DEFAULT_OUT_PARAM_SUFFIX;
+        String suffix = putType().getSuffix();
+
+        for (Map.Entry<String, String> entry : bindingDestinations.entrySet()) {
+            String bindingName = entry.getKey() + suffix;
             if (bindings.containsKey(bindingName)) {
                 continue;
             }
 
             BindingProperties bindingProperties = new BindingProperties();
-            bindingProperties.setDestination(bindingDestinations.get(bindingName));
+            bindingProperties.setDestination(entry.getValue());
 
             bindings.put(bindingName, bindingProperties);
         }
     }
+
+    /**
+     * 获取推送类型
+     *
+     * @return 推送类型
+     */
+    protected abstract PutType putType();
 
     /**
      * 获取binding目的地列表

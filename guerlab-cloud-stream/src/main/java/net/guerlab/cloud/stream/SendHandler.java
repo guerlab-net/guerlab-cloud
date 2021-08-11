@@ -3,6 +3,7 @@ package net.guerlab.cloud.stream;
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.support.MessageBuilder;
 
 import java.util.Objects;
 
@@ -74,17 +75,23 @@ public class SendHandler<T> {
         Objects.requireNonNull(payload, "payload can not be null");
 
         if (messageChannel != null) {
-            if (payload instanceof Message<?>) {
-                return messageChannel.send((Message<?>) payload);
-            } else {
-                return messageChannel.send(MessageUtils.toBuilder(payload).build());
-            }
+            return messageChannel.send(buildMessage(payload));
         } else {
-            if (payload instanceof Message<?>) {
-                return streamBridge.send(bindingName, payload);
-            } else {
-                return streamBridge.send(bindingName, MessageUtils.toBuilder(payload).build());
-            }
+            return streamBridge.send(bindingName, buildMessage(payload));
         }
+    }
+
+    protected Message<?> buildMessage(T payload) {
+        if (payload instanceof Message<?>) {
+            return (Message<?>) payload;
+        }
+        MessageBuilder<T> builder = MessageUtils.toBuilder(payload);
+
+        if (bindingName != null) {
+            builder.setHeader("spring.cloud.function.definition",
+                    "on" + bindingName.substring(0, 1).toUpperCase() + bindingName.substring(1));
+        }
+
+        return builder.build();
     }
 }

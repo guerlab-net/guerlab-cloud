@@ -31,8 +31,13 @@ public interface BindingNameConstants {
     String DEFAULT_OUT_PARAM_SUFFIX = OUT_PARAM_SUFFIX + "0";
 
     /**
+     * 输入参数后缀
+     */
+    String IN_PARAM_SUFFIX = "-in-";
+
+    /**
      * 默认输入参数后缀
      */
-    String DEFAULT_IN_PARAM_SUFFIX = "-in-0";
+    String DEFAULT_IN_PARAM_SUFFIX = IN_PARAM_SUFFIX + "0";
 
 }
