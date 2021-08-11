@@ -19,8 +19,16 @@ import org.springframework.lang.Nullable;
  *
  * @author guer
  */
-@FunctionalInterface
 public interface LogHandler {
+
+    /**
+     * 根据日志类型判断是否进行处理
+     *
+     * @param type
+     *         日志类型
+     * @return 是否进行处理
+     */
+    boolean accept(String type);
 
     /**
      * 日志处理
