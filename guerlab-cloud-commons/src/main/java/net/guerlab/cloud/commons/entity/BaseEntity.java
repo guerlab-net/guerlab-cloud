@@ -13,6 +13,7 @@
 package net.guerlab.cloud.commons.entity;
 
 import com.baomidou.mybatisplus.annotation.Version;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,5 +33,6 @@ public abstract class BaseEntity {
      */
     @Version
     @Schema(description = "乐观锁版本", accessMode = Schema.AccessMode.READ_ONLY)
+    @JsonIgnore
     protected Long version;
 }
