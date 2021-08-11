@@ -17,6 +17,7 @@ import java.util.Objects;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 @Slf4j
 public abstract class AbstractLogAop {
 

@@ -7,11 +7,19 @@ import java.lang.annotation.*;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 @Target({ ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
 public @interface Log {
+
+    /**
+     * 类型
+     *
+     * @return 类型
+     */
+    String type() default "";
 
     /**
      * 操作内容
