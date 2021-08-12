@@ -24,7 +24,7 @@ import java.util.Optional;
  * @author guer
  */
 @Slf4j
-public class TestCases {
+public class Md5TestCases {
 
     private static final TestTokenInfo INFO = new TestTokenInfo(1L, "tester");
 
@@ -35,13 +35,8 @@ public class TestCases {
         context = new AnnotationConfigApplicationContext();
         context.register(TestAuthAutoconfigure.class, TestJwtTokenFactory.class, TestMd5TokenFactory.class,
                 TestRc4TokenFactory.class);
-        String[] types = new String[] { "jwt", "md5", "rc4" };
-        for (String type : types) {
-            TestPropertyValues.of("auth.test.token-factory." + type + ".access-token-key=test-access-" + type)
-                    .applyTo(context);
-            TestPropertyValues.of("auth.test.token-factory." + type + ".refresh-token-key=test-refresh-" + type)
-                    .applyTo(context);
-        }
+        TestPropertyValues.of("auth.test.token-factory.md5.access-token-key=test-access-md5").applyTo(context);
+        TestPropertyValues.of("auth.test.token-factory.md5.refresh-token-key=test-refresh-md5").applyTo(context);
         context.refresh();
     }
 
@@ -51,18 +46,8 @@ public class TestCases {
     }
 
     @Test
-    public void jwt() {
-        test(context.getBean(TestJwtTokenFactory.class));
-    }
-
-    @Test
     public void md5() {
         test(context.getBean(TestMd5TokenFactory.class));
-    }
-
-    @Test
-    public void rc4() {
-        test(context.getBean(TestRc4TokenFactory.class));
     }
 
     private void test(AbstractTokenFactory<ITestTokenInfo, ?> factory) {
