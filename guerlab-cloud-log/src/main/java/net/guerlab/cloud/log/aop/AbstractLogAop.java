@@ -40,7 +40,7 @@ public abstract class AbstractLogAop {
         Signature signature = point.getSignature();
         String method = AbstractContextHandler.getRequestMethod();
         String uri = AbstractContextHandler.getRequestUri();
-        if (!(signature instanceof MethodSignature) || method == null || uri == null || handler == null) {
+        if (!(signature instanceof MethodSignature) || method == null || uri == null) {
             return;
         }
 

@@ -16,9 +16,9 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 public class SendHandler<T> {
 
-    protected String bindingName;
+    protected final String bindingName;
 
-    protected StreamBridge streamBridge;
+    protected final StreamBridge streamBridge;
 
     /**
      * 创建发送处理

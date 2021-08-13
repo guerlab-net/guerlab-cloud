@@ -13,6 +13,7 @@ import java.util.Map;
  */
 public abstract class AbstractBindingDestinationAutoConfigure {
 
+    @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired
     public void initBindingDestination(BindingServiceProperties bindingServiceProperties) {
         Map<String, BindingProperties> bindings = bindingServiceProperties.getBindings();
