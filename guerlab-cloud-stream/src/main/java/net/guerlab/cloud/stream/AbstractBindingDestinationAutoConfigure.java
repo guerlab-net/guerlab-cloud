@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * @author guer
  */
-public abstract class BindingDestinationAutoConfigure {
+public abstract class AbstractBindingDestinationAutoConfigure {
 
     @Autowired
     public void initBindingDestination(BindingServiceProperties bindingServiceProperties) {
@@ -19,10 +19,8 @@ public abstract class BindingDestinationAutoConfigure {
 
         Map<String, String> bindingDestinations = getBindingDestinations();
 
-        String suffix = putType().getSuffix();
-
         for (Map.Entry<String, String> entry : bindingDestinations.entrySet()) {
-            String bindingName = entry.getKey() + suffix;
+            String bindingName = putType().formatName(entry.getKey());
             if (bindings.containsKey(bindingName)) {
                 continue;
             }

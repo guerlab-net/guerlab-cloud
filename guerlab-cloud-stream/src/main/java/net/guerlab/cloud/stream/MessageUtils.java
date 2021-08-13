@@ -27,6 +27,11 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 public class MessageUtils {
 
+    /**
+     * 监听器名称前缀
+     */
+    private static final String LISTENER_NAME_PREFIX = "on";
+
     private static final String HEADER_ORIGIN_APPLICATION_NAME = "spring.cloud.stream.origin.application-name";
 
     private MessageUtils() {
@@ -80,6 +85,20 @@ public class MessageUtils {
         MessageBuilder<T> builder = MessageBuilder.withPayload(message);
         builder.setHeader(MessageUtils.HEADER_ORIGIN_APPLICATION_NAME, getApplicationName());
         return builder;
+    }
+
+    /**
+     * 获取监听器名称
+     *
+     * @param bindingName
+     *         binding名称
+     * @return 监听器名称
+     */
+    public static String getListenerName(String bindingName) {
+        if (bindingName.startsWith(LISTENER_NAME_PREFIX)) {
+            return bindingName;
+        }
+        return LISTENER_NAME_PREFIX + bindingName.substring(0, 1).toUpperCase() + bindingName.substring(1);
     }
 
     /**

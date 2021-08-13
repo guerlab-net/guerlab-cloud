@@ -2,7 +2,6 @@ package net.guerlab.cloud.stream;
 
 import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.MessageBuilder;
 
 import java.util.Objects;
@@ -21,8 +20,6 @@ public class SendHandler<T> {
 
     protected StreamBridge streamBridge;
 
-    protected MessageChannel messageChannel;
-
     /**
      * 创建发送处理
      *
@@ -36,17 +33,6 @@ public class SendHandler<T> {
         Objects.requireNonNull(streamBridge, "streamBridge can not be null");
         this.bindingName = formatBindingName(bindingName);
         this.streamBridge = streamBridge;
-    }
-
-    /**
-     * 创建发送处理
-     *
-     * @param messageChannel
-     *         messageChannel
-     */
-    public SendHandler(MessageChannel messageChannel) {
-        Objects.requireNonNull(messageChannel, "messageChannel can not be null");
-        this.messageChannel = messageChannel;
     }
 
     /**
@@ -73,12 +59,7 @@ public class SendHandler<T> {
      */
     public boolean send(T payload) {
         Objects.requireNonNull(payload, "payload can not be null");
-
-        if (messageChannel != null) {
-            return messageChannel.send(buildMessage(payload));
-        } else {
-            return streamBridge.send(bindingName, buildMessage(payload));
-        }
+        return streamBridge.send(bindingName, buildMessage(payload));
     }
 
     protected Message<?> buildMessage(T payload) {
@@ -86,12 +67,7 @@ public class SendHandler<T> {
             return (Message<?>) payload;
         }
         MessageBuilder<T> builder = MessageUtils.toBuilder(payload);
-
-        if (bindingName != null) {
-            builder.setHeader("spring.cloud.function.definition",
-                    "on" + bindingName.substring(0, 1).toUpperCase() + bindingName.substring(1));
-        }
-
+        builder.setHeader("spring.cloud.function.definition", MessageUtils.getListenerName(bindingName));
         return builder.build();
     }
 }
