@@ -10,22 +10,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth.test;
+package net.guerlab.cloud.auth.domain;
 
 /**
- * 授权常量
+ * 测试令牌信息接口
  *
  * @author guer
  */
-public interface TestConstants {
+public interface ITestTokenInfo {
 
     /**
-     * 用户id
+     * 获取用户ID
+     *
+     * @return 用户ID
      */
-    String USER_ID = "userId";
+    Long getUserId();
 
     /**
-     * 用户名
+     * 获取用户名
+     *
+     * @return 用户名
      */
-    String USERNAME = "username";
+    String getUsername();
 }

@@ -1,5 +1,6 @@
-package net.guerlab.cloud.loadbalancer.utils;
+package net.guerlab.cloud.loadbalancer;
 
+import net.guerlab.cloud.loadbalancer.utils.VersionCompareUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

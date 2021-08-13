@@ -10,26 +10,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth.test.domain;
+package net.guerlab.cloud.auth.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * 测试令牌信息接口
+ * 测试令牌信息
  *
  * @author guer
  */
-public interface ITestTokenInfo {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class TestTokenInfo implements ITestTokenInfo {
 
     /**
-     * 获取用户ID
-     *
-     * @return 用户ID
+     * 用户ID
      */
-    Long getUserId();
+    private Long userId;
 
     /**
-     * 获取用户名
-     *
-     * @return 用户名
+     * 用户名
      */
-    String getUsername();
+    private String username;
 }

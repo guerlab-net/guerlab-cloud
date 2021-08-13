@@ -10,11 +10,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth.test.autoconfig;
+package net.guerlab.cloud.auth.autoconfig;
 
-import net.guerlab.cloud.auth.test.properties.TestJwtTokenFactoryProperties;
-import net.guerlab.cloud.auth.test.properties.TestMd5TokenFactoryProperties;
-import net.guerlab.cloud.auth.test.properties.TestRc4TokenFactoryProperties;
+import net.guerlab.cloud.auth.properties.TestJwtTokenFactoryProperties;
+import net.guerlab.cloud.auth.properties.TestMd5TokenFactoryProperties;
+import net.guerlab.cloud.auth.properties.TestRc4TokenFactoryProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 

@@ -10,27 +10,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth.test.factory;
+package net.guerlab.cloud.auth.factory;
 
-import net.guerlab.cloud.auth.factory.AbstractMd5TokenFactory;
-import net.guerlab.cloud.auth.test.TestConstants;
-import net.guerlab.cloud.auth.test.domain.ITestTokenInfo;
-import net.guerlab.cloud.auth.test.domain.TestTokenInfo;
-import net.guerlab.cloud.auth.test.properties.TestMd5TokenFactoryProperties;
+import net.guerlab.cloud.auth.TestConstants;
+import net.guerlab.cloud.auth.domain.ITestTokenInfo;
+import net.guerlab.cloud.auth.domain.TestTokenInfo;
+import net.guerlab.cloud.auth.properties.TestRc4TokenFactoryProperties;
 
 import java.util.Map;
 
 /**
- * md5 token 工厂
+ * rc4 token 工厂
  *
  * @author guer
  */
-public class TestMd5TokenFactory extends AbstractMd5TokenFactory<ITestTokenInfo, TestMd5TokenFactoryProperties> {
+public class TestRc4TokenFactory extends AbstractRc4TokenFactory<ITestTokenInfo, TestRc4TokenFactoryProperties> {
 
     /**
      * 签名前缀
      */
-    public static final String PREFIX = "TEST_MD5";
+    public static final String PREFIX = "TEST_RC4";
 
     @Override
     protected void generateToken0(Map<String, String> map, ITestTokenInfo user) {

@@ -1,14 +1,14 @@
-package net.guerlab.cloud.auth.test;
+package net.guerlab.cloud.auth;
 
 import lombok.extern.slf4j.Slf4j;
+import net.guerlab.cloud.auth.autoconfig.TestAuthAutoconfigure;
+import net.guerlab.cloud.auth.domain.ITestTokenInfo;
+import net.guerlab.cloud.auth.domain.TestTokenInfo;
 import net.guerlab.cloud.auth.domain.TokenInfo;
 import net.guerlab.cloud.auth.factory.AbstractTokenFactory;
-import net.guerlab.cloud.auth.test.autoconfig.TestAuthAutoconfigure;
-import net.guerlab.cloud.auth.test.domain.ITestTokenInfo;
-import net.guerlab.cloud.auth.test.domain.TestTokenInfo;
-import net.guerlab.cloud.auth.test.factory.TestJwtTokenFactory;
-import net.guerlab.cloud.auth.test.factory.TestMd5TokenFactory;
-import net.guerlab.cloud.auth.test.factory.TestRc4TokenFactory;
+import net.guerlab.cloud.auth.factory.TestJwtTokenFactory;
+import net.guerlab.cloud.auth.factory.TestMd5TokenFactory;
+import net.guerlab.cloud.auth.factory.TestRc4TokenFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

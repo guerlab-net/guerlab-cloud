@@ -10,9 +10,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth.test.properties;
+package net.guerlab.cloud.auth.properties;
 
-import net.guerlab.cloud.auth.properties.Rc4TokenFactoryProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 

@@ -10,15 +10,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth.test.factory;
+package net.guerlab.cloud.auth.factory;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
-import net.guerlab.cloud.auth.factory.AbstractJwtTokenFactory;
-import net.guerlab.cloud.auth.test.TestConstants;
-import net.guerlab.cloud.auth.test.domain.ITestTokenInfo;
-import net.guerlab.cloud.auth.test.domain.TestTokenInfo;
-import net.guerlab.cloud.auth.test.properties.TestJwtTokenFactoryProperties;
+import net.guerlab.cloud.auth.TestConstants;
+import net.guerlab.cloud.auth.domain.ITestTokenInfo;
+import net.guerlab.cloud.auth.domain.TestTokenInfo;
+import net.guerlab.cloud.auth.properties.TestJwtTokenFactoryProperties;
 
 /**
  * jwt token 工厂
