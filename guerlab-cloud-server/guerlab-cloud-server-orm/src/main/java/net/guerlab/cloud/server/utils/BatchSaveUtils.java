@@ -48,7 +48,8 @@ public class BatchSaveUtils {
             return Collections.emptyList();
         }
 
-        List<T> list = collection.stream().map(filter).filter(Objects::nonNull).collect(Collectors.toList());
+        List<T> list = collection.stream().filter(Objects::nonNull).map(filter).filter(Objects::nonNull)
+                .collect(Collectors.toList());
 
         return CollectionUtil.isEmpty(list) ? Collections.emptyList() : list;
     }

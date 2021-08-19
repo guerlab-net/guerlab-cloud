@@ -21,6 +21,7 @@ import net.guerlab.spring.searchparams.AbstractSearchParams;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
@@ -93,5 +94,6 @@ public abstract class BaseBatchServiceImpl<T, PK extends Serializable, M extends
      *         实体
      * @return 如果返回null则不保存该对象，否则保存该对象
      */
+    @Nullable
     protected abstract T batchSaveBefore(T entity);
 }
