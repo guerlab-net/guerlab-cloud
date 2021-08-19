@@ -16,6 +16,7 @@ import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.lang.Nullable;
 
 /**
  * 插入或更新
@@ -38,6 +39,7 @@ public class InsertOrUpdateMethod extends AbstractMysqlBatchInsertMethod {
         return String.format(sql, tableInfo.getTableName(), fieldSql, valueSql, updateSql);
     }
 
+    @Nullable
     private String prepareUpdateSql(TableInfo tableInfo) {
         String keyColumn = StringUtils.trimToNull(tableInfo.getKeyColumn());
         StringBuilder updateSql = new StringBuilder();

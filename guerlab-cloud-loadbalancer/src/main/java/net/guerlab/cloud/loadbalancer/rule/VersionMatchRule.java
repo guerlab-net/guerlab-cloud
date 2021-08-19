@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.Request;
 import org.springframework.cloud.client.loadbalancer.RequestDataContext;
+import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,7 @@ public class VersionMatchRule extends BaseRule<VersionControlProperties> {
         return list != null ? list : instances;
     }
 
+    @Nullable
     private List<ServiceInstance> getInstancesWithRequestVersion(List<ServiceInstance> instances, String requestVersion,
             String metadataKey) {
         // 空列表

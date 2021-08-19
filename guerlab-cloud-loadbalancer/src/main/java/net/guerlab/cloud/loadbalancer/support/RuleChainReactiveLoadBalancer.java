@@ -14,6 +14,7 @@ import org.springframework.cloud.loadbalancer.core.NoopServiceInstanceListSuppli
 import org.springframework.cloud.loadbalancer.core.ReactorServiceInstanceLoadBalancer;
 import org.springframework.cloud.loadbalancer.core.SelectedInstanceCallback;
 import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier;
+import org.springframework.lang.Nullable;
 import reactor.core.publisher.Mono;
 
 import java.util.Collections;
@@ -83,6 +84,7 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
         return new EmptyResponse();
     }
 
+    @Nullable
     private ServiceInstance choose(List<ServiceInstance> instances, Request<?> request) {
         List<ServiceInstance> list = ruleFilter(instances, request);
 
@@ -102,6 +104,7 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
      *         请求
      * @return 过滤后的实例列表
      */
+    @Nullable
     private List<ServiceInstance> ruleFilter(List<ServiceInstance> instances, Request<?> request) {
         List<IRule> rules = ruleProvider.getIfUnique(Collections::emptyList).stream().filter(IRule::isEnabled).sorted()
                 .collect(Collectors.toList());

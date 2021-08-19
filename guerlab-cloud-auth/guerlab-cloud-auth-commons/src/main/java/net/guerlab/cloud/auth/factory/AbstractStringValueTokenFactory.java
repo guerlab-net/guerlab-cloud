@@ -16,6 +16,7 @@ import net.guerlab.cloud.auth.domain.TokenInfo;
 import net.guerlab.cloud.auth.enums.TokenType;
 import net.guerlab.cloud.auth.properties.StringValueTokenFactoryProperties;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.lang.Nullable;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -155,6 +156,7 @@ public abstract class AbstractStringValueTokenFactory<T, P extends StringValueTo
      *         密钥
      * @return 数据字符串
      */
+    @Nullable
     protected abstract String parseDataString(String token, String key);
 
     @Override

@@ -11,6 +11,7 @@ import feign.codec.Decoder;
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.commons.exception.ApplicationException;
 import net.guerlab.web.result.Result;
+import org.springframework.lang.Nullable;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -32,6 +33,7 @@ public class ResultDecoder implements Decoder {
         this.objectMapper = objectMapper;
     }
 
+    @Nullable
     @Override
     public Object decode(Response response, Type type) throws IOException, FeignException {
         Response.Body body = response.body();

@@ -13,6 +13,7 @@
 package net.guerlab.cloud.commons.ip;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.lang.Nullable;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
@@ -38,7 +39,7 @@ public class IpUtils {
 
     }
 
-    public static boolean inList(Collection<String> ips, String ip) {
+    public static boolean inList(@Nullable Collection<String> ips, @Nullable String ip) {
         if (ips == null || ips.isEmpty() || ip == null) {
             return false;
         }
@@ -62,6 +63,7 @@ public class IpUtils {
                 .anyMatch(range -> range.contains(iPv4Address));
     }
 
+    @Nullable
     private static Ipv4AddressRange buildIPv4AddressRange(String ipRange) {
         try {
             return new Ipv4AddressRange(ipRange);
@@ -96,6 +98,7 @@ public class IpUtils {
      *         请求头名称
      * @return ip地址
      */
+    @Nullable
     private static String getIpByHeader(HttpServletRequest request, String headerName) {
         String value = request.getHeader(headerName);
         if (isNull(value)) {

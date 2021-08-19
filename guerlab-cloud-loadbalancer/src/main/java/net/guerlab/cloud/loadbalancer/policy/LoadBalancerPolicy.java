@@ -1,6 +1,7 @@
 package net.guerlab.cloud.loadbalancer.policy;
 
 import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.lang.Nullable;
 
 import java.util.List;
 
@@ -18,5 +19,6 @@ public interface LoadBalancerPolicy {
      *         实例列表
      * @return 实例
      */
-    ServiceInstance choose(List<ServiceInstance> instances);
+    @Nullable
+    ServiceInstance choose(@Nullable List<ServiceInstance> instances);
 }

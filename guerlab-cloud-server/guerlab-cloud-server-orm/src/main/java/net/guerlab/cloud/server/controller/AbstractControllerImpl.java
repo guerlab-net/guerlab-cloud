@@ -19,6 +19,7 @@ import net.guerlab.commons.exception.ApplicationException;
 import net.guerlab.spring.commons.dto.Convert;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 
@@ -97,6 +98,7 @@ public abstract class AbstractControllerImpl<D, E extends Convert<D>, S extends 
      * @return 当对象为空的时候抛出的异常
      */
     @SuppressWarnings("SameReturnValue")
+    @Nullable
     protected ApplicationException nullPointException() {
         return null;
     }

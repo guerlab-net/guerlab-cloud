@@ -5,6 +5,7 @@ import net.guerlab.commons.exception.ApplicationException;
 import net.guerlab.web.result.ApplicationStackTrace;
 import net.guerlab.web.result.RemoteException;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.lang.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -93,6 +94,7 @@ public class FailParser {
      *         节点
      * @return 应用堆栈信息
      */
+    @Nullable
     private static ApplicationStackTrace parseApplicationStackTrace(JsonNode node) {
         if (!node.has(Constants.FIELD_APPLICATION_NAME)) {
             return null;

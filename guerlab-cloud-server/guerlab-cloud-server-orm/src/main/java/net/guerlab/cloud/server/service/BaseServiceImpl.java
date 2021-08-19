@@ -39,7 +39,7 @@ import java.util.Collection;
  *         搜索参数类型
  * @author guer
  */
-@SuppressWarnings("EmptyMethod")
+@SuppressWarnings({ "EmptyMethod", "unused" })
 @Transactional(rollbackFor = Exception.class)
 public abstract class BaseServiceImpl<T, PK extends Serializable, M extends BaseMapper<T>, SP extends AbstractSearchParams>
         implements BaseService<T, PK, SP> {
