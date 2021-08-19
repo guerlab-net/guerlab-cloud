@@ -12,6 +12,8 @@
  */
 package net.guerlab.cloud.log.handler;
 
+import net.guerlab.cloud.log.annotation.Log;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.lang.Nullable;
 
 /**
@@ -22,13 +24,15 @@ import org.springframework.lang.Nullable;
 public interface LogHandler {
 
     /**
-     * 根据日志类型判断是否进行处理
+     * 根据方法签名和日志注解内容判断是否进行处理
      *
-     * @param type
-     *         日志类型
+     * @param methodSignature
+     *         方法签名
+     * @param log
+     *         日志注解
      * @return 是否进行处理
      */
-    boolean accept(String type);
+    boolean accept(MethodSignature methodSignature, Log log);
 
     /**
      * 日志处理
