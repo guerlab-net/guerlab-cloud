@@ -2,6 +2,7 @@ package net.guerlab.cloud.api.feign;
 
 import feign.Response;
 import org.springframework.core.Ordered;
+import org.springframework.lang.Nullable;
 
 /**
  * 可排序错误解析
@@ -25,5 +26,6 @@ public interface OrderedErrorDecoder extends Ordered {
      * application-specific exception decoded by the implementation. If the throwable is
      * retryable, it should be wrapped, or a subtype of {@link feign.RetryableException}
      */
+    @Nullable
     Exception decode(String methodKey, Response response);
 }

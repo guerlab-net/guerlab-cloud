@@ -16,6 +16,7 @@ import net.guerlab.cloud.auth.enums.TokenType;
 import net.guerlab.cloud.auth.properties.TokenFactoryProperties;
 import net.guerlab.cloud.commons.ip.IpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 
 /**
  * 抽象token工厂
@@ -33,7 +34,7 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties<?
      */
     protected P properties;
 
-    protected static String getObjectValue(Object obj) {
+    protected static String getObjectValue(@Nullable Object obj) {
         return obj == null ? "" : obj.toString();
     }
 
@@ -83,13 +84,8 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties<?
         return properties.getOrder();
     }
 
-    @SuppressWarnings("NullableProblems")
     @Override
     public int compareTo(TokenFactory<?> o) {
-        if (o == null) {
-            return -1;
-        }
-
         if (isDefault() && o.isDefault()) {
             return getOrder() - o.getOrder();
         } else if (isDefault()) {

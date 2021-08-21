@@ -14,7 +14,7 @@ package net.guerlab.cloud.auth.web.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.auth.AbstractContextHandler;
-import net.guerlab.cloud.auth.web.annotation.IgnoreLogin;
+import net.guerlab.cloud.auth.annotation.IgnoreLogin;
 import net.guerlab.cloud.commons.Constants;
 import net.guerlab.spring.web.properties.ResponseAdvisorProperties;
 import org.apache.commons.lang3.StringUtils;

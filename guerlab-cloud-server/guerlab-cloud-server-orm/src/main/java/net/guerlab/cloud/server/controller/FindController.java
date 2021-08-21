@@ -42,6 +42,7 @@ import java.util.List;
  *         主键类型
  * @author guer
  */
+@SuppressWarnings("unused")
 public interface FindController<D, E extends Convert<D>, S extends BaseFindService<E, PK, SP>, SP extends AbstractSearchParams, PK extends Serializable>
         extends IController<E, S, PK> {
 

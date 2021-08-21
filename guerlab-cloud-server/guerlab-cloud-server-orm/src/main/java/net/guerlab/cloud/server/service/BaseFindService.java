@@ -16,6 +16,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import net.guerlab.spring.searchparams.AbstractSearchParams;
 import net.guerlab.web.result.ListObject;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -43,6 +44,7 @@ public interface BaseFindService<T, PK extends Serializable, SP extends Abstract
      *         实体
      * @return 实体
      */
+    @Nullable
     T selectOne(T entity);
 
     /**
@@ -63,6 +65,7 @@ public interface BaseFindService<T, PK extends Serializable, SP extends Abstract
      *         搜索参数对象
      * @return 实体
      */
+    @Nullable
     T selectOne(SP searchParams);
 
     /**
@@ -83,6 +86,7 @@ public interface BaseFindService<T, PK extends Serializable, SP extends Abstract
      *         主键id
      * @return 实体
      */
+    @Nullable
     T selectById(PK id);
 
     /**

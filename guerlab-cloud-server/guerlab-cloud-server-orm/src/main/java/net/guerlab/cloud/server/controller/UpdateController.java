@@ -38,6 +38,7 @@ import java.io.Serializable;
  *         主键类型
  * @author guer
  */
+@SuppressWarnings("unused")
 public interface UpdateController<D, E extends Convert<D>, S extends BaseService<E, PK, SP>, SP extends AbstractSearchParams, PK extends Serializable>
         extends IController<E, S, PK>, ModifyControllerWrapper<D, E, PK> {
 
@@ -59,7 +60,7 @@ public interface UpdateController<D, E extends Convert<D>, S extends BaseService
         copyProperties(dto, entity, id);
         getService().updateById(entity);
         afterUpdate(entity, dto);
-        return getService().selectById(id).convert();
+        return findOne0(id).convert();
     }
 
     /**

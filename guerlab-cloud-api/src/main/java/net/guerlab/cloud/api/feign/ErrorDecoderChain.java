@@ -30,10 +30,6 @@ public class ErrorDecoderChain implements ErrorDecoder {
      *         错误解析器列表
      */
     public void setDecoders(List<OrderedErrorDecoder> decoders) {
-        if (decoders == null) {
-            return;
-        }
-
         this.decoders = new ArrayList<>(decoders);
         sort();
     }
@@ -45,10 +41,6 @@ public class ErrorDecoderChain implements ErrorDecoder {
      *         错误解析器
      */
     public void addDecoder(OrderedErrorDecoder decoder) {
-        if (decoder == null) {
-            return;
-        }
-
         this.decoders.add(decoder);
         sort();
     }
@@ -60,7 +52,7 @@ public class ErrorDecoderChain implements ErrorDecoder {
      *         错误解析器列表
      */
     public void addDecoders(Collection<OrderedErrorDecoder> decoders) {
-        if (decoders == null || decoders.isEmpty()) {
+        if (decoders.isEmpty()) {
             return;
         }
 

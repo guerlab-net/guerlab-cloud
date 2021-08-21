@@ -37,6 +37,7 @@ import java.io.Serializable;
  *         主键类型
  * @author guer
  */
+@SuppressWarnings("unused")
 public interface SaveController<D, E extends Convert<D>, S extends BaseService<E, PK, SP>, SP extends AbstractSearchParams, PK extends Serializable>
         extends IController<E, S, PK>, ModifyControllerWrapper<D, E, PK> {
 

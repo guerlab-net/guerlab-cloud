@@ -31,10 +31,6 @@ public class OpenApiWebfluxAutoconfigure {
 
     @Autowired(required = false)
     public void responseAdvisorAddExcluded(ResponseAdvisorProperties responseAdvisorProperties) {
-        if (responseAdvisorProperties == null) {
-            return;
-        }
-
         List<String> excluded = Collections
                 .singletonList("org.springdoc.webflux.ui.SwaggerWelcomeWebFlux#getSwaggerUiConfig");
 

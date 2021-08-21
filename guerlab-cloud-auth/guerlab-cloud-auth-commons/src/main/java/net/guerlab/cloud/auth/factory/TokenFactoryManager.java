@@ -84,11 +84,6 @@ public class TokenFactoryManager {
 
         for (TokenFactory<?> factory : factories) {
             Class<?> acceptClass = factory.getAcceptClass();
-
-            if (acceptClass == null) {
-                continue;
-            }
-
             if (Objects.equals(entityClass, acceptClass) || entityClass.isAssignableFrom(acceptClass)) {
                 streamBuilder.add((F) factory);
             }

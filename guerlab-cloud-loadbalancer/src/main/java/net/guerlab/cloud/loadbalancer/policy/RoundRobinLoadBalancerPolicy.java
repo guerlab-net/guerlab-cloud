@@ -1,6 +1,7 @@
 package net.guerlab.cloud.loadbalancer.policy;
 
 import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.lang.Nullable;
 
 import java.util.List;
 import java.util.Random;
@@ -16,7 +17,7 @@ public class RoundRobinLoadBalancerPolicy implements LoadBalancerPolicy {
     private final AtomicInteger position = new AtomicInteger(new Random().nextInt(1000));
 
     @Override
-    public ServiceInstance choose(List<ServiceInstance> instances) {
+    public ServiceInstance choose(@Nullable List<ServiceInstance> instances) {
         if (instances == null || instances.isEmpty()) {
             return null;
         } else if (instances.size() == 1) {

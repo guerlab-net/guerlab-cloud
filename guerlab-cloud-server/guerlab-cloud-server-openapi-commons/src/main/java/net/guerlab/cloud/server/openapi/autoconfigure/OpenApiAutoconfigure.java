@@ -34,10 +34,6 @@ public class OpenApiAutoconfigure {
 
     @Autowired(required = false)
     public void responseAdvisorAddExcluded(ResponseAdvisorProperties responseAdvisorProperties) {
-        if (responseAdvisorProperties == null) {
-            return;
-        }
-
         // @formatter:off
         List<String> excluded = Arrays.asList(
                 "org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiJson",

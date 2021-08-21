@@ -19,6 +19,7 @@ import net.guerlab.cloud.commons.exception.RefreshTokenExpiredException;
 import net.guerlab.cloud.commons.exception.RefreshTokenInvalidException;
 import net.guerlab.commons.exception.ApplicationException;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.lang.Nullable;
 
 /**
  * 令牌类型
@@ -80,6 +81,7 @@ public enum TokenType {
      *         简短名称
      * @return 令牌类型
      */
+    @Nullable
     public static TokenType parseBySimpleName(String simpleName) {
         String name = StringUtils.trimToNull(simpleName);
         if (SIMPLE_NAME_ACCESS_TOKEN.equals(name)) {

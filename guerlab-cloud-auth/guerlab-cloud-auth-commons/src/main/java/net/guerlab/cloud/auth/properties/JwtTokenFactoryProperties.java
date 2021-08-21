@@ -14,6 +14,7 @@ package net.guerlab.cloud.auth.properties;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import net.guerlab.cloud.commons.entity.RsaKeys;
 
 /**
  * jwt token 工厂配置
@@ -22,4 +23,4 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class JwtTokenFactoryProperties extends TokenFactoryProperties<String> {}
+public class JwtTokenFactoryProperties extends TokenFactoryProperties<RsaKeys> {}

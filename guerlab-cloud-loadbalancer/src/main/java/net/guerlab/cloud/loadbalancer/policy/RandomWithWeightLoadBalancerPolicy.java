@@ -4,6 +4,7 @@ import com.alibaba.nacos.client.naming.utils.Chooser;
 import com.alibaba.nacos.client.naming.utils.Pair;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.Map;
 public class RandomWithWeightLoadBalancerPolicy implements LoadBalancerPolicy {
 
     @Override
-    public ServiceInstance choose(List<ServiceInstance> instances) {
+    public ServiceInstance choose(@Nullable List<ServiceInstance> instances) {
         if (instances == null || instances.isEmpty()) {
             return null;
         } else if (instances.size() == 1) {

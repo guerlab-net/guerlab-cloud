@@ -17,12 +17,10 @@ import net.guerlab.cloud.auth.domain.TokenInfo;
 import net.guerlab.cloud.auth.enums.TokenType;
 import net.guerlab.cloud.auth.properties.JwtTokenFactoryProperties;
 
-import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.StandardCharsets;
-import java.security.Key;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Base64;
 import java.util.Date;
 
 /**
@@ -40,7 +38,7 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
         return builder;
     }
 
-    private static TokenInfo build(String prefix, JwtBuilder builder, long expire, String keyString) {
+    private static TokenInfo build(String prefix, JwtBuilder builder, long expire, PrivateKey privateKey) {
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
         Date exp = null;
@@ -53,9 +51,8 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
             builder.setExpiration(exp).setNotBefore(now);
         }
 
-        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-        Key key = new SecretKeySpec(createKey(keyString), signatureAlgorithm.getJcaName());
-        builder.signWith(signatureAlgorithm, key);
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.RS256;
+        builder.signWith(signatureAlgorithm, privateKey);
 
         TokenInfo tokenInfo = new TokenInfo();
         tokenInfo.setExpire(exp == null ? -1 : expire);
@@ -65,18 +62,14 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
         return tokenInfo;
     }
 
-    private static Jws<Claims> parserToken(String token, String key, TokenType tokenType) {
+    private static Jws<Claims> parserToken(String token, PublicKey publicKey, TokenType tokenType) {
         try {
-            return Jwts.parser().setSigningKey(createKey(key)).parseClaimsJws(token);
+            return Jwts.parser().setSigningKey(publicKey).parseClaimsJws(token);
         } catch (ExpiredJwtException e) {
             throw tokenType.expiredException();
         } catch (MalformedJwtException | SignatureException | UnsupportedJwtException | IllegalArgumentException e) {
             throw tokenType.invalidException();
         }
-    }
-
-    private static byte[] createKey(String key) {
-        return Base64.getEncoder().encode(key.getBytes(StandardCharsets.UTF_8));
     }
 
     @Override
@@ -85,7 +78,7 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
         generateToken0(builder, entity);
 
         return build(getAccessTokenPrefix(), builder, properties.getAccessTokenExpire(),
-                properties.getAccessTokenKey());
+                properties.getAccessTokenKey().getPrivateKeyRef());
     }
 
     @Override
@@ -94,20 +87,22 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
         generateToken0(builder, entity);
 
         return build(getRefreshTokenPrefix(), builder, properties.getRefreshTokenExpire(),
-                properties.getAccessTokenKey());
+                properties.getRefreshTokenKey().getPrivateKeyRef());
     }
 
     @Override
     public final T parseByAccessToken(String token) {
         String accessToken = token.substring(getAccessTokenPrefix().length());
-        Claims body = parserToken(accessToken, properties.getAccessTokenKey(), TokenType.ACCESS_TOKEN).getBody();
+        Claims body = parserToken(accessToken, properties.getAccessTokenKey().getPublicKeyRef(), TokenType.ACCESS_TOKEN)
+                .getBody();
         return parse0(body);
     }
 
     @Override
     public final T parseByRefreshToken(String token) {
         String refreshToken = token.substring(getRefreshTokenPrefix().length());
-        Claims body = parserToken(refreshToken, properties.getAccessTokenKey(), TokenType.REFRESH_TOKEN).getBody();
+        Claims body = parserToken(refreshToken, properties.getRefreshTokenKey().getPublicKeyRef(),
+                TokenType.REFRESH_TOKEN).getBody();
         return parse0(body);
     }
 

@@ -31,10 +31,6 @@ public class OpenApiWebmvcAutoconfigure {
 
     @Autowired(required = false)
     public void responseAdvisorAddExcluded(ResponseAdvisorProperties responseAdvisorProperties) {
-        if (responseAdvisorProperties == null) {
-            return;
-        }
-
         List<String> excluded = Collections.singletonList("org.springdoc.webmvc.ui.SwaggerWelcomeWebMvc#openapiJson");
 
         log.debug("add excluded: {}", excluded);

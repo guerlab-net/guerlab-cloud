@@ -14,6 +14,7 @@ package net.guerlab.cloud.auth.factory;
 
 import net.guerlab.cloud.auth.domain.TokenInfo;
 import org.springframework.core.Ordered;
+import org.springframework.lang.Nullable;
 
 /**
  * 抽象token工厂
@@ -76,7 +77,7 @@ public interface TokenFactory<T> extends Ordered, Comparable<TokenFactory<?>> {
      *         token
      * @return 是否使用
      */
-    default boolean acceptAccessToken(String token) {
+    default boolean acceptAccessToken(@Nullable String token) {
         return token != null && token.startsWith(getAccessTokenPrefix());
     }
 
@@ -87,7 +88,7 @@ public interface TokenFactory<T> extends Ordered, Comparable<TokenFactory<?>> {
      *         token
      * @return 是否使用
      */
-    default boolean acceptRefreshToken(String token) {
+    default boolean acceptRefreshToken(@Nullable String token) {
         return token != null && token.startsWith(getRefreshTokenPrefix());
     }
 

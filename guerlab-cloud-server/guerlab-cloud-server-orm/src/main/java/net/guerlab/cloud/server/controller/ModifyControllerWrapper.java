@@ -15,6 +15,7 @@ package net.guerlab.cloud.server.controller;
 import net.guerlab.cloud.commons.entity.BaseEntity;
 import net.guerlab.spring.commons.dto.Convert;
 import org.springframework.beans.BeanUtils;
+import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 
@@ -29,6 +30,7 @@ import java.io.Serializable;
  *         主键类型
  * @author guer
  */
+@SuppressWarnings("unused")
 public interface ModifyControllerWrapper<D, E extends Convert<D>, PK extends Serializable> {
 
     /**
@@ -41,7 +43,7 @@ public interface ModifyControllerWrapper<D, E extends Convert<D>, PK extends Ser
      * @param id
      *         主键
      */
-    default void copyProperties(D dto, E entity, PK id) {
+    default void copyProperties(D dto, E entity, @Nullable PK id) {
         if (entity instanceof BaseEntity) {
             BaseEntity tempEntity = (BaseEntity) entity;
             Long version = tempEntity.getVersion();

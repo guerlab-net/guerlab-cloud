@@ -7,6 +7,7 @@ import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.lang.Nullable;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 @Endpoint(id = "feign-client")
 public class FeignClientEndpoint {
 
+    @Nullable
     private static FeignClientInfo buildFeignClientInfo(String beanName, Object obj) {
         Target.HardCodedTarget<?> target = getProxyTarget(obj);
         if (target == null) {
@@ -53,6 +55,7 @@ public class FeignClientEndpoint {
         return info;
     }
 
+    @Nullable
     private static Target.HardCodedTarget<?> getProxyTarget(Object obj) {
         if (!(obj instanceof Proxy)) {
             return null;
@@ -92,6 +95,7 @@ public class FeignClientEndpoint {
     }
 
     @SuppressWarnings("unused")
+    @Nullable
     @ReadOperation
     public FeignClientInfo getFeignInstance(@Selector String arg0) {
         Map<String, Object> beanMap = SpringApplicationContextUtil.getContext()
