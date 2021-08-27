@@ -13,6 +13,7 @@
 package net.guerlab.cloud.auth;
 
 import net.guerlab.cloud.commons.Constants;
+import org.springframework.lang.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,6 +57,7 @@ public abstract class AbstractContextHandler {
      * @return 内容
      */
     @SuppressWarnings({ "unchecked", "SameParameterValue" })
+    @Nullable
     protected static <T> T get(String key) {
         return (T) THREAD_LOCAL.get().get(key);
     }
@@ -72,6 +74,7 @@ public abstract class AbstractContextHandler {
      *
      * @return token
      */
+    @Nullable
     public static String getToken() {
         return get(Constants.TOKEN);
     }
@@ -91,6 +94,7 @@ public abstract class AbstractContextHandler {
      *
      * @return 请求方法
      */
+    @Nullable
     public static String getRequestMethod() {
         return get(Constants.REQUEST_METHOD);
     }
@@ -110,6 +114,7 @@ public abstract class AbstractContextHandler {
      *
      * @return 请求URI
      */
+    @Nullable
     public static String getRequestUri() {
         return get(Constants.REQUEST_URI);
     }
@@ -138,6 +143,7 @@ public abstract class AbstractContextHandler {
      *
      * @return 完整请求URI
      */
+    @Nullable
     public static String getCompleteRequestUri() {
         String uri = get(Constants.COMPLETE_REQUEST_URI);
         return uri == null ? getRequestUri() : uri;

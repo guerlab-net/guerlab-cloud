@@ -12,6 +12,8 @@
  */
 package net.guerlab.cloud.commons.entity;
 
+import org.springframework.lang.Nullable;
+
 /**
  * 排序对象接口
  *
@@ -26,6 +28,7 @@ public interface IOrderEntity<E extends IOrderEntity<?>> extends Comparable<E> {
      *
      * @return 排序值
      */
+    @Nullable
     Integer getOrderNum();
 
     /**
@@ -42,11 +45,22 @@ public interface IOrderEntity<E extends IOrderEntity<?>> extends Comparable<E> {
      * @param o
      *         参与排序对象
      * @return 小于0时，在参与排序对象之前。
-     * 大于0是，在参与排序对象之后。
+     * 大于0时，在参与排序对象之后。
      * 等于0时，顺序保持不变
      */
     @Override
     default int compareTo(E o) {
-        return o.getOrderNum() - getOrderNum();
+        Integer self = getOrderNum();
+        Integer other = o.getOrderNum();
+
+        if (self == null && other == null) {
+            return 0;
+        } else if (self == null) {
+            return 1;
+        } else if (other == null) {
+            return -1;
+        } else {
+            return other - self;
+        }
     }
 }

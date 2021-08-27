@@ -17,6 +17,7 @@ import com.alibaba.excel.enums.CellDataTypeEnum;
 import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
+import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 import java.util.Objects;
@@ -58,7 +59,7 @@ public class AbstractBooleanConverter implements Converter<Boolean> {
     }
 
     @Override
-    public CellData convertToExcelData(Boolean value, ExcelContentProperty contentProperty,
+    public CellData convertToExcelData(@Nullable Boolean value, ExcelContentProperty contentProperty,
             GlobalConfiguration globalConfiguration) {
         return new CellData(value == null ? "" : value ? trueValue : falseValue);
     }

@@ -12,6 +12,8 @@
  */
 package net.guerlab.cloud.commons.entity;
 
+import org.springframework.lang.Nullable;
+
 import java.math.BigDecimal;
 
 /**
@@ -27,6 +29,7 @@ public interface IGeoEntity {
      *
      * @return 经度
      */
+    @Nullable
     BigDecimal getLongitude();
 
     /**
@@ -35,13 +38,14 @@ public interface IGeoEntity {
      * @param longitude
      *         经度
      */
-    void setLongitude(BigDecimal longitude);
+    void setLongitude(@Nullable BigDecimal longitude);
 
     /**
      * 获取纬度
      *
      * @return 纬度
      */
+    @Nullable
     BigDecimal getLatitude();
 
     /**
@@ -50,13 +54,14 @@ public interface IGeoEntity {
      * @param latitude
      *         纬度
      */
-    void setLatitude(BigDecimal latitude);
+    void setLatitude(@Nullable BigDecimal latitude);
 
     /**
      * 获取地理hash
      *
      * @return 地理hash
      */
+    @Nullable
     String getGeoHash();
 
     /**
@@ -65,5 +70,5 @@ public interface IGeoEntity {
      * @param geoHash
      *         地理hash
      */
-    void setGeoHash(String geoHash);
+    void setGeoHash(@Nullable String geoHash);
 }
