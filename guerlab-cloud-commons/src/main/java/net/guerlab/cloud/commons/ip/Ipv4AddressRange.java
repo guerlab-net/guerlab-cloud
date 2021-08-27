@@ -25,7 +25,7 @@ import static java.lang.Integer.parseInt;
  *
  * @author guer
  */
-@SuppressWarnings("AlibabaUndefineMagicConstant")
+@SuppressWarnings({ "AlibabaUndefineMagicConstant", "unused" })
 @Getter
 @Slf4j
 public class Ipv4AddressRange implements IpAddress, Ipv4 {
@@ -168,18 +168,12 @@ public class Ipv4AddressRange implements IpAddress, Ipv4 {
     }
 
     private boolean contains(Ipv4Address s, Ipv4Address e, Ipv4Address item) {
-        if (item == null) {
-            return false;
-        }
-        long min = Math.min(s != null ? s.getIpAddress() : -1L, e != null ? e.getIpAddress() : -1L);
-        long max = Math.max(s != null ? s.getIpAddress() : -1L, e != null ? e.getIpAddress() : -1L);
+        long min = Math.min(s.getIpAddress(), e.getIpAddress());
+        long max = Math.max(s.getIpAddress(), e.getIpAddress());
         return item.getIpAddress() >= min && item.getIpAddress() <= max;
     }
 
     private boolean contains(Ipv4Address s, Ipv4Address e, Ipv4AddressRange jiPv4AddressRange) {
-        if (jiPv4AddressRange == null) {
-            return false;
-        }
         return contains(s, e, jiPv4AddressRange.getStart()) || contains(jiPv4AddressRange.getStart(),
                 jiPv4AddressRange.getEnd(), s);
     }

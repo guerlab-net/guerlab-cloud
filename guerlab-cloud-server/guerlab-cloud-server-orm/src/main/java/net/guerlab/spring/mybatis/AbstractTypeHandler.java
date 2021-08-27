@@ -19,6 +19,7 @@ import net.guerlab.spring.commons.util.SpringApplicationContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
+import org.springframework.lang.Nullable;
 
 import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
@@ -40,16 +41,19 @@ public abstract class AbstractTypeHandler<E> extends BaseTypeHandler<E> {
     }
 
     @Override
+    @Nullable
     public final E getNullableResult(ResultSet rs, String columnName) throws SQLException {
         return this.toObject(rs.getString(columnName));
     }
 
     @Override
+    @Nullable
     public final E getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
         return this.toObject(rs.getString(columnIndex));
     }
 
     @Override
+    @Nullable
     public final E getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
         return this.toObject(cs.getString(columnIndex));
     }
@@ -66,6 +70,7 @@ public abstract class AbstractTypeHandler<E> extends BaseTypeHandler<E> {
         }
     }
 
+    @Nullable
     private E toObject(String content) {
         String data = StringUtils.trimToNull(content);
         if (data == null) {

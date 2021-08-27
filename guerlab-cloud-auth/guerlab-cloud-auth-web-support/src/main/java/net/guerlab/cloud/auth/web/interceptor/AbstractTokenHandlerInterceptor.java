@@ -44,6 +44,11 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebPropertie
     @Override
     protected void preHandle0(HttpServletRequest request, HandlerMethod handlerMethod) {
         String token = AbstractContextHandler.getToken();
+        if (token == null) {
+            log.debug("token is empty");
+            return;
+        }
+
         boolean accept = accept(token, request);
 
         log.debug("token preHandler[instance = {}, accept = {}, token = {}]", getClass(), accept, token);
