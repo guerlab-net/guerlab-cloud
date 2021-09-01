@@ -1,5 +1,5 @@
 spring:
   security:
     user:
-      name:
-      password:
+      name: ##用户名
+      password: ##密码

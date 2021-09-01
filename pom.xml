@@ -150,6 +150,13 @@
                 <version>${revision}</version>
             </dependency>
 
+            <!-- guerlab-cloud i18n -->
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-i18n</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
             <!-- guerlab-cloud load balancer -->
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
@@ -287,6 +294,7 @@
         <module>guerlab-cloud-cache</module>
         <module>guerlab-cloud-commons</module>
         <module>guerlab-cloud-excel</module>
+        <module>guerlab-cloud-i18n</module>
         <module>guerlab-cloud-loadbalancer</module>
         <module>guerlab-cloud-log</module>
         <module>guerlab-cloud-server</module>
