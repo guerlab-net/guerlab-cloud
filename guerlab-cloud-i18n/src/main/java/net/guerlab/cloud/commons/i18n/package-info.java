@@ -10,17 +10,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth.properties;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import net.guerlab.cloud.commons.entity.RsaKeys;
 
 /**
- * jwt token 工厂配置
- *
  * @author guer
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class JwtTokenFactoryProperties extends EncryptionSupportTokenFactoryProperties<RsaKeys> {}
+@NonNullApi
+package net.guerlab.cloud.commons.i18n;
+
+import org.springframework.lang.NonNullApi;

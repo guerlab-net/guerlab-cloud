@@ -18,6 +18,7 @@
 
     <modules>
         <module>guerlab-cloud-auth-commons</module>
+        <module>guerlab-cloud-auth-redis-token-support</module>
         <module>guerlab-cloud-auth-web-support</module>
     </modules>
 </project>

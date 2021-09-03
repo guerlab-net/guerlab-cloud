@@ -10,17 +10,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth.properties;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import net.guerlab.cloud.commons.entity.RsaKeys;
+package net.guerlab.cloud.auth;
 
 /**
- * jwt token 工厂配置
+ * 授权常量
  *
  * @author guer
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class JwtTokenFactoryProperties extends EncryptionSupportTokenFactoryProperties<RsaKeys> {}
+public interface TestConstants {
+
+    /**
+     * 用户id
+     */
+    String USER_ID = "userId";
+
+    /**
+     * 用户名
+     */
+    String USERNAME = "username";
+}

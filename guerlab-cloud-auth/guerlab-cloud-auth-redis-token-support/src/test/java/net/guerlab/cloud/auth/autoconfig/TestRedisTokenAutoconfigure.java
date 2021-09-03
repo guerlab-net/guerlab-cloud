@@ -10,17 +10,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth.properties;
+package net.guerlab.cloud.auth.autoconfig;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import net.guerlab.cloud.commons.entity.RsaKeys;
+import net.guerlab.cloud.auth.properties.TestRedisTokenFactoryProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * jwt token 工厂配置
+ * 测试用redis token自动配置
  *
  * @author guer
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class JwtTokenFactoryProperties extends EncryptionSupportTokenFactoryProperties<RsaKeys> {}
+@Configuration
+@EnableConfigurationProperties({ TestRedisTokenFactoryProperties.class })
+public class TestRedisTokenAutoconfigure {}

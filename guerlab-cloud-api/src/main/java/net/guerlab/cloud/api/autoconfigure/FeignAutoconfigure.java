@@ -18,7 +18,6 @@ import net.guerlab.cloud.api.feign.ErrorDecoderChain;
 import net.guerlab.cloud.api.feign.FailResponseDecoder;
 import net.guerlab.cloud.api.feign.OrderedErrorDecoder;
 import net.guerlab.cloud.api.feign.ResultDecoder;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -40,8 +39,8 @@ public class FeignAutoconfigure {
      *         objectMapper
      * @return 结果解析
      */
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean
-    @ConditionalOnBean(ObjectMapper.class)
     public ResultDecoder resultDecoder(ObjectMapper objectMapper) {
         ResultDecoder resultDecoder = new ResultDecoder();
         resultDecoder.setObjectMapper(objectMapper);
@@ -55,8 +54,8 @@ public class FeignAutoconfigure {
      *         objectMapper
      * @return 失败响应解析
      */
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean
-    @ConditionalOnBean(ObjectMapper.class)
     public FailResponseDecoder failResponseDecoder(ObjectMapper objectMapper) {
         FailResponseDecoder decoder = new FailResponseDecoder();
         decoder.setObjectMapper(objectMapper);

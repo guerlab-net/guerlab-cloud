@@ -26,6 +26,10 @@
         </dependency>
         <dependency>
             <groupId>net.guerlab.cloud</groupId>
+            <artifactId>guerlab-cloud-i18n</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.guerlab.cloud</groupId>
             <artifactId>guerlab-cloud-loadbalancer</artifactId>
         </dependency>
         <dependency>

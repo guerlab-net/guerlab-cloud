@@ -27,7 +27,7 @@ import org.springframework.lang.Nullable;
  *         配置类型
  * @author guer
  */
-public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties<?>> implements TokenFactory<T> {
+public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> implements TokenFactory<T> {
 
     /**
      * 配置文件
