@@ -119,6 +119,11 @@
             </dependency>
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-auth-redis-token-support</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
                 <artifactId>guerlab-cloud-auth-web-support</artifactId>
                 <version>${revision}</version>
             </dependency>

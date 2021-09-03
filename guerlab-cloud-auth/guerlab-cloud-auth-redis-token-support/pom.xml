@@ -3,28 +3,34 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>guerlab-cloud-cache-redis</artifactId>
-    <name>Guerlab Cloud Cache Redis</name>
+    <artifactId>guerlab-cloud-auth-redis-token-support</artifactId>
+    <name>Guerlab Cloud Auth Redis Token Support</name>
 
     <parent>
         <groupId>net.guerlab.cloud</groupId>
-        <artifactId>guerlab-cloud-cache</artifactId>
+        <artifactId>guerlab-cloud-auth</artifactId>
         <version>${revision}</version>
     </parent>
 
     <properties>
-        <main.basedir>${basedir}/../..</main.basedir>
+        <main.basedir>${basedir}/..</main.basedir>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>net.guerlab.cloud</groupId>
+            <artifactId>guerlab-cloud-auth-commons</artifactId>
         </dependency>
 
         <dependency>
             <groupId>net.guerlab.spring</groupId>
             <artifactId>guerlab-spring-redis-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
