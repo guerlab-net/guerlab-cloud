@@ -14,13 +14,27 @@ package net.guerlab.cloud.auth.properties;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import net.guerlab.cloud.commons.entity.RsaKeys;
+import lombok.ToString;
 
 /**
- * jwt token 工厂配置
+ * 加密支持token 工厂配置
  *
+ * @param <K>
+ *         密钥类型
  * @author guer
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class JwtTokenFactoryProperties extends EncryptionSupportTokenFactoryProperties<RsaKeys> {}
+@ToString(callSuper = true)
+public class EncryptionSupportTokenFactoryProperties<K> extends TokenFactoryProperties {
+
+    /**
+     * accessToken key
+     */
+    private K accessTokenKey;
+
+    /**
+     * refreshToken key
+     */
+    private K refreshTokenKey;
+}

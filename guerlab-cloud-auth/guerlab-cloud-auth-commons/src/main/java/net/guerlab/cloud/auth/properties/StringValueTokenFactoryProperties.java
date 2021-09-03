@@ -22,4 +22,4 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class StringValueTokenFactoryProperties extends TokenFactoryProperties<String> {}
+public class StringValueTokenFactoryProperties extends EncryptionSupportTokenFactoryProperties<String> {}
