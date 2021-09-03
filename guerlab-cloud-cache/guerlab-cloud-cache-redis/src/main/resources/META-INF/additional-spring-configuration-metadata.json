@@ -1,0 +1,10 @@
+{
+  "groups": [
+    {
+      "name": "spring.cache.redis.configs",
+      "type": "net.guerlab.cloud.cache.redis.properties.GroupByKeysRedisCacheProperties",
+      "sourceType": "net.guerlab.cloud.cache.redis.properties.GroupByKeysRedisCacheProperties",
+      "description": "多redis缓存配置."
+    }
+  ]
+}
