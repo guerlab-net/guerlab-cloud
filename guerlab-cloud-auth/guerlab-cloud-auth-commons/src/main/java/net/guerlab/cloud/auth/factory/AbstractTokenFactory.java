@@ -22,7 +22,7 @@ import org.springframework.lang.Nullable;
  * 抽象token工厂
  *
  * @param <T>
- *         token实体类型
+ *         数据实体类型
  * @param <P>
  *         配置类型
  * @author guer

@@ -26,6 +26,10 @@ import java.util.Date;
 /**
  * 抽象jwt token工厂
  *
+ * @param <T>
+ *         数据实体类型
+ * @param <P>
+ *         配置类型
  * @author guer
  */
 public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProperties>
