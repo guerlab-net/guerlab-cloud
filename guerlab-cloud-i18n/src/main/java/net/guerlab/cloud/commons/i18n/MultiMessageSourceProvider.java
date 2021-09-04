@@ -5,4 +5,13 @@ package net.guerlab.cloud.commons.i18n;
  *
  * @author guer
  */
-public interface MultiMessageSourceProvider extends java.util.function.Supplier<String> {}
+@FunctionalInterface
+public interface MultiMessageSourceProvider {
+
+    /**
+     * 获取消息源
+     *
+     * @return 消息源
+     */
+    String get();
+}
