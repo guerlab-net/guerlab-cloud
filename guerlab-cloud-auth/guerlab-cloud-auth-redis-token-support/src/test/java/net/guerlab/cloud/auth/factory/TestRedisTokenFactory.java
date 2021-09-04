@@ -1,12 +1,11 @@
 package net.guerlab.cloud.auth.factory;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import net.guerlab.cloud.auth.domain.ITestTokenInfo;
-import net.guerlab.cloud.auth.domain.TestTokenInfo;
 import net.guerlab.cloud.auth.properties.TestRedisTokenFactoryProperties;
+import net.guerlab.cloud.auth.redis.RedisOperationsWrapper;
 
 /**
- * redis token 工厂
+ * 测试用redis token 工厂
  *
  * @author guer
  */
@@ -17,6 +16,10 @@ public class TestRedisTokenFactory extends AbstractRedisTokenFactory<ITestTokenI
      */
     public static final String PREFIX = "TEST_REDIS";
 
+    public TestRedisTokenFactory(RedisOperationsWrapper<ITestTokenInfo> redisOperationsWrapper) {
+        super(redisOperationsWrapper);
+    }
+
     @Override
     protected String getPrefix() {
         return PREFIX;
@@ -25,10 +28,5 @@ public class TestRedisTokenFactory extends AbstractRedisTokenFactory<ITestTokenI
     @Override
     public Class<ITestTokenInfo> getAcceptClass() {
         return ITestTokenInfo.class;
-    }
-
-    @Override
-    protected TypeReference<? extends ITestTokenInfo> getTypeReference() {
-        return new TypeReference<TestTokenInfo>() {};
     }
 }

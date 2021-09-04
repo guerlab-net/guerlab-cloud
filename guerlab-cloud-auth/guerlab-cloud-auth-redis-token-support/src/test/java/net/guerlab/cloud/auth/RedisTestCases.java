@@ -33,10 +33,10 @@ public class RedisTestCases {
     @BeforeAll
     static void setUp() {
         context = new AnnotationConfigApplicationContext();
-        context.registerBean("objectMapper", ObjectMapper.class);
-        context.register(RedisAutoConfiguration.class, TestRedisTokenAutoconfigure.class, TestRedisTokenFactory.class);
         TestPropertyValues.of("auth.test.token-factory.redis.access-token-key-length=6").applyTo(context);
         TestPropertyValues.of("auth.test.token-factory.redis.refresh-token-key-length=6").applyTo(context);
+        context.registerBean("objectMapper", ObjectMapper.class);
+        context.register(RedisAutoConfiguration.class, TestRedisTokenAutoconfigure.class);
         context.refresh();
     }
 
