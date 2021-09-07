@@ -38,4 +38,11 @@ public class IpUtilsTest {
                         "192.168.1.5"));
     }
 
+    @Test
+    public void mask() {
+        long mask = IpUtils
+                .calculationMask(IpUtils.parseIpv4Address("192.168.1.1"), IpUtils.parseIpv4Address("192.168.1.254"));
+        Assertions.assertEquals("11111111111111111111111100000000", Long.toString(mask, 2));
+    }
+
 }
