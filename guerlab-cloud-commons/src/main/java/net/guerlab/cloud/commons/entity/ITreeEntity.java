@@ -12,30 +12,46 @@
  */
 package net.guerlab.cloud.commons.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Collection;
 
 /**
- * 可排序树形结构
+ * 树形结构
  *
  * @param <E>
  *         对象类型
  * @author guer
  */
-@Getter
-@Setter
-@Schema(name = "BaseOrderTreeEntity", description = "可排序树形结构")
-public abstract class BaseOrderTreeEntity<E extends BaseOrderTreeEntity<E>> extends BaseOrderEntity<E>
-        implements IOrderTreeEntity<E> {
+@Schema(name = "ITreeEntity", description = "树形结构")
+public interface ITreeEntity<E extends ITreeEntity<E>> {
 
     /**
-     * 下级列表
+     * 获取下级列表
+     *
+     * @return 下级列表
      */
-    @Schema(description = "下级列表")
-    @TableField(exist = false)
-    protected Collection<E> children;
+    Collection<E> getChildren();
+
+    /**
+     * 设置下级列表
+     *
+     * @param children
+     *         下级列表
+     */
+    void setChildren(Collection<E> children);
+
+    /**
+     * 获取ID
+     *
+     * @return id
+     */
+    Long id();
+
+    /**
+     * 获取上级ID
+     *
+     * @return 上级id
+     */
+    Long parentId();
 }

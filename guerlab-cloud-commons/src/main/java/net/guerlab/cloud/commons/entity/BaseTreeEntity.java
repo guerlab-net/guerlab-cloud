@@ -26,11 +26,10 @@ import java.util.Collection;
  *         对象类型
  * @author guer
  */
-@SuppressWarnings("WeakerAccess")
 @Getter
 @Setter
 @Schema(name = "BaseTreeEntity", description = "树形结构")
-public abstract class BaseTreeEntity<E extends BaseTreeEntity<E>> {
+public abstract class BaseTreeEntity<E extends BaseTreeEntity<E>> implements ITreeEntity<E> {
 
     /**
      * 下级列表
