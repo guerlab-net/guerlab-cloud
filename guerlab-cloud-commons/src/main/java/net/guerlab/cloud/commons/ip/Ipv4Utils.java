@@ -16,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 
-import static net.guerlab.cloud.commons.ip.IpAddress.*;
 import static net.guerlab.cloud.commons.ip.Ipv4.*;
 
 /**

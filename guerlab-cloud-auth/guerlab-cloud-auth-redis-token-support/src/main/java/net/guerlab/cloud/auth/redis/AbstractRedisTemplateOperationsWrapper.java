@@ -13,11 +13,12 @@ import java.util.concurrent.TimeUnit;
  *         数据实体类型
  * @author guer
  */
-public abstract class RedisTemplateOperationsWrapper<T> extends AbstractRedisOperationsWrapper<T> {
+public abstract class AbstractRedisTemplateOperationsWrapper<T> extends AbstractRedisOperationsWrapper<T> {
 
     private final RedisTemplate<String, String> redisTemplate;
 
-    public RedisTemplateOperationsWrapper(ObjectMapper objectMapper, RedisTemplate<String, String> redisTemplate) {
+    public AbstractRedisTemplateOperationsWrapper(ObjectMapper objectMapper,
+            RedisTemplate<String, String> redisTemplate) {
         super(objectMapper);
         this.redisTemplate = redisTemplate;
     }

@@ -11,7 +11,7 @@ import org.springframework.data.redis.core.RedisTemplate;
  *
  * @author guer
  */
-public class TestRedisTemplateOperationsWrapper extends RedisTemplateOperationsWrapper<ITestTokenInfo> {
+public class TestRedisTemplateOperationsWrapper extends AbstractRedisTemplateOperationsWrapper<ITestTokenInfo> {
 
     public TestRedisTemplateOperationsWrapper(ObjectMapper objectMapper, RedisTemplate<String, String> redisTemplate) {
         super(objectMapper, redisTemplate);
