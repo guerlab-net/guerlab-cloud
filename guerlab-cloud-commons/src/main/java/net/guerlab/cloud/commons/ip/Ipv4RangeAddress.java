@@ -24,7 +24,7 @@ import java.util.Objects;
  */
 @Getter
 @Slf4j
-public class Ipv4RangeAddress implements Ipv4 {
+public class Ipv4RangeAddress implements Ipv4, IpRangeAddress {
 
     /**
      * 类型
@@ -79,7 +79,7 @@ public class Ipv4RangeAddress implements Ipv4 {
      *         结束地址
      */
     Ipv4RangeAddress(long startAddress, long endAddress) {
-        this(startAddress, endAddress, IpUtils.calculationMask(startAddress, endAddress), -1);
+        this(startAddress, endAddress, IpUtils.calculationIpv4Mask(startAddress, endAddress), -1);
     }
 
     @Override
@@ -88,7 +88,7 @@ public class Ipv4RangeAddress implements Ipv4 {
             return "Ipv4RangeAddress[ipWithMask=" + IpUtils.convertIpv4String(startAddress) + "/" + maskLength + "]";
         } else {
             return "Ipv4RangeAddress[start=" + IpUtils.convertIpv4String(startAddress) + ", end=" + IpUtils
-                    .convertIpv4String(endAddress) + ", mask=" + mask + "]";
+                    .convertIpv4String(endAddress) + ", mask=" + IpUtils.convertIpv4String(mask) + "]";
         }
     }
 

@@ -2,6 +2,7 @@ package net.guerlab.cloud.commons.ip.test;
 
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.commons.ip.IpUtils;
+import net.guerlab.cloud.commons.ip.Ipv4;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -40,8 +41,8 @@ public class IpUtilsTest {
 
     @Test
     public void mask() {
-        long mask = IpUtils
-                .calculationMask(IpUtils.parseIpv4Address("192.168.1.1"), IpUtils.parseIpv4Address("192.168.1.254"));
+        Ipv4 ipv4 = IpUtils.parseIpv4("192.168.1.1/24");
+        long mask = IpUtils.calculationIpv4Mask(ipv4.getStartAddress(), ipv4.getEndAddress());
         Assertions.assertEquals("11111111111111111111111100000000", Long.toString(mask, 2));
     }
 

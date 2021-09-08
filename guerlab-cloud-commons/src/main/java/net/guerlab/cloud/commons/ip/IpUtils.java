@@ -52,25 +52,42 @@ public class IpUtils {
             return false;
         }
 
-        Ipv4Address target;
-        try {
-            target = new Ipv4Address(targetIp);
-        } catch (Exception e) {
+        IpSingleAddress target = parseIpSingleAddress(targetIp);
+        if (target == null) {
             return false;
         }
-        Collection<Ipv4> ranges = ips.stream().map(ip -> {
-            try {
-                return parseIpv4(ip);
-            } catch (Exception e) {
-                return null;
-            }
-        }).filter(Objects::nonNull).collect(Collectors.toList());
 
+        Collection<IpAddress> ranges = ips.stream().map(IpUtils::parseIpRangeAddress).filter(Objects::nonNull)
+                .collect(Collectors.toList());
         if (ranges.isEmpty()) {
             return false;
         }
 
         return ranges.stream().anyMatch(range -> range.contains(target));
+    }
+
+    @Nullable
+    private static IpSingleAddress parseIpSingleAddress(String ip) {
+        try {
+            if (Ipv4Utils.isIpv4(ip)) {
+                return new Ipv4Address(ip);
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Nullable
+    private static IpAddress parseIpRangeAddress(String ip) {
+        try {
+            if (Ipv4Utils.isIpv4(ip)) {
+                return parseIpv4(ip);
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -126,7 +143,7 @@ public class IpUtils {
      * @return IP地址
      */
     public static Ipv4 parseIpv4(long address) {
-        return new Ipv4Address(address);
+        return Ipv4Utils.parseIpv4(address);
     }
 
     /**
@@ -137,112 +154,7 @@ public class IpUtils {
      * @return IP地址
      */
     public static Ipv4 parseIpv4(String address) {
-        if ((address = StringUtils.trimToNull(address)) == null) {
-            throw new IllegalArgumentException("address invalid");
-        }
-
-        boolean hasRangeLinkFlag = address.contains(Ipv4.RANGE_LINK_FLAG);
-        boolean hasMaskFlag = address.contains(Ipv4.MASK_FLAG);
-
-        if (hasRangeLinkFlag && hasMaskFlag) {
-            // support format: 1.2.3.4/16-1.3.3.4/16
-            String[] addressArray = address.split(Ipv4.RANGE_LINK_FLAG);
-            if (addressArray.length != 2) {
-                throw new IllegalArgumentException("address is invalid");
-            }
-            Ipv4 start = parseIpv4(addressArray[0]);
-            Ipv4 end = parseIpv4(addressArray[1]);
-            return new Ipv4RangeAddress(start.getStartAddress(), end.getEndAddress());
-        } else if (hasRangeLinkFlag) {
-            // support format: 1.2.3.4-255; 1.2.3.4-1.2.4.5
-            return parseWithRangeLinkFlag(address);
-        } else if (hasMaskFlag) {
-            // support format: 1.2.3.4/32
-            return parseWithMaskFlag(address);
-        } else {
-            return new Ipv4Address(address);
-        }
-    }
-
-    /**
-     * 基于范围链接符标志的解析
-     *
-     * @param ipRange
-     *         ip范围
-     * @return ipv4地址段
-     */
-    public static Ipv4RangeAddress parseWithRangeLinkFlag(String ipRange) {
-        String[] ipRangeArray = ipRange.split(Ipv4.RANGE_LINK_FLAG, 2);
-        long start = parseIpv4Address(ipRangeArray[0]);
-
-        String[] groupValues = ipRangeArray[1].split(Ipv4.SEPARATOR_REG, Ipv4.GROUP_SIZE);
-        int length = groupValues.length;
-        long baseAddress = start & (0x0FFFFFFFFL << (length * 8));
-        int offset = 0;
-        while (offset < length) {
-            baseAddress += parseIpv4GroupValue(groupValues[offset]) << ((length - offset - 1) * 8);
-            offset++;
-        }
-
-        return new Ipv4RangeAddress(start, baseAddress);
-    }
-
-    /**
-     * 基于子网掩码标志的解析
-     *
-     * @param ipRange
-     *         ip范围
-     * @return ipv4地址段
-     */
-    public static Ipv4RangeAddress parseWithMaskFlag(String ipRange) {
-        String[] ipRangeArray = ipRange.split(Ipv4.MASK_FLAG, 2);
-        int maskLength = Integer.parseInt(ipRangeArray[1]);
-        if (maskLength < 0 || maskLength > Ipv4.MAX_MASK) {
-            throw new IllegalArgumentException("illegal arguments");
-        }
-        long tmp = parseIpv4Address(ipRangeArray[0]);
-        // 子网掩码
-        Ipv4Address subNetMask = IpUtils.computeMaskFromNetworkPrefix(maskLength);
-        // 子网
-        Ipv4Address subNet = new Ipv4Address(subNetMask.getIpAddress() & tmp);
-        // 设置起止地址
-        Ipv4Address start = new Ipv4Address(subNet.getIpAddress());
-        Ipv4Address end = new Ipv4Address(subNet.getIpAddress() + (0x00000001L << (Ipv4.MAX_MASK - maskLength)) - 1);
-
-        return new Ipv4RangeAddress(start.getStartAddress(), end.getIpAddress(), subNetMask.getIpAddress(), maskLength);
-    }
-
-    /**
-     * 解析ipv4分组地址
-     *
-     * @param str
-     *         ipv4分组地址
-     * @return 地址值
-     */
-    private static long parseIpv4GroupValue(String str) {
-        try {
-            long val = Long.parseLong(str);
-            if (val < 0 || val > Ipv4.MAX_VALUE) {
-                throw new IllegalArgumentException(str + " is invalid");
-            }
-            return val;
-        } catch (Exception e) {
-            IllegalArgumentException error = new IllegalArgumentException(str + " is invalid");
-            error.addSuppressed(e);
-            throw error;
-        }
-    }
-
-    /**
-     * 通过掩码长度构造IPv4掩码地址
-     *
-     * @param prefix
-     *         掩码长度
-     * @return IPv4掩码地址
-     */
-    public static Ipv4Address computeMaskFromNetworkPrefix(int prefix) {
-        String str = "1".repeat(prefix) + "0".repeat(32 - prefix);
-        return new Ipv4Address(Long.parseLong(str, 2));
+        return Ipv4Utils.parseIpv4(address);
     }
 
     /**
@@ -254,12 +166,8 @@ public class IpUtils {
      *         结束地址
      * @return IPv4掩码地址
      */
-    public static long calculationMask(long startAddress, long endAddress) {
-        long mask = 0L;
-        for (int i = 0; i < Ipv4.GROUP_SIZE; i++) {
-            mask += (~((startAddress >> (i * 8) & 0xFF) ^ (endAddress >> (i * 8) & 0xFF)) & 0x0FF) << (i * 8);
-        }
-        return mask;
+    public static long calculationIpv4Mask(long startAddress, long endAddress) {
+        return Ipv4Utils.calculationIpv4Mask(startAddress, endAddress);
     }
 
     /**
@@ -270,8 +178,7 @@ public class IpUtils {
      * @return 字符串格式地址
      */
     public static String convertIpv4String(long ipAddress) {
-        return String.format(Ipv4.FORMAT, ipAddress >> 24 & 255, ipAddress >> 16 & 255, ipAddress >> 8 & 255,
-                ipAddress & 255);
+        return Ipv4Utils.convertIpv4String(ipAddress);
     }
 
     /**
@@ -282,28 +189,6 @@ public class IpUtils {
      * @return 数值类型地址
      */
     public static long parseIpv4Address(String ipAddressStr) {
-        ipAddressStr = StringUtils.trimToNull(ipAddressStr);
-        if (ipAddressStr == null) {
-            throw new IllegalArgumentException();
-        }
-
-        long offset = 24;
-        long result = 0;
-        for (String valStr : ipAddressStr.split(Ipv4.SEPARATOR_REG, Ipv4.GROUP_SIZE)) {
-            long val;
-            try {
-                val = Long.parseLong(valStr);
-            } catch (Exception e) {
-                throw new IllegalArgumentException("Invalid IP Address [" + ipAddressStr + "]");
-            }
-            if (val < 0 || val > Ipv4.MAX_VALUE) {
-                throw new IllegalArgumentException("Invalid IP Address [" + ipAddressStr + "]");
-            }
-
-            result += val << offset;
-            offset -= 8;
-        }
-
-        return result;
+        return Ipv4Utils.parseIpv4Address(ipAddressStr);
     }
 }

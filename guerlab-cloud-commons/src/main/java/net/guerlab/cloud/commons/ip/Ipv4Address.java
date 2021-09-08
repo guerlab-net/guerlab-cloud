@@ -22,7 +22,7 @@ import java.util.Objects;
  * @author guer
  */
 @Getter
-public class Ipv4Address implements Ipv4 {
+public class Ipv4Address implements Ipv4, IpSingleAddress {
 
     /**
      * 类型

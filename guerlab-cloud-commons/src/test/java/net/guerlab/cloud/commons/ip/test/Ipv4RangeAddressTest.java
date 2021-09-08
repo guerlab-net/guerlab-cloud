@@ -2,6 +2,7 @@ package net.guerlab.cloud.commons.ip.test;
 
 import net.guerlab.cloud.commons.ip.IpUtils;
 import net.guerlab.cloud.commons.ip.Ipv4;
+import net.guerlab.cloud.commons.ip.Ipv4Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ public class Ipv4RangeAddressTest {
     public void parse0() {
         String startAddress = "192.168.1.1";
         String endAddress = "192.168.2.255";
-        Ipv4 ipv4 = IpUtils.parseWithRangeLinkFlag(startAddress + "-" + endAddress);
+        Ipv4 ipv4 = Ipv4Utils.parseIpv4WithRangeLinkFlag(startAddress + "-" + endAddress);
         Assertions.assertEquals(IpUtils.parseIpv4Address(startAddress), ipv4.getStartAddress());
         Assertions.assertEquals(IpUtils.parseIpv4Address(endAddress), ipv4.getEndAddress());
     }

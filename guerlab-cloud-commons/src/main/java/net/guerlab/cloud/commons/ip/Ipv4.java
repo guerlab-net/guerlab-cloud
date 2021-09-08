@@ -8,26 +8,6 @@ package net.guerlab.cloud.commons.ip;
 public interface Ipv4 extends IpAddress {
 
     /**
-     * 分割符正则表达式
-     */
-    String SEPARATOR_REG = "\\.";
-
-    /**
-     * IP格式
-     */
-    String FORMAT = "%d.%d.%d.%d";
-
-    /**
-     * 范围链接符标志
-     */
-    String RANGE_LINK_FLAG = "-";
-
-    /**
-     * 子网掩码标志
-     */
-    String MASK_FLAG = "/";
-
-    /**
      * 最大值
      */
     int MAX_VALUE = 255;
@@ -43,28 +23,62 @@ public interface Ipv4 extends IpAddress {
     int MAX_MASK = 32;
 
     /**
-     * 获取开始位置
-     *
-     * @return 开始位置
+     * 分割符正则表达式
      */
-    long getStartAddress();
+    String SEPARATOR_REG = "\\.";
 
     /**
-     * 获取结束位置
-     *
-     * @return 结束位置
+     * IPv4格式
      */
-    long getEndAddress();
+    String FORMAT = "%d.%d.%d.%d";
 
     /**
-     * 判断是否包含某个IP
-     *
-     * @param target
-     *         目标IP
-     * @return 是否包含
+     * 单段有效值格式
      */
-    default boolean contains(Ipv4Address target) {
-        long address = target.getIpAddress();
-        return getStartAddress() <= address && address <= getEndAddress();
-    }
+    String VALUE_FORMAT = "((25[0-5])|(2[0-4]\\d)|([0-1]?\\d?\\d))";
+
+    /**
+     * 单段有效值正则表达式
+     */
+    String VALUE_REG = "^" + VALUE_FORMAT + "$";
+
+    /**
+     * 掩码有效值格式
+     */
+    String MASK_VALUE_FORMAT = "((3[0-2])|([1-2]\\d)|([0]?[1-9]))";
+
+    /**
+     * 掩码有效值正则表达式
+     */
+    String MASK_VALUE_REG = "^" + MASK_VALUE_FORMAT + "$";
+
+    /**
+     * 基础IPv4格式格式
+     */
+    String BASE_FORMAT_FORMAT = "(" + VALUE_FORMAT + "(\\." + VALUE_FORMAT + "){3})";
+
+    /**
+     * 基础IPv4格式正则表达式
+     */
+    String BASE_FORMAT_REG = "^" + BASE_FORMAT_FORMAT + "$";
+
+    /**
+     * 带子网掩码IPv4格式
+     */
+    String WITH_MASK_FORMAT_FORMAT = "(" + BASE_FORMAT_FORMAT + "(/" + MASK_VALUE_FORMAT + ")" + "?)";
+
+    /**
+     * 带子网掩码IPv4正则表达式
+     */
+    String WITH_MASK_FORMAT_REG = "^" + WITH_MASK_FORMAT_FORMAT + "$";
+
+    /**
+     * 范围IPv4格式
+     */
+    String RANGE_END_FORMAT = "(" + VALUE_FORMAT + "\\.){0,3}(" + VALUE_FORMAT + ")";
+
+    /**
+     * 范围IPv4正则表达式
+     */
+    String RANGE_END_REG = "^" + RANGE_END_FORMAT + "$";
 }
