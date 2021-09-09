@@ -12,12 +12,10 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.context.MessageSource;
 import org.springframework.lang.Nullable;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * 保存操作记录切面
@@ -31,8 +29,11 @@ public class LogAop {
 
     private final ObjectProvider<List<LogHandler>> logHandlersProvider;
 
-    public LogAop(ObjectProvider<List<LogHandler>> logHandlersProvider) {
+    private final MessageSource messageSource;
+
+    public LogAop(ObjectProvider<List<LogHandler>> logHandlersProvider, MessageSource messageSource) {
         this.logHandlersProvider = logHandlersProvider;
+        this.messageSource = messageSource;
     }
 
     @Around("@annotation(log) && !@annotation(net.guerlab.cloud.auth.annotation.IgnoreLogin)")
@@ -98,10 +99,17 @@ public class LogAop {
             params.put(parameterNames[i], args[i]);
         }
 
+        logContent = parseLogContent(logContent, args);
+
         try {
             handler.handler(logContent, method, uri, params, result, ex);
         } catch (Exception e) {
             LOGGER.debug(e.getLocalizedMessage(), e);
         }
+    }
+
+    private String parseLogContent(String logContent, Object[] args) {
+        String message = messageSource.getMessage(logContent, args, logContent, Locale.getDefault());
+        return message == null ? logContent : message;
     }
 }
