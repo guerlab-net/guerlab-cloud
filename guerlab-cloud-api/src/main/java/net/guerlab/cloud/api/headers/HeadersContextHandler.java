@@ -24,7 +24,7 @@ import java.util.function.BiConsumer;
  * @author guer
  */
 @SuppressWarnings("unused")
-public abstract class HeadersContextHandler {
+public class HeadersContextHandler {
 
     private final static InheritableThreadLocal<Map<String, String>> THREAD_LOCAL = new InheritableThreadLocal<>() {
 
