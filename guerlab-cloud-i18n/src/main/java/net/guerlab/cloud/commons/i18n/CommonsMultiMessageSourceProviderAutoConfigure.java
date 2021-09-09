@@ -1,15 +1,15 @@
 package net.guerlab.cloud.commons.i18n;
 
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * 公共多消息源处理提供者自动配置
  *
  * @author guer
  */
-@Configurable
+@Configuration(proxyBeanMethods = false)
 @AutoConfigureBefore(MultiMessageSourceAwareAutoConfigure.class)
 public class CommonsMultiMessageSourceProviderAutoConfigure {
 
