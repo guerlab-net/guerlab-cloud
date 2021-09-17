@@ -35,6 +35,11 @@ import java.util.Date;
 public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProperties>
         extends AbstractTokenFactory<T, P> {
 
+    /**
+     * 获取JwtBuilder
+     *
+     * @return JwtBuilder
+     */
     private static JwtBuilder builder() {
         JwtBuilder builder = Jwts.builder();
         builder.setHeaderParam("typ", "JWT");
@@ -42,6 +47,19 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
         return builder;
     }
 
+    /**
+     * 构造token信息
+     *
+     * @param prefix
+     *         token前缀
+     * @param builder
+     *         JwtBuilder
+     * @param expire
+     *         有效期
+     * @param privateKey
+     *         私钥
+     * @return token信息
+     */
     private static TokenInfo build(String prefix, JwtBuilder builder, long expire, PrivateKey privateKey) {
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
@@ -66,6 +84,17 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
         return tokenInfo;
     }
 
+    /**
+     * 解析token
+     *
+     * @param token
+     *         token
+     * @param publicKey
+     *         公钥
+     * @param tokenType
+     *         token类型
+     * @return 解析后信息
+     */
     private static Jws<Claims> parserToken(String token, PublicKey publicKey, TokenType tokenType) {
         try {
             return Jwts.parser().setSigningKey(publicKey).parseClaimsJws(token);

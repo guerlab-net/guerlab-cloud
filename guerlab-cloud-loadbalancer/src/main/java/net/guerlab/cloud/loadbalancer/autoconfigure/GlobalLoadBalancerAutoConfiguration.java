@@ -42,8 +42,17 @@ import java.util.List;
 @LoadBalancerClients(defaultConfiguration = CustomerLoadBalancerClientConfiguration.class)
 public class GlobalLoadBalancerAutoConfiguration {
 
+    /**
+     * 负载均衡客户端说明列表提供者
+     */
     private final ObjectProvider<List<LoadBalancerClientSpecification>> configurations;
 
+    /**
+     * 通过负载均衡客户端说明列表提供者初始化全局负载均衡自定义配置
+     *
+     * @param configurations
+     *         负载均衡客户端说明列表提供者
+     */
     public GlobalLoadBalancerAutoConfiguration(ObjectProvider<List<LoadBalancerClientSpecification>> configurations) {
         this.configurations = configurations;
     }

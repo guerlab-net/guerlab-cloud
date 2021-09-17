@@ -32,10 +32,10 @@ import java.util.stream.StreamSupport;
  *
  * @author guer
  */
-@SuppressWarnings({ "rawtypes", "unused" })
+@SuppressWarnings({ "unused" })
 public class ExcelUtils {
 
-    private static final Collection<Converter> CONVERTERS = new ArrayList<>();
+    private static final Collection<Converter<?>> CONVERTERS = new ArrayList<>();
 
     static {
         StreamSupport.stream(ServiceLoader.load(Converter.class).spliterator(), false).forEach(CONVERTERS::add);
@@ -69,83 +69,83 @@ public class ExcelUtils {
     }
 
     /**
-     * Build excel the write
+     * 获取Excel输出构建器
      *
-     * @return Excel writer builder
+     * @return Excel输出构建器
      */
     public static ExcelWriterBuilder write() {
         return registerConverter(EasyExcel.write());
     }
 
     /**
-     * Build excel the write
+     * 获取Excel输出构建器
      *
      * @param file
      *         File to write
-     * @return Excel writer builder
+     * @return Excel输出构建器
      */
     public static ExcelWriterBuilder write(File file) {
         return registerConverter(EasyExcel.write(file));
     }
 
     /**
-     * Build excel the write
+     * 获取Excel输出构建器
      *
      * @param file
      *         File to write
      * @param head
      *         Annotate the class for configuration information
-     * @return Excel writer builder
+     * @return Excel输出构建器
      */
-    public static ExcelWriterBuilder write(File file, Class head) {
+    public static ExcelWriterBuilder write(File file, Class<?> head) {
         return registerConverter(EasyExcel.write(file, head));
     }
 
     /**
-     * Build excel the write
+     * 获取Excel输出构建器
      *
      * @param pathName
      *         File path to write
-     * @return Excel writer builder
+     * @return Excel输出构建器
      */
     public static ExcelWriterBuilder write(String pathName) {
         return registerConverter(EasyExcel.write(pathName));
     }
 
     /**
-     * Build excel the write
+     * 获取Excel输出构建器
      *
      * @param pathName
      *         File path to write
      * @param head
      *         Annotate the class for configuration information
-     * @return Excel writer builder
+     * @return Excel输出构建器
      */
-    public static ExcelWriterBuilder write(String pathName, Class head) {
+    public static ExcelWriterBuilder write(String pathName, Class<?> head) {
         return registerConverter(EasyExcel.write(pathName, head));
     }
 
     /**
-     * Build excel the write
+     * 获取Excel输出构建器
      *
      * @param outputStream
      *         Output stream to write
-     * @return Excel writer builder
+     * @return Excel输出构建器
      */
     public static ExcelWriterBuilder write(OutputStream outputStream) {
         return registerConverter(EasyExcel.write(outputStream));
     }
 
     /**
-     * Build excel the write
+     * 获取Excel输出构建器
      *
      * @param outputStream
      *         Output stream to write
      * @param head
      *         Annotate the class for configuration information.
-     * @return Excel writer builder
+     * @return Excel输出构建器
      */
-    public static ExcelWriterBuilder write(OutputStream outputStream, Class head) {
+    public static ExcelWriterBuilder write(OutputStream outputStream, Class<?> head) {
         return registerConverter(EasyExcel.write(outputStream, head));
     }
 
@@ -155,7 +155,7 @@ public class ExcelUtils {
      * @param converter
      *         转换器
      */
-    public static void registerGlobalConverter(Converter converter) {
+    public static void registerGlobalConverter(Converter<?> converter) {
         CONVERTERS.add(converter);
     }
 

@@ -32,6 +32,9 @@ public class MessageUtils {
      */
     private static final String LISTENER_NAME_PREFIX = "on";
 
+    /**
+     * 来源系统名称
+     */
     private static final String HEADER_ORIGIN_APPLICATION_NAME = "spring.cloud.stream.origin.application-name";
 
     private MessageUtils() {

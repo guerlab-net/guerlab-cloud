@@ -13,6 +13,12 @@ import java.util.Map;
  */
 public abstract class AbstractBindingDestinationAutoConfigure {
 
+    /**
+     * 初始化binding目的地
+     *
+     * @param bindingServiceProperties
+     *         bindingServiceProperties
+     */
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired
     public void initBindingDestination(BindingServiceProperties bindingServiceProperties) {

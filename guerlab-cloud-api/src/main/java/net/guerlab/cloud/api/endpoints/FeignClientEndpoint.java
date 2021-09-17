@@ -27,6 +27,15 @@ import java.util.stream.Collectors;
 @Endpoint(id = "feign-client")
 public class FeignClientEndpoint {
 
+    /**
+     * 构建feign客户端实例信息
+     *
+     * @param beanName
+     *         bean名称
+     * @param obj
+     *         代理对象
+     * @return feign客户端实例信息
+     */
     @Nullable
     private static FeignClientInfo buildFeignClientInfo(String beanName, Object obj) {
         Target.HardCodedTarget<?> target = getProxyTarget(obj);
@@ -55,6 +64,13 @@ public class FeignClientEndpoint {
         return info;
     }
 
+    /**
+     * 获取代理对象
+     *
+     * @param obj
+     *         对象
+     * @return 获取代理对象
+     */
     @Nullable
     private static Target.HardCodedTarget<?> getProxyTarget(Object obj) {
         if (!(obj instanceof Proxy)) {
@@ -80,6 +96,11 @@ public class FeignClientEndpoint {
         }
     }
 
+    /**
+     * 获取feign客户端实例信息列表
+     *
+     * @return feign客户端实例信息列表
+     */
     @SuppressWarnings("unused")
     @ReadOperation
     public Collection<FeignClientInfo> getFeignInstances() {
@@ -94,6 +115,13 @@ public class FeignClientEndpoint {
                 .filter(Objects::nonNull).collect(Collectors.toList());
     }
 
+    /**
+     * 根据名称获取feign客户端实例信息
+     *
+     * @param arg0
+     *         bean名称
+     * @return feign客户端实例信息
+     */
     @SuppressWarnings("unused")
     @Nullable
     @ReadOperation

@@ -15,8 +15,17 @@ import org.apache.commons.lang3.StringUtils;
 @Slf4j
 public class LoadBalancerHeaderRequestInterceptor implements RequestInterceptor {
 
+    /**
+     * 版本控制配置
+     */
     private final VersionControlProperties properties;
 
+    /**
+     * 初始化负载均衡版本控制请求头注入拦截器
+     *
+     * @param properties
+     *         版本控制配置
+     */
     public LoadBalancerHeaderRequestInterceptor(VersionControlProperties properties) {
         this.properties = properties;
     }

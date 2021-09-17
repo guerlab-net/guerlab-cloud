@@ -16,8 +16,14 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 public class SendHandler<T> {
 
+    /**
+     * binding名称
+     */
     protected final String bindingName;
 
+    /**
+     * streamBridge实例
+     */
     protected final StreamBridge streamBridge;
 
     /**
@@ -62,6 +68,13 @@ public class SendHandler<T> {
         return streamBridge.send(bindingName, buildMessage(payload));
     }
 
+    /**
+     * 构造消息体
+     *
+     * @param payload
+     *         消息体内容
+     * @return 消息体
+     */
     protected Message<?> buildMessage(T payload) {
         if (payload instanceof Message<?>) {
             return (Message<?>) payload;

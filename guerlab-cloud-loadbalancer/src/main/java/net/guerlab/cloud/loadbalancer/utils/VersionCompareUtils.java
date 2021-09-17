@@ -53,18 +53,39 @@ import java.util.Objects;
 @Slf4j
 public class VersionCompareUtils {
 
+    /**
+     * 版本号内容间隔符
+     */
     private static final String INTERVAL = "\\.";
 
+    /**
+     * 分组间隔符
+     */
     private static final String GROUP = ",";
 
+    /**
+     * 左包含
+     */
     private static final String LEFT_CONTAIN = "[";
 
+    /**
+     * 右包含
+     */
     private static final String RIGHT_CONTAIN = "]";
 
+    /**
+     * 左不包含
+     */
     private static final String LEFT_NOT_CONTAIN = "(";
 
+    /**
+     * 右不包含
+     */
     private static final String RIGHT_NOT_CONTAIN = ")";
 
+    /**
+     * 分组尺寸
+     */
     private static final int GROUP_SIZE = 2;
 
     private VersionCompareUtils() {

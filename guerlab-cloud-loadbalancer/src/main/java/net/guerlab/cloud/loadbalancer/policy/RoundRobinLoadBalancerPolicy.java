@@ -13,6 +13,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class RoundRobinLoadBalancerPolicy extends AbstractLoadBalancerPolicy {
 
+    /**
+     * 当前偏移量
+     */
     private final AtomicInteger position = new AtomicInteger(new Random().nextInt(1000));
 
     @Override

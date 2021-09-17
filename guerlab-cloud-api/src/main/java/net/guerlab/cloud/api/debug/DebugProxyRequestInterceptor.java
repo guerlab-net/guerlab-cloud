@@ -29,14 +29,32 @@ import java.util.Objects;
 @Slf4j
 public class DebugProxyRequestInterceptor implements RequestInterceptor {
 
+    /**
+     * http scheme
+     */
     private static final String SCHEME_HTTP = "http://";
 
+    /**
+     * https scheme
+     */
     private static final String SCHEME_HTTPS = "https://";
 
+    /**
+     * 路径分隔符
+     */
     private static final String PATH_SEPARATOR = "/";
 
+    /**
+     * debug配置
+     */
     private final DebugProperties properties;
 
+    /**
+     * 初始化开发代理请求拦截器
+     *
+     * @param properties
+     *         debug配置
+     */
     public DebugProxyRequestInterceptor(DebugProperties properties) {
         this.properties = properties;
     }
@@ -71,6 +89,13 @@ public class DebugProxyRequestInterceptor implements RequestInterceptor {
         log.debug("proxy {} to {}", targetUrl, url);
     }
 
+    /**
+     * 判断是否为本地服务
+     *
+     * @param serviceName
+     *         服务名称
+     * @return 是否为本地服务
+     */
     private boolean isLocalService(String serviceName) {
         if (CollectionUtils.isEmpty(properties.getLocalServices())) {
             return false;

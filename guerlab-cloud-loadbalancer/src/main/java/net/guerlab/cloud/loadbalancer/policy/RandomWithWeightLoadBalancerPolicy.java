@@ -26,6 +26,13 @@ public class RandomWithWeightLoadBalancerPolicy extends AbstractLoadBalancerPoli
      */
     private static final List<String> WEIGHT_METADATA_KEYS = Arrays.asList("nacos.weight", "service.weight", "weight");
 
+    /**
+     * 获取权重
+     *
+     * @param metadata
+     *         元信息
+     * @return 权重
+     */
     private static double getWeight(@Nullable Map<String, String> metadata) {
         if (metadata == null || metadata.isEmpty()) {
             return DEFAULT_WEIGHT;

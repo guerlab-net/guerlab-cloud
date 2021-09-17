@@ -10,10 +10,16 @@ import net.guerlab.cloud.loadbalancer.properties.BaseRuleProperties;
 public abstract class BaseRule<P extends BaseRuleProperties> implements IRule {
 
     /**
-     * 排序
+     * 配置
      */
     protected final P properties;
 
+    /**
+     * 通过配置初始化策略
+     *
+     * @param properties
+     *         配置
+     */
     public BaseRule(P properties) {
         this.properties = properties;
     }
