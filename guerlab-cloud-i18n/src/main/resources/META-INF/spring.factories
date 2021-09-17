@@ -1,3 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 net.guerlab.cloud.commons.i18n.CommonsMultiMessageSourceProviderAutoConfigure,\
+net.guerlab.cloud.commons.i18n.MessageSourceAutoConfigure,\
 net.guerlab.cloud.commons.i18n.MultiMessageSourceAwareAutoConfigure
