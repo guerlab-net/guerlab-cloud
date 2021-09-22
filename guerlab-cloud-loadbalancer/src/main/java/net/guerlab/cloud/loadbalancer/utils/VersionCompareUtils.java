@@ -14,7 +14,9 @@ package net.guerlab.cloud.loadbalancer.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.lang.Nullable;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -231,14 +233,13 @@ public class VersionCompareUtils {
      *         待过滤字符串
      * @return 过滤后的字符串
      */
-    private static String versionStringFilter(String origin) {
-        origin = StringUtils.trimToEmpty(origin);
+    private static String versionStringFilter(@Nullable String origin) {
+        if (origin == null) {
+            return "";
+        }
         StringBuilder builder = new StringBuilder();
 
-        int i = 0;
-        int end = origin.length();
-        for (; i < end; i++) {
-            char cv = origin.charAt(i);
+        for (char cv : origin.toCharArray()) {
             boolean isNumber = cv >= '0' && cv <= '9';
             boolean isPoint = cv == '.';
             if (isNumber || isPoint) {
@@ -260,17 +261,11 @@ public class VersionCompareUtils {
      */
     private static Integer[] formatVersionString(String[] values, int length) {
         Integer[] result = new Integer[length];
+        Arrays.fill(result, 0);
 
-        int i = 0;
         int end = Math.min(values.length, length);
-        for (; i < end; i++) {
+        for (int i = 0; i < end; i++) {
             result[i] = stringToInteger(values[i]);
-        }
-
-        if (values.length < length) {
-            for (; i < length; i++) {
-                result[i] = 0;
-            }
         }
 
         return result;
