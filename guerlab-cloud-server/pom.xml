@@ -23,6 +23,7 @@
         <module>guerlab-cloud-server-openapi-webmvc</module>
         <module>guerlab-cloud-server-orm</module>
         <module>guerlab-cloud-server-sentinel</module>
+        <module>guerlab-cloud-server-web</module>
         <module>guerlab-cloud-server-webflux</module>
         <module>guerlab-cloud-server-webmvc</module>
     </modules>
