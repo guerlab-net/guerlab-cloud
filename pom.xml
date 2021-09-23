@@ -215,6 +215,11 @@
             </dependency>
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-server-web</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
                 <artifactId>guerlab-cloud-server-webflux</artifactId>
                 <type>pom</type>
                 <version>${revision}</version>
