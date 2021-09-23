@@ -26,7 +26,6 @@ import org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -54,7 +53,7 @@ public class CustomerLoadBalancerClientConfiguration {
      */
     @Bean
     public ReactorLoadBalancer<ServiceInstance> loadBalancer(Environment environment,
-            LoadBalancerClientFactory loadBalancerClientFactory, ObjectProvider<List<IRule>> ruleProvider,
+            LoadBalancerClientFactory loadBalancerClientFactory, ObjectProvider<IRule> ruleProvider,
             LoadBalancerProperties loadBalancerProperties, LoadBalancerPolicy policy) {
         String name = environment.getProperty(LoadBalancerClientFactory.PROPERTY_NAME);
         Objects.requireNonNull(name, LoadBalancerClientFactory.PROPERTY_NAME + " cannot be null");

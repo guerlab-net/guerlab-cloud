@@ -15,7 +15,10 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.MessageSource;
 import org.springframework.lang.Nullable;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * 保存操作记录切面
@@ -30,7 +33,7 @@ public class LogAop {
     /**
      * 日志处理对象提供者
      */
-    private final ObjectProvider<List<LogHandler>> logHandlersProvider;
+    private final ObjectProvider<LogHandler> logHandlersProvider;
 
     /**
      * messageSource
@@ -45,7 +48,7 @@ public class LogAop {
      * @param messageSource
      *         messageSource
      */
-    public LogAop(ObjectProvider<List<LogHandler>> logHandlersProvider, MessageSource messageSource) {
+    public LogAop(ObjectProvider<LogHandler> logHandlersProvider, MessageSource messageSource) {
         this.logHandlersProvider = logHandlersProvider;
         this.messageSource = messageSource;
     }
@@ -73,11 +76,7 @@ public class LogAop {
         } finally {
             Object pointResult = result;
             Throwable throwable = ex;
-            logHandlersProvider.ifUnique(handlers -> {
-                for (LogHandler handler : handlers) {
-                    logHandler(point, log, pointResult, throwable, handler);
-                }
-            });
+            logHandlersProvider.stream().forEach(handler -> logHandler(point, log, pointResult, throwable, handler));
         }
         return result;
     }

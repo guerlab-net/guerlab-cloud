@@ -8,8 +8,6 @@ import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfigura
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.AbstractResourceBasedMessageSource;
 
-import java.util.List;
-
 /**
  * 多消息源处理
  *
@@ -28,12 +26,11 @@ public class MultiMessageSourceAwareAutoConfigure {
      *         多消息源处理提供者列表
      */
     @Autowired
-    public void handler(MessageSource messageSource, ObjectProvider<List<MultiMessageSourceProvider>> listProvider) {
+    public void handler(MessageSource messageSource, ObjectProvider<MultiMessageSourceProvider> listProvider) {
         if (!(messageSource instanceof AbstractResourceBasedMessageSource)) {
             return;
         }
         AbstractResourceBasedMessageSource resourceBasedMessageSource = (AbstractResourceBasedMessageSource) messageSource;
-        listProvider.ifUnique(list -> list.stream().map(MultiMessageSourceProvider::get)
-                .forEach(resourceBasedMessageSource::addBasenames));
+        listProvider.stream().map(MultiMessageSourceProvider::get).forEach(resourceBasedMessageSource::addBasenames);
     }
 }

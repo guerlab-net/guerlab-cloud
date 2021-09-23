@@ -17,7 +17,6 @@ import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier;
 import org.springframework.lang.Nullable;
 import reactor.core.publisher.Mono;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,7 +41,7 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
     /**
      * 规则链提供者
      */
-    private final ObjectProvider<List<IRule>> ruleProvider;
+    private final ObjectProvider<IRule> ruleProvider;
 
     /**
      * 负载均衡配置
@@ -70,7 +69,7 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
      */
     public RuleChainReactiveLoadBalancer(String serviceId,
             ObjectProvider<ServiceInstanceListSupplier> serviceInstanceListSupplierProvider,
-            ObjectProvider<List<IRule>> ruleProvider, LoadBalancerProperties loadBalancerProperties,
+            ObjectProvider<IRule> ruleProvider, LoadBalancerProperties loadBalancerProperties,
             LoadBalancerPolicy policy) {
         this.serviceId = serviceId;
         this.serviceInstanceListSupplierProvider = serviceInstanceListSupplierProvider;
@@ -154,8 +153,7 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
      */
     @Nullable
     private List<ServiceInstance> ruleFilter(List<ServiceInstance> instances, Request<?> request) {
-        List<IRule> rules = ruleProvider.getIfUnique(Collections::emptyList).stream().filter(IRule::isEnabled).sorted()
-                .collect(Collectors.toList());
+        List<IRule> rules = ruleProvider.stream().filter(IRule::isEnabled).sorted().collect(Collectors.toList());
 
         if (rules.isEmpty()) {
             return instances;

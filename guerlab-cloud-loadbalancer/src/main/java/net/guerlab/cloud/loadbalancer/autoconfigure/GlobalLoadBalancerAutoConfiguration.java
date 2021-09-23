@@ -27,8 +27,7 @@ import org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 全局负载均衡自定义配置
@@ -45,7 +44,7 @@ public class GlobalLoadBalancerAutoConfiguration {
     /**
      * 负载均衡客户端说明列表提供者
      */
-    private final ObjectProvider<List<LoadBalancerClientSpecification>> configurations;
+    private final ObjectProvider<LoadBalancerClientSpecification> configurations;
 
     /**
      * 通过负载均衡客户端说明列表提供者初始化全局负载均衡自定义配置
@@ -53,7 +52,7 @@ public class GlobalLoadBalancerAutoConfiguration {
      * @param configurations
      *         负载均衡客户端说明列表提供者
      */
-    public GlobalLoadBalancerAutoConfiguration(ObjectProvider<List<LoadBalancerClientSpecification>> configurations) {
+    public GlobalLoadBalancerAutoConfiguration(ObjectProvider<LoadBalancerClientSpecification> configurations) {
         this.configurations = configurations;
     }
 
@@ -65,7 +64,7 @@ public class GlobalLoadBalancerAutoConfiguration {
     @Bean
     public LoadBalancerClientFactory customerLoadBalancerClientFactory() {
         CustomerLoadBalancerClientFactory clientFactory = new CustomerLoadBalancerClientFactory();
-        clientFactory.setConfigurations(this.configurations.getIfAvailable(Collections::emptyList));
+        clientFactory.setConfigurations(configurations.stream().collect(Collectors.toList()));
         return clientFactory;
     }
 }

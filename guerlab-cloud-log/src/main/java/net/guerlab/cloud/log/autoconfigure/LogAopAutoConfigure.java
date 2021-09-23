@@ -7,8 +7,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
-
 /**
  * 日志切面自动配置
  *
@@ -27,7 +25,7 @@ public class LogAopAutoConfigure {
      * @return 日志切面
      */
     @Bean
-    public LogAop logAop(ObjectProvider<List<LogHandler>> logHandlersProvider, MessageSource messageSource) {
+    public LogAop logAop(ObjectProvider<LogHandler> logHandlersProvider, MessageSource messageSource) {
         return new LogAop(logHandlersProvider, messageSource);
     }
 }
