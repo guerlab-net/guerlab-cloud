@@ -16,6 +16,8 @@ import net.guerlab.cloud.commons.entity.RsaKeys;
 import net.guerlab.commons.exception.ApplicationException;
 import org.springframework.lang.Nullable;
 
+import javax.crypto.Cipher;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -30,6 +32,21 @@ import java.util.Base64;
  * @author guer
  */
 public class RsaUtils {
+
+    /**
+     * 加密算法 RSA
+     */
+    public static final String KEY_ALGORITHM = "RSA";
+
+    /**
+     * RSA 最大加密明文长度
+     */
+    private static final int MAX_ENCRYPT_BLOCK = 245;
+
+    /**
+     * RSA 最大解密秘文长度
+     */
+    private static final int MAX_DECRYPT_BLOCK = 256;
 
     /**
      * 默认密钥长度
@@ -79,7 +96,7 @@ public class RsaUtils {
      */
     public static KeyPair createKeyPair(int keySize) {
         try {
-            KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance("RSA");
+            KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
             keyPairGen.initialize(keySize, new SecureRandom());
             return keyPairGen.generateKeyPair();
         } catch (Exception e) {
@@ -130,7 +147,7 @@ public class RsaUtils {
     public static PublicKey parsePublicKey(byte[] bytes) {
         try {
             X509EncodedKeySpec spec = new X509EncodedKeySpec(bytes);
-            KeyFactory factory = KeyFactory.getInstance("RSA");
+            KeyFactory factory = KeyFactory.getInstance(KEY_ALGORITHM);
             return factory.generatePublic(spec);
         } catch (Exception e) {
             throw new ApplicationException(e.getLocalizedMessage(), e);
@@ -158,7 +175,7 @@ public class RsaUtils {
     public static PrivateKey parsePrivateKey(byte[] bytes) {
         try {
             PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(bytes);
-            KeyFactory factory = KeyFactory.getInstance("RSA");
+            KeyFactory factory = KeyFactory.getInstance(KEY_ALGORITHM);
             return factory.generatePrivate(spec);
         } catch (Exception e) {
             throw new ApplicationException(e.getLocalizedMessage(), e);
@@ -332,5 +349,90 @@ public class RsaUtils {
         }
 
         return null;
+    }
+
+    /**
+     * 公钥加密
+     *
+     * @param data
+     *         待加密数据
+     * @param publicKey
+     *         公钥
+     * @return 加密后数据
+     */
+    public static byte[] encryptByPublicKey(byte[] data, PublicKey publicKey) {
+        return dataHandler(data, publicKey, Cipher.ENCRYPT_MODE, MAX_ENCRYPT_BLOCK);
+    }
+
+    /**
+     * 私钥加密
+     *
+     * @param data
+     *         待加密数据
+     * @param privateKey
+     *         私钥
+     * @return 加密后数据
+     */
+    public static byte[] encryptByPrivateKey(byte[] data, PrivateKey privateKey) {
+        return dataHandler(data, privateKey, Cipher.ENCRYPT_MODE, MAX_ENCRYPT_BLOCK);
+    }
+
+    /**
+     * 公钥解密
+     *
+     * @param data
+     *         待解密数据
+     * @param publicKey
+     *         公钥
+     * @return 解密后数据
+     */
+    public static byte[] decryptByPublicKey(byte[] data, PublicKey publicKey) {
+        return dataHandler(data, publicKey, Cipher.DECRYPT_MODE, MAX_DECRYPT_BLOCK);
+    }
+
+    /**
+     * 私钥解密
+     *
+     * @param data
+     *         待解密数据
+     * @param privateKey
+     *         私钥
+     * @return 解密后数据
+     */
+    public static byte[] decryptByPrivateKey(byte[] data, PrivateKey privateKey) {
+        return dataHandler(data, privateKey, Cipher.DECRYPT_MODE, MAX_DECRYPT_BLOCK);
+    }
+
+    /**
+     * 加密/解密处理
+     *
+     * @param data
+     *         待加密/解密数据
+     * @param key
+     *         密钥
+     * @param operationMode
+     *         操作方式
+     * @param size
+     *         单次处理长度
+     * @return 处理后数据
+     */
+    private static byte[] dataHandler(byte[] data, Key key, int operationMode, int size) {
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+            Cipher cipher = Cipher.getInstance(KEY_ALGORITHM);
+            cipher.init(operationMode, key);
+
+            byte[] cache;
+            int start = 0;
+            int end;
+            while ((end = data.length - start) > 0) {
+                cache = cipher.doFinal(data, start, Math.min(end, size));
+                out.write(cache, 0, cache.length);
+                start += size;
+            }
+
+            return out.toByteArray();
+        } catch (Exception e) {
+            throw new ApplicationException(e.getLocalizedMessage(), e);
+        }
     }
 }
