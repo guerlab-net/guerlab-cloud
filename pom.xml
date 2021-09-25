@@ -176,6 +176,13 @@
                 <version>${revision}</version>
             </dependency>
 
+            <!-- guerlab-cloud rsa -->
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-rsa</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
             <!-- guerlab-cloud server -->
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
@@ -307,6 +314,7 @@
         <module>guerlab-cloud-i18n</module>
         <module>guerlab-cloud-loadbalancer</module>
         <module>guerlab-cloud-log</module>
+        <module>guerlab-cloud-rsa</module>
         <module>guerlab-cloud-server</module>
         <module>guerlab-cloud-stream</module>
     </modules>

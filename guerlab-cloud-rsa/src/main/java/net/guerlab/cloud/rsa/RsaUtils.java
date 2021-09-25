@@ -10,10 +10,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.commons.util;
+package net.guerlab.cloud.rsa;
 
-import net.guerlab.cloud.commons.entity.RsaKeys;
-import net.guerlab.commons.exception.ApplicationException;
 import org.springframework.lang.Nullable;
 
 import javax.crypto.Cipher;
@@ -100,7 +98,7 @@ public class RsaUtils {
             keyPairGen.initialize(keySize, new SecureRandom());
             return keyPairGen.generateKeyPair();
         } catch (Exception e) {
-            throw new ApplicationException(e.getLocalizedMessage(), e);
+            throw new RuntimeException(e.getLocalizedMessage(), e);
         }
     }
 
@@ -150,7 +148,7 @@ public class RsaUtils {
             KeyFactory factory = KeyFactory.getInstance(KEY_ALGORITHM);
             return factory.generatePublic(spec);
         } catch (Exception e) {
-            throw new ApplicationException(e.getLocalizedMessage(), e);
+            throw new RuntimeException(e.getLocalizedMessage(), e);
         }
     }
 
@@ -178,7 +176,7 @@ public class RsaUtils {
             KeyFactory factory = KeyFactory.getInstance(KEY_ALGORITHM);
             return factory.generatePrivate(spec);
         } catch (Exception e) {
-            throw new ApplicationException(e.getLocalizedMessage(), e);
+            throw new RuntimeException(e.getLocalizedMessage(), e);
         }
     }
 
@@ -432,7 +430,7 @@ public class RsaUtils {
 
             return out.toByteArray();
         } catch (Exception e) {
-            throw new ApplicationException(e.getLocalizedMessage(), e);
+            throw new RuntimeException(e.getLocalizedMessage(), e);
         }
     }
 }

@@ -10,11 +10,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.commons.entity;
+package net.guerlab.cloud.rsa;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
-import net.guerlab.cloud.commons.util.RsaUtils;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
