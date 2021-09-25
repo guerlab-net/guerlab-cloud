@@ -13,7 +13,6 @@
 package net.guerlab.cloud.auth.web.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.auth.AbstractContextHandler;
 import net.guerlab.cloud.auth.web.properties.AuthWebProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
@@ -42,13 +41,7 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebPropertie
     }
 
     @Override
-    protected void preHandle0(HttpServletRequest request, HandlerMethod handlerMethod) {
-        String token = AbstractContextHandler.getToken();
-        if (token == null) {
-            log.debug("token is empty");
-            return;
-        }
-
+    protected void preHandleWithToken(HttpServletRequest request, HandlerMethod handlerMethod, String token) {
         boolean accept = accept(token, request);
 
         log.debug("token preHandler[instance = {}, accept = {}, token = {}]", getClass(), accept, token);
