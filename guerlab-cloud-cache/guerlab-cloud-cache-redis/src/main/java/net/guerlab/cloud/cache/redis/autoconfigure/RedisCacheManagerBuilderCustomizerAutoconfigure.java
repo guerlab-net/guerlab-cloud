@@ -59,6 +59,8 @@ public class RedisCacheManagerBuilderCustomizerAutoconfigure {
     /**
      * 构造默认redis缓存配置
      *
+     * @param cacheProperties
+     *         缓存配置
      * @return 默认redis缓存配置
      */
     @Bean
