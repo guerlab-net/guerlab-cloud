@@ -179,7 +179,9 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
      * 获取令牌失败前置处理
      */
     protected void preHandleWithoutToken() {
-
+        /*
+         * 默认空处理
+         */
     }
 
     private boolean uriMatch(HttpServletRequest request) {
