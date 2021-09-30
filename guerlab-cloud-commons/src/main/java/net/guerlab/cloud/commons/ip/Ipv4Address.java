@@ -13,17 +13,16 @@
 package net.guerlab.cloud.commons.ip;
 
 import lombok.Getter;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
+
+import java.util.Objects;
 
 /**
  * ipv4地址
  *
  * @author guer
  */
-@SuppressWarnings("unused")
 @Getter
-public class Ipv4Address implements IpAddress, Ipv4 {
+public class Ipv4Address implements Ipv4, IpSingleAddress {
 
     /**
      * 类型
@@ -35,92 +34,34 @@ public class Ipv4Address implements IpAddress, Ipv4 {
      */
     private final long ipAddress;
 
-    public Ipv4Address() {
-        this(0);
+    /**
+     * 根据IPv4地址字符串构造IPv4地址对象
+     *
+     * @param ipAddressStr
+     *         IPv4地址字符串
+     */
+    Ipv4Address(String ipAddressStr) {
+        this(IpUtils.parseIpv4Address(ipAddressStr));
     }
 
-    public Ipv4Address(String ipAddressStr) {
-        this(parseIpAddress(ipAddressStr));
-    }
-
-    public Ipv4Address(long address) {
+    /**
+     * 根据IPv4地址构造IPv4地址对象
+     *
+     * @param address
+     *         IPv4地址
+     */
+    Ipv4Address(long address) {
         this.ipAddress = address;
     }
 
-    /**
-     * 将数值类型地址转变为字符串格式地址
-     *
-     * @param ipAddress
-     *         数值类型地址
-     * @return 字符串格式地址
-     */
-    public static String convertString(long ipAddress) {
-        StringBuilder result = new StringBuilder();
-        long temp;
-        temp = ipAddress >> 24 & 255;
-        result.append(temp);
-        result.append(".");
-        temp = ipAddress >> 16 & 255;
-        result.append(temp);
-        result.append(".");
-        temp = ipAddress >> 8 & 255;
-        result.append(temp);
-        result.append(".");
-        temp = ipAddress & 255;
-        result.append(temp);
-        return result.toString();
+    @Override
+    public long getStartAddress() {
+        return ipAddress;
     }
 
-    /**
-     * 解析字符串格式地址
-     *
-     * @param ipAddressStr
-     *         字符串格式地址
-     * @return 数值类型地址
-     */
-    public static long parseIpAddress(String ipAddressStr) {
-        ipAddressStr = StringUtils.trimToNull(ipAddressStr);
-        if (ipAddressStr == null) {
-            throw new IllegalArgumentException();
-        }
-
-        String ex = ipAddressStr;
-        long offset = 24;
-        long result = 0;
-        int index;
-        for (int segments = 0; segments < SEGMENTS_SIZE; ++segments) {
-            index = ex.indexOf('.');
-            if (index == -1) {
-                throwException(ipAddressStr);
-            }
-
-            String numberStr = ex.substring(0, index);
-            long number1 = Integer.parseInt(numberStr);
-            valueCheck(ipAddressStr, number1);
-
-            result += number1 << offset;
-            offset -= 8;
-            ex = ex.substring(index + 1);
-        }
-
-        if (StringUtils.isBlank(ex) || !NumberUtils.isCreatable(ex)) {
-            throwException(ipAddressStr);
-        }
-        long number = Integer.parseInt(ex);
-        valueCheck(ipAddressStr, number);
-        result += number << offset;
-
-        return result;
-    }
-
-    private static void valueCheck(String ipAddressStr, long value) {
-        if (value < 0 || value > MAX_VALUE) {
-            throwException(ipAddressStr);
-        }
-    }
-
-    private static void throwException(String ipAddressStr) {
-        throw new IllegalArgumentException("Invalid IP Address [" + ipAddressStr + "]");
+    @Override
+    public long getEndAddress() {
+        return ipAddress;
     }
 
     @Override
@@ -139,13 +80,11 @@ public class Ipv4Address implements IpAddress, Ipv4 {
 
     @Override
     public int hashCode() {
-        int result = 271;
-        result = 31 * result + (int) (ipAddress ^ (ipAddress >>> 32));
-        return result;
+        return Objects.hashCode(ipAddress);
     }
 
     @Override
     public String toString() {
-        return convertString(this.ipAddress);
+        return IpUtils.convertIpv4String(this.ipAddress);
     }
 }

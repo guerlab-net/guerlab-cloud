@@ -28,6 +28,10 @@ import java.util.stream.Collectors;
 /**
  * 抽象字符串类型值 token工厂
  *
+ * @param <T>
+ *         数据实体类型
+ * @param <P>
+ *         配置类型
  * @author guer
  */
 public abstract class AbstractStringValueTokenFactory<T, P extends StringValueTokenFactoryProperties>

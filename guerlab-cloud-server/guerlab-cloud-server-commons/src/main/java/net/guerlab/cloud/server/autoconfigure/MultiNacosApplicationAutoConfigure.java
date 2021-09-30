@@ -37,18 +37,44 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 @Configuration
 @EnableConfigurationProperties(NacosServerProperties.class)
-public class MultiNacosApplicationAutoConfigure implements ApplicationListener<WebServerInitializedEvent>, DisposableBean {
+public class MultiNacosApplicationAutoConfigure
+        implements ApplicationListener<WebServerInitializedEvent>, DisposableBean {
 
+    /**
+     * 服务注册与发现服务器
+     */
     private final NamingService namingService;
 
+    /**
+     * 服务发现配置
+     */
     private final NacosDiscoveryProperties discoveryProperties;
 
+    /**
+     * 服务注册与发现服务器配置
+     */
     private final NacosServerProperties serverProperties;
 
+    /**
+     * 实例缓存
+     */
     private final Map<String, Instance> instanceMap = new HashMap<>();
 
+    /**
+     * 项目端口
+     */
     private final AtomicInteger port = new AtomicInteger(0);
 
+    /**
+     * 通过服务注册与发现服务器配置、服务发现配置初始化、nacos服务管理初始化多实例注册自动配置
+     *
+     * @param serverProperties
+     *         服务注册与发现服务器配置
+     * @param discoveryProperties
+     *         服务发现配置
+     * @param nacosServiceManager
+     *         nacos服务管理
+     */
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public MultiNacosApplicationAutoConfigure(NacosServerProperties serverProperties,
             NacosDiscoveryProperties discoveryProperties, NacosServiceManager nacosServiceManager) {
@@ -68,6 +94,14 @@ public class MultiNacosApplicationAutoConfigure implements ApplicationListener<W
         serverProperties.getAppNames().forEach(appName -> registerInstance(appName, discoveryProperties));
     }
 
+    /**
+     * 注册实例
+     *
+     * @param appName
+     *         应用名称
+     * @param discoveryProperties
+     *         服务发现配置
+     */
     private void registerInstance(String appName, NacosDiscoveryProperties discoveryProperties) {
         String clusterName = StringUtils.trimToNull(appName);
         if (clusterName == null) {

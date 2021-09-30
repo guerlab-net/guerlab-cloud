@@ -12,13 +12,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 版本匹配
+ * 版本匹配规则
  *
  * @author guer
  */
 @SuppressWarnings("unchecked")
 public class VersionMatchRule extends BaseRule<VersionControlProperties> {
 
+    /**
+     * 通过版本控制配置初始化版本匹配规则
+     *
+     * @param properties
+     *         版本控制配置
+     */
     public VersionMatchRule(VersionControlProperties properties) {
         super(properties);
     }
@@ -44,6 +50,17 @@ public class VersionMatchRule extends BaseRule<VersionControlProperties> {
         return list != null ? list : instances;
     }
 
+    /**
+     * 通过请求版本获取实例列表
+     *
+     * @param instances
+     *         原始实例列表
+     * @param requestVersion
+     *         请求版本
+     * @param metadataKey
+     *         版本元信息key
+     * @return 实例列表
+     */
     @Nullable
     private List<ServiceInstance> getInstancesWithRequestVersion(List<ServiceInstance> instances, String requestVersion,
             String metadataKey) {

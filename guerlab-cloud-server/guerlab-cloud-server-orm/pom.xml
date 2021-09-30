@@ -30,12 +30,5 @@
             <groupId>net.guerlab.spring</groupId>
             <artifactId>guerlab-spring-searchparams-mybatisplus</artifactId>
         </dependency>
-
-        <!-- Seata -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-            <optional>true</optional>
-        </dependency>
     </dependencies>
 </project>

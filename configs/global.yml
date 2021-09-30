@@ -1,9 +1,6 @@
 spring:
   messages:
-    basename: |
-      messages/basic,
-      messages/commons,
-      messages/searchparams
+    basename: messages/*
   jackson:
     serialization:
       fail-on-empty-beans: false

@@ -18,6 +18,10 @@ import net.guerlab.commons.encrypt.AuthCodeHelper;
 /**
  * 抽象rc4 token工厂
  *
+ * @param <T>
+ *         数据实体类型
+ * @param <P>
+ *         配置类型
  * @author guer
  */
 public abstract class AbstractRc4TokenFactory<T, P extends Rc4TokenFactoryProperties>

@@ -26,7 +26,7 @@ import org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
-import java.util.List;
+import java.util.Objects;
 
 /**
  * 自定义负载均衡客户端配置
@@ -53,9 +53,10 @@ public class CustomerLoadBalancerClientConfiguration {
      */
     @Bean
     public ReactorLoadBalancer<ServiceInstance> loadBalancer(Environment environment,
-            LoadBalancerClientFactory loadBalancerClientFactory, ObjectProvider<List<IRule>> ruleProvider,
+            LoadBalancerClientFactory loadBalancerClientFactory, ObjectProvider<IRule> ruleProvider,
             LoadBalancerProperties loadBalancerProperties, LoadBalancerPolicy policy) {
         String name = environment.getProperty(LoadBalancerClientFactory.PROPERTY_NAME);
+        Objects.requireNonNull(name, LoadBalancerClientFactory.PROPERTY_NAME + " cannot be null");
         return new RuleChainReactiveLoadBalancer(name,
                 loadBalancerClientFactory.getLazyProvider(name, ServiceInstanceListSupplier.class), ruleProvider,
                 loadBalancerProperties, policy);

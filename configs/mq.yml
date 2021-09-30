@@ -1,5 +1,20 @@
 spring:
+  cloud:
+    function:
+      definition: ##基于spring cloud function的消费方法bean名称列表，使用";"进行分割，如:onUserAdd;onUserUpdate
   rabbitmq:
     host: ${mq.host}
     username: ${mq.username}
     password: ${mq.password}
+    listener:
+      type: simple
+      simple:
+        acknowledge-mode: auto
+        retry:
+          enabled: true
+          max-attempts: 3
+      direct:
+        acknowledge-mode: auto
+        retry:
+          enabled: true
+          max-attempts: 3

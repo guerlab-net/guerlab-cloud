@@ -19,6 +19,14 @@ public class ClusterSameRule extends BaseRule<ClusterSameProperties> {
      */
     private final String clusterName;
 
+    /**
+     * 通过集群名称和相同集群配置初始化相同集群策略
+     *
+     * @param clusterName
+     *         集群名称
+     * @param properties
+     *         相同集群配置
+     */
     public ClusterSameRule(String clusterName, ClusterSameProperties properties) {
         super(properties);
         this.clusterName = clusterName;

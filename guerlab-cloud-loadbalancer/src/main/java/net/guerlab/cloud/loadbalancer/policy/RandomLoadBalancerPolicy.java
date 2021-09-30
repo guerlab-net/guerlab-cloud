@@ -1,7 +1,6 @@
 package net.guerlab.cloud.loadbalancer.policy;
 
 import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.lang.Nullable;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -11,15 +10,10 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author guer
  */
-public class RandomLoadBalancerPolicy implements LoadBalancerPolicy {
+public class RandomLoadBalancerPolicy extends AbstractLoadBalancerPolicy {
 
     @Override
-    public ServiceInstance choose(@Nullable List<ServiceInstance> instances) {
-        if (instances == null || instances.isEmpty()) {
-            return null;
-        } else if (instances.size() == 1) {
-            return instances.get(0);
-        }
+    protected ServiceInstance choose0(List<ServiceInstance> instances) {
         return instances.get(ThreadLocalRandom.current().nextInt(instances.size()));
     }
 }

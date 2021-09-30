@@ -15,8 +15,11 @@ package net.guerlab.cloud.server.sentinel.autoconfigure;
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import net.guerlab.commons.exception.ApplicationException;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +31,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author guer
  */
 @Configuration
-public class BlockExceptionHandlerAutoconfigure {
+@ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
+public class ServletExceptionHandlerAutoconfigure {
 
     /**
      * 构造自定义限流处理
@@ -51,6 +55,14 @@ public class BlockExceptionHandlerAutoconfigure {
 
         @Override
         public void handle(HttpServletRequest request, HttpServletResponse response, BlockException ex) {
+            if (HttpMethod.GET.matches(request.getMethod())) {
+                String queryString = StringUtils.trimToNull(request.getQueryString());
+
+                if (queryString != null) {
+                    request.getRequestURL().append("?").append(request.getQueryString());
+                }
+            }
+
             throw new ApplicationException(DEFAULT_BLOCK_MSG_PREFIX + ex.getClass().getSimpleName(),
                     HttpStatus.TOO_MANY_REQUESTS.value());
         }

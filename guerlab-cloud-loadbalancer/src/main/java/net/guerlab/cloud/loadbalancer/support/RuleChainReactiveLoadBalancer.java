@@ -17,7 +17,6 @@ import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier;
 import org.springframework.lang.Nullable;
 import reactor.core.publisher.Mono;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,19 +28,48 @@ import java.util.stream.Collectors;
 @Slf4j
 public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoadBalancer {
 
+    /**
+     * 服务ID
+     */
     private final String serviceId;
 
+    /**
+     * 服务实例列表供应
+     */
     private final ObjectProvider<ServiceInstanceListSupplier> serviceInstanceListSupplierProvider;
 
-    private final ObjectProvider<List<IRule>> ruleProvider;
+    /**
+     * 规则链提供者
+     */
+    private final ObjectProvider<IRule> ruleProvider;
 
+    /**
+     * 负载均衡配置
+     */
     private final LoadBalancerProperties loadBalancerProperties;
 
+    /**
+     * 负载均衡策略
+     */
     private final LoadBalancerPolicy policy;
 
+    /**
+     * 初始化基于规则链的负责均衡的实现
+     *
+     * @param serviceId
+     *         服务ID
+     * @param serviceInstanceListSupplierProvider
+     *         服务实例列表供应
+     * @param ruleProvider
+     *         规则链提供者
+     * @param loadBalancerProperties
+     *         负载均衡配置
+     * @param policy
+     *         负载均衡策略
+     */
     public RuleChainReactiveLoadBalancer(String serviceId,
             ObjectProvider<ServiceInstanceListSupplier> serviceInstanceListSupplierProvider,
-            ObjectProvider<List<IRule>> ruleProvider, LoadBalancerProperties loadBalancerProperties,
+            ObjectProvider<IRule> ruleProvider, LoadBalancerProperties loadBalancerProperties,
             LoadBalancerPolicy policy) {
         this.serviceId = serviceId;
         this.serviceInstanceListSupplierProvider = serviceInstanceListSupplierProvider;
@@ -62,10 +90,24 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
         });
     }
 
+    /**
+     * 获取服务实例列表供应
+     *
+     * @return 服务实例列表供应
+     */
     private ServiceInstanceListSupplier getSupplier() {
         return serviceInstanceListSupplierProvider.getIfAvailable(NoopServiceInstanceListSupplier::new);
     }
 
+    /**
+     * 构造响应
+     *
+     * @param instances
+     *         实例列表
+     * @param request
+     *         请求
+     * @return 响应
+     */
     private Response<ServiceInstance> buildResponse(List<ServiceInstance> instances, Request<?> request) {
         ServiceInstance instance;
         if (instances.isEmpty()) {
@@ -79,6 +121,11 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
         }
     }
 
+    /**
+     * 空响应
+     *
+     * @return 空响应
+     */
     private Response<ServiceInstance> emptyResponse() {
         log.debug("No servers available for service: " + serviceId);
         return new EmptyResponse();
@@ -106,8 +153,7 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
      */
     @Nullable
     private List<ServiceInstance> ruleFilter(List<ServiceInstance> instances, Request<?> request) {
-        List<IRule> rules = ruleProvider.getIfUnique(Collections::emptyList).stream().filter(IRule::isEnabled).sorted()
-                .collect(Collectors.toList());
+        List<IRule> rules = ruleProvider.stream().filter(IRule::isEnabled).sorted().collect(Collectors.toList());
 
         if (rules.isEmpty()) {
             return instances;

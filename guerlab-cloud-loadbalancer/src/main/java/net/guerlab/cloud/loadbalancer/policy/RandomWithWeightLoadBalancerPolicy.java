@@ -6,9 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.lang.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 加权随机负载均衡策略
@@ -16,34 +14,51 @@ import java.util.Map;
  * @author guer
  */
 @Slf4j
-public class RandomWithWeightLoadBalancerPolicy implements LoadBalancerPolicy {
+public class RandomWithWeightLoadBalancerPolicy extends AbstractLoadBalancerPolicy {
 
-    @Override
-    public ServiceInstance choose(@Nullable List<ServiceInstance> instances) {
-        if (instances == null || instances.isEmpty()) {
-            return null;
-        } else if (instances.size() == 1) {
-            return instances.get(0);
+    /**
+     * 默认权重
+     */
+    private static final double DEFAULT_WEIGHT = 1.0;
+
+    /**
+     * 权重key列表
+     */
+    private static final List<String> WEIGHT_METADATA_KEYS = Arrays.asList("nacos.weight", "service.weight", "weight");
+
+    /**
+     * 获取权重
+     *
+     * @param metadata
+     *         元信息
+     * @return 权重
+     */
+    private static double getWeight(@Nullable Map<String, String> metadata) {
+        if (metadata == null || metadata.isEmpty()) {
+            return DEFAULT_WEIGHT;
         }
-        List<Pair<ServiceInstance>> instancesWithWeight = new ArrayList<>();
-        for (ServiceInstance instance : instances) {
-            instancesWithWeight.add(new Pair<>(instance, getWeight(instance)));
-        }
-        Chooser<String, ServiceInstance> vipChooser = new Chooser<>("randomWithWeight");
-        vipChooser.refresh(instancesWithWeight);
-        return vipChooser.randomWithWeight();
+
+        return WEIGHT_METADATA_KEYS.stream().map(key -> parseWeight(metadata, key)).filter(Objects::nonNull).findFirst()
+                .orElse(DEFAULT_WEIGHT);
     }
 
-    private double getWeight(ServiceInstance instance) {
-        Map<String, String> metadata = instance.getMetadata();
-        if (metadata == null || metadata.isEmpty()) {
-            return 1;
-        }
-
+    @Nullable
+    private static Double parseWeight(Map<String, String> metadata, String key) {
         try {
-            return Double.parseDouble(metadata.get("nacos.weight"));
+            return Double.parseDouble(metadata.get(key));
         } catch (Exception e) {
-            return 1;
+            return null;
         }
+    }
+
+    @Override
+    protected ServiceInstance choose0(List<ServiceInstance> instances) {
+        List<Pair<ServiceInstance>> instancesWithWeight = new ArrayList<>();
+        for (ServiceInstance instance : instances) {
+            instancesWithWeight.add(new Pair<>(instance, getWeight(instance.getMetadata())));
+        }
+        Chooser<String, ServiceInstance> chooser = new Chooser<>("randomWithWeight");
+        chooser.refresh(instancesWithWeight);
+        return chooser.randomWithWeight();
     }
 }

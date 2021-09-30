@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
  *
  * @author guer
  */
-@SuppressWarnings({ "AlibabaLowerCamelCaseVariableNaming", "unused" })
 public class IpUtils {
 
     private static final String UNKNOWN = "unknown";
@@ -39,34 +38,53 @@ public class IpUtils {
 
     }
 
-    public static boolean inList(@Nullable Collection<String> ips, @Nullable String ip) {
-        if (ips == null || ips.isEmpty() || ip == null) {
+    /**
+     * 判断某个IP是否在指定的IP范围中
+     *
+     * @param ips
+     *         IP范围
+     * @param targetIp
+     *         目标IP
+     * @return 是否在指定的IP范围中
+     */
+    public static boolean inList(@Nullable Collection<String> ips, @Nullable String targetIp) {
+        if (ips == null || ips.isEmpty() || targetIp == null) {
             return false;
         }
 
-        Ipv4Address address;
-        try {
-            address = new Ipv4Address(ip);
-        } catch (Exception e) {
+        IpSingleAddress target = parseIpSingleAddress(targetIp);
+        if (target == null) {
             return false;
         }
-        Collection<Ipv4AddressRange> ranges = ips.stream().map(IpUtils::buildIPv4AddressRange).filter(Objects::nonNull)
+
+        Collection<IpAddress> ranges = ips.stream().map(IpUtils::parseIpRangeAddress).filter(Objects::nonNull)
                 .collect(Collectors.toList());
-
         if (ranges.isEmpty()) {
             return false;
         }
 
-        final Ipv4Address iPv4Address = address;
-
-        return ips.stream().map(IpUtils::buildIPv4AddressRange).filter(Objects::nonNull)
-                .anyMatch(range -> range.contains(iPv4Address));
+        return ranges.stream().anyMatch(range -> range.contains(target));
     }
 
     @Nullable
-    private static Ipv4AddressRange buildIPv4AddressRange(String ipRange) {
+    private static IpSingleAddress parseIpSingleAddress(String ip) {
         try {
-            return new Ipv4AddressRange(ipRange);
+            if (Ipv4Utils.isIpv4(ip)) {
+                return new Ipv4Address(ip);
+            }
+            return null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Nullable
+    private static IpAddress parseIpRangeAddress(String ip) {
+        try {
+            if (Ipv4Utils.isIpv4(ip)) {
+                return parseIpv4(ip);
+            }
+            return null;
         } catch (Exception e) {
             return null;
         }
@@ -79,6 +97,7 @@ public class IpUtils {
      *         请求
      * @return ip地址
      */
+    @SuppressWarnings("unused")
     public static String getIp(HttpServletRequest request) {
         for (String headerName : HEADERS) {
             String ip = getIpByHeader(request, headerName);
@@ -114,5 +133,62 @@ public class IpUtils {
 
     private static boolean isNull(String ip) {
         return StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip);
+    }
+
+    /**
+     * 解析ipv4地址
+     *
+     * @param address
+     *         IP地址
+     * @return IP地址
+     */
+    public static Ipv4 parseIpv4(long address) {
+        return Ipv4Utils.parseIpv4(address);
+    }
+
+    /**
+     * 解析ipv4地址
+     *
+     * @param address
+     *         IP地址
+     * @return IP地址
+     */
+    public static Ipv4 parseIpv4(String address) {
+        return Ipv4Utils.parseIpv4(address);
+    }
+
+    /**
+     * 通过起始地址和结束地址构造IPv4掩码地址
+     *
+     * @param startAddress
+     *         起始地址
+     * @param endAddress
+     *         结束地址
+     * @return IPv4掩码地址
+     */
+    public static long calculationIpv4Mask(long startAddress, long endAddress) {
+        return Ipv4Utils.calculationIpv4Mask(startAddress, endAddress);
+    }
+
+    /**
+     * 将数值类型地址转变为字符串格式地址
+     *
+     * @param ipAddress
+     *         数值类型地址
+     * @return 字符串格式地址
+     */
+    public static String convertIpv4String(long ipAddress) {
+        return Ipv4Utils.convertIpv4String(ipAddress);
+    }
+
+    /**
+     * 解析IPv4字符串格式地址
+     *
+     * @param ipAddressStr
+     *         字符串格式地址
+     * @return 数值类型地址
+     */
+    public static long parseIpv4Address(String ipAddressStr) {
+        return Ipv4Utils.parseIpv4Address(ipAddressStr);
     }
 }

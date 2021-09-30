@@ -39,7 +39,7 @@ public class TokenFactoryManager {
      * @param entityClass
      *         实体类型
      * @param <T>
-     *         实体类型
+     *         数据实体类型
      * @return token工厂列表
      */
     public static <T> Collection<TokenFactory<T>> getTokenFactories(Class<T> entityClass) {
@@ -52,7 +52,7 @@ public class TokenFactoryManager {
      * @param entityClass
      *         实体类型
      * @param <T>
-     *         实体类型
+     *         数据实体类型
      * @return token工厂
      */
     public static <T> TokenFactory<T> getDefaultTokenFactory(Class<T> entityClass) {

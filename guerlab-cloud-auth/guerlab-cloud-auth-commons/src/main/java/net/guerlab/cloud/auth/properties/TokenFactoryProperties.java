@@ -20,12 +20,10 @@ import java.util.Collections;
 /**
  * token 工厂配置
  *
- * @param <K>
- *         密钥类型
  * @author guer
  */
 @Data
-public class TokenFactoryProperties<K> {
+public class TokenFactoryProperties {
 
     /**
      * 启用标志
@@ -51,16 +49,6 @@ public class TokenFactoryProperties<K> {
      * 拒绝的IP列表
      */
     private Collection<String> denyIpList = Collections.emptyList();
-
-    /**
-     * accessToken key
-     */
-    private K accessTokenKey;
-
-    /**
-     * refreshToken key
-     */
-    private K refreshTokenKey;
 
     /**
      * accessToken 过期时间

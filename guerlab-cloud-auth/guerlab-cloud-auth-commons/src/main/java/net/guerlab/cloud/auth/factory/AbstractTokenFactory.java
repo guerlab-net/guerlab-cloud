@@ -17,17 +17,20 @@ import net.guerlab.cloud.auth.properties.TokenFactoryProperties;
 import net.guerlab.cloud.commons.ip.IpUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Collection;
 
 /**
  * 抽象token工厂
  *
  * @param <T>
- *         token实体类型
+ *         数据实体类型
  * @param <P>
  *         配置类型
  * @author guer
  */
-public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties<?>> implements TokenFactory<T> {
+public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> implements TokenFactory<T> {
 
     /**
      * 配置文件
@@ -62,11 +65,8 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties<?
             return false;
         }
 
-        if (properties.getAllowIpList() == null || properties.getAllowIpList().isEmpty()) {
-            return true;
-        }
-
-        return IpUtils.inList(properties.getAllowIpList(), ip);
+        Collection<String> allowIpList = properties.getAllowIpList();
+        return CollectionUtils.isEmpty(allowIpList) || IpUtils.inList(allowIpList, ip);
     }
 
     @Override

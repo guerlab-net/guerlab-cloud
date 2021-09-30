@@ -12,10 +12,11 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.context.MessageSource;
 import org.springframework.lang.Nullable;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -29,12 +30,40 @@ public class LogAop {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LogAop.class);
 
-    private final ObjectProvider<List<LogHandler>> logHandlersProvider;
+    /**
+     * 日志处理对象提供者
+     */
+    private final ObjectProvider<LogHandler> logHandlersProvider;
 
-    public LogAop(ObjectProvider<List<LogHandler>> logHandlersProvider) {
+    /**
+     * messageSource
+     */
+    private final MessageSource messageSource;
+
+    /**
+     * 通过日志处理对象提供者和messageSource初始化日期处理切面
+     *
+     * @param logHandlersProvider
+     *         日志处理对象提供者
+     * @param messageSource
+     *         messageSource
+     */
+    public LogAop(ObjectProvider<LogHandler> logHandlersProvider, MessageSource messageSource) {
         this.logHandlersProvider = logHandlersProvider;
+        this.messageSource = messageSource;
     }
 
+    /**
+     * 日志处理
+     *
+     * @param point
+     *         切入点
+     * @param log
+     *         日志注解
+     * @return 方法返回信息
+     * @throws Throwable
+     *         当方法内部抛出异常时候抛出Throwable
+     */
     @Around("@annotation(log) && !@annotation(net.guerlab.cloud.auth.annotation.IgnoreLogin)")
     public Object handler(ProceedingJoinPoint point, Log log) throws Throwable {
         Object result = null;
@@ -47,11 +76,7 @@ public class LogAop {
         } finally {
             Object pointResult = result;
             Throwable throwable = ex;
-            logHandlersProvider.ifUnique(handlers -> {
-                for (LogHandler handler : handlers) {
-                    logHandler(point, log, pointResult, throwable, handler);
-                }
-            });
+            logHandlersProvider.stream().forEach(handler -> logHandler(point, log, pointResult, throwable, handler));
         }
         return result;
     }
@@ -98,10 +123,17 @@ public class LogAop {
             params.put(parameterNames[i], args[i]);
         }
 
+        logContent = parseLogContent(logContent, args);
+
         try {
             handler.handler(logContent, method, uri, params, result, ex);
         } catch (Exception e) {
             LOGGER.debug(e.getLocalizedMessage(), e);
         }
+    }
+
+    private String parseLogContent(String logContent, Object[] args) {
+        String message = messageSource.getMessage(logContent, args, logContent, Locale.getDefault());
+        return message == null ? logContent : message;
     }
 }

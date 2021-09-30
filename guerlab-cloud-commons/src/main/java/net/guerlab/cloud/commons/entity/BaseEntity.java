@@ -18,6 +18,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 /**
  * 基础实体
  *
@@ -26,13 +28,13 @@ import lombok.Setter;
 @Setter
 @Getter
 @Schema(name = "BaseEntity", description = "基础实体")
-public abstract class BaseEntity {
+public abstract class BaseEntity implements Serializable {
 
     /**
      * 乐观锁版本
      */
     @Version
-    @Schema(description = "乐观锁版本", accessMode = Schema.AccessMode.READ_ONLY)
+    @Schema(hidden = true)
     @JsonIgnore
     protected Long version;
 }

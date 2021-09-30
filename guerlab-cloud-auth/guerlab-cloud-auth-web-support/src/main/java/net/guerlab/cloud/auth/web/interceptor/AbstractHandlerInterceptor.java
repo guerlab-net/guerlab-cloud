@@ -105,7 +105,9 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 
             if (token != null) {
                 AbstractContextHandler.setToken(token);
-                preHandle0(request, handlerMethod);
+                preHandleWithToken(request, handlerMethod, token);
+            } else {
+                preHandleWithoutToken();
             }
         }
 
@@ -160,14 +162,27 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
     }
 
     /**
-     * 前置处理
+     * 获取令牌成功前置处理
      *
      * @param request
      *         请求
      * @param handlerMethod
      *         处理方法
+     * @param token
+     *         令牌
      */
-    protected abstract void preHandle0(HttpServletRequest request, HandlerMethod handlerMethod);
+    protected void preHandleWithToken(HttpServletRequest request, HandlerMethod handlerMethod, String token) {
+
+    }
+
+    /**
+     * 获取令牌失败前置处理
+     */
+    protected void preHandleWithoutToken() {
+        /*
+         * 默认空处理
+         */
+    }
 
     private boolean uriMatch(HttpServletRequest request) {
         String requestUri = AbstractContextHandler.getRequestUri();

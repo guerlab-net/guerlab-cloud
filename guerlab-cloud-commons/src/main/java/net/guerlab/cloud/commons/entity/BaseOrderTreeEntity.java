@@ -29,7 +29,8 @@ import java.util.Collection;
 @Getter
 @Setter
 @Schema(name = "BaseOrderTreeEntity", description = "可排序树形结构")
-public abstract class BaseOrderTreeEntity<E extends BaseOrderTreeEntity<E>> extends BaseOrderEntity<E> {
+public abstract class BaseOrderTreeEntity<E extends BaseOrderTreeEntity<E>> extends BaseOrderEntity<E>
+        implements IOrderTreeEntity<E> {
 
     /**
      * 下级列表
@@ -37,18 +38,4 @@ public abstract class BaseOrderTreeEntity<E extends BaseOrderTreeEntity<E>> exte
     @Schema(description = "下级列表")
     @TableField(exist = false)
     protected Collection<E> children;
-
-    /**
-     * 获取ID
-     *
-     * @return id
-     */
-    public abstract Long id();
-
-    /**
-     * 获取上级ID
-     *
-     * @return 上级id
-     */
-    public abstract Long parentId();
 }
