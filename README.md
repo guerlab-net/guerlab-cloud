@@ -34,7 +34,6 @@
 |guerlab-cloud-cache-redis|提供redis缓存的优化扩展|
 |guerlab-cloud-commons|基础包，提供部分domain与工具类|
 |guerlab-cloud-excel|提供excel的的简易使用|
-|guerlab-cloud-i18n|提供基于MessageSource的多模块国际化支持|
 |guerlab-cloud-loadbalancer|提供对服务发现的负载均衡增强，包含版本控制与集群控制|
 |guerlab-cloud-log|提供对日志切入点的统一处理|
 |guerlab-cloud-server|服务实现|

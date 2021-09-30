@@ -20,10 +20,6 @@
             <groupId>net.guerlab.cloud</groupId>
             <artifactId>guerlab-cloud-commons</artifactId>
         </dependency>
-        <dependency>
-            <groupId>net.guerlab.cloud</groupId>
-            <artifactId>guerlab-cloud-i18n</artifactId>
-        </dependency>
 
         <!-- spring boot -->
         <dependency>

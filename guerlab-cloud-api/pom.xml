@@ -18,7 +18,7 @@
     <dependencies>
         <dependency>
             <groupId>net.guerlab.cloud</groupId>
-            <artifactId>guerlab-cloud-i18n</artifactId>
+            <artifactId>guerlab-cloud-commons</artifactId>
         </dependency>
         <dependency>
             <groupId>net.guerlab.cloud</groupId>
