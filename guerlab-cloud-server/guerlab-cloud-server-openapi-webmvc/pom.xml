@@ -23,7 +23,6 @@
         <dependency>
             <groupId>net.guerlab.cloud</groupId>
             <artifactId>guerlab-cloud-server-webmvc</artifactId>
-            <type>pom</type>
         </dependency>
 
         <!-- swagger -->

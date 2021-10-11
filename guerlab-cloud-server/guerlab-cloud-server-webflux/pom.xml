@@ -3,7 +3,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>guerlab-cloud-server-webflux</artifactId>
-    <packaging>pom</packaging>
     <name>Guerlab Cloud Server Webflux</name>
 
     <parent>
@@ -15,17 +14,6 @@
     <properties>
         <main.basedir>${basedir}/../..</main.basedir>
     </properties>
-
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <dependencies>
         <dependency>
