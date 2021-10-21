@@ -18,13 +18,7 @@
 
     <modules>
         <module>guerlab-cloud-server-commons</module>
-        <module>guerlab-cloud-server-openapi-commons</module>
-        <module>guerlab-cloud-server-openapi-webflux</module>
-        <module>guerlab-cloud-server-openapi-webmvc</module>
         <module>guerlab-cloud-server-orm</module>
-        <module>guerlab-cloud-server-sentinel</module>
-        <module>guerlab-cloud-server-web</module>
-        <module>guerlab-cloud-server-webflux</module>
-        <module>guerlab-cloud-server-webmvc</module>
+        <module>guerlab-cloud-server-rest</module>
     </modules>
 </project>

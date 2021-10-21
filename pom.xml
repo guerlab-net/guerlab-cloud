@@ -59,6 +59,8 @@
         <project.encoding>UTF-8</project.encoding>
 
         <guerlab-spring.version>5.1.4</guerlab-spring.version>
+        <spring-cloud.version>2020.0.3</spring-cloud.version>
+        <spring-boot.version>2.4.6</spring-boot.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
         <jjwt.version>0.9.1</jjwt.version>
         <guava.version>24.1.1-jre</guava.version>
@@ -84,9 +86,16 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>net.guerlab.spring</groupId>
-                <artifactId>guerlab-spring</artifactId>
-                <version>${guerlab-spring.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -94,6 +103,13 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.spring</groupId>
+                <artifactId>guerlab-spring</artifactId>
+                <version>${guerlab-spring.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -169,6 +185,29 @@
                 <version>${revision}</version>
             </dependency>
 
+            <!-- guerlab-cloud openapi-->
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-openapi</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-openapi-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-openapi-webflux</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-openapi-webmvc</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
             <!-- guerlab-cloud rsa -->
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
@@ -199,6 +238,24 @@
                 <version>${revision}</version>
             </dependency>
 
+            <!-- guerlab-cloud sentinel-->
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-sentinel</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-sentinel-webflux</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-sentinel-webmvc</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
             <!-- guerlab-cloud server -->
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
@@ -213,51 +270,41 @@
             </dependency>
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-server-openapi-commons</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-server-openapi-webflux</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-server-openapi-webmvc</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
                 <artifactId>guerlab-cloud-server-orm</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-server-sentinel</artifactId>
+                <artifactId>guerlab-cloud-server-rest</artifactId>
                 <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-server-web</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-server-webflux</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-server-webmvc</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
             </dependency>
 
             <!-- guerlab-cloud stream -->
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
                 <artifactId>guerlab-cloud-stream</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- guerlab-cloud web -->
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-web</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-web-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-web-webflux</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-web-webmvc</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -331,7 +378,10 @@
         <module>guerlab-cloud-log</module>
         <module>guerlab-cloud-rsa</module>
         <module>guerlab-cloud-security</module>
+        <module>guerlab-cloud-sentinel</module>
         <module>guerlab-cloud-server</module>
         <module>guerlab-cloud-stream</module>
+        <module>guerlab-cloud-web</module>
+        <module>guerlab-cloud-openapi</module>
     </modules>
 </project>

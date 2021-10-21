@@ -15,6 +15,7 @@ package net.guerlab.cloud.security.core.autoconfigure;
 import net.guerlab.cloud.security.core.AuthorizePathProvider;
 import net.guerlab.cloud.security.core.SimpleAuthorizePathProvider;
 import net.guerlab.cloud.security.core.properties.AuthorizePathProperties;
+import net.guerlab.cloud.security.core.properties.CorsProperties;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -31,7 +32,7 @@ import java.util.Collections;
  * @author guer
  */
 @Configuration
-@EnableConfigurationProperties(AuthorizePathProperties.class)
+@EnableConfigurationProperties({ AuthorizePathProperties.class, CorsProperties.class })
 public class AuthorizePathAutoconfigure {
 
     /**

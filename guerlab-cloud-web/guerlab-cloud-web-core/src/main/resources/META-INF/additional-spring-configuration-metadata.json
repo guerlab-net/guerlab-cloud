@@ -1,0 +1,55 @@
+{
+  "groups": [
+    {
+      "name": "spring.i18n",
+      "type": "net.guerlab.cloud.web.core.properties.I18nProperties",
+      "sourceType": "net.guerlab.cloud.web.core.properties.I18nProperties",
+      "description": "国际化配置."
+    },
+    {
+      "name": "spring.global-exception",
+      "type": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
+      "sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
+      "description": "全局异常处理配置."
+    },
+    {
+      "name": "spring.response-advisor",
+      "type": "net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties",
+      "sourceType": "net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties",
+      "description": "响应数据处理配置."
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.i18n.default-locale",
+      "type": "java.util.Locale",
+      "sourceType": "net.guerlab.cloud.web.core.properties.I18nProperties",
+      "description": "默认语言.",
+      "defaultValue": "java.util.Locale.getDefault()"
+    },
+    {
+      "name": "spring.global-exception.stack-trace-excludes",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
+      "description": "堆栈跟踪排除列表."
+    },
+    {
+      "name": "spring.global-exception.stack-trace-includes",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
+      "description": "堆栈跟踪包含列表."
+    },
+    {
+      "name": "spring.global-exception.log-ignore-paths",
+      "type": "java.util.List<net.guerlab.cloud.web.core.properties.GlobalExceptionProperties.Url>",
+      "sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
+      "description": "日志忽略路径列表."
+    },
+    {
+      "name": "spring.response-advisor.excluded",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties",
+      "description": "排除路径."
+    }
+  ]
+}

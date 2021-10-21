@@ -5,6 +5,12 @@
       "type": "net.guerlab.cloud.security.core.properties.AuthorizePathProperties",
       "sourceType": "net.guerlab.cloud.security.core.properties.AuthorizePathProperties",
       "description": "授权保护路径配置."
+    },
+    {
+      "name": "web.cors",
+      "type": "net.guerlab.cloud.security.core.properties.CorsProperties",
+      "sourceType": "net.guerlab.cloud.security.core.properties.CorsProperties",
+      "description": "CORS配置."
     }
   ],
   "properties": [
@@ -61,6 +67,48 @@
       "type": "java.util.List<java.lang.String>",
       "sourceType": "net.guerlab.cloud.security.core.properties.AuthorizePathProperties",
       "description": "TRACE请求方式路径列表."
+    },
+    {
+      "name": "web.cors.enable",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.security.core.properties.CorsProperties",
+      "description": "enable cors properties."
+    },
+    {
+      "name": "web.cors.allow-credentials",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.security.core.properties.CorsProperties",
+      "description": "header indicates whether the response to request can be exposed when the omit credentials flag is unset."
+    },
+    {
+      "name": "web.cors.allowed-headers",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.security.core.properties.CorsProperties",
+      "description": "header indicates, as part of the response to a preflight request, which header field names can be used during the actual request."
+    },
+    {
+      "name": "web.cors.allowed-methods",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.security.core.properties.CorsProperties",
+      "description": "header indicates, as part of the response to a preflight request, which methods can be used during the actual request."
+    },
+    {
+      "name": "web.cors.allowed-origins",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.security.core.properties.CorsProperties",
+      "description": "header indicates whether a resource can be shared based by returning the value of the Origin request header, \"*\", or \"null\" in the response."
+    },
+    {
+      "name": "web.cors.exposed-headers",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.security.core.properties.CorsProperties",
+      "description": "header indicates which headers are safe to expose to the API of a CORS API specification."
+    },
+    {
+      "name": "web.cors.max-age",
+      "type": "java.lang.Long",
+      "sourceType": "net.guerlab.cloud.security.core.properties.CorsProperties",
+      "description": "header indicates how long the results of a preflight request can be cached in a preflight result cache."
     }
   ]
 }

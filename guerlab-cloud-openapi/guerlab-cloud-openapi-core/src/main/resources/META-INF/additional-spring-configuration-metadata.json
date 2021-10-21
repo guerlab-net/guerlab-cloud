@@ -1,0 +1,194 @@
+{
+  "groups": [
+    {
+      "name": "openapi",
+      "type": "net.guerlab.cloud.openapi.core.properties.OpenApiProperties",
+      "sourceType": "net.guerlab.cloud.openapi.core.properties.OpenApiProperties",
+      "description": "开放接口配置."
+    }
+  ],
+  "properties": [
+    {
+      "name": "openapi.openapi",
+      "type": "java.lang.String",
+      "sourceType": "io.swagger.v3.oas.models.OpenAPI",
+      "description": "开放接口配置-openAPi版本."
+    },
+    {
+      "name": "openapi.info.title",
+      "type": "java.lang.String",
+      "sourceType": "io.swagger.v3.oas.models.info.Info",
+      "description": "开放接口配置-信息配置-标题."
+    },
+    {
+      "name": "openapi.info.description",
+      "type": "java.lang.String",
+      "sourceType": "io.swagger.v3.oas.models.info.Info",
+      "description": "开放接口配置-信息配置-说明."
+    },
+    {
+      "name": "openapi.info.terms-of-service",
+      "type": "java.lang.String",
+      "sourceType": "io.swagger.v3.oas.models.info.Info",
+      "description": "开放接口配置-信息配置-服务支持地址."
+    },
+    {
+      "name": "openapi.info.contact.name",
+      "type": "java.lang.String",
+      "sourceType": "io.swagger.v3.oas.models.info.Contact",
+      "description": "开放接口配置-信息配置-联系方式-名称."
+    },
+    {
+      "name": "openapi.info.contact.url",
+      "type": "java.lang.String",
+      "sourceType": "io.swagger.v3.oas.models.info.Contact",
+      "description": "开放接口配置-信息配置-联系方式-url."
+    },
+    {
+      "name": "openapi.info.contact.email",
+      "type": "java.lang.String",
+      "sourceType": "io.swagger.v3.oas.models.info.Contact",
+      "description": "开放接口配置-信息配置-联系方式-email."
+    },
+    {
+      "name": "openapi.info.contact.extensions",
+      "type": "java.util.Map<java.lang.String, java.lang.Object>",
+      "sourceType": "io.swagger.v3.oas.models.info.Contact",
+      "description": "开放接口配置-信息配置-联系方式-扩展."
+    },
+    {
+      "name": "openapi.info.license.name",
+      "type": "java.lang.String",
+      "sourceType": "io.swagger.v3.oas.models.info.License",
+      "description": "开放接口配置-信息配置-许可证-名称."
+    },
+    {
+      "name": "openapi.info.license.url",
+      "type": "java.lang.String",
+      "sourceType": "io.swagger.v3.oas.models.info.License",
+      "description": "开放接口配置-信息配置-许可证-url."
+    },
+    {
+      "name": "openapi.info.license.extensions",
+      "type": "java.util.Map<java.lang.String, java.lang.Object>",
+      "sourceType": "io.swagger.v3.oas.models.info.License",
+      "description": "开放接口配置-信息配置-许可证-扩展."
+    },
+    {
+      "name": "openapi.info.version",
+      "type": "java.lang.String",
+      "sourceType": "io.swagger.v3.oas.models.info.Info",
+      "description": "开放接口配置-信息配置-服务支持地址."
+    },
+    {
+      "name": "openapi.info.extensions",
+      "type": "java.util.Map<java.lang.String, java.lang.Object>",
+      "sourceType": "io.swagger.v3.oas.models.info.Info",
+      "description": "开放接口配置-信息配置-扩展."
+    },
+    {
+      "name": "openapi.external-docs.description",
+      "type": "java.lang.String",
+      "sourceType": "io.swagger.v3.oas.models.ExternalDocumentation",
+      "description": "开放接口配置-外部文档-说明."
+    },
+    {
+      "name": "openapi.external-docs.url",
+      "type": "java.lang.String",
+      "sourceType": "io.swagger.v3.oas.models.ExternalDocumentation",
+      "description": "开放接口配置-外部文档-url."
+    },
+    {
+      "name": "openapi.external-docs.extensions",
+      "type": "java.util.Map<java.lang.String, java.lang.Object>",
+      "sourceType": "io.swagger.v3.oas.models.ExternalDocumentation",
+      "description": "开放接口配置-外部文档-扩展."
+    },
+    {
+      "name": "openapi.servers",
+      "type": "java.util.List<io.swagger.v3.oas.models.servers.Server>",
+      "sourceType": "io.swagger.v3.oas.models.OpenAPI",
+      "description": "开放接口配置-服务器配置列表."
+    },
+    {
+      "name": "openapi.security",
+      "type": "java.util.List<io.swagger.v3.oas.models.security.SecurityRequirement>",
+      "sourceType": "io.swagger.v3.oas.models.OpenAPI",
+      "description": "开放接口配置-安全配置列表."
+    },
+    {
+      "name": "openapi.tags",
+      "type": "java.util.List<io.swagger.v3.oas.models.tags.Tag>",
+      "sourceType": "io.swagger.v3.oas.models.OpenAPI",
+      "description": "开放接口配置-标签配置列表."
+    },
+    {
+      "name": "openapi.paths",
+      "type": "io.swagger.v3.oas.models.Paths",
+      "sourceType": "io.swagger.v3.oas.models.OpenAPI",
+      "description": "开放接口配置-路径配置表."
+    },
+    {
+      "name": "openapi.components.schemas",
+      "type": "java.util.Map<java.lang.String, io.swagger.v3.oas.models.media.Schema>",
+      "sourceType": "io.swagger.v3.oas.models.Components",
+      "description": "开放接口配置-组件列表-schema定义."
+    },
+    {
+      "name": "openapi.components.responses",
+      "type": "java.util.Map<java.lang.String, io.swagger.v3.oas.models.responses.ApiResponse>",
+      "sourceType": "io.swagger.v3.oas.models.Components",
+      "description": "开放接口配置-组件列表-响应定义."
+    },
+    {
+      "name": "openapi.components.parameters",
+      "type": "java.util.Map<java.lang.String, io.swagger.v3.oas.models.parameters.Parameter>",
+      "sourceType": "io.swagger.v3.oas.models.Components",
+      "description": "开放接口配置-组件列表-参数定义."
+    },
+    {
+      "name": "openapi.components.examples",
+      "type": "java.util.Map<java.lang.String, io.swagger.v3.oas.models.examples.Example>",
+      "sourceType": "io.swagger.v3.oas.models.Components",
+      "description": "开放接口配置-组件列表-范例定义."
+    },
+    {
+      "name": "openapi.components.request-bodies",
+      "type": "java.util.Map<java.lang.String, io.swagger.v3.oas.models.parameters.RequestBody>",
+      "sourceType": "io.swagger.v3.oas.models.Components",
+      "description": "开放接口配置-组件列表-请求体定义."
+    },
+    {
+      "name": "openapi.components.headers",
+      "type": "java.util.Map<java.lang.String, io.swagger.v3.oas.models.headers.Header>",
+      "sourceType": "io.swagger.v3.oas.models.Components",
+      "description": "开放接口配置-组件列表-请求头定义."
+    },
+    {
+      "name": "openapi.components.security-schemes",
+      "type": "java.util.Map<java.lang.String, io.swagger.v3.oas.models.security.SecurityRequirement>",
+      "sourceType": "io.swagger.v3.oas.models.Components",
+      "description": "开放接口配置-组件列表-安全定义."
+    },
+    {
+      "name": "openapi.components.links",
+      "type": "java.util.Map<java.lang.String, io.swagger.v3.oas.models.links.Link>",
+      "sourceType": "io.swagger.v3.oas.models.Components",
+      "description": "开放接口配置-组件列表-链接定义."
+    },
+    {
+      "name": "openapi.components.callbacks",
+      "type": "java.util.Map<java.lang.String, io.swagger.v3.oas.models.callbacks.Callback>",
+      "sourceType": "io.swagger.v3.oas.models.Components",
+      "description": "开放接口配置-组件列表-回调定义."
+    },
+    {
+      "name": "openapi.components.extensions",
+      "type": "java.util.Map<java.lang.String, java.lang.Object>",
+      "sourceType": "io.swagger.v3.oas.models.Components",
+      "description": "开放接口配置-组件列表-扩展."
+    }
+  ],
+  "hints": [
+  ]
+}
