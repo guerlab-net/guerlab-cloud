@@ -10,12 +10,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth.web.autoconfig;
+package net.guerlab.cloud.auth.webmvc.autoconfig;
 
 import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.auth.web.interceptor.AbstractHandlerInterceptor;
-import net.guerlab.cloud.auth.web.interceptor.AbstractTokenHandlerInterceptor;
 import net.guerlab.cloud.auth.web.properties.AuthWebProperties;
+import net.guerlab.cloud.auth.webmvc.interceptor.AbstractHandlerInterceptor;
+import net.guerlab.cloud.auth.webmvc.interceptor.AbstractTokenHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;

@@ -10,13 +10,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth.web.autoconfig;
+package net.guerlab.cloud.auth.webflux.autoconfig;
 
-import net.guerlab.cloud.auth.web.interceptor.RequestInfoHandlerInterceptor;
+import net.guerlab.cloud.auth.webflux.filter.RequestInfoHandlerFilter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
  * 请求信息拦截器配置
@@ -25,12 +24,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Order
 @Configuration
-public class RequestInfoInterceptorAutoconfigure implements WebMvcConfigurer {
+public class RequestInfoInterceptorAutoconfigure {
 
-    private final RequestInfoHandlerInterceptor interceptor = new RequestInfoHandlerInterceptor();
-
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(interceptor).order(interceptor.getOrder());
+    /**
+     * 构造请求信息拦截器
+     *
+     * @return 请求信息拦截器
+     */
+    @Bean
+    public RequestInfoHandlerFilter requestInfoHandlerFilter() {
+        return new RequestInfoHandlerFilter();
     }
 }

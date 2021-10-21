@@ -10,13 +10,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth.web.interceptor;
+package net.guerlab.cloud.auth.webmvc.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.auth.AbstractContextHandler;
 import net.guerlab.cloud.auth.annotation.IgnoreLogin;
 import net.guerlab.cloud.commons.Constants;
-import net.guerlab.spring.web.properties.ResponseAdvisorProperties;
+import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;

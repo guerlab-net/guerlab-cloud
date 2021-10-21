@@ -20,5 +20,7 @@
         <module>guerlab-cloud-auth-commons</module>
         <module>guerlab-cloud-auth-redis-token-support</module>
         <module>guerlab-cloud-auth-web-support</module>
+        <module>guerlab-cloud-auth-webflux-support</module>
+        <module>guerlab-cloud-auth-webmvc-support</module>
     </modules>
 </project>

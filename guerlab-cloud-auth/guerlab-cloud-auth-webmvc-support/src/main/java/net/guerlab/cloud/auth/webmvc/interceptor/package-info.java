@@ -14,6 +14,6 @@
  * @author guer
  */
 @NonNullApi
-package net.guerlab.cloud.auth.web.interceptor;
+package net.guerlab.cloud.auth.webmvc.interceptor;
 
 import org.springframework.lang.NonNullApi;

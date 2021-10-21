@@ -143,6 +143,16 @@
                 <artifactId>guerlab-cloud-auth-web-support</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-auth-webflux-support</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-auth-webmvc-support</artifactId>
+                <version>${revision}</version>
+            </dependency>
 
             <!-- guerlab-cloud cache -->
             <dependency>

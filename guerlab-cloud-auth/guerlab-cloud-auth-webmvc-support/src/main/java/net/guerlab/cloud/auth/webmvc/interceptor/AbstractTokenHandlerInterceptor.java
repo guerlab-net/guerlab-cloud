@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth.web.interceptor;
+package net.guerlab.cloud.auth.webmvc.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.auth.web.properties.AuthWebProperties;
