@@ -10,18 +10,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.server.openapi.webflux;
-
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Configuration;
 
 /**
- * OpenApi相关路径配置
- *
  * @author guer
  */
-@Slf4j
-@Configuration
-public class OpenApiWebfluxAutoconfigure {
+@NonNullApi
+package net.guerlab.cloud.security.core;
 
-}
+import org.springframework.lang.NonNullApi;

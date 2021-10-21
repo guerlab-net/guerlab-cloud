@@ -1,0 +1,66 @@
+{
+  "groups": [
+    {
+      "name": "spring.security.paths",
+      "type": "net.guerlab.cloud.security.core.properties.AuthorizePathProperties",
+      "sourceType": "net.guerlab.cloud.security.core.properties.AuthorizePathProperties",
+      "description": "授权保护路径配置."
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.security.paths.all",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.security.core.properties.AuthorizePathProperties",
+      "description": "所有请求方式路径列表."
+    },
+    {
+      "name": "spring.security.paths.get",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.security.core.properties.AuthorizePathProperties",
+      "description": "GET请求方式路径列表."
+    },
+    {
+      "name": "spring.security.paths.head",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.security.core.properties.AuthorizePathProperties",
+      "description": "HEAD请求方式路径列表."
+    },
+    {
+      "name": "spring.security.paths.post",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.security.core.properties.AuthorizePathProperties",
+      "description": "POST请求方式路径列表."
+    },
+    {
+      "name": "spring.security.paths.put",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.security.core.properties.AuthorizePathProperties",
+      "description": "PUT请求方式路径列表."
+    },
+    {
+      "name": "spring.security.paths.patch",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.security.core.properties.AuthorizePathProperties",
+      "description": "PATCH请求方式路径列表."
+    },
+    {
+      "name": "spring.security.paths.delete",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.security.core.properties.AuthorizePathProperties",
+      "description": "DELETE请求方式路径列表."
+    },
+    {
+      "name": "spring.security.paths.options",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.security.core.properties.AuthorizePathProperties",
+      "description": "OPTIONS请求方式路径列表."
+    },
+    {
+      "name": "spring.security.paths.trace",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.security.core.properties.AuthorizePathProperties",
+      "description": "TRACE请求方式路径列表."
+    }
+  ]
+}

@@ -176,6 +176,29 @@
                 <version>${revision}</version>
             </dependency>
 
+            <!-- guerlab-cloud security-->
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-security</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-security-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-security-webflux</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-security-webmvc</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
             <!-- guerlab-cloud server -->
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
@@ -222,11 +245,13 @@
                 <groupId>net.guerlab.cloud</groupId>
                 <artifactId>guerlab-cloud-server-webflux</artifactId>
                 <version>${revision}</version>
+                <type>pom</type>
             </dependency>
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
                 <artifactId>guerlab-cloud-server-webmvc</artifactId>
                 <version>${revision}</version>
+                <type>pom</type>
             </dependency>
 
             <!-- guerlab-cloud stream -->
@@ -305,6 +330,7 @@
         <module>guerlab-cloud-loadbalancer</module>
         <module>guerlab-cloud-log</module>
         <module>guerlab-cloud-rsa</module>
+        <module>guerlab-cloud-security</module>
         <module>guerlab-cloud-server</module>
         <module>guerlab-cloud-stream</module>
     </modules>

@@ -2,13 +2,12 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>guerlab-cloud-server-webflux</artifactId>
-    <name>Guerlab Cloud Server Webflux</name>
-    <packaging>pom</packaging>
+    <artifactId>guerlab-cloud-security-webmvc</artifactId>
+    <name>Guerlab Cloud Security Webmvc</name>
 
     <parent>
         <groupId>net.guerlab.cloud</groupId>
-        <artifactId>guerlab-cloud-server</artifactId>
+        <artifactId>guerlab-cloud-security</artifactId>
         <version>${revision}</version>
     </parent>
 
@@ -19,18 +18,12 @@
     <dependencies>
         <dependency>
             <groupId>net.guerlab.cloud</groupId>
-            <artifactId>guerlab-cloud-server-commons</artifactId>
+            <artifactId>guerlab-cloud-security-core</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>net.guerlab.cloud</groupId>
-            <artifactId>guerlab-cloud-security-webflux</artifactId>
-        </dependency>
-
-        <!-- spring boot -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
     </dependencies>
 </project>
