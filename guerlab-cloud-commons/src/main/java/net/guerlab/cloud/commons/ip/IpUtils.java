@@ -15,9 +15,9 @@ package net.guerlab.cloud.commons.ip;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.Nullable;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 
 /**
@@ -27,12 +27,19 @@ import java.util.stream.Collectors;
  */
 public class IpUtils {
 
-    private static final String UNKNOWN = "unknown";
+    public static final String UNKNOWN = "unknown";
 
-    private static final char SPLIT = ',';
+    public static final char SPLIT = ',';
 
-    private static final String[] HEADERS = new String[] { "X-Forwarded-For", "Cdn-Src-Ip", "Proxy-Client-IP",
+    public static final String[] HEADERS = new String[] { "X-Forwarded-For", "Cdn-Src-Ip", "Proxy-Client-IP",
             "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR", "X-Real-IP", };
+
+    private static final Collection<IpParser> IP_PARSERS;
+
+    static {
+        IP_PARSERS = ServiceLoader.load(IpParser.class).stream().map(ServiceLoader.Provider::get)
+                .collect(Collectors.toList());
+    }
 
     private IpUtils() {
 
@@ -98,29 +105,39 @@ public class IpUtils {
      * @return ip地址
      */
     @SuppressWarnings("unused")
-    public static String getIp(HttpServletRequest request) {
-        for (String headerName : HEADERS) {
-            String ip = getIpByHeader(request, headerName);
+    public static String getIp(Object request) {
+        String ip;
+        for (IpParser parser : IP_PARSERS) {
+            if (!parser.accept(request)) {
+                continue;
+            }
+
+            for (String headerName : IpUtils.HEADERS) {
+                ip = getIpByHeader(parser.getIpByHeader(request, headerName));
+                if (ip != null) {
+                    return ip;
+                }
+            }
+
+            ip = parser.getIpByRemoteAddress(request);
             if (ip != null) {
                 return ip;
             }
         }
-        return request.getRemoteAddr();
+
+        return UNKNOWN;
     }
 
     /**
      * 通过请求头获取请求的ip地址
      *
-     * @param request
-     *         请求
-     * @param headerName
-     *         请求头名称
+     * @param value
+     *         从请求头获取的IP值
      * @return ip地址
      */
     @Nullable
-    private static String getIpByHeader(HttpServletRequest request, String headerName) {
-        String value = request.getHeader(headerName);
-        if (isNull(value)) {
+    private static String getIpByHeader(@Nullable String value) {
+        if (isInvalidIp(value)) {
             return null;
         }
         int index = value.indexOf(SPLIT);
@@ -131,8 +148,15 @@ public class IpUtils {
         }
     }
 
-    private static boolean isNull(String ip) {
-        return StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip);
+    /**
+     * 判断是否为无效IP
+     *
+     * @param ip
+     *         IP
+     * @return 是否为无效IP
+     */
+    public static boolean isInvalidIp(@Nullable String ip) {
+        return ip == null || StringUtils.isBlank(ip) || UNKNOWN.equalsIgnoreCase(ip);
     }
 
     /**
