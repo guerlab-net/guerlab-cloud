@@ -80,13 +80,11 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProp
         interceptor.pathMatcher(pathMatcher).addPathPatterns(includePatterns).excludePathPatterns(excludePatterns);
     }
 
-    @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired
     public void setProperties(A properties) {
         this.properties = properties;
     }
 
-    @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired(required = false)
     public void setTokenHandlerInterceptors(
             Collection<? extends AbstractTokenHandlerInterceptor<A>> tokenHandlerInterceptors) {

@@ -78,7 +78,6 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> ex
         return authProperties;
     }
 
-    @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired
     public void setAuthProperties(A authProperties) {
         this.authProperties = authProperties;

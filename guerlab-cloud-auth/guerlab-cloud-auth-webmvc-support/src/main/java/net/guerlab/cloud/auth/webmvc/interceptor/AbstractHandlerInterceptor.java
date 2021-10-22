@@ -47,6 +47,8 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 
     private static final String[] METHODS = new String[] { "OPTIONS", "TRACE" };
 
+    private static final String REAL_REQUEST_PATH = "realRequestPath";
+
     protected ResponseAdvisorProperties responseAdvisorProperties;
 
     @Override
@@ -92,8 +94,8 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
             return true;
         }
 
-        log.debug("intercept request[interceptor = {}, request = [{}]]", getClass(),
-                AbstractContextHandler.getRequestUrl());
+        log.debug("intercept request[interceptor = {}, request = [{} {}]]", getClass(), request.getMethod(),
+                parseRequestUri(request));
 
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         boolean needLogin = getAnnotation(handlerMethod, IgnoreLogin.class) == null;
@@ -185,11 +187,31 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
     }
 
     private boolean uriMatch(HttpServletRequest request) {
-        String requestUri = AbstractContextHandler.getRequestUri();
-        if (requestUri == null) {
-            requestUri = request.getRequestURI();
-        }
+        String requestUri = parseRequestUri(request);
         return responseAdvisorProperties.getExcluded().stream().anyMatch(requestUri::startsWith);
+    }
+
+    private String parseRequestUri(HttpServletRequest request) {
+        String realRequestPath = null;
+        Object attribute = request.getAttribute(REAL_REQUEST_PATH);
+        if (attribute instanceof String) {
+            realRequestPath = (String) attribute;
+        }
+        if (realRequestPath != null) {
+            return realRequestPath;
+        }
+
+        String contextPath = request.getContextPath();
+        realRequestPath = request.getRequestURI();
+        if (contextPath != null) {
+            String newRequestUri = realRequestPath.replaceFirst(contextPath, "");
+            log.debug("replace requestUri[form={}, to={}]", realRequestPath, newRequestUri);
+            realRequestPath = newRequestUri;
+        }
+
+        request.setAttribute(REAL_REQUEST_PATH, realRequestPath);
+
+        return realRequestPath;
     }
 
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")

@@ -50,6 +50,8 @@ public abstract class AbstractHandlerFilter implements WebFilter, Ordered {
 
     private static final String[] METHODS = new String[] { "OPTIONS", "TRACE" };
 
+    private static final String REAL_REQUEST_PATH = "realRequestPath";
+
     protected ResponseAdvisorProperties responseAdvisorProperties;
 
     protected RequestMappingHandlerMapping requestMappingHandlerMapping;
@@ -106,8 +108,7 @@ public abstract class AbstractHandlerFilter implements WebFilter, Ordered {
             return;
         }
 
-        log.debug("intercept request[interceptor = {}, request = [{}]]", getClass(),
-                AbstractContextHandler.getRequestUrl());
+        log.debug("intercept request[interceptor = {}, request = [{}]]", getClass(), parseRequestUri(request));
 
         boolean needLogin = getAnnotation(handlerMethod, IgnoreLogin.class) == null;
 
@@ -192,11 +193,21 @@ public abstract class AbstractHandlerFilter implements WebFilter, Ordered {
     }
 
     private boolean uriMatch(ServerHttpRequest request) {
-        String requestUri = AbstractContextHandler.getRequestUri();
-        if (requestUri == null) {
-            requestUri = request.getPath().value();
-        }
+        String requestUri = parseRequestUri(request);
         return responseAdvisorProperties.getExcluded().stream().anyMatch(requestUri::startsWith);
+    }
+
+    private String parseRequestUri(ServerHttpRequest request) {
+        String contextPath = StringUtils.trimToNull(request.getPath().contextPath().value());
+        String requestUri = request.getPath().value();
+
+        if (contextPath != null) {
+            String newRequestUri = requestUri.replaceFirst(contextPath, "");
+            log.debug("replace requestUri[form={}, to={}]", requestUri, newRequestUri);
+            requestUri = newRequestUri;
+        }
+
+        return requestUri;
     }
 
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")

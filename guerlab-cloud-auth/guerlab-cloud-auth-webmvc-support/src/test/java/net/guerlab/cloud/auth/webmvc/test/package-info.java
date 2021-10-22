@@ -10,11 +10,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 /**
  * @author guer
  */
 @NonNullApi
-package net.guerlab.cloud.web.webflux.exception;
+package net.guerlab.cloud.auth.webmvc.test;
 
 import org.springframework.lang.NonNullApi;
