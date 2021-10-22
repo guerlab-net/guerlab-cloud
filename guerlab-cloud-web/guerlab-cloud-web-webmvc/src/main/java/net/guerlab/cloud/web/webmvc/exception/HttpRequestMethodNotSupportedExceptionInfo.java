@@ -10,8 +10,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.web.core.exception;
+package net.guerlab.cloud.web.webmvc.exception;
 
+import net.guerlab.cloud.web.core.exception.AbstractI18nInfo;
+import net.guerlab.cloud.web.core.exception.Keys;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import java.util.Locale;

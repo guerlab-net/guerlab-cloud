@@ -10,15 +10,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.web.webflux.exception.handler;
-
-import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionHandler;
-
 /**
- * 异常统一处理配置
- *
  * @author guer
  */
-public class WebFluxGlobalExceptionHandler extends GlobalExceptionHandler {
+@NonNullApi
+package net.guerlab.cloud.web.webflux.parse;
 
-}
+import org.springframework.lang.NonNullApi;

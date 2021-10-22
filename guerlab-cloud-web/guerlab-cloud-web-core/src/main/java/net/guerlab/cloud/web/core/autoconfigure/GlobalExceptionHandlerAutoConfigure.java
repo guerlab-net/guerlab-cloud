@@ -12,7 +12,9 @@
  */
 package net.guerlab.cloud.web.core.autoconfigure;
 
+import net.guerlab.cloud.web.core.exception.handler.DefaultGlobalExceptionLogger;
 import net.guerlab.cloud.web.core.exception.handler.DefaultStackTracesHandler;
+import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionLogger;
 import net.guerlab.cloud.web.core.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.web.core.properties.GlobalExceptionProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -38,5 +40,17 @@ public class GlobalExceptionHandlerAutoConfigure {
     @Bean
     public StackTracesHandler stackTracesHandler(GlobalExceptionProperties properties) {
         return new DefaultStackTracesHandler(properties);
+    }
+
+    /**
+     * 构建 全局异常处理日志记录器
+     *
+     * @param properties
+     *         全局异常处理配置
+     * @return 全局异常处理日志记录器
+     */
+    @Bean
+    public GlobalExceptionLogger globalExceptionLogger(GlobalExceptionProperties properties) {
+        return new DefaultGlobalExceptionLogger(properties);
     }
 }

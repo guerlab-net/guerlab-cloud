@@ -1,0 +1,6 @@
+net.guerlab.cloud.web.core.exception.handler.builder.AbstractI18nApplicationExceptionResponseBuilder
+net.guerlab.cloud.web.core.exception.handler.builder.ApplicationExceptionResponseBuilder
+net.guerlab.cloud.web.core.exception.handler.builder.ConstraintViolationExceptionResponseBuilder
+net.guerlab.cloud.web.core.exception.handler.builder.MethodArgumentNotValidExceptionResponseBuilder
+net.guerlab.cloud.web.core.exception.handler.builder.MethodArgumentTypeMismatchExceptionResponseBuilder
+net.guerlab.cloud.web.core.exception.handler.builder.RemoteExceptionResponseBuilder
