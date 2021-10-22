@@ -19,6 +19,7 @@ import net.guerlab.cloud.security.core.properties.CorsProperties;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,6 +45,7 @@ public class AuthorizePathAutoconfigure {
      */
     @Bean
     @ConditionalOnClass(WebEndpointProperties.class)
+    @ConditionalOnProperty(prefix = "spring.security.actuator", name = "enabled", havingValue = "true")
     public AuthorizePathProvider webEndpointAuthorizePathProvider(
             ObjectProvider<WebEndpointProperties> webEndpointPropertiesProvider) {
         WebEndpointProperties webEndpointProperties = webEndpointPropertiesProvider.getIfUnique();
