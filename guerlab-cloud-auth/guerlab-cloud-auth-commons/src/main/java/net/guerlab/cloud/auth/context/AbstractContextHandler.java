@@ -10,29 +10,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth;
+package net.guerlab.cloud.auth.context;
 
+import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.context.core.ContextAttributes;
+import net.guerlab.cloud.context.core.ContextAttributesHolder;
 import org.springframework.lang.Nullable;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 抽象上下文处理器
  *
  * @author guer
  */
-@SuppressWarnings("unused")
+@Slf4j
 public abstract class AbstractContextHandler {
-
-    private final static InheritableThreadLocal<Map<String, Object>> THREAD_LOCAL = new InheritableThreadLocal<>() {
-
-        @Override
-        protected Map<String, Object> initialValue() {
-            return new HashMap<>(16);
-        }
-    };
 
     /**
      * 设置内容
@@ -43,8 +35,8 @@ public abstract class AbstractContextHandler {
      *         内容
      */
     @SuppressWarnings("SameParameterValue")
-    protected static void set(String key, Object value) {
-        THREAD_LOCAL.get().put(key, value);
+    public static void set(String key, Object value) {
+        ContextAttributesHolder.get().put(key, value);
     }
 
     /**
@@ -56,17 +48,36 @@ public abstract class AbstractContextHandler {
      *         值类型
      * @return 内容
      */
-    @SuppressWarnings({ "unchecked", "SameParameterValue" })
+    @SuppressWarnings("unchecked")
     @Nullable
-    protected static <T> T get(String key) {
-        return (T) THREAD_LOCAL.get().get(key);
+    public static <T> T get(String key) {
+        return (T) ContextAttributesHolder.get().get(key);
+    }
+
+    /**
+     * 从当前线程获取内容拷贝
+     *
+     * @return 内容拷贝结果
+     */
+    public static ContextAttributes getCopyOfContext() {
+        return ContextAttributesHolder.get();
+    }
+
+    /**
+     * 设置上下文属性
+     *
+     * @param contextAttributes
+     *         上下文属性
+     */
+    public static void setContextAttributes(ContextAttributes contextAttributes) {
+        ContextAttributesHolder.set(contextAttributes);
     }
 
     /**
      * 清除当前内容
      */
     public static void clean() {
-        THREAD_LOCAL.remove();
+        ContextAttributesHolder.get().clear();
     }
 
     /**

@@ -1,6 +1,6 @@
 package net.guerlab.cloud.auth.webflux.test;
 
-import net.guerlab.cloud.auth.AbstractContextHandler;
+import net.guerlab.cloud.auth.context.AbstractContextHandler;
 import org.springframework.lang.Nullable;
 
 /**

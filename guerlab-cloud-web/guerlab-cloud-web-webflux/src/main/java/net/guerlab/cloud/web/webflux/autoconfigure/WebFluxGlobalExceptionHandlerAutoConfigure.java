@@ -47,8 +47,6 @@ public class WebFluxGlobalExceptionHandlerAutoConfigure {
 
     private final ServerProperties serverProperties;
 
-    private final ApplicationContext applicationContext;
-
     private final WebProperties.Resources resourceProperties;
 
     private final List<ViewResolver> viewResolvers;
@@ -57,10 +55,9 @@ public class WebFluxGlobalExceptionHandlerAutoConfigure {
 
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public WebFluxGlobalExceptionHandlerAutoConfigure(ServerProperties serverProperties,
-            ApplicationContext applicationContext, WebProperties.Resources resourceProperties,
-            List<ViewResolver> viewResolvers, ServerCodecConfigurer serverCodecConfigurer) {
+            WebProperties.Resources resourceProperties, List<ViewResolver> viewResolvers,
+            ServerCodecConfigurer serverCodecConfigurer) {
         this.serverProperties = serverProperties;
-        this.applicationContext = applicationContext;
         this.resourceProperties = resourceProperties;
         this.viewResolvers = viewResolvers;
         this.serverCodecConfigurer = serverCodecConfigurer;

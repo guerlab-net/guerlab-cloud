@@ -15,6 +15,6 @@
  * @author guer
  */
 @NonNullApi
-package net.guerlab.cloud.auth;
+package net.guerlab.cloud.context.core.task;
 
 import org.springframework.lang.NonNullApi;

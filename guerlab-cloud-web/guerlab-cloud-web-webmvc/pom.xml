@@ -24,6 +24,10 @@
             <groupId>net.guerlab.cloud</groupId>
             <artifactId>guerlab-cloud-security-webmvc</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.guerlab.cloud</groupId>
+            <artifactId>guerlab-cloud-context-webmvc</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>

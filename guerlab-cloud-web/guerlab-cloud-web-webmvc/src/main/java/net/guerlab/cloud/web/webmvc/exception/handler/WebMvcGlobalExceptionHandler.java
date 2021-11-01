@@ -17,11 +17,11 @@ import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionHandler;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionLogger;
 import net.guerlab.cloud.web.core.exception.handler.ResponseBuilder;
 import net.guerlab.cloud.web.core.exception.handler.StackTracesHandler;
+import net.guerlab.cloud.web.core.request.RequestHolder;
 import net.guerlab.web.result.Fail;
 import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 
 /**
@@ -45,22 +45,9 @@ public class WebMvcGlobalExceptionHandler extends GlobalExceptionHandler {
      * @return 响应数据
      */
     @ExceptionHandler(Exception.class)
-    public Fail<?> exceptionHandler(HttpServletRequest request, Exception e) {
-        globalExceptionLogger.debug(e, request.getMethod(), parseRequestUri(request));
+    public Fail<?> exceptionHandler(Exception e) {
+        globalExceptionLogger.debug(e, RequestHolder.getRequestMethod(), RequestHolder.getRequestPath());
         return build(e);
-    }
-
-    private String parseRequestUri(HttpServletRequest request) {
-        String contextPath = request.getContextPath();
-        String requestUri = request.getRequestURI();
-
-        if (contextPath != null) {
-            String newRequestUri = requestUri.replaceFirst(contextPath, "");
-            log.debug("replace requestUri[form={}, to={}]", requestUri, newRequestUri);
-            requestUri = newRequestUri;
-        }
-
-        return requestUri;
     }
 
 }

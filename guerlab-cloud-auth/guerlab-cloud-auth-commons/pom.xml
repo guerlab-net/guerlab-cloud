@@ -25,6 +25,10 @@
             <groupId>net.guerlab.cloud</groupId>
             <artifactId>guerlab-cloud-rsa</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.guerlab.cloud</groupId>
+            <artifactId>guerlab-cloud-context-core</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>jakarta.xml.bind</groupId>

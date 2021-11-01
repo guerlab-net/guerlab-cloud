@@ -13,16 +13,16 @@
 package net.guerlab.cloud.auth.webflux.filter;
 
 import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.auth.AbstractContextHandler;
 import net.guerlab.cloud.auth.annotation.IgnoreLogin;
+import net.guerlab.cloud.auth.context.AbstractContextHandler;
 import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.context.core.ContextAttributes;
 import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpCookie;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.lang.Nullable;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerMapping;
@@ -95,15 +95,17 @@ public abstract class AbstractHandlerFilter implements WebFilter, Ordered {
 
     @Override
     public final Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-        return requestMappingHandlerMapping.getHandler(exchange).switchIfEmpty(chain.filter(exchange))
-                .flatMap(obj -> Mono.just((HandlerMethod) obj)).flatMap(handlerMethod -> {
-                    preHandle(exchange.getRequest(), exchange.getResponse(), handlerMethod);
+        //@formatter:off
+        return requestMappingHandlerMapping.getHandler(exchange).ofType(HandlerMethod.class)
+                .flatMap(handlerMethod -> {
+                    preHandle(exchange.getRequest(), handlerMethod, exchange);
                     return chain.filter(exchange);
-                });
+                })
+                .switchIfEmpty(chain.filter(exchange).then(Mono.empty()));
+        //@formatter:on
     }
 
-    protected final void preHandle(ServerHttpRequest request, ServerHttpResponse response,
-            HandlerMethod handlerMethod) {
+    protected final void preHandle(ServerHttpRequest request, HandlerMethod handlerMethod, ServerWebExchange exchange) {
         if (methodMatch(request) || uriMatch(request)) {
             return;
         }
@@ -115,7 +117,7 @@ public abstract class AbstractHandlerFilter implements WebFilter, Ordered {
         log.debug("needLoginCheck[handler = {}, needLogin = {}]", handlerMethod, needLogin);
 
         if (needLogin) {
-            String token = getToken(request);
+            String token = getToken(request, exchange);
 
             if (token != null) {
                 AbstractContextHandler.setToken(token);
@@ -134,7 +136,11 @@ public abstract class AbstractHandlerFilter implements WebFilter, Ordered {
      * @return token
      */
     @Nullable
-    private String getToken(ServerHttpRequest request) {
+    private String getToken(ServerHttpRequest request, ServerWebExchange exchange) {
+        ContextAttributes contextAttributes = (ContextAttributes) exchange.getAttributes().get(ContextAttributes.KEY);
+        log.debug("contextAttributes: {}", contextAttributes);
+        log.debug("test: {}", request.getMethodValue());
+        AbstractContextHandler.setContextAttributes(contextAttributes);
         String token = AbstractContextHandler.getToken();
 
         if (token != null) {

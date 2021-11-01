@@ -1,8 +1,8 @@
 package net.guerlab.cloud.log.aop;
 
-import net.guerlab.cloud.auth.AbstractContextHandler;
 import net.guerlab.cloud.log.annotation.Log;
 import net.guerlab.cloud.log.handler.LogHandler;
+import net.guerlab.cloud.web.core.request.RequestHolder;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -98,8 +98,8 @@ public class LogAop {
     private void logHandler(ProceedingJoinPoint point, Log log, @Nullable Object result, @Nullable Throwable ex,
             LogHandler handler) {
         Signature signature = point.getSignature();
-        String method = AbstractContextHandler.getRequestMethod();
-        String uri = AbstractContextHandler.getRequestUri();
+        String method = RequestHolder.requestMethod();
+        String uri = RequestHolder.requestPath();
         String logContent = StringUtils.trimToNull(log.value());
         if (!(signature instanceof MethodSignature) || method == null || uri == null || logContent == null) {
             return;
