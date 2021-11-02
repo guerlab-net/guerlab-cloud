@@ -23,7 +23,8 @@ public class TestTokenHandlerFilter extends AbstractTokenHandlerFilter<TestAuthW
 
     private final TestJwtTokenFactory tokenFactory;
 
-    public TestTokenHandlerFilter(TestJwtTokenFactory tokenFactory) {
+    public TestTokenHandlerFilter(TestAuthWebProperties authProperties, TestJwtTokenFactory tokenFactory) {
+        super(authProperties);
         this.tokenFactory = tokenFactory;
     }
 

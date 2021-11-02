@@ -14,7 +14,6 @@ package net.guerlab.cloud.auth.webflux.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.auth.web.properties.AuthWebProperties;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.method.HandlerMethod;
 
@@ -32,7 +31,11 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> ex
     /**
      * 授权配置
      */
-    protected A authProperties;
+    protected final A authProperties;
+
+    public AbstractTokenHandlerFilter(A authProperties) {
+        this.authProperties = authProperties;
+    }
 
     @Override
     public int getOrder() {
@@ -76,10 +79,5 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> ex
      */
     public A getAuthProperties() {
         return authProperties;
-    }
-
-    @Autowired
-    public void setAuthProperties(A authProperties) {
-        this.authProperties = authProperties;
     }
 }

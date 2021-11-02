@@ -25,16 +25,16 @@ import java.util.Collection;
  */
 public class GlobalExceptionHandler {
 
-    protected MessageSource messageSource;
+    protected final MessageSource messageSource;
 
-    protected StackTracesHandler stackTracesHandler;
+    protected final StackTracesHandler stackTracesHandler;
 
     private final ThrowableResponseBuilder defaultBuilder;
 
     @Getter
     protected GlobalExceptionLogger globalExceptionLogger;
 
-    protected Collection<ResponseBuilder> builders;
+    protected final Collection<ResponseBuilder> builders;
 
     public GlobalExceptionHandler(MessageSource messageSource, StackTracesHandler stackTracesHandler,
             GlobalExceptionLogger globalExceptionLogger, Collection<ResponseBuilder> builders) {

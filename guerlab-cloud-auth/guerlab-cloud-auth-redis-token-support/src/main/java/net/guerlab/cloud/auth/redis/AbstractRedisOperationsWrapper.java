@@ -15,6 +15,7 @@ package net.guerlab.cloud.auth.redis;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.guerlab.commons.exception.ApplicationException;
+import org.springframework.lang.Nullable;
 
 /**
  * 抽象redis操作包装对象
@@ -75,6 +76,7 @@ public abstract class AbstractRedisOperationsWrapper<T> implements RedisOperatio
      *         key
      * @return 对象字符串
      */
+    @Nullable
     protected abstract String get0(String key);
 
     /**

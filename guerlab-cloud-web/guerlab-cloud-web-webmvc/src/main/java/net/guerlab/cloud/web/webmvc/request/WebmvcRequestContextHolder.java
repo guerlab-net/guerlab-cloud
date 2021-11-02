@@ -27,12 +27,15 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class WebmvcRequestContextHolder implements net.guerlab.cloud.web.core.request.RequestContextHolder {
 
+    @Nullable
     private static ServletRequestAttributes getServletRequestAttributes() {
         return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
     }
 
+    @Nullable
     private static HttpServletRequest getRequest() {
-        return getServletRequestAttributes().getRequest();
+        ServletRequestAttributes servletRequestAttributes = getServletRequestAttributes();
+        return servletRequestAttributes != null ? servletRequestAttributes.getRequest() : null;
     }
 
     private static String parseRequestUri(HttpServletRequest request) {
@@ -51,12 +54,14 @@ public class WebmvcRequestContextHolder implements net.guerlab.cloud.web.core.re
     @Nullable
     @Override
     public String getRequestMethod() {
-        return getRequest().getMethod();
+        HttpServletRequest request = getRequest();
+        return request != null ? request.getMethod() : null;
     }
 
     @Nullable
     @Override
     public String getRequestPath() {
-        return parseRequestUri(getRequest());
+        HttpServletRequest request = getRequest();
+        return request != null ? parseRequestUri(getRequest()) : null;
     }
 }

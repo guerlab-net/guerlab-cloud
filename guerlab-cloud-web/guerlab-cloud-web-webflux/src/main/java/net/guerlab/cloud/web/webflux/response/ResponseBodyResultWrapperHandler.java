@@ -57,6 +57,7 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
         setOrder(-10);
     }
 
+    @SuppressWarnings("SameReturnValue")
     @Nullable
     private static Mono<Result<?>> methodForParams() {
         return null;

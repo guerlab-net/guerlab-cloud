@@ -12,6 +12,8 @@
  */
 package net.guerlab.cloud.auth.redis;
 
+import org.springframework.lang.Nullable;
+
 /**
  * redis操作包装对象
  *
@@ -41,5 +43,6 @@ public interface RedisOperationsWrapper<T> {
      *         key
      * @return 对象
      */
+    @Nullable
     T get(String key);
 }

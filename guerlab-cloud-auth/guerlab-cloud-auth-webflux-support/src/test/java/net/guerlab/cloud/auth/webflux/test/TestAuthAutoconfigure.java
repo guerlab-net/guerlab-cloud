@@ -33,8 +33,9 @@ public class TestAuthAutoconfigure {
     }
 
     @Bean
-    public TestTokenHandlerFilter testTokenHandlerFilter(TestJwtTokenFactory tokenFactory) {
-        return new TestTokenHandlerFilter(tokenFactory);
+    public TestTokenHandlerFilter testTokenHandlerFilter(TestAuthWebProperties authProperties,
+            TestJwtTokenFactory tokenFactory) {
+        return new TestTokenHandlerFilter(authProperties, tokenFactory);
     }
 
     @Bean
