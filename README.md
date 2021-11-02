@@ -3,8 +3,8 @@
 ![](https://img.shields.io/maven-central/v/net.guerlab.cloud/guerlab-cloud.svg)
 ![](https://img.shields.io/badge/LICENSE-LGPL--3.0-brightgreen.svg)
 
-采用java14进行开发<br>
-基于Spring Cloud与Spring Cloud Alibaba的扩展框架，提供feign扩展、授权扩展、缓存扩展、国际化扩展、excel扩展、server扩展与stream扩展<br>
+基于java14进行开发<br>
+基于Spring Cloud与Spring Cloud Alibaba的扩展框架，提供feign、授权、缓存、负载均衡、请求上下文、国际化、excel、安全、消息队列、web、openapi(swagger)、RSA等扩展<br>
 
 ## 依赖管理
 
@@ -29,23 +29,40 @@
 |guerlab-cloud-auth|授权模块|
 |guerlab-cloud-auth-commons|提供授权的公共配置，内置jwk\md5\rc4格式的数据加解密支持|
 |guerlab-cloud-auth-redis-token-support|提供基于redis的token令牌授权模型支持|
-|guerlab-cloud-auth-web-support|提供授权模块在web环境下的使用支持|
+|guerlab-cloud-auth-web-support|提供授权模块在web环境下的通用支持|
+|guerlab-cloud-auth-webflux-support|提供授权模块在webflux环境下的使用支持|
+|guerlab-cloud-auth-webmvc-support|提供授权模块在webmvc环境下的使用支持|
 |guerlab-cloud-cache|提供缓存的统一处理|
 |guerlab-cloud-cache-redis|提供redis缓存的优化扩展|
 |guerlab-cloud-commons|基础包，提供部分domain与工具类|
+|guerlab-cloud-context|请求上下文增强|
+|guerlab-cloud-context-core|请求上下文增强的核心实现|
+|guerlab-cloud-context-webflux|请求上下文在webflux增强的核心实现|
+|guerlab-cloud-context-webmvc|请求上下文在webmvc增强的核心实现|
 |guerlab-cloud-excel|提供excel的的简易使用|
 |guerlab-cloud-loadbalancer|提供对服务发现的负载均衡增强，包含版本控制与集群控制|
 |guerlab-cloud-log|提供对日志切入点的统一处理|
+|guerlab-cloud-openapi|openapi文档支持|
+|guerlab-cloud-openapi-core|openapi文档的核心支持|
+|guerlab-cloud-openapi-webflux|openapi文档在webflux环境下的扩展支持|
+|guerlab-cloud-openapi-webmvc|openapi文档在webmvc环境下的扩展支持|
+|guerlab-cloud-rsa|提供对rsa的支持，包含证书生成、加解密|
+|guerlab-cloud-security|对spring security的增强支持|
+|guerlab-cloud-security-core|对spring security的增强支持核心实现|
+|guerlab-cloud-security-webflux|对spring security在webflux环境下的增强支持|
+|guerlab-cloud-security-webmvc|对spring security在webmvc环境下的增强支持|
+|guerlab-cloud-sentinel|提供sentinel的扩展支持|
+|guerlab-cloud-sentinel-webflux|对sentinel在webflux环境下的增强支持|
+|guerlab-cloud-sentinel-webmvc|对sentinel在webmvc环境下的增强支持|
 |guerlab-cloud-server|服务实现|
 |guerlab-cloud-server-commons|server实现的基础支持|
-|guerlab-cloud-server-openapi-commons|openapi文档的基础支持|
-|guerlab-cloud-server-openapi-webflux|openapi文档在webflux环境下的扩展支持|
-|guerlab-cloud-server-openapi-webmvc|openapi文档在webmvc环境下的扩展支持|
 |guerlab-cloud-server-orm|提供orm的扩展支持|
-|guerlab-cloud-server-sentinel|提供sentinel的扩展支持|
-|guerlab-cloud-server-webflux|在webflux环境下的扩展支持|
-|guerlab-cloud-server-webmvc|在webmvc环境下的扩展支持|
+|guerlab-cloud-server-rest|提供通用的rest端点的定义|
 |guerlab-cloud-server-stream|stream数据处理工具包|
+|guerlab-cloud-web|提供web环境的增强|
+|guerlab-cloud-web-core|提供web环境的通用增强|
+|guerlab-cloud-web-webflux|额外提供webflux环境下的增强|
+|guerlab-cloud-web-webmvc|额外提供webmvc环境下的增强|
 
 ## wiki
 
