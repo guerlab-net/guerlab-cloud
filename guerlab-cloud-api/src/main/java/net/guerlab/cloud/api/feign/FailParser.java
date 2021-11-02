@@ -1,3 +1,15 @@
+/*
+ * Copyright 2018-2022 guerlab.net and other contributors.
+ *
+ * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.gnu.org/licenses/lgpl-3.0.html
+ *
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.guerlab.cloud.api.feign;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -83,8 +95,7 @@ public class FailParser {
             return Collections.emptyList();
         }
 
-        return StreamSupport.stream(stackTraceNode.spliterator(), false).map(FailParser::parseApplicationStackTrace)
-                .filter(Objects::nonNull).collect(Collectors.toList());
+        return StreamSupport.stream(stackTraceNode.spliterator(), false).map(FailParser::parseApplicationStackTrace).filter(Objects::nonNull).collect(Collectors.toList());
     }
 
     /**
@@ -109,8 +120,7 @@ public class FailParser {
             applicationStackTrace.setStackTrace(Collections.emptyList());
         } else {
             applicationStackTrace.setStackTrace(
-                    StreamSupport.stream(stackTraceNode.spliterator(), false).map(JsonNode::asText)
-                            .collect(Collectors.toList()));
+                    StreamSupport.stream(stackTraceNode.spliterator(), false).map(JsonNode::asText).collect(Collectors.toList()));
         }
 
         return applicationStackTrace;

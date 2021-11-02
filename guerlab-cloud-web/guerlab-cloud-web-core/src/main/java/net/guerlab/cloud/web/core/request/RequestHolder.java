@@ -1,3 +1,15 @@
+/*
+ * Copyright 2018-2022 guerlab.net and other contributors.
+ *
+ * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.gnu.org/licenses/lgpl-3.0.html
+ *
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.guerlab.cloud.web.core.request;
 
 import org.springframework.lang.Nullable;
@@ -17,8 +29,7 @@ public class RequestHolder {
     private static final Collection<RequestContextHolder> HOLDERS;
 
     static {
-        HOLDERS = ServiceLoader.load(RequestContextHolder.class).stream().map(ServiceLoader.Provider::get)
-                .collect(Collectors.toList());
+        HOLDERS = ServiceLoader.load(RequestContextHolder.class).stream().map(ServiceLoader.Provider::get).collect(Collectors.toList());
     }
 
     private RequestHolder() {
@@ -49,8 +60,7 @@ public class RequestHolder {
      */
     @Nullable
     public static String requestMethod() {
-        return HOLDERS.stream().map(RequestContextHolder::getRequestMethod).filter(Objects::nonNull).findFirst()
-                .orElse(null);
+        return HOLDERS.stream().map(RequestContextHolder::getRequestMethod).filter(Objects::nonNull).findFirst().orElse(null);
     }
 
     /**
@@ -77,7 +87,6 @@ public class RequestHolder {
      */
     @Nullable
     public static String requestPath() {
-        return HOLDERS.stream().map(RequestContextHolder::getRequestPath).filter(Objects::nonNull).findFirst()
-                .orElse(null);
+        return HOLDERS.stream().map(RequestContextHolder::getRequestPath).filter(Objects::nonNull).findFirst().orElse(null);
     }
 }

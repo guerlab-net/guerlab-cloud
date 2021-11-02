@@ -1,3 +1,15 @@
+/*
+ * Copyright 2018-2022 guerlab.net and other contributors.
+ *
+ * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.gnu.org/licenses/lgpl-3.0.html
+ *
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.guerlab.cloud.auth;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,15 +51,11 @@ public class JwtTestCases {
         context = new AnnotationConfigApplicationContext();
         context.register(TestAuthAutoconfigure.class, TestJwtTokenFactory.class, TestMd5TokenFactory.class,
                 TestRc4TokenFactory.class);
-        TestPropertyValues
-                .of("auth.test.token-factory.jwt.access-token-key.public-key=" + rsaKeys.getPublicKeyFormattedContent())
+        TestPropertyValues.of("auth.test.token-factory.jwt.access-token-key.public-key=" + rsaKeys.getPublicKeyFormattedContent())
                 .applyTo(context);
-        TestPropertyValues.of("auth.test.token-factory.jwt.access-token-key.private-key=" + rsaKeys.getPrivateKey())
-                .applyTo(context);
-        TestPropertyValues.of("auth.test.token-factory.jwt.refresh-token-key.public-key=" + rsaKeys
-                .getPublicKeyFormattedContent()).applyTo(context);
-        TestPropertyValues.of("auth.test.token-factory.jwt.refresh-token-key.private-key=" + rsaKeys.getPrivateKey())
-                .applyTo(context);
+        TestPropertyValues.of("auth.test.token-factory.jwt.access-token-key.private-key=" + rsaKeys.getPrivateKey()).applyTo(context);
+        TestPropertyValues.of("auth.test.token-factory.jwt.refresh-token-key.public-key=" + rsaKeys.getPublicKeyFormattedContent()).applyTo(context);
+        TestPropertyValues.of("auth.test.token-factory.jwt.refresh-token-key.private-key=" + rsaKeys.getPrivateKey()).applyTo(context);
         context.refresh();
     }
 

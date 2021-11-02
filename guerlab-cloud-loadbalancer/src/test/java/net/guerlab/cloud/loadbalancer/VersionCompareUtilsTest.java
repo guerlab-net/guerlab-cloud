@@ -1,3 +1,15 @@
+/*
+ * Copyright 2018-2022 guerlab.net and other contributors.
+ *
+ * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.gnu.org/licenses/lgpl-3.0.html
+ *
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.guerlab.cloud.loadbalancer;
 
 import net.guerlab.cloud.loadbalancer.utils.VersionCompareUtils;
@@ -36,8 +48,7 @@ public class VersionCompareUtilsTest {
     public void match() {
         for (int o = 0; o < origins.length; o++) {
             for (int r = 0; r < ranges.length; r++) {
-                Assertions.assertEquals(expect[o][r], VersionCompareUtils.match(origins[o], ranges[r]),
-                        String.format("%s and %s match result not equals %s", origins[o], ranges[r], expect[o][r]));
+                Assertions.assertEquals(expect[o][r], VersionCompareUtils.match(origins[o], ranges[r]), String.format("%s and %s match result not equals %s", origins[o], ranges[r], expect[o][r]));
             }
         }
 

@@ -1,3 +1,15 @@
+/*
+ * Copyright 2018-2022 guerlab.net and other contributors.
+ *
+ * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.gnu.org/licenses/lgpl-3.0.html
+ *
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.guerlab.cloud.context.core;
 
 import org.springframework.lang.Nullable;
@@ -47,8 +59,7 @@ public class ContextAttributesHolder {
     public static ContextAttributes get(@Nullable Object object) {
         ContextAttributes contextAttributes = null;
         if (object != null) {
-            contextAttributes = OBJECT_CONTEXT_ATTRIBUTES_HOLDERS.stream().filter(holder -> holder.accept(object))
-                    .map(holder -> holder.get(object)).findFirst().orElse(null);
+            contextAttributes = OBJECT_CONTEXT_ATTRIBUTES_HOLDERS.stream().filter(holder -> holder.accept(object)).map(holder -> holder.get(object)).findFirst().orElse(null);
         }
         if (contextAttributes == null) {
             contextAttributes = THREAD_LOCAL.get();
@@ -68,8 +79,7 @@ public class ContextAttributesHolder {
         if (object == null) {
             THREAD_LOCAL.set(contextAttributes);
         } else {
-            List<ObjectContextAttributesHolder> holders = OBJECT_CONTEXT_ATTRIBUTES_HOLDERS.stream()
-                    .filter(holder -> holder.accept(object)).collect(Collectors.toList());
+            List<ObjectContextAttributesHolder> holders = OBJECT_CONTEXT_ATTRIBUTES_HOLDERS.stream().filter(holder -> holder.accept(object)).collect(Collectors.toList());
 
             if (holders.isEmpty()) {
                 THREAD_LOCAL.set(contextAttributes);

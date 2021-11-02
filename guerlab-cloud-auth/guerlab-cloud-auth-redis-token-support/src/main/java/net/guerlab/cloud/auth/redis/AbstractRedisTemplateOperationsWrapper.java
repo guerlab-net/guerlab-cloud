@@ -1,3 +1,15 @@
+/*
+ * Copyright 2018-2022 guerlab.net and other contributors.
+ *
+ * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.gnu.org/licenses/lgpl-3.0.html
+ *
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.guerlab.cloud.auth.redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,16 +29,14 @@ public abstract class AbstractRedisTemplateOperationsWrapper<T> extends Abstract
 
     private final RedisTemplate<String, String> redisTemplate;
 
-    public AbstractRedisTemplateOperationsWrapper(ObjectMapper objectMapper,
-            RedisTemplate<String, String> redisTemplate) {
+    public AbstractRedisTemplateOperationsWrapper(ObjectMapper objectMapper, RedisTemplate<String, String> redisTemplate) {
         super(objectMapper);
         this.redisTemplate = redisTemplate;
     }
 
     @Override
     protected boolean put0(String key, String dataString, long timeout) {
-        return Objects
-                .equals(redisTemplate.opsForValue().setIfAbsent(key, dataString, timeout, TimeUnit.MILLISECONDS), true);
+        return Objects.equals(redisTemplate.opsForValue().setIfAbsent(key, dataString, timeout, TimeUnit.MILLISECONDS), true);
     }
 
     @Override
