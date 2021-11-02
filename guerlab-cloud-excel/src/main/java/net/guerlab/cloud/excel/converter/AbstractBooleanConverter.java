@@ -14,8 +14,9 @@ package net.guerlab.cloud.excel.converter;
 
 import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.enums.CellDataTypeEnum;
-import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
+import com.alibaba.excel.metadata.data.ReadCellData;
+import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
@@ -43,7 +44,7 @@ public class AbstractBooleanConverter implements Converter<Boolean> {
     }
 
     @Override
-    public Class supportJavaTypeKey() {
+    public Class<?> supportJavaTypeKey() {
         return Boolean.class;
     }
 
@@ -53,14 +54,14 @@ public class AbstractBooleanConverter implements Converter<Boolean> {
     }
 
     @Override
-    public Boolean convertToJavaData(CellData cellData, ExcelContentProperty contentProperty,
+    public Boolean convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty,
             GlobalConfiguration globalConfiguration) {
         return trueValue.equals(cellData.getStringValue());
     }
 
     @Override
-    public CellData convertToExcelData(@Nullable Boolean value, ExcelContentProperty contentProperty,
+    public WriteCellData<?> convertToExcelData(@Nullable Boolean value, ExcelContentProperty contentProperty,
             GlobalConfiguration globalConfiguration) {
-        return new CellData(value == null ? "" : value ? trueValue : falseValue);
+        return new WriteCellData(value == null ? "" : value ? trueValue : falseValue);
     }
 }

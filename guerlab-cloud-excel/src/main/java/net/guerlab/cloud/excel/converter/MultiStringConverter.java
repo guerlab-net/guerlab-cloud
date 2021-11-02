@@ -14,8 +14,9 @@ package net.guerlab.cloud.excel.converter;
 
 import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.enums.CellDataTypeEnum;
-import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
+import com.alibaba.excel.metadata.data.ReadCellData;
+import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import net.guerlab.cloud.commons.domain.MultiString;
 import org.apache.commons.lang3.StringUtils;
@@ -31,7 +32,7 @@ import java.util.Arrays;
 public class MultiStringConverter implements Converter<MultiString> {
 
     @Override
-    public Class supportJavaTypeKey() {
+    public Class<?> supportJavaTypeKey() {
         return MultiString.class;
     }
 
@@ -41,7 +42,7 @@ public class MultiStringConverter implements Converter<MultiString> {
     }
 
     @Override
-    public MultiString convertToJavaData(CellData cellData, ExcelContentProperty contentProperty,
+    public MultiString convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty,
             GlobalConfiguration globalConfiguration) {
         String value = StringUtils.trimToEmpty(cellData.getStringValue());
 
@@ -52,8 +53,8 @@ public class MultiStringConverter implements Converter<MultiString> {
     }
 
     @Override
-    public CellData convertToExcelData(MultiString value, ExcelContentProperty contentProperty,
+    public WriteCellData<?> convertToExcelData(MultiString value, ExcelContentProperty contentProperty,
             GlobalConfiguration globalConfiguration) {
-        return new CellData(StringUtils.join(value, ","));
+        return new WriteCellData(StringUtils.join(value, ","));
     }
 }

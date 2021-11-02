@@ -52,21 +52,21 @@
     </issueManagement>
 
     <properties>
-        <revision>21.12.0-SNAPSHOT</revision>
+        <revision>22.0.0-SNAPSHOT</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>14</java.version>
         <project.encoding>UTF-8</project.encoding>
 
         <guerlab-spring.version>5.1.4</guerlab-spring.version>
-        <spring-cloud.version>2020.0.3</spring-cloud.version>
-        <spring-boot.version>2.4.6</spring-boot.version>
+        <spring-cloud.version>2020.0.4</spring-cloud.version>
+        <spring-boot.version>2.4.12</spring-boot.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
         <jjwt.version>0.9.1</jjwt.version>
         <guava.version>24.1.1-jre</guava.version>
-        <easyexcel.version>2.2.9</easyexcel.version>
-        <springdoc.version>1.5.8</springdoc.version>
-        <nacos.version>2.0.2</nacos.version>
+        <easyexcel.version>3.0.2</easyexcel.version>
+        <springdoc.version>1.5.12</springdoc.version>
+        <nacos.version>2.0.3</nacos.version>
         <findbugs.version>3.0.2</findbugs.version>
     </properties>
 
@@ -393,13 +393,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-    </dependencies>
 
     <modules>
         <module>guerlab-cloud-api</module>

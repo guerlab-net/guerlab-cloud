@@ -14,8 +14,9 @@ package net.guerlab.cloud.excel.converter;
 
 import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.enums.CellDataTypeEnum;
-import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
+import com.alibaba.excel.metadata.data.ReadCellData;
+import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import net.guerlab.cloud.commons.domain.MultiId;
 import org.apache.commons.lang3.StringUtils;
@@ -31,7 +32,7 @@ public class MultiIdConverter implements Converter<MultiId> {
     private static final String SEPARATOR = ",";
 
     @Override
-    public Class supportJavaTypeKey() {
+    public Class<?> supportJavaTypeKey() {
         return MultiId.class;
     }
 
@@ -41,7 +42,7 @@ public class MultiIdConverter implements Converter<MultiId> {
     }
 
     @Override
-    public MultiId convertToJavaData(CellData cellData, ExcelContentProperty contentProperty,
+    public MultiId convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty,
             GlobalConfiguration globalConfiguration) {
         String value = StringUtils.trimToEmpty(cellData.getStringValue());
 
@@ -59,8 +60,8 @@ public class MultiIdConverter implements Converter<MultiId> {
     }
 
     @Override
-    public CellData convertToExcelData(MultiId value, ExcelContentProperty contentProperty,
+    public WriteCellData<?> convertToExcelData(MultiId value, ExcelContentProperty contentProperty,
             GlobalConfiguration globalConfiguration) {
-        return new CellData(StringUtils.join(value, SEPARATOR));
+        return new WriteCellData(StringUtils.join(value, SEPARATOR));
     }
 }

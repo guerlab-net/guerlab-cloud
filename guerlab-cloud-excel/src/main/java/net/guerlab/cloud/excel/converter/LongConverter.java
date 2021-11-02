@@ -14,8 +14,9 @@ package net.guerlab.cloud.excel.converter;
 
 import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.enums.CellDataTypeEnum;
-import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
+import com.alibaba.excel.metadata.data.ReadCellData;
+import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 
 /**
@@ -27,7 +28,7 @@ import com.alibaba.excel.metadata.property.ExcelContentProperty;
 public class LongConverter implements Converter<Long> {
 
     @Override
-    public Class supportJavaTypeKey() {
+    public Class<?> supportJavaTypeKey() {
         return Long.class;
     }
 
@@ -37,14 +38,14 @@ public class LongConverter implements Converter<Long> {
     }
 
     @Override
-    public Long convertToJavaData(CellData cellData, ExcelContentProperty contentProperty,
+    public Long convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty,
             GlobalConfiguration globalConfiguration) {
         return Long.parseLong(cellData.getStringValue());
     }
 
     @Override
-    public CellData convertToExcelData(Long value, ExcelContentProperty contentProperty,
+    public WriteCellData<?> convertToExcelData(Long value, ExcelContentProperty contentProperty,
             GlobalConfiguration globalConfiguration) {
-        return new CellData(value.toString());
+        return new WriteCellData(value.toString());
     }
 }

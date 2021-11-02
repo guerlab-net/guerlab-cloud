@@ -14,8 +14,9 @@ package net.guerlab.cloud.excel.converter;
 
 import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.enums.CellDataTypeEnum;
-import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
+import com.alibaba.excel.metadata.data.ReadCellData;
+import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import net.guerlab.commons.time.TimeHelper;
 
@@ -30,7 +31,7 @@ import java.time.LocalDateTime;
 public class LocalDateTimeConverter implements Converter<LocalDateTime> {
 
     @Override
-    public Class supportJavaTypeKey() {
+    public Class<?> supportJavaTypeKey() {
         return LocalDateTime.class;
     }
 
@@ -40,14 +41,14 @@ public class LocalDateTimeConverter implements Converter<LocalDateTime> {
     }
 
     @Override
-    public LocalDateTime convertToJavaData(CellData cellData, ExcelContentProperty contentProperty,
+    public LocalDateTime convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty,
             GlobalConfiguration globalConfiguration) {
         return TimeHelper.parseLocalDateTime(cellData.getStringValue());
     }
 
     @Override
-    public CellData convertToExcelData(LocalDateTime value, ExcelContentProperty contentProperty,
+    public WriteCellData<?> convertToExcelData(LocalDateTime value, ExcelContentProperty contentProperty,
             GlobalConfiguration globalConfiguration) {
-        return new CellData(TimeHelper.format(value));
+        return new WriteCellData(TimeHelper.format(value));
     }
 }
