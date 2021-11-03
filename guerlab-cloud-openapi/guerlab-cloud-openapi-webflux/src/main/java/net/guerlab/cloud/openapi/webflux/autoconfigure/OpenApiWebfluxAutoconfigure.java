@@ -17,7 +17,7 @@ import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -32,8 +32,13 @@ public class OpenApiWebfluxAutoconfigure {
     @Autowired(required = false)
     public void responseAdvisorAddExcluded(ResponseAdvisorProperties responseAdvisorProperties) {
         // @formatter:off
-        List<String> excluded = Collections.singletonList(
-                "org.springdoc.webflux.ui.SwaggerWelcomeWebFlux#getSwaggerUiConfig"
+        List<String> excluded = Arrays.asList(
+                "org.springdoc.webflux.ui.SwaggerWelcomeWebFlux#getSwaggerUiConfig",
+                "org.springdoc.webflux.ui.SwaggerConfigResource#getSwaggerUiConfig",
+                "org.springdoc.webflux.api.OpenApiWebfluxResource#openapiJson",
+                "org.springdoc.webflux.api.OpenApiWebfluxResource#openapiYaml",
+                "org.springdoc.webflux.api.MultipleOpenApiWebFluxResource#openapiJson",
+                "org.springdoc.webflux.api.MultipleOpenApiWebFluxResource#openapiYaml"
         );
         // @formatter:on
 
