@@ -17,7 +17,6 @@ import net.guerlab.cloud.auth.web.properties.AuthWebProperties;
 import net.guerlab.cloud.auth.webmvc.interceptor.AbstractHandlerInterceptor;
 import net.guerlab.cloud.auth.webmvc.interceptor.AbstractTokenHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -33,9 +32,13 @@ import java.util.List;
 @Slf4j
 public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProperties> implements WebMvcConfigurer {
 
-    private A properties;
+    private final A properties;
 
     private Collection<? extends AbstractHandlerInterceptor> tokenHandlerInterceptors;
+
+    public AbstractAuthInterceptorAutoconfigure(A properties) {
+        this.properties = properties;
+    }
 
     @Override
     public final void addInterceptors(InterceptorRegistry registry) {
@@ -73,16 +76,10 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProp
      *         拦截器
      */
     protected final void setPathPatterns(InterceptorRegistration interceptor) {
-        AntPathMatcher pathMatcher = properties.getPathMatcher();
         List<String> includePatterns = properties.getIncludePatterns();
         List<String> excludePatterns = properties.getExcludePatterns();
 
-        interceptor.pathMatcher(pathMatcher).addPathPatterns(includePatterns).excludePathPatterns(excludePatterns);
-    }
-
-    @Autowired
-    public void setProperties(A properties) {
-        this.properties = properties;
+        interceptor.addPathPatterns(includePatterns).excludePathPatterns(excludePatterns);
     }
 
     @Autowired(required = false)
