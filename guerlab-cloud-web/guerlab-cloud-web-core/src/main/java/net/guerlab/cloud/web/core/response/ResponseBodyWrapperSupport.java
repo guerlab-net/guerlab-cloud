@@ -96,6 +96,7 @@ public class ResponseBodyWrapperSupport {
         }
 
         String methodName = method.getDeclaringClass().getName() + "#" + method.getName();
+        log.debug("method sign {}", methodName);
 
         for (String pattern : excluded) {
             if (ANT_PATH_MATCHER.match(pattern, requestPath)) {

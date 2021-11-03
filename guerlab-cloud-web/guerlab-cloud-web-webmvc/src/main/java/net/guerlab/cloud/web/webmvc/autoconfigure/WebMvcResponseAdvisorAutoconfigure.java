@@ -65,10 +65,19 @@ public class WebMvcResponseAdvisorAutoconfigure {
         public Object beforeBodyWrite(@Nullable Object body, MethodParameter returnType, MediaType selectedContentType,
                 Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
                 ServerHttpResponse response) {
-            if (support.noConvertObject(body) || matchExcluded(request, returnType.getMethod())) {
+            if (body == null) {
+                log.debug("wrapper with null body");
+                return new Succeed<>();
+            } else if (support.noConvertObject(body)) {
+                log.debug("un wrapper with noConvertObject, body class is {}", body.getClass());
                 return body;
+            } else if (matchExcluded(request, returnType.getMethod())) {
+                log.debug("un wrapper with matchExcluded");
+                return body;
+            } else {
+                log.debug("wrap up");
+                return new Succeed<>(body);
             }
-            return new Succeed<>(body);
         }
 
         private boolean matchExcluded(ServerHttpRequest request, @Nullable Method method) {
