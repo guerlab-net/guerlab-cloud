@@ -72,26 +72,31 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
     public Mono<Void> handleResult(ServerWebExchange exchange, HandlerResult result) {
         Object body = result.getReturnValue();
         MethodParameter bodyTypeParameter = result.getReturnTypeSource();
-        if (support.noConvertObject(body) || matchExcluded(exchange, bodyTypeParameter.getMethod())) {
+        if (body == null) {
+            log.debug("wrapper with null body");
+            return writeBody(new Succeed<>(), METHOD_PARAMETER_WITH_MONO_RESULT, exchange);
+        } else if (support.noConvertObject(body)) {
+            log.debug("un wrapper with noConvertObject, body class is {}", body.getClass());
+            return writeBody(body, bodyTypeParameter, exchange);
+        } else if (matchExcluded(exchange, bodyTypeParameter.getMethod())) {
+            log.debug("un wrapper with matchExcluded");
             return writeBody(body, bodyTypeParameter, exchange);
         }
 
-        if (body != null) {
-            Mono<?> mono = null;
-            if (body instanceof Mono) {
-                mono = (Mono<?>) body;
-            } else if (body instanceof Flux) {
-                Flux<?> flux = (Flux<?>) body;
-                mono = flux.collectList();
-            }
+        Mono<?> mono = null;
+        if (body instanceof Mono) {
+            mono = (Mono<?>) body;
+            log.debug("un wrapper with Mono");
+        } else if (body instanceof Flux) {
+            Flux<?> flux = (Flux<?>) body;
+            mono = flux.collectList();
+            log.debug("un wrapper with Flux");
+        }
 
-            if (mono != null) {
-                body = mono.map(Succeed::new).defaultIfEmpty(new Succeed<>());
-            } else {
-                body = new Succeed<>(body);
-            }
+        if (mono != null) {
+            body = mono.map(Succeed::new).defaultIfEmpty(new Succeed<>());
         } else {
-            body = new Succeed<>();
+            body = new Succeed<>(body);
         }
 
         return writeBody(body, METHOD_PARAMETER_WITH_MONO_RESULT, exchange);
