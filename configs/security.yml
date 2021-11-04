@@ -1,5 +1,0 @@
-spring:
-  security:
-    user:
-      name: ##用户名
-      password: ##密码

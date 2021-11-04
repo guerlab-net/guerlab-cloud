@@ -1,3 +1,5 @@
+server:
+  forward-headers-strategy: framework
 spring:
   messages:
     basename: messages/*
@@ -10,6 +12,8 @@ spring:
     deserialization:
       fail-on-unknown-properties: false
       fail-on-invalid-subtype: false
+    mapper:
+      sort-properties-alphabetically: true
     default-property-inclusion: non_null
     format:
       format-long-class: true
@@ -42,6 +46,10 @@ spring:
       stats:
         micrometer:
           enabled: false
+      version-control:
+        enabled: true
+      cluster-same:
+        enabled: true
     debug:
       enable: false
       gateway-proxy-url: http://gateway/proxy/
@@ -66,6 +74,12 @@ spring:
       - java.lang
     log-ignore-paths:
       - path: /favicon.ico
+  security:
+    actuator:
+      enabled: true
+    user:
+      name: ##用户名
+      password: ##密码
 feign:
   client:
     config:
@@ -112,4 +126,13 @@ openapi:
 logging:
   level:
     root: ERROR
+    com.netflix: 'OFF'
+    com.sun: 'OFF'
+    freemarker: 'OFF'
+    javax.xml.bind: 'OFF'
+    org.apache: 'OFF'
+    org.hibernate: 'OFF'
+    springfox: 'OFF'
+    com.alibaba.nacos: 'OFF'
+    io.undertow: 'OFF'
     net.guerlab.cloud: INFO
