@@ -14,8 +14,6 @@ package net.guerlab.cloud.commons.exception;
 
 import net.guerlab.spring.commons.exception.AbstractI18nApplicationException;
 
-import java.io.Serial;
-
 /**
  * 无效的地理信息实体
  *
@@ -23,7 +21,6 @@ import java.io.Serial;
  */
 public class GeoEntityInvalidException extends AbstractI18nApplicationException {
 
-    @Serial
     private static final long serialVersionUID = 1L;
 
     private static final String MESSAGE_KEY = "message.exception.commons.geoEntityInvalid";

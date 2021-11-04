@@ -3,7 +3,7 @@
 ![](https://img.shields.io/maven-central/v/net.guerlab.cloud/guerlab-cloud.svg)
 ![](https://img.shields.io/badge/LICENSE-LGPL--3.0-brightgreen.svg)
 
-基于java14进行开发<br>
+基于java11进行开发<br>
 基于Spring Cloud与Spring Cloud Alibaba的扩展框架，提供feign、授权、缓存、负载均衡、请求上下文、国际化、excel、安全、消息队列、web、openapi(swagger)、RSA等扩展<br>
 
 ## 依赖管理
