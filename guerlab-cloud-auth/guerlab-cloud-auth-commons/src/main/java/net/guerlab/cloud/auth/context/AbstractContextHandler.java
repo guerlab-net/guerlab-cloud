@@ -22,7 +22,10 @@ import org.springframework.lang.Nullable;
  *
  * @author guer
  */
-public interface AbstractContextHandler {
+public abstract class AbstractContextHandler {
+
+    protected AbstractContextHandler() {
+    }
 
     /**
      * 设置内容
@@ -33,7 +36,7 @@ public interface AbstractContextHandler {
      *         内容
      */
     @SuppressWarnings("SameParameterValue")
-    static void set(String key, Object value) {
+    public static void set(String key, Object value) {
         ContextAttributesHolder.get().put(key, value);
     }
 
@@ -48,7 +51,7 @@ public interface AbstractContextHandler {
      */
     @SuppressWarnings("unchecked")
     @Nullable
-    static <T> T get(String key) {
+    public static <T> T get(String key) {
         return (T) ContextAttributesHolder.get().get(key);
     }
 
@@ -58,7 +61,7 @@ public interface AbstractContextHandler {
      * @return 内容拷贝结果
      */
     @SuppressWarnings("unused")
-    static ContextAttributes getCopyOfContext() {
+    public static ContextAttributes getCopyOfContext() {
         return ContextAttributesHolder.get();
     }
 
@@ -68,14 +71,14 @@ public interface AbstractContextHandler {
      * @param contextAttributes
      *         上下文属性
      */
-    static void setContextAttributes(ContextAttributes contextAttributes) {
+    public static void setContextAttributes(ContextAttributes contextAttributes) {
         ContextAttributesHolder.set(contextAttributes);
     }
 
     /**
      * 清除当前内容
      */
-    static void clean() {
+    public static void clean() {
         ContextAttributesHolder.get().clear();
     }
 
@@ -85,7 +88,7 @@ public interface AbstractContextHandler {
      * @return token
      */
     @Nullable
-    static String getToken() {
+    public static String getToken() {
         return get(Constants.TOKEN);
     }
 
@@ -95,7 +98,7 @@ public interface AbstractContextHandler {
      * @param token
      *         token
      */
-    static void setToken(String token) {
+    public static void setToken(String token) {
         set(Constants.TOKEN, token);
     }
 }
