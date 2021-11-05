@@ -91,8 +91,13 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 
     @Override
     public final boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        preHandle0(request, handler);
+        return true;
+    }
+
+    private void preHandle0(HttpServletRequest request, Object handler) {
         if (methodMatch(request) || uriMatch(request) || !(handler instanceof HandlerMethod)) {
-            return true;
+            return;
         }
 
         log.debug("intercept request[interceptor = {}, request = [{} {}]]", getClass(), request.getMethod(),
@@ -113,8 +118,6 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
                 preHandleWithoutToken();
             }
         }
-
-        return true;
     }
 
     /**
@@ -182,9 +185,7 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
      * 获取令牌失败前置处理
      */
     protected void preHandleWithoutToken() {
-        /*
-         * 默认空处理
-         */
+        log.debug("invoke preHandleWithoutToken()");
     }
 
     private boolean uriMatch(HttpServletRequest request) {

@@ -18,10 +18,13 @@ package net.guerlab.cloud.api;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface ApiConstants {
+public final class ApiConstants {
 
     /**
      * 服务ID
      */
-    String SERVICE_ID_PROPERTIES_PREFIX = "guerlab.cloud.api.names";
+    public static final String SERVICE_ID_PROPERTIES_PREFIX = "guerlab.cloud.api.names";
+
+    private ApiConstants() {
+    }
 }

@@ -30,7 +30,7 @@ public class NoHandlerFoundExceptionResponseBuilder extends AbstractResponseBuil
     }
 
     @Override
-    public Fail<?> build(Throwable e) {
+    public Fail<Void> build(Throwable e) {
         NoHandlerFoundException exception = (NoHandlerFoundException) e;
         return buildByI18nInfo(new NoHandlerFoundExceptionInfo(exception), e);
     }

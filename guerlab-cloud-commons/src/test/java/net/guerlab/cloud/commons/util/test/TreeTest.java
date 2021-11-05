@@ -27,10 +27,10 @@ import java.util.List;
 /**
  * @author guer
  */
-public class TreeTest {
+class TreeTest {
 
     @Test
-    public void orderTreeEntity() {
+    void orderTreeEntity() {
         Collection<TestEntity1> entities = new ArrayList<>();
         entities.add(new TestEntity1(1L, 0L, 3));
         entities.add(new TestEntity1(2L, 0L, 2));
@@ -46,7 +46,7 @@ public class TreeTest {
     }
 
     @Test
-    public void treeEntity() {
+    void treeEntity() {
         Collection<TestEntity2> entities = new ArrayList<>();
         entities.add(new TestEntity2(1L, 0L));
         entities.add(new TestEntity2(2L, 0L));
@@ -62,7 +62,7 @@ public class TreeTest {
     }
 
     @Test
-    public void empty() {
+    void empty() {
         Collection<TestEntity2> entities = new ArrayList<>();
         entities.add(new TestEntity2(1L, 0L));
         entities.add(new TestEntity2(2L, 0L));
@@ -76,8 +76,9 @@ public class TreeTest {
     }
 
     @Test
-    public void empty2() {
-        List<TestEntity2> roots = TreeUtils.tree(new ArrayList<TestEntity2>(), 3L);
+    void empty2() {
+        Collection<TestEntity2> entities = new ArrayList<>();
+        List<TestEntity2> roots = TreeUtils.tree(entities, 3L);
         Assertions.assertTrue(roots.isEmpty());
     }
 

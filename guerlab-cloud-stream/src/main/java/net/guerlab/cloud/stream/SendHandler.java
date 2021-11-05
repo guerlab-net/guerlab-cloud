@@ -77,7 +77,12 @@ public class SendHandler<T> {
      */
     public boolean send(T payload) {
         Objects.requireNonNull(payload, "payload can not be null");
-        return streamBridge.send(bindingName, buildMessage(payload));
+
+        if (payload instanceof Message) {
+            return streamBridge.send(bindingName, payload);
+        } else {
+            return streamBridge.send(bindingName, buildMessage(payload));
+        }
     }
 
     /**
@@ -87,10 +92,7 @@ public class SendHandler<T> {
      *         消息体内容
      * @return 消息体
      */
-    protected Message<?> buildMessage(T payload) {
-        if (payload instanceof Message<?>) {
-            return (Message<?>) payload;
-        }
+    protected Message<T> buildMessage(T payload) {
         MessageBuilder<T> builder = MessageUtils.toBuilder(payload);
         builder.setHeader("spring.cloud.function.definition", MessageUtils.getListenerName(bindingName));
         return builder.build();

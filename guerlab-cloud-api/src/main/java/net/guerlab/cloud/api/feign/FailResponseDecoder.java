@@ -18,6 +18,7 @@ import feign.Response;
 import feign.Util;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 
 import java.nio.charset.StandardCharsets;
 
@@ -36,6 +37,7 @@ public class FailResponseDecoder implements OrderedErrorDecoder {
         return LOWEST_PRECEDENCE;
     }
 
+    @Nullable
     @Override
     public Exception decode(String methodKey, Response response) {
         if (response.body() == null) {

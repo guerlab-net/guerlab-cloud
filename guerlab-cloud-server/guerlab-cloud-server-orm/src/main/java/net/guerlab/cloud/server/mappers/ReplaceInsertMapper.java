@@ -27,22 +27,22 @@ public interface ReplaceInsertMapper<T> extends BatchMapper<T> {
     /**
      * 保存一个实体
      *
-     * @param record
+     * @param entity
      *         实体
      * @return 影响行数
      */
-    default int replaceInsert(T record) {
-        return replaceInsertList(Collections.singletonList(record));
+    default int replaceInsert(T entity) {
+        return replaceInsertList(Collections.singletonList(entity));
     }
 
     /**
      * 插入或更新一个实体
      *
-     * @param record
+     * @param entity
      *         实体
      * @return 影响行数
      */
-    default int insertOrUpdate(T record) {
-        return insertOrUpdateList(Collections.singletonList(record));
+    default int insertOrUpdate(T entity) {
+        return insertOrUpdateList(Collections.singletonList(entity));
     }
 }

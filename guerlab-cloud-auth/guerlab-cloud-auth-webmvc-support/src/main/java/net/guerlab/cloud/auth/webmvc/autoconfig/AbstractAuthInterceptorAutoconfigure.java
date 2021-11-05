@@ -36,7 +36,7 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProp
 
     private Collection<? extends AbstractHandlerInterceptor> tokenHandlerInterceptors;
 
-    public AbstractAuthInterceptorAutoconfigure(A properties) {
+    protected AbstractAuthInterceptorAutoconfigure(A properties) {
         this.properties = properties;
     }
 
@@ -82,9 +82,9 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProp
         interceptor.addPathPatterns(includePatterns).excludePathPatterns(excludePatterns);
     }
 
+    @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired(required = false)
-    public void setTokenHandlerInterceptors(
-            Collection<? extends AbstractTokenHandlerInterceptor<A>> tokenHandlerInterceptors) {
+    public void setTokenHandlerInterceptors(Collection<? extends AbstractTokenHandlerInterceptor<A>> tokenHandlerInterceptors) {
         log.debug("input interceptors: {}", tokenHandlerInterceptors);
         this.tokenHandlerInterceptors = tokenHandlerInterceptors;
     }

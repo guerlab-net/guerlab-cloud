@@ -12,7 +12,6 @@
  */
 package net.guerlab.cloud.auth.context;
 
-import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.context.core.ContextAttributes;
 import net.guerlab.cloud.context.core.ContextAttributesHolder;
@@ -23,8 +22,10 @@ import org.springframework.lang.Nullable;
  *
  * @author guer
  */
-@Slf4j
 public abstract class AbstractContextHandler {
+
+    protected AbstractContextHandler() {
+    }
 
     /**
      * 设置内容
@@ -59,6 +60,7 @@ public abstract class AbstractContextHandler {
      *
      * @return 内容拷贝结果
      */
+    @SuppressWarnings("unused")
     public static ContextAttributes getCopyOfContext() {
         return ContextAttributesHolder.get();
     }

@@ -23,22 +23,22 @@ import java.util.Objects;
  *
  * @author guer
  */
-public class Ipv4AddressTest {
+class Ipv4AddressTest {
 
     @Test
-    public void parseTest() {
+    void parseTest() {
         long longAddress = 3232235781L;
         String stringAddress = "192.168.1.5";
         Assertions.assertEquals(IpUtils.parseIpv4(longAddress), IpUtils.parseIpv4(stringAddress));
     }
 
     @Test
-    public void convertStringTest() {
+    void convertStringTest() {
         Assertions.assertEquals("192.168.1.5", IpUtils.convertIpv4String(3232235781L));
     }
 
     @Test
-    public void hashTest() {
+    void hashTest() {
         Assertions.assertEquals(Objects.hashCode(3232235781L), IpUtils.parseIpv4("192.168.1.5").hashCode());
     }
 }

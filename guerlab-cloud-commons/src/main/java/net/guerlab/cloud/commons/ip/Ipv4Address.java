@@ -27,7 +27,7 @@ public class Ipv4Address implements Ipv4, IpSingleAddress {
     /**
      * 类型
      */
-    private final IpType ipType = IpType.IPV4;
+    private static final IpType IP_TYPE = IpType.IPV4;
 
     /**
      * 用一个long来存储,以后可以用**其他的库**替代
@@ -55,13 +55,18 @@ public class Ipv4Address implements Ipv4, IpSingleAddress {
     }
 
     @Override
+    public IpType getIpType() {
+        return IP_TYPE;
+    }
+
+    @Override
     public long getStartAddress() {
         return ipAddress;
     }
 
     @Override
     public long getEndAddress() {
-        return ipAddress;
+        return getStartAddress();
     }
 
     @Override

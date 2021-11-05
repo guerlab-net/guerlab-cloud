@@ -31,7 +31,7 @@ public class IpUtils {
 
     public static final char SPLIT = ',';
 
-    public static final String[] HEADERS = new String[] { "X-Forwarded-For", "Cdn-Src-Ip", "Proxy-Client-IP",
+    private static final String[] HEADERS = new String[] { "X-Forwarded-For", "Cdn-Src-Ip", "Proxy-Client-IP",
             "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR", "X-Real-IP", };
 
     private static final Collection<IpParser> IP_PARSERS;

@@ -37,6 +37,11 @@ public class RsaUtils {
     public static final String KEY_ALGORITHM = "RSA";
 
     /**
+     *
+     */
+    public static final String TRANSFORMATION = "RSA/ECB/PKCS1PADDING";
+
+    /**
      * RSA 最大加密明文长度
      */
     private static final int MAX_ENCRYPT_BLOCK = 245;
@@ -98,7 +103,7 @@ public class RsaUtils {
             keyPairGen.initialize(keySize, new SecureRandom());
             return keyPairGen.generateKeyPair();
         } catch (Exception e) {
-            throw new RuntimeException(e.getLocalizedMessage(), e);
+            throw new RsaException(e.getLocalizedMessage(), e);
         }
     }
 
@@ -148,7 +153,7 @@ public class RsaUtils {
             KeyFactory factory = KeyFactory.getInstance(KEY_ALGORITHM);
             return factory.generatePublic(spec);
         } catch (Exception e) {
-            throw new RuntimeException(e.getLocalizedMessage(), e);
+            throw new RsaException(e.getLocalizedMessage(), e);
         }
     }
 
@@ -176,7 +181,7 @@ public class RsaUtils {
             KeyFactory factory = KeyFactory.getInstance(KEY_ALGORITHM);
             return factory.generatePrivate(spec);
         } catch (Exception e) {
-            throw new RuntimeException(e.getLocalizedMessage(), e);
+            throw new RsaException(e.getLocalizedMessage(), e);
         }
     }
 
@@ -199,12 +204,12 @@ public class RsaUtils {
      * @return 清理后的字符串内容
      */
     public static String cleanFormat(String keyString) {
-        keyString = keyString.replaceAll(PUBLIC_KEY_FILE_PREFIX, "");
-        keyString = keyString.replaceAll(PUBLIC_KEY_FILE_SUFFIX, "");
-        keyString = keyString.replaceAll(PRIVATE_KEY_FILE_PREFIX, "");
-        keyString = keyString.replaceAll(PRIVATE_KEY_FILE_SUFFIX, "");
-        keyString = keyString.replaceAll(LINE_FEED, "");
-        keyString = keyString.replaceAll("\n", "");
+        keyString = keyString.replace(PUBLIC_KEY_FILE_PREFIX, "");
+        keyString = keyString.replace(PUBLIC_KEY_FILE_SUFFIX, "");
+        keyString = keyString.replace(PRIVATE_KEY_FILE_PREFIX, "");
+        keyString = keyString.replace(PRIVATE_KEY_FILE_SUFFIX, "");
+        keyString = keyString.replace(LINE_FEED, "");
+        keyString = keyString.replace("\n", "");
         return keyString;
     }
 
@@ -416,7 +421,7 @@ public class RsaUtils {
      */
     private static byte[] dataHandler(byte[] data, Key key, int operationMode, int size) {
         try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
-            Cipher cipher = Cipher.getInstance(KEY_ALGORITHM);
+            Cipher cipher = Cipher.getInstance(TRANSFORMATION);
             cipher.init(operationMode, key);
 
             byte[] cache;
@@ -430,7 +435,7 @@ public class RsaUtils {
 
             return out.toByteArray();
         } catch (Exception e) {
-            throw new RuntimeException(e.getLocalizedMessage(), e);
+            throw new RsaException(e.getLocalizedMessage(), e);
         }
     }
 }

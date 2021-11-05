@@ -37,5 +37,5 @@ public abstract class BaseOrderTreeEntity<E extends BaseOrderTreeEntity<E>> exte
      */
     @Schema(description = "下级列表")
     @TableField(exist = false)
-    protected Collection<E> children;
+    private Collection<E> children;
 }

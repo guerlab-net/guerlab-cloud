@@ -28,7 +28,7 @@ public abstract class AbstractRedisOperationsWrapper<T> implements RedisOperatio
 
     private final ObjectMapper objectMapper;
 
-    public AbstractRedisOperationsWrapper(ObjectMapper objectMapper) {
+    protected AbstractRedisOperationsWrapper(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 
@@ -56,6 +56,7 @@ public abstract class AbstractRedisOperationsWrapper<T> implements RedisOperatio
      */
     protected abstract boolean put0(String key, String dataString, long timeout);
 
+    @Nullable
     @Override
     public T get(String key) {
         String data = get0(key);

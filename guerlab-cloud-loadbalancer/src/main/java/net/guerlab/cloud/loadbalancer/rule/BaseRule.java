@@ -32,7 +32,7 @@ public abstract class BaseRule<P extends BaseRuleProperties> implements IRule {
      * @param properties
      *         配置
      */
-    public BaseRule(P properties) {
+    protected BaseRule(P properties) {
         this.properties = properties;
     }
 

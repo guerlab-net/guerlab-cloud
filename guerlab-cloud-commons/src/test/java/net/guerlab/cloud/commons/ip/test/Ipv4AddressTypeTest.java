@@ -23,10 +23,10 @@ import org.junit.jupiter.api.Test;
  *
  * @author guer
  */
-public class Ipv4AddressTypeTest {
+class Ipv4AddressTypeTest {
 
     @Test
-    public void single() {
+    void single() {
         Ipv4 ipv4 = IpUtils.parseIpv4("192.168.1");
         Assertions.assertTrue(IpType.isIpv4(ipv4.getIpType()));
         Assertions.assertFalse(IpType.isIpv6(ipv4.getIpType()));
@@ -35,7 +35,7 @@ public class Ipv4AddressTypeTest {
     }
 
     @Test
-    public void segment() {
+    void segment() {
         Ipv4 ipv4 = IpUtils.parseIpv4("192.168.1/20");
         Assertions.assertTrue(IpType.isIpv4(ipv4.getIpType()));
         Assertions.assertFalse(IpType.isIpv6(ipv4.getIpType()));

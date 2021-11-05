@@ -24,6 +24,7 @@ import java.util.List;
  */
 public abstract class AbstractLoadBalancerPolicy implements LoadBalancerPolicy {
 
+    @Nullable
     @Override
     public final ServiceInstance choose(@Nullable List<ServiceInstance> instances) {
         if (instances == null || instances.isEmpty()) {

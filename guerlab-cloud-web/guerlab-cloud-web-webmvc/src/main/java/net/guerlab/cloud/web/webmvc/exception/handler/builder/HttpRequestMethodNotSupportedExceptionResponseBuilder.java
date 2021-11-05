@@ -30,7 +30,7 @@ public class HttpRequestMethodNotSupportedExceptionResponseBuilder extends Abstr
     }
 
     @Override
-    public Fail<?> build(Throwable e) {
+    public Fail<Void> build(Throwable e) {
         HttpRequestMethodNotSupportedException exception = (HttpRequestMethodNotSupportedException) e;
         return buildByI18nInfo(new HttpRequestMethodNotSupportedExceptionInfo(exception), e);
     }

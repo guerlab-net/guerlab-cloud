@@ -27,7 +27,7 @@ import java.util.Set;
  *
  * @author guer
  */
-public class RepeatKeyBindingDestinationAutoConfigureTest {
+class RepeatKeyBindingDestinationAutoConfigureTest {
 
     private Map<String, String> bindingDestinations;
 
@@ -46,13 +46,14 @@ public class RepeatKeyBindingDestinationAutoConfigureTest {
     }
 
     @Test
-    public void test() {
-        OutputBindingDestinationAutoConfigure configure = new OutputBindingDestinationAutoConfigure(bindingDestinations);
+    void test() {
+        OutputBindingDestinationAutoConfigure configure = new OutputBindingDestinationAutoConfigure(
+                bindingDestinations);
         configure.initBindingDestination(bindingServiceProperties);
 
         Set<String> keys = bindingServiceProperties.getBindings().keySet();
 
-        Assertions.assertEquals(keys.size(), 1);
+        Assertions.assertEquals(1, keys.size());
         Assertions.assertArrayEquals(new String[] { "testAdd-out-0" }, keys.toArray(new String[] {}));
     }
 }

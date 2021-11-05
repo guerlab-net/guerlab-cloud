@@ -14,6 +14,7 @@ package net.guerlab.cloud.auth.factory;
 
 import net.guerlab.cloud.auth.properties.Md5TokenFactoryProperties;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.lang.Nullable;
 
 import java.util.Base64;
 import java.util.Objects;
@@ -38,6 +39,7 @@ public abstract class AbstractMd5TokenFactory<T, P extends Md5TokenFactoryProper
         return Base64.getEncoder().encodeToString(dataString.getBytes()) + TOKEN_CONNECTORS + sign;
     }
 
+    @Nullable
     @Override
     protected String parseDataString(String token, String key) {
         int index = token.lastIndexOf(TOKEN_CONNECTORS);

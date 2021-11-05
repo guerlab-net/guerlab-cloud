@@ -52,7 +52,7 @@ public class MultiIdConverter implements Converter<MultiId> {
             try {
                 multiString.add(Long.parseLong(val));
             } catch (Exception ignored) {
-
+                // ignore this exception
             }
         }
 

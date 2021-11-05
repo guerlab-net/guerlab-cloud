@@ -20,20 +20,20 @@ import org.junit.jupiter.api.Test;
  *
  * @author guer
  */
-public class PutTypeTest {
+class PutTypeTest {
 
     @Test
-    public void input1() {
+    void input1() {
         Assertions.assertEquals("onTest-in-0", PutType.IN.formatName("test"));
     }
 
     @Test
-    public void input2() {
+    void input2() {
         Assertions.assertEquals("onTest-in-0", PutType.IN.formatName("onTest"));
     }
 
     @Test
-    public void output() {
+    void output() {
         Assertions.assertEquals("test-out-0", PutType.OUT.formatName("test"));
     }
 }

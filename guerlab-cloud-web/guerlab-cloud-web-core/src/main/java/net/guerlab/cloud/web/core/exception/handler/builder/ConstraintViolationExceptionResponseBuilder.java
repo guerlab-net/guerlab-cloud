@@ -34,12 +34,13 @@ public class ConstraintViolationExceptionResponseBuilder extends AbstractRequest
     }
 
     @Override
-    public Fail<?> build(Throwable e) {
+    public Fail<Collection<String>> build(Throwable e) {
         ConstraintViolationException exception = (ConstraintViolationException) e;
 
         Collection<ConstraintViolation<?>> constraintViolations = exception.getConstraintViolations();
 
-        Collection<String> displayMessageList = constraintViolations.stream().map(ConstraintViolation::getMessage).collect(Collectors.toList());
+        Collection<String> displayMessageList = constraintViolations.stream().map(ConstraintViolation::getMessage)
+                .collect(Collectors.toList());
         return build0(new RequestParamsError(exception, displayMessageList));
     }
 }

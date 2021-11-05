@@ -37,11 +37,12 @@ public class MethodArgumentNotValidExceptionResponseBuilder extends AbstractRequ
     }
 
     @Override
-    public Fail<?> build(Throwable e) {
+    public Fail<Collection<String>> build(Throwable e) {
         MethodArgumentNotValidException exception = (MethodArgumentNotValidException) e;
         BindingResult bindingResult = exception.getBindingResult();
 
-        Collection<String> displayMessageList = bindingResult.getAllErrors().stream().map(this::getMethodArgumentNotValidExceptionDisplayMessage).collect(Collectors.toList());
+        Collection<String> displayMessageList = bindingResult.getAllErrors().stream()
+                .map(this::getMethodArgumentNotValidExceptionDisplayMessage).collect(Collectors.toList());
 
         return build0(new RequestParamsError(exception, displayMessageList));
     }

@@ -34,7 +34,7 @@ public abstract class AbstractRedisTokenFactory<T, P extends RedisTokenFactoryPr
 
     protected final RedisOperationsWrapper<T> redisOperationsWrapper;
 
-    public AbstractRedisTokenFactory(RedisOperationsWrapper<T> redisOperationsWrapper) {
+    protected AbstractRedisTokenFactory(RedisOperationsWrapper<T> redisOperationsWrapper) {
         this.redisOperationsWrapper = redisOperationsWrapper;
     }
 
@@ -67,8 +67,10 @@ public abstract class AbstractRedisTokenFactory<T, P extends RedisTokenFactoryPr
 
             TokenInfo tokenInfo = new TokenInfo();
             tokenInfo.setExpire(expireAt == null ? -1 : expire);
-            tokenInfo.setExpireAt(expireAt);
             tokenInfo.setToken(key);
+            if (expireAt != null) {
+                tokenInfo.setExpireAt(expireAt);
+            }
 
             return tokenInfo;
         }

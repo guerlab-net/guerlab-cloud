@@ -62,6 +62,10 @@ public class AbstractBooleanConverter implements Converter<Boolean> {
     @Override
     public WriteCellData<?> convertToExcelData(@Nullable Boolean value, ExcelContentProperty contentProperty,
             GlobalConfiguration globalConfiguration) {
-        return new WriteCellData(value == null ? "" : value ? trueValue : falseValue);
+        String val = "";
+        if (value != null) {
+            val = value ? trueValue : falseValue;
+        }
+        return new WriteCellData(val);
     }
 }

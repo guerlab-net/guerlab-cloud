@@ -25,7 +25,7 @@ import java.util.Map;
  *
  * @author guer
  */
-public class BindingDestinationAutoConfigureTest {
+class BindingDestinationAutoConfigureTest {
 
     private Map<String, String> bindingDestinations;
 
@@ -42,7 +42,7 @@ public class BindingDestinationAutoConfigureTest {
     }
 
     @Test
-    public void input() {
+    void input() {
         InputBindingDestinationAutoConfigure configure = new InputBindingDestinationAutoConfigure(bindingDestinations);
         configure.initBindingDestination(bindingServiceProperties);
 
@@ -51,8 +51,9 @@ public class BindingDestinationAutoConfigureTest {
     }
 
     @Test
-    public void output() {
-        OutputBindingDestinationAutoConfigure configure = new OutputBindingDestinationAutoConfigure(bindingDestinations);
+    void output() {
+        OutputBindingDestinationAutoConfigure configure = new OutputBindingDestinationAutoConfigure(
+                bindingDestinations);
         configure.initBindingDestination(bindingServiceProperties);
 
         Assertions.assertArrayEquals(new String[] { "testAdd-out-0", "testDelete-out-0", "testUpdate-out-0" },

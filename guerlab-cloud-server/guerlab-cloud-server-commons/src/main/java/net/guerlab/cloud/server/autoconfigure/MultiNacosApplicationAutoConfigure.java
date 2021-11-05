@@ -18,6 +18,8 @@ import com.alibaba.nacos.api.naming.NamingService;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.server.properties.NacosServerProperties;
+import net.guerlab.commons.collection.CollectionUtil;
+import net.guerlab.commons.exception.ApplicationException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -26,6 +28,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -87,11 +90,11 @@ public class MultiNacosApplicationAutoConfigure
     public void onApplicationEvent(WebServerInitializedEvent event) {
         this.port.compareAndSet(0, event.getWebServer().getPort());
 
-        if (serverProperties.getAppNames() == null) {
-            return;
-        }
+        List<String> appNames = serverProperties.getAppNames();
 
-        serverProperties.getAppNames().forEach(appName -> registerInstance(appName, discoveryProperties));
+        if (CollectionUtil.isNotEmpty(appNames)) {
+            appNames.forEach(appName -> registerInstance(appName, discoveryProperties));
+        }
     }
 
     /**
@@ -118,7 +121,7 @@ public class MultiNacosApplicationAutoConfigure
             try {
                 namingService.registerInstance(clusterName, instance);
             } catch (Exception e) {
-                throw new RuntimeException(e.getLocalizedMessage(), e);
+                throw new ApplicationException(e.getLocalizedMessage(), e);
             }
         }
     }

@@ -21,6 +21,8 @@ import net.guerlab.cloud.auth.factory.AbstractTokenFactory;
 import net.guerlab.cloud.auth.factory.TestJwtTokenFactory;
 import net.guerlab.cloud.auth.factory.TestMd5TokenFactory;
 import net.guerlab.cloud.auth.factory.TestRc4TokenFactory;
+import net.guerlab.cloud.rsa.RsaKeys;
+import net.guerlab.cloud.rsa.RsaUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -36,7 +38,7 @@ import java.util.Optional;
  * @author guer
  */
 @Slf4j
-public class Rc4TestCases {
+class JwtTestCase {
 
     private static final TestTokenInfo INFO = new TestTokenInfo(1L, "tester");
 
@@ -44,11 +46,16 @@ public class Rc4TestCases {
 
     @BeforeAll
     static void setUp() {
+        RsaKeys rsaKeys = RsaUtils.buildKeys();
+
         context = new AnnotationConfigApplicationContext();
         context.register(TestAuthAutoconfigure.class, TestJwtTokenFactory.class, TestMd5TokenFactory.class,
                 TestRc4TokenFactory.class);
-        TestPropertyValues.of("auth.test.token-factory.rc4.access-token-key=test-access-rc4").applyTo(context);
-        TestPropertyValues.of("auth.test.token-factory.rc4.refresh-token-key=test-refresh-rc4").applyTo(context);
+        TestPropertyValues.of("auth.test.token-factory.jwt.access-token-key.public-key=" + rsaKeys.getPublicKeyFormattedContent())
+                .applyTo(context);
+        TestPropertyValues.of("auth.test.token-factory.jwt.access-token-key.private-key=" + rsaKeys.getPrivateKey()).applyTo(context);
+        TestPropertyValues.of("auth.test.token-factory.jwt.refresh-token-key.public-key=" + rsaKeys.getPublicKeyFormattedContent()).applyTo(context);
+        TestPropertyValues.of("auth.test.token-factory.jwt.refresh-token-key.private-key=" + rsaKeys.getPrivateKey()).applyTo(context);
         context.refresh();
     }
 
@@ -58,14 +65,23 @@ public class Rc4TestCases {
     }
 
     @Test
-    public void rc4() {
-        test(context.getBean(TestRc4TokenFactory.class));
+    void jwt() {
+        accessToken(context.getBean(TestJwtTokenFactory.class));
+        refreshToken(context.getBean(TestJwtTokenFactory.class));
     }
 
-    private void test(AbstractTokenFactory<ITestTokenInfo, ?> factory) {
+    private void accessToken(AbstractTokenFactory<ITestTokenInfo, ?> factory) {
         TokenInfo accessToken = factory.generateByAccessToken(INFO);
         log.debug("accessToken: {}", accessToken);
         ITestTokenInfo parseInfo = factory.parseByAccessToken(accessToken.getToken());
+        log.debug("parseInfo: {}", parseInfo);
+        Assertions.assertEquals(parseInfo.getUserId(), INFO.getUserId());
+    }
+
+    private void refreshToken(AbstractTokenFactory<ITestTokenInfo, ?> factory) {
+        TokenInfo refreshToken = factory.generateByRefreshToken(INFO);
+        log.debug("refreshToken: {}", refreshToken);
+        ITestTokenInfo parseInfo = factory.parseByRefreshToken(refreshToken.getToken());
         log.debug("parseInfo: {}", parseInfo);
         Assertions.assertEquals(parseInfo.getUserId(), INFO.getUserId());
     }

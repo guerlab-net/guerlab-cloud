@@ -30,7 +30,7 @@ public class MissingServletRequestParameterExceptionResponseBuilder extends Abst
     }
 
     @Override
-    public Fail<?> build(Throwable e) {
+    public Fail<Void> build(Throwable e) {
         MissingServletRequestParameterException exception = (MissingServletRequestParameterException) e;
         return buildByI18nInfo(new MissingServletRequestParameterExceptionInfo(exception), e);
     }

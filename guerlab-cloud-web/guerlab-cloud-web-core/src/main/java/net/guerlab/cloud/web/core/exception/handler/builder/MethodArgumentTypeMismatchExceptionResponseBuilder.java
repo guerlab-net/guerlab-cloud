@@ -30,7 +30,7 @@ public class MethodArgumentTypeMismatchExceptionResponseBuilder extends Abstract
     }
 
     @Override
-    public Fail<?> build(Throwable e) {
+    public Fail<Void> build(Throwable e) {
         MethodArgumentTypeMismatchException exception = (MethodArgumentTypeMismatchException) e;
         return buildByI18nInfo(new MethodArgumentTypeMismatchExceptionInfo((exception)), e);
     }

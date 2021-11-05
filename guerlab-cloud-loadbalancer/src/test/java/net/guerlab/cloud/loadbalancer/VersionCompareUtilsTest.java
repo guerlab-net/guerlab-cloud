@@ -14,23 +14,29 @@ package net.guerlab.cloud.loadbalancer;
 
 import net.guerlab.cloud.loadbalancer.utils.VersionCompareUtils;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * 版本控制测试
  *
  * @author guer
  */
-public class VersionCompareUtilsTest {
+class VersionCompareUtilsTest {
 
     // @formatter:off
-    private final String[] origins = new String[] {
+    private static final String[] ORIGINS = new String[] {
             "1.0", "1.0.1", "1.1", "1.1.1", "1.2", "1.2.1", "str"
     };
-    private final String[] ranges = new String[] {
+    private static final String[] RANGES = new String[] {
             "1.0.0", "1.0.1", "[1.0.0, 1.2.1]", "(1.0.0, 1.2.1)", "[1.0.0, 1.2.1)", "(1.0.0, 1.2.1]", "string", "[str, str]"
     };
-    private final Boolean[][] expect = new Boolean[][] {
+    private static final Boolean[][] EXPECT = new Boolean[][] {
             new Boolean[] { true, false, true, false, true, false, false, false },
             new Boolean[] { false, true, true, true, true, true, false, false },
             new Boolean[] { false, false, true, true, true, true, false, false },
@@ -41,16 +47,24 @@ public class VersionCompareUtilsTest {
     };
     // @formatter:on
 
-    /**
-     * 匹配测试
-     */
-    @Test
-    public void match() {
-        for (int o = 0; o < origins.length; o++) {
-            for (int r = 0; r < ranges.length; r++) {
-                Assertions.assertEquals(expect[o][r], VersionCompareUtils.match(origins[o], ranges[r]), String.format("%s and %s match result not equals %s", origins[o], ranges[r], expect[o][r]));
+    static Stream<Arguments> testSourceProvider() {
+        List<Arguments> arguments = new ArrayList<>();
+
+        for (int o = 0; o < ORIGINS.length; o++) {
+            for (int r = 0; r < RANGES.length; r++) {
+                arguments.add(Arguments.arguments(ORIGINS[o], RANGES[r], EXPECT[o][r]));
             }
         }
 
+        return arguments.stream();
+    }
+
+    /**
+     * 匹配测试
+     */
+    @ParameterizedTest
+    @MethodSource("testSourceProvider")
+    void match(String o, String r, boolean result) {
+        Assertions.assertEquals(result, VersionCompareUtils.match(o, r));
     }
 }
