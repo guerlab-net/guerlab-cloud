@@ -36,20 +36,22 @@ public class DefaultGlobalExceptionLogger implements GlobalExceptionLogger {
 
     @Override
     public void debug(Throwable e, String requestMethod, String requestPath) {
-        for (GlobalExceptionProperties.Url url : properties.getLogIgnorePaths()) {
-            String path = StringUtils.trimToNull(url.getPath());
-            if (path == null) {
-                continue;
-            }
-            HttpMethod method = url.getMethod();
-            if (method != null && method.matches(requestMethod)) {
-                continue;
-            }
-            if (matcher.match(path, requestPath)) {
-                continue;
-            }
+        properties.getLogIgnorePaths().forEach(url -> debugOnce(e, requestMethod, requestPath, url));
+    }
 
-            log.debug(String.format("request uri[%s %s]", requestMethod, requestPath), e);
+    private void debugOnce(Throwable e, String requestMethod, String requestPath, GlobalExceptionProperties.Url url) {
+        String path = StringUtils.trimToNull(url.getPath());
+        if (path == null) {
+            return;
         }
+        HttpMethod method = url.getMethod();
+        if (method != null && method.matches(requestMethod)) {
+            return;
+        }
+        if (matcher.match(path, requestPath)) {
+            return;
+        }
+
+        log.debug(String.format("request uri[%s %s]", requestMethod, requestPath), e);
     }
 }

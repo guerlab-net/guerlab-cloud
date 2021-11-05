@@ -31,7 +31,7 @@ import org.springframework.web.reactive.result.method.annotation.RequestMappingH
 public abstract class AbstractTokenBeforeHandlerFilter<A extends AuthWebProperties>
         extends AbstractTokenHandlerFilter<A> {
 
-    public AbstractTokenBeforeHandlerFilter(ResponseAdvisorProperties responseAdvisorProperties,
+    protected AbstractTokenBeforeHandlerFilter(ResponseAdvisorProperties responseAdvisorProperties,
             RequestMappingHandlerMapping requestMappingHandlerMapping, A authProperties) {
         super(responseAdvisorProperties, requestMappingHandlerMapping, authProperties);
     }
@@ -54,7 +54,7 @@ public abstract class AbstractTokenBeforeHandlerFilter<A extends AuthWebProperti
 
     @Override
     protected void preHandleWithoutToken() {
-
+        log.debug("invoke preHandleWithoutToken()");
     }
 
     /**

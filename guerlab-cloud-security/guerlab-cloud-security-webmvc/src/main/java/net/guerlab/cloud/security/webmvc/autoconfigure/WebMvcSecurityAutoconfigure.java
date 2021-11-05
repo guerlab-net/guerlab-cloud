@@ -56,27 +56,25 @@ public class WebMvcSecurityAutoconfigure extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.cors().configurationSource(request -> configProvider.getIfAvailable(DefaultCorsConfiguration::new));
 
-        authorizePathProviders.stream()
-                .forEach(provider -> authorizePathConfig(http, provider.httpMethod(), provider.paths()));
+        for (AuthorizePathProvider provider : authorizePathProviders) {
+            authorizePathConfig(http, provider.httpMethod(), provider.paths());
+        }
 
         http.authorizeRequests().anyRequest().permitAll();
     }
 
-    private void authorizePathConfig(HttpSecurity http, @Nullable HttpMethod httpMethod, List<String> paths) {
+    private void authorizePathConfig(HttpSecurity http, @Nullable HttpMethod httpMethod, List<String> paths)
+            throws Exception {
         if (CollectionUtils.isEmpty(paths)) {
             return;
         }
 
         log.debug("authorizePathConfig[method: {}, paths: {}]", httpMethod, paths);
 
-        try {
-            if (httpMethod == null) {
-                http.authorizeRequests().antMatchers(paths.toArray(new String[0])).authenticated();
-            } else {
-                http.authorizeRequests().antMatchers(httpMethod, paths.toArray(new String[0])).authenticated();
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage(), e);
+        if (httpMethod == null) {
+            http.authorizeRequests().antMatchers(paths.toArray(new String[0])).authenticated();
+        } else {
+            http.authorizeRequests().antMatchers(httpMethod, paths.toArray(new String[0])).authenticated();
         }
     }
 

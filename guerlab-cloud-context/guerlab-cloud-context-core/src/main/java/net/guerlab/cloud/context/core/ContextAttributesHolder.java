@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
  */
 public class ContextAttributesHolder {
 
-    private final static InheritableThreadLocal<ContextAttributes> THREAD_LOCAL = new InheritableThreadLocal<>() {
+    private static final InheritableThreadLocal<ContextAttributes> THREAD_LOCAL = new InheritableThreadLocal<>() {
 
         @Override
         protected ContextAttributes initialValue() {
@@ -33,7 +33,7 @@ public class ContextAttributesHolder {
         }
     };
 
-    private final static List<ObjectContextAttributesHolder> OBJECT_CONTEXT_ATTRIBUTES_HOLDERS = ServiceLoader.load(
+    private static final List<ObjectContextAttributesHolder> OBJECT_CONTEXT_ATTRIBUTES_HOLDERS = ServiceLoader.load(
             ObjectContextAttributesHolder.class).stream().map(ServiceLoader.Provider::get).collect(Collectors.toList());
 
     private ContextAttributesHolder() {
@@ -75,6 +75,7 @@ public class ContextAttributesHolder {
      * @param contextAttributes
      *         上下文属性
      */
+    @SuppressWarnings("unused")
     public static void set(ContextAttributes contextAttributes, @Nullable Object object) {
         if (object == null) {
             THREAD_LOCAL.set(contextAttributes);

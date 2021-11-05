@@ -23,7 +23,7 @@ import java.util.List;
  *         实体类型
  * @author guer
  */
-public interface BatchMapper<T> extends BaseMapper<T> {
+public interface BatchMapper<T> extends BasicMapper<T> {
 
     /**
      * 批量插入

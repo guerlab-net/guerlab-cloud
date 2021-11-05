@@ -29,7 +29,7 @@ public class RemoteExceptionResponseBuilder extends AbstractResponseBuilder {
     }
 
     @Override
-    public Fail<?> build(Throwable e) {
+    public Fail<Void> build(Throwable e) {
         RemoteException exception = (RemoteException) e;
         String message = getMessage(e.getLocalizedMessage());
         Fail<Void> fail = new Fail<>(message);

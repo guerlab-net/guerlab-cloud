@@ -30,7 +30,7 @@ public class TestRedisTemplateOperationsWrapper extends AbstractRedisTemplateOpe
     }
 
     @Override
-    protected TypeReference<? extends ITestTokenInfo> getTypeReference() {
-        return new TypeReference<TestTokenInfo>() {};
+    protected TypeReference<TestTokenInfo> getTypeReference() {
+        return new TypeReference<>() {};
     }
 }

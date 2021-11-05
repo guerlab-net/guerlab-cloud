@@ -19,4 +19,4 @@ package net.guerlab.cloud.server.mappers;
  *         实体类型
  * @author guer
  */
-public interface BaseMapper<T> extends com.baomidou.mybatisplus.core.mapper.BaseMapper<T> {}
+public interface BasicMapper<T> extends com.baomidou.mybatisplus.core.mapper.BaseMapper<T> {}

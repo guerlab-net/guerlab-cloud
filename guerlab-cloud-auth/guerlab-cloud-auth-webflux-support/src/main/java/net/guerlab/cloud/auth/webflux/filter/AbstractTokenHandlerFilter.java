@@ -61,7 +61,7 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> im
      */
     protected final A authProperties;
 
-    public AbstractTokenHandlerFilter(ResponseAdvisorProperties responseAdvisorProperties,
+    protected AbstractTokenHandlerFilter(ResponseAdvisorProperties responseAdvisorProperties,
             RequestMappingHandlerMapping requestMappingHandlerMapping, A authProperties) {
         this.responseAdvisorProperties = responseAdvisorProperties;
         this.requestMappingHandlerMapping = requestMappingHandlerMapping;

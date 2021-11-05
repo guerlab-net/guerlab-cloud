@@ -26,13 +26,17 @@ import java.util.function.BiConsumer;
 @SuppressWarnings("unused")
 public class HeadersContextHandler {
 
-    private final static InheritableThreadLocal<Map<String, String>> THREAD_LOCAL = new InheritableThreadLocal<>() {
+    private static final InheritableThreadLocal<Map<String, String>> THREAD_LOCAL = new InheritableThreadLocal<>() {
 
         @Override
         protected Map<String, String> initialValue() {
             return new HashMap<>(16);
         }
     };
+
+    private HeadersContextHandler() {
+
+    }
 
     /**
      * 设置内容

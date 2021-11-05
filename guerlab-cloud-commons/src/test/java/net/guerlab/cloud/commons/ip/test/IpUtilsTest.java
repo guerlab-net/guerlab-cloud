@@ -27,31 +27,32 @@ import java.util.Collections;
  * @author guer
  */
 @Slf4j
-public class IpUtilsTest {
+class IpUtilsTest {
 
     @Test
-    public void range1() {
+    void range1() {
         Assertions.assertTrue(IpUtils.inList(Collections.singletonList("192.168.1.0/24"), "192.168.1.5"));
     }
 
     @Test
-    public void range2() {
+    void range2() {
         Assertions.assertTrue(IpUtils.inList(Collections.singletonList("192.168.1.1-192.168.3.10"), "192.168.2.5"));
     }
 
     @Test
-    public void range3() {
+    void range3() {
         Assertions.assertTrue(IpUtils.inList(Collections.singletonList("192.168.1.0-10"), "192.168.1.5"));
     }
 
     @Test
-    public void range4() {
-        Assertions.assertTrue(IpUtils.inList(Arrays.asList("192.168.1.1", "192.168.1.2", "192.168.1.3", "192.168.1.4", "192.168.1.5"),
-                "192.168.1.5"));
+    void range4() {
+        Assertions.assertTrue(
+                IpUtils.inList(Arrays.asList("192.168.1.1", "192.168.1.2", "192.168.1.3", "192.168.1.4", "192.168.1.5"),
+                        "192.168.1.5"));
     }
 
     @Test
-    public void mask() {
+    void mask() {
         Ipv4 ipv4 = IpUtils.parseIpv4("192.168.1.1/24");
         long mask = IpUtils.calculationIpv4Mask(ipv4.getStartAddress(), ipv4.getEndAddress());
         Assertions.assertEquals("11111111111111111111111100000000", Long.toString(mask, 2));

@@ -29,10 +29,10 @@ public class AbstractI18nApplicationExceptionResponseBuilder extends AbstractRes
     }
 
     @Override
-    public Fail<?> build(Throwable e) {
+    public Fail<Void> build(Throwable e) {
         AbstractI18nApplicationException exception = (AbstractI18nApplicationException) e;
         String message = exception.getMessage(messageSource);
-        Fail<?> fail = new Fail<>(message, exception.getErrorCode());
+        Fail<Void> fail = new Fail<>(message, exception.getErrorCode());
         stackTracesHandler.setStackTrace(fail, e);
         return fail;
     }

@@ -12,7 +12,7 @@
  */
 package net.guerlab.cloud.excel;
 
-import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.write.builder.ExcelWriterBuilder;
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
@@ -39,6 +39,9 @@ public class ExcelUtils {
 
     static {
         StreamSupport.stream(ServiceLoader.load(Converter.class).spliterator(), false).forEach(CONVERTERS::add);
+    }
+
+    private ExcelUtils() {
     }
 
     /**
@@ -74,7 +77,7 @@ public class ExcelUtils {
      * @return Excel输出构建器
      */
     public static ExcelWriterBuilder write() {
-        return registerConverter(EasyExcel.write());
+        return registerConverter(EasyExcelFactory.write());
     }
 
     /**
@@ -85,7 +88,7 @@ public class ExcelUtils {
      * @return Excel输出构建器
      */
     public static ExcelWriterBuilder write(File file) {
-        return registerConverter(EasyExcel.write(file));
+        return registerConverter(EasyExcelFactory.write(file));
     }
 
     /**
@@ -98,7 +101,7 @@ public class ExcelUtils {
      * @return Excel输出构建器
      */
     public static ExcelWriterBuilder write(File file, Class<?> head) {
-        return registerConverter(EasyExcel.write(file, head));
+        return registerConverter(EasyExcelFactory.write(file, head));
     }
 
     /**
@@ -109,7 +112,7 @@ public class ExcelUtils {
      * @return Excel输出构建器
      */
     public static ExcelWriterBuilder write(String pathName) {
-        return registerConverter(EasyExcel.write(pathName));
+        return registerConverter(EasyExcelFactory.write(pathName));
     }
 
     /**
@@ -122,7 +125,7 @@ public class ExcelUtils {
      * @return Excel输出构建器
      */
     public static ExcelWriterBuilder write(String pathName, Class<?> head) {
-        return registerConverter(EasyExcel.write(pathName, head));
+        return registerConverter(EasyExcelFactory.write(pathName, head));
     }
 
     /**
@@ -133,7 +136,7 @@ public class ExcelUtils {
      * @return Excel输出构建器
      */
     public static ExcelWriterBuilder write(OutputStream outputStream) {
-        return registerConverter(EasyExcel.write(outputStream));
+        return registerConverter(EasyExcelFactory.write(outputStream));
     }
 
     /**
@@ -146,7 +149,7 @@ public class ExcelUtils {
      * @return Excel输出构建器
      */
     public static ExcelWriterBuilder write(OutputStream outputStream, Class<?> head) {
-        return registerConverter(EasyExcel.write(outputStream, head));
+        return registerConverter(EasyExcelFactory.write(outputStream, head));
     }
 
     /**

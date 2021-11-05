@@ -47,6 +47,7 @@ public class OpenApiAutoconfigure {
      *         SpringDocConfigProperties
      * @return 授权路径提供者
      */
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean
     @ConditionalOnProperty(name = SPRINGDOC_ENABLED, matchIfMissing = true)
     public AuthorizePathProvider openApiAuthorizePathProvider(SpringDocConfigProperties properties) {

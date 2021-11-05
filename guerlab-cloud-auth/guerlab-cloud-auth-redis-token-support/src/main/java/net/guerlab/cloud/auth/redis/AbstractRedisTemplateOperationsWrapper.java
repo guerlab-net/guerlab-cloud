@@ -14,6 +14,7 @@ package net.guerlab.cloud.auth.redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.lang.Nullable;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -29,16 +30,19 @@ public abstract class AbstractRedisTemplateOperationsWrapper<T> extends Abstract
 
     private final RedisTemplate<String, String> redisTemplate;
 
-    public AbstractRedisTemplateOperationsWrapper(ObjectMapper objectMapper, RedisTemplate<String, String> redisTemplate) {
+    protected AbstractRedisTemplateOperationsWrapper(ObjectMapper objectMapper,
+            RedisTemplate<String, String> redisTemplate) {
         super(objectMapper);
         this.redisTemplate = redisTemplate;
     }
 
     @Override
     protected boolean put0(String key, String dataString, long timeout) {
-        return Objects.equals(redisTemplate.opsForValue().setIfAbsent(key, dataString, timeout, TimeUnit.MILLISECONDS), true);
+        return Objects.equals(redisTemplate.opsForValue().setIfAbsent(key, dataString, timeout, TimeUnit.MILLISECONDS),
+                true);
     }
 
+    @Nullable
     @Override
     protected String get0(String key) {
         return redisTemplate.opsForValue().get(key);

@@ -96,6 +96,6 @@ public class RedisCacheManagerBuilderCustomizerAutoconfigure {
         Map<String, RedisCacheConfiguration> cacheConfigurations = properties.entrySet().stream().collect(Collectors
                 .toMap(Map.Entry::getKey,
                         entry -> entry.getValue().build(keySerializationPair, valueSerializationPair)));
-        return (builder) -> builder.withInitialCacheConfigurations(cacheConfigurations);
+        return builder -> builder.withInitialCacheConfigurations(cacheConfigurations);
     }
 }

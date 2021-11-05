@@ -55,9 +55,9 @@ public abstract class AbstractResponseBuilder implements ResponseBuilder {
         return messageSource.getMessage(msg, null, msg, locale);
     }
 
-    protected Fail<?> buildByI18nInfo(AbstractI18nInfo i18nInfo, Throwable e) {
+    protected Fail<Void> buildByI18nInfo(AbstractI18nInfo i18nInfo, Throwable e) {
         String message = i18nInfo.getMessage(messageSource);
-        Fail<?> fail = new Fail<>(message, i18nInfo.getErrorCode());
+        Fail<Void> fail = new Fail<>(message, i18nInfo.getErrorCode());
         stackTracesHandler.setStackTrace(fail, e);
         return fail;
     }

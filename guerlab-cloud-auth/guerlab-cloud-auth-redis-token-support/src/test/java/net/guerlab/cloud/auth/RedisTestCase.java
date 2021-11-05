@@ -36,7 +36,7 @@ import java.util.Optional;
  * @author guer
  */
 @Slf4j
-public class RedisTestCases {
+class RedisTestCase {
 
     private static final TestTokenInfo INFO = new TestTokenInfo(1L, "tester");
 
@@ -58,7 +58,7 @@ public class RedisTestCases {
     }
 
     @Test
-    public void redis() {
+    void redis() {
         accessToken(context.getBean(TestRedisTokenFactory.class));
         refreshToken(context.getBean(TestRedisTokenFactory.class));
     }

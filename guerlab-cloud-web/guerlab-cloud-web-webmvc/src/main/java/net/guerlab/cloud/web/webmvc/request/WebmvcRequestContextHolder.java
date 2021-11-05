@@ -62,6 +62,6 @@ public class WebmvcRequestContextHolder implements net.guerlab.cloud.web.core.re
     @Override
     public String getRequestPath() {
         HttpServletRequest request = getRequest();
-        return request != null ? parseRequestUri(getRequest()) : null;
+        return request != null ? parseRequestUri(request) : null;
     }
 }

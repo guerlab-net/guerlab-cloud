@@ -32,10 +32,10 @@ public class ThrowableResponseBuilder extends AbstractResponseBuilder {
     }
 
     @Override
-    public Fail<?> build(Throwable e) {
+    public Fail<Void> build(Throwable e) {
         ResponseStatus responseStatus = AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class);
 
-        Fail<?> fail;
+        Fail<Void> fail;
         if (responseStatus != null) {
             int errorCode = responseStatus.value().value();
             String message = responseStatus.reason();

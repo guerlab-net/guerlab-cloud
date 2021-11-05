@@ -29,7 +29,7 @@ public class Ipv4RangeAddress implements Ipv4, IpRangeAddress {
     /**
      * 类型
      */
-    private final IpType ipType = IpType.IPV4_SEGMENT;
+    private static final IpType IP_TYPE = IpType.IPV4_SEGMENT;
 
     /**
      * 起始IP
@@ -83,12 +83,17 @@ public class Ipv4RangeAddress implements Ipv4, IpRangeAddress {
     }
 
     @Override
+    public IpType getIpType() {
+        return IP_TYPE;
+    }
+
+    @Override
     public String toString() {
         if (maskLength > 0) {
             return "Ipv4RangeAddress[ipWithMask=" + IpUtils.convertIpv4String(startAddress) + "/" + maskLength + "]";
         } else {
-            return "Ipv4RangeAddress[start=" + IpUtils.convertIpv4String(startAddress) + ", end=" + IpUtils
-                    .convertIpv4String(endAddress) + ", mask=" + IpUtils.convertIpv4String(mask) + "]";
+            return "Ipv4RangeAddress[start=" + IpUtils.convertIpv4String(startAddress) + ", end="
+                    + IpUtils.convertIpv4String(endAddress) + ", mask=" + IpUtils.convertIpv4String(mask) + "]";
         }
     }
 

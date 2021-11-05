@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
     private final ThrowableResponseBuilder defaultBuilder;
 
     @Getter
-    protected GlobalExceptionLogger globalExceptionLogger;
+    protected final GlobalExceptionLogger globalExceptionLogger;
 
     protected final Collection<ResponseBuilder> builders;
 

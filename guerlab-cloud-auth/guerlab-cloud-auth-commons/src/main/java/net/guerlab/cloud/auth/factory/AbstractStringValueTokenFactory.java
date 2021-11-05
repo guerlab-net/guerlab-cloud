@@ -76,8 +76,10 @@ public abstract class AbstractStringValueTokenFactory<T, P extends StringValueTo
 
         TokenInfo tokenInfo = new TokenInfo();
         tokenInfo.setExpire(exp == null ? -1 : expire);
-        tokenInfo.setExpireAt(expireAt);
         tokenInfo.setToken(prefix + buildToken(dataString, key, expire));
+        if (expireAt != null) {
+            tokenInfo.setExpireAt(expireAt);
+        }
 
         return tokenInfo;
     }

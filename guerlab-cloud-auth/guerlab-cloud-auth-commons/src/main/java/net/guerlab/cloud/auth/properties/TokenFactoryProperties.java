@@ -58,5 +58,5 @@ public class TokenFactoryProperties {
     /**
      * refreshToken 过期时间
      */
-    private long refreshTokenExpire = 2 * 86400000;
+    private long refreshTokenExpire = 172800000;
 }

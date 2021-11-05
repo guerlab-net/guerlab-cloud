@@ -78,8 +78,10 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
 
         TokenInfo tokenInfo = new TokenInfo();
         tokenInfo.setExpire(exp == null ? -1 : expire);
-        tokenInfo.setExpireAt(expireAt);
         tokenInfo.setToken(prefix + builder.compact());
+        if (expireAt != null) {
+            tokenInfo.setExpireAt(expireAt);
+        }
 
         return tokenInfo;
     }

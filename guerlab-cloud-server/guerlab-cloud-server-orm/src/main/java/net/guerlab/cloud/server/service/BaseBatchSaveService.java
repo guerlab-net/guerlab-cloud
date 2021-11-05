@@ -31,7 +31,7 @@ public interface BaseBatchSaveService<T, SP extends AbstractSearchParams> extend
      *
      * @param collection
      *         待保存列表
-     * @return 已保存列表
+     * @return 已保存列表W
      */
     Collection<T> batchInsert(Collection<T> collection);
 

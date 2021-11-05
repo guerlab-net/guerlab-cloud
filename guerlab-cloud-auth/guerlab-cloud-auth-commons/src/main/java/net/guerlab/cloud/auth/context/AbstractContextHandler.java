@@ -12,7 +12,6 @@
  */
 package net.guerlab.cloud.auth.context;
 
-import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.context.core.ContextAttributes;
 import net.guerlab.cloud.context.core.ContextAttributesHolder;
@@ -23,8 +22,7 @@ import org.springframework.lang.Nullable;
  *
  * @author guer
  */
-@Slf4j
-public abstract class AbstractContextHandler {
+public interface AbstractContextHandler {
 
     /**
      * 设置内容
@@ -35,7 +33,7 @@ public abstract class AbstractContextHandler {
      *         内容
      */
     @SuppressWarnings("SameParameterValue")
-    public static void set(String key, Object value) {
+    static void set(String key, Object value) {
         ContextAttributesHolder.get().put(key, value);
     }
 
@@ -50,7 +48,7 @@ public abstract class AbstractContextHandler {
      */
     @SuppressWarnings("unchecked")
     @Nullable
-    public static <T> T get(String key) {
+    static <T> T get(String key) {
         return (T) ContextAttributesHolder.get().get(key);
     }
 
@@ -59,7 +57,8 @@ public abstract class AbstractContextHandler {
      *
      * @return 内容拷贝结果
      */
-    public static ContextAttributes getCopyOfContext() {
+    @SuppressWarnings("unused")
+    static ContextAttributes getCopyOfContext() {
         return ContextAttributesHolder.get();
     }
 
@@ -69,14 +68,14 @@ public abstract class AbstractContextHandler {
      * @param contextAttributes
      *         上下文属性
      */
-    public static void setContextAttributes(ContextAttributes contextAttributes) {
+    static void setContextAttributes(ContextAttributes contextAttributes) {
         ContextAttributesHolder.set(contextAttributes);
     }
 
     /**
      * 清除当前内容
      */
-    public static void clean() {
+    static void clean() {
         ContextAttributesHolder.get().clear();
     }
 
@@ -86,7 +85,7 @@ public abstract class AbstractContextHandler {
      * @return token
      */
     @Nullable
-    public static String getToken() {
+    static String getToken() {
         return get(Constants.TOKEN);
     }
 
@@ -96,7 +95,7 @@ public abstract class AbstractContextHandler {
      * @param token
      *         token
      */
-    public static void setToken(String token) {
+    static void setToken(String token) {
         set(Constants.TOKEN, token);
     }
 }

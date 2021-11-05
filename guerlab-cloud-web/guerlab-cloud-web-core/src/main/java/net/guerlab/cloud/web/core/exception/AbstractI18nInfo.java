@@ -26,6 +26,8 @@ import java.util.Locale;
  */
 public abstract class AbstractI18nInfo {
 
+    private static final String EMPTY_KEY = "";
+
     /**
      * 错误码
      */
@@ -75,7 +77,7 @@ public abstract class AbstractI18nInfo {
      * @return 国际化key
      */
     protected String getKey() {
-        return "";
+        return EMPTY_KEY;
     }
 
     /**

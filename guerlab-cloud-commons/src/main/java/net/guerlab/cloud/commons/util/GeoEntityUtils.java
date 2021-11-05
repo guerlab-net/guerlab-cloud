@@ -98,26 +98,22 @@ public class GeoEntityUtils {
     }
 
     private static void setGeoHashInfo(Map<String, Object> params, GeoSearchParams searchParams) {
-        BigDecimal longitude = searchParams.getLongitude();
-        BigDecimal latitude = searchParams.getLatitude();
-        BigDecimal viewLongitude = searchParams.getViewLongitude();
-        BigDecimal viewLatitude = searchParams.getViewLatitude();
+        BigDecimal longitude = getVal(searchParams.getViewLongitude(), searchParams.getLongitude());
+        BigDecimal latitude = getVal(searchParams.getViewLatitude(), searchParams.getLatitude());
 
-        if (viewLongitude == null) {
-            viewLongitude = longitude;
-        }
-        if (viewLatitude == null) {
-            viewLatitude = latitude;
-        }
-
-        if (viewLongitude == null || viewLatitude == null) {
+        if (longitude == null || latitude == null) {
             return;
         }
 
-        String geoHash = GeoHashUtils.encode(viewLongitude, viewLatitude);
+        String geoHash = GeoHashUtils.encode(longitude, latitude);
 
         GeoHash geoHashInfo = GeoHashUtils.getGeoHashExpand(geoHash, 6);
 
         params.put("geoHashInfo", geoHashInfo);
+    }
+
+    @Nullable
+    private static BigDecimal getVal(@Nullable BigDecimal v1, @Nullable BigDecimal v2) {
+        return v1 == null ? v2 : v1;
     }
 }

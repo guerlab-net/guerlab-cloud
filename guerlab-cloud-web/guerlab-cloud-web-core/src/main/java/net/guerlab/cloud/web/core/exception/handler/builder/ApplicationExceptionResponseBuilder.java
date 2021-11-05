@@ -29,10 +29,10 @@ public class ApplicationExceptionResponseBuilder extends AbstractResponseBuilder
     }
 
     @Override
-    public Fail<?> build(Throwable e) {
+    public Fail<Void> build(Throwable e) {
         ApplicationException exception = (ApplicationException) e;
         String message = getMessage(e.getLocalizedMessage());
-        Fail<?> fail = new Fail<Void>(message, exception.getErrorCode());
+        Fail<Void> fail = new Fail<>(message, exception.getErrorCode());
         stackTracesHandler.setStackTrace(fail, e);
         return fail;
     }
