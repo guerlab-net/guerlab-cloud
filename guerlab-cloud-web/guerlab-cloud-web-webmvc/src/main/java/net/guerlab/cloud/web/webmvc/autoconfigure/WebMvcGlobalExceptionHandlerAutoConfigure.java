@@ -34,9 +34,6 @@ import java.util.stream.Collectors;
 @AutoConfigureAfter(GlobalExceptionHandlerAutoConfigure.class)
 public class WebMvcGlobalExceptionHandlerAutoConfigure {
 
-    private WebMvcGlobalExceptionHandlerAutoConfigure() {
-    }
-
     /**
      * 异常统一处理配置
      *
