@@ -42,9 +42,6 @@ import java.util.List;
 @EnableConfigurationProperties(CorsProperties.class)
 public class WebMvcAutoconfigure {
 
-    private WebMvcAutoconfigure() {
-    }
-
     @Configuration
     @ConditionalOnClass(WebMvcConfigurer.class)
     public static class MvcAutoconfigure implements WebMvcConfigurer {

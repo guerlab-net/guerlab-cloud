@@ -41,9 +41,6 @@ import java.lang.reflect.Method;
 @ConditionalOnProperty(prefix = "spring.web", name = "wrapper-response", havingValue = "true", matchIfMissing = true)
 public class WebMvcResponseAdvisorAutoconfigure {
 
-    private WebMvcResponseAdvisorAutoconfigure() {
-    }
-
     /**
      * 响应数据处理
      *
