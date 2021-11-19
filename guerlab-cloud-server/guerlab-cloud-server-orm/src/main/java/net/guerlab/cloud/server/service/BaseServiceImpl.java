@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 guerlab.net and other contributors.
+ * Copyright 2018-2021 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
+import net.guerlab.cloud.searchparams.AbstractSearchParams;
 import net.guerlab.cloud.server.utils.PageUtils;
 import net.guerlab.spring.commons.sequence.Sequence;
-import net.guerlab.spring.searchparams.AbstractSearchParams;
 import net.guerlab.web.result.ListObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
