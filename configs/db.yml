@@ -8,6 +8,6 @@ spring:
       connection-init-sqls:
         set names utf8mb4;
 mybatis:
-  type-handlers-package: net.guerlab.spring.mybatis.typehandlers
+  type-handlers-package: net.guerlab.mybatis.typehandlers
   mapper-locations:
     - classpath*:mapper/**/*Mapper.xml
