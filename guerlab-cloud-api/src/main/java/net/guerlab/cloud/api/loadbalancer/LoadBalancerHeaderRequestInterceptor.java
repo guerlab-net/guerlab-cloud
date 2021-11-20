@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 guerlab.net and other contributors.
+ * Copyright 2018-2021 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@ package net.guerlab.cloud.api.loadbalancer;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
+import net.guerlab.cloud.core.util.SpringUtils;
 import net.guerlab.cloud.loadbalancer.properties.VersionControlProperties;
-import net.guerlab.spring.commons.util.SpringApplicationContextUtil;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -50,7 +50,8 @@ public class LoadBalancerHeaderRequestInterceptor implements RequestInterceptor 
             return;
         }
 
-        String version = StringUtils.trimToNull(SpringApplicationContextUtil.getContext().getEnvironment().getProperty("spring.cloud.nacos.discovery.metadata.version"));
+        String version = StringUtils.trimToNull(
+                SpringUtils.getProperty("spring.cloud.nacos.discovery.metadata.version"));
 
         if (version == null) {
             log.debug("get metadata version fail");

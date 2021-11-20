@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 guerlab.net and other contributors.
+ * Copyright 2018-2021 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@ package net.guerlab.cloud.api.endpoints;
 
 import feign.Target;
 import lombok.extern.slf4j.Slf4j;
-import net.guerlab.spring.commons.util.SpringApplicationContextUtil;
+import net.guerlab.cloud.core.util.SpringUtils;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -116,7 +116,7 @@ public class FeignClientEndpoint {
     @SuppressWarnings("unused")
     @ReadOperation
     public Collection<FeignClientInfo> getFeignInstances() {
-        Map<String, Object> beanMap = SpringApplicationContextUtil.getContext().getBeansWithAnnotation(FeignClient.class);
+        Map<String, Object> beanMap = SpringUtils.getBeanMapWithAnnotation(FeignClient.class);
 
         if (beanMap.isEmpty()) {
             return Collections.emptyList();
@@ -136,7 +136,7 @@ public class FeignClientEndpoint {
     @Nullable
     @ReadOperation
     public FeignClientInfo getFeignInstance(@Selector String arg0) {
-        Map<String, Object> beanMap = SpringApplicationContextUtil.getContext().getBeansWithAnnotation(FeignClient.class);
+        Map<String, Object> beanMap = SpringUtils.getBeanMapWithAnnotation(FeignClient.class);
         Object obj = beanMap.get(arg0);
 
         if (obj == null) {

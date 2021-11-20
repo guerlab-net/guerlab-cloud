@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 guerlab.net and other contributors.
+ * Copyright 2018-2021 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
 package net.guerlab.cloud.auth.factory;
 
 import net.guerlab.cloud.commons.exception.NotFoundCanUseTokenFactoryException;
-import net.guerlab.spring.commons.util.SpringApplicationContextUtil;
+import net.guerlab.cloud.core.util.SpringUtils;
 
 import java.util.Collection;
 import java.util.List;
@@ -73,8 +73,7 @@ public class TokenFactoryManager {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     private static <T, F extends TokenFactory<T>> Stream<F> getTokenFactoriesByEntityClass0(Class<T> entityClass) {
-        Collection<TokenFactory> factories = SpringApplicationContextUtil.getContext()
-                .getBeansOfType(TokenFactory.class).values();
+        Collection<TokenFactory> factories = SpringUtils.getBeans(TokenFactory.class);
 
         if (factories.isEmpty()) {
             return Stream.empty();

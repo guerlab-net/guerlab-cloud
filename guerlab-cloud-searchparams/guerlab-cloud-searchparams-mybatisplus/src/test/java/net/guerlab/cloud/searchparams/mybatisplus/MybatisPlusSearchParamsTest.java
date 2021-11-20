@@ -23,6 +23,7 @@ import java.util.Arrays;
 /**
  * @author guer
  */
+@SuppressWarnings("SpellCheckingInspection")
 class MybatisPlusSearchParamsTest {
 
     @Test

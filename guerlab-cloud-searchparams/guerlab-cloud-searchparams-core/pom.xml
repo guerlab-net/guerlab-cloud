@@ -30,8 +30,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.guerlab.spring</groupId>
-            <artifactId>guerlab-spring-commons</artifactId>
+            <groupId>net.guerlab.cloud</groupId>
+            <artifactId>guerlab-cloud-core</artifactId>
         </dependency>
         <dependency>
             <groupId>io.swagger.core.v3</groupId>

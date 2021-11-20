@@ -12,9 +12,9 @@
  */
 package net.guerlab.cloud.server.rest.controller;
 
+import net.guerlab.cloud.core.dto.Convert;
 import net.guerlab.cloud.searchparams.AbstractSearchParams;
 import net.guerlab.cloud.server.service.BaseService;
-import net.guerlab.spring.commons.dto.Convert;
 
 import java.io.Serializable;
 

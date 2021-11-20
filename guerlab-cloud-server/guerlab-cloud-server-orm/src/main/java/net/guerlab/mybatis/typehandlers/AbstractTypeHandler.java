@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 guerlab.net and other contributors.
+ * Copyright 2018-2021 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -10,12 +10,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.spring.mybatis;
+package net.guerlab.mybatis.typehandlers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.guerlab.cloud.core.util.SpringUtils;
 import net.guerlab.commons.exception.ApplicationException;
-import net.guerlab.spring.commons.util.SpringApplicationContextUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
@@ -59,7 +59,7 @@ public abstract class AbstractTypeHandler<E> extends BaseTypeHandler<E> {
     }
 
     private ObjectMapper objectMapper() {
-        return SpringApplicationContextUtil.getContext().getBean(ObjectMapper.class);
+        return SpringUtils.getContext().getBean(ObjectMapper.class);
     }
 
     private String toJson(E object) {

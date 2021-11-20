@@ -1,0 +1,143 @@
+{
+  "groups": [
+    {
+      "name": "sequence",
+      "type": "net.guerlab.cloud.core.properties.SequenceProperties",
+      "sourceType": "net.guerlab.cloud.core.properties.SequenceProperties",
+      "description": "分布式序列配置."
+    },
+    {
+      "name": "spring.jackson.format",
+      "type": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "数值json格式化配置."
+    }
+  ],
+  "properties": [
+    {
+      "name": "sequence.worker-id",
+      "type": "java.lang.Long",
+      "sourceType": "net.guerlab.cloud.core.properties.SequenceProperties",
+      "description": "工作节点ID.",
+      "defaultValue": "0"
+    },
+    {
+      "name": "sequence.data-center-id",
+      "type": "java.lang.Long",
+      "sourceType": "net.guerlab.cloud.core.properties.SequenceProperties",
+      "description": "数据中心ID.",
+      "defaultValue": "0"
+    },
+    {
+      "name": "spring.jackson.format.format-all-number",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "是否格式化所有数值类型.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.jackson.format.format-big-decimal",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "是否格式化BigDecimal.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.jackson.format.format-big-integer",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "是否格式化BigInteger.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.jackson.format.format-byte-class",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "是否格式化Byte包装类.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.jackson.format.format-short-class",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "是否格式化Short包装类.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.jackson.format.format-integer-class",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "是否格式化Integer包装类.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.jackson.format.format-long-class",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "是否格式化Long包装类.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.jackson.format.format-float-class",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "是否格式化Float包装类.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.jackson.format.format-double-class",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "是否格式化Double包装类.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.jackson.format.format-byte-type",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "是否格式化Byte基本类型.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.jackson.format.format-short-type",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "是否格式化Short基本类型.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.jackson.format.format-integer-type",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "是否格式化Integer基本类型.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.jackson.format.format-long-type",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "是否格式化Long基本类型.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.jackson.format.format-float-type",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "是否格式化Float基本类型.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.jackson.format.format-double-type",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "是否格式化Double基本类型.",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.jackson.format.format-number-class-list",
+      "type": "java.util.List<java.lang.Class<java.lang.Number>>",
+      "sourceType": "net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties",
+      "description": "待格式化数值类型类."
+    }
+  ]
+}

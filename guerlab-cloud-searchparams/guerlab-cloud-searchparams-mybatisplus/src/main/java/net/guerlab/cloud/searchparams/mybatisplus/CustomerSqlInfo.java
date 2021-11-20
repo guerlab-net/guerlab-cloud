@@ -31,17 +31,17 @@ class CustomerSqlInfo {
     /**
      * sql片段
      */
-    String sql;
+    final String sql;
 
     /**
      * 是否包含匹配符
      */
-    boolean matchFlag;
+    final boolean matchFlag;
 
     /**
      * 批量模式
      */
-    boolean batch;
+    final boolean batch;
 
     /**
      * 通过sql片段构造自定义sql信息

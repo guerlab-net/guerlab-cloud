@@ -71,10 +71,20 @@
         <java.version>11</java.version>
         <project.encoding>UTF-8</project.encoding>
 
-        <guerlab-spring.version>5.1.4</guerlab-spring.version>
+        <!-- guerlab -->
+        <guerlab-commons.version>2.0.1</guerlab-commons.version>
+        <guerlab-web.version>2.0.0</guerlab-web.version>
+
+        <!-- spring -->
         <spring-cloud.version>2020.0.4</spring-cloud.version>
         <spring-boot.version>2.4.12</spring-boot.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+
+        <!-- other -->
+        <mybatis-starter.version>2.2.0</mybatis-starter.version>
+        <mybatis-typehandlers-jsr310.version>1.0.2</mybatis-typehandlers-jsr310.version>
+        <mybatis-plus.version>3.4.3</mybatis-plus.version>
+        <swagger.version>2.1.10</swagger.version>
         <jjwt.version>0.9.1</jjwt.version>
         <guava.version>24.1.1-jre</guava.version>
         <easyexcel.version>3.0.2</easyexcel.version>
@@ -116,13 +126,6 @@
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>${spring-cloud-alibaba.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.spring</groupId>
-                <artifactId>guerlab-spring</artifactId>
-                <version>${guerlab-spring.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -210,6 +213,13 @@
                 <version>${revision}</version>
             </dependency>
 
+            <!-- guerlab-cloud core -->
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
             <!-- guerlab-cloud excel -->
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
@@ -251,6 +261,13 @@
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
                 <artifactId>guerlab-cloud-openapi-webmvc</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- guerlab-cloud redis -->
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-redis</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -373,6 +390,65 @@
                 <version>${revision}</version>
             </dependency>
 
+            <!-- guerlab -->
+            <dependency>
+                <groupId>net.guerlab</groupId>
+                <artifactId>guerlab-commons</artifactId>
+                <version>${guerlab-commons.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab</groupId>
+                <artifactId>guerlab-web</artifactId>
+                <version>${guerlab-web.version}</version>
+            </dependency>
+
+            <!-- mybatis -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-typehandlers-jsr310</artifactId>
+                <version>${mybatis-typehandlers-jsr310.version}</version>
+            </dependency>
+
+            <!-- swagger -->
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <!-- mybatis plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-core</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!-- guava -->
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
@@ -432,10 +508,13 @@
         <module>guerlab-cloud-cache</module>
         <module>guerlab-cloud-commons</module>
         <module>guerlab-cloud-context</module>
+        <module>guerlab-cloud-core</module>
         <module>guerlab-cloud-excel</module>
+        <module>guerlab-cloud-geo</module>
         <module>guerlab-cloud-loadbalancer</module>
         <module>guerlab-cloud-log</module>
         <module>guerlab-cloud-openapi</module>
+        <module>guerlab-cloud-redis</module>
         <module>guerlab-cloud-rsa</module>
         <module>guerlab-cloud-searchparams</module>
         <module>guerlab-cloud-security</module>
@@ -443,6 +522,5 @@
         <module>guerlab-cloud-server</module>
         <module>guerlab-cloud-stream</module>
         <module>guerlab-cloud-web</module>
-        <module>guerlab-cloud-geo</module>
     </modules>
 </project>

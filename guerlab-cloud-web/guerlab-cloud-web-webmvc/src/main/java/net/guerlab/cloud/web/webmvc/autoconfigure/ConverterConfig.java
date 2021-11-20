@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 guerlab.net and other contributors.
+ * Copyright 2018-2021 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  */
 package net.guerlab.cloud.web.webmvc.autoconfigure;
 
-import net.guerlab.spring.commons.converter.AutoLoadConverter;
+import net.guerlab.cloud.core.converter.AutoLoadConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Configuration;

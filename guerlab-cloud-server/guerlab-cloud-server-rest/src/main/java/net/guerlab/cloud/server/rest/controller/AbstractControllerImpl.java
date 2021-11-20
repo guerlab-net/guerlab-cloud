@@ -14,10 +14,10 @@ package net.guerlab.cloud.server.rest.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.commons.util.ParameterizedTypeUtils;
+import net.guerlab.cloud.core.dto.Convert;
 import net.guerlab.cloud.searchparams.AbstractSearchParams;
 import net.guerlab.cloud.server.service.BaseFindService;
 import net.guerlab.commons.exception.ApplicationException;
-import net.guerlab.spring.commons.dto.Convert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 

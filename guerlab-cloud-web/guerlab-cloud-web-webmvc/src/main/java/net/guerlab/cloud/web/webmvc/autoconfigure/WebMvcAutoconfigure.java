@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 guerlab.net and other contributors.
+ * Copyright 2018-2021 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,9 +13,9 @@
 package net.guerlab.cloud.web.webmvc.autoconfigure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.guerlab.cloud.core.autoconfigure.ObjectMapperAutoconfigure;
 import net.guerlab.cloud.security.core.properties.CorsProperties;
 import net.guerlab.commons.collection.CollectionUtil;
-import net.guerlab.spring.commons.autoconfigure.ObjectMapperAutoconfigure;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

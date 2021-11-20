@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 guerlab.net and other contributors.
+ * Copyright 2018-2021 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,9 +12,9 @@
  */
 package net.guerlab.cloud.commons.util;
 
+import net.guerlab.cloud.core.dto.Convert;
 import net.guerlab.commons.collection.CollectionUtil;
 import net.guerlab.commons.exception.ApplicationException;
-import net.guerlab.spring.commons.dto.Convert;
 import net.guerlab.web.result.ListObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.lang.Nullable;
