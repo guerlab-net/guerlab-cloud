@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 guerlab.net and other contributors.
+ * Copyright 2018-2021 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -162,7 +162,14 @@ public class ExcelUtils {
         CONVERTERS.add(converter);
     }
 
-    private static ExcelWriterBuilder registerConverter(ExcelWriterBuilder builder) {
+    /**
+     * 注册转换器对象
+     *
+     * @param builder
+     *         ExcelWriterBuilder
+     * @return ExcelWriterBuilder
+     */
+    public static ExcelWriterBuilder registerConverter(ExcelWriterBuilder builder) {
         CONVERTERS.forEach(builder::registerConverter);
         return builder;
     }
