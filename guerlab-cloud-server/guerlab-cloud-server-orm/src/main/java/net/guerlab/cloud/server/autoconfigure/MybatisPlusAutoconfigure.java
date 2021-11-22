@@ -12,10 +12,15 @@
  */
 package net.guerlab.cloud.server.autoconfigure;
 
+import com.baomidou.mybatisplus.autoconfigure.IdentifierGeneratorAutoConfiguration;
+import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import net.guerlab.cloud.core.sequence.Sequence;
 import net.guerlab.cloud.server.mybatis.plus.methods.AutoLoadMethodLoader;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,6 +30,7 @@ import org.springframework.context.annotation.Configuration;
  * @author guer
  */
 @Configuration
+@AutoConfigureBefore(IdentifierGeneratorAutoConfiguration.class)
 public class MybatisPlusAutoconfigure {
 
     /**
@@ -48,5 +54,35 @@ public class MybatisPlusAutoconfigure {
     @Bean
     public AutoLoadMethodLoader autoLoadMethodLoader() {
         return new AutoLoadMethodLoader();
+    }
+
+    /**
+     * 构造雪花ID生成器
+     *
+     * @param sequence
+     *         雪花ID序列
+     * @return 雪花ID生成器
+     */
+    @Bean
+    @ConditionalOnBean(Sequence.class)
+    public SnowflakeIdGenerator snowflakeIdGenerator(Sequence sequence) {
+        return new SnowflakeIdGenerator(sequence);
+    }
+
+    /**
+     * 雪花ID构造器
+     */
+    public static class SnowflakeIdGenerator implements IdentifierGenerator {
+
+        private final Sequence sequence;
+
+        public SnowflakeIdGenerator(Sequence sequence) {
+            this.sequence = sequence;
+        }
+
+        @Override
+        public Long nextId(Object entity) {
+            return sequence.nextId();
+        }
     }
 }

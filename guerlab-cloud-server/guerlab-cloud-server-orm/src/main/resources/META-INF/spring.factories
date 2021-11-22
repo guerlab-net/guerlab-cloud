@@ -1,4 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 net.guerlab.cloud.server.autoconfigure.MyBatisAutoconfigure,\
-net.guerlab.cloud.server.autoconfigure.MybatisPlusAutoconfigure,\
-net.guerlab.cloud.server.autoconfigure.SnowflakeIdGeneratorAutoconfigure
+net.guerlab.cloud.server.autoconfigure.MybatisPlusAutoconfigure
