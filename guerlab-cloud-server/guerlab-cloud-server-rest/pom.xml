@@ -32,10 +32,6 @@
     <dependencies>
         <dependency>
             <groupId>net.guerlab.cloud</groupId>
-            <artifactId>guerlab-cloud-server-commons</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.guerlab.cloud</groupId>
             <artifactId>guerlab-cloud-security-core</artifactId>
         </dependency>
 
