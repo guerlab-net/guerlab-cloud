@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2018-2021 guerlab.net and other contributors.
+  ~ Copyright 2018-2022 guerlab.net and other contributors.
   ~
   ~ Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -66,7 +66,7 @@
     </issueManagement>
 
     <properties>
-        <revision>2021.0.0-SNAPSHOT</revision>
+        <revision>2022.0.0-SNAPSHOT</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>11</java.version>
@@ -77,8 +77,8 @@
         <guerlab-web.version>2.0.0</guerlab-web.version>
 
         <!-- spring -->
-        <spring-cloud.version>2020.0.4</spring-cloud.version>
-        <spring-boot.version>2.4.12</spring-boot.version>
+        <spring-boot.version>2.6.0</spring-boot.version>
+        <spring-cloud.version>2021.0.0-RC1</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
 
         <!-- other -->
@@ -106,6 +106,17 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <dependencyManagement>
         <dependencies>
