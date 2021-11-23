@@ -38,32 +38,32 @@ import java.util.Collection;
 public abstract class AbstractApiWrapper<D, PK extends Serializable, SP extends AbstractSearchParams, A extends Api<D, PK, SP>>
         implements Api<D, PK, SP> {
 
-        protected final A api;
+    protected final A api;
 
-        @Nullable
-        @Override
-        public D selectOne(SP searchParams) {
-                return api.selectOne(searchParams);
-        }
+    @Nullable
+    @Override
+    public D selectOne(SP searchParams) {
+        return api.selectOne(searchParams);
+    }
 
-        @Nullable
-        @Override
-        public D selectById(PK id) {
-                return api.selectById(id);
-        }
+    @Nullable
+    @Override
+    public D selectById(PK id) {
+        return api.selectById(id);
+    }
 
-        @Override
-        public Collection<D> selectList(SP searchParams) {
-                return api.selectList(searchParams);
-        }
+    @Override
+    public Collection<D> selectList(SP searchParams) {
+        return api.selectList(searchParams);
+    }
 
-        @Override
-        public Pageable<D> selectPage(SP searchParams) {
-                return api.selectPage(searchParams);
-        }
+    @Override
+    public Pageable<D> selectPage(SP searchParams) {
+        return api.selectPage(searchParams);
+    }
 
-        @Override
-        public int selectCount(SP searchParams) {
-                return api.selectCount(searchParams);
-        }
+    @Override
+    public int selectCount(SP searchParams) {
+        return api.selectCount(searchParams);
+    }
 }
