@@ -34,9 +34,10 @@
             <groupId>net.guerlab.cloud</groupId>
             <artifactId>guerlab-cloud-api-core</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>net.guerlab.cloud</groupId>
-            <artifactId>guerlab-cloud-web-core</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
         </dependency>
     </dependencies>
 
