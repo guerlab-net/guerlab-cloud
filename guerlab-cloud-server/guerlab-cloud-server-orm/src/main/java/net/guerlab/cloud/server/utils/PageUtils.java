@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@ package net.guerlab.cloud.server.utils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.AbstractSearchParams;
 import net.guerlab.cloud.server.service.QueryWrapperGetter;
-import net.guerlab.web.result.ListObject;
 
 import java.util.Collection;
 
@@ -47,7 +47,7 @@ public class PageUtils {
      *         搜索参数对象类型
      * @return 分页结果列表
      */
-    public static <T, SP extends AbstractSearchParams> ListObject<T> selectPage(QueryWrapperGetter<T, SP> wrapperGetter,
+    public static <T, SP extends AbstractSearchParams> Pageable<T> selectPage(QueryWrapperGetter<T, SP> wrapperGetter,
             SP searchParams, BaseMapper<T> mapper) {
         int pageId = Math.max(searchParams.getPageId(), 1);
         int pageSize = searchParams.getPageSize();
@@ -59,7 +59,7 @@ public class PageUtils {
 
         long total = result.getTotal();
 
-        ListObject<T> listObject = new ListObject<>(searchParams.getPageSize(), total, list);
+        Pageable<T> listObject = new Pageable<>(searchParams.getPageSize(), total, list);
 
         listObject.setCurrentPageId(pageId);
         listObject.setMaxPageId((long) Math.ceil((double) total / pageSize));

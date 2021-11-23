@@ -13,11 +13,11 @@
 package net.guerlab.cloud.web.webflux.response;
 
 import lombok.extern.slf4j.Slf4j;
+import net.guerlab.cloud.core.result.Result;
+import net.guerlab.cloud.core.result.Succeed;
 import net.guerlab.cloud.web.core.response.ResponseBodyWrapperSupport;
 import net.guerlab.cloud.web.webflux.utils.RequestUtils;
 import net.guerlab.commons.exception.ApplicationException;
-import net.guerlab.web.result.Result;
-import net.guerlab.web.result.Succeed;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.codec.HttpMessageWriter;
 import org.springframework.lang.Nullable;

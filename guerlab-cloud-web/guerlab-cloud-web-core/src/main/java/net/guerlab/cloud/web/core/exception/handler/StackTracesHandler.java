@@ -12,7 +12,7 @@
  */
 package net.guerlab.cloud.web.core.exception.handler;
 
-import net.guerlab.web.result.Fail;
+import net.guerlab.cloud.core.result.Fail;
 import org.springframework.lang.Nullable;
 
 /**

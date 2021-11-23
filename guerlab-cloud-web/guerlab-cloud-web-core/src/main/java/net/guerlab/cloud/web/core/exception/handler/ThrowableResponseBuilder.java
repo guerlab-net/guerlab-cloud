@@ -12,8 +12,8 @@
  */
 package net.guerlab.cloud.web.core.exception.handler;
 
+import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.DefaultExceptionInfo;
-import net.guerlab.web.result.Fail;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.AnnotationUtils;

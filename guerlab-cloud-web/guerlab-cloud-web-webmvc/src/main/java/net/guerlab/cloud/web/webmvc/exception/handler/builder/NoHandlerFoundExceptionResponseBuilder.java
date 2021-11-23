@@ -12,9 +12,9 @@
  */
 package net.guerlab.cloud.web.webmvc.exception.handler.builder;
 
+import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.handler.AbstractResponseBuilder;
 import net.guerlab.cloud.web.webmvc.exception.NoHandlerFoundExceptionInfo;
-import net.guerlab.web.result.Fail;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 /**

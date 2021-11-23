@@ -82,6 +82,7 @@
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
 
         <!-- other -->
+        <mybatis.version>3.5.7</mybatis.version>
         <mybatis-starter.version>2.2.0</mybatis-starter.version>
         <mybatis-typehandlers-jsr310.version>1.0.2</mybatis-typehandlers-jsr310.version>
         <mybatis-plus.version>3.4.3</mybatis-plus.version>
@@ -146,6 +147,17 @@
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
                 <artifactId>guerlab-cloud-api</artifactId>
+                <version>${revision}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-api-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-api-rest</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -371,6 +383,11 @@
                 <artifactId>guerlab-cloud-server-rest</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-server-api-rest</artifactId>
+                <version>${revision}</version>
+            </dependency>
 
             <!-- guerlab-cloud stream -->
             <dependency>
@@ -415,6 +432,11 @@
             </dependency>
 
             <!-- mybatis -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>

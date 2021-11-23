@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,8 @@ package net.guerlab.cloud.server.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.AbstractSearchParams;
-import net.guerlab.web.result.ListObject;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
@@ -132,7 +132,7 @@ public interface BaseFindService<T, PK extends Serializable, SP extends Abstract
      *
      * @return 实体列表
      */
-    Collection<T> selectAll();
+    Collection<T> selectList();
 
     /**
      * 获取所有对象
@@ -141,7 +141,7 @@ public interface BaseFindService<T, PK extends Serializable, SP extends Abstract
      *         搜索参数对象
      * @return 实体列表
      */
-    Collection<T> selectAll(SP searchParams);
+    Collection<T> selectList(SP searchParams);
 
     /**
      * 查询列表
@@ -150,7 +150,7 @@ public interface BaseFindService<T, PK extends Serializable, SP extends Abstract
      *         搜索参数对象
      * @return 实体列表
      */
-    ListObject<T> selectPage(SP searchParams);
+    Pageable<T> selectPage(SP searchParams);
 
     /**
      * 查询总记录数

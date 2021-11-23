@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * http响应数据处理配置参数<br>
- * 符合以下条件之一将不会被包装成{@link net.guerlab.web.result.Result}类型<br>
+ * 符合以下条件之一将不会被包装成{@link net.guerlab.cloud.core.result.Result}类型<br>
  * <ul>
  * <li>请求路径符合排除列表前缀</li>
  * <li>使用了{@link IgnoreResponseHandler}注解</li>

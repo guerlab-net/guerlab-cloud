@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,9 +13,9 @@
 package net.guerlab.cloud.commons.util;
 
 import net.guerlab.cloud.core.dto.Convert;
+import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.commons.collection.CollectionUtil;
 import net.guerlab.commons.exception.ApplicationException;
-import net.guerlab.web.result.ListObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.lang.Nullable;
 
@@ -123,12 +123,12 @@ public class BeanConvertUtils {
      *         实体列表对象
      * @return 目标列表对象
      */
-    public static <T, E extends Convert<T>> ListObject<T> toListObject(@Nullable ListObject<E> list) {
+    public static <T, E extends Convert<T>> Pageable<T> toPageable(@Nullable Pageable<E> list) {
         if (list == null || CollectionUtil.isEmpty(list.getList())) {
-            return ListObject.empty();
+            return Pageable.empty();
         }
 
-        ListObject<T> result = copyListObject(list);
+        Pageable<T> result = copyPageable(list);
 
         result.setList(toList(list.getList()));
 
@@ -148,20 +148,20 @@ public class BeanConvertUtils {
      *         目标类型
      * @return 目标列表对象
      */
-    public static <T, E> ListObject<T> toListObject(@Nullable ListObject<E> list, Class<T> dtoClass) {
+    public static <T, E> Pageable<T> toPageable(@Nullable Pageable<E> list, Class<T> dtoClass) {
         if (list == null || CollectionUtil.isEmpty(list.getList())) {
-            return ListObject.empty();
+            return Pageable.empty();
         }
 
-        ListObject<T> result = copyListObject(list);
+        Pageable<T> result = copyPageable(list);
 
         result.setList(toList(list.getList(), dtoClass));
 
         return result;
     }
 
-    private static <T> ListObject<T> copyListObject(ListObject<?> origin) {
-        ListObject<T> result = new ListObject<>();
+    private static <T> Pageable<T> copyPageable(Pageable<?> origin) {
+        Pageable<T> result = new Pageable<>();
         result.setPageSize(origin.getPageSize());
         result.setCount(origin.getCount());
         result.setCurrentPageId(origin.getCurrentPageId());

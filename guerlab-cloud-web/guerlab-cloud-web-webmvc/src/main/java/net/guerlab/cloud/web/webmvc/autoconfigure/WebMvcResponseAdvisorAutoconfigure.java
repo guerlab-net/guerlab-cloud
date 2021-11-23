@@ -13,8 +13,8 @@
 package net.guerlab.cloud.web.webmvc.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
+import net.guerlab.cloud.core.result.Succeed;
 import net.guerlab.cloud.web.core.response.ResponseBodyWrapperSupport;
-import net.guerlab.web.result.Succeed;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;

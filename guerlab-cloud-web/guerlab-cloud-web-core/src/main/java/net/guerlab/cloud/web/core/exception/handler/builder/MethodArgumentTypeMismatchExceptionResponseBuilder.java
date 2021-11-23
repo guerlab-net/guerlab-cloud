@@ -12,9 +12,9 @@
  */
 package net.guerlab.cloud.web.core.exception.handler.builder;
 
+import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.MethodArgumentTypeMismatchExceptionInfo;
 import net.guerlab.cloud.web.core.exception.handler.AbstractResponseBuilder;
-import net.guerlab.web.result.Fail;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 /**

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ import net.guerlab.cloud.searchparams.AbstractSearchParams;
 import net.guerlab.cloud.server.service.BaseFindService;
 import net.guerlab.commons.exception.ApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
 
@@ -34,6 +33,8 @@ import java.io.Serializable;
  *         服务接口类型
  * @param <PK>
  *         实体主键类型
+ * @param <SP>
+ *         搜索参数类型
  * @author guer
  */
 @Slf4j
@@ -68,8 +69,7 @@ public abstract class AbstractControllerImpl<D, E extends Convert<D>, S extends 
         E entity = getService().selectById(id);
 
         if (entity == null) {
-            ApplicationException exception = nullPointException();
-            throw exception != null ? exception : new NullPointerException();
+            throw nullPointException();
         }
 
         return entity;
@@ -90,17 +90,6 @@ public abstract class AbstractControllerImpl<D, E extends Convert<D>, S extends 
             log.debug(e.getLocalizedMessage(), e);
             throw new ApplicationException(e.getLocalizedMessage(), e);
         }
-    }
-
-    /**
-     * 当对象为空的时候抛出的异常
-     *
-     * @return 当对象为空的时候抛出的异常
-     */
-    @SuppressWarnings("SameReturnValue")
-    @Nullable
-    protected ApplicationException nullPointException() {
-        return null;
     }
 
 }

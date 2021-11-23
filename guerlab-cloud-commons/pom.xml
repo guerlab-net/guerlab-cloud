@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2018-2021 guerlab.net and other contributors.
+  ~ Copyright 2018-2022 guerlab.net and other contributors.
   ~
   ~ Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -54,9 +54,11 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- 此处依赖是为解决com.baomidou:mybatis-plus-annotation在编译过程中的警报问题-->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>

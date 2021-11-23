@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2018-2021 guerlab.net and other contributors.
+  ~ Copyright 2018-2022 guerlab.net and other contributors.
   ~
   ~ Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@
     <dependencies>
         <dependency>
             <groupId>net.guerlab</groupId>
-            <artifactId>guerlab-web</artifactId>
+            <artifactId>guerlab-commons</artifactId>
         </dependency>
 
         <dependency>
@@ -74,6 +74,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
         </dependency>
     </dependencies>
 </project>

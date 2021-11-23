@@ -13,9 +13,9 @@
 package net.guerlab.cloud.web.webflux.exception.handler;
 
 import lombok.extern.slf4j.Slf4j;
+import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionHandler;
 import net.guerlab.cloud.web.webflux.utils.RequestUtils;
-import net.guerlab.web.result.Fail;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.DefaultErrorWebExceptionHandler;

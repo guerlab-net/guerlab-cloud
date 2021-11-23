@@ -49,4 +49,14 @@ public interface IController<E, S, PK extends Serializable> {
      * @return 对象
      */
     E findOne0(PK id);
+
+    /**
+     * 当对象为空的时候抛出的异常
+     *
+     * @return 当对象为空的时候抛出的异常
+     */
+    @SuppressWarnings("SameReturnValue")
+    default RuntimeException nullPointException() {
+        return new NullPointerException();
+    }
 }

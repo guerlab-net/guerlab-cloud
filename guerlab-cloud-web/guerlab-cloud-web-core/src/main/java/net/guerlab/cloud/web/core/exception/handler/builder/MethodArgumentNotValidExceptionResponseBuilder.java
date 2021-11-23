@@ -12,9 +12,9 @@
  */
 package net.guerlab.cloud.web.core.exception.handler.builder;
 
+import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.RequestParamsError;
 import net.guerlab.cloud.web.core.exception.handler.AbstractRequestParamsErrorResponseBuilder;
-import net.guerlab.web.result.Fail;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.BindingResult;

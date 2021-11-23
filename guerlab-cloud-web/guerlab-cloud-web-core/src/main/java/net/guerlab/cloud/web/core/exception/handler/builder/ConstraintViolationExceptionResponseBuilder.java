@@ -12,9 +12,9 @@
  */
 package net.guerlab.cloud.web.core.exception.handler.builder;
 
+import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.RequestParamsError;
 import net.guerlab.cloud.web.core.exception.handler.AbstractRequestParamsErrorResponseBuilder;
-import net.guerlab.web.result.Fail;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;

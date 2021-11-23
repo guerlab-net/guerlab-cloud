@@ -13,10 +13,10 @@
 package net.guerlab.cloud.web.core.response;
 
 import lombok.extern.slf4j.Slf4j;
+import net.guerlab.cloud.core.result.Result;
 import net.guerlab.cloud.web.core.annotation.IgnoreResponseHandler;
 import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
 import net.guerlab.commons.collection.CollectionUtil;
-import net.guerlab.web.result.Result;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.ResponseEntity;
