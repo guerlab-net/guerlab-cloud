@@ -38,7 +38,7 @@ public class Fail<T> extends Result<T> {
      * @param message
      *         消息内容
      */
-    public Fail(String message) {
+    public Fail(@Nullable String message) {
         this(message, null);
     }
 
@@ -48,7 +48,7 @@ public class Fail<T> extends Result<T> {
      * @param data
      *         数据
      */
-    public Fail(T data) {
+    public Fail(@Nullable T data) {
         this(MSG, data);
     }
 

@@ -12,29 +12,29 @@
  */
 package net.guerlab.cloud.web.core.exception.handler;
 
+import net.guerlab.cloud.commons.exception.handler.AbstractResponseBuilder;
 import net.guerlab.cloud.core.result.Fail;
-import net.guerlab.cloud.web.core.exception.RequestParamsError;
-
-import java.util.Collection;
+import net.guerlab.cloud.web.core.exception.AbstractI18nInfo;
 
 /**
- * 抽象请求参数错误响应构建
+ * 抽象国际化异常信息构建者
  *
  * @author guer
  */
-public abstract class AbstractRequestParamsErrorResponseBuilder extends AbstractI18nResponseBuilder {
+public abstract class AbstractI18nResponseBuilder extends AbstractResponseBuilder {
 
     /**
-     * 根据请求参数构建异常信息
+     * 根据国际化信息构建异常信息
      *
+     * @param i18nInfo
+     *         国际化信息
      * @param e
-     *         请求参数异常
-     * @return 信息信息
+     *         异常
+     * @return 异常信息
      */
-    protected Fail<Collection<String>> build0(RequestParamsError e) {
-        String message = getMessage(e.getLocalizedMessage());
-        Fail<Collection<String>> fail = new Fail<>(message, e.getErrorCode());
-        fail.setData(e.getErrors());
+    protected Fail<Void> buildByI18nInfo(AbstractI18nInfo i18nInfo, Throwable e) {
+        String message = i18nInfo.getMessage(messageSource);
+        Fail<Void> fail = new Fail<>(message, i18nInfo.getErrorCode());
         stackTracesHandler.setStackTrace(fail, e);
         return fail;
     }

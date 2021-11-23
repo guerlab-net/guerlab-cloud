@@ -14,7 +14,7 @@ package net.guerlab.cloud.web.core.exception.handler.builder;
 
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.MethodArgumentTypeMismatchExceptionInfo;
-import net.guerlab.cloud.web.core.exception.handler.AbstractResponseBuilder;
+import net.guerlab.cloud.web.core.exception.handler.AbstractI18nResponseBuilder;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 /**
@@ -22,7 +22,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
  *
  * @author guer
  */
-public class MethodArgumentTypeMismatchExceptionResponseBuilder extends AbstractResponseBuilder {
+public class MethodArgumentTypeMismatchExceptionResponseBuilder extends AbstractI18nResponseBuilder {
 
     @Override
     public boolean accept(Throwable e) {

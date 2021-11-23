@@ -12,11 +12,11 @@
  */
 package net.guerlab.cloud.web.webflux.autoconfigure;
 
+import net.guerlab.cloud.commons.exception.handler.ResponseBuilder;
+import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.web.core.autoconfigure.GlobalExceptionHandlerAutoConfigure;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionHandler;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionLogger;
-import net.guerlab.cloud.web.core.exception.handler.ResponseBuilder;
-import net.guerlab.cloud.web.core.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.web.webflux.exception.handler.WebFluxErrorWebExceptionHandler;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.web.ServerProperties;

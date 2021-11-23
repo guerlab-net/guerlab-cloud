@@ -13,6 +13,8 @@
 package net.guerlab.cloud.web.core.exception.handler;
 
 import lombok.Getter;
+import net.guerlab.cloud.commons.exception.handler.ResponseBuilder;
+import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.core.result.Fail;
 import org.springframework.context.MessageSource;
 

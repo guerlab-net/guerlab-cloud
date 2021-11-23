@@ -10,10 +10,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.web.core.exception.handler;
+package net.guerlab.cloud.commons.exception.handler;
 
-import net.guerlab.cloud.core.result.Fail;
-import net.guerlab.cloud.web.core.exception.AbstractI18nInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -53,13 +51,6 @@ public abstract class AbstractResponseBuilder implements ResponseBuilder {
         Locale locale = LocaleContextHolder.getLocale();
 
         return messageSource.getMessage(msg, null, msg, locale);
-    }
-
-    protected Fail<Void> buildByI18nInfo(AbstractI18nInfo i18nInfo, Throwable e) {
-        String message = i18nInfo.getMessage(messageSource);
-        Fail<Void> fail = new Fail<>(message, i18nInfo.getErrorCode());
-        stackTracesHandler.setStackTrace(fail, e);
-        return fail;
     }
 
     @Override

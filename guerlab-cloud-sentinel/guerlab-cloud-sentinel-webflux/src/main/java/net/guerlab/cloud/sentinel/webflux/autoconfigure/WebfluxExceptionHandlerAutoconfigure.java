@@ -13,8 +13,8 @@
 package net.guerlab.cloud.sentinel.webflux.autoconfigure;
 
 import com.alibaba.csp.sentinel.adapter.spring.webflux.SentinelWebFluxFilter;
+import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.web.core.autoconfigure.GlobalExceptionHandlerAutoConfigure;
-import net.guerlab.cloud.web.core.exception.handler.StackTracesHandler;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;

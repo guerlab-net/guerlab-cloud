@@ -14,6 +14,7 @@ package net.guerlab.cloud.web.core.properties;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.guerlab.cloud.commons.config.GlobalExceptionConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpMethod;
@@ -31,7 +32,7 @@ import java.util.List;
 @Getter
 @RefreshScope
 @ConfigurationProperties("spring.global-exception")
-public class GlobalExceptionProperties {
+public class GlobalExceptionProperties implements GlobalExceptionConfig {
 
     /**
      * 通用匹配符
@@ -65,6 +66,7 @@ public class GlobalExceptionProperties {
      *         方法签名
      * @return 是否匹配
      */
+    @Override
     public boolean excludeMatch(String methodKey) {
         return match(stackTraceExcludes, methodKey);
     }
@@ -76,6 +78,7 @@ public class GlobalExceptionProperties {
      *         方法签名
      * @return 是否匹配
      */
+    @Override
     public boolean includeMatch(String methodKey) {
         return match(stackTraceIncludes, methodKey);
     }

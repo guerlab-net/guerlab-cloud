@@ -12,9 +12,9 @@
  */
 package net.guerlab.cloud.web.core.exception.handler.builder;
 
+import net.guerlab.cloud.commons.exception.handler.AbstractResponseBuilder;
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.core.result.RemoteException;
-import net.guerlab.cloud.web.core.exception.handler.AbstractResponseBuilder;
 
 /**
  * 远端异常处理

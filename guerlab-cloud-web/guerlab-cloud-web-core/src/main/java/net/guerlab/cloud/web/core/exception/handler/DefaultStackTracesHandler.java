@@ -12,11 +12,12 @@
  */
 package net.guerlab.cloud.web.core.exception.handler;
 
+import net.guerlab.cloud.commons.config.GlobalExceptionConfig;
+import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.core.result.ApplicationStackTrace;
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.core.result.RemoteException;
 import net.guerlab.cloud.core.util.SpringUtils;
-import net.guerlab.cloud.web.core.properties.GlobalExceptionProperties;
 import org.springframework.lang.Nullable;
 
 import java.util.*;
@@ -29,15 +30,15 @@ import java.util.stream.Collectors;
  */
 public class DefaultStackTracesHandler implements StackTracesHandler {
 
-    private final GlobalExceptionProperties properties;
+    private final GlobalExceptionConfig config;
 
-    public DefaultStackTracesHandler(GlobalExceptionProperties properties) {
-        this.properties = properties;
+    public DefaultStackTracesHandler(GlobalExceptionConfig config) {
+        this.config = config;
     }
 
     @Override
     public void setStackTrace(Fail<?> fail, @Nullable Throwable throwable) {
-        if (throwable == null || !properties.isPrintStackTrace()) {
+        if (throwable == null || !config.isPrintStackTrace()) {
             return;
         }
 
@@ -77,7 +78,7 @@ public class DefaultStackTracesHandler implements StackTracesHandler {
     protected String buildStackTraceElementText(StackTraceElement element) {
         String methodKey = element.getClassName() + "." + element.getMethodName();
 
-        if (properties.excludeMatch(methodKey) && !properties.includeMatch(methodKey)) {
+        if (config.excludeMatch(methodKey) && !config.includeMatch(methodKey)) {
             return null;
         }
 

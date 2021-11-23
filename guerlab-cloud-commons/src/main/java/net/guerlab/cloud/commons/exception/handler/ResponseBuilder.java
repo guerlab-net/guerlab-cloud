@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.web.core.exception.handler;
+package net.guerlab.cloud.commons.exception.handler;
 
 import net.guerlab.cloud.core.result.Fail;
 import org.springframework.context.MessageSource;

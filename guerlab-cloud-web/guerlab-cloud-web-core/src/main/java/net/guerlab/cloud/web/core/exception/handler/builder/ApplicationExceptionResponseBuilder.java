@@ -12,8 +12,8 @@
  */
 package net.guerlab.cloud.web.core.exception.handler.builder;
 
+import net.guerlab.cloud.commons.exception.handler.AbstractResponseBuilder;
 import net.guerlab.cloud.core.result.Fail;
-import net.guerlab.cloud.web.core.exception.handler.AbstractResponseBuilder;
 import net.guerlab.commons.exception.ApplicationException;
 
 /**

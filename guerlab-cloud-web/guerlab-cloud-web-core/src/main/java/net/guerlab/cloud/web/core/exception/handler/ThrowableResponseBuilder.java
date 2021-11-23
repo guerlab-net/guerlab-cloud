@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  *
  * @author guer
  */
-public class ThrowableResponseBuilder extends AbstractResponseBuilder {
+public class ThrowableResponseBuilder extends AbstractI18nResponseBuilder {
 
     @Override
     public boolean accept(Throwable e) {

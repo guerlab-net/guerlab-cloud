@@ -13,7 +13,7 @@
 package net.guerlab.cloud.web.webmvc.exception.handler.builder;
 
 import net.guerlab.cloud.core.result.Fail;
-import net.guerlab.cloud.web.core.exception.handler.AbstractResponseBuilder;
+import net.guerlab.cloud.web.core.exception.handler.AbstractI18nResponseBuilder;
 import net.guerlab.cloud.web.webmvc.exception.NoHandlerFoundExceptionInfo;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
@@ -22,7 +22,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
  *
  * @author guer
  */
-public class NoHandlerFoundExceptionResponseBuilder extends AbstractResponseBuilder {
+public class NoHandlerFoundExceptionResponseBuilder extends AbstractI18nResponseBuilder {
 
     @Override
     public boolean accept(Throwable e) {

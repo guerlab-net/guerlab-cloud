@@ -10,25 +10,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.web.core.exception.handler;
-
-import net.guerlab.cloud.core.result.Fail;
-import org.springframework.lang.Nullable;
-
 /**
- * 堆栈处理
- *
  * @author guer
  */
-public interface StackTracesHandler {
+@NonNullApi
+package net.guerlab.cloud.commons.config;
 
-    /**
-     * 设置堆栈信息
-     *
-     * @param fail
-     *         响应结果
-     * @param throwable
-     *         异常信息
-     */
-    void setStackTrace(Fail<?> fail, @Nullable Throwable throwable);
-}
+import org.springframework.lang.NonNullApi;

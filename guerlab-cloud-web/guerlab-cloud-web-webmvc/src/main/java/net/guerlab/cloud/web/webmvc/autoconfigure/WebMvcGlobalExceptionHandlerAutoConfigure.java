@@ -12,10 +12,10 @@
  */
 package net.guerlab.cloud.web.webmvc.autoconfigure;
 
+import net.guerlab.cloud.commons.exception.handler.ResponseBuilder;
+import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.web.core.autoconfigure.GlobalExceptionHandlerAutoConfigure;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionLogger;
-import net.guerlab.cloud.web.core.exception.handler.ResponseBuilder;
-import net.guerlab.cloud.web.core.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.web.webmvc.exception.handler.WebMvcGlobalExceptionHandler;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.MessageSource;

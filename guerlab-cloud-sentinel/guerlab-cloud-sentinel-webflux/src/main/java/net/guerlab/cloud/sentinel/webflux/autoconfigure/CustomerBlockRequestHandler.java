@@ -13,8 +13,8 @@
 package net.guerlab.cloud.sentinel.webflux.autoconfigure;
 
 import com.alibaba.csp.sentinel.adapter.spring.webflux.callback.BlockRequestHandler;
+import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.core.result.Fail;
-import net.guerlab.cloud.web.core.exception.handler.StackTracesHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.server.ServerResponse;

@@ -10,30 +10,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.web.core.exception.handler.builder;
 
+package net.guerlab.cloud.server.mybatis.exception.handler.builder;
+
+import net.guerlab.cloud.commons.exception.ResultIsNotOnlyOneException;
 import net.guerlab.cloud.commons.exception.handler.AbstractResponseBuilder;
-import net.guerlab.cloud.core.exception.AbstractI18nApplicationException;
 import net.guerlab.cloud.core.result.Fail;
+import org.apache.ibatis.exceptions.TooManyResultsException;
 
 /**
- * AbstractI18nApplicationException异常处理
+ * TooManyResultsException异常处理
  *
  * @author guer
  */
-public class AbstractI18nApplicationExceptionResponseBuilder extends AbstractResponseBuilder {
+public class TooManyResultsExceptionResponseBuilder extends AbstractResponseBuilder {
 
     @Override
     public boolean accept(Throwable e) {
-        return e instanceof AbstractI18nApplicationException;
+        return e instanceof TooManyResultsException;
     }
 
     @Override
     public Fail<Void> build(Throwable e) {
-        AbstractI18nApplicationException exception = (AbstractI18nApplicationException) e;
-        String message = exception.getMessage(messageSource);
-        Fail<Void> fail = new Fail<>(message, exception.getErrorCode());
+        TooManyResultsException exception = (TooManyResultsException) e;
+        String message = exception.getMessage();
+        message = message.replace("Expected one result (or null) to be returned by selectOne(), but found: ", "")
+                .trim();
+
+        Fail<Void> fail = new Fail<>(new ResultIsNotOnlyOneException(message).getMessage(messageSource));
         stackTracesHandler.setStackTrace(fail, e);
         return fail;
     }
 }
+

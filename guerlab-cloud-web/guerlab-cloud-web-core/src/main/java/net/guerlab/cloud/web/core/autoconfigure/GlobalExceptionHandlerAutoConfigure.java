@@ -12,10 +12,10 @@
  */
 package net.guerlab.cloud.web.core.autoconfigure;
 
+import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.web.core.exception.handler.DefaultGlobalExceptionLogger;
 import net.guerlab.cloud.web.core.exception.handler.DefaultStackTracesHandler;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionLogger;
-import net.guerlab.cloud.web.core.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.web.core.properties.GlobalExceptionProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

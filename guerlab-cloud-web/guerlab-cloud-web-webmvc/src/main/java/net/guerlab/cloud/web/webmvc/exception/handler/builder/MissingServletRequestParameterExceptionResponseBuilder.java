@@ -13,7 +13,7 @@
 package net.guerlab.cloud.web.webmvc.exception.handler.builder;
 
 import net.guerlab.cloud.core.result.Fail;
-import net.guerlab.cloud.web.core.exception.handler.AbstractResponseBuilder;
+import net.guerlab.cloud.web.core.exception.handler.AbstractI18nResponseBuilder;
 import net.guerlab.cloud.web.webmvc.exception.MissingServletRequestParameterExceptionInfo;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 
@@ -22,7 +22,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
  *
  * @author guer
  */
-public class MissingServletRequestParameterExceptionResponseBuilder extends AbstractResponseBuilder {
+public class MissingServletRequestParameterExceptionResponseBuilder extends AbstractI18nResponseBuilder {
 
     @Override
     public boolean accept(Throwable e) {
