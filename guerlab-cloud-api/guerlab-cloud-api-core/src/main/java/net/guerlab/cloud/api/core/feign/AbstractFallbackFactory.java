@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.api.rest;
+package net.guerlab.cloud.api.core.feign;
 
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.commons.exception.ApplicationException;

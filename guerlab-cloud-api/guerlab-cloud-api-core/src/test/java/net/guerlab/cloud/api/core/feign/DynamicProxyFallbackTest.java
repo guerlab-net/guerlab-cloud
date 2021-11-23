@@ -11,14 +11,16 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.api.rest;
+package net.guerlab.cloud.api.core.feign;
 
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.AbstractSearchParams;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.lang.Nullable;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
@@ -65,7 +67,19 @@ public class DynamicProxyFallbackTest {
         Assertions.assertEquals(Collections.emptyMap(), proxy.selectMap());
     }
 
-    public interface TestApi extends Api<Object, String, AbstractSearchParams> {
+    public interface TestApi {
+
+        @Nullable
+        Object selectOne(AbstractSearchParams searchParams);
+
+        @Nullable
+        Object selectById(String id);
+
+        Collection<Object> selectList(AbstractSearchParams searchParams);
+
+        Pageable<Object> selectPage(AbstractSearchParams searchParams);
+
+        int selectCount(AbstractSearchParams searchParams);
 
         Map<String, String> selectMap();
     }
