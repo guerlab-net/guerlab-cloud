@@ -43,34 +43,37 @@ import java.util.Collection;
 public abstract class AbstractLocalServiceWrapper<D, PK extends Serializable, SP extends AbstractSearchParams, T extends Convert<D>, S extends BaseFindService<T, PK, SP>>
         implements Api<D, PK, SP> {
 
-        protected final S service;
+    /**
+     * 服务实例
+     */
+    protected final S service;
 
-        @Nullable
-        @Override
-        public D selectOne(SP searchParams) {
-                T entity = service.selectOne(searchParams);
-                return entity == null ? null : entity.convert();
-        }
+    @Nullable
+    @Override
+    public D selectOne(SP searchParams) {
+        T entity = service.selectOne(searchParams);
+        return entity == null ? null : entity.convert();
+    }
 
-        @Nullable
-        @Override
-        public D selectById(PK id) {
-                T entity = service.selectById(id);
-                return entity == null ? null : entity.convert();
-        }
+    @Nullable
+    @Override
+    public D selectById(PK id) {
+        T entity = service.selectById(id);
+        return entity == null ? null : entity.convert();
+    }
 
-        @Override
-        public Collection<D> selectList(SP searchParams) {
-                return BeanConvertUtils.toList(service.selectList(searchParams));
-        }
+    @Override
+    public Collection<D> selectList(SP searchParams) {
+        return BeanConvertUtils.toList(service.selectList(searchParams));
+    }
 
-        @Override
-        public Pageable<D> selectPage(SP searchParams) {
-                return BeanConvertUtils.toPageable(service.selectPage(searchParams));
-        }
+    @Override
+    public Pageable<D> selectPage(SP searchParams) {
+        return BeanConvertUtils.toPageable(service.selectPage(searchParams));
+    }
 
-        @Override
-        public int selectCount(SP searchParams) {
-                return service.selectCount(searchParams);
-        }
+    @Override
+    public int selectCount(SP searchParams) {
+        return service.selectCount(searchParams);
+    }
 }

@@ -38,6 +38,9 @@ import java.util.Collection;
 public abstract class AbstractApiWrapper<D, PK extends Serializable, SP extends AbstractSearchParams, A extends Api<D, PK, SP>>
         implements Api<D, PK, SP> {
 
+    /**
+     * api
+     */
     protected final A api;
 
     @Nullable
