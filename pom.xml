@@ -74,7 +74,6 @@
 
         <!-- guerlab -->
         <guerlab-commons.version>2.0.1</guerlab-commons.version>
-        <guerlab-web.version>2.0.0</guerlab-web.version>
 
         <!-- spring -->
         <spring-boot.version>2.6.0</spring-boot.version>
@@ -424,11 +423,6 @@
                 <groupId>net.guerlab</groupId>
                 <artifactId>guerlab-commons</artifactId>
                 <version>${guerlab-commons.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab</groupId>
-                <artifactId>guerlab-web</artifactId>
-                <version>${guerlab-web.version}</version>
             </dependency>
 
             <!-- mybatis -->
