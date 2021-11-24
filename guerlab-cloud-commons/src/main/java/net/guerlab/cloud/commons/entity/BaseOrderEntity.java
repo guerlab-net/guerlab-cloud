@@ -13,8 +13,7 @@
 package net.guerlab.cloud.commons.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 /**
  * 可排序实体
@@ -23,8 +22,6 @@ import lombok.Setter;
  *         对象类型
  * @author guer
  */
-@Getter
-@Setter
 @Schema(name = "BaseOrderEntity", description = "可排序实体")
 public abstract class BaseOrderEntity<E extends BaseOrderEntity<?>> extends BaseEntity implements IOrderEntity<E> {
 
@@ -33,4 +30,15 @@ public abstract class BaseOrderEntity<E extends BaseOrderEntity<?>> extends Base
      */
     @Schema(description = "排序值")
     protected Integer orderNum;
+
+    @Nullable
+    @Override
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    @Override
+    public void setOrderNum(@Nullable Integer orderNum) {
+        this.orderNum = orderNum;
+    }
 }

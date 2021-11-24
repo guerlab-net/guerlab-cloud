@@ -14,8 +14,7 @@ package net.guerlab.cloud.commons.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import java.util.Collection;
 
@@ -28,8 +27,6 @@ import java.util.Collection;
  *         主键类型
  * @author guer
  */
-@Getter
-@Setter
 @Schema(name = "BaseTreeEntity", description = "树形结构")
 public abstract class BaseTreeEntity<E extends BaseTreeEntity<E, PK>, PK> implements ITreeEntity<E, PK> {
 
@@ -39,4 +36,15 @@ public abstract class BaseTreeEntity<E extends BaseTreeEntity<E, PK>, PK> implem
     @Schema(description = "下级列表")
     @TableField(exist = false)
     protected Collection<E> children;
+
+    @Nullable
+    @Override
+    public Collection<E> getChildren() {
+        return children;
+    }
+
+    @Override
+    public void setChildren(@Nullable Collection<E> children) {
+        this.children = children;
+    }
 }

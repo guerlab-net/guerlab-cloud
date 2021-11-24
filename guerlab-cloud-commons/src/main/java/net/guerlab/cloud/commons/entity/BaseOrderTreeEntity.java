@@ -45,7 +45,7 @@ public abstract class BaseOrderTreeEntity<E extends BaseOrderTreeEntity<E, PK>, 
     }
 
     @Override
-    public void setChildren(Collection<E> children) {
+    public void setChildren(@Nullable Collection<E> children) {
         this.children = children;
     }
 }

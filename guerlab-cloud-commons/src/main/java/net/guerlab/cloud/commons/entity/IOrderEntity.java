@@ -37,7 +37,7 @@ public interface IOrderEntity<E extends IOrderEntity<?>> extends Comparable<E> {
      * @param orderNum
      *         排序值
      */
-    void setOrderNum(Integer orderNum);
+    void setOrderNum(@Nullable Integer orderNum);
 
     /**
      * 根据排序值返回排序顺序

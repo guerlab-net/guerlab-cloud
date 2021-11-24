@@ -43,7 +43,7 @@ public interface ITreeEntity<E extends ITreeEntity<E, PK>, PK> {
      * @param children
      *         下级列表
      */
-    void setChildren(Collection<E> children);
+    void setChildren(@Nullable Collection<E> children);
 
     /**
      * 获取ID

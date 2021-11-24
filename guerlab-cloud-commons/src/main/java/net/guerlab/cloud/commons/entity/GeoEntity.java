@@ -13,8 +13,7 @@
 package net.guerlab.cloud.commons.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
 
@@ -24,8 +23,6 @@ import java.math.BigDecimal;
  * @author guer
  */
 @SuppressWarnings("unused")
-@Setter
-@Getter
 @Schema(name = "GeoEntity", description = "地理信息对象")
 public class GeoEntity extends BaseEntity implements IGeoEntity {
 
@@ -46,4 +43,37 @@ public class GeoEntity extends BaseEntity implements IGeoEntity {
      */
     @Schema(description = "地理hash")
     private String geoHash;
+
+    @Nullable
+    @Override
+    public BigDecimal getLongitude() {
+        return longitude;
+    }
+
+    @Override
+    public void setLongitude(@Nullable BigDecimal longitude) {
+        this.longitude = longitude;
+    }
+
+    @Nullable
+    @Override
+    public BigDecimal getLatitude() {
+        return latitude;
+    }
+
+    @Override
+    public void setLatitude(@Nullable BigDecimal latitude) {
+        this.latitude = latitude;
+    }
+
+    @Nullable
+    @Override
+    public String getGeoHash() {
+        return geoHash;
+    }
+
+    @Override
+    public void setGeoHash(@Nullable String geoHash) {
+        this.geoHash = geoHash;
+    }
 }
