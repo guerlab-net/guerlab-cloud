@@ -13,6 +13,7 @@
 package net.guerlab.cloud.commons.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.lang.Nullable;
 
 import java.util.Collection;
 
@@ -33,6 +34,7 @@ public interface ITreeEntity<E extends ITreeEntity<E, PK>, PK> {
      *
      * @return 下级列表
      */
+    @Nullable
     Collection<E> getChildren();
 
     /**
