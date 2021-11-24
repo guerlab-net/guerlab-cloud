@@ -19,7 +19,7 @@ import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.core.dto.Convert;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseService;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.Serializable;
@@ -49,7 +49,7 @@ public interface SaveController<D, E extends Convert<D>, S extends BaseService<E
      * @return 添加的dto对象
      */
     @Operation(summary = "添加", security = @SecurityRequirement(name = Constants.TOKEN))
-    @PostMapping
+    @PutMapping
     default D save(@Parameter(description = "对象数据", required = true) @RequestBody D dto) {
         E entity = newEntity();
         beforeSave(dto);

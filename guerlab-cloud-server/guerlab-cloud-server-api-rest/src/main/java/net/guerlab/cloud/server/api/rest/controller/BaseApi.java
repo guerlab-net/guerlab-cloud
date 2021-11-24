@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -59,14 +60,23 @@ public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParam
 
     @Nullable
     @Override
-    public D selectOne(@RequestBody SP searchParams) {
-        return BeanConvertUtils.toObject(getService().selectOne(searchParams));
+    public D selectById(@PathVariable(value = "id") PK id, @Nullable SP searchParams) {
+        D entity = BeanConvertUtils.toObject(getService().selectById(id));
+        if (entity != null) {
+            afterFind(Collections.singletonList(entity), searchParams);
+        }
+        return entity;
     }
 
     @Nullable
     @Override
-    public D selectById(@PathVariable(value = "id") PK id) {
-        return BeanConvertUtils.toObject(getService().selectById(id));
+    public D selectOne(@RequestBody SP searchParams) {
+        beforeFind(searchParams);
+        D entity = BeanConvertUtils.toObject(getService().selectOne(searchParams));
+        if (entity != null) {
+            afterFind(Collections.singletonList(entity), searchParams);
+        }
+        return entity;
     }
 
     @Override
@@ -79,8 +89,8 @@ public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParam
 
     @Override
     public Pageable<D> selectPage(@RequestBody SP searchParams,
-            @RequestParam(name = PARAM_NAME_PAGE_ID, defaultValue = PARAM_DEFAULT_PAGE_ID, required = false) int pageId,
-            @RequestParam(name = PARAM_NAME_PAGE_SIZE, defaultValue = PARAM_DEFAULT_PAGE_SIZE, required = false) int pageSize) {
+            @RequestParam(name = PAGE_ID, defaultValue = PAGE_ID_VALUE, required = false) int pageId,
+            @RequestParam(name = PAGE_SIZE, defaultValue = PAGE_SIZE_VALUE, required = false) int pageSize) {
         beforeFind(searchParams);
         Pageable<D> result = BeanConvertUtils.toPageable(getService().selectPage(searchParams, pageId, pageSize));
         afterFind(result.getList(), searchParams);
@@ -111,7 +121,7 @@ public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParam
      * @param searchParams
      *         搜索参数
      */
-    protected void afterFind(Collection<D> list, SP searchParams) {
+    protected void afterFind(Collection<D> list, @Nullable SP searchParams) {
 
     }
 

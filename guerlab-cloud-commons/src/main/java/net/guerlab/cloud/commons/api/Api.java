@@ -13,6 +13,10 @@
 
 package net.guerlab.cloud.commons.api;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.SearchParams;
 import org.springframework.lang.Nullable;
@@ -39,19 +43,56 @@ public interface Api<D, PK extends Serializable, SP extends SearchParams> {
     /**
      * 参数名-分页ID
      */
-    String PARAM_NAME_PAGE_ID = "pageId";
+    String PAGE_ID = "pageId";
     /**
      * 参数名-分页尺寸
      */
-    String PARAM_NAME_PAGE_SIZE = "pageSize";
+    String PAGE_SIZE = "pageSize";
     /**
      * 参数默认值-分页ID
      */
-    String PARAM_DEFAULT_PAGE_ID = "1";
+    String PAGE_ID_VALUE = "1";
     /**
      * 参数默认值-分页尺寸
      */
-    String PARAM_DEFAULT_PAGE_SIZE = "10";
+    String PAGE_SIZE_VALUE = "10";
+
+    /**
+     * 根据主键ID查询对象
+     *
+     * @param id
+     *         主键ID
+     * @param searchParams
+     *         搜索参数
+     * @return 对象
+     */
+    @Nullable
+    @GetMapping("/{id}")
+    @Operation(summary = "通过Id查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
+    D selectById(@Parameter(description = "ID", required = true) @PathVariable("id") PK id, @Nullable SP searchParams);
+
+    /**
+     * 通过Id查询单一结果
+     *
+     * @param id
+     *         主键id
+     * @return 实体
+     */
+    @Nullable
+    default D selectById(PK id) {
+        return selectById(id, null);
+    }
+
+    /**
+     * 通过Id查询单一结果
+     *
+     * @param id
+     *         主键id
+     * @return Optional
+     */
+    default Optional<D> selectByIdOptional(PK id) {
+        return Optional.ofNullable(selectById(id, null));
+    }
 
     /**
      * 查询单一结果，根据搜索参数进行筛选
@@ -61,8 +102,9 @@ public interface Api<D, PK extends Serializable, SP extends SearchParams> {
      * @return 实体
      */
     @Nullable
-    @PostMapping("/one")
-    D selectOne(@RequestBody SP searchParams);
+    @PostMapping("/search/one")
+    @Operation(summary = "查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
+    D selectOne(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
 
     /**
      * 查询单一结果，根据搜索参数进行筛选
@@ -76,36 +118,15 @@ public interface Api<D, PK extends Serializable, SP extends SearchParams> {
     }
 
     /**
-     * 通过Id查询单一结果
-     *
-     * @param id
-     *         主键id
-     * @return 实体
-     */
-    @Nullable
-    @GetMapping("/{id}")
-    D selectById(@PathVariable(value = "id") PK id);
-
-    /**
-     * 通过Id查询单一结果
-     *
-     * @param id
-     *         主键id
-     * @return Optional
-     */
-    default Optional<D> selectByIdOptional(PK id) {
-        return Optional.ofNullable(selectById(id));
-    }
-
-    /**
-     * 获取列表
+     * 查询列表
      *
      * @param searchParams
      *         搜索参数对象
      * @return 实体列表
      */
-    @PostMapping
-    Collection<D> selectList(@RequestBody SP searchParams);
+    @PostMapping("/search/list")
+    @Operation(summary = "查询列表", security = @SecurityRequirement(name = Constants.TOKEN))
+    Collection<D> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
 
     /**
      * 查询分页列表
@@ -118,10 +139,11 @@ public interface Api<D, PK extends Serializable, SP extends SearchParams> {
      *         分页尺寸
      * @return 实体分页列表
      */
-    @PostMapping("/page")
-    Pageable<D> selectPage(@RequestBody SP searchParams,
-            @RequestParam(name = PARAM_NAME_PAGE_ID, defaultValue = PARAM_DEFAULT_PAGE_ID, required = false) int pageId,
-            @RequestParam(name = PARAM_NAME_PAGE_SIZE, defaultValue = PARAM_DEFAULT_PAGE_SIZE, required = false) int pageSize);
+    @PostMapping("/search/page")
+    @Operation(summary = "查询分页列表", security = @SecurityRequirement(name = Constants.TOKEN))
+    Pageable<D> selectPage(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams,
+            @Parameter(description = "分页ID") @RequestParam(name = PAGE_ID, defaultValue = PAGE_ID_VALUE, required = false) int pageId,
+            @Parameter(description = "分页尺寸") @RequestParam(name = PAGE_SIZE, defaultValue = PAGE_SIZE_VALUE, required = false) int pageSize);
 
     /**
      * 查询总记录数
@@ -130,6 +152,7 @@ public interface Api<D, PK extends Serializable, SP extends SearchParams> {
      *         搜索参数对象
      * @return 实体总数
      */
-    @PostMapping("/count")
-    int selectCount(@RequestBody SP searchParams);
+    @PostMapping("/search/count")
+    @Operation(summary = "查询总记录数", security = @SecurityRequirement(name = Constants.TOKEN))
+    int selectCount(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
 }
