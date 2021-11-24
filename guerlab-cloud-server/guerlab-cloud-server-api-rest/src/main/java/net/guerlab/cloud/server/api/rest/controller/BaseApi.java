@@ -19,11 +19,12 @@ import net.guerlab.cloud.commons.api.Api;
 import net.guerlab.cloud.commons.util.BeanConvertUtils;
 import net.guerlab.cloud.core.dto.Convert;
 import net.guerlab.cloud.core.result.Pageable;
-import net.guerlab.cloud.searchparams.AbstractSearchParams;
+import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseFindService;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -47,7 +48,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 @Slf4j
 @RequiredArgsConstructor
-public abstract class BaseApi<D, PK extends Serializable, SP extends AbstractSearchParams, E extends Convert<D>, S extends BaseFindService<E, PK, SP>>
+public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParams, E extends Convert<D>, S extends BaseFindService<E, PK, SP>>
         implements Api<D, PK, SP> {
 
     /**
@@ -77,9 +78,11 @@ public abstract class BaseApi<D, PK extends Serializable, SP extends AbstractSea
     }
 
     @Override
-    public Pageable<D> selectPage(@RequestBody SP searchParams) {
+    public Pageable<D> selectPage(@RequestBody SP searchParams,
+            @RequestParam(name = PARAM_NAME_PAGE_ID, defaultValue = PARAM_DEFAULT_PAGE_ID, required = false) int pageId,
+            @RequestParam(name = PARAM_NAME_PAGE_SIZE, defaultValue = PARAM_DEFAULT_PAGE_SIZE, required = false) int pageSize) {
         beforeFind(searchParams);
-        Pageable<D> result = BeanConvertUtils.toPageable(getService().selectPage(searchParams));
+        Pageable<D> result = BeanConvertUtils.toPageable(getService().selectPage(searchParams, pageId, pageSize));
         afterFind(result.getList(), searchParams);
         return result;
     }

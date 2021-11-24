@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -88,9 +88,6 @@ public class GeoEntityUtils {
     public static Map<String, Object> parseSearchParams(GeoSearchParams searchParams) {
         Map<String, Object> params = new HashMap<>(8);
         SearchParamsUtils.handler(searchParams, params);
-
-        int pageId = Math.max(searchParams.getPageId(), 1);
-        int pageSize = searchParams.getPageSize();
 
         setGeoHashInfo(params, searchParams);
 

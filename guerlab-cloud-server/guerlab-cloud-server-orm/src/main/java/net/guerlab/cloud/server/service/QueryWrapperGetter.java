@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@ package net.guerlab.cloud.server.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import net.guerlab.cloud.searchparams.AbstractSearchParams;
+import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.searchparams.SearchParamsUtils;
 
 /**
@@ -27,7 +27,7 @@ import net.guerlab.cloud.searchparams.SearchParamsUtils;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface QueryWrapperGetter<T, SP extends AbstractSearchParams> {
+public interface QueryWrapperGetter<T, SP extends SearchParams> {
 
     /**
      * 获取QueryWrapper，并通过searchParams对象对QueryWrapper进行赋值

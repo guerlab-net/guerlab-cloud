@@ -18,7 +18,7 @@ import net.guerlab.cloud.commons.api.Api;
 import net.guerlab.cloud.commons.util.BeanConvertUtils;
 import net.guerlab.cloud.core.dto.Convert;
 import net.guerlab.cloud.core.result.Pageable;
-import net.guerlab.cloud.searchparams.AbstractSearchParams;
+import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseFindService;
 import org.springframework.lang.Nullable;
 
@@ -41,7 +41,7 @@ import java.util.Collection;
  * @author guer
  */
 @RequiredArgsConstructor
-public abstract class AbstractLocalServiceWrapper<D, PK extends Serializable, SP extends AbstractSearchParams, T extends Convert<D>, S extends BaseFindService<T, PK, SP>>
+public abstract class AbstractLocalServiceWrapper<D, PK extends Serializable, SP extends SearchParams, T extends Convert<D>, S extends BaseFindService<T, PK, SP>>
         implements Api<D, PK, SP> {
 
     /**
@@ -69,8 +69,8 @@ public abstract class AbstractLocalServiceWrapper<D, PK extends Serializable, SP
     }
 
     @Override
-    public Pageable<D> selectPage(SP searchParams) {
-        return BeanConvertUtils.toPageable(service.selectPage(searchParams));
+    public Pageable<D> selectPage(SP searchParams, int pageId, int pageSize) {
+        return BeanConvertUtils.toPageable(service.selectPage(searchParams, pageId, pageSize));
     }
 
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  */
 package net.guerlab.cloud.server.service;
 
-import net.guerlab.cloud.searchparams.AbstractSearchParams;
+import net.guerlab.cloud.searchparams.SearchParams;
 
 import java.util.Collection;
 
@@ -24,7 +24,7 @@ import java.util.Collection;
  * @author guer
  */
 @SuppressWarnings({ "WeakerAccess", "unused" })
-public interface BaseBatchSaveService<T, SP extends AbstractSearchParams> extends QueryWrapperGetter<T, SP> {
+public interface BaseBatchSaveService<T, SP extends SearchParams> extends QueryWrapperGetter<T, SP> {
 
     /**
      * 批量保存

@@ -10,27 +10,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.server.service;
+package net.guerlab.cloud.searchparams;
 
-import net.guerlab.cloud.searchparams.SearchParams;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * 基本保存服务接口
+ * 搜索参数
  *
- * @param <T>
- *         数据类型
- * @param <SP>
- *         搜索参数类型
  * @author guer
  */
-public interface BaseSaveService<T, SP extends SearchParams> extends QueryWrapperGetter<T, SP> {
-
-    /**
-     * 添加
-     *
-     * @param entity
-     *         实体
-     */
-    void insert(T entity);
-
-}
+@Schema(name = "SearchParams", description = "搜索参数")
+public interface SearchParams {}

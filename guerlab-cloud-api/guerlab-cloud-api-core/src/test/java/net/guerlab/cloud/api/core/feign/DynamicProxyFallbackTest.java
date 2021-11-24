@@ -14,7 +14,7 @@
 package net.guerlab.cloud.api.core.feign;
 
 import net.guerlab.cloud.core.result.Pageable;
-import net.guerlab.cloud.searchparams.AbstractSearchParams;
+import net.guerlab.cloud.searchparams.SearchParams;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,22 +44,22 @@ public class DynamicProxyFallbackTest {
 
     @Test
     void selectOne() {
-        Assertions.assertNull(proxy.selectOne(new AbstractSearchParams() {}));
+        Assertions.assertNull(proxy.selectOne(new SearchParams() {}));
     }
 
     @Test
     void selectList() {
-        Assertions.assertEquals(Collections.emptyList(), proxy.selectList(new AbstractSearchParams() {}));
+        Assertions.assertEquals(Collections.emptyList(), proxy.selectList(new SearchParams() {}));
     }
 
     @Test
     void selectPage() {
-        Assertions.assertEquals(Pageable.empty(), proxy.selectPage(new AbstractSearchParams() {}));
+        Assertions.assertEquals(Pageable.empty(), proxy.selectPage(new SearchParams() {}));
     }
 
     @Test
     void selectCount() {
-        Assertions.assertEquals(0, proxy.selectCount(new AbstractSearchParams() {}));
+        Assertions.assertEquals(0, proxy.selectCount(new SearchParams() {}));
     }
 
     @Test
@@ -70,16 +70,16 @@ public class DynamicProxyFallbackTest {
     public interface TestApi {
 
         @Nullable
-        Object selectOne(AbstractSearchParams searchParams);
+        Object selectOne(SearchParams searchParams);
 
         @Nullable
         Object selectById(String id);
 
-        Collection<Object> selectList(AbstractSearchParams searchParams);
+        Collection<Object> selectList(SearchParams searchParams);
 
-        Pageable<Object> selectPage(AbstractSearchParams searchParams);
+        Pageable<Object> selectPage(SearchParams searchParams);
 
-        int selectCount(AbstractSearchParams searchParams);
+        int selectCount(SearchParams searchParams);
 
         Map<String, String> selectMap();
     }

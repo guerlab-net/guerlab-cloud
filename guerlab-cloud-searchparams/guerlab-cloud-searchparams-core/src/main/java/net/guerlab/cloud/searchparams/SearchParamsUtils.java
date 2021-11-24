@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ public class SearchParamsUtils {
 
     private static final Predicate<Field> STATIC_FILTER = e -> e != null && !Modifier.isStatic(e.getModifiers());
 
-    private static final Predicate<Field> PAGE_PARAMS_FILTER = e -> !AbstractSearchParams.class.getName()
+    private static final Predicate<Field> PAGE_PARAMS_FILTER = e -> !SearchParams.class.getName()
             .equals(e.getDeclaringClass().getName());
 
     private static final HashMap<Class<? extends AbstractSearchParamsUtilInstance>, AbstractSearchParamsUtilInstance> INSTANCES_CACHE = new HashMap<>();
@@ -107,7 +107,7 @@ public class SearchParamsUtils {
      * @param object
      *         输出对象
      */
-    public static void handler(AbstractSearchParams searchParams, Object object) {
+    public static void handler(SearchParams searchParams, Object object) {
         INSTANCES_CACHE.values().stream().filter(instance -> instance.accept(object)).findFirst()
                 .ifPresent(searchParamsUtilInstance -> handler(searchParams, object, searchParamsUtilInstance));
     }
@@ -122,8 +122,7 @@ public class SearchParamsUtils {
      * @param instance
      *         处理实例
      */
-    public static void handler(AbstractSearchParams searchParams, Object object,
-            AbstractSearchParamsUtilInstance instance) {
+    public static void handler(SearchParams searchParams, Object object, AbstractSearchParamsUtilInstance instance) {
         Map<Boolean, List<Field>> fieldMap = getFields(searchParams).stream()
                 .collect(Collectors.partitioningBy(field -> Objects.equals(OrderByType.class, field.getType())));
 
@@ -160,7 +159,7 @@ public class SearchParamsUtils {
      *         搜索参数对象
      * @return 类字段列表
      */
-    private static List<Field> getFields(AbstractSearchParams searchParams) {
+    private static List<Field> getFields(SearchParams searchParams) {
         return FieldUtil.getFieldsWithFilter(searchParams.getClass(), STATIC_FILTER, PAGE_PARAMS_FILTER);
     }
 
@@ -211,7 +210,7 @@ public class SearchParamsUtils {
      * @param instance
      *         搜索参数对象处理实例
      */
-    private static void setValue(Field field, Object object, AbstractSearchParams searchParams,
+    private static void setValue(Field field, Object object, SearchParams searchParams,
             AbstractSearchParamsUtilInstance instance) {
         String name = field.getName();
         SearchModel searchModel = field.getAnnotation(SearchModel.class);

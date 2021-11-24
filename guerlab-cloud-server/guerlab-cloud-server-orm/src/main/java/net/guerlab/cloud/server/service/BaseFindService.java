@@ -15,7 +15,7 @@ package net.guerlab.cloud.server.service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import net.guerlab.cloud.core.result.Pageable;
-import net.guerlab.cloud.searchparams.AbstractSearchParams;
+import net.guerlab.cloud.searchparams.SearchParams;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
@@ -34,7 +34,7 @@ import java.util.Optional;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface BaseFindService<T, PK extends Serializable, SP extends AbstractSearchParams>
+public interface BaseFindService<T, PK extends Serializable, SP extends SearchParams>
         extends QueryWrapperGetter<T, SP> {
 
     /**
@@ -148,9 +148,13 @@ public interface BaseFindService<T, PK extends Serializable, SP extends Abstract
      *
      * @param searchParams
      *         搜索参数对象
+     * @param pageId
+     *         分页ID
+     * @param pageSize
+     *         分页尺寸
      * @return 实体列表
      */
-    Pageable<T> selectPage(SP searchParams);
+    Pageable<T> selectPage(SP searchParams, int pageId, int pageSize);
 
     /**
      * 查询总记录数

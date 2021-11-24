@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,9 +16,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import net.guerlab.cloud.geo.domain.GeoHash;
-import net.guerlab.cloud.searchparams.AbstractSearchParams;
 import net.guerlab.cloud.searchparams.SearchModel;
 import net.guerlab.cloud.searchparams.SearchModelType;
+import net.guerlab.cloud.searchparams.SearchParams;
 
 import java.math.BigDecimal;
 
@@ -30,7 +30,7 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 @Schema(name = "GeoSearchParams", description = "地理信息实体搜索参数")
-public class GeoSearchParams extends AbstractSearchParams {
+public class GeoSearchParams implements SearchParams {
 
     /**
      * 经度

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  */
 package net.guerlab.cloud.server.service;
 
-import net.guerlab.cloud.searchparams.AbstractSearchParams;
+import net.guerlab.cloud.searchparams.SearchParams;
 
 import java.io.Serializable;
 
@@ -27,7 +27,7 @@ import java.io.Serializable;
  *         搜索参数类型
  * @author guer
  */
-public interface BaseService<T, PK extends Serializable, SP extends AbstractSearchParams>
+public interface BaseService<T, PK extends Serializable, SP extends SearchParams>
         extends BaseFindService<T, PK, SP>, BaseSaveService<T, SP>, BaseUpdateService<T, SP>, BaseDeleteService<T, PK, SP>, QueryWrapperGetter<T, SP> {
 
 }

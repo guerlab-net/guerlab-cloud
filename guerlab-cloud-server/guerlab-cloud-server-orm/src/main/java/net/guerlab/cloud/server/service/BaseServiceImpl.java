@@ -18,7 +18,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.core.sequence.Sequence;
-import net.guerlab.cloud.searchparams.AbstractSearchParams;
+import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.utils.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +41,7 @@ import java.util.Collection;
  */
 @SuppressWarnings({ "EmptyMethod", "unused" })
 @Transactional(rollbackFor = Exception.class)
-public abstract class BaseServiceImpl<T, PK extends Serializable, M extends BaseMapper<T>, SP extends AbstractSearchParams>
+public abstract class BaseServiceImpl<T, PK extends Serializable, M extends BaseMapper<T>, SP extends SearchParams>
         implements BaseService<T, PK, SP> {
 
     /**
@@ -118,8 +118,8 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
     }
 
     @Override
-    public Pageable<T> selectPage(SP searchParams) {
-        return PageUtils.selectPage(this, searchParams, getBaseMapper());
+    public Pageable<T> selectPage(SP searchParams, int pageId, int pageSize) {
+        return PageUtils.selectPage(this, searchParams, pageId, pageSize, getBaseMapper());
     }
 
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -120,7 +120,7 @@ public abstract class AbstractSearchParamsUtilInstance {
      * @param object
      *         输出对象
      */
-    public void afterHandler(AbstractSearchParams searchParams, Object object) {
+    public void afterHandler(SearchParams searchParams, Object object) {
 
     }
 

@@ -16,7 +16,7 @@ package net.guerlab.cloud.api.rest;
 import lombok.RequiredArgsConstructor;
 import net.guerlab.cloud.commons.api.Api;
 import net.guerlab.cloud.core.result.Pageable;
-import net.guerlab.cloud.searchparams.AbstractSearchParams;
+import net.guerlab.cloud.searchparams.SearchParams;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
@@ -36,7 +36,7 @@ import java.util.Collection;
  * @author guer
  */
 @RequiredArgsConstructor
-public abstract class AbstractApiWrapper<D, PK extends Serializable, SP extends AbstractSearchParams, A extends Api<D, PK, SP>>
+public abstract class AbstractApiWrapper<D, PK extends Serializable, SP extends SearchParams, A extends Api<D, PK, SP>>
         implements Api<D, PK, SP> {
 
     /**
@@ -62,8 +62,8 @@ public abstract class AbstractApiWrapper<D, PK extends Serializable, SP extends 
     }
 
     @Override
-    public Pageable<D> selectPage(SP searchParams) {
-        return api.selectPage(searchParams);
+    public Pageable<D> selectPage(SP searchParams, int pageId, int pageSize) {
+        return api.selectPage(searchParams, pageId, pageSize);
     }
 
     @Override

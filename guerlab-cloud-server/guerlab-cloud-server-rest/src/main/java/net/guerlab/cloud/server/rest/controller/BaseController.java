@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
 package net.guerlab.cloud.server.rest.controller;
 
 import net.guerlab.cloud.core.dto.Convert;
-import net.guerlab.cloud.searchparams.AbstractSearchParams;
+import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseService;
 
 import java.io.Serializable;
@@ -34,7 +34,7 @@ import java.io.Serializable;
  * @author guer
  */
 @SuppressWarnings("unused")
-public abstract class BaseController<D, E extends Convert<D>, S extends BaseService<E, PK, SP>, SP extends AbstractSearchParams, PK extends Serializable>
+public abstract class BaseController<D, E extends Convert<D>, S extends BaseService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
         extends BaseFindController<D, E, S, SP, PK>
         implements SaveController<D, E, S, SP, PK>, UpdateController<D, E, S, SP, PK>, DeleteController<D, E, S, SP, PK> {
 

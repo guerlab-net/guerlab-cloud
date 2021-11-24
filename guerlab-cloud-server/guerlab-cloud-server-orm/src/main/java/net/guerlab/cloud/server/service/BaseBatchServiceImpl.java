@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@ package net.guerlab.cloud.server.service;
 
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
-import net.guerlab.cloud.searchparams.AbstractSearchParams;
+import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.mappers.BatchMapper;
 import net.guerlab.cloud.server.utils.BatchSaveUtils;
 import net.guerlab.commons.collection.CollectionUtil;
@@ -44,7 +44,7 @@ import java.util.function.BiConsumer;
  */
 @SuppressWarnings("unused")
 @Transactional(rollbackFor = Exception.class)
-public abstract class BaseBatchServiceImpl<T, PK extends Serializable, M extends BatchMapper<T>, SP extends AbstractSearchParams>
+public abstract class BaseBatchServiceImpl<T, PK extends Serializable, M extends BatchMapper<T>, SP extends SearchParams>
         extends BaseServiceImpl<T, PK, M, SP> implements BaseBatchSaveService<T, SP> {
 
     protected static final int DEFAULT_BATCH_SIZE = 1000;

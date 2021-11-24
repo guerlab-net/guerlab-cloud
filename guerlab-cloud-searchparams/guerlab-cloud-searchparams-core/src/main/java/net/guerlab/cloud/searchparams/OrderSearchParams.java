@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Schema(name = "OrderSearchParams", description = "可排序搜索参数")
-public class OrderSearchParams extends AbstractSearchParams {
+public class OrderSearchParams implements SearchParams {
 
     /**
      * 排序值排序方式
