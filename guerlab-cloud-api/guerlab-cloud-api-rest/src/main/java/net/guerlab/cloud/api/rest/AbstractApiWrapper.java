@@ -14,6 +14,7 @@
 package net.guerlab.cloud.api.rest;
 
 import lombok.RequiredArgsConstructor;
+import net.guerlab.cloud.commons.api.Api;
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.AbstractSearchParams;
 import org.springframework.lang.Nullable;

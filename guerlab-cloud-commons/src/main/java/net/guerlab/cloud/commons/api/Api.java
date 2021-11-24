@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.api.rest;
+package net.guerlab.cloud.commons.api;
 
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.AbstractSearchParams;

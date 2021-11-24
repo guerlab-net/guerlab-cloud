@@ -14,6 +14,7 @@
 package net.guerlab.cloud.api.rest;
 
 import lombok.RequiredArgsConstructor;
+import net.guerlab.cloud.commons.api.Api;
 import net.guerlab.cloud.commons.util.BeanConvertUtils;
 import net.guerlab.cloud.core.dto.Convert;
 import net.guerlab.cloud.core.result.Pageable;
