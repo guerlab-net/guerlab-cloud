@@ -38,7 +38,7 @@ public class AbstractBooleanConverter implements Converter<Boolean> {
     public AbstractBooleanConverter(String trueValue, String falseValue) {
         Assert.hasText(trueValue, () -> "trueValue is empty");
         Assert.hasText(falseValue, () -> "falseValue is empty");
-        Assert.isTrue(Objects.equals(trueValue, falseValue), () -> "trueValue and falseValue cannot be equals");
+        Assert.isTrue(!Objects.equals(trueValue, falseValue), () -> "trueValue and falseValue cannot be equals");
         this.trueValue = trueValue;
         this.falseValue = falseValue;
     }
