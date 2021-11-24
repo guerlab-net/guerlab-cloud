@@ -24,13 +24,15 @@ import java.util.Collection;
  *
  * @param <E>
  *         对象类型
+ * @param <PK>
+ *         主键类型
  * @author guer
  */
 @Getter
 @Setter
 @Schema(name = "BaseOrderTreeEntity", description = "可排序树形结构")
-public abstract class BaseOrderTreeEntity<E extends BaseOrderTreeEntity<E>> extends BaseOrderEntity<E>
-        implements IOrderTreeEntity<E> {
+public abstract class BaseOrderTreeEntity<E extends BaseOrderTreeEntity<E, PK>, PK> extends BaseOrderEntity<E>
+        implements IOrderTreeEntity<E, PK> {
 
     /**
      * 下级列表

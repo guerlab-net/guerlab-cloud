@@ -55,7 +55,7 @@ class TreeTest {
         entities.add(new TestEntity2(21L, 2L));
         entities.add(new TestEntity2(22L, 2L));
 
-        List<TestEntity2> roots = TreeUtils.tree(entities);
+        List<TestEntity2> roots = TreeUtils.tree(entities, "0");
         TestEntity2 root = roots.get(0);
         Assertions.assertNotNull(root);
         Assertions.assertTrue(root.getChildren() != null && !root.getChildren().isEmpty());
@@ -71,20 +71,20 @@ class TreeTest {
         entities.add(new TestEntity2(21L, 2L));
         entities.add(new TestEntity2(22L, 2L));
 
-        List<TestEntity2> roots = TreeUtils.tree(entities, 3L);
+        List<TestEntity2> roots = TreeUtils.tree(entities, "3");
         Assertions.assertTrue(roots.isEmpty());
     }
 
     @Test
     void empty2() {
         Collection<TestEntity2> entities = new ArrayList<>();
-        List<TestEntity2> roots = TreeUtils.tree(entities, 3L);
+        List<TestEntity2> roots = TreeUtils.tree(entities, "3");
         Assertions.assertTrue(roots.isEmpty());
     }
 
     @Setter
     @Getter
-    public static class TestEntity1 extends BaseOrderTreeEntity<TestEntity1> {
+    public static class TestEntity1 extends BaseOrderTreeEntity<TestEntity1, Long> {
 
         private Long id;
 
@@ -109,24 +109,24 @@ class TreeTest {
 
     @Setter
     @Getter
-    public static class TestEntity2 extends BaseTreeEntity<TestEntity2> {
+    public static class TestEntity2 extends BaseTreeEntity<TestEntity2, String> {
 
-        private Long id;
+        private String id;
 
-        private Long parentId;
+        private String parentId;
 
         public TestEntity2(Long id, Long parentId) {
-            this.id = id;
-            this.parentId = parentId;
+            this.id = id.toString();
+            this.parentId = parentId.toString();
         }
 
         @Override
-        public Long id() {
+        public String id() {
             return id;
         }
 
         @Override
-        public Long parentId() {
+        public String parentId() {
             return parentId;
         }
     }

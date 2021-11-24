@@ -24,12 +24,14 @@ import java.util.Collection;
  *
  * @param <E>
  *         对象类型
+ * @param <PK>
+ *         主键类型
  * @author guer
  */
 @Getter
 @Setter
 @Schema(name = "BaseTreeEntity", description = "树形结构")
-public abstract class BaseTreeEntity<E extends BaseTreeEntity<E>> implements ITreeEntity<E> {
+public abstract class BaseTreeEntity<E extends BaseTreeEntity<E, PK>, PK> implements ITreeEntity<E, PK> {
 
     /**
      * 下级列表

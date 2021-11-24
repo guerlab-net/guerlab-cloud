@@ -19,7 +19,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
  *
  * @param <E>
  *         对象类型
+ * @param <PK>
+ *         主键类型
  * @author guer
  */
 @Schema(name = "IOrderTreeEntity", description = "可排序树形结构")
-public interface IOrderTreeEntity<E extends IOrderTreeEntity<E>> extends ITreeEntity<E>, IOrderEntity<E> {}
+public interface IOrderTreeEntity<E extends IOrderTreeEntity<E, PK>, PK> extends ITreeEntity<E, PK>, IOrderEntity<E> {}

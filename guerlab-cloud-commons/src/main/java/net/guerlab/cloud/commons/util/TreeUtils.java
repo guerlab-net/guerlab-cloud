@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 guerlab.net and order2 contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@ public class TreeUtils {
      *         树形排序对象
      * @return 树结构列表
      */
-    public static <T extends ITreeEntity<T>> List<T> tree(Collection<T> data) {
+    public static <T extends ITreeEntity<T, Long>> List<T> tree(Collection<T> data) {
         return tree(data, Constants.DEFAULT_PARENT_ID);
     }
 
@@ -56,15 +56,17 @@ public class TreeUtils {
      *         根ID
      * @param <T>
      *         树形排序对象
+     * @param <PK>
+     *         主键类型
      * @return 树结构列表
      */
-    public static <T extends ITreeEntity<T>> List<T> tree(Collection<T> data, Long rootId) {
+    public static <T extends ITreeEntity<T, PK>, PK> List<T> tree(Collection<T> data, PK rootId) {
         if (CollectionUtil.isEmpty(data)) {
             return Collections.emptyList();
         }
 
-        Map<Long, T> map = CollectionUtil.toMap(data, ITreeEntity::id);
-        Map<Long, List<T>> childrenMap = CollectionUtil.group(data, ITreeEntity::parentId);
+        Map<PK, T> map = CollectionUtil.toMap(data, ITreeEntity::id);
+        Map<PK, List<T>> childrenMap = CollectionUtil.group(data, ITreeEntity::parentId);
 
         List<T> roots = childrenMap.get(rootId);
 

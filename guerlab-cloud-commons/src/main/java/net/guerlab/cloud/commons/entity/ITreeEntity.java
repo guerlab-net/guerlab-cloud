@@ -21,10 +21,12 @@ import java.util.Collection;
  *
  * @param <E>
  *         对象类型
+ * @param <PK>
+ *         主键类型
  * @author guer
  */
 @Schema(name = "ITreeEntity", description = "树形结构")
-public interface ITreeEntity<E extends ITreeEntity<E>> {
+public interface ITreeEntity<E extends ITreeEntity<E, PK>, PK> {
 
     /**
      * 获取下级列表
@@ -46,12 +48,12 @@ public interface ITreeEntity<E extends ITreeEntity<E>> {
      *
      * @return id
      */
-    Long id();
+    PK id();
 
     /**
      * 获取上级ID
      *
      * @return 上级id
      */
-    Long parentId();
+    PK parentId();
 }
