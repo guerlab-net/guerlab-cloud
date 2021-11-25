@@ -19,6 +19,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties;
 import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification;
 import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClients;
 import org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientAutoConfiguration;
@@ -37,7 +38,7 @@ import java.util.stream.Collectors;
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(NacosDiscoveryAutoConfiguration.class)
 @AutoConfigureBefore({ BlockingLoadBalancerClientAutoConfiguration.class, LoadBalancerAutoConfiguration.class })
-@EnableConfigurationProperties(LoadBalancerProperties.class)
+@EnableConfigurationProperties({ LoadBalancerProperties.class, LoadBalancerClientsProperties.class })
 @LoadBalancerClients(defaultConfiguration = CustomerLoadBalancerClientConfiguration.class)
 public class GlobalLoadBalancerAutoConfiguration {
 
@@ -59,11 +60,13 @@ public class GlobalLoadBalancerAutoConfiguration {
     /**
      * 构造负载均衡客户端工厂
      *
+     * @param properties
+     *         负载均衡客户端配置
      * @return 负载均衡客户端工厂
      */
     @Bean
-    public LoadBalancerClientFactory customerLoadBalancerClientFactory() {
-        CustomerLoadBalancerClientFactory clientFactory = new CustomerLoadBalancerClientFactory();
+    public LoadBalancerClientFactory customerLoadBalancerClientFactory(LoadBalancerClientsProperties properties) {
+        CustomerLoadBalancerClientFactory clientFactory = new CustomerLoadBalancerClientFactory(properties);
         clientFactory.setConfigurations(configurations.stream().collect(Collectors.toList()));
         return clientFactory;
     }

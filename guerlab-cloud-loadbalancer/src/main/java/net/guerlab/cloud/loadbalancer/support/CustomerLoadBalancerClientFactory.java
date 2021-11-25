@@ -14,6 +14,7 @@ package net.guerlab.cloud.loadbalancer.support;
 
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.loadbalancer.autoconfigure.CustomerLoadBalancerClientConfiguration;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties;
 import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification;
 import org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory;
 
@@ -27,7 +28,8 @@ import java.util.Collections;
 @Slf4j
 public class CustomerLoadBalancerClientFactory extends LoadBalancerClientFactory {
 
-    public CustomerLoadBalancerClientFactory() {
+    public CustomerLoadBalancerClientFactory(LoadBalancerClientsProperties properties) {
+        super(properties);
         Class<CustomerLoadBalancerClientConfiguration> clazz = CustomerLoadBalancerClientConfiguration.class;
 
         LoadBalancerClientSpecification specification = new LoadBalancerClientSpecification();
