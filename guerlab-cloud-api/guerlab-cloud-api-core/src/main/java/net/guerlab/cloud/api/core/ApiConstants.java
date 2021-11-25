@@ -18,13 +18,20 @@ package net.guerlab.cloud.api.core;
  * @author guer
  */
 @SuppressWarnings("unused")
-public final class ApiConstants {
+public interface ApiConstants {
 
     /**
      * 服务ID
      */
-    public static final String SERVICE_ID_PROPERTIES_PREFIX = "guerlab.cloud.api.names";
+    String SERVICE_ID_PROPERTIES_PREFIX = "guerlab.cloud.api.names";
 
-    private ApiConstants() {
-    }
+    /**
+     * 默认内部服务后缀
+     */
+    String DEFAULT_INTERNAL_SERVICE_SUFFIX = "-internal";
+
+    /**
+     * 默认公共服务后缀
+     */
+    String DEFAULT_COMMONS_SERVICE_SUFFIX = "-commons";
 }
