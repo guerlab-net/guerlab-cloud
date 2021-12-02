@@ -15,7 +15,7 @@ package net.guerlab.cloud.web.core.annotation;
 import java.lang.annotation.*;
 
 /**
- * 忽略ResponseAdvisor的返回结果处理
+ * 对响应结果进行包装
  *
  * @author guer
  */
@@ -23,6 +23,19 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface IgnoreResponseHandler {
+public @interface ResponseObjectWrapper {
 
+    /**
+     * 是否忽略对结果包装
+     *
+     * @return 是否忽略对结果包装
+     */
+    boolean ignore() default false;
+
+    /**
+     * 是否忽略数据类型检查，并强制包装
+     *
+     * @return 是否忽略数据类型检查，并强制包装
+     */
+    boolean force() default false;
 }

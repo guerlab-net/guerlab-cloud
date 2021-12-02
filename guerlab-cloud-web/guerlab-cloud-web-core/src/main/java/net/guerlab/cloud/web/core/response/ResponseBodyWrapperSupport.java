@@ -14,7 +14,7 @@ package net.guerlab.cloud.web.core.response;
 
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.core.result.Result;
-import net.guerlab.cloud.web.core.annotation.IgnoreResponseHandler;
+import net.guerlab.cloud.web.core.annotation.ResponseObjectWrapper;
 import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
 import net.guerlab.commons.collection.CollectionUtil;
 import org.springframework.core.MethodParameter;
@@ -36,7 +36,7 @@ import java.util.List;
 @Slf4j
 public class ResponseBodyWrapperSupport {
 
-    private static final Class<?>[] NO_CONVERT_CLASS = new Class<?>[] { String.class, Result.class, byte[].class,
+    private static final Class<?>[] NO_CONVERT_CLASS = new Class<?>[] { CharSequence.class, Result.class, byte[].class,
             InputStream.class, ResponseEntity.class };
 
     private static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
@@ -52,32 +52,53 @@ public class ResponseBodyWrapperSupport {
      *
      * @param body
      *         响应数据
+     * @param returnType
+     *         方法参数对象
      * @return 是否需要转换
      */
-    public boolean noConvertObject(@Nullable Object body) {
+    public boolean noConvertObject(@Nullable Object body, MethodParameter returnType) {
+        ResponseObjectWrapper responseHandlerWrapper = getMethodAnnotation(returnType);
+        if (responseHandlerWrapper != null && responseHandlerWrapper.force()) {
+            return false;
+        }
+
         return Arrays.stream(NO_CONVERT_CLASS).anyMatch(clazz -> clazz.isInstance(body));
     }
 
     /**
-     * 判断方法或者类上是否包含IgnoreResponseHandler注解
+     * 判断只是支持结果包装
      *
      * @param returnType
      *         方法参数对象
-     * @return 是否不包含注解
+     * @return 是否支持结果包装
      */
-    @SuppressWarnings("SameParameterValue")
-    public boolean notHasAnnotation(MethodParameter returnType) {
-        Method method = returnType.getMethod();
-        if (method != null && AnnotationUtils.findAnnotation(method, IgnoreResponseHandler.class) != null) {
-            return false;
+    public boolean supports(MethodParameter returnType) {
+        ResponseObjectWrapper responseHandlerWrapper = getAnnotation(returnType);
+        return responseHandlerWrapper == null || !responseHandlerWrapper.ignore();
+    }
+
+    @Nullable
+    private ResponseObjectWrapper getAnnotation(MethodParameter returnType) {
+        ResponseObjectWrapper responseHandlerWrapper = getMethodAnnotation(returnType);
+        if (responseHandlerWrapper != null) {
+            return responseHandlerWrapper;
         }
 
         Class<?> containingClass = returnType.getContainingClass();
-        if (AnnotationUtils.findAnnotation(containingClass, IgnoreResponseHandler.class) != null) {
-            return false;
+        responseHandlerWrapper = AnnotationUtils.findAnnotation(containingClass, ResponseObjectWrapper.class);
+        if (responseHandlerWrapper == null) {
+            responseHandlerWrapper = containingClass.getPackage().getDeclaredAnnotation(ResponseObjectWrapper.class);
         }
+        return responseHandlerWrapper;
+    }
 
-        return containingClass.getPackage().getDeclaredAnnotation(IgnoreResponseHandler.class) == null;
+    @Nullable
+    private ResponseObjectWrapper getMethodAnnotation(MethodParameter returnType) {
+        Method method = returnType.getMethod();
+        if (method != null) {
+            return AnnotationUtils.findAnnotation(method, ResponseObjectWrapper.class);
+        }
+        return null;
     }
 
     /**

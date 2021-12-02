@@ -58,7 +58,7 @@ public class WebMvcResponseAdvisorAutoconfigure {
 
         @Override
         public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-            return support.notHasAnnotation(returnType);
+            return support.supports(returnType);
         }
 
         @Override
@@ -68,7 +68,7 @@ public class WebMvcResponseAdvisorAutoconfigure {
             if (body == null) {
                 log.debug("wrapper with null body");
                 return new Succeed<>();
-            } else if (support.noConvertObject(body)) {
+            } else if (support.noConvertObject(body, returnType)) {
                 log.debug("un wrapper with noConvertObject, body class is {}", body.getClass());
                 return body;
             } else if (matchExcluded(request, returnType.getMethod())) {

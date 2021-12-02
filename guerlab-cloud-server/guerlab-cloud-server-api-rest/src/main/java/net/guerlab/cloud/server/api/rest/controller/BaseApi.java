@@ -109,6 +109,7 @@ public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParam
      * @param searchParams
      *         搜索参数
      */
+    @SuppressWarnings("EmptyMethod")
     protected void beforeFind(SP searchParams) {
 
     }
@@ -121,6 +122,7 @@ public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParam
      * @param searchParams
      *         搜索参数
      */
+    @SuppressWarnings("EmptyMethod")
     protected void afterFind(Collection<D> list, @Nullable SP searchParams) {
 
     }

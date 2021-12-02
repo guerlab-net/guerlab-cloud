@@ -66,7 +66,7 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
 
     @Override
     public boolean supports(HandlerResult result) {
-        return support.notHasAnnotation(result.getReturnTypeSource());
+        return support.supports(result.getReturnTypeSource());
     }
 
     @Override
@@ -76,7 +76,7 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
         if (body == null) {
             log.debug("wrapper with null body");
             return writeBody(new Succeed<>(), METHOD_PARAMETER_WITH_MONO_RESULT, exchange);
-        } else if (support.noConvertObject(body)) {
+        } else if (support.noConvertObject(body, result.getReturnTypeSource())) {
             log.debug("un wrapper with noConvertObject, body class is {}", body.getClass());
             return writeBody(body, bodyTypeParameter, exchange);
         } else if (matchExcluded(exchange, bodyTypeParameter.getMethod())) {

@@ -120,6 +120,7 @@ public abstract class AbstractSearchParamsUtilInstance {
      * @param object
      *         输出对象
      */
+    @SuppressWarnings("EmptyMethod")
     public void afterHandler(SearchParams searchParams, Object object) {
 
     }
