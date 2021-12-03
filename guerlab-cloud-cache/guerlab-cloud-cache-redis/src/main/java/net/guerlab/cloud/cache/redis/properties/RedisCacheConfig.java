@@ -55,7 +55,8 @@ public class RedisCacheConfig {
      *         valueSerializationPair
      * @return RedisCacheConfiguration
      */
-    public RedisCacheConfiguration build(SerializationPair<String> keySerializationPair, SerializationPair<Object> valueSerializationPair) {
+    public RedisCacheConfiguration build(SerializationPair<String> keySerializationPair,
+            SerializationPair<Object> valueSerializationPair) {
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig();
         config = config.serializeKeysWith(keySerializationPair);
         config = config.serializeValuesWith(valueSerializationPair);

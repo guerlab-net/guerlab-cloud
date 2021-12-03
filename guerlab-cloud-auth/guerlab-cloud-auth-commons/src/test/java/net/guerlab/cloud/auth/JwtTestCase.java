@@ -51,11 +51,16 @@ class JwtTestCase {
         context = new AnnotationConfigApplicationContext();
         context.register(TestAuthAutoconfigure.class, TestJwtTokenFactory.class, TestMd5TokenFactory.class,
                 TestRc4TokenFactory.class);
-        TestPropertyValues.of("auth.test.token-factory.jwt.access-token-key.public-key=" + rsaKeys.getPublicKeyFormattedContent())
+        TestPropertyValues.of(
+                        "auth.test.token-factory.jwt.access-token-key.public-key=" + rsaKeys.getPublicKeyFormattedContent())
                 .applyTo(context);
-        TestPropertyValues.of("auth.test.token-factory.jwt.access-token-key.private-key=" + rsaKeys.getPrivateKey()).applyTo(context);
-        TestPropertyValues.of("auth.test.token-factory.jwt.refresh-token-key.public-key=" + rsaKeys.getPublicKeyFormattedContent()).applyTo(context);
-        TestPropertyValues.of("auth.test.token-factory.jwt.refresh-token-key.private-key=" + rsaKeys.getPrivateKey()).applyTo(context);
+        TestPropertyValues.of("auth.test.token-factory.jwt.access-token-key.private-key=" + rsaKeys.getPrivateKey())
+                .applyTo(context);
+        TestPropertyValues.of(
+                        "auth.test.token-factory.jwt.refresh-token-key.public-key=" + rsaKeys.getPublicKeyFormattedContent())
+                .applyTo(context);
+        TestPropertyValues.of("auth.test.token-factory.jwt.refresh-token-key.private-key=" + rsaKeys.getPrivateKey())
+                .applyTo(context);
         context.refresh();
     }
 

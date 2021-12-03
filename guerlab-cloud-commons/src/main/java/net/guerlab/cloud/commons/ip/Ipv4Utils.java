@@ -232,9 +232,8 @@ public class Ipv4Utils {
      * @return 字符串格式地址
      */
     public static String convertIpv4String(long ipAddress) {
-        return String
-                .format(FORMAT, ipAddress >> 24 & MAX_VALUE, ipAddress >> 16 & MAX_VALUE, ipAddress >> 8 & MAX_VALUE,
-                        ipAddress & MAX_VALUE);
+        return String.format(FORMAT, ipAddress >> 24 & MAX_VALUE, ipAddress >> 16 & MAX_VALUE,
+                ipAddress >> 8 & MAX_VALUE, ipAddress & MAX_VALUE);
     }
 
     /**

@@ -41,7 +41,8 @@ public class CustomerBlockRequestHandler implements BlockRequestHandler {
     @Override
     public Mono<ServerResponse> handleRequest(ServerWebExchange exchange, Throwable ex) {
         // JSON result by default.
-        return ServerResponse.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(fromValue(buildErrorResult(ex)));
+        return ServerResponse.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
+                .body(fromValue(buildErrorResult(ex)));
     }
 
     private Fail<Void> buildErrorResult(Throwable ex) {

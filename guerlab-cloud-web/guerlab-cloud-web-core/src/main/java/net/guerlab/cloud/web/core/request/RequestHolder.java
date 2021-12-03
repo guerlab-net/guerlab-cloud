@@ -29,7 +29,8 @@ public class RequestHolder {
     private static final Collection<RequestContextHolder> HOLDERS;
 
     static {
-        HOLDERS = ServiceLoader.load(RequestContextHolder.class).stream().map(ServiceLoader.Provider::get).collect(Collectors.toList());
+        HOLDERS = ServiceLoader.load(RequestContextHolder.class).stream().map(ServiceLoader.Provider::get)
+                .collect(Collectors.toList());
     }
 
     private RequestHolder() {
@@ -60,7 +61,8 @@ public class RequestHolder {
      */
     @Nullable
     public static String requestMethod() {
-        return HOLDERS.stream().map(RequestContextHolder::getRequestMethod).filter(Objects::nonNull).findFirst().orElse(null);
+        return HOLDERS.stream().map(RequestContextHolder::getRequestMethod).filter(Objects::nonNull).findFirst()
+                .orElse(null);
     }
 
     /**
@@ -87,6 +89,7 @@ public class RequestHolder {
      */
     @Nullable
     public static String requestPath() {
-        return HOLDERS.stream().map(RequestContextHolder::getRequestPath).filter(Objects::nonNull).findFirst().orElse(null);
+        return HOLDERS.stream().map(RequestContextHolder::getRequestPath).filter(Objects::nonNull).findFirst()
+                .orElse(null);
     }
 }

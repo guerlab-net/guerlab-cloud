@@ -52,11 +52,6 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 
     protected ResponseAdvisorProperties responseAdvisorProperties;
 
-    @Override
-    public int getOrder() {
-        return DEFAULT_ORDER;
-    }
-
     /**
      * 获取注解
      *
@@ -87,6 +82,11 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
         String requestMethod = request.getMethod();
 
         return Arrays.asList(METHODS).contains(requestMethod);
+    }
+
+    @Override
+    public int getOrder() {
+        return DEFAULT_ORDER;
     }
 
     @Override

@@ -115,8 +115,8 @@ public class RsaKeys {
             return false;
         }
         RsaKeys rsaKeys = (RsaKeys) o;
-        return Objects.equals(publicKeyContent, rsaKeys.publicKeyContent) && Objects
-                .equals(privateKeyContent, rsaKeys.privateKeyContent);
+        return Objects.equals(publicKeyContent, rsaKeys.publicKeyContent) && Objects.equals(privateKeyContent,
+                rsaKeys.privateKeyContent);
     }
 
     @Override

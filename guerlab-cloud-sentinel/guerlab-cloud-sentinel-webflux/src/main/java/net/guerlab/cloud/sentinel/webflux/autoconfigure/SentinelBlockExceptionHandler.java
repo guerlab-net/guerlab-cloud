@@ -60,6 +60,7 @@ public class SentinelBlockExceptionHandler implements WebExceptionHandler {
         if (!BlockException.isBlockException(ex)) {
             return Mono.error(ex);
         }
-        return blockRequestHandler.handleRequest(exchange, ex).flatMap(response -> response.writeTo(exchange, contextSupplier.get()));
+        return blockRequestHandler.handleRequest(exchange, ex)
+                .flatMap(response -> response.writeTo(exchange, contextSupplier.get()));
     }
 }

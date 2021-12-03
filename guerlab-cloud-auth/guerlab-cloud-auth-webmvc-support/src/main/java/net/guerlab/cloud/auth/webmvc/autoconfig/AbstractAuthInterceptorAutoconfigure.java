@@ -84,7 +84,8 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProp
 
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired(required = false)
-    public void setTokenHandlerInterceptors(Collection<? extends AbstractTokenHandlerInterceptor<A>> tokenHandlerInterceptors) {
+    public void setTokenHandlerInterceptors(
+            Collection<? extends AbstractTokenHandlerInterceptor<A>> tokenHandlerInterceptors) {
         log.debug("input interceptors: {}", tokenHandlerInterceptors);
         this.tokenHandlerInterceptors = tokenHandlerInterceptors;
     }

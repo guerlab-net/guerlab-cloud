@@ -42,8 +42,8 @@ public class RedisCacheManagerBuilderCustomizerAutoconfigure {
 
     private final GroupByKeysRedisCacheProperties properties;
 
-    private final SerializationPair<String> keySerializationPair = SerializationPair
-            .fromSerializer(new StringRedisSerializer());
+    private final SerializationPair<String> keySerializationPair = SerializationPair.fromSerializer(
+            new StringRedisSerializer());
 
     private final SerializationPair<Object> valueSerializationPair;
 
@@ -93,8 +93,8 @@ public class RedisCacheManagerBuilderCustomizerAutoconfigure {
      */
     @Bean
     public RedisCacheManagerBuilderCustomizer redisCacheManagerBuilderCustomizer() {
-        Map<String, RedisCacheConfiguration> cacheConfigurations = properties.entrySet().stream().collect(Collectors
-                .toMap(Map.Entry::getKey,
+        Map<String, RedisCacheConfiguration> cacheConfigurations = properties.entrySet().stream().collect(
+                Collectors.toMap(Map.Entry::getKey,
                         entry -> entry.getValue().build(keySerializationPair, valueSerializationPair)));
         return builder -> builder.withInitialCacheConfigurations(cacheConfigurations);
     }

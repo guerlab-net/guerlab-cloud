@@ -79,8 +79,10 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
      * @param policy
      *         负载均衡策略
      */
-    public RuleChainReactiveLoadBalancer(String serviceId, ObjectProvider<ServiceInstanceListSupplier> serviceInstanceListSupplierProvider,
-            ObjectProvider<IRule> ruleProvider, LoadBalancerProperties loadBalancerProperties, LoadBalancerPolicy policy) {
+    public RuleChainReactiveLoadBalancer(String serviceId,
+            ObjectProvider<ServiceInstanceListSupplier> serviceInstanceListSupplierProvider,
+            ObjectProvider<IRule> ruleProvider, LoadBalancerProperties loadBalancerProperties,
+            LoadBalancerPolicy policy) {
         this.serviceId = serviceId;
         this.serviceInstanceListSupplierProvider = serviceInstanceListSupplierProvider;
         this.ruleProvider = ruleProvider;

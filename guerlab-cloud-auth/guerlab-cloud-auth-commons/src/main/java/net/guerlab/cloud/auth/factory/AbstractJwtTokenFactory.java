@@ -128,8 +128,8 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
     @Override
     public final T parseByAccessToken(String token) {
         String accessToken = token.substring(getAccessTokenPrefix().length());
-        Claims body = parserToken(accessToken, properties.getAccessTokenKey().getPublicKeyRef(), TokenType.ACCESS_TOKEN)
-                .getBody();
+        Claims body = parserToken(accessToken, properties.getAccessTokenKey().getPublicKeyRef(),
+                TokenType.ACCESS_TOKEN).getBody();
         return parse0(body);
     }
 

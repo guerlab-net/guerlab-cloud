@@ -59,7 +59,8 @@ public class ContextAttributesHolder {
     public static ContextAttributes get(@Nullable Object object) {
         ContextAttributes contextAttributes = null;
         if (object != null) {
-            contextAttributes = OBJECT_CONTEXT_ATTRIBUTES_HOLDERS.stream().filter(holder -> holder.accept(object)).map(holder -> holder.get(object)).findFirst().orElse(null);
+            contextAttributes = OBJECT_CONTEXT_ATTRIBUTES_HOLDERS.stream().filter(holder -> holder.accept(object))
+                    .map(holder -> holder.get(object)).findFirst().orElse(null);
         }
         if (contextAttributes == null) {
             contextAttributes = THREAD_LOCAL.get();
@@ -80,7 +81,8 @@ public class ContextAttributesHolder {
         if (object == null) {
             THREAD_LOCAL.set(contextAttributes);
         } else {
-            List<ObjectContextAttributesHolder> holders = OBJECT_CONTEXT_ATTRIBUTES_HOLDERS.stream().filter(holder -> holder.accept(object)).collect(Collectors.toList());
+            List<ObjectContextAttributesHolder> holders = OBJECT_CONTEXT_ATTRIBUTES_HOLDERS.stream()
+                    .filter(holder -> holder.accept(object)).collect(Collectors.toList());
 
             if (holders.isEmpty()) {
                 THREAD_LOCAL.set(contextAttributes);

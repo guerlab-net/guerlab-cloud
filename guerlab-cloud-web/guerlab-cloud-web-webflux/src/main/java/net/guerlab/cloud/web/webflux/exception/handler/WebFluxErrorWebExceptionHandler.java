@@ -38,7 +38,8 @@ public class WebFluxErrorWebExceptionHandler extends DefaultErrorWebExceptionHan
     private final GlobalExceptionHandler globalExceptionHandler;
 
     public WebFluxErrorWebExceptionHandler(ErrorAttributes errorAttributes, WebProperties.Resources resources,
-            ErrorProperties errorProperties, ApplicationContext applicationContext, GlobalExceptionHandler globalExceptionHandler) {
+            ErrorProperties errorProperties, ApplicationContext applicationContext,
+            GlobalExceptionHandler globalExceptionHandler) {
         super(errorAttributes, resources, errorProperties, applicationContext);
         this.globalExceptionHandler = globalExceptionHandler;
     }
@@ -51,10 +52,12 @@ public class WebFluxErrorWebExceptionHandler extends DefaultErrorWebExceptionHan
     @Override
     protected Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
         Throwable error = getError(request);
-        globalExceptionHandler.getGlobalExceptionLogger().debug(error, request.methodName(), RequestUtils.parseRequestUri(request));
+        globalExceptionHandler.getGlobalExceptionLogger()
+                .debug(error, request.methodName(), RequestUtils.parseRequestUri(request));
 
         Fail<?> fail = globalExceptionHandler.build(error);
 
-        return ServerResponse.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(BodyInserters.fromValue(fail));
+        return ServerResponse.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromValue(fail));
     }
 }

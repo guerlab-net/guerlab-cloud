@@ -43,7 +43,8 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
 
     static {
         try {
-            METHOD_PARAMETER_WITH_MONO_RESULT = new MethodParameter(ResponseBodyResultWrapperHandler.class.getDeclaredMethod("methodForParams"), -1);
+            METHOD_PARAMETER_WITH_MONO_RESULT = new MethodParameter(
+                    ResponseBodyResultWrapperHandler.class.getDeclaredMethod("methodForParams"), -1);
         } catch (NoSuchMethodException e) {
             throw new ApplicationException(e);
         }

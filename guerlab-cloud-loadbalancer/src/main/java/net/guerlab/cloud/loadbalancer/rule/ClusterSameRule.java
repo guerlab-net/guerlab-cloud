@@ -46,7 +46,8 @@ public class ClusterSameRule extends BaseRule<ClusterSameProperties> {
 
     @Override
     public List<ServiceInstance> choose(List<ServiceInstance> instances, Request<?> request) {
-        return instances.stream().filter(instance -> clusterName.equalsIgnoreCase(instance.getMetadata().get("nacos.cluster")))
+        return instances.stream()
+                .filter(instance -> clusterName.equalsIgnoreCase(instance.getMetadata().get("nacos.cluster")))
                 .collect(Collectors.toList());
     }
 }

@@ -49,7 +49,8 @@ public class MessageSourceAutoConfigure {
     public MessageSource messageSource(MessageSourceProperties properties) {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         if (StringUtils.hasText(properties.getBasename())) {
-            messageSource.setBasenames(StringUtils.commaDelimitedListToStringArray(StringUtils.trimAllWhitespace(properties.getBasename())));
+            messageSource.setBasenames(StringUtils.commaDelimitedListToStringArray(
+                    StringUtils.trimAllWhitespace(properties.getBasename())));
         }
         if (properties.getEncoding() != null) {
             messageSource.setDefaultEncoding(properties.getEncoding().name());

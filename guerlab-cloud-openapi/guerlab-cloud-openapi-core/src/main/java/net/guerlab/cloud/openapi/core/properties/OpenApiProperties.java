@@ -27,5 +27,4 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @ConfigurationProperties(prefix = "openapi")
-public class OpenApiProperties extends OpenAPI {
-}
+public class OpenApiProperties extends OpenAPI {}

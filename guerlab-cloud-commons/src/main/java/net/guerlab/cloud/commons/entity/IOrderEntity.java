@@ -24,22 +24,6 @@ import org.springframework.lang.Nullable;
 public interface IOrderEntity<E extends IOrderEntity<?>> extends Comparable<E> {
 
     /**
-     * 获取排序值
-     *
-     * @return 排序值
-     */
-    @Nullable
-    Integer getOrderNum();
-
-    /**
-     * 设置排序值
-     *
-     * @param orderNum
-     *         排序值
-     */
-    void setOrderNum(@Nullable Integer orderNum);
-
-    /**
      * 根据排序值返回排序顺序
      *
      * @param o1
@@ -64,6 +48,22 @@ public interface IOrderEntity<E extends IOrderEntity<?>> extends Comparable<E> {
             return other - self;
         }
     }
+
+    /**
+     * 获取排序值
+     *
+     * @return 排序值
+     */
+    @Nullable
+    Integer getOrderNum();
+
+    /**
+     * 设置排序值
+     *
+     * @param orderNum
+     *         排序值
+     */
+    void setOrderNum(@Nullable Integer orderNum);
 
     /**
      * 根据排序值返回排序顺序

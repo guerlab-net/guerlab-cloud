@@ -45,16 +45,6 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
         implements BaseService<T, PK, SP> {
 
     /**
-     * 序列
-     */
-    protected Sequence sequence;
-
-    /**
-     * mapper
-     */
-    protected M baseMapper;
-
-    /**
      * 实体类型
      */
     protected final Class<T> entityClass = this.currentModelClass();
@@ -65,12 +55,28 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
     protected final Class<T> mapperClass = this.currentMapperClass();
 
     /**
+     * 序列
+     */
+    protected Sequence sequence;
+
+    /**
+     * mapper
+     */
+    protected M baseMapper;
+
+    /**
      * 获取mapper
      *
      * @return mapper
      */
     public final M getBaseMapper() {
         return this.baseMapper;
+    }
+
+    @SuppressWarnings("SpringJavaAutowiredMembersInspection")
+    @Autowired
+    public void setBaseMapper(M baseMapper) {
+        this.baseMapper = baseMapper;
     }
 
     @Override
@@ -285,12 +291,6 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
     @SuppressWarnings("unchecked")
     protected Class<T> currentModelClass() {
         return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), 0);
-    }
-
-    @SuppressWarnings("SpringJavaAutowiredMembersInspection")
-    @Autowired
-    public void setBaseMapper(M baseMapper) {
-        this.baseMapper = baseMapper;
     }
 
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")

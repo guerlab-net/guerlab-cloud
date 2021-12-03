@@ -42,16 +42,6 @@ public class RsaUtils {
     public static final String TRANSFORMATION = "RSA/ECB/PKCS1PADDING";
 
     /**
-     * RSA 最大加密明文长度
-     */
-    private static final int MAX_ENCRYPT_BLOCK = 245;
-
-    /**
-     * RSA 最大解密秘文长度
-     */
-    private static final int MAX_DECRYPT_BLOCK = 256;
-
-    /**
      * 默认密钥长度
      */
     public static final int DEFAULT_KEY_SIZE = 2048;
@@ -85,6 +75,16 @@ public class RsaUtils {
      * 换行
      */
     public static final String LINE_FEED = "\r\n";
+
+    /**
+     * RSA 最大加密明文长度
+     */
+    private static final int MAX_ENCRYPT_BLOCK = 245;
+
+    /**
+     * RSA 最大解密秘文长度
+     */
+    private static final int MAX_DECRYPT_BLOCK = 256;
 
     private RsaUtils() {
 

@@ -31,12 +31,12 @@ public class GlobalExceptionHandler {
 
     protected final StackTracesHandler stackTracesHandler;
 
-    private final ThrowableResponseBuilder defaultBuilder;
-
     @Getter
     protected final GlobalExceptionLogger globalExceptionLogger;
 
     protected final Collection<ResponseBuilder> builders;
+
+    private final ThrowableResponseBuilder defaultBuilder;
 
     public GlobalExceptionHandler(MessageSource messageSource, StackTracesHandler stackTracesHandler,
             GlobalExceptionLogger globalExceptionLogger, Collection<ResponseBuilder> builders) {
