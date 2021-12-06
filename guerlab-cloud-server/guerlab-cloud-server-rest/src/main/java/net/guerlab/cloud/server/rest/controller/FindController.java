@@ -75,7 +75,7 @@ public interface FindController<D, E extends Convert<D>, S extends BaseFindServi
      */
     @Override
     @Nullable
-    default D selectOne(SP searchParams) {
+    default D selectOne(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams) {
         beforeFind(searchParams);
         E entity = getService().selectOne(searchParams);
         if (entity == null) {
@@ -94,7 +94,7 @@ public interface FindController<D, E extends Convert<D>, S extends BaseFindServi
      * @return 对象列表
      */
     @Override
-    default List<D> selectList(SP searchParams) {
+    default List<D> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams) {
         beforeFind(searchParams);
         List<D> list = BeanConvertUtils.toList(getService().selectList(searchParams));
         afterFind(list, searchParams);
