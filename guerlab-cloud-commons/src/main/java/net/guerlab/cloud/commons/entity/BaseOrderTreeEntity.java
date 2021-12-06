@@ -12,12 +12,6 @@
  */
 package net.guerlab.cloud.commons.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import io.swagger.v3.oas.annotations.media.Schema;
-import org.springframework.lang.Nullable;
-
-import java.util.Collection;
-
 /**
  * 可排序树形结构
  *
@@ -27,25 +21,6 @@ import java.util.Collection;
  *         主键类型
  * @author guer
  */
-@Schema(name = "BaseOrderTreeEntity", description = "可排序树形结构")
-public abstract class BaseOrderTreeEntity<E extends BaseOrderTreeEntity<E, PK>, PK> extends BaseOrderEntity<E>
-        implements IOrderTreeEntity<E, PK> {
-
-    /**
-     * 下级列表
-     */
-    @Schema(description = "下级列表")
-    @TableField(exist = false)
-    private Collection<E> children;
-
-    @Nullable
-    @Override
-    public Collection<E> getChildren() {
-        return children;
-    }
-
-    @Override
-    public void setChildren(@Nullable Collection<E> children) {
-        this.children = children;
-    }
-}
+@Deprecated(since = "2020.1.0", forRemoval = true)
+public abstract class BaseOrderTreeEntity<E extends BaseOrderTreeEntity<E, PK>, PK>
+        extends BaseOrderlyTreeEntity<E, PK> {}

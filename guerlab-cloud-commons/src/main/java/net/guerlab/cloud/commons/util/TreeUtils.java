@@ -13,7 +13,7 @@
 package net.guerlab.cloud.commons.util;
 
 import net.guerlab.cloud.commons.Constants;
-import net.guerlab.cloud.commons.entity.IOrderEntity;
+import net.guerlab.cloud.commons.entity.IOrderlyEntity;
 import net.guerlab.cloud.commons.entity.ITreeEntity;
 import net.guerlab.commons.collection.CollectionUtil;
 
@@ -76,8 +76,8 @@ public class TreeUtils {
 
         childrenMap.forEach((parentId, list) -> {
             list.sort((o1, o2) -> {
-                if (o1 instanceof IOrderEntity && o2 instanceof IOrderEntity) {
-                    return IOrderEntity.compareTo((IOrderEntity<?>) o1, (IOrderEntity<?>) o2);
+                if (o1 instanceof IOrderlyEntity && o2 instanceof IOrderlyEntity) {
+                    return IOrderlyEntity.compareTo((IOrderlyEntity<?>) o1, (IOrderlyEntity<?>) o2);
                 } else {
                     return 0;
                 }
