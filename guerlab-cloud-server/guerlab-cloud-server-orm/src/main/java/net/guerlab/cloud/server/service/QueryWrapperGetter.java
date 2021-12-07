@@ -12,6 +12,7 @@
  */
 package net.guerlab.cloud.server.service;
 
+import com.baomidou.mybatisplus.core.conditions.interfaces.Join;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import net.guerlab.cloud.searchparams.SearchParams;
@@ -88,4 +89,14 @@ public interface QueryWrapperGetter<T, SP extends SearchParams> {
      * @return 实体类型
      */
     Class<T> getEntityClass();
+
+    /**
+     * 查询加锁
+     *
+     * @param wrapper
+     *         QueryWrapper
+     */
+    default void withLock(Join<T> wrapper) {
+        wrapper.last("FOR UPDATE");
+    }
 }
