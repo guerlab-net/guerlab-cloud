@@ -43,6 +43,16 @@ public interface DeleteController<D, E extends Convert<D>, S extends BaseService
         extends IController<E, S, PK> {
 
     /**
+     * 请求路径
+     */
+    String DELETE_BY_ID_PATH = "/{id}";
+
+    /**
+     * 路径参数
+     */
+    String DELETE_BY_ID_PATH_PARAM = "id";
+
+    /**
      * 根据主键ID删除对象
      *
      * @param id
@@ -51,8 +61,8 @@ public interface DeleteController<D, E extends Convert<D>, S extends BaseService
      *         强制删除标志
      */
     @Operation(summary = "删除", security = @SecurityRequirement(name = Constants.TOKEN))
-    @DeleteMapping("/{id}")
-    default void delete(@Parameter(description = "id", required = true) @PathVariable PK id,
+    @DeleteMapping(DELETE_BY_ID_PATH)
+    default void delete(@Parameter(description = "主键ID", required = true) @PathVariable(DELETE_BY_ID_PATH_PARAM) PK id,
             @Parameter(description = "强制删除标志") @RequestParam(required = false) Boolean force) {
         E entity = findOne0(id);
         beforeDelete(entity);
