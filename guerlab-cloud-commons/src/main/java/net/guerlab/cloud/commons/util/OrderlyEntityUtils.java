@@ -12,6 +12,7 @@
  */
 package net.guerlab.cloud.commons.util;
 
+import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.entity.IOrderlyEntity;
 import org.springframework.lang.Nullable;
 
@@ -21,20 +22,21 @@ import org.springframework.lang.Nullable;
  * @author guer
  */
 @SuppressWarnings("unused")
-@Deprecated(since = "2020.1.0")
-public class OrderEntityUtils {
+public class OrderlyEntityUtils {
 
-    private OrderEntityUtils() {
+    private OrderlyEntityUtils() {
 
     }
 
     /**
-     * 属性检查，当排序值为null时设置为默认值
+     * 设置有效的排序值
      *
      * @param entity
      *         可排序对象
      */
-    public static void propertiesCheck(@Nullable IOrderlyEntity<?> entity) {
-        OrderlyEntityUtils.setValidOrderNum(entity);
+    public static void setValidOrderNum(@Nullable IOrderlyEntity<?> entity) {
+        if (entity != null && entity.getOrderNum() == null) {
+            entity.setOrderNum(Constants.DEFAULT_ORDER_NUM);
+        }
     }
 }

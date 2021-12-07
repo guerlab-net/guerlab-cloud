@@ -43,6 +43,16 @@ public interface UpdateController<D, E extends Convert<D>, S extends BaseService
         extends IController<E, S, PK>, ModifyControllerWrapper<D, E, PK> {
 
     /**
+     * 请求路径
+     */
+    String UPDATE_BY_ID_PATH = "/{id}";
+
+    /**
+     * 路径参数
+     */
+    String UPDATE_BY_ID_PATH_PARAM = "id";
+
+    /**
      * 根据主键ID编辑对象
      *
      * @param id
@@ -52,8 +62,8 @@ public interface UpdateController<D, E extends Convert<D>, S extends BaseService
      * @return 编辑后的dto对象
      */
     @Operation(summary = "编辑", security = @SecurityRequirement(name = Constants.TOKEN))
-    @PutMapping("/{id}")
-    default D update(@Parameter(description = "id", required = true) @PathVariable PK id,
+    @PutMapping(UPDATE_BY_ID_PATH)
+    default D update(@Parameter(description = "主键ID", required = true) @PathVariable(UPDATE_BY_ID_PATH_PARAM) PK id,
             @Parameter(description = "对象数据", required = true) @RequestBody D dto) {
         E entity = findOne0(id);
         beforeUpdate(entity, dto);

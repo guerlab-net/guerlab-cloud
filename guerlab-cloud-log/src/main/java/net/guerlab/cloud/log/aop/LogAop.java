@@ -13,6 +13,7 @@
 package net.guerlab.cloud.log.aop;
 
 import net.guerlab.cloud.log.annotation.Log;
+import net.guerlab.cloud.log.annotation.LogGroup;
 import net.guerlab.cloud.log.handler.LogHandler;
 import net.guerlab.cloud.web.core.request.RequestHolder;
 import org.apache.commons.lang3.StringUtils;
@@ -130,12 +131,13 @@ public class LogAop {
             return;
         }
 
-        Map<String, Object> params = new HashMap<>(args.length);
-        for (int i = 0; i < args.length; i++) {
-            params.put(parameterNames[i], args[i]);
-        }
+        Map<String, Object> params = buildParamMap(args, parameterNames);
+        String logGroupName = getLogGroupName(methodSignature);
 
         logContent = parseLogContent(logContent, args);
+        if (logGroupName != null) {
+            logContent = String.format("[%s] %s", logGroupName, logContent);
+        }
 
         try {
             handler.handler(logContent, method, uri, params, result, ex);
@@ -144,8 +146,25 @@ public class LogAop {
         }
     }
 
+    private Map<String, Object> buildParamMap(Object[] args, String[] parameterNames) {
+        Map<String, Object> params = new HashMap<>(args.length);
+        for (int i = 0; i < args.length; i++) {
+            params.put(parameterNames[i], args[i]);
+        }
+        return params;
+    }
+
     private String parseLogContent(String logContent, Object[] args) {
         String message = messageSource.getMessage(logContent, args, logContent, Locale.getDefault());
         return message == null ? logContent : message;
+    }
+
+    @Nullable
+    private String getLogGroupName(MethodSignature methodSignature) {
+        LogGroup logGroup = methodSignature.getMethod().getDeclaringClass().getAnnotation(LogGroup.class);
+        if (logGroup == null) {
+            return null;
+        }
+        return StringUtils.trimToNull(logGroup.value());
     }
 }

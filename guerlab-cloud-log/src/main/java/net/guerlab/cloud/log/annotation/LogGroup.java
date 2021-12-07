@@ -10,14 +10,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.commons.entity;
+package net.guerlab.cloud.log.annotation;
+
+import java.lang.annotation.*;
 
 /**
- * 排序对象接口
+ * 日志记录分组
  *
- * @param <E>
- *         对象类型
  * @author guer
  */
-@Deprecated(since = "2020.1.0")
-public interface IOrderEntity<E extends IOrderEntity<?>> extends IOrderlyEntity<E> {}
+@SuppressWarnings("unused")
+@Target({ ElementType.TYPE })
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+public @interface LogGroup {
+
+    /**
+     * 分组名称
+     *
+     * @return 分组名称
+     */
+    String value();
+}

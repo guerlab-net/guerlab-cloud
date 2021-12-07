@@ -12,9 +12,6 @@
  */
 package net.guerlab.cloud.commons.entity;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import org.springframework.lang.Nullable;
-
 /**
  * 可排序实体
  *
@@ -22,23 +19,5 @@ import org.springframework.lang.Nullable;
  *         对象类型
  * @author guer
  */
-@Schema(name = "BaseOrderEntity", description = "可排序实体")
-public abstract class BaseOrderEntity<E extends BaseOrderEntity<?>> extends BaseEntity implements IOrderEntity<E> {
-
-    /**
-     * 排序值
-     */
-    @Schema(description = "排序值")
-    protected Integer orderNum;
-
-    @Nullable
-    @Override
-    public Integer getOrderNum() {
-        return orderNum;
-    }
-
-    @Override
-    public void setOrderNum(@Nullable Integer orderNum) {
-        this.orderNum = orderNum;
-    }
-}
+@Deprecated(since = "2020.1.0")
+public abstract class BaseOrderEntity<E extends BaseOrderEntity<?>> extends BaseOrderlyEntity<E> {}

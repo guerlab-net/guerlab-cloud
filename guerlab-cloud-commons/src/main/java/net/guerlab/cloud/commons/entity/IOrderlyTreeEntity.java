@@ -12,12 +12,17 @@
  */
 package net.guerlab.cloud.commons.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
- * 排序对象接口
+ * 可排序树形结构
  *
  * @param <E>
  *         对象类型
+ * @param <PK>
+ *         主键类型
  * @author guer
  */
-@Deprecated(since = "2020.1.0")
-public interface IOrderEntity<E extends IOrderEntity<?>> extends IOrderlyEntity<E> {}
+@Schema(name = "IOrderlyTreeEntity", description = "可排序树形结构")
+public interface IOrderlyTreeEntity<E extends IOrderlyTreeEntity<E, PK>, PK>
+        extends ITreeEntity<E, PK>, IOrderlyEntity<E> {}

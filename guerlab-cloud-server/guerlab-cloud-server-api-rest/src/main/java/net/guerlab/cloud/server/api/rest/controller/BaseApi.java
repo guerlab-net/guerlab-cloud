@@ -12,8 +12,6 @@
  */
 package net.guerlab.cloud.server.api.rest.controller;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.commons.api.Api;
 import net.guerlab.cloud.commons.util.BeanConvertUtils;
@@ -30,6 +28,9 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import static net.guerlab.cloud.commons.api.SelectById.SELECT_BY_ID_PARAM;
+import static net.guerlab.cloud.commons.api.SelectPage.*;
 
 /**
  * 基础控制器
@@ -48,19 +49,30 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 @Slf4j
-@RequiredArgsConstructor
 public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParams, E extends Convert<D>, S extends BaseFindService<E, PK, SP>>
         implements Api<D, PK, SP> {
 
     /**
      * 服务接口
      */
-    @Getter
     protected final S service;
+
+    public BaseApi(S service) {
+        this.service = service;
+    }
+
+    /**
+     * 获取服务接口
+     *
+     * @return 服务接口
+     */
+    public S getService() {
+        return service;
+    }
 
     @Nullable
     @Override
-    public D selectById(@PathVariable(value = "id") PK id, @Nullable SP searchParams) {
+    public D selectById(@PathVariable(value = SELECT_BY_ID_PARAM) PK id, @Nullable SP searchParams) {
         D entity = BeanConvertUtils.toObject(getService().selectById(id));
         if (entity != null) {
             afterFind(Collections.singletonList(entity), searchParams);

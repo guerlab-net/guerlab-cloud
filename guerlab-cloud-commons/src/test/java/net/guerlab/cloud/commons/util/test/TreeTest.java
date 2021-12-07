@@ -14,7 +14,7 @@ package net.guerlab.cloud.commons.util.test;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.guerlab.cloud.commons.entity.BaseOrderTreeEntity;
+import net.guerlab.cloud.commons.entity.BaseOrderlyTreeEntity;
 import net.guerlab.cloud.commons.entity.BaseTreeEntity;
 import net.guerlab.cloud.commons.util.TreeUtils;
 import org.junit.jupiter.api.Assertions;
@@ -84,7 +84,7 @@ class TreeTest {
 
     @Setter
     @Getter
-    public static class TestEntity1 extends BaseOrderTreeEntity<TestEntity1, Long> {
+    public static class TestEntity1 extends BaseOrderlyTreeEntity<TestEntity1, Long> {
 
         private Long id;
 

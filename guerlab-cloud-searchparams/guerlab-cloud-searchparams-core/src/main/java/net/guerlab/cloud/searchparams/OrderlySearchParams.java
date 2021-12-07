@@ -12,10 +12,27 @@
  */
 package net.guerlab.cloud.searchparams;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * 可排序搜索参数
  *
  * @author guer
  */
-@Deprecated(since = "2020.1.0")
-public class OrderSearchParams extends OrderlySearchParams {}
+@Getter
+@Setter
+@Schema(name = "OrderlySearchParams", description = "可排序搜索参数")
+public class OrderlySearchParams implements SearchParams {
+
+    /**
+     * 排序值排序方式
+     */
+    @Schema(hidden = true)
+    @JsonIgnore
+    @Column(name = "orderNum")
+    @OrderByIndex(-10)
+    private OrderByType orderNumOrderByType = OrderByType.DESC;
+}

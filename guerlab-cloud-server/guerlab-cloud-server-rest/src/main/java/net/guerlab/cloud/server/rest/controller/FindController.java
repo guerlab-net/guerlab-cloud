@@ -29,6 +29,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import static net.guerlab.cloud.commons.api.SelectById.SELECT_BY_ID_PARAM;
+import static net.guerlab.cloud.commons.api.SelectPage.*;
+
 /**
  * 基础查询控制器接口
  *
@@ -59,7 +62,7 @@ public interface FindController<D, E extends Convert<D>, S extends BaseFindServi
      */
     @Override
     @Nullable
-    default D selectById(@Parameter(description = "id", required = true) @PathVariable PK id,
+    default D selectById(@Parameter(description = "主键ID", required = true) @PathVariable(SELECT_BY_ID_PARAM) PK id,
             @Nullable SP searchParams) {
         D result = findOne0(id).convert();
         afterFind(Collections.singletonList(result), searchParams);
@@ -75,7 +78,7 @@ public interface FindController<D, E extends Convert<D>, S extends BaseFindServi
      */
     @Override
     @Nullable
-    default D selectOne(SP searchParams) {
+    default D selectOne(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams) {
         beforeFind(searchParams);
         E entity = getService().selectOne(searchParams);
         if (entity == null) {
@@ -94,7 +97,7 @@ public interface FindController<D, E extends Convert<D>, S extends BaseFindServi
      * @return 对象列表
      */
     @Override
-    default List<D> selectList(SP searchParams) {
+    default List<D> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams) {
         beforeFind(searchParams);
         List<D> list = BeanConvertUtils.toList(getService().selectList(searchParams));
         afterFind(list, searchParams);
