@@ -17,5 +17,5 @@ package net.guerlab.cloud.searchparams;
  *
  * @author guer
  */
-@Deprecated(since = "2020.1.0", forRemoval = true)
+@Deprecated(since = "2020.1.0")
 public class OrderSearchParams extends OrderlySearchParams {}

@@ -21,7 +21,7 @@ import org.springframework.lang.Nullable;
  * @author guer
  */
 @SuppressWarnings("unused")
-@Deprecated(since = "2020.1.0", forRemoval = true)
+@Deprecated(since = "2020.1.0")
 public class OrderEntityUtils {
 
     private OrderEntityUtils() {

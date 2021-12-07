@@ -21,5 +21,5 @@ package net.guerlab.cloud.commons.entity;
  *         主键类型
  * @author guer
  */
-@Deprecated(since = "2020.1.0", forRemoval = true)
+@Deprecated(since = "2020.1.0")
 public interface IOrderTreeEntity<E extends IOrderTreeEntity<E, PK>, PK> extends IOrderlyTreeEntity<E, PK> {}
