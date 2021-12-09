@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.redis.autoconfigure.RedisTemplateAutoconfigure
+org.springframework.boot.autoconfigure.data.redis.RedisTemplateAutoconfigure
