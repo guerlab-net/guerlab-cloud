@@ -12,7 +12,7 @@
  */
 package net.guerlab.cloud.log.autoconfigure;
 
-import net.guerlab.cloud.log.aop.LogAop;
+import net.guerlab.cloud.log.aspect.LogAspect;
 import net.guerlab.cloud.log.handler.LogHandler;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.MessageSource;
@@ -25,10 +25,10 @@ import org.springframework.context.annotation.Configuration;
  * @author guer
  */
 @Configuration
-public class LogAopAutoConfigure {
+public class LogAspectAutoConfigure {
 
     /**
-     * 构造日志切换
+     * 构造日志切面
      *
      * @param logHandlersProvider
      *         日志处理器列表提供者
@@ -37,7 +37,7 @@ public class LogAopAutoConfigure {
      * @return 日志切面
      */
     @Bean
-    public LogAop logAop(ObjectProvider<LogHandler> logHandlersProvider, MessageSource messageSource) {
-        return new LogAop(logHandlersProvider, messageSource);
+    public LogAspect logAspect(ObjectProvider<LogHandler> logHandlersProvider, MessageSource messageSource) {
+        return new LogAspect(logHandlersProvider, messageSource);
     }
 }

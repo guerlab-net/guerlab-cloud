@@ -15,6 +15,6 @@
  * @author guer
  */
 @NonNullApi
-package net.guerlab.cloud.log.aop;
+package net.guerlab.cloud.log.aspect;
 
 import org.springframework.lang.NonNullApi;

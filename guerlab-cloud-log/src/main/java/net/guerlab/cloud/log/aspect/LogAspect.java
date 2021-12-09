@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.log.aop;
+package net.guerlab.cloud.log.aspect;
 
 import net.guerlab.cloud.log.annotation.Log;
 import net.guerlab.cloud.log.annotation.LogGroup;
@@ -39,9 +39,9 @@ import java.util.Objects;
  * @author guer
  */
 @Aspect
-public class LogAop {
+public class LogAspect {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LogAop.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogAspect.class);
 
     /**
      * 日志处理对象提供者
@@ -61,7 +61,7 @@ public class LogAop {
      * @param messageSource
      *         messageSource
      */
-    public LogAop(ObjectProvider<LogHandler> logHandlersProvider, MessageSource messageSource) {
+    public LogAspect(ObjectProvider<LogHandler> logHandlersProvider, MessageSource messageSource) {
         this.logHandlersProvider = logHandlersProvider;
         this.messageSource = messageSource;
     }
