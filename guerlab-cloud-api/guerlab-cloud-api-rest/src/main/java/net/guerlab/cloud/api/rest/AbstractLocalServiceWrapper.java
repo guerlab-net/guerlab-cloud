@@ -13,7 +13,6 @@
 
 package net.guerlab.cloud.api.rest;
 
-import lombok.RequiredArgsConstructor;
 import net.guerlab.cloud.commons.api.Api;
 import net.guerlab.cloud.commons.util.BeanConvertUtils;
 import net.guerlab.cloud.core.dto.Convert;
@@ -40,7 +39,6 @@ import java.util.Collection;
  *         服务类型
  * @author guer
  */
-@RequiredArgsConstructor
 public abstract class AbstractLocalServiceWrapper<D, PK extends Serializable, SP extends SearchParams, T extends Convert<D>, S extends BaseFindService<T, PK, SP>>
         implements Api<D, PK, SP> {
 
@@ -48,6 +46,10 @@ public abstract class AbstractLocalServiceWrapper<D, PK extends Serializable, SP
      * 服务实例
      */
     protected final S service;
+
+    public AbstractLocalServiceWrapper(S service) {
+        this.service = service;
+    }
 
     @Nullable
     @Override

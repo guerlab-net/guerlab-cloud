@@ -13,7 +13,6 @@
 
 package net.guerlab.cloud.api.core.feign;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.core.result.Pageable;
@@ -39,10 +38,13 @@ public class DynamicProxyFallback {
     }
 
     @Slf4j
-    @AllArgsConstructor
     private static class FallbackInvocationHandler implements InvocationHandler {
 
         private final Throwable cause;
+
+        public FallbackInvocationHandler(Throwable cause) {
+            this.cause = cause;
+        }
 
         @Nullable
         @SuppressWarnings("SuspiciousInvocationHandlerImplementation")

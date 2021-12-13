@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,9 +12,7 @@
  */
 package net.guerlab.cloud.geo.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * 地理hash
@@ -22,8 +20,6 @@ import lombok.NoArgsConstructor;
  * @author guer
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class GeoHash {
 
     /**
@@ -70,4 +66,20 @@ public class GeoHash {
      * 下左hash
      */
     private String bottomLeft;
+
+    public GeoHash() {
+    }
+
+    public GeoHash(String center, String top, String bottom, String right, String left, String topLeft, String topRight,
+            String bottomRight, String bottomLeft) {
+        this.center = center;
+        this.top = top;
+        this.bottom = bottom;
+        this.right = right;
+        this.left = left;
+        this.topLeft = topLeft;
+        this.topRight = topRight;
+        this.bottomRight = bottomRight;
+        this.bottomLeft = bottomLeft;
+    }
 }

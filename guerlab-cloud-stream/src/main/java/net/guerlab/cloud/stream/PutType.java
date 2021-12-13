@@ -12,14 +12,11 @@
  */
 package net.guerlab.cloud.stream;
 
-import lombok.AllArgsConstructor;
-
 /**
  * 推送类型
  *
  * @author guer
  */
-@AllArgsConstructor
 public enum PutType {
 
     /**
@@ -46,6 +43,10 @@ public enum PutType {
      * 后缀
      */
     private final String suffix;
+
+    PutType(String suffix) {
+        this.suffix = suffix;
+    }
 
     /**
      * 格式化名称

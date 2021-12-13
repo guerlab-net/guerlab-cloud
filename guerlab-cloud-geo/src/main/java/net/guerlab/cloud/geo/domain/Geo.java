@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,9 +12,7 @@
  */
 package net.guerlab.cloud.geo.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -24,8 +22,6 @@ import java.math.BigDecimal;
  * @author guer
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Geo {
 
     /**
@@ -37,4 +33,12 @@ public class Geo {
      * 纬度
      */
     private BigDecimal latitude;
+
+    public Geo() {
+    }
+
+    public Geo(BigDecimal longitude, BigDecimal latitude) {
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
 }
