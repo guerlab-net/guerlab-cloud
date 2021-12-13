@@ -10,14 +10,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.commons.entity;
+
+package net.guerlab.cloud.excel.enums;
 
 /**
- * 可排序实体
+ * excel类型
  *
- * @param <E>
- *         对象类型
  * @author guer
  */
-@Deprecated(since = "2020.1.0")
-public abstract class BaseOrderEntity<E extends BaseOrderEntity<?>> extends BaseOrderlyEntity<E> {}
+public enum ExcelType {
+
+    /**
+     * XLSX
+     */
+    XLSX(".xlsx"),
+
+    /**
+     * XLS
+     */
+    XLS(".xls");
+
+    private final String suffix;
+
+    ExcelType(String suffix) {
+        this.suffix = suffix;
+    }
+
+    /**
+     * 获取后缀
+     *
+     * @return 后缀
+     */
+    public String getSuffix() {
+        return suffix;
+    }
+}

@@ -10,17 +10,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.commons.entity;
 
 /**
- * 可排序树形结构
- *
- * @param <E>
- *         对象类型
- * @param <PK>
- *         主键类型
  * @author guer
  */
-@Deprecated(since = "2020.1.0")
-public abstract class BaseOrderTreeEntity<E extends BaseOrderTreeEntity<E, PK>, PK>
-        extends BaseOrderlyTreeEntity<E, PK> {}
+@NonNullApi
+package net.guerlab.cloud.idempotent.fallback;
+
+import org.springframework.lang.NonNullApi;

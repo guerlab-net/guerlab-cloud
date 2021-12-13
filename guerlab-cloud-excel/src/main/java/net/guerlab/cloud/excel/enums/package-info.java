@@ -10,12 +10,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.searchparams;
 
 /**
- * 可排序搜索参数
- *
  * @author guer
  */
-@Deprecated(since = "2020.1.0")
-public class OrderSearchParams extends OrderlySearchParams {}
+@NonNullApi
+package net.guerlab.cloud.excel.enums;
+
+import org.springframework.lang.NonNullApi;

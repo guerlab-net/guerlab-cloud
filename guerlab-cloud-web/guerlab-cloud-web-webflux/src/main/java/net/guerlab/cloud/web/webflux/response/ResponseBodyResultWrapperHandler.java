@@ -19,6 +19,10 @@ import net.guerlab.cloud.web.core.response.ResponseBodyWrapperSupport;
 import net.guerlab.cloud.web.webflux.utils.RequestUtils;
 import net.guerlab.commons.exception.ApplicationException;
 import org.springframework.core.MethodParameter;
+import org.springframework.core.ReactiveAdapter;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.codec.HttpMessageWriter;
 import org.springframework.lang.Nullable;
 import org.springframework.web.reactive.HandlerResult;
@@ -65,9 +69,35 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
         return null;
     }
 
+    @Nullable
+    private static Class<?> resolveReturnValueType(HandlerResult result) {
+        Class<?> valueType = result.getReturnType().toClass();
+        Object value = result.getReturnValue();
+        if (valueType == Object.class && value != null) {
+            valueType = value.getClass();
+        }
+        return valueType;
+    }
+
     @Override
     public boolean supports(HandlerResult result) {
-        return support.supports(result.getReturnTypeSource());
+        Class<?> valueType = resolveReturnValueType(result);
+        if (isIgnoreType(valueType)) {
+            return false;
+        }
+
+        ReactiveAdapter adapter = getAdapter(result);
+        if (adapter != null && !adapter.isNoValue() && isIgnoreType(result.getReturnType().getGeneric().toClass())) {
+            return false;
+        }
+
+        return super.supports(result) && support.supports(result.getReturnTypeSource());
+    }
+
+    private boolean isIgnoreType(@Nullable Class<?> clazz) {
+        return (clazz != null && (
+                (HttpEntity.class.isAssignableFrom(clazz) && !RequestEntity.class.isAssignableFrom(clazz))
+                        || HttpHeaders.class.isAssignableFrom(clazz)));
     }
 
     @Override
@@ -79,10 +109,10 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
             return writeBody(new Succeed<>(), METHOD_PARAMETER_WITH_MONO_RESULT, exchange);
         } else if (support.noConvertObject(body, result.getReturnTypeSource())) {
             log.debug("un wrapper with noConvertObject, body class is {}", body.getClass());
-            return writeBody(body, bodyTypeParameter, exchange);
+            return super.handleResult(exchange, result);
         } else if (matchExcluded(exchange, bodyTypeParameter.getMethod())) {
             log.debug("un wrapper with matchExcluded");
-            return writeBody(body, bodyTypeParameter, exchange);
+            return super.handleResult(exchange, result);
         }
 
         Mono<?> mono = null;

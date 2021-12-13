@@ -10,14 +10,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.commons.entity;
 
 /**
- * 排序对象接口
- *
- * @param <E>
- *         对象类型
  * @author guer
  */
-@Deprecated(since = "2020.1.0")
-public interface IOrderEntity<E extends IOrderEntity<?>> extends IOrderlyEntity<E> {}
+@NonNullApi
+package org.springframework.boot.autoconfigure.data.redis;
+
+import org.springframework.lang.NonNullApi;

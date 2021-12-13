@@ -13,7 +13,6 @@
 
 package net.guerlab.cloud.api.rest;
 
-import lombok.RequiredArgsConstructor;
 import net.guerlab.cloud.commons.api.Api;
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.SearchParams;
@@ -35,7 +34,6 @@ import java.util.Collection;
  *         api类型
  * @author guer
  */
-@RequiredArgsConstructor
 public abstract class AbstractApiWrapper<D, PK extends Serializable, SP extends SearchParams, A extends Api<D, PK, SP>>
         implements Api<D, PK, SP> {
 
@@ -43,6 +41,10 @@ public abstract class AbstractApiWrapper<D, PK extends Serializable, SP extends 
      * api
      */
     protected final A api;
+
+    public AbstractApiWrapper(A api) {
+        this.api = api;
+    }
 
     @Nullable
     @Override

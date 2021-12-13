@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.log.autoconfigure.LogAopAutoConfigure
+net.guerlab.cloud.log.autoconfigure.LogAspectAutoConfigure

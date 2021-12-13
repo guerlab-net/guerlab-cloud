@@ -12,9 +12,7 @@
  */
 package net.guerlab.cloud.auth.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * 测试令牌信息
@@ -22,8 +20,6 @@ import lombok.NoArgsConstructor;
  * @author guer
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class TestTokenInfo implements ITestTokenInfo {
 
     /**
@@ -35,4 +31,12 @@ public class TestTokenInfo implements ITestTokenInfo {
      * 用户名
      */
     private String username;
+
+    public TestTokenInfo() {
+    }
+
+    public TestTokenInfo(Long userId, String username) {
+        this.userId = userId;
+        this.username = username;
+    }
 }

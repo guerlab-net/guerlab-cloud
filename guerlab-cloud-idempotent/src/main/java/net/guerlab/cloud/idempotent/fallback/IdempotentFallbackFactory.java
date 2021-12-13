@@ -11,10 +11,23 @@
  * limitations under the License.
  */
 
+package net.guerlab.cloud.idempotent.fallback;
+
 /**
+ * 幂等快速失败处理工厂
+ *
+ * @param <T>
+ *         返回结果类型
  * @author guer
  */
-@NonNullApi
-package net.guerlab.cloud.log.aop;
+public interface IdempotentFallbackFactory<T> {
 
-import org.springframework.lang.NonNullApi;
+    /**
+     * 创建快速失败结果
+     *
+     * @param args
+     *         参数列表
+     * @return 快速失败结果
+     */
+    T create(Object[] args);
+}

@@ -66,7 +66,7 @@
     </issueManagement>
 
     <properties>
-        <revision>2022.0.2</revision>
+        <revision>2022.1.0</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>11</java.version>
@@ -243,6 +243,13 @@
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
                 <artifactId>guerlab-cloud-geo</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- guerlab-cloud load idempotent -->
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-idempotent</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -535,6 +542,7 @@
         <module>guerlab-cloud-core</module>
         <module>guerlab-cloud-excel</module>
         <module>guerlab-cloud-geo</module>
+        <module>guerlab-cloud-idempotent</module>
         <module>guerlab-cloud-loadbalancer</module>
         <module>guerlab-cloud-log</module>
         <module>guerlab-cloud-openapi</module>

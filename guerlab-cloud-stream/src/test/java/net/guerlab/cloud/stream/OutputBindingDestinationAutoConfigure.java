@@ -12,8 +12,6 @@
  */
 package net.guerlab.cloud.stream;
 
-import lombok.AllArgsConstructor;
-
 import java.util.Map;
 
 /**
@@ -21,10 +19,13 @@ import java.util.Map;
  *
  * @author guer
  */
-@AllArgsConstructor
 public class OutputBindingDestinationAutoConfigure extends AbstractBindingDestinationAutoConfigure {
 
     private final Map<String, String> bindingDestinations;
+
+    public OutputBindingDestinationAutoConfigure(Map<String, String> bindingDestinations) {
+        this.bindingDestinations = bindingDestinations;
+    }
 
     @Override
     protected PutType putType() {

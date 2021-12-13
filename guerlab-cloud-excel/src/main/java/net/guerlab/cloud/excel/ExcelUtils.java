@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,11 @@ import com.alibaba.excel.converters.Converter;
 import com.alibaba.excel.write.builder.ExcelWriterBuilder;
 import com.alibaba.excel.write.style.column.LongestMatchColumnWidthStyleStrategy;
 import net.guerlab.cloud.commons.util.BeanConvertUtils;
+import net.guerlab.cloud.excel.enums.ExcelType;
 import net.guerlab.commons.exception.ApplicationException;
+import org.springframework.http.*;
 
-import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -47,8 +49,6 @@ public class ExcelUtils {
     /**
      * 导出excel
      *
-     * @param response
-     *         响应
      * @param list
      *         对象列表
      * @param head
@@ -57,15 +57,24 @@ public class ExcelUtils {
      *         文件名
      * @param <T>
      *         对象类型
+     * @return 响应
      */
-    public static <T> void exportExcel(HttpServletResponse response, Collection<?> list, Class<T> head,
-            String fileName) {
+    public static <T> ResponseEntity<byte[]> exportExcel(Collection<?> list, Class<T> head, String fileName) {
+        if (!fileName.endsWith(ExcelType.XLSX.getSuffix()) && !fileName.endsWith(ExcelType.XLS.getSuffix())) {
+            fileName += ExcelType.XLSX.getSuffix();
+        }
+
         try {
-            response.setContentType("application/vnd.ms-excel");
-            response.setCharacterEncoding("utf-8");
-            response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xlsx");
-            write(response.getOutputStream(), head).registerWriteHandler(new LongestMatchColumnWidthStyleStrategy())
-                    .sheet().doWrite(BeanConvertUtils.toList(list, head));
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+            write(outputStream, head).registerWriteHandler(new LongestMatchColumnWidthStyleStrategy()).sheet()
+                    .doWrite(BeanConvertUtils.toList(list, head));
+
+            HttpHeaders httpHeaders = new HttpHeaders();
+            httpHeaders.setContentType(MediaType.valueOf("application/vnd.ms-excel; charset=UTF-8"));
+            httpHeaders.setContentDisposition(ContentDisposition.attachment().filename(fileName).build());
+
+            return new ResponseEntity<>(outputStream.toByteArray(), httpHeaders, HttpStatus.OK);
         } catch (Exception e) {
             throw new ApplicationException(e.getLocalizedMessage(), e);
         }

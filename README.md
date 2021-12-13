@@ -44,6 +44,7 @@
 |guerlab-cloud-core|框架核心|
 |guerlab-cloud-excel|提供excel的的简易使用|
 |guerlab-cloud-geo|提供对地理位置信息的数据结构支持|
+|guerlab-cloud-idempotent|提供基于redis的幂等请求拦截增强|
 |guerlab-cloud-loadbalancer|提供对服务发现的负载均衡增强，包含版本控制与集群控制|
 |guerlab-cloud-log|提供对日志切入点的统一处理|
 |guerlab-cloud-openapi|openapi文档支持|
