@@ -23,9 +23,11 @@ import java.io.Serializable;
  *         服务接口类型
  * @param <PK>
  *         实体主键类型
+ * @param <D>
+ *         输出对象类型
  * @author guer
  */
-public interface IController<E, S, PK extends Serializable> {
+public interface IController<D, E, S, PK extends Serializable> {
 
     /**
      * 获取服务对象
@@ -49,6 +51,15 @@ public interface IController<E, S, PK extends Serializable> {
      * @return 对象
      */
     E findOne0(PK id);
+
+    /**
+     * 转换对象
+     *
+     * @param entity
+     *         实体对象
+     * @return 输出对象
+     */
+    D convert(E entity);
 
     /**
      * 当对象为空的时候抛出的异常

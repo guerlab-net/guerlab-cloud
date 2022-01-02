@@ -16,7 +16,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import net.guerlab.cloud.commons.Constants;
-import net.guerlab.cloud.core.dto.Convert;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseService;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,8 +38,8 @@ import java.io.Serializable;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface UpdateController<D, E extends Convert<D>, S extends BaseService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
-        extends IController<E, S, PK>, ModifyControllerWrapper<D, E, PK> {
+public interface UpdateController<D, E, S extends BaseService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
+        extends IController<D, E, S, PK>, ModifyControllerWrapper<D, E, PK> {
 
     /**
      * 请求路径
@@ -70,7 +69,7 @@ public interface UpdateController<D, E extends Convert<D>, S extends BaseService
         copyProperties(dto, entity, id);
         getService().updateById(entity);
         afterUpdate(entity, dto);
-        return findOne0(id).convert();
+        return convert(entity);
     }
 
     /**

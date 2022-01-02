@@ -13,37 +13,16 @@
 package net.guerlab.cloud.commons.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.springframework.lang.Nullable;
-
-import java.util.Collection;
 
 /**
- * 树形结构
+ * 树节点
  *
- * @param <E>
- *         对象类型
  * @param <PK>
  *         主键类型
  * @author guer
  */
-@Schema(name = "ITreeEntity", description = "树形结构")
-public interface ITreeEntity<E extends ITreeEntity<E, PK>, PK> {
-
-    /**
-     * 获取下级列表
-     *
-     * @return 下级列表
-     */
-    @Nullable
-    Collection<E> getChildren();
-
-    /**
-     * 设置下级列表
-     *
-     * @param children
-     *         下级列表
-     */
-    void setChildren(@Nullable Collection<E> children);
+@Schema(name = "TreeNode", description = "TreeNode")
+public interface TreeNode<PK> {
 
     /**
      * 获取ID

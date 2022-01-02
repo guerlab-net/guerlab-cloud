@@ -13,6 +13,8 @@
 package net.guerlab.cloud.commons.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.lang.Nullable;
 
 import java.math.BigDecimal;
@@ -20,60 +22,34 @@ import java.math.BigDecimal;
 /**
  * 地理信息对象
  *
+ * @param <PK>
+ *         主键类型
  * @author guer
  */
 @SuppressWarnings("unused")
+@Data
+@EqualsAndHashCode(callSuper = true)
 @Schema(name = "GeoEntity", description = "地理信息对象")
-public class GeoEntity extends BaseEntity implements IGeoEntity {
+public class GeoEntity<PK> extends BaseEntity<PK> implements IGeoEntity {
 
     /**
      * 经度
      */
+    @Nullable
     @Schema(description = "经度")
     private BigDecimal longitude;
 
     /**
      * 纬度
      */
+    @Nullable
     @Schema(description = "纬度")
     private BigDecimal latitude;
 
     /**
      * 地理hash
      */
+    @Nullable
     @Schema(description = "地理hash")
     private String geoHash;
-
-    @Nullable
-    @Override
-    public BigDecimal getLongitude() {
-        return longitude;
-    }
-
-    @Override
-    public void setLongitude(@Nullable BigDecimal longitude) {
-        this.longitude = longitude;
-    }
-
-    @Nullable
-    @Override
-    public BigDecimal getLatitude() {
-        return latitude;
-    }
-
-    @Override
-    public void setLatitude(@Nullable BigDecimal latitude) {
-        this.latitude = latitude;
-    }
-
-    @Nullable
-    @Override
-    public String getGeoHash() {
-        return geoHash;
-    }
-
-    @Override
-    public void setGeoHash(@Nullable String geoHash) {
-        this.geoHash = geoHash;
-    }
 }

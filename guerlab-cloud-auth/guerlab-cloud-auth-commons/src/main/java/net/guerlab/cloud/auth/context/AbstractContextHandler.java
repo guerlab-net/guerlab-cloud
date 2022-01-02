@@ -101,4 +101,24 @@ public abstract class AbstractContextHandler {
     public static void setToken(String token) {
         set(Constants.TOKEN, token);
     }
+
+    /**
+     * 获取当前操作者
+     *
+     * @return 当前操作者
+     */
+    @Nullable
+    public static String getCurrentOperator() {
+        return get(Constants.CURRENT_OPERATOR);
+    }
+
+    /**
+     * 设置当前操作者
+     *
+     * @param currentOperator
+     *         当前操作者
+     */
+    public static void setCurrentOperator(String currentOperator) {
+        set(Constants.CURRENT_OPERATOR, currentOperator);
+    }
 }

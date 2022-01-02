@@ -13,9 +13,12 @@
 package net.guerlab.cloud.commons.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+import java.util.Collection;
 
 /**
- * 可排序树形结构
+ * 树形结构对象
  *
  * @param <E>
  *         对象类型
@@ -23,6 +26,31 @@ import io.swagger.v3.oas.annotations.media.Schema;
  *         主键类型
  * @author guer
  */
-@Schema(name = "IOrderlyTreeEntity", description = "可排序树形结构")
-public interface IOrderlyTreeEntity<E extends IOrderlyTreeEntity<E, PK>, PK>
-        extends ITreeEntity<E, PK>, IOrderlyEntity<E> {}
+@Data
+@Schema(name = "TreeEntity", description = "树形结构对象")
+public class TreeEntity<E, PK> {
+
+    /**
+     * 下级列表
+     */
+    @Schema(description = "下级列表")
+    protected Collection<TreeEntity<E, PK>> children;
+
+    /**
+     * 对象ID
+     */
+    @Schema(description = "对象ID")
+    private PK id;
+
+    /**
+     * 上级ID
+     */
+    @Schema(description = "上级ID")
+    private PK parentId;
+
+    /**
+     * 目标对象
+     */
+    @Schema(description = "目标对象")
+    private E object;
+}

@@ -12,7 +12,6 @@
  */
 package net.guerlab.cloud.server.rest.controller;
 
-import net.guerlab.cloud.core.dto.Convert;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseFindService;
 
@@ -22,7 +21,7 @@ import java.io.Serializable;
  * 基础查询控制器
  *
  * @param <D>
- *         DTO对象类型
+ *         输出对象类型
  * @param <E>
  *         实体对象类型
  * @param <S>
@@ -33,7 +32,7 @@ import java.io.Serializable;
  *         实体主键类型
  * @author guer
  */
-public abstract class BaseFindController<D, E extends Convert<D>, S extends BaseFindService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
+public abstract class BaseFindController<D, E, S extends BaseFindService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
         extends AbstractControllerImpl<D, E, S, SP, PK> implements FindController<D, E, S, SP, PK> {
 
 }

@@ -21,6 +21,7 @@ import org.springframework.lang.Nullable;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 
 /**
  * Bean转换工具类
@@ -156,6 +157,31 @@ public class BeanConvertUtils {
         Pageable<T> result = copyPageable(list);
 
         result.setList(toList(list.getList(), dtoClass));
+
+        return result;
+    }
+
+    /**
+     * 转换为目标列表对象
+     *
+     * @param <T>
+     *         目标类型
+     * @param <E>
+     *         实体类型
+     * @param list
+     *         实体列表对象
+     * @param convertFunction
+     *         对象转换方法
+     * @return 目标列表对象
+     */
+    public static <T, E> Pageable<T> toPageable(@Nullable Pageable<E> list, Function<E, T> convertFunction) {
+        if (list == null || CollectionUtil.isEmpty(list.getList())) {
+            return Pageable.empty();
+        }
+
+        Pageable<T> result = copyPageable(list);
+
+        result.setList(CollectionUtil.toList(list.getList(), convertFunction));
 
         return result;
     }

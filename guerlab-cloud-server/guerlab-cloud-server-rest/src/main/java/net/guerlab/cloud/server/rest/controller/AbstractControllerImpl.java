@@ -14,7 +14,6 @@ package net.guerlab.cloud.server.rest.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.commons.util.ParameterizedTypeUtils;
-import net.guerlab.cloud.core.dto.Convert;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseFindService;
 import net.guerlab.commons.exception.ApplicationException;
@@ -26,7 +25,7 @@ import java.io.Serializable;
  * 基础控制器
  *
  * @param <D>
- *         DTO对象类型
+ *         输出对象类型
  * @param <E>
  *         实体对象类型
  * @param <S>
@@ -38,8 +37,8 @@ import java.io.Serializable;
  * @author guer
  */
 @Slf4j
-public abstract class AbstractControllerImpl<D, E extends Convert<D>, S extends BaseFindService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
-        implements IController<E, S, PK> {
+public abstract class AbstractControllerImpl<D, E, S extends BaseFindService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
+        implements IController<D, E, S, PK> {
 
     /**
      * 服务接口

@@ -14,6 +14,9 @@ package net.guerlab.cloud.commons.entity;
 
 import org.springframework.lang.Nullable;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 /**
  * 可排序对象接口
  *
@@ -22,6 +25,16 @@ import org.springframework.lang.Nullable;
  * @author guer
  */
 public interface IOrderlyEntity<E extends IOrderlyEntity<?>> extends Comparable<E> {
+
+    /**
+     * 排序方法
+     *
+     * @return 排序方法
+     */
+    static Comparator<IOrderlyEntity<?>> comparator() {
+        return Collections.reverseOrder(
+                Comparator.comparing(IOrderlyEntity::getOrderNum, Comparator.nullsFirst(Comparator.naturalOrder())));
+    }
 
     /**
      * 根据排序值返回排序顺序
@@ -35,18 +48,7 @@ public interface IOrderlyEntity<E extends IOrderlyEntity<?>> extends Comparable<
      * 等于0时，顺序保持不变
      */
     static int compareTo(IOrderlyEntity<?> o1, IOrderlyEntity<?> o2) {
-        Integer self = o1.getOrderNum();
-        Integer other = o2.getOrderNum();
-
-        if (self == null && other == null) {
-            return 0;
-        } else if (self == null) {
-            return 1;
-        } else if (other == null) {
-            return -1;
-        } else {
-            return other - self;
-        }
+        return comparator().compare(o1, o2);
     }
 
     /**

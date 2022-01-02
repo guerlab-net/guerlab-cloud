@@ -12,7 +12,6 @@
  */
 package net.guerlab.cloud.server.rest.controller;
 
-import net.guerlab.cloud.core.dto.Convert;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseService;
 
@@ -22,7 +21,7 @@ import java.io.Serializable;
  * 基础控制器
  *
  * @param <D>
- *         DTO对象类型
+ *         输出对象类型
  * @param <E>
  *         实体对象类型
  * @param <S>
@@ -34,7 +33,7 @@ import java.io.Serializable;
  * @author guer
  */
 @SuppressWarnings("unused")
-public abstract class BaseController<D, E extends Convert<D>, S extends BaseService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
+public abstract class BaseController<D, E, S extends BaseService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
         extends BaseFindController<D, E, S, SP, PK>
         implements SaveController<D, E, S, SP, PK>, UpdateController<D, E, S, SP, PK>, DeleteController<D, E, S, SP, PK> {
 

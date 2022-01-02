@@ -59,4 +59,9 @@ public interface Constants {
      * 完整请求路径
      */
     String COMPLETE_REQUEST_URI = "Complete-Request-Uri";
+
+    /**
+     * 当前操作者
+     */
+    String CURRENT_OPERATOR = "currentOperator";
 }

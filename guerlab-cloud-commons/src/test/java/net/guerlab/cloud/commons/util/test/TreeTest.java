@@ -12,10 +12,10 @@
  */
 package net.guerlab.cloud.commons.util.test;
 
-import lombok.Getter;
-import lombok.Setter;
-import net.guerlab.cloud.commons.entity.BaseOrderlyTreeEntity;
-import net.guerlab.cloud.commons.entity.BaseTreeEntity;
+import lombok.Data;
+import net.guerlab.cloud.commons.entity.IOrderlyEntity;
+import net.guerlab.cloud.commons.entity.TreeEntity;
+import net.guerlab.cloud.commons.entity.TreeNode;
 import net.guerlab.cloud.commons.util.TreeUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -39,10 +39,11 @@ class TreeTest {
         entities.add(new TestEntity1(21L, 2L, 1));
         entities.add(new TestEntity1(22L, 2L, 2));
 
-        List<TestEntity1> roots = TreeUtils.tree(entities);
-        TestEntity1 root = roots.get(0);
+        List<TreeEntity<TestEntity1, Long>> roots = TreeUtils.tree(entities);
+        TreeEntity<TestEntity1, Long> root = roots.get(0);
         Assertions.assertNotNull(root);
         Assertions.assertTrue(root.getChildren() != null && !root.getChildren().isEmpty());
+        Assertions.assertEquals(3, root.getObject().getOrderNum());
     }
 
     @Test
@@ -55,8 +56,8 @@ class TreeTest {
         entities.add(new TestEntity2(21L, 2L));
         entities.add(new TestEntity2(22L, 2L));
 
-        List<TestEntity2> roots = TreeUtils.tree(entities, "0");
-        TestEntity2 root = roots.get(0);
+        List<TreeEntity<TestEntity2, String>> roots = TreeUtils.tree(entities, "0");
+        TreeEntity<TestEntity2, String> root = roots.get(0);
         Assertions.assertNotNull(root);
         Assertions.assertTrue(root.getChildren() != null && !root.getChildren().isEmpty());
     }
@@ -71,24 +72,25 @@ class TreeTest {
         entities.add(new TestEntity2(21L, 2L));
         entities.add(new TestEntity2(22L, 2L));
 
-        List<TestEntity2> roots = TreeUtils.tree(entities, "3");
+        List<TreeEntity<TestEntity2, String>> roots = TreeUtils.tree(entities, "3");
         Assertions.assertTrue(roots.isEmpty());
     }
 
     @Test
     void empty2() {
         Collection<TestEntity2> entities = new ArrayList<>();
-        List<TestEntity2> roots = TreeUtils.tree(entities, "3");
+        List<TreeEntity<TestEntity2, String>> roots = TreeUtils.tree(entities, "3");
         Assertions.assertTrue(roots.isEmpty());
     }
 
-    @Setter
-    @Getter
-    public static class TestEntity1 extends BaseOrderlyTreeEntity<TestEntity1, Long> {
+    @Data
+    public static class TestEntity1 implements TreeNode<Long>, IOrderlyEntity<TestEntity1> {
 
         private Long id;
 
         private Long parentId;
+
+        private Integer orderNum;
 
         public TestEntity1(Long id, Long parentId, int orderNum) {
             this.id = id;
@@ -107,9 +109,8 @@ class TreeTest {
         }
     }
 
-    @Setter
-    @Getter
-    public static class TestEntity2 extends BaseTreeEntity<TestEntity2, String> {
+    @Data
+    public static class TestEntity2 implements TreeNode<String> {
 
         private String id;
 

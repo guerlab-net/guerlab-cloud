@@ -12,29 +12,75 @@
  */
 package net.guerlab.cloud.commons.entity;
 
-import com.baomidou.mybatisplus.annotation.Version;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 基础实体
  *
+ * @param <PK>
+ *         主键类型
  * @author guer
  */
-@Setter
-@Getter
+@Data
 @Schema(name = "BaseEntity", description = "基础实体")
-public abstract class BaseEntity implements Serializable {
+public abstract class BaseEntity<PK> implements Serializable {
+
+    /**
+     * 主键ID
+     */
+    @Schema(description = "主键ID")
+    @TableId(value = EntityColumnNames.ID, type = IdType.ASSIGN_ID)
+    protected PK id;
+
+    /**
+     * 创建时间
+     */
+    @Schema(description = "创建时间")
+    @TableField(value = EntityColumnNames.CREATED_TIME, fill = FieldFill.INSERT, updateStrategy = FieldStrategy.NEVER)
+    private LocalDateTime createdTime;
+
+    /**
+     * 最后修改时间
+     */
+    @Schema(description = "最后修改时间")
+    @TableField(value = EntityColumnNames.LAST_UPDATED_TIME, fill = FieldFill.INSERT)
+    private LocalDateTime lastUpdatedTime;
+
+    /**
+     * 创建人
+     */
+    @Schema(description = "创建人【后台】")
+    @TableField(value = EntityColumnNames.CREATED_BY, fill = FieldFill.INSERT, updateStrategy = FieldStrategy.NEVER)
+    private String createdBy;
+
+    /**
+     * 最后修改时间
+     */
+    @Schema(description = "修改人【后台】")
+    @TableField(value = EntityColumnNames.MODIFIED_BY, fill = FieldFill.INSERT)
+    private String modifiedBy;
+
+    /**
+     * 逻辑删除标识
+     */
+    @Schema(hidden = true)
+    @JsonIgnore
+    @TableLogic
+    @TableField(value = EntityColumnNames.DELETED, fill = FieldFill.INSERT)
+    private Boolean deleted;
 
     /**
      * 乐观锁版本
      */
-    @Version
     @Schema(hidden = true)
     @JsonIgnore
-    protected Long version;
+    @Version
+    @TableField(value = EntityColumnNames.VERSION, fill = FieldFill.INSERT)
+    private Long version;
 }

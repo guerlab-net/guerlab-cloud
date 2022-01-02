@@ -14,13 +14,15 @@ package net.guerlab.cloud.commons.util;
 
 import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.entity.IOrderlyEntity;
-import net.guerlab.cloud.commons.entity.ITreeEntity;
+import net.guerlab.cloud.commons.entity.TreeEntity;
+import net.guerlab.cloud.commons.entity.TreeNode;
 import net.guerlab.commons.collection.CollectionUtil;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 树结构工具类
@@ -39,11 +41,11 @@ public class TreeUtils {
      *
      * @param data
      *         数据列表
-     * @param <T>
-     *         树形排序对象
+     * @param <E>
+     *         树节点类型
      * @return 树结构列表
      */
-    public static <T extends ITreeEntity<T, Long>> List<T> tree(Collection<T> data) {
+    public static <E extends TreeNode<Long>> List<TreeEntity<E, Long>> tree(Collection<E> data) {
         return tree(data, Constants.DEFAULT_PARENT_ID);
     }
 
@@ -54,36 +56,36 @@ public class TreeUtils {
      *         数据列表
      * @param rootId
      *         根ID
-     * @param <T>
-     *         树形排序对象
+     * @param <E>
+     *         树节点类型
      * @param <PK>
      *         主键类型
      * @return 树结构列表
      */
-    public static <T extends ITreeEntity<T, PK>, PK> List<T> tree(Collection<T> data, PK rootId) {
+    public static <E extends TreeNode<PK>, PK> List<TreeEntity<E, PK>> tree(Collection<E> data, PK rootId) {
         if (CollectionUtil.isEmpty(data)) {
             return Collections.emptyList();
         }
 
-        Map<PK, T> map = CollectionUtil.toMap(data, ITreeEntity::id);
-        Map<PK, List<T>> childrenMap = CollectionUtil.group(data, ITreeEntity::parentId);
+        List<TreeEntity<E, PK>> treeEntities = data.stream().sorted((o1, o2) -> {
+            if (o1 instanceof IOrderlyEntity && o2 instanceof IOrderlyEntity) {
+                return IOrderlyEntity.compareTo((IOrderlyEntity<?>) o1, (IOrderlyEntity<?>) o2);
+            } else {
+                return 0;
+            }
+        }).map(TreeUtils::buildTreeEntity).collect(Collectors.toList());
 
-        List<T> roots = childrenMap.get(rootId);
+        Map<PK, TreeEntity<E, PK>> map = CollectionUtil.toMap(treeEntities, TreeEntity::getId);
+        Map<PK, List<TreeEntity<E, PK>>> childrenMap = CollectionUtil.group(treeEntities, TreeEntity::getParentId);
+
+        List<TreeEntity<E, PK>> roots = childrenMap.get(rootId);
 
         if (CollectionUtil.isEmpty(roots)) {
             return Collections.emptyList();
         }
 
         childrenMap.forEach((parentId, list) -> {
-            list.sort((o1, o2) -> {
-                if (o1 instanceof IOrderlyEntity && o2 instanceof IOrderlyEntity) {
-                    return IOrderlyEntity.compareTo((IOrderlyEntity<?>) o1, (IOrderlyEntity<?>) o2);
-                } else {
-                    return 0;
-                }
-            });
-
-            T parent = map.get(parentId);
+            TreeEntity<E, PK> parent = map.get(parentId);
 
             if (parent != null) {
                 parent.setChildren(list);
@@ -91,5 +93,25 @@ public class TreeUtils {
         });
 
         return roots;
+    }
+
+    /**
+     * 构造树形结构对象
+     *
+     * @param entity
+     *         树节点
+     * @param <E>
+     *         树节点类型
+     * @param <PK>
+     *         主键类型
+     * @return 树形结构对象
+     */
+    private static <E extends TreeNode<PK>, PK> TreeEntity<E, PK> buildTreeEntity(E entity) {
+        TreeEntity<E, PK> treeEntity = new TreeEntity<>();
+        treeEntity.setId(entity.id());
+        treeEntity.setParentId(entity.parentId());
+        treeEntity.setObject(entity);
+
+        return treeEntity;
     }
 }

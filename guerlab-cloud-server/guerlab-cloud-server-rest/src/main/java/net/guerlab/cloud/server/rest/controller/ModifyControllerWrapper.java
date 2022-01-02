@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
 package net.guerlab.cloud.server.rest.controller;
 
 import net.guerlab.cloud.commons.entity.BaseEntity;
-import net.guerlab.cloud.core.dto.Convert;
 import org.springframework.beans.BeanUtils;
 import org.springframework.lang.Nullable;
 
@@ -31,7 +30,7 @@ import java.io.Serializable;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface ModifyControllerWrapper<D, E extends Convert<D>, PK extends Serializable> {
+public interface ModifyControllerWrapper<D, E, PK extends Serializable> {
 
     /**
      * 拷贝属性
@@ -45,7 +44,7 @@ public interface ModifyControllerWrapper<D, E extends Convert<D>, PK extends Ser
      */
     default void copyProperties(D dto, E entity, @Nullable PK id) {
         if (entity instanceof BaseEntity) {
-            BaseEntity tempEntity = (BaseEntity) entity;
+            BaseEntity<?> tempEntity = (BaseEntity<?>) entity;
             Long version = tempEntity.getVersion();
             BeanUtils.copyProperties(dto, entity);
             tempEntity.setVersion(version);

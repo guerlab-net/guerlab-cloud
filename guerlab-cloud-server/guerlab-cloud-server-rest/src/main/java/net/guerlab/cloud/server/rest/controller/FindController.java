@@ -15,10 +15,10 @@ package net.guerlab.cloud.server.rest.controller;
 import io.swagger.v3.oas.annotations.Parameter;
 import net.guerlab.cloud.commons.api.Api;
 import net.guerlab.cloud.commons.util.BeanConvertUtils;
-import net.guerlab.cloud.core.dto.Convert;
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseFindService;
+import net.guerlab.commons.collection.CollectionUtil;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,8 +48,8 @@ import static net.guerlab.cloud.commons.api.SelectPage.*;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface FindController<D, E extends Convert<D>, S extends BaseFindService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
-        extends IController<E, S, PK>, Api<D, PK, SP> {
+public interface FindController<D, E, S extends BaseFindService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
+        extends IController<D, E, S, PK>, Api<D, PK, SP> {
 
     /**
      * 根据主键ID查询对象
@@ -64,7 +64,7 @@ public interface FindController<D, E extends Convert<D>, S extends BaseFindServi
     @Nullable
     default D selectById(@Parameter(description = "主键ID", required = true) @PathVariable(SELECT_BY_ID_PARAM) PK id,
             @Nullable SP searchParams) {
-        D result = findOne0(id).convert();
+        D result = convert(findOne0(id));
         afterFind(Collections.singletonList(result), searchParams);
         return result;
     }
@@ -84,7 +84,7 @@ public interface FindController<D, E extends Convert<D>, S extends BaseFindServi
         if (entity == null) {
             throw nullPointException();
         }
-        D result = entity.convert();
+        D result = convert(entity);
         afterFind(Collections.singletonList(result), searchParams);
         return result;
     }
@@ -99,7 +99,7 @@ public interface FindController<D, E extends Convert<D>, S extends BaseFindServi
     @Override
     default List<D> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams) {
         beforeFind(searchParams);
-        List<D> list = BeanConvertUtils.toList(getService().selectList(searchParams));
+        List<D> list = CollectionUtil.toList(getService().selectList(searchParams), this::convert);
         afterFind(list, searchParams);
         return list;
     }
@@ -120,7 +120,8 @@ public interface FindController<D, E extends Convert<D>, S extends BaseFindServi
             @RequestParam(name = PAGE_ID, defaultValue = PAGE_ID_VALUE, required = false) int pageId,
             @RequestParam(name = PAGE_SIZE, defaultValue = PAGE_SIZE_VALUE, required = false) int pageSize) {
         beforeFind(searchParams);
-        Pageable<D> result = BeanConvertUtils.toPageable(getService().selectPage(searchParams, pageId, pageSize));
+        Pageable<D> result = BeanConvertUtils.toPageable(getService().selectPage(searchParams, pageId, pageSize),
+                this::convert);
         afterFind(result.getList(), searchParams);
         return result;
     }
