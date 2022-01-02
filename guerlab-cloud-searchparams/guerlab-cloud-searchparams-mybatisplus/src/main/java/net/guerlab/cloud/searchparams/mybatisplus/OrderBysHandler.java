@@ -13,17 +13,13 @@
 
 package net.guerlab.cloud.searchparams.mybatisplus;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import net.guerlab.cloud.searchparams.OrderBy;
 import net.guerlab.cloud.searchparams.OrderBys;
 import net.guerlab.cloud.searchparams.SearchModelType;
-import net.guerlab.commons.reflection.FieldUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.Nullable;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,47 +45,9 @@ public class OrderBysHandler extends AbstractMyBatisPlusSearchParamsHandler {
         Class<?> entityClass = wrapper.getEntityClass();
 
         for (OrderBy orderBy : orderBys) {
-            wrapper.orderBy(true, orderBy.isAsc(), getColumnName(orderBy, entityClass));
+            wrapper.orderBy(true, orderBy.isAsc(),
+                    ColumnNameGetter.getColumnName(orderBy.getColumnName(), entityClass));
         }
-    }
-
-    /**
-     * 获取字段名
-     *
-     * @param orderBy
-     *         派度字段
-     * @param entityClass
-     *         实体类类型
-     * @return 字段名
-     */
-    private String getColumnName(OrderBy orderBy, @Nullable Class<?> entityClass) {
-        String columnName = orderBy.getColumnName();
-        if (entityClass == null) {
-            return columnName;
-        }
-
-        Field field = FieldUtil.getField(entityClass, columnName);
-        if (field == null) {
-            return columnName;
-        }
-
-        TableField tableField = field.getAnnotation(TableField.class);
-        if (tableField != null) {
-            String tableFieldValue = StringUtils.trimToNull(tableField.value());
-            if (tableFieldValue != null) {
-                return tableFieldValue;
-            }
-        }
-
-        TableId tableId = field.getAnnotation(TableId.class);
-        if (tableId != null) {
-            String tableIdValue = StringUtils.trimToNull(tableId.value());
-            if (tableIdValue != null) {
-                return tableIdValue;
-            }
-        }
-
-        return columnName;
     }
 
     /**

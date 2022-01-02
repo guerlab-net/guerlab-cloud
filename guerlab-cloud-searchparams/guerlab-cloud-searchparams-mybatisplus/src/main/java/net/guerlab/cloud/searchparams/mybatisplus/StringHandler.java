@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,6 +45,7 @@ public class StringHandler extends AbstractMyBatisPlusSearchParamsHandler {
         }
 
         QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
+        columnName = ColumnNameGetter.getColumnName(columnName, wrapper.getEntityClass());
         switch (searchModelType) {
             case GREATER_THAN:
                 wrapper.gt(columnName, str);

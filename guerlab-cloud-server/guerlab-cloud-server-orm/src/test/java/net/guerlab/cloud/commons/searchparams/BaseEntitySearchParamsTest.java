@@ -13,12 +13,14 @@
 
 package net.guerlab.cloud.commons.searchparams;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import net.guerlab.cloud.commons.entity.BaseEntity;
+import net.guerlab.cloud.searchparams.Column;
 import net.guerlab.cloud.searchparams.OrderBy;
 import net.guerlab.cloud.searchparams.OrderBys;
 import net.guerlab.cloud.searchparams.SearchParamsUtils;
@@ -38,19 +40,30 @@ public class BaseEntitySearchParamsTest {
         TestSearchParams searchParams = new TestSearchParams();
         searchParams.setOrderBys(orderBys);
         searchParams.setCreatedBy("test");
+        searchParams.setValue(1L);
 
         QueryWrapper<TestObj> queryWrapper = new QueryWrapper<>();
         queryWrapper.setEntityClass(TestObj.class);
         SearchParamsUtils.handler(searchParams, queryWrapper);
 
-        Assertions.assertEquals("(CREATED_BY = ?) ORDER BY CREATED_TIME ASC", queryWrapper.getTargetSql());
+        System.out.println(queryWrapper.getTargetSql());
+        Assertions.assertEquals("(VALUE = ? AND CREATED_BY = ?) ORDER BY CREATED_TIME ASC",
+                queryWrapper.getTargetSql());
     }
 
     @Data
     @EqualsAndHashCode(callSuper = true)
-    public static class TestObj extends BaseEntity<Long> {}
+    public static class TestObj extends BaseEntity<Long> {
+
+        @TableField(value = "VALUE")
+        private Long val;
+    }
 
     @Setter
     @Getter
-    public static class TestSearchParams extends BaseEntitySearchParams<Long> {}
+    public static class TestSearchParams extends BaseEntitySearchParams<Long> {
+
+        @Column(name = "val")
+        private Long value;
+    }
 }
