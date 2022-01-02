@@ -17,14 +17,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.Nullable;
 
 import java.beans.PropertyDescriptor;
-import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.function.ToIntFunction;
-import java.util.stream.Collectors;
 
 /**
  * SearchParams工具类
@@ -123,33 +120,8 @@ public class SearchParamsUtils {
      *         处理实例
      */
     public static void handler(SearchParams searchParams, Object object, AbstractSearchParamsUtilInstance instance) {
-        Map<Boolean, List<Field>> fieldMap = getFields(searchParams).stream()
-                .collect(Collectors.partitioningBy(field -> Objects.equals(OrderByType.class, field.getType())));
-
-        fieldMap.getOrDefault(false, Collections.emptyList())
-                .forEach(field -> setValue(field, object, searchParams, instance));
-        fieldMap.getOrDefault(true, Collections.emptyList()).stream()
-                .sorted(comparingInt(SearchParamsUtils::getOrderByIndexValue))
-                .forEach(field -> setValue(field, object, searchParams, instance));
+        getFields(searchParams).forEach(field -> setValue(field, object, searchParams, instance));
         instance.afterHandler(searchParams, object);
-    }
-
-    private static <T> Comparator<T> comparingInt(ToIntFunction<? super T> keyExtractor) {
-        Objects.requireNonNull(keyExtractor);
-        return (Comparator<T> & Serializable) (c1, c2) -> Integer.compare(keyExtractor.applyAsInt(c2),
-                keyExtractor.applyAsInt(c1));
-    }
-
-    /**
-     * 获取OrderByIndex注解的参数值
-     *
-     * @param field
-     *         字段
-     * @return OrderByIndex注解的参数值
-     */
-    private static int getOrderByIndexValue(Field field) {
-        OrderByIndex orderByIndex = field.getAnnotation(OrderByIndex.class);
-        return orderByIndex == null ? 0 : orderByIndex.value();
     }
 
     /**

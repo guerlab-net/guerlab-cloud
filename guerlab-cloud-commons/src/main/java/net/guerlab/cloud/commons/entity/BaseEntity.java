@@ -55,14 +55,14 @@ public abstract class BaseEntity<PK> implements Serializable {
     /**
      * 创建人
      */
-    @Schema(description = "创建人【后台】")
+    @Schema(description = "创建人")
     @TableField(value = EntityColumnNames.CREATED_BY, fill = FieldFill.INSERT, updateStrategy = FieldStrategy.NEVER)
     private String createdBy;
 
     /**
-     * 最后修改时间
+     * 修改人
      */
-    @Schema(description = "修改人【后台】")
+    @Schema(description = "修改人")
     @TableField(value = EntityColumnNames.MODIFIED_BY, fill = FieldFill.INSERT)
     private String modifiedBy;
 

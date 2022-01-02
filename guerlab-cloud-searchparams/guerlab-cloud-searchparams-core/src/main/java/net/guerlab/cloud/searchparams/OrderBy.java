@@ -10,29 +10,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.searchparams;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 /**
- * 可排序搜索参数
+ * 排序字段
  *
  * @author guer
  */
-@Getter
-@Setter
-@Schema(name = "OrderlySearchParams", description = "可排序搜索参数")
-public class OrderlySearchParams implements SearchParams {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Accessors(chain = true)
+@Builder
+@Schema(description = "排序字段")
+public class OrderBy {
 
     /**
-     * 排序值排序方式
+     * 字段名
      */
-    @Schema(hidden = true)
-    @JsonIgnore
-    @Column(name = "orderNum")
-    @OrderByIndex(-10)
-    private OrderByType orderNumOrderByType = OrderByType.DESC;
+    @Schema(description = "字段名")
+    private String columnName;
+
+    /**
+     * 是否升序
+     */
+    @Schema(description = "是否升序", defaultValue = "true")
+    private boolean asc = true;
 }

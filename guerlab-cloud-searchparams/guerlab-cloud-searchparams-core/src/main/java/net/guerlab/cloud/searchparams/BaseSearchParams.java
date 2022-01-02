@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -10,26 +10,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.searchparams;
 
-import java.lang.annotation.*;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
- * Order By执行先后顺序
- * 数值越大，优先级越大
+ * 基础搜索参数
  *
  * @author guer
  */
-@Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
-@Documented
-@Inherited
-public @interface OrderByIndex {
+@Setter
+@Getter
+@Schema(name = "BaseSearchParams", description = "基础对象搜索参数")
+public class BaseSearchParams implements SearchParams {
 
     /**
-     * 获取Order By执行先后顺序
-     *
-     * @return Order By执行先后顺序
+     * 排序字段列表
      */
-    int value() default 0;
+    @Schema(description = "排序字段列表")
+    private OrderBys orderBys;
 }
