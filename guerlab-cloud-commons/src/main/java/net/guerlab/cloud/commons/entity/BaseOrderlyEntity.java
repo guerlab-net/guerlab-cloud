@@ -12,7 +12,7 @@
  */
 package net.guerlab.cloud.commons.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.lang.Nullable;
 
@@ -23,6 +23,7 @@ import org.springframework.lang.Nullable;
  *         对象类型
  * @author guer
  */
+@SuppressWarnings("unused")
 @Schema(name = "BaseOrderlyEntity", description = "可排序实体")
 public abstract class BaseOrderlyEntity<PK, E extends BaseOrderlyEntity<PK, ?>> extends BaseEntity<PK>
         implements IOrderlyEntity<E> {
@@ -31,7 +32,7 @@ public abstract class BaseOrderlyEntity<PK, E extends BaseOrderlyEntity<PK, ?>> 
      * 排序值
      */
     @Schema(description = "排序值")
-    @TableId(value = EntityColumnNames.ORDER_NUM)
+    @TableField(value = EntityColumnNames.ORDER_NUM)
     protected Integer orderNum;
 
     @Nullable
