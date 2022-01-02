@@ -15,10 +15,10 @@ package net.guerlab.cloud.server.api.rest.controller;
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.commons.api.Api;
 import net.guerlab.cloud.commons.util.BeanConvertUtils;
-import net.guerlab.cloud.core.dto.Convert;
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseFindService;
+import net.guerlab.commons.collection.CollectionUtil;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,7 +49,7 @@ import static net.guerlab.cloud.commons.api.SelectPage.*;
  */
 @SuppressWarnings("unused")
 @Slf4j
-public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParams, E extends Convert<D>, S extends BaseFindService<E, PK, SP>>
+public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParams, E, S extends BaseFindService<E, PK, SP>>
         implements Api<D, PK, SP> {
 
     /**
@@ -70,10 +70,20 @@ public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParam
         return service;
     }
 
+    /**
+     * 转换对象
+     *
+     * @param entity
+     *         实体对象
+     * @return 输出对象
+     */
+    @Nullable
+    protected abstract D convert(@Nullable E entity);
+
     @Nullable
     @Override
     public D selectById(@PathVariable(value = SELECT_BY_ID_PARAM) PK id, @Nullable SP searchParams) {
-        D entity = BeanConvertUtils.toObject(getService().selectById(id));
+        D entity = convert(getService().selectById(id));
         if (entity != null) {
             afterFind(Collections.singletonList(entity), searchParams);
         }
@@ -84,7 +94,7 @@ public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParam
     @Override
     public D selectOne(@RequestBody SP searchParams) {
         beforeFind(searchParams);
-        D entity = BeanConvertUtils.toObject(getService().selectOne(searchParams));
+        D entity = convert(getService().selectOne(searchParams));
         if (entity != null) {
             afterFind(Collections.singletonList(entity), searchParams);
         }
@@ -94,7 +104,7 @@ public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParam
     @Override
     public Collection<D> selectList(@RequestBody SP searchParams) {
         beforeFind(searchParams);
-        List<D> list = BeanConvertUtils.toList(getService().selectList(searchParams));
+        List<D> list = CollectionUtil.toList(getService().selectList(searchParams), this::convert);
         afterFind(list, searchParams);
         return list;
     }
@@ -104,7 +114,8 @@ public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParam
             @RequestParam(name = PAGE_ID, defaultValue = PAGE_ID_VALUE, required = false) int pageId,
             @RequestParam(name = PAGE_SIZE, defaultValue = PAGE_SIZE_VALUE, required = false) int pageSize) {
         beforeFind(searchParams);
-        Pageable<D> result = BeanConvertUtils.toPageable(getService().selectPage(searchParams, pageId, pageSize));
+        Pageable<D> result = BeanConvertUtils.toPageable(getService().selectPage(searchParams, pageId, pageSize),
+                this::convert);
         afterFind(result.getList(), searchParams);
         return result;
     }
