@@ -14,6 +14,7 @@ package net.guerlab.cloud.commons.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 import java.util.Collection;
 
@@ -29,12 +30,6 @@ import java.util.Collection;
 @Data
 @Schema(name = "TreeEntity", description = "树形结构对象")
 public class TreeEntity<E, PK> {
-
-    /**
-     * 下级列表
-     */
-    @Schema(description = "下级列表")
-    protected Collection<TreeEntity<E, PK>> children;
 
     /**
      * 对象ID
@@ -53,4 +48,11 @@ public class TreeEntity<E, PK> {
      */
     @Schema(description = "目标对象")
     private E object;
+
+    /**
+     * 下级列表
+     */
+    @Nullable
+    @Schema(description = "下级列表")
+    protected Collection<TreeEntity<E, PK>> children;
 }
