@@ -77,28 +77,31 @@ public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParam
      *         实体对象
      * @return 输出对象
      */
-    @Nullable
-    protected abstract D convert(@Nullable E entity);
+    protected abstract D convert(E entity);
 
     @Nullable
     @Override
     public D selectById(@PathVariable(value = SELECT_BY_ID_PARAM) PK id, @Nullable SP searchParams) {
-        D entity = convert(getService().selectById(id));
-        if (entity != null) {
-            afterFind(Collections.singletonList(entity), searchParams);
+        E entity = getService().selectById(id);
+        if (entity == null) {
+            return null;
         }
-        return entity;
+        D result = convert(entity);
+        afterFind(Collections.singletonList(result), searchParams);
+        return result;
     }
 
     @Nullable
     @Override
     public D selectOne(@RequestBody SP searchParams) {
         beforeFind(searchParams);
-        D entity = convert(getService().selectOne(searchParams));
-        if (entity != null) {
-            afterFind(Collections.singletonList(entity), searchParams);
+        E entity = getService().selectOne(searchParams);
+        if (entity == null) {
+            return null;
         }
-        return entity;
+        D result = convert(entity);
+        afterFind(Collections.singletonList(result), searchParams);
+        return result;
     }
 
     @Override
