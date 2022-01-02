@@ -71,7 +71,9 @@ public interface QueryWrapperGetter<T, SP extends SearchParams> {
      * @return QueryWrapper
      */
     default QueryWrapper<T> getQueryWrapper() {
-        return new QueryWrapper<>();
+        QueryWrapper<T> queryWrapper = new QueryWrapper<>();
+        queryWrapper.setEntityClass(getEntityClass());
+        return queryWrapper;
     }
 
     /**
@@ -80,7 +82,9 @@ public interface QueryWrapperGetter<T, SP extends SearchParams> {
      * @return LambdaQueryWrapper
      */
     default LambdaQueryWrapper<T> getLambdaQueryWrapper() {
-        return new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<T> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.setEntityClass(getEntityClass());
+        return queryWrapper;
     }
 
     /**
