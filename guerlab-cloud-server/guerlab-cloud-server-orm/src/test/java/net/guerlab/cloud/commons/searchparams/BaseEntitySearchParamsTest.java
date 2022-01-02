@@ -46,7 +46,6 @@ public class BaseEntitySearchParamsTest {
         queryWrapper.setEntityClass(TestObj.class);
         SearchParamsUtils.handler(searchParams, queryWrapper);
 
-        System.out.println(queryWrapper.getTargetSql());
         Assertions.assertEquals("(VALUE = ? AND CREATED_BY = ?) ORDER BY CREATED_TIME ASC",
                 queryWrapper.getTargetSql());
     }
