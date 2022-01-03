@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,9 @@ public class MyBatisPlusSearchParamsUtilInstance extends AbstractSearchParamsUti
 
     private static final Class<?> CLAZZ = QueryWrapper.class;
 
+    /**
+     * 初始化mybatis plus处理实例
+     */
     public MyBatisPlusSearchParamsUtilInstance() {
         setDefaultHandler(new DefaultHandler());
 

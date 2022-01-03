@@ -52,6 +52,12 @@ public class WebMvcResponseAdvisorAutoconfigure {
 
         private final ResponseBodyWrapperSupport support;
 
+        /**
+         * 初始化响应数据处理
+         *
+         * @param support
+         *         响应对象包装支持
+         */
         public ResponseAdvice(ResponseBodyWrapperSupport support) {
             this.support = support;
         }

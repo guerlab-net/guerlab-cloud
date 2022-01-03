@@ -39,12 +39,24 @@ import java.time.Duration;
 @AutoConfigureBefore(MessageSourceAutoConfiguration.class)
 public class MessageSourceAutoConfigure {
 
+    /**
+     * 创建MessageSourceProperties
+     *
+     * @return MessageSourceProperties
+     */
     @Bean
     @ConfigurationProperties(prefix = "spring.messages")
     public MessageSourceProperties messageSourceProperties() {
         return new MessageSourceProperties();
     }
 
+    /**
+     * 创建MessageSource
+     *
+     * @param properties
+     *         MessageSourceProperties
+     * @return MessageSource
+     */
     @Bean(name = AbstractApplicationContext.MESSAGE_SOURCE_BEAN_NAME)
     public MessageSource messageSource(MessageSourceProperties properties) {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();

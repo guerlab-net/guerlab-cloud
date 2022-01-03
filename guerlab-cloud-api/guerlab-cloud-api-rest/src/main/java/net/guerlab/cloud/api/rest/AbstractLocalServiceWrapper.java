@@ -47,6 +47,12 @@ public abstract class AbstractLocalServiceWrapper<D, PK extends Serializable, SP
      */
     protected final S service;
 
+    /**
+     * 根据服务实例初始化
+     *
+     * @param service
+     *         服务实例
+     */
     public AbstractLocalServiceWrapper(S service) {
         this.service = service;
     }

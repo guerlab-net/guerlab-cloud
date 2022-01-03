@@ -81,6 +81,6 @@ public abstract class BaseEntity<PK> implements Serializable {
     @Schema(hidden = true)
     @JsonIgnore
     @Version
-    @TableField(value = EntityColumnNames.VERSION, fill = FieldFill.INSERT)
+    @TableField(value = EntityColumnNames.VERSION)
     private Long version;
 }

@@ -32,15 +32,32 @@ public class ResponseAdviceEndpoint {
 
     private final ResponseAdvisorProperties properties;
 
+    /**
+     * 创建响应环绕监控端点
+     *
+     * @param properties
+     *         http响应数据处理配置参数
+     */
     public ResponseAdviceEndpoint(ResponseAdvisorProperties properties) {
         this.properties = properties;
     }
 
+    /**
+     * 获取http响应数据处理配置参数
+     *
+     * @return http响应数据处理配置参数
+     */
     @ReadOperation
     public ResponseAdvisorProperties get() {
         return properties;
     }
 
+    /**
+     * 设置http响应数据处理配置参数
+     *
+     * @param properties
+     *         http响应数据处理配置参数
+     */
     @WriteOperation
     public void set(@Nullable ResponseAdvisorProperties properties) {
         if (properties == null) {

@@ -53,6 +53,12 @@ public class ContextAttributesServerWebExchangeDecoratorFilter implements WebFil
      */
     public static class ContextAttributesServerWebExchangeDecorator extends ServerWebExchangeDecorator {
 
+        /**
+         * 创建上下文属性包装器
+         *
+         * @param delegate
+         *         原始ServerWebExchange
+         */
         protected ContextAttributesServerWebExchangeDecorator(ServerWebExchange delegate) {
             super(delegate);
             ContextAttributes contextAttributes = new ContextAttributes();

@@ -29,6 +29,11 @@ import org.springframework.lang.Nullable;
 @Slf4j
 public class WebfluxRequestContextHolder implements RequestContextHolder {
 
+    /**
+     * 获取ServerHttpRequest
+     *
+     * @return ServerHttpRequest
+     */
     public static ServerHttpRequest getRequest() {
         ContextAttributes contextAttributes = ContextAttributesHolder.get();
         ServerHttpRequest request = (ServerHttpRequest) contextAttributes.get(ContextAttributes.REQUEST_KEY);

@@ -15,7 +15,7 @@ package net.guerlab.cloud.commons.exception;
 import net.guerlab.cloud.core.exception.AbstractI18nApplicationException;
 
 /**
- * 幂等阻塞
+ * 幂等阻塞异常
  *
  * @author guer
  */
@@ -25,10 +25,24 @@ public class IdempotentBlockException extends AbstractI18nApplicationException {
 
     private static final String MESSAGE_KEY = "message.exception.commons.idempotentBlock";
 
+    /**
+     * 加锁时长
+     */
     private final Long time;
 
+    /**
+     * 加锁时长单位
+     */
     private final String timeUnit;
 
+    /**
+     * 构造幂等阻塞异常
+     *
+     * @param time
+     *         加锁时长
+     * @param timeUnit
+     *         加锁时长单位
+     */
     public IdempotentBlockException(Long time, String timeUnit) {
         this.time = time;
         this.timeUnit = timeUnit;

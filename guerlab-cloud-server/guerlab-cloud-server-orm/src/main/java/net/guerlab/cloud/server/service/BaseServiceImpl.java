@@ -73,6 +73,12 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
         return this.baseMapper;
     }
 
+    /**
+     * 设置mapper对象
+     *
+     * @param baseMapper
+     *         mapper对象
+     */
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired
     public void setBaseMapper(M baseMapper) {
@@ -283,16 +289,32 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
         getBaseMapper().delete(queryWrapper);
     }
 
+    /**
+     * 获取当前mapper对象类型
+     *
+     * @return mapper对象类型
+     */
     @SuppressWarnings("unchecked")
     protected Class<T> currentMapperClass() {
         return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), 2);
     }
 
+    /**
+     * 获取当前模型对象类型
+     *
+     * @return 模型对象类型
+     */
     @SuppressWarnings("unchecked")
     protected Class<T> currentModelClass() {
         return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), 0);
     }
 
+    /**
+     * 设置序列
+     *
+     * @param sequence
+     *         序列
+     */
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired
     public void setSequence(Sequence sequence) {

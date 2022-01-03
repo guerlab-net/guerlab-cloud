@@ -52,6 +52,14 @@ public class IdempotentAspect {
 
     private final MessageSource messageSource;
 
+    /**
+     * 创建幂等处理切面
+     *
+     * @param redisTemplate
+     *         redisTemplate
+     * @param messageSource
+     *         messageSource
+     */
     public IdempotentAspect(StringRedisTemplate redisTemplate, MessageSource messageSource) {
         this.redisTemplate = redisTemplate;
         this.messageSource = messageSource;

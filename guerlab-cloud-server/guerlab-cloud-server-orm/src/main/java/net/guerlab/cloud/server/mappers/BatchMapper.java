@@ -26,10 +26,7 @@ import java.util.List;
 public interface BatchMapper<T> extends BasicMapper<T> {
 
     /**
-     * 批量插入
-     * <p>
-     * 不支持主键策略，插入前需要设置好主键的值
-     * <p>
+     * 批量插入,不支持主键策略，插入前需要设置好主键的值
      *
      * @param recordList
      *         待插入数据
@@ -38,10 +35,7 @@ public interface BatchMapper<T> extends BasicMapper<T> {
     int replaceInsertList(@Param("list") List<T> recordList);
 
     /**
-     * 批量插入或更新
-     * <p>
-     * 不支持主键策略，插入前需要设置好主键的值
-     * <p>
+     * 批量插入或更新,不支持主键策略，插入前需要设置好主键的值
      *
      * @param recordList
      *         待插入数据

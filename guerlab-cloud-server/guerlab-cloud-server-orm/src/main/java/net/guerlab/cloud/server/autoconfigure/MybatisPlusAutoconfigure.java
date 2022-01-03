@@ -88,6 +88,12 @@ public class MybatisPlusAutoconfigure {
 
         private final Sequence sequence;
 
+        /**
+         * 通过雪花ID序列进行初始化
+         *
+         * @param sequence
+         *         雪花ID序列
+         */
         public SnowflakeIdGenerator(Sequence sequence) {
             this.sequence = sequence;
         }

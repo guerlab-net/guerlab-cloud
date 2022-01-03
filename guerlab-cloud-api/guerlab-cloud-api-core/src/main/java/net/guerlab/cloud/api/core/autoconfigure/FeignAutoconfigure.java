@@ -42,9 +42,7 @@ public class FeignAutoconfigure {
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean
     public ResultDecoder resultDecoder(ObjectMapper objectMapper) {
-        ResultDecoder resultDecoder = new ResultDecoder();
-        resultDecoder.setObjectMapper(objectMapper);
-        return resultDecoder;
+        return new ResultDecoder(objectMapper);
     }
 
     /**
@@ -57,9 +55,7 @@ public class FeignAutoconfigure {
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean
     public FailResponseDecoder failResponseDecoder(ObjectMapper objectMapper) {
-        FailResponseDecoder decoder = new FailResponseDecoder();
-        decoder.setObjectMapper(objectMapper);
-        return decoder;
+        return new FailResponseDecoder(objectMapper);
     }
 
     /**

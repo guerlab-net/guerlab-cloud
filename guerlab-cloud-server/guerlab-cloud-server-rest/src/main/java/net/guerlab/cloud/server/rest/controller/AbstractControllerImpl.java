@@ -50,6 +50,12 @@ public abstract class AbstractControllerImpl<D, E, S extends BaseFindService<E, 
         return service;
     }
 
+    /**
+     * 设置服务实例
+     *
+     * @param service
+     *         服务实例
+     */
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired
     public void setService(S service) {

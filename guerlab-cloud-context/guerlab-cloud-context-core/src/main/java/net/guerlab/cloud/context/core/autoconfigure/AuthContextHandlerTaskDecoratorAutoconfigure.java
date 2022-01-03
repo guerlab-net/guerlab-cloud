@@ -25,6 +25,11 @@ import org.springframework.core.task.TaskDecorator;
 @Configuration
 public class AuthContextHandlerTaskDecoratorAutoconfigure {
 
+    /**
+     * 创建授权上下文处理异步任务装饰器
+     *
+     * @return 授权上下文处理异步任务装饰器
+     */
     @Bean
     public TaskDecorator authContextHandlerTaskDecorator() {
         return new AuthContextHandlerTaskDecorator();

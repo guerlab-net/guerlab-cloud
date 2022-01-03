@@ -42,6 +42,14 @@ public class WebfluxExceptionHandlerAutoconfigure {
 
     private final ServerCodecConfigurer serverCodecConfigurer;
 
+    /**
+     * 初始化自定义限流处理自动配置
+     *
+     * @param viewResolvers
+     *         ViewResolver列表
+     * @param serverCodecConfigurer
+     *         serverCodecConfigurer
+     */
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public WebfluxExceptionHandlerAutoconfigure(ObjectProvider<ViewResolver> viewResolvers,
             ServerCodecConfigurer serverCodecConfigurer) {
@@ -49,6 +57,13 @@ public class WebfluxExceptionHandlerAutoconfigure {
         this.serverCodecConfigurer = serverCodecConfigurer;
     }
 
+    /**
+     * 创建sentinelBlockExceptionHandler
+     *
+     * @param stackTracesHandler
+     *         堆栈处理
+     * @return sentinelBlockExceptionHandler
+     */
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Bean
     @Order(-1)
@@ -57,6 +72,11 @@ public class WebfluxExceptionHandlerAutoconfigure {
                 new CustomerBlockRequestHandler(stackTracesHandler));
     }
 
+    /**
+     * 创建SentinelWebFluxFilter
+     *
+     * @return SentinelWebFluxFilter
+     */
     @Bean
     @Order(-1)
     public SentinelWebFluxFilter sentinelWebFluxFilter() {

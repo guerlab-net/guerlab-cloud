@@ -28,6 +28,9 @@ import java.util.Collections;
 @Data
 public class Pageable<T> {
 
+    /**
+     * 空可分页对象
+     */
     @SuppressWarnings("rawtypes")
     public static final Pageable EMPTY = new EmptyPageable<>();
 

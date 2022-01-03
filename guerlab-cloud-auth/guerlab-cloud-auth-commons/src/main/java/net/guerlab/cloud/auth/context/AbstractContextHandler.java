@@ -24,6 +24,9 @@ import org.springframework.lang.Nullable;
  */
 public abstract class AbstractContextHandler {
 
+    /**
+     * 创建抽象上下文处理器
+     */
     protected AbstractContextHandler() {
     }
 

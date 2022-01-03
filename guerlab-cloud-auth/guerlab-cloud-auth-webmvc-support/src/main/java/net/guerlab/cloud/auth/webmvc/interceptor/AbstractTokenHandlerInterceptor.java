@@ -79,6 +79,12 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebPropertie
         return authProperties;
     }
 
+    /**
+     * 设置授权配置
+     *
+     * @param authProperties
+     *         授权配置
+     */
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired
     public void setAuthProperties(A authProperties) {

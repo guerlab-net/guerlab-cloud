@@ -30,6 +30,12 @@ public class DefaultGlobalExceptionLogger implements GlobalExceptionLogger {
 
     private final GlobalExceptionProperties properties;
 
+    /**
+     * 创建默认全局异常处理日志记录器
+     *
+     * @param properties
+     *         全局异常处理配置
+     */
     public DefaultGlobalExceptionLogger(GlobalExceptionProperties properties) {
         this.properties = properties;
     }

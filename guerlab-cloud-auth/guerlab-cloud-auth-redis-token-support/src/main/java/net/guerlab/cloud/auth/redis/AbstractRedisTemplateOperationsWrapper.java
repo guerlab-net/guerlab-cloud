@@ -28,8 +28,19 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class AbstractRedisTemplateOperationsWrapper<T> extends AbstractRedisOperationsWrapper<T> {
 
+    /**
+     * redisTemplate
+     */
     private final RedisTemplate<String, String> redisTemplate;
 
+    /**
+     * 初始化redisTemplate操作包装类
+     *
+     * @param objectMapper
+     *         objectMapper
+     * @param redisTemplate
+     *         redisTemplate
+     */
     protected AbstractRedisTemplateOperationsWrapper(ObjectMapper objectMapper,
             RedisTemplate<String, String> redisTemplate) {
         super(objectMapper);

@@ -32,6 +32,18 @@ import java.util.Collection;
 @Slf4j
 public class WebMvcGlobalExceptionHandler extends GlobalExceptionHandler {
 
+    /**
+     * 初始化异常统一处理配置
+     *
+     * @param messageSource
+     *         messageSource
+     * @param stackTracesHandler
+     *         堆栈处理
+     * @param globalExceptionLogger
+     *         全局异常处理日志记录器
+     * @param builders
+     *         异常信息构建者列表
+     */
     public WebMvcGlobalExceptionHandler(MessageSource messageSource, StackTracesHandler stackTracesHandler,
             GlobalExceptionLogger globalExceptionLogger, Collection<ResponseBuilder> builders) {
         super(messageSource, stackTracesHandler, globalExceptionLogger, builders);

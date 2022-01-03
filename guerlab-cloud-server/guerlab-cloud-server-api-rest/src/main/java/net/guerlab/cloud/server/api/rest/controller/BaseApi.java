@@ -57,6 +57,12 @@ public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParam
      */
     protected final S service;
 
+    /**
+     * 根据服务实例创建控制器
+     *
+     * @param service
+     *         服务实例
+     */
     public BaseApi(S service) {
         this.service = service;
     }

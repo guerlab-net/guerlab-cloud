@@ -70,8 +70,14 @@ public enum TokenType {
         }
     };
 
+    /**
+     * AccessToken简称
+     */
     public static final String SIMPLE_NAME_ACCESS_TOKEN = "AT";
 
+    /**
+     * RefreshToken简称
+     */
     public static final String SIMPLE_NAME_REFRESH_TOKEN = "RT";
 
     /**

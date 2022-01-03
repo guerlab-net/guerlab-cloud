@@ -26,6 +26,8 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 /**
+ * Sentinel同步异常处理
+ *
  * @author guer
  */
 public class SentinelBlockExceptionHandler implements WebExceptionHandler {
@@ -34,6 +36,16 @@ public class SentinelBlockExceptionHandler implements WebExceptionHandler {
 
     private final Supplier<ServerResponse.Context> contextSupplier;
 
+    /**
+     * 初始化Sentinel同步异常处理
+     *
+     * @param viewResolvers
+     *         ViewResolver列表
+     * @param serverCodecConfigurer
+     *         serverCodecConfigurer
+     * @param blockRequestHandler
+     *         blockRequestHandler
+     */
     public SentinelBlockExceptionHandler(List<ViewResolver> viewResolvers, ServerCodecConfigurer serverCodecConfigurer,
             BlockRequestHandler blockRequestHandler) {
         this.blockRequestHandler = blockRequestHandler;

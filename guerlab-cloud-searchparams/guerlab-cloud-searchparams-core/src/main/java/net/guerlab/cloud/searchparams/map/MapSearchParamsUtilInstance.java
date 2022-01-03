@@ -28,6 +28,9 @@ public class MapSearchParamsUtilInstance extends AbstractSearchParamsUtilInstanc
 
     private static final Class<?> CLAZZ = Map.class;
 
+    /**
+     * 初始化Map处理实例
+     */
     public MapSearchParamsUtilInstance() {
         setDefaultHandler(new DefaultHandler());
     }

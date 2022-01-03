@@ -52,8 +52,14 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> im
 
     private static final String REAL_REQUEST_PATH = "realRequestPath";
 
+    /**
+     * http响应数据处理配置参数
+     */
     protected final ResponseAdvisorProperties responseAdvisorProperties;
 
+    /**
+     * requestMappingHandlerMapping
+     */
     protected final RequestMappingHandlerMapping requestMappingHandlerMapping;
 
     /**
@@ -61,6 +67,16 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> im
      */
     protected final A authProperties;
 
+    /**
+     * 初始化Token处理过滤器
+     *
+     * @param responseAdvisorProperties
+     *         http响应数据处理配置参数
+     * @param requestMappingHandlerMapping
+     *         requestMappingHandlerMapping
+     * @param authProperties
+     *         认证配置
+     */
     protected AbstractTokenHandlerFilter(ResponseAdvisorProperties responseAdvisorProperties,
             RequestMappingHandlerMapping requestMappingHandlerMapping, A authProperties) {
         this.responseAdvisorProperties = responseAdvisorProperties;
@@ -117,6 +133,16 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> im
         //@formatter:on
     }
 
+    /**
+     * 请求前置处理
+     *
+     * @param request
+     *         请求
+     * @param handlerMethod
+     *         处理方法
+     * @param exchange
+     *         交换器
+     */
     protected final void preHandle(ServerHttpRequest request, HandlerMethod handlerMethod, ServerWebExchange exchange) {
         String requestUri = parseRequestUri(request);
 

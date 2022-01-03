@@ -19,6 +19,7 @@ import lombok.Data;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 @Data
 public class GeoHash {
 
@@ -67,9 +68,34 @@ public class GeoHash {
      */
     private String bottomLeft;
 
+    /**
+     * 创建地理hash
+     */
     public GeoHash() {
     }
 
+    /**
+     * 创建地理hash
+     *
+     * @param center
+     *         中央hash
+     * @param top
+     *         顶部hash
+     * @param bottom
+     *         底部hash
+     * @param right
+     *         右侧hash
+     * @param left
+     *         左侧hash
+     * @param topLeft
+     *         左上hash
+     * @param topRight
+     *         右上hash
+     * @param bottomRight
+     *         右下hash
+     * @param bottomLeft
+     *         左下hash
+     */
     public GeoHash(String center, String top, String bottom, String right, String left, String topLeft, String topRight,
             String bottomRight, String bottomLeft) {
         this.center = center;

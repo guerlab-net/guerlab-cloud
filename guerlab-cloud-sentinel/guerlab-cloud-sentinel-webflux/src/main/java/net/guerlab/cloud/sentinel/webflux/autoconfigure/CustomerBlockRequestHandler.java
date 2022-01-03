@@ -34,6 +34,12 @@ public class CustomerBlockRequestHandler implements BlockRequestHandler {
 
     private final StackTracesHandler stackTracesHandler;
 
+    /**
+     * 创建阻塞请求处理
+     *
+     * @param stackTracesHandler
+     *         堆栈处理
+     */
     public CustomerBlockRequestHandler(StackTracesHandler stackTracesHandler) {
         this.stackTracesHandler = stackTracesHandler;
     }

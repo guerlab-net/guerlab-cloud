@@ -31,6 +31,16 @@ import org.springframework.web.reactive.result.method.annotation.RequestMappingH
 public abstract class AbstractTokenBeforeHandlerFilter<A extends AuthWebProperties>
         extends AbstractTokenHandlerFilter<A> {
 
+    /**
+     * 初始化token处理器
+     *
+     * @param responseAdvisorProperties
+     *         http响应数据处理配置参数
+     * @param requestMappingHandlerMapping
+     *         requestMappingHandlerMapping
+     * @param authProperties
+     *         认证配置
+     */
     protected AbstractTokenBeforeHandlerFilter(ResponseAdvisorProperties responseAdvisorProperties,
             RequestMappingHandlerMapping requestMappingHandlerMapping, A authProperties) {
         super(responseAdvisorProperties, requestMappingHandlerMapping, authProperties);

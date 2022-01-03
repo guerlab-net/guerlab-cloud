@@ -50,6 +50,9 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 
     private static final String REAL_REQUEST_PATH = "realRequestPath";
 
+    /**
+     * http响应数据处理配置参数
+     */
     protected ResponseAdvisorProperties responseAdvisorProperties;
 
     /**
@@ -223,6 +226,12 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
         log.debug("invoke AbstractContextHandler.clean()");
     }
 
+    /**
+     * 设置http响应数据处理配置参数
+     *
+     * @param responseAdvisorProperties
+     *         http响应数据处理配置参数
+     */
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired
     public void setResponseAdvisorProperties(ResponseAdvisorProperties responseAdvisorProperties) {

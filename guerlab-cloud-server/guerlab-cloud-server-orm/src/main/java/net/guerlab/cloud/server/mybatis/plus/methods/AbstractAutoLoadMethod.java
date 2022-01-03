@@ -29,12 +29,31 @@ import java.util.stream.Stream;
  */
 public abstract class AbstractAutoLoadMethod extends AbstractMethod {
 
+    /**
+     * BaseEntity字段列表
+     */
     protected static final Collection<Field> BASE_ENTITY_FIELDS = FieldUtil.getFields(BaseEntity.class);
 
+    /**
+     * 获取字段列表
+     *
+     * @param tableInfo
+     *         表信息
+     * @return 字段列表
+     */
     protected static Stream<TableFieldInfo> getFieldStream(TableInfo tableInfo) {
         return tableInfo.getFieldList().stream().filter(tableField -> filedFilter(tableInfo, tableField));
     }
 
+    /**
+     * 字段过滤
+     *
+     * @param tableInfo
+     *         表信息
+     * @param fieldInfo
+     *         表字段信息
+     * @return 是否有效
+     */
     protected static boolean filedFilter(TableInfo tableInfo, TableFieldInfo fieldInfo) {
         if (BaseEntity.class.isAssignableFrom(tableInfo.getEntityType())) {
             return !BASE_ENTITY_FIELDS.contains(fieldInfo.getField());

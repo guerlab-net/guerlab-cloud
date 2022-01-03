@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.guerlab.cloud.core.autoconfigure.ObjectMapperAutoconfigure;
 import net.guerlab.cloud.security.core.properties.CorsProperties;
 import net.guerlab.commons.collection.CollectionUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -42,13 +41,32 @@ import java.util.List;
 @EnableConfigurationProperties(CorsProperties.class)
 public class WebMvcAutoconfigure {
 
+    /**
+     * webmvc自动配置
+     *
+     * @author guer
+     */
     @Configuration
     @ConditionalOnClass(WebMvcConfigurer.class)
     public static class MvcAutoconfigure implements WebMvcConfigurer {
 
-        private ObjectMapper objectMapper;
+        private final ObjectMapper objectMapper;
 
-        private LocaleChangeInterceptor localeChangeInterceptor;
+        private final LocaleChangeInterceptor localeChangeInterceptor;
+
+        /**
+         * 初始化webmvc自动配置
+         *
+         * @param objectMapper
+         *         objectMapper
+         * @param localeChangeInterceptor
+         *         localeChangeInterceptor
+         */
+        @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+        public MvcAutoconfigure(ObjectMapper objectMapper, LocaleChangeInterceptor localeChangeInterceptor) {
+            this.objectMapper = objectMapper;
+            this.localeChangeInterceptor = localeChangeInterceptor;
+        }
 
         @Override
         public void addInterceptors(InterceptorRegistry registry) {
@@ -71,18 +89,6 @@ public class WebMvcAutoconfigure {
                     ((AbstractJackson2HttpMessageConverter) converter).setObjectMapper(objectMapper);
                 }
             }
-        }
-
-        @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-        @Autowired
-        public void setObjectMapper(ObjectMapper objectMapper) {
-            this.objectMapper = objectMapper;
-        }
-
-        @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-        @Autowired
-        public void setLocaleChangeInterceptor(LocaleChangeInterceptor localeChangeInterceptor) {
-            this.localeChangeInterceptor = localeChangeInterceptor;
         }
     }
 }

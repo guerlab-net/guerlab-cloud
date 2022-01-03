@@ -43,6 +43,16 @@ public class WebMvcGlobalExceptionHandlerAutoConfigure {
     @RestControllerAdvice
     public static class DefaultWebMvcGlobalExceptionHandler extends WebMvcGlobalExceptionHandler {
 
+        /**
+         * 初始化异常统一处理配置
+         *
+         * @param messageSource
+         *         messageSource
+         * @param stackTracesHandler
+         *         堆栈处理
+         * @param globalExceptionLogger
+         *         全局异常处理日志记录器
+         */
         public DefaultWebMvcGlobalExceptionHandler(MessageSource messageSource, StackTracesHandler stackTracesHandler,
                 GlobalExceptionLogger globalExceptionLogger) {
             super(messageSource, stackTracesHandler, globalExceptionLogger,

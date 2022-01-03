@@ -42,6 +42,12 @@ public abstract class AbstractApiWrapper<D, PK extends Serializable, SP extends 
      */
     protected final A api;
 
+    /**
+     * 根据接口实例初始化
+     *
+     * @param api
+     *         接口实例
+     */
     public AbstractApiWrapper(A api) {
         this.api = api;
     }

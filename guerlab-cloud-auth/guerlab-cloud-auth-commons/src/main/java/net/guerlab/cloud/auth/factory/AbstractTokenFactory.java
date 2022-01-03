@@ -37,6 +37,13 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
      */
     protected P properties;
 
+    /**
+     * 获取对象值
+     *
+     * @param obj
+     *         对象
+     * @return 对象值
+     */
     protected static String getObjectValue(@Nullable Object obj) {
         return obj == null ? "" : obj.toString();
     }
@@ -97,6 +104,12 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
         return getOrder() - o.getOrder();
     }
 
+    /**
+     * 设置token 工厂配置
+     *
+     * @param properties
+     *         token 工厂配置
+     */
     @SuppressWarnings("SpringJavaAutowiredMembersInspection")
     @Autowired
     public void setProperties(P properties) {

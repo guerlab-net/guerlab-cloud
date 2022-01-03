@@ -56,6 +56,16 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
 
     private final ResponseBodyWrapperSupport support;
 
+    /**
+     * 初始化响应内容结果包装处理
+     *
+     * @param writers
+     *         HttpMessageWriter列表
+     * @param resolver
+     *         RequestedContentTypeResolver
+     * @param support
+     *         响应对象包装支持
+     */
     public ResponseBodyResultWrapperHandler(List<HttpMessageWriter<?>> writers, RequestedContentTypeResolver resolver,
             ResponseBodyWrapperSupport support) {
         super(writers, resolver);

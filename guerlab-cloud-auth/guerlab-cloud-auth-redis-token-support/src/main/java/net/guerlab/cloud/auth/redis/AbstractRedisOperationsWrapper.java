@@ -26,8 +26,17 @@ import org.springframework.lang.Nullable;
  */
 public abstract class AbstractRedisOperationsWrapper<T> implements RedisOperationsWrapper<T> {
 
+    /**
+     * objectMapper
+     */
     private final ObjectMapper objectMapper;
 
+    /**
+     * 初始化redis操作包装对象
+     *
+     * @param objectMapper
+     *         objectMapper
+     */
     protected AbstractRedisOperationsWrapper(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }

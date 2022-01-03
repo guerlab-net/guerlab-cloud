@@ -29,6 +29,9 @@ public class AutoLoadMethodLoader extends DefaultSqlInjector {
 
     private final List<AbstractAutoLoadMethod> methods;
 
+    /**
+     * 初始化自动加载注入方法加载器
+     */
     public AutoLoadMethodLoader() {
         methods = StreamSupport.stream(ServiceLoader.load(AbstractAutoLoadMethod.class).spliterator(), false)
                 .collect(Collectors.toList());

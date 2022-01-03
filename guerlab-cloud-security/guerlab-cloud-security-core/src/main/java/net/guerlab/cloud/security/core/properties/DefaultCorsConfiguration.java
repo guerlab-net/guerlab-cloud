@@ -23,6 +23,9 @@ import java.util.Collections;
  */
 public class DefaultCorsConfiguration extends CorsConfiguration {
 
+    /**
+     * 创建默认Core配置
+     */
     public DefaultCorsConfiguration() {
         setAllowedOriginPatterns(Collections.singletonList(CorsConfiguration.ALL));
         setAllowedHeaders(Collections.singletonList(CorsConfiguration.ALL));

@@ -19,6 +19,9 @@ package net.guerlab.cloud.excel.converter;
  */
 public class BooleanConverter extends AbstractBooleanConverter {
 
+    /**
+     * 默认Boolean Converter
+     */
     public BooleanConverter() {
         super("是", "否");
     }

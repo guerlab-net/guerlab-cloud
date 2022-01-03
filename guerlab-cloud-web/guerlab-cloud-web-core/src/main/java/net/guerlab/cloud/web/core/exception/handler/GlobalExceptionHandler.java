@@ -27,17 +27,44 @@ import java.util.Collection;
  */
 public class GlobalExceptionHandler {
 
+    /**
+     * messageSource
+     */
     protected final MessageSource messageSource;
 
+    /**
+     * 堆栈处理
+     */
     protected final StackTracesHandler stackTracesHandler;
 
+    /**
+     * 全局异常处理日志记录器
+     */
     @Getter
     protected final GlobalExceptionLogger globalExceptionLogger;
 
+    /**
+     * 异常信息构建者列表
+     */
     protected final Collection<ResponseBuilder> builders;
 
+    /**
+     * 通用异常处理
+     */
     private final ThrowableResponseBuilder defaultBuilder;
 
+    /**
+     * 创建异常统一处理配置
+     *
+     * @param messageSource
+     *         messageSource
+     * @param stackTracesHandler
+     *         堆栈处理
+     * @param globalExceptionLogger
+     *         全局异常处理日志记录器
+     * @param builders
+     *         异常信息构建者列表
+     */
     public GlobalExceptionHandler(MessageSource messageSource, StackTracesHandler stackTracesHandler,
             GlobalExceptionLogger globalExceptionLogger, Collection<ResponseBuilder> builders) {
         this.messageSource = messageSource;

@@ -53,6 +53,18 @@ public class WebFluxGlobalExceptionHandlerAutoConfigure {
 
     private final ServerCodecConfigurer serverCodecConfigurer;
 
+    /**
+     * 创建异常统一处理配置自动配置
+     *
+     * @param serverProperties
+     *         ServerProperties
+     * @param webProperties
+     *         WebProperties
+     * @param viewResolvers
+     *         ViewResolver列表
+     * @param serverCodecConfigurer
+     *         ServerCodecConfigurer
+     */
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public WebFluxGlobalExceptionHandlerAutoConfigure(ServerProperties serverProperties, WebProperties webProperties,
             List<ViewResolver> viewResolvers, ServerCodecConfigurer serverCodecConfigurer) {

@@ -28,6 +28,12 @@ import java.util.Collections;
 @Slf4j
 public class CustomerLoadBalancerClientFactory extends LoadBalancerClientFactory {
 
+    /**
+     * 初始化自定义负载均衡客户端工厂
+     *
+     * @param properties
+     *         LoadBalancerClientsProperties
+     */
     public CustomerLoadBalancerClientFactory(LoadBalancerClientsProperties properties) {
         super(properties);
         Class<CustomerLoadBalancerClientConfiguration> clazz = CustomerLoadBalancerClientConfiguration.class;

@@ -17,7 +17,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Response;
 import feign.Util;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 
 import java.nio.charset.StandardCharsets;
@@ -30,7 +29,17 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 public class FailResponseDecoder implements OrderedErrorDecoder {
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
+
+    /**
+     * 初始化失败响应解析
+     *
+     * @param objectMapper
+     *         objectMapper
+     */
+    public FailResponseDecoder(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @Override
     public int getOrder() {
@@ -57,11 +66,5 @@ public class FailResponseDecoder implements OrderedErrorDecoder {
             log.debug(e.getLocalizedMessage(), e);
             return null;
         }
-    }
-
-    @SuppressWarnings("SpringJavaAutowiredMembersInspection")
-    @Autowired
-    public void setObjectMapper(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
     }
 }

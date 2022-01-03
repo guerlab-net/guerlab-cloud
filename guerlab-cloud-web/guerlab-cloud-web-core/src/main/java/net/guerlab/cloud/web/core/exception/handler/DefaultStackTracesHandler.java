@@ -32,6 +32,12 @@ public class DefaultStackTracesHandler implements StackTracesHandler {
 
     private final GlobalExceptionConfig config;
 
+    /**
+     * 通过全局异常处理配置初始化
+     *
+     * @param config
+     *         全局异常处理配置
+     */
     public DefaultStackTracesHandler(GlobalExceptionConfig config) {
         this.config = config;
     }
@@ -45,6 +51,13 @@ public class DefaultStackTracesHandler implements StackTracesHandler {
         fail.setStackTraces(getStackTraces(throwable));
     }
 
+    /**
+     * 获取应用堆栈跟踪列表
+     *
+     * @param throwable
+     *         异常
+     * @return 应用堆栈跟踪列表
+     */
     protected List<ApplicationStackTrace> getStackTraces(@Nullable Throwable throwable) {
         if (throwable == null) {
             return Collections.emptyList();
@@ -55,6 +68,14 @@ public class DefaultStackTracesHandler implements StackTracesHandler {
         return stackTraces;
     }
 
+    /**
+     * 设置内部应用堆栈
+     *
+     * @param stackTraces
+     *         应用堆栈跟踪列表
+     * @param throwable
+     *         异常
+     */
     protected void setSubStackTrace(List<ApplicationStackTrace> stackTraces, @Nullable Throwable throwable) {
         if (throwable == null) {
             return;
@@ -74,6 +95,13 @@ public class DefaultStackTracesHandler implements StackTracesHandler {
         }
     }
 
+    /**
+     * 构建
+     *
+     * @param element
+     *         堆栈跟踪元素
+     * @return 堆栈跟踪元素文本
+     */
     @Nullable
     protected String buildStackTraceElementText(StackTraceElement element) {
         String methodKey = element.getClassName() + "." + element.getMethodName();

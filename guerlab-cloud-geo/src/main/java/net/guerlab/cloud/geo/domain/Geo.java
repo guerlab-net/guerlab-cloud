@@ -17,7 +17,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 /**
- * 经纬度
+ * 地理位置对象
  *
  * @author guer
  */
@@ -34,9 +34,20 @@ public class Geo {
      */
     private BigDecimal latitude;
 
+    /**
+     * 创建地理位置对象
+     */
     public Geo() {
     }
 
+    /**
+     * 创建地理位置对象
+     *
+     * @param longitude
+     *         经度
+     * @param latitude
+     *         纬度
+     */
     public Geo(BigDecimal longitude, BigDecimal latitude) {
         this.longitude = longitude;
         this.latitude = latitude;

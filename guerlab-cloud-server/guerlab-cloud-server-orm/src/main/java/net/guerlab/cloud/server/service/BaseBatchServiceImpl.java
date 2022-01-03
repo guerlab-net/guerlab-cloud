@@ -47,14 +47,41 @@ import java.util.function.BiConsumer;
 public abstract class BaseBatchServiceImpl<T, PK extends Serializable, M extends BatchMapper<T>, SP extends SearchParams>
         extends BaseServiceImpl<T, PK, M, SP> implements BaseBatchSaveService<T, SP> {
 
+    /**
+     * 默认单次操作数量
+     */
     protected static final int DEFAULT_BATCH_SIZE = 1000;
 
     private final Log log = LogFactory.getLog(this.getClass());
 
+    /**
+     * 批量执行
+     *
+     * @param list
+     *         实体列表
+     * @param consumer
+     *         操作内容
+     * @param <E>
+     *         实体类型
+     * @return 执行结果
+     */
     protected <E> boolean executeBatch(Collection<E> list, BiConsumer<SqlSession, E> consumer) {
         return executeBatch(list, DEFAULT_BATCH_SIZE, consumer);
     }
 
+    /**
+     * 批量执行
+     *
+     * @param list
+     *         实体列表
+     * @param batchSize
+     *         单次执行数量
+     * @param consumer
+     *         操作内容
+     * @param <E>
+     *         实体类型
+     * @return 执行结果
+     */
     protected <E> boolean executeBatch(Collection<E> list, int batchSize, BiConsumer<SqlSession, E> consumer) {
         return SqlHelper.executeBatch(this.entityClass, this.log, list, batchSize, consumer);
     }
@@ -70,6 +97,14 @@ public abstract class BaseBatchServiceImpl<T, PK extends Serializable, M extends
         return list;
     }
 
+    /**
+     * 批量保存
+     *
+     * @param entityList
+     *         实体列表
+     * @param batchSize
+     *         单次操作数量
+     */
     @SuppressWarnings("SameParameterValue")
     protected final void saveBatch(Collection<T> entityList, int batchSize) {
         String sqlStatement = SqlHelper.getSqlStatement(this.mapperClass, SqlMethod.INSERT_ONE);

@@ -27,8 +27,14 @@ import java.util.stream.Collectors;
  */
 public class IpUtils {
 
+    /**
+     * 未知地址
+     */
     public static final String UNKNOWN = "unknown";
 
+    /**
+     * 分隔符
+     */
     public static final char SPLIT = ',';
 
     private static final String[] HEADERS = new String[] { "X-Forwarded-For", "Cdn-Src-Ip", "Proxy-Client-IP",

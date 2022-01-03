@@ -43,6 +43,12 @@ public class ResponseBodyWrapperSupport {
 
     private final ResponseAdvisorProperties properties;
 
+    /**
+     * 初始化响应对象包装支持
+     *
+     * @param properties
+     *         http响应数据处理配置参数
+     */
     public ResponseBodyWrapperSupport(ResponseAdvisorProperties properties) {
         this.properties = properties;
     }

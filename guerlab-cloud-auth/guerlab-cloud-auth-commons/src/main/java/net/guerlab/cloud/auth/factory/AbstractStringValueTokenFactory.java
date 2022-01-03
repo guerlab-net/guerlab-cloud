@@ -37,12 +37,24 @@ import java.util.stream.Collectors;
 public abstract class AbstractStringValueTokenFactory<T, P extends StringValueTokenFactoryProperties>
         extends AbstractTokenFactory<T, P> {
 
+    /**
+     * 有效期关键字
+     */
     protected static final String EXPIRATION_KEY = "exp";
 
+    /**
+     * 起始日期关键字
+     */
     protected static final String NOT_BEFORE_KEY = "nbf";
 
+    /**
+     * KV连接器
+     */
     protected static final String KV_CONNECTORS = ":";
 
+    /**
+     * 分组连接器
+     */
     protected static final String GROUP_CONNECTORS = "&";
 
     /**

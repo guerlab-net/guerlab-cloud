@@ -37,6 +37,20 @@ public class WebFluxErrorWebExceptionHandler extends DefaultErrorWebExceptionHan
 
     private final GlobalExceptionHandler globalExceptionHandler;
 
+    /**
+     * 创建异常处理
+     *
+     * @param errorAttributes
+     *         ErrorAttributes
+     * @param resources
+     *         WebProperties.Resources
+     * @param errorProperties
+     *         ErrorProperties
+     * @param applicationContext
+     *         ApplicationContext
+     * @param globalExceptionHandler
+     *         异常统一处理配置
+     */
     public WebFluxErrorWebExceptionHandler(ErrorAttributes errorAttributes, WebProperties.Resources resources,
             ErrorProperties errorProperties, ApplicationContext applicationContext,
             GlobalExceptionHandler globalExceptionHandler) {

@@ -39,9 +39,15 @@ import static net.guerlab.cloud.api.core.feign.Constants.*;
 @Slf4j
 public class ResultDecoder implements Decoder {
 
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
-    public void setObjectMapper(ObjectMapper objectMapper) {
+    /**
+     * 初始化结果解析
+     *
+     * @param objectMapper
+     *         objectMapper
+     */
+    public ResultDecoder(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 

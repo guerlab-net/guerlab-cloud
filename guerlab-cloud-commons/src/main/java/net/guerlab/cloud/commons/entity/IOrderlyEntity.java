@@ -14,7 +14,6 @@ package net.guerlab.cloud.commons.entity;
 
 import org.springframework.lang.Nullable;
 
-import java.util.Collections;
 import java.util.Comparator;
 
 /**
@@ -32,8 +31,7 @@ public interface IOrderlyEntity<E extends IOrderlyEntity<?>> extends Comparable<
      * @return 排序方法
      */
     static Comparator<IOrderlyEntity<?>> comparator() {
-        return Collections.reverseOrder(
-                Comparator.comparing(IOrderlyEntity::getOrderNum, Comparator.nullsFirst(Comparator.naturalOrder())));
+        return Comparator.comparing(IOrderlyEntity::getOrderNum, Comparator.nullsFirst(Comparator.naturalOrder()));
     }
 
     /**

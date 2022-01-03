@@ -29,6 +29,12 @@ import java.util.List;
 @Configuration
 public class OpenApiWebfluxAutoconfigure {
 
+    /**
+     * 设置http响应数据处理配置参数
+     *
+     * @param responseAdvisorProperties
+     *         http响应数据处理配置参数
+     */
     @Autowired(required = false)
     public void responseAdvisorAddExcluded(ResponseAdvisorProperties responseAdvisorProperties) {
         // @formatter:off

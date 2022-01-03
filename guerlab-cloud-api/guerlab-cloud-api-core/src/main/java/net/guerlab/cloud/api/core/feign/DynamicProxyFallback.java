@@ -31,6 +31,17 @@ import java.util.*;
  */
 public class DynamicProxyFallback {
 
+    /**
+     * 创建代理对象
+     *
+     * @param targetClass
+     *         对象类型
+     * @param cause
+     *         异常信息
+     * @param <T>
+     *         对象类型
+     * @return 代理对象
+     */
     @SuppressWarnings("unchecked")
     public static <T> T proxy(Class<T> targetClass, Throwable cause) {
         return (T) Proxy.newProxyInstance(DynamicProxyFallback.class.getClassLoader(), new Class[] { targetClass },

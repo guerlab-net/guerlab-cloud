@@ -32,8 +32,17 @@ import java.time.LocalDateTime;
 public abstract class AbstractRedisTokenFactory<T, P extends RedisTokenFactoryProperties>
         extends AbstractTokenFactory<T, P> {
 
+    /**
+     * redis操作包装对象
+     */
     protected final RedisOperationsWrapper<T> redisOperationsWrapper;
 
+    /**
+     * 初始化redis token工厂
+     *
+     * @param redisOperationsWrapper
+     *         redis操作包装对象
+     */
     protected AbstractRedisTokenFactory(RedisOperationsWrapper<T> redisOperationsWrapper) {
         this.redisOperationsWrapper = redisOperationsWrapper;
     }

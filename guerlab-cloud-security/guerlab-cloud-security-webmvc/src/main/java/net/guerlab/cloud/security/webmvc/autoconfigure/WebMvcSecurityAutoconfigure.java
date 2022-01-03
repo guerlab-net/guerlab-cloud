@@ -44,6 +44,14 @@ public class WebMvcSecurityAutoconfigure extends WebSecurityConfigurerAdapter {
 
     private final ObjectProvider<AuthorizePathProvider> authorizePathProviders;
 
+    /**
+     * 初始化WebMvc安全配置
+     *
+     * @param configProvider
+     *         CorsConfiguration
+     * @param authorizePathProviders
+     *         授权路径提供者
+     */
     public WebMvcSecurityAutoconfigure(ObjectProvider<CorsConfiguration> configProvider,
             ObjectProvider<AuthorizePathProvider> authorizePathProviders) {
         this.configProvider = configProvider;

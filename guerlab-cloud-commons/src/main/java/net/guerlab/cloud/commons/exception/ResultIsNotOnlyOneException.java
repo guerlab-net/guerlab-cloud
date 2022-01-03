@@ -25,8 +25,17 @@ public class ResultIsNotOnlyOneException extends AbstractI18nApplicationExceptio
 
     private static final String MESSAGE_KEY = "message.exception.commons.resultIsNotOnlyOne";
 
+    /**
+     * 结果数量
+     */
     private final String size;
 
+    /**
+     * 创建匹配结果不唯一异常
+     *
+     * @param size
+     *         结果数量
+     */
     public ResultIsNotOnlyOneException(String size) {
         this.size = size;
     }

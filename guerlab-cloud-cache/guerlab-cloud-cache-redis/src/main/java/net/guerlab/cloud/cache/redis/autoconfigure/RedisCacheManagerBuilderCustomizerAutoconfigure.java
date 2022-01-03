@@ -47,6 +47,14 @@ public class RedisCacheManagerBuilderCustomizerAutoconfigure {
 
     private final SerializationPair<Object> valueSerializationPair;
 
+    /**
+     * 初始化redis缓存管理定制自动配置
+     *
+     * @param objectMapper
+     *         objectMapper
+     * @param properties
+     *         按key分组redis缓存配置
+     */
     public RedisCacheManagerBuilderCustomizerAutoconfigure(ObjectMapper objectMapper,
             GroupByKeysRedisCacheProperties properties) {
         this.properties = properties;

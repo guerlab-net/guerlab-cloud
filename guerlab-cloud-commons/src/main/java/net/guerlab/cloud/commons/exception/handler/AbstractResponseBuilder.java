@@ -26,10 +26,19 @@ import java.util.Locale;
  */
 public abstract class AbstractResponseBuilder implements ResponseBuilder {
 
+    /**
+     * 默认排序值
+     */
     protected static final int DEFAULT_ORDER = 0;
 
+    /**
+     * messageSource
+     */
     protected MessageSource messageSource;
 
+    /**
+     * 堆栈处理
+     */
     protected StackTracesHandler stackTracesHandler;
 
     @Override
@@ -42,6 +51,13 @@ public abstract class AbstractResponseBuilder implements ResponseBuilder {
         this.stackTracesHandler = stackTracesHandler;
     }
 
+    /**
+     * 获取异常信息
+     *
+     * @param msg
+     *         异常信息
+     * @return 异常信息
+     */
     @Nullable
     protected String getMessage(String msg) {
         if (StringUtils.isBlank(msg)) {
