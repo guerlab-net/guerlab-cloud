@@ -11,15 +11,14 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.idempotent.fallback;
-
-import net.guerlab.cloud.distributed.fallback.NoopFallbackFactory;
+package net.guerlab.cloud.distributed.fallback;
 
 /**
- * 处理幂等快速失败处理工厂的无操作实现
+ * 处理分布式锁快速失败处理工厂的无操作实现
  *
  * @author guer
  */
-public final class NoopIdempotentFallbackFactory extends NoopFallbackFactory implements IdempotentFallbackFactory {
+public final class NoopDistributedLockFallbackFactory extends NoopFallbackFactory
+        implements DistributedLockFallbackFactory {
 
 }

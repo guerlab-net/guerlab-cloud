@@ -16,8 +16,8 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>guerlab-cloud-idempotent</artifactId>
-    <name>Guerlab Cloud Idempotent</name>
+    <artifactId>guerlab-cloud-distributed</artifactId>
+    <name>Guerlab Cloud Distributed</name>
 
     <parent>
         <groupId>net.guerlab.cloud</groupId>
@@ -32,7 +32,17 @@
     <dependencies>
         <dependency>
             <groupId>net.guerlab.cloud</groupId>
-            <artifactId>guerlab-cloud-distributed</artifactId>
+            <artifactId>guerlab-cloud-commons</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.guerlab.cloud</groupId>
+            <artifactId>guerlab-cloud-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
         <dependency>

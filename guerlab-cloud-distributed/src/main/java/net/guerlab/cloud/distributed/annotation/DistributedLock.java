@@ -10,16 +10,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.idempotent.annotation;
+package net.guerlab.cloud.distributed.annotation;
 
-import net.guerlab.cloud.idempotent.fallback.IdempotentFallbackFactory;
-import net.guerlab.cloud.idempotent.fallback.NoopIdempotentFallbackFactory;
+import net.guerlab.cloud.distributed.fallback.DistributedLockFallbackFactory;
+import net.guerlab.cloud.distributed.fallback.NoopDistributedLockFallbackFactory;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 幂等
+ * 分布式锁
  *
  * @author guer
  */
@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface Idempotent {
+public @interface DistributedLock {
 
     /**
      * 锁的Key
@@ -35,6 +35,13 @@ public @interface Idempotent {
      * @return 锁的Key
      */
     String lockKey() default "";
+
+    /**
+     * 加锁等待时长
+     *
+     * @return 加锁等待时长
+     */
+    long waitTime() default 1L;
 
     /**
      * 加锁时长
@@ -58,16 +65,9 @@ public @interface Idempotent {
     String messageKey() default "";
 
     /**
-     * 操作结束后是否释放锁
-     *
-     * @return 操作结束后是否释放锁
-     */
-    boolean unlockWhenEndOfOperation() default false;
-
-    /**
      * 快速失败工厂类型
      *
      * @return 快速失败工厂类型
      */
-    Class<? extends IdempotentFallbackFactory> fallBackFactory() default NoopIdempotentFallbackFactory.class;
+    Class<? extends DistributedLockFallbackFactory> fallBackFactory() default NoopDistributedLockFallbackFactory.class;
 }

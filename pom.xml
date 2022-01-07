@@ -92,6 +92,7 @@
         <springdoc.version>1.5.12</springdoc.version>
         <nacos.version>2.0.3</nacos.version>
         <findbugs.version>3.0.2</findbugs.version>
+        <redisson.version>3.16.7</redisson.version>
     </properties>
 
     <dependencyManagement>
@@ -216,6 +217,13 @@
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
                 <artifactId>guerlab-cloud-core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+
+            <!-- guerlab-cloud distributed -->
+            <dependency>
+                <groupId>net.guerlab.cloud</groupId>
+                <artifactId>guerlab-cloud-distributed</artifactId>
                 <version>${revision}</version>
             </dependency>
 
@@ -517,6 +525,29 @@
                 <artifactId>jsr305</artifactId>
                 <version>${findbugs.version}</version>
             </dependency>
+
+            <!-- redisson -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.redisson</groupId>
+                        <artifactId>redisson-spring-data-25</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-data-26</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -527,6 +558,7 @@
         <module>guerlab-cloud-commons</module>
         <module>guerlab-cloud-context</module>
         <module>guerlab-cloud-core</module>
+        <module>guerlab-cloud-distributed</module>
         <module>guerlab-cloud-excel</module>
         <module>guerlab-cloud-geo</module>
         <module>guerlab-cloud-idempotent</module>

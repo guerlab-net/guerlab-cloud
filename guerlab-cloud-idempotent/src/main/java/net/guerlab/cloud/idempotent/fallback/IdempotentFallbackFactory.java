@@ -13,21 +13,11 @@
 
 package net.guerlab.cloud.idempotent.fallback;
 
+import net.guerlab.cloud.distributed.fallback.FallbackFactory;
+
 /**
  * 幂等快速失败处理工厂
  *
- * @param <T>
- *         返回结果类型
  * @author guer
  */
-public interface IdempotentFallbackFactory<T> {
-
-    /**
-     * 创建快速失败结果
-     *
-     * @param args
-     *         参数列表
-     * @return 快速失败结果
-     */
-    T create(Object[] args);
-}
+public interface IdempotentFallbackFactory extends FallbackFactory {}
