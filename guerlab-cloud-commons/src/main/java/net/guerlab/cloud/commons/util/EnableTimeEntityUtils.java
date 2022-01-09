@@ -53,4 +53,23 @@ public class EnableTimeEntityUtils {
         entity.setEnableStartTime(enableStartTime);
         entity.setEnableEndTime(enableEndTime);
     }
+
+    /**
+     * 判断是否在时间范围内
+     *
+     * @param entity
+     *         启用时间实体
+     * @param time
+     *         时间
+     * @return 是否在范围内
+     */
+    public static boolean inDateRange(EnableTimeEntity entity, LocalDateTime time) {
+        LocalDateTime enableStartTime = entity.getEnableStartTime();
+        LocalDateTime enableEndTime = entity.getEnableEndTime();
+
+        if (enableStartTime != null && time.isBefore(enableStartTime)) {
+            return false;
+        }
+        return enableEndTime == null || !time.isAfter(enableEndTime);
+    }
 }

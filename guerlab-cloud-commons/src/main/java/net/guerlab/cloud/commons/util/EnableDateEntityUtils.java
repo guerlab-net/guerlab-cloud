@@ -53,4 +53,23 @@ public class EnableDateEntityUtils {
         entity.setEnableStartDate(enableStartDate);
         entity.setEnableEndDate(enableEndDate);
     }
+
+    /**
+     * 判断是否在日期范围内
+     *
+     * @param entity
+     *         启用日期实体
+     * @param date
+     *         日期
+     * @return 是否在范围内
+     */
+    public static boolean inDateRange(EnableDateEntity entity, LocalDate date) {
+        LocalDate enableStartDate = entity.getEnableStartDate();
+        LocalDate enableEndDate = entity.getEnableEndDate();
+
+        if (enableStartDate != null && date.isBefore(enableStartDate)) {
+            return false;
+        }
+        return enableEndDate == null || !date.isAfter(enableEndDate);
+    }
 }
