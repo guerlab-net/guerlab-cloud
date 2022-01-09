@@ -12,6 +12,10 @@
  */
 package net.guerlab.cloud.commons;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 /**
  * 常量
  *
@@ -64,4 +68,14 @@ public interface Constants {
      * 当前操作者
      */
     String CURRENT_OPERATOR = "currentOperator";
+
+    /**
+     * 最大日期
+     */
+    LocalDate MAX_DATE = LocalDate.of(9999, 12, 30);
+
+    /**
+     * 最大日期时间
+     */
+    LocalDateTime MAX_DATETIME = LocalDateTime.of(MAX_DATE, LocalTime.MAX);
 }
