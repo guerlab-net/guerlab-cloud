@@ -72,7 +72,7 @@ public interface Constants {
     /**
      * 最大日期
      */
-    LocalDate MAX_DATE = LocalDate.of(9999, 12, 30);
+    LocalDate MAX_DATE = LocalDate.of(9999, 12, 31);
 
     /**
      * 最大日期时间
