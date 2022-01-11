@@ -26,6 +26,11 @@ public interface ApiConstants {
     String SERVICE_ID_PROPERTIES_PREFIX = "guerlab.cloud.api.names";
 
     /**
+     * 默认API服务后缀
+     */
+    String DEFAULT_API_SERVICE_SUFFIX = "-api";
+
+    /**
      * 默认内部服务后缀
      */
     String DEFAULT_INTERNAL_SERVICE_SUFFIX = "-internal";
