@@ -17,7 +17,9 @@ import net.guerlab.cloud.openapi.core.properties.OpenApiProperties;
 import net.guerlab.cloud.security.core.AuthorizePathProvider;
 import net.guerlab.cloud.security.core.SimpleAuthorizePathProvider;
 import net.guerlab.cloud.security.core.autoconfigure.AuthorizePathAutoconfigure;
+import net.guerlab.cloud.web.core.annotation.RequestIp;
 import org.apache.commons.lang3.StringUtils;
+import org.springdoc.core.SpringDocAnnotationsUtils;
 import org.springdoc.core.SpringDocConfigProperties;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -39,6 +41,10 @@ import static org.springdoc.core.Constants.SPRINGDOC_ENABLED;
 @EnableConfigurationProperties(OpenApiProperties.class)
 @AutoConfigureBefore(AuthorizePathAutoconfigure.class)
 public class OpenApiAutoconfigure {
+
+    static {
+        SpringDocAnnotationsUtils.addAnnotationsToIgnore(RequestIp.class);
+    }
 
     /**
      * 根据SpringDocConfigProperties构建授权路径提供者
