@@ -42,12 +42,17 @@ public interface ModifyControllerWrapper<D, E, PK extends Serializable> {
      * @param id
      *         主键
      */
+    @SuppressWarnings("unchecked")
     default void copyProperties(D dto, E entity, @Nullable PK id) {
         if (entity instanceof BaseEntity) {
-            BaseEntity<?> tempEntity = (BaseEntity<?>) entity;
+            BaseEntity<PK> tempEntity = (BaseEntity<PK>) entity;
             Long version = tempEntity.getVersion();
             BeanUtils.copyProperties(dto, entity);
             tempEntity.setVersion(version);
+
+            if (id != null) {
+                tempEntity.setId(id);
+            }
         } else {
             BeanUtils.copyProperties(dto, entity);
         }
