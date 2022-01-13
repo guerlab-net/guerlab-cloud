@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.MessageSource;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.lang.Nullable;
 
 import java.util.HashMap;
@@ -121,7 +122,7 @@ public class LogAspect {
             return;
         }
 
-        LogGroup logGroup = methodSignature.getMethod().getDeclaringClass().getAnnotation(LogGroup.class);
+        LogGroup logGroup = AnnotationUtils.findAnnotation(point.getTarget().getClass(), LogGroup.class);
         String logGroupName = logGroup != null ? StringUtils.trimToNull(logGroup.value()) : null;
 
         logContent = parseLogContent(logContent, args);
