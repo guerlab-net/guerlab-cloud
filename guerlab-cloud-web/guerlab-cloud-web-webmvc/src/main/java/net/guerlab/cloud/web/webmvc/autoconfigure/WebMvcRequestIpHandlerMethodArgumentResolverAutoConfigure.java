@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Slf4j
 @Configuration
-public class RequestIpHandlerMethodArgumentResolverAutoConfigure implements WebMvcConfigurer {
+public class WebMvcRequestIpHandlerMethodArgumentResolverAutoConfigure implements WebMvcConfigurer {
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
