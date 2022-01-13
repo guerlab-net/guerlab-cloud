@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.log.annotation.Log;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseService;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,6 +61,7 @@ public interface UpdateController<D, E, S extends BaseService<E, PK, SP>, SP ext
      *         dto对象
      * @return 编辑后的dto对象
      */
+    @Log("method.update")
     @Operation(summary = "编辑", security = @SecurityRequirement(name = Constants.TOKEN))
     @PutMapping(UPDATE_BY_ID_PATH)
     default D update(@Parameter(description = "主键ID", required = true) @PathVariable(UPDATE_BY_ID_PATH_PARAM) PK id,

@@ -87,9 +87,7 @@ public class LogAspect {
             ex = e;
             throw e;
         } finally {
-            Object pointResult = result;
-            Throwable throwable = ex;
-            logHandlersProvider.stream().forEach(handler -> logHandler(point, log, pointResult, throwable, handler));
+            handler(point, log, result, ex);
         }
         return result;
     }
@@ -105,11 +103,8 @@ public class LogAspect {
      *         响应数据
      * @param ex
      *         异常信息
-     * @param handler
-     *         日志处理器
      */
-    private void logHandler(ProceedingJoinPoint point, Log log, @Nullable Object result, @Nullable Throwable ex,
-            LogHandler handler) {
+    private void handler(ProceedingJoinPoint point, Log log, @Nullable Object result, @Nullable Throwable ex) {
         Signature signature = point.getSignature();
         String method = RequestHolder.requestMethod();
         String uri = RequestHolder.requestPath();
@@ -119,26 +114,30 @@ public class LogAspect {
         }
 
         MethodSignature methodSignature = (MethodSignature) signature;
-        if (!handler.accept(methodSignature, log)) {
-            return;
-        }
-
         Object[] args = point.getArgs();
         String[] parameterNames = methodSignature.getParameterNames();
-
         if (!Objects.equals(args.length, parameterNames.length)) {
             LOGGER.debug("parameter length is {}, but args length is {}", parameterNames.length, args.length);
             return;
         }
 
-        Map<String, Object> params = buildParamMap(args, parameterNames);
-        String logGroupName = getLogGroupName(methodSignature);
+        LogGroup logGroup = methodSignature.getMethod().getDeclaringClass().getAnnotation(LogGroup.class);
+        String logGroupName = logGroup != null ? StringUtils.trimToNull(logGroup.value()) : null;
 
         logContent = parseLogContent(logContent, args);
         if (logGroupName != null) {
             logContent = String.format("[%s] %s", logGroupName, logContent);
         }
 
+        String formattedLogContent = logContent;
+        Map<String, Object> params = buildParamMap(args, parameterNames);
+
+        logHandlersProvider.stream().filter(handler -> handler.accept(methodSignature, logGroup, log))
+                .forEach(handler -> logHandler(formattedLogContent, method, uri, params, result, ex, handler));
+    }
+
+    private void logHandler(String logContent, String method, String uri, Map<String, Object> params,
+            @Nullable Object result, @Nullable Throwable ex, LogHandler handler) {
         try {
             handler.handler(logContent, method, uri, params, result, ex);
         } catch (Exception e) {
@@ -157,14 +156,5 @@ public class LogAspect {
     private String parseLogContent(String logContent, Object[] args) {
         String message = messageSource.getMessage(logContent, args, logContent, Locale.getDefault());
         return message == null ? logContent : message;
-    }
-
-    @Nullable
-    private String getLogGroupName(MethodSignature methodSignature) {
-        LogGroup logGroup = methodSignature.getMethod().getDeclaringClass().getAnnotation(LogGroup.class);
-        if (logGroup == null) {
-            return null;
-        }
-        return StringUtils.trimToNull(logGroup.value());
     }
 }

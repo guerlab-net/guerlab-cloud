@@ -13,6 +13,7 @@
 package net.guerlab.cloud.log.handler;
 
 import net.guerlab.cloud.log.annotation.Log;
+import net.guerlab.cloud.log.annotation.LogGroup;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.lang.Nullable;
 
@@ -28,11 +29,13 @@ public interface LogHandler {
      *
      * @param methodSignature
      *         方法签名
+     * @param logGroup
+     *         日志分组
      * @param log
      *         日志注解
      * @return 是否进行处理
      */
-    boolean accept(MethodSignature methodSignature, Log log);
+    boolean accept(MethodSignature methodSignature, @Nullable LogGroup logGroup, Log log);
 
     /**
      * 日志处理

@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.log.annotation.Log;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseService;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -47,6 +48,7 @@ public interface SaveController<D, E, S extends BaseService<E, PK, SP>, SP exten
      *         dto对象
      * @return 添加的dto对象
      */
+    @Log("method.save")
     @Operation(summary = "添加", security = @SecurityRequirement(name = Constants.TOKEN))
     @PutMapping
     default D save(@Parameter(description = "对象数据", required = true) @RequestBody D dto) {

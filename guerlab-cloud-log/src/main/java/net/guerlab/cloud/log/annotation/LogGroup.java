@@ -27,6 +27,13 @@ import java.lang.annotation.*;
 public @interface LogGroup {
 
     /**
+     * 类型
+     *
+     * @return 类型
+     */
+    String type() default "";
+
+    /**
      * 分组名称
      *
      * @return 分组名称
