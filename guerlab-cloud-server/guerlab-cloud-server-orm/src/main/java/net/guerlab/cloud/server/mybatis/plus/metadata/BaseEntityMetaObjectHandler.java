@@ -20,7 +20,6 @@ import net.guerlab.cloud.commons.entity.IOrderlyEntity;
 import org.apache.ibatis.reflection.MetaObject;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 /**
  * 基础对象元信息处理
@@ -31,13 +30,19 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
 
     @Override
     public void insertFill(MetaObject metaObject) {
-        Object createdTime = Optional.ofNullable(metaObject.getValue("createdTime")).orElse(LocalDateTime.now());
+        Object createdTime = metaObject.getValue("createdTime");
+        if (createdTime == null) {
+            createdTime = LocalDateTime.now();
+        }
+
         setFieldValByName("createdTime", createdTime, metaObject);
         setFieldValByName("lastUpdatedTime", createdTime, metaObject);
         setFieldValByName("deleted", false, metaObject);
 
-        Object createdBy = Optional.ofNullable(metaObject.getValue("createdBy"))
-                .orElse(AbstractContextHandler.getCurrentOperator());
+        Object createdBy = metaObject.getValue("createdBy");
+        if (createdBy == null) {
+            createdBy = AbstractContextHandler.getCurrentOperator();
+        }
         setFieldValByName("createdBy", createdBy, metaObject);
         setFieldValByName("modifiedBy", createdBy, metaObject);
 
