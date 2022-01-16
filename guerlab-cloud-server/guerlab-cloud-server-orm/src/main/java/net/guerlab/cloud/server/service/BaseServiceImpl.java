@@ -209,7 +209,14 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
      * @return 如果返回null则不保存该对象，否则保存该对象
      */
     @Nullable
-    protected abstract T batchSaveBefore(T entity);
+    protected T batchSaveBefore(T entity) {
+        try {
+            insertBefore(entity);
+            return entity;
+        } catch (Exception ignore) {
+            return null;
+        }
+    }
 
     /**
      * 批量保存
