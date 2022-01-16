@@ -14,17 +14,27 @@ package net.guerlab.cloud.server.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.core.sequence.Sequence;
 import net.guerlab.cloud.searchparams.SearchParams;
+import net.guerlab.cloud.server.utils.BatchSaveUtils;
 import net.guerlab.cloud.server.utils.PageUtils;
+import net.guerlab.commons.collection.CollectionUtil;
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+import java.util.function.BiConsumer;
 
 /**
  * 基本服务实现
@@ -43,6 +53,13 @@ import java.util.Collection;
 @Transactional(rollbackFor = Exception.class)
 public abstract class BaseServiceImpl<T, PK extends Serializable, M extends BaseMapper<T>, SP extends SearchParams>
         implements BaseService<T, PK, SP> {
+
+    /**
+     * 默认单次操作数量
+     */
+    protected static final int DEFAULT_BATCH_SIZE = 1000;
+
+    private static final Log LOGGER = LogFactory.getLog(BaseServiceImpl.class);
 
     /**
      * 实体类型
@@ -171,6 +188,57 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
      */
     protected void insertAfter(T entity) {
         /* 默认空实现 */
+    }
+
+    @Override
+    public Collection<T> batchInsert(Collection<T> collection) {
+        List<T> list = BatchSaveUtils.filter(collection, this::batchSaveBefore);
+
+        if (CollectionUtil.isNotEmpty(list)) {
+            saveBatch(list, DEFAULT_BATCH_SIZE);
+        }
+
+        return list;
+    }
+
+    /**
+     * 保存检查
+     *
+     * @param entity
+     *         实体
+     * @return 如果返回null则不保存该对象，否则保存该对象
+     */
+    @Nullable
+    protected abstract T batchSaveBefore(T entity);
+
+    /**
+     * 批量保存
+     *
+     * @param entityList
+     *         实体列表
+     * @param batchSize
+     *         单次操作数量
+     */
+    @SuppressWarnings("SameParameterValue")
+    protected final void saveBatch(Collection<T> entityList, int batchSize) {
+        String sqlStatement = SqlHelper.getSqlStatement(this.mapperClass, SqlMethod.INSERT_ONE);
+        this.executeBatch(entityList, batchSize, (sqlSession, entity) -> sqlSession.insert(sqlStatement, entity));
+    }
+
+    /**
+     * 批量执行
+     *
+     * @param list
+     *         实体列表
+     * @param batchSize
+     *         单次执行数量
+     * @param consumer
+     *         操作内容
+     * @param <E>
+     *         实体类型
+     */
+    protected <E> void executeBatch(Collection<E> list, int batchSize, BiConsumer<SqlSession, E> consumer) {
+        SqlHelper.executeBatch(this.entityClass, LOGGER, list, batchSize, consumer);
     }
 
     @Override

@@ -14,6 +14,8 @@ package net.guerlab.cloud.server.service;
 
 import net.guerlab.cloud.searchparams.SearchParams;
 
+import java.util.Collection;
+
 /**
  * 基本保存服务接口
  *
@@ -32,5 +34,14 @@ public interface BaseSaveService<T, SP extends SearchParams> extends QueryWrappe
      *         实体
      */
     void insert(T entity);
+
+    /**
+     * 批量保存
+     *
+     * @param collection
+     *         待保存列表
+     * @return 已保存列表W
+     */
+    Collection<T> batchInsert(Collection<T> collection);
 
 }
