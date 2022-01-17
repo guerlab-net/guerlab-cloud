@@ -22,7 +22,6 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.io.Serializable;
 import java.util.Optional;
 
 /**
@@ -30,14 +29,12 @@ import java.util.Optional;
  *
  * @param <D>
  *         返回实体类型
- * @param <PK>
- *         主键类型
  * @param <SP>
  *         搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface SelectById<D, PK extends Serializable, SP extends SearchParams> {
+public interface SelectById<D, SP extends SearchParams> {
 
     /**
      * 请求路径
@@ -61,7 +58,7 @@ public interface SelectById<D, PK extends Serializable, SP extends SearchParams>
     @Nullable
     @GetMapping(SELECT_BY_ID_PATH)
     @Operation(summary = "通过Id查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
-    D selectById(@Parameter(description = "ID", required = true) @PathVariable(SELECT_BY_ID_PARAM) PK id,
+    D selectById(@Parameter(description = "ID", required = true) @PathVariable(SELECT_BY_ID_PARAM) Long id,
             @Nullable SP searchParams);
 
     /**
@@ -72,7 +69,7 @@ public interface SelectById<D, PK extends Serializable, SP extends SearchParams>
      * @return 实体
      */
     @Nullable
-    default D selectById(PK id) {
+    default D selectById(Long id) {
         return selectById(id, null);
     }
 
@@ -83,7 +80,7 @@ public interface SelectById<D, PK extends Serializable, SP extends SearchParams>
      *         主键id
      * @return Optional
      */
-    default Optional<D> selectByIdOptional(PK id) {
+    default Optional<D> selectByIdOptional(Long id) {
         return Optional.ofNullable(selectById(id, null));
     }
 }

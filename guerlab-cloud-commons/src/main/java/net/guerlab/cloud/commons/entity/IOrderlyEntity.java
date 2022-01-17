@@ -23,7 +23,7 @@ import java.util.Comparator;
  *         对象类型
  * @author guer
  */
-public interface IOrderlyEntity<E extends IOrderlyEntity<?>> extends Comparable<E> {
+public interface IOrderlyEntity<E extends IOrderlyEntity<E>> extends Comparable<E> {
 
     /**
      * 排序方法

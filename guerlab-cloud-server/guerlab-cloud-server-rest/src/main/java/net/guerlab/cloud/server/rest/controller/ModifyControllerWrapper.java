@@ -16,8 +16,6 @@ import net.guerlab.cloud.commons.entity.BaseEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.lang.Nullable;
 
-import java.io.Serializable;
-
 /**
  * 提供控制器层的数据修改增强
  *
@@ -25,12 +23,10 @@ import java.io.Serializable;
  *         DTO类型
  * @param <E>
  *         实体类型
- * @param <PK>
- *         主键类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface ModifyControllerWrapper<D, E, PK extends Serializable> {
+public interface ModifyControllerWrapper<D, E> {
 
     /**
      * 拷贝属性
@@ -42,10 +38,9 @@ public interface ModifyControllerWrapper<D, E, PK extends Serializable> {
      * @param id
      *         主键
      */
-    @SuppressWarnings("unchecked")
-    default void copyProperties(D dto, E entity, @Nullable PK id) {
+    default void copyProperties(D dto, E entity, @Nullable Long id) {
         if (entity instanceof BaseEntity) {
-            BaseEntity<PK> tempEntity = (BaseEntity<PK>) entity;
+            BaseEntity tempEntity = (BaseEntity) entity;
             Long version = tempEntity.getVersion();
             BeanUtils.copyProperties(dto, entity);
             tempEntity.setVersion(version);

@@ -25,7 +25,7 @@ import org.springframework.lang.Nullable;
  */
 @SuppressWarnings("unused")
 @Schema(name = "BaseOrderlyEntity", description = "可排序实体")
-public abstract class BaseOrderlyEntity<PK, E extends BaseOrderlyEntity<PK, ?>> extends BaseEntity<PK>
+public abstract class BaseOrderlyEntity<E extends BaseOrderlyEntity<E>> extends BaseEntity
         implements IOrderlyEntity<E> {
 
     /**

@@ -18,7 +18,6 @@ import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.SearchParams;
 import org.springframework.lang.Nullable;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -27,15 +26,12 @@ import java.util.Optional;
  *
  * @param <T>
  *         数据类型
- * @param <PK>
- *         主键类型
  * @param <SP>
  *         搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface BaseFindService<T, PK extends Serializable, SP extends SearchParams>
-        extends QueryWrapperGetter<T, SP> {
+public interface BaseFindService<T, SP extends SearchParams> extends QueryWrapperGetter<T, SP> {
 
     /**
      * 查询单一结果，根据实体内非null字段按照值相等方式查询
@@ -87,7 +83,7 @@ public interface BaseFindService<T, PK extends Serializable, SP extends SearchPa
      * @return 实体
      */
     @Nullable
-    T selectById(PK id);
+    T selectById(Long id);
 
     /**
      * 通过Id查询单一结果
@@ -96,7 +92,7 @@ public interface BaseFindService<T, PK extends Serializable, SP extends SearchPa
      *         主键id
      * @return Optional
      */
-    default Optional<T> selectByIdOptional(PK id) {
+    default Optional<T> selectByIdOptional(Long id) {
         return Optional.ofNullable(selectById(id));
     }
 

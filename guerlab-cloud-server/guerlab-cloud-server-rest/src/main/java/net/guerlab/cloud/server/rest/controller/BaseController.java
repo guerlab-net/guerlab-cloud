@@ -15,8 +15,6 @@ package net.guerlab.cloud.server.rest.controller;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseService;
 
-import java.io.Serializable;
-
 /**
  * 基础控制器
  *
@@ -28,13 +26,11 @@ import java.io.Serializable;
  *         服务接口类型
  * @param <SP>
  *         搜索参数对象类型
- * @param <PK>
- *         实体主键类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public abstract class BaseController<D, E, S extends BaseService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
-        extends BaseFindController<D, E, S, SP, PK>
-        implements SaveController<D, E, S, SP, PK>, UpdateController<D, E, S, SP, PK>, DeleteController<D, E, S, SP, PK> {
+public abstract class BaseController<D, E, S extends BaseService<E, SP>, SP extends SearchParams>
+        extends BaseFindController<D, E, S, SP>
+        implements SaveController<D, E, S, SP>, UpdateController<D, E, S, SP>, DeleteController<D, E, S, SP> {
 
 }

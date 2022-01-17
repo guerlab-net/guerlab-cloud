@@ -21,9 +21,6 @@ import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.io.Serializable;
 
 /**
  * 基础删除控制器接口
@@ -34,13 +31,11 @@ import java.io.Serializable;
  *         实体类型
  * @param <S>
  *         Service类型
- * @param <PK>
- *         主键类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface DeleteController<D, E, S extends BaseService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
-        extends IController<D, E, S, PK> {
+public interface DeleteController<D, E, S extends BaseService<E, SP>, SP extends SearchParams>
+        extends IController<D, E, S> {
 
     /**
      * 请求路径
@@ -57,17 +52,15 @@ public interface DeleteController<D, E, S extends BaseService<E, PK, SP>, SP ext
      *
      * @param id
      *         主键ID
-     * @param force
-     *         强制删除标志
      */
     @Log("method.delete")
     @Operation(summary = "删除", security = @SecurityRequirement(name = Constants.TOKEN))
     @DeleteMapping(DELETE_BY_ID_PATH)
-    default void delete(@Parameter(description = "主键ID", required = true) @PathVariable(DELETE_BY_ID_PATH_PARAM) PK id,
-            @Parameter(description = "强制删除标志") @RequestParam(required = false) Boolean force) {
+    default void delete(
+            @Parameter(description = "主键ID", required = true) @PathVariable(DELETE_BY_ID_PATH_PARAM) Long id) {
         E entity = findOne0(id);
         beforeDelete(entity);
-        getService().deleteById(id, force);
+        getService().deleteById(id);
         afterDelete(entity);
     }
 

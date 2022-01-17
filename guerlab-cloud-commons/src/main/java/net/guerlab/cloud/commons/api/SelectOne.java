@@ -22,7 +22,6 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.io.Serializable;
 import java.util.Optional;
 
 /**
@@ -30,14 +29,12 @@ import java.util.Optional;
  *
  * @param <D>
  *         返回实体类型
- * @param <PK>
- *         主键类型
  * @param <SP>
  *         搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface SelectOne<D, PK extends Serializable, SP extends SearchParams> {
+public interface SelectOne<D, SP extends SearchParams> {
 
     /**
      * 请求路径

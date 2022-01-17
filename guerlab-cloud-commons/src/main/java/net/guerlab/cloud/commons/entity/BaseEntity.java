@@ -23,20 +23,18 @@ import java.time.LocalDateTime;
 /**
  * 基础实体
  *
- * @param <PK>
- *         主键类型
  * @author guer
  */
 @Data
 @Schema(name = "BaseEntity", description = "基础实体")
-public abstract class BaseEntity<PK> implements Serializable {
+public abstract class BaseEntity implements Serializable {
 
     /**
      * 主键ID
      */
     @Schema(description = "主键ID")
     @TableId(value = EntityColumnNames.ID, type = IdType.ASSIGN_ID)
-    protected PK id;
+    protected Long id;
 
     /**
      * 创建时间

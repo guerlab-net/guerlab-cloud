@@ -32,14 +32,14 @@ import java.util.Collection;
 @Setter
 @Getter
 @Schema(name = "BaseEntitySearchParams", description = "基础对象搜索参数")
-public abstract class BaseEntitySearchParams<PK> extends BaseSearchParams {
+public abstract class BaseEntitySearchParams extends BaseSearchParams {
 
     /**
      * 主键ID
      */
     @Schema(description = "主键ID")
     @Column(name = EntityColumnNames.ID)
-    private PK id;
+    private Long id;
 
     /**
      * 主键ID列表
@@ -47,7 +47,7 @@ public abstract class BaseEntitySearchParams<PK> extends BaseSearchParams {
     @Schema(description = "主键ID列表")
     @Column(name = EntityColumnNames.ID)
     @SearchModel(SearchModelType.IN)
-    private Collection<PK> ids;
+    private Collection<Long> ids;
 
     /**
      * 主键ID不等于
@@ -55,7 +55,7 @@ public abstract class BaseEntitySearchParams<PK> extends BaseSearchParams {
     @Schema(description = "主键ID不等于")
     @Column(name = EntityColumnNames.ID)
     @SearchModel(SearchModelType.NOT_EQUAL_TO)
-    private PK notId;
+    private Long notId;
 
     /**
      * 主键ID不包含列表
@@ -63,7 +63,7 @@ public abstract class BaseEntitySearchParams<PK> extends BaseSearchParams {
     @Schema(description = "主键ID不包含列表")
     @Column(name = EntityColumnNames.ID)
     @SearchModel(SearchModelType.NOT_IN)
-    private Collection<PK> notIds;
+    private Collection<Long> notIds;
 
     /**
      * 创建时间开始范围

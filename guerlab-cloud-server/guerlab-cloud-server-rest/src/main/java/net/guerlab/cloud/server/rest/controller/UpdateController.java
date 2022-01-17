@@ -23,8 +23,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.io.Serializable;
-
 /**
  * 基础更新控制器接口
  *
@@ -34,13 +32,11 @@ import java.io.Serializable;
  *         实体类型
  * @param <S>
  *         Service类型
- * @param <PK>
- *         主键类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface UpdateController<D, E, S extends BaseService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
-        extends IController<D, E, S, PK>, ModifyControllerWrapper<D, E, PK> {
+public interface UpdateController<D, E, S extends BaseService<E, SP>, SP extends SearchParams>
+        extends IController<D, E, S>, ModifyControllerWrapper<D, E> {
 
     /**
      * 请求路径
@@ -64,7 +60,7 @@ public interface UpdateController<D, E, S extends BaseService<E, PK, SP>, SP ext
     @Log("method.update")
     @Operation(summary = "编辑", security = @SecurityRequirement(name = Constants.TOKEN))
     @PutMapping(UPDATE_BY_ID_PATH)
-    default D update(@Parameter(description = "主键ID", required = true) @PathVariable(UPDATE_BY_ID_PATH_PARAM) PK id,
+    default D update(@Parameter(description = "主键ID", required = true) @PathVariable(UPDATE_BY_ID_PATH_PARAM) Long id,
             @Parameter(description = "对象数据", required = true) @RequestBody D dto) {
         E entity = findOne0(id);
         beforeUpdate(entity, dto);

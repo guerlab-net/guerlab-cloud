@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -37,8 +36,6 @@ import static net.guerlab.cloud.commons.api.SelectPage.*;
  *
  * @param <D>
  *         返回实体类型
- * @param <PK>
- *         主键类型
  * @param <SP>
  *         搜索参数类型
  * @param <E>
@@ -49,8 +46,7 @@ import static net.guerlab.cloud.commons.api.SelectPage.*;
  */
 @SuppressWarnings("unused")
 @Slf4j
-public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParams, E, S extends BaseFindService<E, PK, SP>>
-        implements Api<D, PK, SP> {
+public abstract class BaseApi<D, SP extends SearchParams, E, S extends BaseFindService<E, SP>> implements Api<D, SP> {
 
     /**
      * 服务接口
@@ -87,7 +83,7 @@ public abstract class BaseApi<D, PK extends Serializable, SP extends SearchParam
 
     @Nullable
     @Override
-    public D selectById(@PathVariable(value = SELECT_BY_ID_PARAM) PK id, @Nullable SP searchParams) {
+    public D selectById(@PathVariable(value = SELECT_BY_ID_PARAM) Long id, @Nullable SP searchParams) {
         E entity = getService().selectById(id);
         if (entity == null) {
             return null;

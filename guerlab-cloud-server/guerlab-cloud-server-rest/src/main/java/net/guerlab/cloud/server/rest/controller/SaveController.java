@@ -22,8 +22,6 @@ import net.guerlab.cloud.server.service.BaseService;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.io.Serializable;
-
 /**
  * 基础保存控制器接口
  *
@@ -33,13 +31,11 @@ import java.io.Serializable;
  *         实体类型
  * @param <S>
  *         Service类型
- * @param <PK>
- *         主键类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface SaveController<D, E, S extends BaseService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
-        extends IController<D, E, S, PK>, ModifyControllerWrapper<D, E, PK> {
+public interface SaveController<D, E, S extends BaseService<E, SP>, SP extends SearchParams>
+        extends IController<D, E, S>, ModifyControllerWrapper<D, E> {
 
     /**
      * 添加对象

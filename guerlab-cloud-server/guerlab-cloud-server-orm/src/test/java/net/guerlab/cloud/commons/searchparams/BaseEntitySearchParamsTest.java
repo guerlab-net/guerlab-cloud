@@ -52,7 +52,7 @@ public class BaseEntitySearchParamsTest {
 
     @Data
     @EqualsAndHashCode(callSuper = true)
-    public static class TestObj extends BaseEntity<Long> {
+    public static class TestObj extends BaseEntity {
 
         @TableField(value = "VALUE")
         private Long val;
@@ -60,7 +60,7 @@ public class BaseEntitySearchParamsTest {
 
     @Setter
     @Getter
-    public static class TestSearchParams extends BaseEntitySearchParams<Long> {
+    public static class TestSearchParams extends BaseEntitySearchParams {
 
         @Column(name = "val")
         private Long value;

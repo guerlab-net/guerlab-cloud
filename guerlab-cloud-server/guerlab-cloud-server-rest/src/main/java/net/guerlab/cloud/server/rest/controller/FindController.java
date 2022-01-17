@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -43,13 +42,11 @@ import static net.guerlab.cloud.commons.api.SelectPage.*;
  *         Service类型
  * @param <SP>
  *         SearchParams类型
- * @param <PK>
- *         主键类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface FindController<D, E, S extends BaseFindService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
-        extends IController<D, E, S, PK>, Api<D, PK, SP> {
+public interface FindController<D, E, S extends BaseFindService<E, SP>, SP extends SearchParams>
+        extends IController<D, E, S>, Api<D, SP> {
 
     /**
      * 根据主键ID查询对象
@@ -62,7 +59,7 @@ public interface FindController<D, E, S extends BaseFindService<E, PK, SP>, SP e
      */
     @Override
     @Nullable
-    default D selectById(@Parameter(description = "主键ID", required = true) @PathVariable(SELECT_BY_ID_PARAM) PK id,
+    default D selectById(@Parameter(description = "主键ID", required = true) @PathVariable(SELECT_BY_ID_PARAM) Long id,
             @Nullable SP searchParams) {
         D result = convert(findOne0(id));
         afterFind(Collections.singletonList(result), searchParams);

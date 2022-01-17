@@ -12,8 +12,6 @@
  */
 package net.guerlab.cloud.server.rest.controller;
 
-import java.io.Serializable;
-
 /**
  * 控制器接口
  *
@@ -21,13 +19,11 @@ import java.io.Serializable;
  *         实体对象类型
  * @param <S>
  *         服务接口类型
- * @param <PK>
- *         实体主键类型
  * @param <D>
  *         输出对象类型
  * @author guer
  */
-public interface IController<D, E, S, PK extends Serializable> {
+public interface IController<D, E, S> {
 
     /**
      * 获取服务对象
@@ -50,7 +46,7 @@ public interface IController<D, E, S, PK extends Serializable> {
      *         主键id
      * @return 对象
      */
-    E findOne0(PK id);
+    E findOne0(Long id);
 
     /**
      * 转换对象

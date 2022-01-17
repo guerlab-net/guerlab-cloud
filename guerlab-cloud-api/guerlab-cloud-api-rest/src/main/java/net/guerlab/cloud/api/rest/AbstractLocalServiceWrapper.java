@@ -15,13 +15,12 @@ package net.guerlab.cloud.api.rest;
 
 import net.guerlab.cloud.commons.api.Api;
 import net.guerlab.cloud.commons.util.BeanConvertUtils;
-import net.guerlab.cloud.core.dto.Convert;
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseFindService;
+import net.guerlab.commons.collection.CollectionUtil;
 import org.springframework.lang.Nullable;
 
-import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -29,8 +28,6 @@ import java.util.Collection;
  *
  * @param <D>
  *         返回实体类型
- * @param <PK>
- *         主键类型
  * @param <SP>
  *         搜索参数类型
  * @param <T>
@@ -39,8 +36,8 @@ import java.util.Collection;
  *         服务类型
  * @author guer
  */
-public abstract class AbstractLocalServiceWrapper<D, PK extends Serializable, SP extends SearchParams, T extends Convert<D>, S extends BaseFindService<T, PK, SP>>
-        implements Api<D, PK, SP> {
+public abstract class AbstractLocalServiceWrapper<D, SP extends SearchParams, T, S extends BaseFindService<T, SP>>
+        implements Api<D, SP> {
 
     /**
      * 服务实例
@@ -61,25 +58,34 @@ public abstract class AbstractLocalServiceWrapper<D, PK extends Serializable, SP
     @Override
     public D selectOne(SP searchParams) {
         T entity = service.selectOne(searchParams);
-        return entity == null ? null : entity.convert();
+        return entity == null ? null : convert(entity);
     }
 
     @Nullable
     @Override
-    public D selectById(PK id) {
+    public D selectById(Long id) {
         T entity = service.selectById(id);
-        return entity == null ? null : entity.convert();
+        return entity == null ? null : convert(entity);
     }
 
     @Override
     public Collection<D> selectList(SP searchParams) {
-        return BeanConvertUtils.toList(service.selectList(searchParams));
+        return CollectionUtil.toList(service.selectList(searchParams), this::convert);
     }
 
     @Override
     public Pageable<D> selectPage(SP searchParams, int pageId, int pageSize) {
-        return BeanConvertUtils.toPageable(service.selectPage(searchParams, pageId, pageSize));
+        return BeanConvertUtils.toPageable(service.selectPage(searchParams, pageId, pageSize), this::convert);
     }
+
+    /**
+     * 对象转换
+     *
+     * @param entity
+     *         实体
+     * @return 返回实体
+     */
+    protected abstract D convert(T entity);
 
     @Override
     public int selectCount(SP searchParams) {

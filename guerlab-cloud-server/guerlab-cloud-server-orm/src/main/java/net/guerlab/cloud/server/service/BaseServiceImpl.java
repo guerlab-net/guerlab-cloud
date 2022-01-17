@@ -31,7 +31,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -41,8 +40,6 @@ import java.util.function.BiConsumer;
  *
  * @param <T>
  *         数据类型
- * @param <PK>
- *         主键类型
  * @param <M>
  *         Mapper类型
  * @param <SP>
@@ -51,8 +48,8 @@ import java.util.function.BiConsumer;
  */
 @SuppressWarnings({ "EmptyMethod", "unused" })
 @Transactional(rollbackFor = Exception.class)
-public abstract class BaseServiceImpl<T, PK extends Serializable, M extends BaseMapper<T>, SP extends SearchParams>
-        implements BaseService<T, PK, SP> {
+public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends SearchParams>
+        implements BaseService<T, SP> {
 
     /**
      * 默认单次操作数量
@@ -115,7 +112,7 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
     }
 
     @Override
-    public T selectById(PK id) {
+    public T selectById(Long id) {
         return getBaseMapper().selectById(id);
     }
 
@@ -292,11 +289,11 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
     }
 
     @Override
-    public void delete(SP searchParams, Boolean force) {
-        deleteBefore(searchParams, force);
+    public void delete(SP searchParams) {
+        deleteBefore(searchParams);
         QueryWrapper<T> queryWrapper = getQueryWrapper(searchParams);
         getBaseMapper().delete(queryWrapper);
-        deleteAfter(searchParams, force);
+        deleteAfter(searchParams);
     }
 
     /**
@@ -304,10 +301,8 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
      *
      * @param searchParams
      *         搜索参数
-     * @param force
-     *         强制删除标签
      */
-    protected void deleteBefore(SP searchParams, Boolean force) {
+    protected void deleteBefore(SP searchParams) {
         /* 默认空实现 */
     }
 
@@ -316,18 +311,16 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
      *
      * @param searchParams
      *         搜索参数
-     * @param force
-     *         强制删除标签
      */
-    protected void deleteAfter(SP searchParams, Boolean force) {
+    protected void deleteAfter(SP searchParams) {
         /* 默认空实现 */
     }
 
     @Override
-    public void deleteById(PK id, Boolean force) {
-        deleteByIdBefore(id, force);
+    public void deleteById(Long id) {
+        deleteByIdBefore(id);
         getBaseMapper().deleteById(id);
-        deleteByIdAfter(id, force);
+        deleteByIdAfter(id);
     }
 
     /**
@@ -335,10 +328,8 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
      *
      * @param id
      *         id
-     * @param force
-     *         强制删除标签
      */
-    protected void deleteByIdBefore(PK id, Boolean force) {
+    protected void deleteByIdBefore(Long id) {
         /* 默认空实现 */
     }
 
@@ -347,10 +338,8 @@ public abstract class BaseServiceImpl<T, PK extends Serializable, M extends Base
      *
      * @param id
      *         id
-     * @param force
-     *         强制删除标签
      */
-    protected void deleteByIdAfter(PK id, Boolean force) {
+    protected void deleteByIdAfter(Long id) {
         /* 默认空实现 */
     }
 

@@ -18,7 +18,6 @@ import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.SearchParams;
 import org.springframework.lang.Nullable;
 
-import java.io.Serializable;
 import java.util.Collection;
 
 /**
@@ -26,16 +25,13 @@ import java.util.Collection;
  *
  * @param <D>
  *         返回实体类型
- * @param <PK>
- *         主键类型
  * @param <SP>
  *         搜索参数类型
  * @param <A>
  *         api类型
  * @author guer
  */
-public abstract class AbstractApiWrapper<D, PK extends Serializable, SP extends SearchParams, A extends Api<D, PK, SP>>
-        implements Api<D, PK, SP> {
+public abstract class AbstractApiWrapper<D, SP extends SearchParams, A extends Api<D, SP>> implements Api<D, SP> {
 
     /**
      * api
@@ -60,7 +56,7 @@ public abstract class AbstractApiWrapper<D, PK extends Serializable, SP extends 
 
     @Nullable
     @Override
-    public D selectById(PK id) {
+    public D selectById(Long id) {
         return api.selectById(id);
     }
 

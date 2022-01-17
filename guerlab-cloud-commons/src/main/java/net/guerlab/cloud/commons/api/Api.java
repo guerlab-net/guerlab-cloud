@@ -22,7 +22,6 @@ import net.guerlab.cloud.searchparams.SearchParams;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -38,14 +37,12 @@ import static net.guerlab.cloud.commons.api.SelectPage.*;
  *
  * @param <D>
  *         返回实体类型
- * @param <PK>
- *         主键类型
  * @param <SP>
  *         搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface Api<D, PK extends Serializable, SP extends SearchParams> {
+public interface Api<D, SP extends SearchParams> {
 
     /**
      * 根据主键ID查询对象
@@ -59,7 +56,7 @@ public interface Api<D, PK extends Serializable, SP extends SearchParams> {
     @Nullable
     @GetMapping(SELECT_BY_ID_PATH)
     @Operation(summary = "通过Id查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
-    D selectById(@Parameter(description = "主键ID", required = true) @PathVariable(SELECT_BY_ID_PARAM) PK id,
+    D selectById(@Parameter(description = "主键ID", required = true) @PathVariable(SELECT_BY_ID_PARAM) Long id,
             @Nullable SP searchParams);
 
     /**
@@ -70,7 +67,7 @@ public interface Api<D, PK extends Serializable, SP extends SearchParams> {
      * @return 实体
      */
     @Nullable
-    default D selectById(PK id) {
+    default D selectById(Long id) {
         return selectById(id, null);
     }
 
@@ -81,7 +78,7 @@ public interface Api<D, PK extends Serializable, SP extends SearchParams> {
      *         主键id
      * @return Optional
      */
-    default Optional<D> selectByIdOptional(PK id) {
+    default Optional<D> selectByIdOptional(Long id) {
         return Optional.ofNullable(selectById(id, null));
     }
 

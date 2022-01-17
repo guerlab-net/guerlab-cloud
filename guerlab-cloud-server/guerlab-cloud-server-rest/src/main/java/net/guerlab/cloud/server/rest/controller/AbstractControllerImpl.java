@@ -19,8 +19,6 @@ import net.guerlab.cloud.server.service.BaseFindService;
 import net.guerlab.commons.exception.ApplicationException;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.Serializable;
-
 /**
  * 基础控制器
  *
@@ -30,15 +28,13 @@ import java.io.Serializable;
  *         实体对象类型
  * @param <S>
  *         服务接口类型
- * @param <PK>
- *         实体主键类型
  * @param <SP>
  *         搜索参数类型
  * @author guer
  */
 @Slf4j
-public abstract class AbstractControllerImpl<D, E, S extends BaseFindService<E, PK, SP>, SP extends SearchParams, PK extends Serializable>
-        implements IController<D, E, S, PK> {
+public abstract class AbstractControllerImpl<D, E, S extends BaseFindService<E, SP>, SP extends SearchParams>
+        implements IController<D, E, S> {
 
     /**
      * 服务接口
@@ -70,7 +66,7 @@ public abstract class AbstractControllerImpl<D, E, S extends BaseFindService<E, 
      * @return 实体
      */
     @Override
-    public E findOne0(PK id) {
+    public E findOne0(Long id) {
         E entity = getService().selectById(id);
 
         if (entity == null) {

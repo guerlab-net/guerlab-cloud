@@ -22,15 +22,13 @@ import java.math.BigDecimal;
 /**
  * 地理信息对象
  *
- * @param <PK>
- *         主键类型
  * @author guer
  */
 @SuppressWarnings("unused")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Schema(name = "GeoEntity", description = "地理信息对象")
-public class GeoEntity<PK> extends BaseEntity<PK> implements IGeoEntity {
+public class GeoEntity extends BaseEntity implements IGeoEntity {
 
     /**
      * 经度
