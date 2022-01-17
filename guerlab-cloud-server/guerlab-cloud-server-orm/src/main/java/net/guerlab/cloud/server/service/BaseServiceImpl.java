@@ -360,7 +360,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
      */
     @SuppressWarnings("unchecked")
     protected Class<T> currentMapperClass() {
-        return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), 2);
+        return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), 1);
     }
 
     /**
