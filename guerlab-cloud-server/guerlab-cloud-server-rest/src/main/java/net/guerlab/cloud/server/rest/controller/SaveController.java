@@ -19,7 +19,7 @@ import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.log.annotation.Log;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseService;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -46,7 +46,7 @@ public interface SaveController<D, E, S extends BaseService<E, SP>, SP extends S
      */
     @Log("method.save")
     @Operation(summary = "添加", security = @SecurityRequirement(name = Constants.TOKEN))
-    @PutMapping
+    @PostMapping
     default D save(@Parameter(description = "对象数据", required = true) @RequestBody D dto) {
         E entity = newEntity();
         beforeSave(dto);

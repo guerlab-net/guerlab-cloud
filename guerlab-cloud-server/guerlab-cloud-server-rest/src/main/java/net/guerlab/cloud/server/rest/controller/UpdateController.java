@@ -20,7 +20,7 @@ import net.guerlab.cloud.log.annotation.Log;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseService;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -59,7 +59,7 @@ public interface UpdateController<D, E, S extends BaseService<E, SP>, SP extends
      */
     @Log("method.update")
     @Operation(summary = "编辑", security = @SecurityRequirement(name = Constants.TOKEN))
-    @PutMapping(UPDATE_BY_ID_PATH)
+    @PostMapping(UPDATE_BY_ID_PATH)
     default D update(@Parameter(description = "主键ID", required = true) @PathVariable(UPDATE_BY_ID_PATH_PARAM) Long id,
             @Parameter(description = "对象数据", required = true) @RequestBody D dto) {
         E entity = findOne0(id);
