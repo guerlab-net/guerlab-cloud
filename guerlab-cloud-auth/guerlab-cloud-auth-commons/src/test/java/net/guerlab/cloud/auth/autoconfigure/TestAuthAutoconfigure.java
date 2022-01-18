@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth.autoconfig;
+package net.guerlab.cloud.auth.autoconfigure;
 
 import net.guerlab.cloud.auth.properties.TestJwtTokenFactoryProperties;
 import net.guerlab.cloud.auth.properties.TestMd5TokenFactoryProperties;

@@ -14,6 +14,6 @@
  * @author guer
  */
 @NonNullApi
-package net.guerlab.cloud.auth.webmvc.autoconfig;
+package net.guerlab.cloud.auth.webmvc.autoconfigure;
 
 import org.springframework.lang.NonNullApi;

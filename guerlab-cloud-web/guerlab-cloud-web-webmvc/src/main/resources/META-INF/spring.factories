@@ -1,5 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 net.guerlab.cloud.web.webmvc.autoconfigure.ConverterConfig,\
+net.guerlab.cloud.web.webmvc.autoconfigure.CurrentOperatorInterceptorAutoConfigure,\
 net.guerlab.cloud.web.webmvc.autoconfigure.WebMvcAutoconfigure,\
 net.guerlab.cloud.web.webmvc.autoconfigure.WebMvcGlobalExceptionHandlerAutoConfigure,\
 net.guerlab.cloud.web.webmvc.autoconfigure.WebMvcI18nAutoconfigure,\

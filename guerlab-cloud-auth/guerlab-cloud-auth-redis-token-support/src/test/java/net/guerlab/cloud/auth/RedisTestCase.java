@@ -14,7 +14,7 @@ package net.guerlab.cloud.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.auth.autoconfig.TestRedisTokenAutoconfigure;
+import net.guerlab.cloud.auth.autoconfigure.TestRedisTokenAutoconfigure;
 import net.guerlab.cloud.auth.domain.ITestTokenInfo;
 import net.guerlab.cloud.auth.domain.TestTokenInfo;
 import net.guerlab.cloud.auth.domain.TokenInfo;

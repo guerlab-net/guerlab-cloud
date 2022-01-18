@@ -70,6 +70,11 @@ public interface Constants {
     String CURRENT_OPERATOR = "currentOperator";
 
     /**
+     * 当前操作者-请求头
+     */
+    String CURRENT_OPERATOR_HEADER = "X-CURRENT-OPERATOR";
+
+    /**
      * 最大日期
      */
     LocalDate MAX_DATE = LocalDate.of(9999, 12, 31);

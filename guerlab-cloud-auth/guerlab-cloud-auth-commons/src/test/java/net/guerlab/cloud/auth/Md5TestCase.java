@@ -13,7 +13,7 @@
 package net.guerlab.cloud.auth;
 
 import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.auth.autoconfig.TestAuthAutoconfigure;
+import net.guerlab.cloud.auth.autoconfigure.TestAuthAutoconfigure;
 import net.guerlab.cloud.auth.domain.ITestTokenInfo;
 import net.guerlab.cloud.auth.domain.TestTokenInfo;
 import net.guerlab.cloud.auth.domain.TokenInfo;
