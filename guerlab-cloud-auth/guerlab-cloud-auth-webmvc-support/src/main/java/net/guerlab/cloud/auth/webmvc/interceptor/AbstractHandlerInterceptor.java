@@ -23,7 +23,6 @@ import org.springframework.core.Ordered;
 import org.springframework.lang.Nullable;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -217,13 +216,6 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
         request.setAttribute(REAL_REQUEST_PATH, realRequestPath);
 
         return realRequestPath;
-    }
-
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-            @Nullable ModelAndView modelAndView) {
-        AbstractContextHandler.clean();
-        log.debug("invoke AbstractContextHandler.clean()");
     }
 
     /**

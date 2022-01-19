@@ -15,7 +15,8 @@ package net.guerlab.cloud.web.webflux.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import net.guerlab.cloud.commons.Constants;
-import net.guerlab.cloud.context.core.ContextAttributesHolder;
+import net.guerlab.cloud.context.core.ContextAttributes;
+import net.guerlab.cloud.context.webflux.filter.ContextAttributesServerWebExchangeDecoratorFilter;
 import org.springframework.core.Ordered;
 import org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.server.ServerWebExchange;
@@ -34,7 +35,7 @@ public class CurrentOperatorFilter implements WebFilter, Ordered {
     /**
      * 默认排序
      */
-    public static final int DEFAULT_ORDER = 0;
+    public static final int DEFAULT_ORDER = ContextAttributesServerWebExchangeDecoratorFilter.DEFAULT_ORDER + 10;
 
     /**
      * requestMappingHandlerMapping
@@ -65,7 +66,8 @@ public class CurrentOperatorFilter implements WebFilter, Ordered {
                 .switchIfEmpty(chain.filter(exchange).then(Mono.empty()))
                 .flatMap(handlerMethod -> {
                     if (currentOperator != null) {
-                        ContextAttributesHolder.get().put(Constants.CURRENT_OPERATOR, currentOperator);
+                        ContextAttributes contextAttributes = (ContextAttributes) exchange.getAttributes().get(ContextAttributes.KEY);
+                        contextAttributes.put(Constants.CURRENT_OPERATOR, currentOperator);
                     }
                     return chain.filter(exchange).then(Mono.empty());
                 });

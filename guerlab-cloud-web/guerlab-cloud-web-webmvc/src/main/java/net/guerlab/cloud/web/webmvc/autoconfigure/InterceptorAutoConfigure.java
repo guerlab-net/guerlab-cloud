@@ -13,21 +13,24 @@
 
 package net.guerlab.cloud.web.webmvc.autoconfigure;
 
+import net.guerlab.cloud.web.webmvc.interceptor.ContextAttributesHolderCleanInterceptor;
 import net.guerlab.cloud.web.webmvc.interceptor.CurrentOperatorInterceptor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * 当前操作者信息处理请求拦截器自动配置
+ * 拦截器自动配置
  *
  * @author guer
  */
 @Configuration
-public class CurrentOperatorInterceptorAutoConfigure implements WebMvcConfigurer {
+public class InterceptorAutoConfigure implements WebMvcConfigurer {
 
     @Override
     public final void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new CurrentOperatorInterceptor());
+        registry.addInterceptor(new ContextAttributesHolderCleanInterceptor()).order(Ordered.HIGHEST_PRECEDENCE);
+        registry.addInterceptor(new CurrentOperatorInterceptor()).order(Ordered.HIGHEST_PRECEDENCE + 1);
     }
 }
