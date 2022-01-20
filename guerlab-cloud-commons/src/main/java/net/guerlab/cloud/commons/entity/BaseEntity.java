@@ -47,7 +47,7 @@ public abstract class BaseEntity implements Serializable {
      * 最后修改时间
      */
     @Schema(description = "最后修改时间")
-    @TableField(value = EntityColumnNames.LAST_UPDATED_TIME, fill = FieldFill.INSERT)
+    @TableField(value = EntityColumnNames.LAST_UPDATED_TIME, fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime lastUpdatedTime;
 
     /**
@@ -61,7 +61,7 @@ public abstract class BaseEntity implements Serializable {
      * 修改人
      */
     @Schema(description = "修改人")
-    @TableField(value = EntityColumnNames.MODIFIED_BY, fill = FieldFill.INSERT)
+    @TableField(value = EntityColumnNames.MODIFIED_BY, fill = FieldFill.INSERT_UPDATE)
     private String modifiedBy;
 
     /**
