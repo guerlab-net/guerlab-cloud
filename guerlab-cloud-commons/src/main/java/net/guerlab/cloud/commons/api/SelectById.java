@@ -27,14 +27,14 @@ import java.util.Optional;
 /**
  * APi定义
  *
- * @param <D>
+ * @param <E>
  *         返回实体类型
  * @param <SP>
  *         搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface SelectById<D, SP extends SearchParams> {
+public interface SelectById<E, SP extends SearchParams> {
 
     /**
      * 请求路径
@@ -58,7 +58,7 @@ public interface SelectById<D, SP extends SearchParams> {
     @Nullable
     @GetMapping(SELECT_BY_ID_PATH)
     @Operation(summary = "通过Id查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
-    D selectById(@Parameter(description = "ID", required = true) @PathVariable(SELECT_BY_ID_PARAM) Long id,
+    E selectById(@Parameter(description = "ID", required = true) @PathVariable(SELECT_BY_ID_PARAM) Long id,
             @Nullable SP searchParams);
 
     /**
@@ -69,7 +69,7 @@ public interface SelectById<D, SP extends SearchParams> {
      * @return 实体
      */
     @Nullable
-    default D selectById(Long id) {
+    default E selectById(Long id) {
         return selectById(id, null);
     }
 
@@ -80,7 +80,7 @@ public interface SelectById<D, SP extends SearchParams> {
      *         主键id
      * @return Optional
      */
-    default Optional<D> selectByIdOptional(Long id) {
+    default Optional<E> selectByIdOptional(Long id) {
         return Optional.ofNullable(selectById(id, null));
     }
 }

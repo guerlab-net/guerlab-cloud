@@ -26,14 +26,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * APi定义
  *
- * @param <D>
+ * @param <E>
  *         返回实体类型
  * @param <SP>
  *         搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface SelectPage<D, SP extends SearchParams> {
+public interface SelectPage<E, SP extends SearchParams> {
 
     /**
      * 请求路径
@@ -70,7 +70,7 @@ public interface SelectPage<D, SP extends SearchParams> {
      */
     @PostMapping(SELECT_PAGE_PATH)
     @Operation(summary = "查询分页列表", security = @SecurityRequirement(name = Constants.TOKEN))
-    Pageable<D> selectPage(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams,
+    Pageable<E> selectPage(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams,
             @Parameter(description = "分页ID") @RequestParam(name = PAGE_ID, defaultValue = PAGE_ID_VALUE, required = false) int pageId,
             @Parameter(description = "分页尺寸") @RequestParam(name = PAGE_SIZE, defaultValue = PAGE_SIZE_VALUE, required = false) int pageSize);
 

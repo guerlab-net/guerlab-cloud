@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
+import net.guerlab.cloud.commons.entity.BaseEntity;
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.core.sequence.Sequence;
 import net.guerlab.cloud.searchparams.SearchParams;
@@ -162,6 +163,11 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 
     @Override
     public void insert(T entity) {
+        if (entity instanceof BaseEntity) {
+            BaseEntity tempEntity = (BaseEntity) entity;
+            tempEntity.setId(null);
+            tempEntity.setVersion(null);
+        }
         insertBefore(entity);
         getBaseMapper().insert(entity);
         insertAfter(entity);

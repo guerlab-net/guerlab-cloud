@@ -26,14 +26,14 @@ import java.util.Collection;
 /**
  * APi定义
  *
- * @param <D>
+ * @param <E>
  *         返回实体类型
  * @param <SP>
  *         搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface SelectList<D, SP extends SearchParams> {
+public interface SelectList<E, SP extends SearchParams> {
 
     /**
      * 请求路径
@@ -49,5 +49,5 @@ public interface SelectList<D, SP extends SearchParams> {
      */
     @PostMapping(SELECT_LIST_PATH)
     @Operation(summary = "查询列表", security = @SecurityRequirement(name = Constants.TOKEN))
-    Collection<D> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
+    Collection<E> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
 }

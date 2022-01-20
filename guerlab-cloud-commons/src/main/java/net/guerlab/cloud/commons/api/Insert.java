@@ -14,36 +14,29 @@
 package net.guerlab.cloud.commons.api;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import net.guerlab.cloud.commons.Constants;
-import net.guerlab.cloud.searchparams.SearchParams;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * APi定义
  *
- * @param <SP>
- *         搜索参数类型
+ * @param <E>
+ *         返回实体类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface SelectCount<SP extends SearchParams> {
+public interface Insert<E> {
 
     /**
-     * 请求路径
-     */
-    String SELECT_COUNT_PATH = "/search/count";
-
-    /**
-     * 查询总记录数
+     * 新增实体
      *
-     * @param searchParams
-     *         搜索参数对象
-     * @return 实体总数
+     * @param entity
+     *         实体
+     * @return 保存后的实体
      */
-    @PostMapping(SELECT_COUNT_PATH)
-    @Operation(summary = "查询总记录数", security = @SecurityRequirement(name = Constants.TOKEN))
-    int selectCount(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
+    @PostMapping
+    @Operation(summary = "新增实体", security = @SecurityRequirement(name = Constants.TOKEN))
+    E insert(@RequestBody E entity);
 }

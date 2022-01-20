@@ -25,9 +25,7 @@
 
 |子项目|说明|
 |:----|:----|
-|guerlab-cloud-api|feign的扩展支持|
-|guerlab-cloud-api-core|feign的核心扩展支持，提供debug环境下自动重定向、数据解析优化扩展|
-|guerlab-cloud-api-rest|对rest端点的feign扩展支持|
+|guerlab-cloud-api|feign的扩展支持，提供debug环境下自动重定向、数据解析优化扩展|
 |guerlab-cloud-auth|授权模块|
 |guerlab-cloud-auth-commons|提供授权的公共配置，内置jwk\md5\rc4格式的数据加解密支持|
 |guerlab-cloud-auth-redis-token-support|提供基于redis的token令牌授权模型支持|

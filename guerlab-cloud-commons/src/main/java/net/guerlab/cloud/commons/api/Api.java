@@ -25,24 +25,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.Optional;
 
+import static net.guerlab.cloud.commons.api.DeleteById.DELETE_BY_ID_PARAM;
+import static net.guerlab.cloud.commons.api.DeleteById.DELETE_BY_ID_PATH;
 import static net.guerlab.cloud.commons.api.SelectById.SELECT_BY_ID_PARAM;
 import static net.guerlab.cloud.commons.api.SelectById.SELECT_BY_ID_PATH;
 import static net.guerlab.cloud.commons.api.SelectCount.SELECT_COUNT_PATH;
 import static net.guerlab.cloud.commons.api.SelectList.SELECT_LIST_PATH;
 import static net.guerlab.cloud.commons.api.SelectOne.SELECT_ONE_PATH;
 import static net.guerlab.cloud.commons.api.SelectPage.*;
+import static net.guerlab.cloud.commons.api.UpdateById.UPDATE_BY_ID_PARAM;
+import static net.guerlab.cloud.commons.api.UpdateById.UPDATE_BY_ID_PATH;
 
 /**
  * APi定义
  *
- * @param <D>
+ * @param <E>
  *         返回实体类型
  * @param <SP>
  *         搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface Api<D, SP extends SearchParams> {
+public interface Api<E, SP extends SearchParams> {
 
     /**
      * 根据主键ID查询对象
@@ -56,7 +60,7 @@ public interface Api<D, SP extends SearchParams> {
     @Nullable
     @GetMapping(SELECT_BY_ID_PATH)
     @Operation(summary = "通过Id查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
-    D selectById(@Parameter(description = "主键ID", required = true) @PathVariable(SELECT_BY_ID_PARAM) Long id,
+    E selectById(@Parameter(description = "主键ID", required = true) @PathVariable(SELECT_BY_ID_PARAM) Long id,
             @Nullable SP searchParams);
 
     /**
@@ -67,7 +71,7 @@ public interface Api<D, SP extends SearchParams> {
      * @return 实体
      */
     @Nullable
-    default D selectById(Long id) {
+    default E selectById(Long id) {
         return selectById(id, null);
     }
 
@@ -78,7 +82,7 @@ public interface Api<D, SP extends SearchParams> {
      *         主键id
      * @return Optional
      */
-    default Optional<D> selectByIdOptional(Long id) {
+    default Optional<E> selectByIdOptional(Long id) {
         return Optional.ofNullable(selectById(id, null));
     }
 
@@ -92,7 +96,7 @@ public interface Api<D, SP extends SearchParams> {
     @Nullable
     @PostMapping(SELECT_ONE_PATH)
     @Operation(summary = "查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
-    D selectOne(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
+    E selectOne(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
 
     /**
      * 查询单一结果，根据搜索参数进行筛选
@@ -101,7 +105,7 @@ public interface Api<D, SP extends SearchParams> {
      *         搜索参数对象
      * @return Optional
      */
-    default Optional<D> selectOneOptional(SP searchParams) {
+    default Optional<E> selectOneOptional(SP searchParams) {
         return Optional.ofNullable(selectOne(searchParams));
     }
 
@@ -114,7 +118,7 @@ public interface Api<D, SP extends SearchParams> {
      */
     @PostMapping(SELECT_LIST_PATH)
     @Operation(summary = "查询列表", security = @SecurityRequirement(name = Constants.TOKEN))
-    Collection<D> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
+    Collection<E> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
 
     /**
      * 查询分页列表
@@ -129,7 +133,7 @@ public interface Api<D, SP extends SearchParams> {
      */
     @PostMapping(SELECT_PAGE_PATH)
     @Operation(summary = "查询分页列表", security = @SecurityRequirement(name = Constants.TOKEN))
-    Pageable<D> selectPage(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams,
+    Pageable<E> selectPage(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams,
             @Parameter(description = "分页ID") @RequestParam(name = PAGE_ID, defaultValue = PAGE_ID_VALUE, required = false) int pageId,
             @Parameter(description = "分页尺寸") @RequestParam(name = PAGE_SIZE, defaultValue = PAGE_SIZE_VALUE, required = false) int pageSize);
 
@@ -143,4 +147,49 @@ public interface Api<D, SP extends SearchParams> {
     @PostMapping(SELECT_COUNT_PATH)
     @Operation(summary = "查询总记录数", security = @SecurityRequirement(name = Constants.TOKEN))
     int selectCount(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
+
+    /**
+     * 新增实体
+     *
+     * @param entity
+     *         实体
+     * @return 保存后的实体
+     */
+    @PostMapping
+    @Operation(summary = "新增实体", security = @SecurityRequirement(name = Constants.TOKEN))
+    E insert(@RequestBody E entity);
+
+    /**
+     * 根据Id编辑数据
+     *
+     * @param id
+     *         主键ID
+     * @param entity
+     *         实体
+     * @return 更新后的实体
+     */
+    @PostMapping(UPDATE_BY_ID_PATH)
+    @Operation(summary = "根据Id编辑数据", security = @SecurityRequirement(name = Constants.TOKEN))
+    E updateById(@Parameter(description = "ID", required = true) @PathVariable(UPDATE_BY_ID_PARAM) Long id,
+            @RequestBody E entity);
+
+    /**
+     * 根据Id删除数据
+     *
+     * @param id
+     *         主键ID
+     */
+    @DeleteMapping(DELETE_BY_ID_PATH)
+    @Operation(summary = "根据Id删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
+    void deleteById(@Parameter(description = "ID", required = true) @PathVariable(DELETE_BY_ID_PARAM) Long id);
+
+    /**
+     * 根据搜索参数删除数据
+     *
+     * @param searchParams
+     *         搜索参数
+     */
+    @DeleteMapping
+    @Operation(summary = "根据搜索参数删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
+    void delete(@Parameter(description = "搜索参数", required = true) @RequestBody SP searchParams);
 }

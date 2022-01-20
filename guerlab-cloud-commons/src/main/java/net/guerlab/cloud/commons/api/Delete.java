@@ -18,7 +18,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.searchparams.SearchParams;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -29,21 +29,15 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface SelectCount<SP extends SearchParams> {
+public interface Delete<SP extends SearchParams> {
 
     /**
-     * 请求路径
-     */
-    String SELECT_COUNT_PATH = "/search/count";
-
-    /**
-     * 查询总记录数
+     * 根据搜索参数删除数据
      *
      * @param searchParams
-     *         搜索参数对象
-     * @return 实体总数
+     *         搜索参数
      */
-    @PostMapping(SELECT_COUNT_PATH)
-    @Operation(summary = "查询总记录数", security = @SecurityRequirement(name = Constants.TOKEN))
-    int selectCount(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
+    @DeleteMapping
+    @Operation(summary = "根据搜索参数删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
+    void delete(@Parameter(description = "搜索参数", required = true) @RequestBody SP searchParams);
 }

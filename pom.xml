@@ -124,17 +124,6 @@
                 <groupId>net.guerlab.cloud</groupId>
                 <artifactId>guerlab-cloud-api</artifactId>
                 <version>${revision}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-api-core</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-api-rest</artifactId>
-                <version>${revision}</version>
             </dependency>
 
             <!-- guerlab-cloud auth -->
@@ -377,12 +366,7 @@
             </dependency>
             <dependency>
                 <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-server-rest</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-server-api-rest</artifactId>
+                <artifactId>guerlab-cloud-server-web</artifactId>
                 <version>${revision}</version>
             </dependency>
 

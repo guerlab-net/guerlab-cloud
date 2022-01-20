@@ -27,14 +27,14 @@ import java.util.Optional;
 /**
  * APi定义
  *
- * @param <D>
+ * @param <E>
  *         返回实体类型
  * @param <SP>
  *         搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface SelectOne<D, SP extends SearchParams> {
+public interface SelectOne<E, SP extends SearchParams> {
 
     /**
      * 请求路径
@@ -51,7 +51,7 @@ public interface SelectOne<D, SP extends SearchParams> {
     @Nullable
     @PostMapping(SELECT_ONE_PATH)
     @Operation(summary = "查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
-    D selectOne(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
+    E selectOne(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
 
     /**
      * 查询单一结果，根据搜索参数进行筛选
@@ -60,7 +60,7 @@ public interface SelectOne<D, SP extends SearchParams> {
      *         搜索参数对象
      * @return Optional
      */
-    default Optional<D> selectOneOptional(SP searchParams) {
+    default Optional<E> selectOneOptional(SP searchParams) {
         return Optional.ofNullable(selectOne(searchParams));
     }
 }

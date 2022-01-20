@@ -1,0 +1,6 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+net.guerlab.cloud.api.autoconfigure.CurrentOperatorInterceptorAutoConfigure,\
+net.guerlab.cloud.api.autoconfigure.EndPointsAutoconfigure,\
+net.guerlab.cloud.api.autoconfigure.FeignAutoconfigure,\
+net.guerlab.cloud.api.autoconfigure.HeadersContextAutoConfigure,\
+net.guerlab.cloud.api.autoconfigure.RequestInterceptorAutoconfigure

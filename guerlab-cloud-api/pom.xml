@@ -18,7 +18,6 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>guerlab-cloud-api</artifactId>
     <name>Guerlab Cloud Api</name>
-    <packaging>pom</packaging>
 
     <parent>
         <groupId>net.guerlab.cloud</groupId>
@@ -27,11 +26,49 @@
     </parent>
 
     <properties>
-        <main.basedir>${basedir}/..</main.basedir>
+        <main.basedir>${basedir}/../..</main.basedir>
     </properties>
 
-    <modules>
-        <module>guerlab-cloud-api-core</module>
-        <module>guerlab-cloud-api-rest</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>net.guerlab.cloud</groupId>
+            <artifactId>guerlab-cloud-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.guerlab.cloud</groupId>
+            <artifactId>guerlab-cloud-loadbalancer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.guerlab.cloud</groupId>
+            <artifactId>guerlab-cloud-auth-commons</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
 </project>
