@@ -31,35 +31,17 @@ public class DefaultHandler implements SearchParamsHandler {
         QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
         columnName = ColumnNameGetter.getColumnName(columnName, wrapper.getEntityClass());
         switch (searchModelType) {
-            case GREATER_THAN:
-                wrapper.gt(columnName, value);
-                break;
-            case GREATER_THAN_OR_EQUAL_TO:
-                wrapper.ge(columnName, value);
-                break;
-            case IS_NOT_NULL:
-                wrapper.isNotNull(columnName);
-                break;
-            case IS_NULL:
-                wrapper.isNull(columnName);
-                break;
-            case LESS_THAN:
-                wrapper.lt(columnName, value);
-                break;
-            case LESS_THAN_OR_EQUAL_TO:
-                wrapper.le(columnName, value);
-                break;
-            case NOT_EQUAL_TO:
-            case NOT_LIKE:
-            case START_NOT_WITH:
-            case END_NOT_WITH:
-                wrapper.ne(columnName, value);
-                break;
-            case CUSTOM_SQL:
+            case GREATER_THAN -> wrapper.gt(columnName, value);
+            case GREATER_THAN_OR_EQUAL_TO -> wrapper.ge(columnName, value);
+            case IS_NOT_NULL -> wrapper.isNotNull(columnName);
+            case IS_NULL -> wrapper.isNull(columnName);
+            case LESS_THAN -> wrapper.lt(columnName, value);
+            case LESS_THAN_OR_EQUAL_TO -> wrapper.le(columnName, value);
+            case NOT_EQUAL_TO, NOT_LIKE, START_NOT_WITH, END_NOT_WITH -> wrapper.ne(columnName, value);
+            case CUSTOM_SQL -> {
                 if (customSql == null) {
                     break;
                 }
-
                 CustomerSqlInfo info = new CustomerSqlInfo(customSql);
                 if (info.batch) {
                     wrapper.apply(info.sql.replaceAll(CustomerSqlInfo.BATCH_REG, "{0}"), value);
@@ -68,9 +50,8 @@ public class DefaultHandler implements SearchParamsHandler {
                 } else {
                     wrapper.apply(info.sql);
                 }
-                break;
-            default:
-                wrapper.eq(columnName, value);
+            }
+            default -> wrapper.eq(columnName, value);
         }
     }
 }

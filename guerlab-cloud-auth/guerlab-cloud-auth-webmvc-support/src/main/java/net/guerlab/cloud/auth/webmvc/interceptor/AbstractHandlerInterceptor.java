@@ -98,14 +98,13 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
     }
 
     private void preHandle0(HttpServletRequest request, Object handler) {
-        if (methodMatch(request) || uriMatch(request) || !(handler instanceof HandlerMethod)) {
+        if (methodMatch(request) || uriMatch(request) || !(handler instanceof HandlerMethod handlerMethod)) {
             return;
         }
 
         log.debug("intercept request[interceptor = {}, request = [{} {}]]", getClass(), request.getMethod(),
                 parseRequestUri(request));
 
-        HandlerMethod handlerMethod = (HandlerMethod) handler;
         boolean needLogin = getAnnotation(handlerMethod, IgnoreLogin.class) == null;
 
         log.debug("needLoginCheck[handler = {}, needLogin = {}]", handler, needLogin);

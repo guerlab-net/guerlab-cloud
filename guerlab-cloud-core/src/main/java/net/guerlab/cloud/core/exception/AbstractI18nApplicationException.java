@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.lang.Nullable;
 
+import java.io.Serial;
 import java.util.Locale;
 
 /**
@@ -28,6 +29,7 @@ import java.util.Locale;
 @SuppressWarnings("unused")
 public abstract class AbstractI18nApplicationException extends ApplicationException {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private static final String EMPTY_KEY = "";

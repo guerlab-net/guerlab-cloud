@@ -47,50 +47,23 @@ public class StringHandler extends AbstractMyBatisPlusSearchParamsHandler {
         QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
         columnName = ColumnNameGetter.getColumnName(columnName, wrapper.getEntityClass());
         switch (searchModelType) {
-            case GREATER_THAN:
-                wrapper.gt(columnName, str);
-                break;
-            case GREATER_THAN_OR_EQUAL_TO:
-                wrapper.ge(columnName, str);
-                break;
-            case IS_NOT_NULL:
-                wrapper.isNotNull(columnName);
-                break;
-            case IS_NULL:
-                wrapper.isNull(columnName);
-                break;
-            case LESS_THAN:
-                wrapper.lt(columnName, str);
-                break;
-            case LESS_THAN_OR_EQUAL_TO:
-                wrapper.le(columnName, str);
-                break;
-            case LIKE:
-                wrapper.like(columnName, str);
-                break;
-            case NOT_LIKE:
-                wrapper.notLike(columnName, str);
-                break;
-            case START_WITH:
-                wrapper.likeRight(columnName, str);
-                break;
-            case START_NOT_WITH:
-                wrapper.notLike(columnName, str + PERCENT);
-                break;
-            case END_WITH:
-                wrapper.likeLeft(columnName, str);
-                break;
-            case END_NOT_WITH:
-                wrapper.notLike(columnName, PERCENT + str);
-                break;
-            case NOT_EQUAL_TO:
-                wrapper.ne(columnName, str);
-                break;
-            case CUSTOM_SQL:
+            case GREATER_THAN -> wrapper.gt(columnName, str);
+            case GREATER_THAN_OR_EQUAL_TO -> wrapper.ge(columnName, str);
+            case IS_NOT_NULL -> wrapper.isNotNull(columnName);
+            case IS_NULL -> wrapper.isNull(columnName);
+            case LESS_THAN -> wrapper.lt(columnName, str);
+            case LESS_THAN_OR_EQUAL_TO -> wrapper.le(columnName, str);
+            case LIKE -> wrapper.like(columnName, str);
+            case NOT_LIKE -> wrapper.notLike(columnName, str);
+            case START_WITH -> wrapper.likeRight(columnName, str);
+            case START_NOT_WITH -> wrapper.notLike(columnName, str + PERCENT);
+            case END_WITH -> wrapper.likeLeft(columnName, str);
+            case END_NOT_WITH -> wrapper.notLike(columnName, PERCENT + str);
+            case NOT_EQUAL_TO -> wrapper.ne(columnName, str);
+            case CUSTOM_SQL -> {
                 if (customSql == null) {
                     break;
                 }
-
                 CustomerSqlInfo info = new CustomerSqlInfo(customSql);
                 if (info.batch) {
                     wrapper.apply(info.sql.replaceAll(CustomerSqlInfo.BATCH_REG, "{0}"), value);
@@ -99,9 +72,8 @@ public class StringHandler extends AbstractMyBatisPlusSearchParamsHandler {
                 } else {
                     wrapper.apply(info.sql);
                 }
-                break;
-            default:
-                wrapper.eq(columnName, str);
+            }
+            default -> wrapper.eq(columnName, str);
         }
     }
 }

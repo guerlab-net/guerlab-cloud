@@ -64,11 +64,9 @@ public class RemoteException extends RuntimeException {
     }
 
     private static void fillApplicationStackTrace(List<ApplicationStackTrace> list, Throwable cause) {
-        if (!(cause instanceof RemoteException)) {
+        if (!(cause instanceof RemoteException e)) {
             return;
         }
-
-        RemoteException e = (RemoteException) cause;
 
         list.add(e.applicationStackTrace);
         fillApplicationStackTrace(list, e.getCause());

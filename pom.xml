@@ -28,7 +28,7 @@
     <parent>
         <groupId>net.guerlab.builder</groupId>
         <artifactId>guerlab-builder</artifactId>
-        <version>1.0.3</version>
+        <version>1.0.4</version>
     </parent>
 
     <licenses>
@@ -69,7 +69,7 @@
         <revision>2022.2.0-SNAPSHOT</revision>
         <main.basedir>${basedir}</main.basedir>
 
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <project.encoding>UTF-8</project.encoding>
 
         <!-- guerlab -->

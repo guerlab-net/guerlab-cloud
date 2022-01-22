@@ -68,14 +68,11 @@ public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
         QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
         columnName = ColumnNameGetter.getColumnName(columnName, wrapper.getEntityClass());
         switch (searchModelType) {
-            case NOT_IN:
-                wrapper.notIn(columnName, list);
-                break;
-            case CUSTOM_SQL:
+            case NOT_IN -> wrapper.notIn(columnName, list);
+            case CUSTOM_SQL -> {
                 if (customSql == null) {
                     break;
                 }
-
                 CustomerSqlInfo info = new CustomerSqlInfo(customSql);
                 String sql = info.sql;
                 if (info.matchFlag) {
@@ -90,9 +87,8 @@ public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
                 } else {
                     wrapper.apply(sql);
                 }
-                break;
-            default:
-                wrapper.in(columnName, list);
+            }
+            default -> wrapper.in(columnName, list);
         }
     }
 }

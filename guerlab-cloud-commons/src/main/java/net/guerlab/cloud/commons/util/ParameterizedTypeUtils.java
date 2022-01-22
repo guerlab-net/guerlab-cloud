@@ -42,11 +42,9 @@ public class ParameterizedTypeUtils {
 
         Type type = obj.getClass().getGenericSuperclass();
 
-        if (!(type instanceof ParameterizedType)) {
+        if (!(type instanceof ParameterizedType parameterized)) {
             return type;
         }
-
-        ParameterizedType parameterized = (ParameterizedType) type;
 
         Type[] actualTypeArguments = parameterized.getActualTypeArguments();
 

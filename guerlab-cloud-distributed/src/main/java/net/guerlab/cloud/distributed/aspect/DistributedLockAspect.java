@@ -64,11 +64,10 @@ public class DistributedLockAspect extends AbstractDistributedLockAspect {
     @Around("@annotation(distributedLock)")
     public Object handler(ProceedingJoinPoint point, DistributedLock distributedLock) throws Throwable {
         Signature signature = point.getSignature();
-        if (!(signature instanceof MethodSignature)) {
+        if (!(signature instanceof MethodSignature methodSignature)) {
             return point.proceed();
         }
 
-        MethodSignature methodSignature = (MethodSignature) signature;
         Object[] args = point.getArgs();
 
         String lockKey = buildLockKey(methodSignature, args, distributedLock.lockKey());

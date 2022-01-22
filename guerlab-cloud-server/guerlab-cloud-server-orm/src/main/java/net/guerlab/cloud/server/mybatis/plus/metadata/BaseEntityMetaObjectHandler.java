@@ -46,8 +46,7 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
         setFieldValByName("createdBy", createdBy, metaObject);
         setFieldValByName("modifiedBy", createdBy, metaObject);
 
-        if (metaObject.getOriginalObject() instanceof IOrderlyEntity<?>) {
-            IOrderlyEntity<?> obj = (IOrderlyEntity<?>) metaObject.getOriginalObject();
+        if (metaObject.getOriginalObject() instanceof IOrderlyEntity<?> obj) {
 
             if (obj.getOrderNum() == null) {
                 obj.setOrderNum(Constants.DEFAULT_ORDER_NUM);

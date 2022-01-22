@@ -39,10 +39,9 @@ public class MultiMessageSourceAwareAutoConfigure {
      */
     @Autowired
     public void handler(MessageSource messageSource, ObjectProvider<MultiMessageSourceProvider> listProvider) {
-        if (!(messageSource instanceof AbstractResourceBasedMessageSource)) {
+        if (!(messageSource instanceof AbstractResourceBasedMessageSource resourceBasedMessageSource)) {
             return;
         }
-        AbstractResourceBasedMessageSource resourceBasedMessageSource = (AbstractResourceBasedMessageSource) messageSource;
         listProvider.stream().map(MultiMessageSourceProvider::get).forEach(resourceBasedMessageSource::addBasenames);
     }
 }

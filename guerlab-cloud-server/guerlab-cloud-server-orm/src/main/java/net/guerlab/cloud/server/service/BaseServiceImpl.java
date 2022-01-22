@@ -163,8 +163,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 
     @Override
     public void insert(T entity) {
-        if (entity instanceof BaseEntity) {
-            BaseEntity tempEntity = (BaseEntity) entity;
+        if (entity instanceof BaseEntity tempEntity) {
             tempEntity.setId(null);
             tempEntity.setVersion(null);
         }

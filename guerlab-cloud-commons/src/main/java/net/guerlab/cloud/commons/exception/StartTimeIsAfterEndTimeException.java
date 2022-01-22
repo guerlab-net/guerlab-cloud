@@ -14,6 +14,8 @@ package net.guerlab.cloud.commons.exception;
 
 import net.guerlab.cloud.core.exception.AbstractI18nApplicationException;
 
+import java.io.Serial;
+
 /**
  * 开始时间早于结束时间
  *
@@ -22,6 +24,7 @@ import net.guerlab.cloud.core.exception.AbstractI18nApplicationException;
 @SuppressWarnings("unused")
 public class StartTimeIsAfterEndTimeException extends AbstractI18nApplicationException {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private static final String MESSAGE_KEY = "message.exception.commons.startTimeIsAfterEndTime";

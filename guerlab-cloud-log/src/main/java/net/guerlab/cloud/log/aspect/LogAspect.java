@@ -110,11 +110,11 @@ public class LogAspect {
         String method = RequestHolder.requestMethod();
         String uri = RequestHolder.requestPath();
         String logContent = StringUtils.trimToNull(log.value());
-        if (!(signature instanceof MethodSignature) || method == null || uri == null || logContent == null) {
+        if (!(signature instanceof MethodSignature methodSignature) || method == null || uri == null
+                || logContent == null) {
             return;
         }
 
-        MethodSignature methodSignature = (MethodSignature) signature;
         Object[] args = point.getArgs();
         String[] parameterNames = methodSignature.getParameterNames();
         if (!Objects.equals(args.length, parameterNames.length)) {

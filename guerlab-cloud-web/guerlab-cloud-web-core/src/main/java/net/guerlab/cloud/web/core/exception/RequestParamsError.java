@@ -19,6 +19,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.validation.ConstraintViolationException;
+import java.io.Serial;
 import java.util.Collection;
 
 /**
@@ -29,6 +30,7 @@ import java.util.Collection;
 @Getter
 public class RequestParamsError extends ApplicationException {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

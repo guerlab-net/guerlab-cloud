@@ -66,11 +66,10 @@ public class IdempotentAspect extends AbstractDistributedLockAspect {
     @Around("@annotation(idempotent)")
     public Object handler(ProceedingJoinPoint point, Idempotent idempotent) throws Throwable {
         Signature signature = point.getSignature();
-        if (!(signature instanceof MethodSignature)) {
+        if (!(signature instanceof MethodSignature methodSignature)) {
             return point.proceed();
         }
 
-        MethodSignature methodSignature = (MethodSignature) signature;
         Object[] args = point.getArgs();
 
         String lockKey = buildLockKey(methodSignature, args, idempotent.lockKey());

@@ -93,8 +93,7 @@ public class WebMvcResponseAdvisorAutoconfigure {
         private String getRequestPath(ServerHttpRequest request) {
             String requestPath = request.getURI().getPath();
 
-            if (request instanceof ServletServerHttpRequest) {
-                ServletServerHttpRequest servletServerHttpRequest = (ServletServerHttpRequest) request;
+            if (request instanceof ServletServerHttpRequest servletServerHttpRequest) {
                 String contextPath = servletServerHttpRequest.getServletRequest().getContextPath();
 
                 String newRequestPath = requestPath.replaceFirst(contextPath, "");

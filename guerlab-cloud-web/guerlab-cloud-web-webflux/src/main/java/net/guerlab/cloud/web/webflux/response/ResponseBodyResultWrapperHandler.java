@@ -129,8 +129,7 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
         if (body instanceof Mono) {
             mono = (Mono<?>) body;
             log.debug("wrapper with Mono");
-        } else if (body instanceof Flux) {
-            Flux<?> flux = (Flux<?>) body;
+        } else if (body instanceof Flux<?> flux) {
             mono = flux.collectList();
             log.debug("wrapper with Flux");
         }

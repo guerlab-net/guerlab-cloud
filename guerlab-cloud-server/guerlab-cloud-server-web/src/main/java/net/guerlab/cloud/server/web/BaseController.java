@@ -194,8 +194,7 @@ public abstract class BaseController<E, SP extends SearchParams, S extends BaseS
      *         主键
      */
     protected void copyProperties(E requestEntity, E inStorageEntity, @Nullable Long id) {
-        if (inStorageEntity instanceof BaseEntity) {
-            BaseEntity tempEntity = (BaseEntity) inStorageEntity;
+        if (inStorageEntity instanceof BaseEntity tempEntity) {
             Long version = tempEntity.getVersion();
             BeanUtils.copyProperties(requestEntity, inStorageEntity);
             tempEntity.setVersion(version);

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@ package net.guerlab.cloud.commons.exception;
 
 import net.guerlab.cloud.core.exception.AbstractI18nApplicationException;
 
+import java.io.Serial;
+
 /**
  * RefreshToken无效异常
  *
@@ -21,6 +23,7 @@ import net.guerlab.cloud.core.exception.AbstractI18nApplicationException;
  */
 public class RefreshTokenInvalidException extends AbstractI18nApplicationException {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private static final String MESSAGE_KEY = "message.exception.commons.refreshTokenInvalid";
