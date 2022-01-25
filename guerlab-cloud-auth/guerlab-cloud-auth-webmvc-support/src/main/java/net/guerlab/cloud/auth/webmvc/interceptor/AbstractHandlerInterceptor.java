@@ -17,6 +17,7 @@ import net.guerlab.cloud.auth.annotation.IgnoreLogin;
 import net.guerlab.cloud.auth.context.AbstractContextHandler;
 import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
+import net.guerlab.commons.exception.ApplicationException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
@@ -109,15 +110,18 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 
         log.debug("needLoginCheck[handler = {}, needLogin = {}]", handler, needLogin);
 
-        if (needLogin) {
-            String token = getToken(request);
-
-            if (token != null) {
-                AbstractContextHandler.setToken(token);
+        String token = getToken(request);
+        if (token != null) {
+            try {
                 preHandleWithToken(request, handlerMethod, token);
-            } else {
-                preHandleWithoutToken();
+                AbstractContextHandler.setToken(token);
+            } catch (ApplicationException exception) {
+                if (needLogin) {
+                    throw exception;
+                }
             }
+        } else if (needLogin) {
+            preHandleWithoutToken();
         }
     }
 

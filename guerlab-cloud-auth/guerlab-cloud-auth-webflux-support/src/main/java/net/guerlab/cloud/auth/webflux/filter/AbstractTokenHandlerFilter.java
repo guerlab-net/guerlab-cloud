@@ -19,6 +19,7 @@ import net.guerlab.cloud.auth.web.properties.AuthWebProperties;
 import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.context.core.ContextAttributes;
 import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
+import net.guerlab.commons.exception.ApplicationException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpCookie;
@@ -160,15 +161,18 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> im
 
         log.debug("needLoginCheck[handler = {}, needLogin = {}]", handlerMethod, needLogin);
 
-        if (needLogin) {
-            String token = getToken(request, exchange);
-
-            if (token != null) {
-                AbstractContextHandler.setToken(token);
+        String token = getToken(request, exchange);
+        if (token != null) {
+            try {
                 preHandleWithToken(request, handlerMethod, token);
-            } else {
-                preHandleWithoutToken();
+                AbstractContextHandler.setToken(token);
+            } catch (ApplicationException exception) {
+                if (needLogin) {
+                    throw exception;
+                }
             }
+        } else if (needLogin) {
+            preHandleWithoutToken();
         }
     }
 
