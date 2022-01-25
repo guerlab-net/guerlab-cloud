@@ -76,7 +76,7 @@
         <guerlab-commons.version>2.0.1</guerlab-commons.version>
 
         <!-- spring -->
-        <spring-boot.version>2.6.1</spring-boot.version>
+        <spring-boot.version>2.6.3</spring-boot.version>
         <spring-cloud.version>2021.0.0</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
 
