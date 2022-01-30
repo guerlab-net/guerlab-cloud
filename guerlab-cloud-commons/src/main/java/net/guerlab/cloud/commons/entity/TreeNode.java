@@ -13,6 +13,7 @@
 package net.guerlab.cloud.commons.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.lang.Nullable;
 
 /**
  * 树节点
@@ -43,5 +44,6 @@ public interface TreeNode<PK> {
      *
      * @return 标签
      */
+    @Nullable
     String label();
 }
