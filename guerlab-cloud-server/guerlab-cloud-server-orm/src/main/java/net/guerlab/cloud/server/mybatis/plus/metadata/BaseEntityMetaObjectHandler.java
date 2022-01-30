@@ -17,6 +17,7 @@ import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import net.guerlab.cloud.auth.context.AbstractContextHandler;
 import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.entity.IOrderlyEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.reflection.MetaObject;
 
 import java.time.LocalDateTime;
@@ -39,7 +40,11 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
         setFieldValByName("lastUpdatedTime", createdTime, metaObject);
         setFieldValByName("deleted", false, metaObject);
 
-        Object createdBy = metaObject.getValue("createdBy");
+        Object createdByValue = metaObject.getValue("createdBy");
+        String createdBy = null;
+        if (createdByValue instanceof String createdByString) {
+            createdBy = StringUtils.trimToNull(createdByString);
+        }
         if (createdBy == null) {
             createdBy = AbstractContextHandler.getCurrentOperator();
         }
