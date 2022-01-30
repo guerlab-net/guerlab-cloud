@@ -110,6 +110,7 @@ public class TreeUtils {
         TreeEntity<E, PK> treeEntity = new TreeEntity<>();
         treeEntity.setId(entity.id());
         treeEntity.setParentId(entity.parentId());
+        treeEntity.setLabel(entity.label());
         treeEntity.setObject(entity);
 
         return treeEntity;

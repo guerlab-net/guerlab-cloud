@@ -37,4 +37,11 @@ public interface TreeNode<PK> {
      * @return 上级id
      */
     PK parentId();
+
+    /**
+     * 获取标签
+     *
+     * @return 标签
+     */
+    String label();
 }
