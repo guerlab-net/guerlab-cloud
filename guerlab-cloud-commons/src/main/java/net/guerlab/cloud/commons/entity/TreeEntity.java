@@ -44,6 +44,12 @@ public class TreeEntity<E, PK> {
     private PK parentId;
 
     /**
+     * 标签
+     */
+    @Schema(description = "标签")
+    private String label;
+
+    /**
      * 目标对象
      */
     @Schema(description = "目标对象")

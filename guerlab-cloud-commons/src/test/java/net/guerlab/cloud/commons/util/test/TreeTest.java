@@ -107,6 +107,11 @@ class TreeTest {
         public Long parentId() {
             return parentId;
         }
+
+        @Override
+        public String label() {
+            return null;
+        }
     }
 
     @Data
@@ -129,6 +134,11 @@ class TreeTest {
         @Override
         public String parentId() {
             return parentId;
+        }
+
+        @Override
+        public String label() {
+            return null;
         }
     }
 }
