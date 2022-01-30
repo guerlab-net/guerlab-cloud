@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@ package net.guerlab.cloud.core.util;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.lang.Nullable;
@@ -182,6 +183,16 @@ public class SpringUtils implements ApplicationContextAware {
     public static String getApplicationName() {
         String name = getProperty("spring.application.name");
         return name == null ? "" : name;
+    }
+
+    /**
+     * 推送事件
+     *
+     * @param event
+     *         事件
+     */
+    public static void publishEvent(ApplicationEvent event) {
+        getContext().publishEvent(event);
     }
 
     @Override
