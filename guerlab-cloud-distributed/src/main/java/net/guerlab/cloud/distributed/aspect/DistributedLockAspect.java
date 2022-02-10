@@ -74,27 +74,27 @@ public class DistributedLockAspect extends AbstractDistributedLockAspect {
         log.debug("lockKey[lockKey={}]", lockKey);
         RLock lock = redissonClient.getFairLock(lockKey);
 
-        if (lock.tryLock(distributedLock.waitTime(), distributedLock.lockTime(), distributedLock.lockTimeUnit())) {
-            log.debug("lock success[lockKey={}, waitTime={}, lockTime={}, lockTimeUnit={}]", lockKey,
-                    distributedLock.waitTime(), distributedLock.lockTime(), distributedLock.lockTimeUnit());
-            try {
-                return point.proceed();
-            } finally {
-                if (lock.isHeldByCurrentThread()) {
-                    log.debug("operation end, unlock[lockKey={}]", lockKey);
-                    lock.unlock();
-                } else {
-                    log.debug("operation end, is held by current thread[lockKey={}]", lockKey);
-                }
+        if (!lock.tryLock(distributedLock.waitTime(), distributedLock.lockTime(), distributedLock.lockTimeUnit())) {
+            Object fallbackObject = getFallback(distributedLock.fallBackFactory(), args);
+            if (fallbackObject != null) {
+                return fallbackObject;
+            }
+
+            throw buildException(distributedLock, args);
+        }
+
+        log.debug("lock success[lockKey={}, waitTime={}, lockTime={}, lockTimeUnit={}]", lockKey,
+                distributedLock.waitTime(), distributedLock.lockTime(), distributedLock.lockTimeUnit());
+        try {
+            return point.proceed();
+        } finally {
+            if (lock.isHeldByCurrentThread()) {
+                log.debug("operation end, unlock[lockKey={}]", lockKey);
+                lock.unlock();
+            } else {
+                log.debug("operation end, is held by current thread[lockKey={}]", lockKey);
             }
         }
-
-        Object fallbackObject = getFallback(distributedLock.fallBackFactory(), args);
-        if (fallbackObject != null) {
-            return fallbackObject;
-        }
-
-        throw buildException(distributedLock, args);
     }
 
     private ApplicationException buildException(DistributedLock distributedLock, Object[] args) {

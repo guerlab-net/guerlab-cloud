@@ -77,25 +77,27 @@ public class IdempotentAspect extends AbstractDistributedLockAspect {
         boolean lockSuccess = Objects.equals(true, redisTemplate.opsForValue()
                 .setIfAbsent(lockKey, "1", idempotent.lockTime(), idempotent.lockTimeUnit()));
 
-        if (lockSuccess) {
-            log.debug("lock success[lockKey={}, lockTime={}, lockTimeUnit={}]", lockKey, idempotent.lockTime(),
-                    idempotent.lockTimeUnit());
-            Object result = point.proceed();
+        if (!lockSuccess) {
+            Object fallbackObject = getFallback(idempotent.fallBackFactory(), args);
+            if (fallbackObject != null) {
+                return fallbackObject;
+            }
+
+            throw buildException(idempotent, args);
+        }
+
+        log.debug("lock success[lockKey={}, lockTime={}, lockTimeUnit={}]", lockKey, idempotent.lockTime(),
+                idempotent.lockTimeUnit());
+        try {
+            return point.proceed();
+        } finally {
             if (idempotent.unlockWhenEndOfOperation()) {
                 log.debug("operation end, unlock[lockKey={}]", lockKey);
                 redisTemplate.delete(lockKey);
             } else {
                 log.debug("operation end, is held by current thread[lockKey={}]", lockKey);
             }
-            return result;
         }
-
-        Object fallbackObject = getFallback(idempotent.fallBackFactory(), args);
-        if (fallbackObject != null) {
-            return fallbackObject;
-        }
-
-        throw buildException(idempotent, args);
     }
 
     private ApplicationException buildException(Idempotent idempotent, Object[] args) {
