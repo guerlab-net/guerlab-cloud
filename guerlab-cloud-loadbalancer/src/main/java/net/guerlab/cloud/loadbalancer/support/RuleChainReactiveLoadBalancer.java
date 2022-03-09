@@ -30,7 +30,6 @@ import org.springframework.lang.Nullable;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 基于规则链的负责均衡的实现
@@ -165,7 +164,7 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
      */
     @Nullable
     private List<ServiceInstance> ruleFilter(List<ServiceInstance> instances, Request<?> request) {
-        List<IRule> rules = ruleProvider.stream().filter(IRule::isEnabled).sorted().collect(Collectors.toList());
+        List<IRule> rules = ruleProvider.stream().filter(IRule::isEnabled).sorted().toList();
 
         if (rules.isEmpty()) {
             return instances;

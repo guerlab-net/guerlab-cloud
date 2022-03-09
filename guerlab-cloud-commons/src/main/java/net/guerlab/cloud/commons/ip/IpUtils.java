@@ -70,8 +70,7 @@ public class IpUtils {
             return false;
         }
 
-        Collection<IpAddress> ranges = ips.stream().map(IpUtils::parseIpRangeAddress).filter(Objects::nonNull)
-                .collect(Collectors.toList());
+        Collection<IpAddress> ranges = ips.stream().map(IpUtils::parseIpRangeAddress).filter(Objects::nonNull).toList();
         if (ranges.isEmpty()) {
             return false;
         }

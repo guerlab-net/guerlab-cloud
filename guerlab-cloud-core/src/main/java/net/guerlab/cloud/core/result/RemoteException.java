@@ -19,7 +19,6 @@ import org.springframework.lang.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 远端异常
@@ -77,8 +76,8 @@ public class RemoteException extends RuntimeException {
         if (applicationStackTrace.getStackTrace() == null) {
             return new StackTraceElement[] {};
         }
-        return applicationStackTrace.getStackTrace().stream().map(this::buildStackTraceElement)
-                .collect(Collectors.toList()).toArray(new StackTraceElement[] {});
+        return applicationStackTrace.getStackTrace().stream().map(this::buildStackTraceElement).toList()
+                .toArray(new StackTraceElement[] {});
     }
 
     private StackTraceElement buildStackTraceElement(String stackTrace) {

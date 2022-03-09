@@ -16,7 +16,6 @@ import org.springframework.lang.Nullable;
 
 import java.util.List;
 import java.util.ServiceLoader;
-import java.util.stream.Collectors;
 
 /**
  * 上下文属性持有器
@@ -34,7 +33,7 @@ public class ContextAttributesHolder {
     };
 
     private static final List<ObjectContextAttributesHolder> OBJECT_CONTEXT_ATTRIBUTES_HOLDERS = ServiceLoader.load(
-            ObjectContextAttributesHolder.class).stream().map(ServiceLoader.Provider::get).collect(Collectors.toList());
+            ObjectContextAttributesHolder.class).stream().map(ServiceLoader.Provider::get).toList();
 
     private ContextAttributesHolder() {
 
@@ -82,7 +81,7 @@ public class ContextAttributesHolder {
             THREAD_LOCAL.set(contextAttributes);
         } else {
             List<ObjectContextAttributesHolder> holders = OBJECT_CONTEXT_ATTRIBUTES_HOLDERS.stream()
-                    .filter(holder -> holder.accept(object)).collect(Collectors.toList());
+                    .filter(holder -> holder.accept(object)).toList();
 
             if (holders.isEmpty()) {
                 THREAD_LOCAL.set(contextAttributes);
