@@ -14,14 +14,14 @@
 package net.guerlab.cloud.distributed.fallback;
 
 /**
- * 快速失败处理工厂的无操作实现
+ * 快速失败处理工厂的无操作实现.
  *
  * @author guer
  */
 public class NoopFallbackFactory implements FallbackFactory {
 
-    @Override
-    public Object create(Object[] args) {
-        throw new UnsupportedOperationException();
-    }
+	@Override
+	public Object create(Object[] args) {
+		throw new UnsupportedOperationException();
+	}
 }

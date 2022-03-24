@@ -15,21 +15,22 @@ package net.guerlab.cloud.api.headers;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+
 import net.guerlab.cloud.auth.context.AbstractContextHandler;
 import net.guerlab.cloud.commons.Constants;
 
 /**
- * 当前操作者信息处理请求拦截器
+ * 当前操作者信息处理请求拦截器.
  *
  * @author guer
  */
 public class CurrentOperatorInterceptor implements RequestInterceptor {
 
-    @Override
-    public void apply(RequestTemplate template) {
-        String currentOperator = AbstractContextHandler.getCurrentOperator();
-        if (currentOperator != null) {
-            template.header(Constants.CURRENT_OPERATOR_HEADER, currentOperator);
-        }
-    }
+	@Override
+	public void apply(RequestTemplate template) {
+		String currentOperator = AbstractContextHandler.getCurrentOperator();
+		if (currentOperator != null) {
+			template.header(Constants.CURRENT_OPERATOR_HEADER, currentOperator);
+		}
+	}
 }

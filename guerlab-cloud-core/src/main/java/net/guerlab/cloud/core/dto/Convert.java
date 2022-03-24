@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -10,12 +10,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.core.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * 转换对象
+ * 转换对象.
  *
  * @param <D>
  *         对象类型
@@ -24,11 +25,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @FunctionalInterface
 public interface Convert<D> {
 
-    /**
-     * 转换
-     *
-     * @return 转换对象
-     */
-    @JsonIgnore
-    D convert();
+	/**
+	 * 转换.
+	 *
+	 * @return 转换对象
+	 */
+	@JsonIgnore
+	D convert();
 }

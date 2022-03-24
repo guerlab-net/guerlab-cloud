@@ -19,50 +19,51 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import net.guerlab.cloud.commons.entity.BaseEntity;
 import net.guerlab.cloud.searchparams.Column;
 import net.guerlab.cloud.searchparams.OrderBy;
 import net.guerlab.cloud.searchparams.OrderBys;
 import net.guerlab.cloud.searchparams.SearchParamsUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 /**
  * @author guer
  */
 public class BaseEntitySearchParamsTest {
 
-    @Test
-    void test1() {
-        OrderBys orderBys = new OrderBys();
-        orderBys.add(new OrderBy("createdTime", true));
+	@Test
+	void test1() {
+		OrderBys orderBys = new OrderBys();
+		orderBys.add(new OrderBy("createdTime", true));
 
-        TestSearchParams searchParams = new TestSearchParams();
-        searchParams.setOrderBys(orderBys);
-        searchParams.setCreatedBy("test");
-        searchParams.setValue(1L);
+		TestSearchParams searchParams = new TestSearchParams();
+		searchParams.setOrderBys(orderBys);
+		searchParams.setCreatedBy("test");
+		searchParams.setValue(1L);
 
-        QueryWrapper<TestObj> queryWrapper = new QueryWrapper<>();
-        queryWrapper.setEntityClass(TestObj.class);
-        SearchParamsUtils.handler(searchParams, queryWrapper);
+		QueryWrapper<TestObj> queryWrapper = new QueryWrapper<>();
+		queryWrapper.setEntityClass(TestObj.class);
+		SearchParamsUtils.handler(searchParams, queryWrapper);
 
-        Assertions.assertEquals("(VALUE = ? AND CREATED_BY = ?) ORDER BY CREATED_TIME ASC",
-                queryWrapper.getTargetSql());
-    }
+		Assertions.assertEquals("(VALUE = ? AND CREATED_BY = ?) ORDER BY CREATED_TIME ASC",
+				queryWrapper.getTargetSql());
+	}
 
-    @Data
-    @EqualsAndHashCode(callSuper = true)
-    public static class TestObj extends BaseEntity {
+	@Data
+	@EqualsAndHashCode(callSuper = true)
+	public static class TestObj extends BaseEntity {
 
-        @TableField(value = "VALUE")
-        private Long val;
-    }
+		@TableField("VALUE")
+		private Long val;
+	}
 
-    @Setter
-    @Getter
-    public static class TestSearchParams extends BaseEntitySearchParams {
+	@Setter
+	@Getter
+	public static class TestSearchParams extends BaseEntitySearchParams {
 
-        @Column(name = "val")
-        private Long value;
-    }
+		@Column(name = "val")
+		private Long value;
+	}
 }

@@ -10,6 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.security.core.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -17,12 +18,10 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.cors.CorsConfiguration;
 
 /**
- * CORS配置
+ * CORS配置.
  *
  * @author guer
  */
 @RefreshScope
 @ConfigurationProperties("web.cors")
-public class CorsProperties extends CorsConfiguration {
-
-}
+public class CorsProperties extends CorsConfiguration { }

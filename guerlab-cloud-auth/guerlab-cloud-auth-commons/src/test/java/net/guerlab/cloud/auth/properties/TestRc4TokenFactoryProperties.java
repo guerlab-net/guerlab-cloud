@@ -10,13 +10,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.auth.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 /**
- * rc4 token 配置
+ * rc4 token 配置.
  *
  * @author guer
  */
@@ -24,5 +25,8 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 @ConfigurationProperties(prefix = TestRc4TokenFactoryProperties.PREFIX)
 public class TestRc4TokenFactoryProperties extends Rc4TokenFactoryProperties {
 
-    public final static String PREFIX = "auth.test.token-factory.rc4";
+	/**
+	 * 配置前缀.
+	 */
+	public final static String PREFIX = "auth.test.token-factory.rc4";
 }

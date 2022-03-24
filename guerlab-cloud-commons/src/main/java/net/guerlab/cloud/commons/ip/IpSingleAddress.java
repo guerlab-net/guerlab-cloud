@@ -10,19 +10,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.commons.ip;
 
 /**
- * 单个IP地址
+ * 单个IP地址.
  *
  * @author guer
  */
 public interface IpSingleAddress extends IpAddress {
 
-    /**
-     * 获取IP地址
-     *
-     * @return IP地址
-     */
-    long getIpAddress();
+	/**
+	 * 获取IP地址.
+	 *
+	 * @return IP地址
+	 */
+	long getIpAddress();
 }

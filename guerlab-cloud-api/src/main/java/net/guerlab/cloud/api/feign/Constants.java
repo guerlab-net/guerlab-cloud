@@ -10,47 +10,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.api.feign;
 
 /**
- * 字段常量
+ * 字段常量.
  *
  * @author guer
  */
-public interface Constants {
+public final class Constants {
 
-    /**
-     * 字段-status
-     */
-    String FIELD_STATUS = "status";
+	/**
+	 * 字段-status.
+	 */
+	public static final String FIELD_STATUS = "status";
 
-    /**
-     * 字段-errorCode
-     */
-    String FIELD_ERROR_CODE = "errorCode";
+	/**
+	 * 字段-errorCode.
+	 */
+	public static final String FIELD_ERROR_CODE = "errorCode";
 
-    /**
-     * 字段-stackTraces
-     */
-    String FIELD_STACK_TRACES = "stackTraces";
+	/**
+	 * 字段-stackTraces.
+	 */
+	public static final String FIELD_STACK_TRACES = "stackTraces";
 
-    /**
-     * 字段-applicationName
-     */
-    String FIELD_APPLICATION_NAME = "applicationName";
+	/**
+	 * 字段-applicationName.
+	 */
+	public static final String FIELD_APPLICATION_NAME = "applicationName";
 
-    /**
-     * 字段-stackTrace
-     */
-    String FIELD_STACK_TRACE = "stackTrace";
+	/**
+	 * 字段-stackTrace.
+	 */
+	public static final String FIELD_STACK_TRACE = "stackTrace";
 
-    /**
-     * 字段-data
-     */
-    String FIELD_DATA = "data";
+	/**
+	 * 字段-data.
+	 */
+	public static final String FIELD_DATA = "data";
 
-    /**
-     * 字段-message
-     */
-    String FIELD_MESSAGE = "message";
+	/**
+	 * 字段-message.
+	 */
+	public static final String FIELD_MESSAGE = "message";
+
+	private Constants() {
+	}
 }

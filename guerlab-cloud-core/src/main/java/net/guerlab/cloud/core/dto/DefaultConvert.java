@@ -10,72 +10,77 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.core.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import net.guerlab.commons.exception.ApplicationException;
-import org.springframework.beans.BeanUtils;
-import org.springframework.lang.Nullable;
+package net.guerlab.cloud.core.dto;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.lang.Nullable;
+
+import net.guerlab.commons.exception.ApplicationException;
+
 /**
- * 转换为对象
+ * 转换为对象.
  *
  * @param <D>
  *         对象类型
  * @author guer
  */
+@SuppressWarnings("unused")
 public interface DefaultConvert<D> extends Convert<D> {
 
-    /**
-     * 从type列表中获取对象类型
-     *
-     * @param types
-     *         type列表
-     * @return 对象类型
-     */
-    @Nullable
-    private static Type getType(Type[] types) {
-        for (Type type : types) {
-            if (type instanceof ParameterizedType parameterizedType) {
+	/**
+	 * 从type列表中获取对象类型.
+	 *
+	 * @param types
+	 *         type列表
+	 * @return 对象类型
+	 */
+	@Nullable
+	private static Type getType(Type[] types) {
+		for (Type type : types) {
+			if (type instanceof ParameterizedType parameterizedType) {
 
-                Type rawType = parameterizedType.getRawType();
+				Type rawType = parameterizedType.getRawType();
 
-                if (DefaultConvert.class.equals(rawType)) {
-                    return parameterizedType.getActualTypeArguments()[0];
-                }
-            }
-        }
-        return null;
-    }
+				if (DefaultConvert.class.equals(rawType)) {
+					return parameterizedType.getActualTypeArguments()[0];
+				}
+			}
+		}
+		return null;
+	}
 
-    /**
-     * 转换
-     *
-     * @return 转换对象
-     */
-    @Override
-    @JsonIgnore
-    @SuppressWarnings("unchecked")
-    default D convert() {
-        Class<D> clazz = (Class<D>) getType(getClass().getGenericInterfaces());
+	/**
+	 * 转换.
+	 *
+	 * @return 转换对象
+	 */
+	@Override
+	@JsonIgnore
+	@SuppressWarnings("unchecked")
+	default D convert() {
+		Class<D> clazz = (Class<D>) getType(getClass().getGenericInterfaces());
 
-        if (clazz == null) {
-            throw new ApplicationException("get convert object class fail");
-        }
+		if (clazz == null) {
+			throw new ApplicationException("get convert object class fail");
+		}
 
-        D target;
+		D target;
 
-        try {
-            target = clazz.getDeclaredConstructor().newInstance();
-        } catch (Exception e) {
-            throw new ApplicationException(e.getLocalizedMessage(), e);
-        }
+		try {
+			target = clazz.getDeclaredConstructor().newInstance();
+		}
+		catch (Exception e) {
+			throw new ApplicationException(e.getLocalizedMessage(), e);
+		}
 
-        BeanUtils.copyProperties(this, target);
+		BeanUtils.copyProperties(this, target);
 
-        return target;
-    }
+		return target;
+	}
 }

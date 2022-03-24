@@ -10,15 +10,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.auth.domain;
+
+import java.time.LocalDateTime;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import java.time.LocalDateTime;
-
 /**
- * 令牌信息
+ * 令牌信息.
  *
  * @author guer
  */
@@ -26,22 +27,22 @@ import java.time.LocalDateTime;
 @Schema(name = "TokenInfo", description = "登录成功信息")
 public class TokenInfo {
 
-    /**
-     * 令牌
-     */
-    @Schema(description = "令牌")
-    private String token;
+	/**
+	 * 令牌.
+	 */
+	@Schema(description = "令牌")
+	private String token;
 
-    /**
-     * 过期时间
-     */
-    @Schema(description = "过期时间")
-    private LocalDateTime expireAt;
+	/**
+	 * 过期时间.
+	 */
+	@Schema(description = "过期时间")
+	private LocalDateTime expireAt;
 
-    /**
-     * 过期时长
-     */
-    @Schema(description = "过期时长")
-    private Long expire;
+	/**
+	 * 过期时长.
+	 */
+	@Schema(description = "过期时长")
+	private Long expire;
 }
 

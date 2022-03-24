@@ -10,60 +10,61 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.commons.ip;
 
 /**
- * IP地址
+ * IP地址.
  *
  * @author guer
  */
 public interface IpAddress {
 
-    /**
-     * 范围链接符标志
-     */
-    String RANGE_LINK_FLAG = "-";
+	/**
+	 * 范围链接符标志.
+	 */
+	String RANGE_LINK_FLAG = "-";
 
-    /**
-     * 分组限制数量
-     */
-    int RANGE_GROUP_LIMIT = 2;
+	/**
+	 * 分组限制数量.
+	 */
+	int RANGE_GROUP_LIMIT = 2;
 
-    /**
-     * 子网掩码标志
-     */
-    String MASK_FLAG = "/";
+	/**
+	 * 子网掩码标志.
+	 */
+	String MASK_FLAG = "/";
 
-    /**
-     * 获取IP类型
-     *
-     * @return IP类型
-     */
-    IpType getIpType();
+	/**
+	 * 获取IP类型.
+	 *
+	 * @return IP类型
+	 */
+	IpType getIpType();
 
-    /**
-     * 获取开始位置
-     *
-     * @return 开始位置
-     */
-    long getStartAddress();
+	/**
+	 * 获取开始位置.
+	 *
+	 * @return 开始位置
+	 */
+	long getStartAddress();
 
-    /**
-     * 获取结束位置
-     *
-     * @return 结束位置
-     */
-    long getEndAddress();
+	/**
+	 * 获取结束位置.
+	 *
+	 * @return 结束位置
+	 */
+	long getEndAddress();
 
-    /**
-     * 判断是否包含某个IP
-     *
-     * @param target
-     *         目标IP
-     * @return 是否包含
-     */
-    default boolean contains(IpSingleAddress target) {
-        long address = target.getIpAddress();
-        return getStartAddress() <= address && address <= getEndAddress();
-    }
+	/**
+	 * 判断是否包含某个IP.
+	 *
+	 * @param target
+	 *         目标IP
+	 * @return 是否包含
+	 */
+	default boolean contains(IpSingleAddress target) {
+		long address = target.getIpAddress();
+		return getStartAddress() <= address && address <= getEndAddress();
+	}
 }

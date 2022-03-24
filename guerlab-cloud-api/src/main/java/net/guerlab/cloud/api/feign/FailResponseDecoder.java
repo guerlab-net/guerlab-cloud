@@ -10,61 +10,64 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.api.feign;
+
+import java.nio.charset.StandardCharsets;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Response;
 import feign.Util;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.lang.Nullable;
 
-import java.nio.charset.StandardCharsets;
-
 /**
- * 失败响应解析
+ * 失败响应解析.
  *
  * @author guer
  */
 @Slf4j
 public class FailResponseDecoder implements OrderedErrorDecoder {
 
-    private final ObjectMapper objectMapper;
+	private final ObjectMapper objectMapper;
 
-    /**
-     * 初始化失败响应解析
-     *
-     * @param objectMapper
-     *         objectMapper
-     */
-    public FailResponseDecoder(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
+	/**
+	 * 初始化失败响应解析.
+	 *
+	 * @param objectMapper
+	 *         objectMapper
+	 */
+	public FailResponseDecoder(ObjectMapper objectMapper) {
+		this.objectMapper = objectMapper;
+	}
 
-    @Override
-    public int getOrder() {
-        return LOWEST_PRECEDENCE;
-    }
+	@Override
+	public int getOrder() {
+		return LOWEST_PRECEDENCE;
+	}
 
-    @Nullable
-    @Override
-    public Exception decode(String methodKey, Response response) {
-        if (response.body() == null) {
-            return null;
-        }
+	@Nullable
+	@Override
+	public Exception decode(String methodKey, Response response) {
+		if (response.body() == null) {
+			return null;
+		}
 
-        try {
-            String resultBody = Util.toString(response.body().asReader(StandardCharsets.UTF_8));
-            JsonNode rootNode = objectMapper.readTree(resultBody);
+		try {
+			String resultBody = Util.toString(response.body().asReader(StandardCharsets.UTF_8));
+			JsonNode rootNode = objectMapper.readTree(resultBody);
 
-            if (rootNode.has(Constants.FIELD_ERROR_CODE)) {
-                return FailParser.parse(rootNode);
-            }
+			if (rootNode.has(Constants.FIELD_ERROR_CODE)) {
+				return FailParser.parse(rootNode);
+			}
 
-            return null;
-        } catch (Exception e) {
-            log.debug(e.getLocalizedMessage(), e);
-            return null;
-        }
-    }
+			return null;
+		}
+		catch (Exception e) {
+			log.debug(e.getLocalizedMessage(), e);
+			return null;
+		}
+	}
 }

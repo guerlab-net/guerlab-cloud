@@ -13,25 +13,25 @@
 
 package net.guerlab.cloud.core.result;
 
-import lombok.Data;
-
 import java.util.List;
 
+import lombok.Data;
+
 /**
- * 应用堆栈跟踪
+ * 应用堆栈跟踪.
  *
  * @author guer
  */
 @Data
 public class ApplicationStackTrace {
 
-    /**
-     * 应用名称
-     */
-    private String applicationName;
+	/**
+	 * 应用名称.
+	 */
+	private String applicationName;
 
-    /**
-     * 堆栈跟踪
-     */
-    private List<String> stackTrace;
+	/**
+	 * 堆栈跟踪.
+	 */
+	private List<String> stackTrace;
 }

@@ -10,6 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.web.core.exception.handler.builder;
 
 import net.guerlab.cloud.commons.exception.handler.AbstractResponseBuilder;
@@ -17,23 +18,23 @@ import net.guerlab.cloud.core.exception.AbstractI18nApplicationException;
 import net.guerlab.cloud.core.result.Fail;
 
 /**
- * AbstractI18nApplicationException异常处理
+ * AbstractI18nApplicationException异常处理.
  *
  * @author guer
  */
 public class AbstractI18nApplicationExceptionResponseBuilder extends AbstractResponseBuilder {
 
-    @Override
-    public boolean accept(Throwable e) {
-        return e instanceof AbstractI18nApplicationException;
-    }
+	@Override
+	public boolean accept(Throwable e) {
+		return e instanceof AbstractI18nApplicationException;
+	}
 
-    @Override
-    public Fail<Void> build(Throwable e) {
-        AbstractI18nApplicationException exception = (AbstractI18nApplicationException) e;
-        String message = exception.getMessage(messageSource);
-        Fail<Void> fail = new Fail<>(message, exception.getErrorCode());
-        stackTracesHandler.setStackTrace(fail, e);
-        return fail;
-    }
+	@Override
+	public Fail<Void> build(Throwable e) {
+		AbstractI18nApplicationException exception = (AbstractI18nApplicationException) e;
+		String message = exception.getMessage(messageSource);
+		Fail<Void> fail = new Fail<>(message, exception.getErrorCode());
+		stackTracesHandler.setStackTrace(fail, e);
+		return fail;
+	}
 }

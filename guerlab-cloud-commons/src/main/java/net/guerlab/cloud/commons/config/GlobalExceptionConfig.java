@@ -14,34 +14,34 @@
 package net.guerlab.cloud.commons.config;
 
 /**
- * 全局异常处理配置
+ * 全局异常处理配置.
  *
  * @author guer
  */
 public interface GlobalExceptionConfig {
 
-    /**
-     * 是否打印异常堆栈
-     *
-     * @return 打印异常堆栈
-     */
-    boolean isPrintStackTrace();
+	/**
+	 * 是否打印异常堆栈.
+	 *
+	 * @return 打印异常堆栈
+	 */
+	boolean isPrintStackTrace();
 
-    /**
-     * 判断是否在排除列表中匹配
-     *
-     * @param methodKey
-     *         方法签名
-     * @return 是否匹配
-     */
-    boolean excludeMatch(String methodKey);
+	/**
+	 * 判断是否在排除列表中匹配.
+	 *
+	 * @param methodKey
+	 *         方法签名
+	 * @return 是否匹配
+	 */
+	boolean excludeMatch(String methodKey);
 
-    /**
-     * 判断是否在包含列表中匹配
-     *
-     * @param methodKey
-     *         方法签名
-     * @return 是否匹配
-     */
-    boolean includeMatch(String methodKey);
+	/**
+	 * 判断是否在包含列表中匹配.
+	 *
+	 * @param methodKey
+	 *         方法签名
+	 * @return 是否匹配
+	 */
+	boolean includeMatch(String methodKey);
 }

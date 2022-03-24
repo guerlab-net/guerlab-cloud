@@ -10,58 +10,60 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.web.webmvc.request;
 
+import javax.servlet.http.HttpServletRequest;
+
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.lang.Nullable;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-
 /**
- * webmvc请求上下文保持
+ * webmvc请求上下文保持.
  *
  * @author guer
  */
 @Slf4j
 public class WebmvcRequestContextHolder implements net.guerlab.cloud.web.core.request.RequestContextHolder {
 
-    @Nullable
-    private static ServletRequestAttributes getServletRequestAttributes() {
-        return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-    }
+	@Nullable
+	private static ServletRequestAttributes getServletRequestAttributes() {
+		return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+	}
 
-    @Nullable
-    private static HttpServletRequest getRequest() {
-        ServletRequestAttributes servletRequestAttributes = getServletRequestAttributes();
-        return servletRequestAttributes != null ? servletRequestAttributes.getRequest() : null;
-    }
+	@Nullable
+	private static HttpServletRequest getRequest() {
+		ServletRequestAttributes servletRequestAttributes = getServletRequestAttributes();
+		return servletRequestAttributes != null ? servletRequestAttributes.getRequest() : null;
+	}
 
-    private static String parseRequestUri(HttpServletRequest request) {
-        String contextPath = request.getContextPath();
-        String requestUri = request.getRequestURI();
+	private static String parseRequestUri(HttpServletRequest request) {
+		String contextPath = request.getContextPath();
+		String requestUri = request.getRequestURI();
 
-        if (contextPath != null) {
-            String newRequestUri = requestUri.replaceFirst(contextPath, "");
-            log.debug("replace requestUri[form={}, to={}]", requestUri, newRequestUri);
-            requestUri = newRequestUri;
-        }
+		if (contextPath != null) {
+			String newRequestUri = requestUri.replaceFirst(contextPath, "");
+			log.debug("replace requestUri[form={}, to={}]", requestUri, newRequestUri);
+			requestUri = newRequestUri;
+		}
 
-        return requestUri;
-    }
+		return requestUri;
+	}
 
-    @Nullable
-    @Override
-    public String getRequestMethod() {
-        HttpServletRequest request = getRequest();
-        return request != null ? request.getMethod() : null;
-    }
+	@Nullable
+	@Override
+	public String getRequestMethod() {
+		HttpServletRequest request = getRequest();
+		return request != null ? request.getMethod() : null;
+	}
 
-    @Nullable
-    @Override
-    public String getRequestPath() {
-        HttpServletRequest request = getRequest();
-        return request != null ? parseRequestUri(request) : null;
-    }
+	@Nullable
+	@Override
+	public String getRequestPath() {
+		HttpServletRequest request = getRequest();
+		return request != null ? parseRequestUri(request) : null;
+	}
 }

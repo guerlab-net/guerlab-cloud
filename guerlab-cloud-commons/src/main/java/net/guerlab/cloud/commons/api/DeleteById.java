@@ -16,35 +16,37 @@ package net.guerlab.cloud.commons.api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import net.guerlab.cloud.commons.Constants;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import net.guerlab.cloud.commons.Constants;
+
 /**
- * APi定义
+ * APi定义.
  *
  * @author guer
  */
 @SuppressWarnings("unused")
 public interface DeleteById {
 
-    /**
-     * 请求路径
-     */
-    String DELETE_BY_ID_PATH = "/{id}";
+	/**
+	 * 请求路径.
+	 */
+	String DELETE_BY_ID_PATH = "/{id}";
 
-    /**
-     * 路径参数名
-     */
-    String DELETE_BY_ID_PARAM = "id";
+	/**
+	 * 路径参数名.
+	 */
+	String DELETE_BY_ID_PARAM = "id";
 
-    /**
-     * 根据Id删除数据
-     *
-     * @param id
-     *         主键ID
-     */
-    @DeleteMapping(DELETE_BY_ID_PATH)
-    @Operation(summary = "根据Id删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
-    void deleteById(@Parameter(description = "ID", required = true) @PathVariable(DELETE_BY_ID_PARAM) Long id);
+	/**
+	 * 根据Id删除数据.
+	 *
+	 * @param id
+	 *         主键ID
+	 */
+	@DeleteMapping(DELETE_BY_ID_PATH)
+	@Operation(summary = "根据Id删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
+	void deleteById(@Parameter(description = "ID", required = true) @PathVariable(DELETE_BY_ID_PARAM) Long id);
 }

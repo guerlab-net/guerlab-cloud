@@ -14,11 +14,9 @@
 package net.guerlab.cloud.distributed.fallback;
 
 /**
- * 处理分布式锁快速失败处理工厂的无操作实现
+ * 处理分布式锁快速失败处理工厂的无操作实现.
  *
  * @author guer
  */
 public final class NoopDistributedLockFallbackFactory extends NoopFallbackFactory
-        implements DistributedLockFallbackFactory {
-
-}
+		implements DistributedLockFallbackFactory { }

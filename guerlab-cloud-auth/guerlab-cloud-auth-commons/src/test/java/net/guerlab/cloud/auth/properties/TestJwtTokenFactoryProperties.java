@@ -10,13 +10,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.auth.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 /**
- * jwt token 配置
+ * jwt token 配置.
  *
  * @author guer
  */
@@ -24,5 +25,8 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 @ConfigurationProperties(prefix = TestJwtTokenFactoryProperties.PREFIX)
 public class TestJwtTokenFactoryProperties extends JwtTokenFactoryProperties {
 
-    public final static String PREFIX = "auth.test.token-factory.jwt";
+	/**
+	 * 配置前缀.
+	 */
+	public final static String PREFIX = "auth.test.token-factory.jwt";
 }

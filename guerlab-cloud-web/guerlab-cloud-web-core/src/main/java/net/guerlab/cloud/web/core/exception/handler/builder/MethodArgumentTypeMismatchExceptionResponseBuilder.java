@@ -10,28 +10,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.web.core.exception.handler.builder;
+
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.MethodArgumentTypeMismatchExceptionInfo;
 import net.guerlab.cloud.web.core.exception.handler.AbstractI18nResponseBuilder;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 /**
- * MethodArgumentTypeMismatchException异常处理
+ * MethodArgumentTypeMismatchException异常处理.
  *
  * @author guer
  */
 public class MethodArgumentTypeMismatchExceptionResponseBuilder extends AbstractI18nResponseBuilder {
 
-    @Override
-    public boolean accept(Throwable e) {
-        return e instanceof MethodArgumentTypeMismatchException;
-    }
+	@Override
+	public boolean accept(Throwable e) {
+		return e instanceof MethodArgumentTypeMismatchException;
+	}
 
-    @Override
-    public Fail<Void> build(Throwable e) {
-        MethodArgumentTypeMismatchException exception = (MethodArgumentTypeMismatchException) e;
-        return buildByI18nInfo(new MethodArgumentTypeMismatchExceptionInfo((exception)), e);
-    }
+	@Override
+	public Fail<Void> build(Throwable e) {
+		MethodArgumentTypeMismatchException exception = (MethodArgumentTypeMismatchException) e;
+		return buildByI18nInfo(new MethodArgumentTypeMismatchExceptionInfo((exception)), e);
+	}
 }

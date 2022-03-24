@@ -10,33 +10,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.api;
 
 /**
- * API常量
+ * API常量.
  *
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface ApiConstants {
+public final class ApiConstants {
 
-    /**
-     * 服务ID
-     */
-    String SERVICE_ID_PROPERTIES_PREFIX = "guerlab.cloud.api.names";
+	/**
+	 * 服务ID.
+	 */
+	public static final String SERVICE_ID_PROPERTIES_PREFIX = "guerlab.cloud.api.names";
 
-    /**
-     * 默认API服务后缀
-     */
-    String DEFAULT_API_SERVICE_SUFFIX = "-api";
+	/**
+	 * 默认API服务后缀.
+	 */
+	public static final String DEFAULT_API_SERVICE_SUFFIX = "-api";
 
-    /**
-     * 默认内部服务后缀
-     */
-    String DEFAULT_INTERNAL_SERVICE_SUFFIX = "-internal";
+	/**
+	 * 默认内部服务后缀.
+	 */
+	public static final String DEFAULT_INTERNAL_SERVICE_SUFFIX = "-internal";
 
-    /**
-     * 默认公共服务后缀
-     */
-    String DEFAULT_COMMONS_SERVICE_SUFFIX = "-commons";
+	/**
+	 * 默认公共服务后缀.
+	 */
+	public static final String DEFAULT_COMMONS_SERVICE_SUFFIX = "-commons";
+
+	private ApiConstants() {
+	}
 }

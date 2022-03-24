@@ -10,27 +10,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.security.core.properties;
 
-import org.springframework.web.cors.CorsConfiguration;
+package net.guerlab.cloud.security.core.properties;
 
 import java.util.Collections;
 
+import org.springframework.web.cors.CorsConfiguration;
+
 /**
- * 默认Core配置
+ * 默认Core配置.
  *
  * @author guer
  */
 public class DefaultCorsConfiguration extends CorsConfiguration {
 
-    /**
-     * 创建默认Core配置
-     */
-    public DefaultCorsConfiguration() {
-        setAllowedOriginPatterns(Collections.singletonList(CorsConfiguration.ALL));
-        setAllowedHeaders(Collections.singletonList(CorsConfiguration.ALL));
-        setAllowedMethods(Collections.singletonList(CorsConfiguration.ALL));
-        setMaxAge(1800L);
-        setAllowCredentials(true);
-    }
+	/**
+	 * 创建默认Core配置.
+	 */
+	public DefaultCorsConfiguration() {
+		setAllowedOriginPatterns(Collections.singletonList(CorsConfiguration.ALL));
+		setAllowedHeaders(Collections.singletonList(CorsConfiguration.ALL));
+		setAllowedMethods(Collections.singletonList(CorsConfiguration.ALL));
+		setMaxAge(1800L);
+		setAllowCredentials(true);
+	}
 }

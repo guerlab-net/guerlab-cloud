@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -10,12 +10,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.searchparams;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * 搜索模式
+ * 搜索模式.
  *
  * @author guer
  */
@@ -25,17 +31,17 @@ import java.lang.annotation.*;
 @Inherited
 public @interface SearchModel {
 
-    /**
-     * 获取搜索模式类型
-     *
-     * @return 搜索模式类型
-     */
-    SearchModelType value() default SearchModelType.EQUAL_TO;
+	/**
+	 * 获取搜索模式类型.
+	 *
+	 * @return 搜索模式类型
+	 */
+	SearchModelType value() default SearchModelType.EQUAL_TO;
 
-    /**
-     * 自定义sql
-     *
-     * @return 自定义sql
-     */
-    String sql() default "";
+	/**
+	 * 自定义sql.
+	 *
+	 * @return 自定义sql
+	 */
+	String sql() default "";
 }

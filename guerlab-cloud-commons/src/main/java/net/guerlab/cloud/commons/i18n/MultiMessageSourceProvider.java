@@ -10,20 +10,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.commons.i18n;
 
 /**
- * 多消息源处理提供者
+ * 多消息源处理提供者.
  *
  * @author guer
  */
 @FunctionalInterface
 public interface MultiMessageSourceProvider {
 
-    /**
-     * 获取消息源
-     *
-     * @return 消息源
-     */
-    String get();
+	/**
+	 * 获取消息源.
+	 *
+	 * @return 消息源
+	 */
+	String get();
 }

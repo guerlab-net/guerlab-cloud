@@ -13,7 +13,6 @@
 
 package net.guerlab.cloud.idempotent.autoconfigure;
 
-import net.guerlab.cloud.idempotent.aspect.IdempotentAspect;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.MessageSource;
@@ -21,8 +20,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
+import net.guerlab.cloud.idempotent.aspect.IdempotentAspect;
+
 /**
- * 幂等自动配置
+ * 幂等自动配置.
  *
  * @author guer
  */
@@ -30,18 +31,18 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 public class IdempotentAutoconfigure {
 
-    /**
-     * 构造幂等处理切面
-     *
-     * @param redisTemplate
-     *         StringRedisTemplate
-     * @param messageSource
-     *         messageSource
-     * @return 幂等处理切面
-     */
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @Bean
-    public IdempotentAspect idempotentAop(StringRedisTemplate redisTemplate, MessageSource messageSource) {
-        return new IdempotentAspect(redisTemplate, messageSource);
-    }
+	/**
+	 * 构造幂等处理切面.
+	 *
+	 * @param redisTemplate
+	 *         StringRedisTemplate
+	 * @param messageSource
+	 *         messageSource
+	 * @return 幂等处理切面
+	 */
+	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+	@Bean
+	public IdempotentAspect idempotentAop(StringRedisTemplate redisTemplate, MessageSource messageSource) {
+		return new IdempotentAspect(redisTemplate, messageSource);
+	}
 }

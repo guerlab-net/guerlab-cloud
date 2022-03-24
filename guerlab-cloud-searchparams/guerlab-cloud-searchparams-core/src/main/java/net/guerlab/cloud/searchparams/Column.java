@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,10 +13,15 @@
 
 package net.guerlab.cloud.searchparams;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * 字段
+ * 字段.
  *
  * @author guer
  */
@@ -26,17 +31,17 @@ import java.lang.annotation.*;
 @Inherited
 public @interface Column {
 
-    /**
-     * 字段名称
-     *
-     * @return 字段名称
-     */
-    String name() default "";
+	/**
+	 * 字段名称.
+	 *
+	 * @return 字段名称
+	 */
+	String name() default "";
 
-    /**
-     * 是否忽略
-     *
-     * @return 是否忽略
-     */
-    boolean ignore() default false;
+	/**
+	 * 是否忽略.
+	 *
+	 * @return 是否忽略
+	 */
+	boolean ignore() default false;
 }

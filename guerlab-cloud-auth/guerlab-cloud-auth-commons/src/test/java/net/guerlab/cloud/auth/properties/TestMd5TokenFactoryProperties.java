@@ -10,13 +10,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.auth.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 /**
- * md5 token 配置
+ * md5 token 配置.
  *
  * @author guer
  */
@@ -24,5 +25,8 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 @ConfigurationProperties(prefix = TestMd5TokenFactoryProperties.PREFIX)
 public class TestMd5TokenFactoryProperties extends Md5TokenFactoryProperties {
 
-    public static final String PREFIX = "auth.test.token-factory.md5";
+	/**
+	 * 配置前缀.
+	 */
+	public static final String PREFIX = "auth.test.token-factory.md5";
 }

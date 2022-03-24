@@ -10,17 +10,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.web.core.properties;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
+package net.guerlab.cloud.web.core.properties;
 
 import java.util.Locale;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+
 /**
- * i18n配置
+ * i18n配置.
  *
  * @author guer
  */
@@ -30,9 +32,9 @@ import java.util.Locale;
 @ConfigurationProperties("spring.i18n")
 public class I18nProperties {
 
-    /**
-     * 默认语言
-     */
-    private Locale defaultLocale = Locale.getDefault();
+	/**
+	 * 默认语言.
+	 */
+	private Locale defaultLocale = Locale.getDefault();
 
 }

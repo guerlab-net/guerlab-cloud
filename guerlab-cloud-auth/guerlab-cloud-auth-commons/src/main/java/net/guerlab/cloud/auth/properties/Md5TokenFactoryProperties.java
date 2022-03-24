@@ -10,16 +10,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.auth.properties;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * md5 token 工厂配置
+ * md5 token 工厂配置.
  *
  * @author guer
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Md5TokenFactoryProperties extends StringValueTokenFactoryProperties {}
+public class Md5TokenFactoryProperties extends StringValueTokenFactoryProperties { }

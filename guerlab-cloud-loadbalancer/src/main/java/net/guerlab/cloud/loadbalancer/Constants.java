@@ -10,22 +10,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.loadbalancer;
 
 /**
- * 常量
+ * 常量.
  *
  * @author guer
  */
-public interface Constants {
+public final class Constants {
 
-    /**
-     * 配置前缀
-     */
-    String PROPERTIES_PREFIX = "spring.cloud.loadbalancer";
+	/**
+	 * 配置前缀.
+	 */
+	public static final String PROPERTIES_PREFIX = "spring.cloud.loadbalancer";
 
-    /**
-     * 配置-策略
-     */
-    String PROPERTIES_POLICY = "policy";
+	/**
+	 * 配置-策略.
+	 */
+	public static final String PROPERTIES_POLICY = "policy";
+
+	private Constants() {
+	}
 }

@@ -10,14 +10,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.server.service;
 
-import net.guerlab.cloud.searchparams.SearchParams;
+package net.guerlab.cloud.server.service;
 
 import java.util.Collection;
 
+import net.guerlab.cloud.searchparams.SearchParams;
+
 /**
- * 基本保存服务接口
+ * 基本保存服务接口.
  *
  * @param <T>
  *         数据类型
@@ -27,21 +28,21 @@ import java.util.Collection;
  */
 public interface BaseSaveService<T, SP extends SearchParams> extends QueryWrapperGetter<T, SP> {
 
-    /**
-     * 添加
-     *
-     * @param entity
-     *         实体
-     */
-    void insert(T entity);
+	/**
+	 * 添加.
+	 *
+	 * @param entity
+	 *         实体
+	 */
+	void insert(T entity);
 
-    /**
-     * 批量保存
-     *
-     * @param collection
-     *         待保存列表
-     * @return 已保存列表W
-     */
-    Collection<T> batchInsert(Collection<T> collection);
+	/**
+	 * 批量保存.
+	 *
+	 * @param collection
+	 *         待保存列表
+	 * @return 已保存列表W
+	 */
+	Collection<T> batchInsert(Collection<T> collection);
 
 }

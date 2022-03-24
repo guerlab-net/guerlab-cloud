@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -10,17 +10,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.geo.entity;
+
+import java.math.BigDecimal;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+
 import net.guerlab.cloud.commons.entity.BaseEntity;
 
-import java.math.BigDecimal;
-
 /**
- * 地理信息对象
+ * 地理信息对象.
  *
  * @author guer
  */
@@ -30,21 +32,21 @@ import java.math.BigDecimal;
 @Schema(name = "GeoEntity", description = "地理信息对象")
 public class GeoEntity extends BaseEntity implements IGeoEntity {
 
-    /**
-     * 经度
-     */
-    @Schema(description = "经度")
-    private BigDecimal longitude;
+	/**
+	 * 经度.
+	 */
+	@Schema(description = "经度")
+	private BigDecimal longitude;
 
-    /**
-     * 纬度
-     */
-    @Schema(description = "纬度")
-    private BigDecimal latitude;
+	/**
+	 * 纬度.
+	 */
+	@Schema(description = "纬度")
+	private BigDecimal latitude;
 
-    /**
-     * 地理hash
-     */
-    @Schema(description = "地理hash")
-    private String geoHash;
+	/**
+	 * 地理hash.
+	 */
+	@Schema(description = "地理hash")
+	private String geoHash;
 }

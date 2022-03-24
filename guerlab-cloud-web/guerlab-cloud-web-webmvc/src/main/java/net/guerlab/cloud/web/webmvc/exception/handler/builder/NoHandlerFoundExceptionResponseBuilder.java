@@ -10,28 +10,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.web.webmvc.exception.handler.builder;
+
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.handler.AbstractI18nResponseBuilder;
 import net.guerlab.cloud.web.webmvc.exception.NoHandlerFoundExceptionInfo;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
 /**
- * NoHandlerFoundException异常处理
+ * NoHandlerFoundException异常处理.
  *
  * @author guer
  */
 public class NoHandlerFoundExceptionResponseBuilder extends AbstractI18nResponseBuilder {
 
-    @Override
-    public boolean accept(Throwable e) {
-        return e instanceof NoHandlerFoundException;
-    }
+	@Override
+	public boolean accept(Throwable e) {
+		return e instanceof NoHandlerFoundException;
+	}
 
-    @Override
-    public Fail<Void> build(Throwable e) {
-        NoHandlerFoundException exception = (NoHandlerFoundException) e;
-        return buildByI18nInfo(new NoHandlerFoundExceptionInfo(exception), e);
-    }
+	@Override
+	public Fail<Void> build(Throwable e) {
+		NoHandlerFoundException exception = (NoHandlerFoundException) e;
+		return buildByI18nInfo(new NoHandlerFoundExceptionInfo(exception), e);
+	}
 }

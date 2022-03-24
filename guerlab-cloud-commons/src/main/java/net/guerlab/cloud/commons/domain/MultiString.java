@@ -10,13 +10,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.commons.domain;
 
 import java.util.ArrayList;
 
 /**
- * String集合
+ * String集合.
  *
  * @author guer
  */
-public class MultiString extends ArrayList<String> {}
+public class MultiString extends ArrayList<String> { }

@@ -10,11 +10,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.sentinel.webflux.autoconfigure;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.alibaba.csp.sentinel.adapter.spring.webflux.SentinelWebFluxFilter;
-import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
-import net.guerlab.cloud.web.core.autoconfigure.GlobalExceptionHandlerAutoConfigure;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -25,11 +28,11 @@ import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.web.reactive.result.view.ViewResolver;
 import org.springframework.web.server.WebExceptionHandler;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
+import net.guerlab.cloud.web.core.autoconfigure.GlobalExceptionHandlerAutoConfigure;
 
 /**
- * 自定义限流处理自动配置
+ * 自定义限流处理自动配置.
  *
  * @author guer
  */
@@ -38,48 +41,48 @@ import java.util.stream.Collectors;
 @AutoConfigureAfter(GlobalExceptionHandlerAutoConfigure.class)
 public class WebfluxExceptionHandlerAutoconfigure {
 
-    private final List<ViewResolver> viewResolvers;
+	private final List<ViewResolver> viewResolvers;
 
-    private final ServerCodecConfigurer serverCodecConfigurer;
+	private final ServerCodecConfigurer serverCodecConfigurer;
 
-    /**
-     * 初始化自定义限流处理自动配置
-     *
-     * @param viewResolvers
-     *         ViewResolver列表
-     * @param serverCodecConfigurer
-     *         serverCodecConfigurer
-     */
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    public WebfluxExceptionHandlerAutoconfigure(ObjectProvider<ViewResolver> viewResolvers,
-            ServerCodecConfigurer serverCodecConfigurer) {
-        this.viewResolvers = viewResolvers.stream().collect(Collectors.toList());
-        this.serverCodecConfigurer = serverCodecConfigurer;
-    }
+	/**
+	 * 初始化自定义限流处理自动配置.
+	 *
+	 * @param viewResolvers
+	 *         ViewResolver列表
+	 * @param serverCodecConfigurer
+	 *         serverCodecConfigurer
+	 */
+	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+	public WebfluxExceptionHandlerAutoconfigure(ObjectProvider<ViewResolver> viewResolvers,
+			ServerCodecConfigurer serverCodecConfigurer) {
+		this.viewResolvers = viewResolvers.stream().collect(Collectors.toList());
+		this.serverCodecConfigurer = serverCodecConfigurer;
+	}
 
-    /**
-     * 创建sentinelBlockExceptionHandler
-     *
-     * @param stackTracesHandler
-     *         堆栈处理
-     * @return sentinelBlockExceptionHandler
-     */
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @Bean
-    @Order(-1)
-    public WebExceptionHandler sentinelBlockExceptionHandler(StackTracesHandler stackTracesHandler) {
-        return new SentinelBlockExceptionHandler(viewResolvers, serverCodecConfigurer,
-                new CustomerBlockRequestHandler(stackTracesHandler));
-    }
+	/**
+	 * 创建sentinelBlockExceptionHandler.
+	 *
+	 * @param stackTracesHandler
+	 *         堆栈处理
+	 * @return sentinelBlockExceptionHandler
+	 */
+	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+	@Bean
+	@Order(-1)
+	public WebExceptionHandler sentinelBlockExceptionHandler(StackTracesHandler stackTracesHandler) {
+		return new SentinelBlockExceptionHandler(viewResolvers, serverCodecConfigurer,
+				new CustomerBlockRequestHandler(stackTracesHandler));
+	}
 
-    /**
-     * 创建SentinelWebFluxFilter
-     *
-     * @return SentinelWebFluxFilter
-     */
-    @Bean
-    @Order(-1)
-    public SentinelWebFluxFilter sentinelWebFluxFilter() {
-        return new SentinelWebFluxFilter();
-    }
+	/**
+	 * 创建SentinelWebFluxFilter.
+	 *
+	 * @return SentinelWebFluxFilter
+	 */
+	@Bean
+	@Order(-1)
+	public SentinelWebFluxFilter sentinelWebFluxFilter() {
+		return new SentinelWebFluxFilter();
+	}
 }

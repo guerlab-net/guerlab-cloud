@@ -10,50 +10,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.web.webflux.request;
 
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.lang.Nullable;
+
 import net.guerlab.cloud.context.core.ContextAttributes;
 import net.guerlab.cloud.context.core.ContextAttributesHolder;
 import net.guerlab.cloud.web.core.request.RequestContextHolder;
 import net.guerlab.cloud.web.webflux.utils.RequestUtils;
-import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.lang.Nullable;
 
 /**
- * webflux请求上下文保持
- * Mono
+ * webflux请求上下文保持.
  *
  * @author guer
  */
 @Slf4j
 public class WebfluxRequestContextHolder implements RequestContextHolder {
 
-    /**
-     * 获取ServerHttpRequest
-     *
-     * @return ServerHttpRequest
-     */
-    public static ServerHttpRequest getRequest() {
-        ContextAttributes contextAttributes = ContextAttributesHolder.get();
-        ServerHttpRequest request = (ServerHttpRequest) contextAttributes.get(ContextAttributes.REQUEST_KEY);
+	/**
+	 * 获取ServerHttpRequest.
+	 *
+	 * @return ServerHttpRequest
+	 */
+	public static ServerHttpRequest getRequest() {
+		ContextAttributes contextAttributes = ContextAttributesHolder.get();
+		ServerHttpRequest request = (ServerHttpRequest) contextAttributes.get(ContextAttributes.REQUEST_KEY);
 
-        if (request == null) {
-            throw new NullPointerException("ServerHttpRequest is null");
-        }
+		if (request == null) {
+			throw new NullPointerException("ServerHttpRequest is null");
+		}
 
-        return request;
-    }
+		return request;
+	}
 
-    @Nullable
-    @Override
-    public String getRequestMethod() {
-        return getRequest().getMethodValue();
-    }
+	@Nullable
+	@Override
+	public String getRequestMethod() {
+		return getRequest().getMethodValue();
+	}
 
-    @Nullable
-    @Override
-    public String getRequestPath() {
-        return RequestUtils.parseRequestUri(getRequest());
-    }
+	@Nullable
+	@Override
+	public String getRequestPath() {
+		return RequestUtils.parseRequestUri(getRequest());
+	}
 }

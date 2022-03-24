@@ -10,26 +10,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.commons.exception;
 
-import net.guerlab.cloud.core.exception.AbstractI18nApplicationException;
+package net.guerlab.cloud.commons.exception;
 
 import java.io.Serial;
 
+import net.guerlab.cloud.core.exception.AbstractI18nApplicationException;
+
 /**
- * 经度无效
+ * 经度无效.
  *
  * @author guer
  */
 public class LongitudeInvalidException extends AbstractI18nApplicationException {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    private static final String MESSAGE_KEY = "message.exception.commons.longitudeInvalid";
+	private static final String MESSAGE_KEY = "message.exception.commons.longitudeInvalid";
 
-    @Override
-    protected String getKey() {
-        return MESSAGE_KEY;
-    }
+	@Override
+	protected String getKey() {
+		return MESSAGE_KEY;
+	}
 }

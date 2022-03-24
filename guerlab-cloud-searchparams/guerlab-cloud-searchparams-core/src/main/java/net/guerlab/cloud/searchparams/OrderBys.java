@@ -16,8 +16,8 @@ package net.guerlab.cloud.searchparams;
 import java.util.ArrayList;
 
 /**
- * 排序字段列表
+ * 排序字段列表.
  *
  * @author guer
  */
-public class OrderBys extends ArrayList<OrderBy> {}
+public class OrderBys extends ArrayList<OrderBy> { }

@@ -14,34 +14,34 @@
 package net.guerlab.cloud.excel.enums;
 
 /**
- * excel类型
+ * excel类型.
  *
  * @author guer
  */
 public enum ExcelType {
 
-    /**
-     * XLSX
-     */
-    XLSX(".xlsx"),
+	/**
+	 * XLSX.
+	 */
+	XLSX(".xlsx"),
 
-    /**
-     * XLS
-     */
-    XLS(".xls");
+	/**
+	 * XLS.
+	 */
+	XLS(".xls");
 
-    private final String suffix;
+	private final String suffix;
 
-    ExcelType(String suffix) {
-        this.suffix = suffix;
-    }
+	ExcelType(String suffix) {
+		this.suffix = suffix;
+	}
 
-    /**
-     * 获取后缀
-     *
-     * @return 后缀
-     */
-    public String getSuffix() {
-        return suffix;
-    }
+	/**
+	 * 获取后缀.
+	 *
+	 * @return 后缀
+	 */
+	public String getSuffix() {
+		return suffix;
+	}
 }

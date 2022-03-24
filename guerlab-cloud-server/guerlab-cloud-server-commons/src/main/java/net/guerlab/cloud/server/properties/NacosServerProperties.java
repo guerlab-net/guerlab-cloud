@@ -10,15 +10,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.server.properties;
 
-import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+package net.guerlab.cloud.server.properties;
 
 import java.util.List;
 
+import lombok.Data;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
 /**
- * NACOS服务配置
+ * NACOS服务配置.
  *
  * @author guer
  */
@@ -26,33 +28,33 @@ import java.util.List;
 @ConfigurationProperties(prefix = "nacos")
 public class NacosServerProperties {
 
-    /**
-     * NACOS主机名称
-     */
-    private String hostname = "nacos";
+	/**
+	 * NACOS主机名称.
+	 */
+	private String hostname = "nacos";
 
-    /**
-     * NACOS端口
-     */
-    private Integer port = 8848;
+	/**
+	 * NACOS端口.
+	 */
+	private Integer port = 8848;
 
-    /**
-     * 命名空间
-     */
-    private String namespace = "";
+	/**
+	 * 命名空间.
+	 */
+	private String namespace = "";
 
-    /**
-     * 用户名
-     */
-    private String username;
+	/**
+	 * 用户名.
+	 */
+	private String username;
 
-    /**
-     * 密码
-     */
-    private String password;
+	/**
+	 * 密码.
+	 */
+	private String password;
 
-    /**
-     * 批量注册应用名列表
-     */
-    private List<String> appNames;
+	/**
+	 * 批量注册应用名列表.
+	 */
+	private List<String> appNames;
 }

@@ -16,8 +16,8 @@ package net.guerlab.cloud.idempotent.fallback;
 import net.guerlab.cloud.distributed.fallback.FallbackFactory;
 
 /**
- * 幂等快速失败处理工厂
+ * 幂等快速失败处理工厂.
  *
  * @author guer
  */
-public interface IdempotentFallbackFactory extends FallbackFactory {}
+public interface IdempotentFallbackFactory extends FallbackFactory { }

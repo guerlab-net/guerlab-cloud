@@ -10,46 +10,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.geo.domain;
 
-import lombok.Data;
+package net.guerlab.cloud.geo.domain;
 
 import java.math.BigDecimal;
 
+import lombok.Data;
+
 /**
- * 地理位置对象
+ * 地理位置对象.
  *
  * @author guer
  */
 @Data
 public class Geo {
 
-    /**
-     * 经度
-     */
-    private BigDecimal longitude;
+	/**
+	 * 经度.
+	 */
+	private BigDecimal longitude;
 
-    /**
-     * 纬度
-     */
-    private BigDecimal latitude;
+	/**
+	 * 纬度.
+	 */
+	private BigDecimal latitude;
 
-    /**
-     * 创建地理位置对象
-     */
-    public Geo() {
-    }
+	/**
+	 * 创建地理位置对象.
+	 */
+	public Geo() {
+	}
 
-    /**
-     * 创建地理位置对象
-     *
-     * @param longitude
-     *         经度
-     * @param latitude
-     *         纬度
-     */
-    public Geo(BigDecimal longitude, BigDecimal latitude) {
-        this.longitude = longitude;
-        this.latitude = latitude;
-    }
+	/**
+	 * 创建地理位置对象.
+	 *
+	 * @param longitude
+	 *         经度
+	 * @param latitude
+	 *         纬度
+	 */
+	public Geo(BigDecimal longitude, BigDecimal latitude) {
+		this.longitude = longitude;
+		this.latitude = latitude;
+	}
 }

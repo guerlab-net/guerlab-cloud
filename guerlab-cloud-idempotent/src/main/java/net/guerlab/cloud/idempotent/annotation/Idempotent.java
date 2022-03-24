@@ -10,64 +10,70 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.idempotent.annotation;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.util.concurrent.TimeUnit;
 
 import net.guerlab.cloud.idempotent.fallback.IdempotentFallbackFactory;
 import net.guerlab.cloud.idempotent.fallback.NoopIdempotentFallbackFactory;
 
-import java.lang.annotation.*;
-import java.util.concurrent.TimeUnit;
-
 /**
- * 幂等
+ * 幂等.
  *
  * @author guer
  */
-@Target({ ElementType.METHOD })
+@Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
 public @interface Idempotent {
 
-    /**
-     * 锁的Key
-     *
-     * @return 锁的Key
-     */
-    String lockKey() default "";
+	/**
+	 * 锁的Key.
+	 *
+	 * @return 锁的Key
+	 */
+	String lockKey() default "";
 
-    /**
-     * 加锁时长
-     *
-     * @return 加锁时长
-     */
-    long lockTime() default 1L;
+	/**
+	 * 加锁时长.
+	 *
+	 * @return 加锁时长
+	 */
+	long lockTime() default 1L;
 
-    /**
-     * 加锁时长单位
-     *
-     * @return 加锁时长单位
-     */
-    TimeUnit lockTimeUnit() default TimeUnit.SECONDS;
+	/**
+	 * 加锁时长单位.
+	 *
+	 * @return 加锁时长单位
+	 */
+	TimeUnit lockTimeUnit() default TimeUnit.SECONDS;
 
-    /**
-     * 自定义异常消息KEY
-     *
-     * @return 自定义异常消息KEY
-     */
-    String messageKey() default "";
+	/**
+	 * 自定义异常消息KEY.
+	 *
+	 * @return 自定义异常消息KEY
+	 */
+	String messageKey() default "";
 
-    /**
-     * 操作结束后是否释放锁
-     *
-     * @return 操作结束后是否释放锁
-     */
-    boolean unlockWhenEndOfOperation() default false;
+	/**
+	 * 操作结束后是否释放锁.
+	 *
+	 * @return 操作结束后是否释放锁
+	 */
+	boolean unlockWhenEndOfOperation() default false;
 
-    /**
-     * 快速失败工厂类型
-     *
-     * @return 快速失败工厂类型
-     */
-    Class<? extends IdempotentFallbackFactory> fallBackFactory() default NoopIdempotentFallbackFactory.class;
+	/**
+	 * 快速失败工厂类型.
+	 *
+	 * @return 快速失败工厂类型
+	 */
+	Class<? extends IdempotentFallbackFactory> fallBackFactory() default NoopIdempotentFallbackFactory.class;
 }

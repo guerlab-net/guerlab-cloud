@@ -18,7 +18,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * 基础搜索参数
+ * 基础搜索参数.
  *
  * @author guer
  */
@@ -27,9 +27,9 @@ import lombok.Setter;
 @Schema(name = "BaseSearchParams", description = "基础对象搜索参数")
 public class BaseSearchParams implements SearchParams {
 
-    /**
-     * 排序字段列表
-     */
-    @Schema(description = "排序字段列表")
-    private OrderBys orderBys;
+	/**
+	 * 排序字段列表.
+	 */
+	@Schema(description = "排序字段列表")
+	private OrderBys orderBys;
 }

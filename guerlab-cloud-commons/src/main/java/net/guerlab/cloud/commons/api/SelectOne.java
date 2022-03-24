@@ -13,19 +13,21 @@
 
 package net.guerlab.cloud.commons.api;
 
+import java.util.Optional;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import net.guerlab.cloud.commons.Constants;
-import net.guerlab.cloud.searchparams.SearchParams;
+
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.Optional;
+import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.searchparams.SearchParams;
 
 /**
- * APi定义
+ * APi定义.
  *
  * @param <E>
  *         返回实体类型
@@ -36,31 +38,31 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 public interface SelectOne<E, SP extends SearchParams> {
 
-    /**
-     * 请求路径
-     */
-    String SELECT_ONE_PATH = "/search/one";
+	/**
+	 * 请求路径.
+	 */
+	String SELECT_ONE_PATH = "/search/one";
 
-    /**
-     * 查询单一结果，根据搜索参数进行筛选
-     *
-     * @param searchParams
-     *         搜索参数对象
-     * @return 实体
-     */
-    @Nullable
-    @PostMapping(SELECT_ONE_PATH)
-    @Operation(summary = "查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
-    E selectOne(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
+	/**
+	 * 查询单一结果，根据搜索参数进行筛选.
+	 *
+	 * @param searchParams
+	 *         搜索参数对象
+	 * @return 实体
+	 */
+	@Nullable
+	@PostMapping(SELECT_ONE_PATH)
+	@Operation(summary = "查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
+	E selectOne(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
 
-    /**
-     * 查询单一结果，根据搜索参数进行筛选
-     *
-     * @param searchParams
-     *         搜索参数对象
-     * @return Optional
-     */
-    default Optional<E> selectOneOptional(SP searchParams) {
-        return Optional.ofNullable(selectOne(searchParams));
-    }
+	/**
+	 * 查询单一结果，根据搜索参数进行筛选.
+	 *
+	 * @param searchParams
+	 *         搜索参数对象
+	 * @return Optional
+	 */
+	default Optional<E> selectOneOptional(SP searchParams) {
+		return Optional.ofNullable(selectOne(searchParams));
+	}
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -10,10 +10,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.web.core.autoconfigure;
 
+import java.util.Arrays;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.guerlab.cloud.core.autoconfigure.ObjectMapperAutoconfigure;
+
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -27,10 +30,10 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
+import net.guerlab.cloud.core.autoconfigure.ObjectMapperAutoconfigure;
 
 /**
- * RestTemplate自动配置
+ * RestTemplate自动配置.
  *
  * @author guer
  */
@@ -38,45 +41,45 @@ import java.util.Arrays;
 @AutoConfigureAfter(ObjectMapperAutoconfigure.class)
 public class RestTemplateAutoconfigure {
 
-    /**
-     * 初始化LoadBalancedRestTemplate
-     *
-     * @param objectMapper
-     *         objectMapper
-     * @return LoadBalancedRestTemplate
-     */
-    @Bean
-    @LoadBalanced
-    @ConditionalOnBean(ObjectMapper.class)
-    @ConditionalOnClass({ LoadBalanced.class, RestTemplate.class })
-    @ConditionalOnMissingBean(value = RestTemplate.class, annotation = LoadBalanced.class)
-    public RestTemplate loadBalancedRestTemplate(ObjectMapper objectMapper) {
-        return createRestTemplate(objectMapper);
-    }
+	/**
+	 * 初始化LoadBalancedRestTemplate.
+	 *
+	 * @param objectMapper
+	 *         objectMapper
+	 * @return LoadBalancedRestTemplate
+	 */
+	@Bean
+	@LoadBalanced
+	@ConditionalOnBean(ObjectMapper.class)
+	@ConditionalOnClass({LoadBalanced.class, RestTemplate.class})
+	@ConditionalOnMissingBean(value = RestTemplate.class, annotation = LoadBalanced.class)
+	public RestTemplate loadBalancedRestTemplate(ObjectMapper objectMapper) {
+		return createRestTemplate(objectMapper);
+	}
 
-    /**
-     * 初始化RestTemplate
-     *
-     * @param objectMapper
-     *         objectMapper
-     * @return RestTemplate
-     */
-    @Bean
-    @Primary
-    @ConditionalOnBean(ObjectMapper.class)
-    @ConditionalOnClass(RestTemplate.class)
-    @ConditionalOnMissingBean(RestTemplate.class)
-    public RestTemplate restTemplate(ObjectMapper objectMapper) {
-        return createRestTemplate(objectMapper);
-    }
+	/**
+	 * 初始化RestTemplate.
+	 *
+	 * @param objectMapper
+	 *         objectMapper
+	 * @return RestTemplate
+	 */
+	@Bean
+	@Primary
+	@ConditionalOnBean(ObjectMapper.class)
+	@ConditionalOnClass(RestTemplate.class)
+	@ConditionalOnMissingBean(RestTemplate.class)
+	public RestTemplate restTemplate(ObjectMapper objectMapper) {
+		return createRestTemplate(objectMapper);
+	}
 
-    private RestTemplate createRestTemplate(ObjectMapper objectMapper) {
-        RestTemplate restTemplate = new RestTemplate();
+	private RestTemplate createRestTemplate(ObjectMapper objectMapper) {
+		RestTemplate restTemplate = new RestTemplate();
 
-        restTemplate.setMessageConverters(
-                Arrays.asList(new MappingJackson2HttpMessageConverter(objectMapper), new StringHttpMessageConverter(),
-                        new FormHttpMessageConverter()));
+		restTemplate.setMessageConverters(
+				Arrays.asList(new MappingJackson2HttpMessageConverter(objectMapper), new StringHttpMessageConverter(),
+						new FormHttpMessageConverter()));
 
-        return restTemplate;
-    }
+		return restTemplate;
+	}
 }

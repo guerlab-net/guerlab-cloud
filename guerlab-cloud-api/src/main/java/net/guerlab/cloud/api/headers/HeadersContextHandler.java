@@ -10,75 +10,75 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.api.headers;
 
-import org.springframework.lang.Nullable;
+package net.guerlab.cloud.api.headers;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
+import org.springframework.lang.Nullable;
+
 /**
- * 请求头上下文处理器
+ * 请求头上下文处理器.
  *
  * @author guer
  */
-@SuppressWarnings("unused")
-public class HeadersContextHandler {
+public final class HeadersContextHandler {
 
-    private static final InheritableThreadLocal<Map<String, String>> THREAD_LOCAL = new InheritableThreadLocal<>() {
+	private static final InheritableThreadLocal<Map<String, String>> THREAD_LOCAL = new InheritableThreadLocal<>() {
 
-        @Override
-        protected Map<String, String> initialValue() {
-            return new HashMap<>(16);
-        }
-    };
+		@Override
+		protected Map<String, String> initialValue() {
+			return new HashMap<>(16);
+		}
+	};
 
-    private HeadersContextHandler() {
+	private HeadersContextHandler() {
 
-    }
+	}
 
-    /**
-     * 设置内容
-     *
-     * @param key
-     *         key
-     * @param value
-     *         内容
-     */
-    @SuppressWarnings("SameParameterValue")
-    public static void set(String key, String value) {
-        THREAD_LOCAL.get().put(key, value);
-    }
+	/**
+	 * 设置内容.
+	 *
+	 * @param key
+	 *         key
+	 * @param value
+	 *         内容
+	 */
+	@SuppressWarnings("SameParameterValue")
+	public static void set(String key, String value) {
+		THREAD_LOCAL.get().put(key, value);
+	}
 
-    /**
-     * 获取内容
-     *
-     * @param key
-     *         key
-     * @return 内容
-     */
-    @SuppressWarnings({ "SameParameterValue" })
-    @Nullable
-    public static String get(String key) {
-        return THREAD_LOCAL.get().get(key);
-    }
+	/**
+	 * 获取内容.
+	 *
+	 * @param key
+	 *         key
+	 * @return 内容
+	 */
+	@SuppressWarnings({"SameParameterValue"})
+	@Nullable
+	public static String get(String key) {
+		return THREAD_LOCAL.get().get(key);
+	}
 
-    /**
-     * 对内容遍历
-     *
-     * @param action
-     *         遍历处理
-     */
-    public static void forEach(BiConsumer<? super String, ? super String> action) {
-        THREAD_LOCAL.get().forEach(action);
-    }
+	/**
+	 * 对内容遍历.
+	 *
+	 * @param action
+	 *         遍历处理
+	 */
+	public static void forEach(BiConsumer<? super String, ? super String> action) {
+		THREAD_LOCAL.get().forEach(action);
+	}
 
-    /**
-     * 清除当前内容
-     */
-    public static void clean() {
-        THREAD_LOCAL.remove();
-    }
+	/**
+	 * 清除当前内容.
+	 */
+	public static void clean() {
+		THREAD_LOCAL.remove();
+	}
 
 }

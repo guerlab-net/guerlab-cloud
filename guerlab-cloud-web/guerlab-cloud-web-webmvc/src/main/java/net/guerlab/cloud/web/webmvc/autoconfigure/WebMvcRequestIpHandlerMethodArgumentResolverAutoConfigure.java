@@ -13,16 +13,18 @@
 
 package net.guerlab.cloud.web.webmvc.autoconfigure;
 
+import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.web.webmvc.support.WebMvcRequestIpHandlerMethodArgumentResolver;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.List;
+import net.guerlab.cloud.web.webmvc.support.WebMvcRequestIpHandlerMethodArgumentResolver;
 
 /**
- * 构造请求IP参数处理参数解析自动配置
+ * 构造请求IP参数处理参数解析自动配置.
  *
  * @author guer
  */
@@ -30,10 +32,10 @@ import java.util.List;
 @Configuration
 public class WebMvcRequestIpHandlerMethodArgumentResolverAutoConfigure implements WebMvcConfigurer {
 
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(new WebMvcRequestIpHandlerMethodArgumentResolver());
-        log.debug("add WebMvcRequestIpHandlerMethodArgumentResolver");
-    }
+	@Override
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+		resolvers.add(new WebMvcRequestIpHandlerMethodArgumentResolver());
+		log.debug("add WebMvcRequestIpHandlerMethodArgumentResolver");
+	}
 }
 

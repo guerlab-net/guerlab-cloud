@@ -10,39 +10,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.loadbalancer.rule;
 
 import net.guerlab.cloud.loadbalancer.properties.BaseRuleProperties;
 
 /**
- * 策略
+ * 规则.
  *
  * @author guer
  */
 public abstract class BaseRule<P extends BaseRuleProperties> implements IRule {
 
-    /**
-     * 配置
-     */
-    protected final P properties;
+	/**
+	 * 配置.
+	 */
+	protected final P properties;
 
-    /**
-     * 通过配置初始化策略
-     *
-     * @param properties
-     *         配置
-     */
-    protected BaseRule(P properties) {
-        this.properties = properties;
-    }
+	/**
+	 * 通过配置初始化策略.
+	 *
+	 * @param properties
+	 *         配置
+	 */
+	protected BaseRule(P properties) {
+		this.properties = properties;
+	}
 
-    @Override
-    public boolean isEnabled() {
-        return properties.isEnabled();
-    }
+	@Override
+	public boolean isEnabled() {
+		return properties.isEnabled();
+	}
 
-    @Override
-    public int getOrder() {
-        return properties.getOrder();
-    }
+	@Override
+	public int getOrder() {
+		return properties.getOrder();
+	}
 }

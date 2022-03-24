@@ -10,13 +10,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.commons.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.springframework.lang.Nullable;
 
 /**
- * 树节点
+ * 树节点.
  *
  * @param <PK>
  *         主键类型
@@ -25,25 +27,25 @@ import org.springframework.lang.Nullable;
 @Schema(name = "TreeNode", description = "TreeNode")
 public interface TreeNode<PK> {
 
-    /**
-     * 获取ID
-     *
-     * @return id
-     */
-    PK id();
+	/**
+	 * 获取ID.
+	 *
+	 * @return id
+	 */
+	PK id();
 
-    /**
-     * 获取上级ID
-     *
-     * @return 上级id
-     */
-    PK parentId();
+	/**
+	 * 获取上级ID.
+	 *
+	 * @return 上级id
+	 */
+	PK parentId();
 
-    /**
-     * 获取标签
-     *
-     * @return 标签
-     */
-    @Nullable
-    String label();
+	/**
+	 * 获取标签.
+	 *
+	 * @return 标签
+	 */
+	@Nullable
+	String label();
 }

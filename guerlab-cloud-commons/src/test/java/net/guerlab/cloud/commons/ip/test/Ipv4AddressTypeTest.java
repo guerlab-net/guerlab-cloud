@@ -10,36 +10,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.commons.ip.test;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import net.guerlab.cloud.commons.ip.IpType;
 import net.guerlab.cloud.commons.ip.IpUtils;
 import net.guerlab.cloud.commons.ip.Ipv4;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 /**
- * ipv4地址类型测试
+ * ipv4地址类型测试.
  *
  * @author guer
  */
 class Ipv4AddressTypeTest {
 
-    @Test
-    void single() {
-        Ipv4 ipv4 = IpUtils.parseIpv4("192.168.1");
-        Assertions.assertTrue(IpType.isIpv4(ipv4.getIpType()));
-        Assertions.assertFalse(IpType.isIpv6(ipv4.getIpType()));
-        Assertions.assertTrue(IpType.isSingleIp(ipv4.getIpType()));
-        Assertions.assertFalse(IpType.isIpSegment(ipv4.getIpType()));
-    }
+	@Test
+	void single() {
+		Ipv4 ipv4 = IpUtils.parseIpv4("192.168.1");
+		Assertions.assertTrue(IpType.isIpv4(ipv4.getIpType()));
+		Assertions.assertFalse(IpType.isIpv6(ipv4.getIpType()));
+		Assertions.assertTrue(IpType.isSingleIp(ipv4.getIpType()));
+		Assertions.assertFalse(IpType.isIpSegment(ipv4.getIpType()));
+	}
 
-    @Test
-    void segment() {
-        Ipv4 ipv4 = IpUtils.parseIpv4("192.168.1/20");
-        Assertions.assertTrue(IpType.isIpv4(ipv4.getIpType()));
-        Assertions.assertFalse(IpType.isIpv6(ipv4.getIpType()));
-        Assertions.assertFalse(IpType.isSingleIp(ipv4.getIpType()));
-        Assertions.assertTrue(IpType.isIpSegment(ipv4.getIpType()));
-    }
+	@Test
+	void segment() {
+		Ipv4 ipv4 = IpUtils.parseIpv4("192.168.1/20");
+		Assertions.assertTrue(IpType.isIpv4(ipv4.getIpType()));
+		Assertions.assertFalse(IpType.isIpv6(ipv4.getIpType()));
+		Assertions.assertFalse(IpType.isSingleIp(ipv4.getIpType()));
+		Assertions.assertTrue(IpType.isIpSegment(ipv4.getIpType()));
+	}
 }

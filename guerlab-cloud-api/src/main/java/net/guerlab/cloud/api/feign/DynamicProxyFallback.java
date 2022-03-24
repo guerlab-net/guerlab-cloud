@@ -13,81 +13,98 @@
 
 package net.guerlab.cloud.api.feign;
 
-import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.core.result.Fail;
-import net.guerlab.cloud.core.result.Pageable;
-import net.guerlab.cloud.core.result.Result;
-import org.springframework.lang.Nullable;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.lang.Nullable;
+
+import net.guerlab.cloud.core.result.Fail;
+import net.guerlab.cloud.core.result.Pageable;
+import net.guerlab.cloud.core.result.Result;
 
 /**
- * 动态代理快速失败
+ * 动态代理快速失败.
  *
  * @author guer
  */
-public class DynamicProxyFallback {
+public final class DynamicProxyFallback {
 
-    /**
-     * 创建代理对象
-     *
-     * @param targetClass
-     *         对象类型
-     * @param cause
-     *         异常信息
-     * @param <T>
-     *         对象类型
-     * @return 代理对象
-     */
-    @SuppressWarnings("unchecked")
-    public static <T> T proxy(Class<T> targetClass, Throwable cause) {
-        return (T) Proxy.newProxyInstance(DynamicProxyFallback.class.getClassLoader(), new Class[] { targetClass },
-                new FallbackInvocationHandler(cause));
-    }
+	private DynamicProxyFallback() {
+	}
 
-    @Slf4j
-    private static class FallbackInvocationHandler implements InvocationHandler {
+	/**
+	 * 创建代理对象.
+	 *
+	 * @param targetClass
+	 *         对象类型
+	 * @param cause
+	 *         异常信息
+	 * @param <T>
+	 *         对象类型
+	 * @return 代理对象
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T proxy(Class<T> targetClass, Throwable cause) {
+		return (T) Proxy.newProxyInstance(DynamicProxyFallback.class.getClassLoader(), new Class[] {targetClass},
+				new FallbackInvocationHandler(cause));
+	}
 
-        private final Throwable cause;
+	@Slf4j
+	private static class FallbackInvocationHandler implements InvocationHandler {
 
-        public FallbackInvocationHandler(Throwable cause) {
-            this.cause = cause;
-        }
+		private final Throwable cause;
 
-        @Nullable
-        @SuppressWarnings("SuspiciousInvocationHandlerImplementation")
-        @Override
-        public Object invoke(Object proxy, Method method, Object[] args) {
-            log.debug(String.format("%s fall", method.getName()), cause);
+		FallbackInvocationHandler(Throwable cause) {
+			this.cause = cause;
+		}
 
-            Class<?> returnType = method.getReturnType();
+		@Nullable
+		@SuppressWarnings("SuspiciousInvocationHandlerImplementation")
+		@Override
+		public Object invoke(Object proxy, Method method, Object[] args) {
+			log.debug(String.format("%s fall", method.getName()), cause);
 
-            log.debug("returnType: {}", returnType);
+			Class<?> returnType = method.getReturnType();
 
-            if (List.class.isAssignableFrom(returnType)) {
-                return Collections.emptyList();
-            } else if (Set.class.isAssignableFrom(returnType)) {
-                return Collections.emptySet();
-            } else if (Collection.class.isAssignableFrom(returnType)) {
-                return Collections.emptyList();
-            } else if (Map.class.isAssignableFrom(returnType)) {
-                return Collections.emptyMap();
-            } else if (Boolean.class.isAssignableFrom(returnType) || Boolean.TYPE.isAssignableFrom(returnType)) {
-                return false;
-            } else if (Result.class.isAssignableFrom(returnType)) {
-                return new Fail<>();
-            } else if (Pageable.class.isAssignableFrom(returnType)) {
-                return Pageable.empty();
-            } else if (Integer.TYPE.isAssignableFrom(returnType)) {
-                return 0;
-            } else if (Long.TYPE.isAssignableFrom(returnType)) {
-                return 0L;
-            }
+			log.debug("returnType: {}", returnType);
 
-            return null;
-        }
-    }
+			if (List.class.isAssignableFrom(returnType)) {
+				return Collections.emptyList();
+			}
+			else if (Set.class.isAssignableFrom(returnType)) {
+				return Collections.emptySet();
+			}
+			else if (Collection.class.isAssignableFrom(returnType)) {
+				return Collections.emptyList();
+			}
+			else if (Map.class.isAssignableFrom(returnType)) {
+				return Collections.emptyMap();
+			}
+			else if (Boolean.class.isAssignableFrom(returnType) || Boolean.TYPE.isAssignableFrom(returnType)) {
+				return false;
+			}
+			else if (Result.class.isAssignableFrom(returnType)) {
+				return new Fail<>();
+			}
+			else if (Pageable.class.isAssignableFrom(returnType)) {
+				return Pageable.empty();
+			}
+			else if (Integer.TYPE.isAssignableFrom(returnType)) {
+				return 0;
+			}
+			else if (Long.TYPE.isAssignableFrom(returnType)) {
+				return 0L;
+			}
+
+			return null;
+		}
+	}
 }

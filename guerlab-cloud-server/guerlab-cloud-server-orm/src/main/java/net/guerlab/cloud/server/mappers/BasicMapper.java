@@ -10,13 +10,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.server.mappers;
 
 /**
- * 基础mapper
+ * 基础mapper.
  *
  * @param <T>
  *         实体类型
  * @author guer
  */
-public interface BasicMapper<T> extends com.baomidou.mybatisplus.core.mapper.BaseMapper<T> {}
+public interface BasicMapper<T> extends com.baomidou.mybatisplus.core.mapper.BaseMapper<T> { }

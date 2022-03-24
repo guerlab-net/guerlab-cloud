@@ -10,35 +10,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.searchparams.mybatisplus;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import net.guerlab.cloud.searchparams.AbstractSearchParamsUtilInstance;
+package net.guerlab.cloud.searchparams.mybatisplus;
 
 import java.util.ServiceLoader;
 import java.util.stream.StreamSupport;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
+import net.guerlab.cloud.searchparams.AbstractSearchParamsUtilInstance;
+
 /**
- * mybatis plus处理实例
+ * mybatis plus处理实例.
  *
  * @author guer
  */
 public class MyBatisPlusSearchParamsUtilInstance extends AbstractSearchParamsUtilInstance {
 
-    private static final Class<?> CLAZZ = QueryWrapper.class;
+	private static final Class<?> CLAZZ = QueryWrapper.class;
 
-    /**
-     * 初始化mybatis plus处理实例
-     */
-    public MyBatisPlusSearchParamsUtilInstance() {
-        setDefaultHandler(new DefaultHandler());
+	/**
+	 * 初始化mybatis plus处理实例.
+	 */
+	public MyBatisPlusSearchParamsUtilInstance() {
+		setDefaultHandler(new DefaultHandler());
 
-        StreamSupport.stream(ServiceLoader.load(AbstractMyBatisPlusSearchParamsHandler.class).spliterator(), false)
-                .forEach((instance) -> addHandler(instance.acceptClass(), instance));
-    }
+		StreamSupport.stream(ServiceLoader.load(AbstractMyBatisPlusSearchParamsHandler.class).spliterator(), false)
+				.forEach((instance) -> addHandler(instance.acceptClass(), instance));
+	}
 
-    @Override
-    public boolean accept(Object object) {
-        return CLAZZ.isInstance(object);
-    }
+	@Override
+	public boolean accept(Object object) {
+		return CLAZZ.isInstance(object);
+	}
 }

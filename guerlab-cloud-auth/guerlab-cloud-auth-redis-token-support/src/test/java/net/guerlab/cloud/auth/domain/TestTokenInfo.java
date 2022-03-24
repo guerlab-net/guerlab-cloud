@@ -10,33 +10,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.auth.domain;
 
 import lombok.Data;
 
 /**
- * 测试令牌信息
+ * 测试令牌信息.
  *
  * @author guer
  */
 @Data
 public class TestTokenInfo implements ITestTokenInfo {
 
-    /**
-     * 用户ID
-     */
-    private Long userId;
+	/**
+	 * 用户ID.
+	 */
+	private Long userId;
 
-    /**
-     * 用户名
-     */
-    private String username;
+	/**
+	 * 用户名.
+	 */
+	private String username;
 
-    public TestTokenInfo() {
-    }
+	public TestTokenInfo() {
+	}
 
-    public TestTokenInfo(Long userId, String username) {
-        this.userId = userId;
-        this.username = username;
-    }
+	public TestTokenInfo(Long userId, String username) {
+		this.userId = userId;
+		this.username = username;
+	}
 }

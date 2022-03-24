@@ -10,35 +10,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.commons.ip.test;
 
-import net.guerlab.cloud.commons.ip.IpUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+package net.guerlab.cloud.commons.ip.test;
 
 import java.util.Objects;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import net.guerlab.cloud.commons.ip.IpUtils;
+
 /**
- * ipv4地址测试
+ * ipv4地址测试.
  *
  * @author guer
  */
 class Ipv4AddressTest {
 
-    @Test
-    void parseTest() {
-        long longAddress = 3232235781L;
-        String stringAddress = "192.168.1.5";
-        Assertions.assertEquals(IpUtils.parseIpv4(longAddress), IpUtils.parseIpv4(stringAddress));
-    }
+	@Test
+	void parseTest() {
+		long longAddress = 3232235781L;
+		String stringAddress = "192.168.1.5";
+		Assertions.assertEquals(IpUtils.parseIpv4(longAddress), IpUtils.parseIpv4(stringAddress));
+	}
 
-    @Test
-    void convertStringTest() {
-        Assertions.assertEquals("192.168.1.5", IpUtils.convertIpv4String(3232235781L));
-    }
+	@Test
+	void convertStringTest() {
+		Assertions.assertEquals("192.168.1.5", IpUtils.convertIpv4String(3232235781L));
+	}
 
-    @Test
-    void hashTest() {
-        Assertions.assertEquals(Objects.hashCode(3232235781L), IpUtils.parseIpv4("192.168.1.5").hashCode());
-    }
+	@Test
+	void hashTest() {
+		Assertions.assertEquals(Objects.hashCode(3232235781L), IpUtils.parseIpv4("192.168.1.5").hashCode());
+	}
 }

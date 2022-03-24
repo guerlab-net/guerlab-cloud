@@ -10,19 +10,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.web.core.properties;
 
-import net.guerlab.cloud.web.core.annotation.ResponseObjectWrapper;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.lang.Nullable;
+package net.guerlab.cloud.web.core.properties;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.lang.Nullable;
+
+import net.guerlab.cloud.web.core.annotation.ResponseObjectWrapper;
+
 /**
- * http响应数据处理配置参数<br>
+ * http响应数据处理配置参数.<br>
  * 符合以下条件之一将不会被包装成{@link net.guerlab.cloud.core.result.Result}类型<br>
  * <ul>
  * <li>请求路径符合排除列表前缀</li>
@@ -36,56 +38,56 @@ import java.util.List;
 @ConfigurationProperties("spring.response-advisor")
 public class ResponseAdvisorProperties {
 
-    /**
-     * 排除路径,支持ant风格路径和类路径<br>
-     * <p>
-     * 范例：
-     * <ul>
-     *     <li>/a/c/d</li>
-     *     <li>/&#8270;&#8270;/example/&#8270;</li>
-     *     <li>com.example.controller#getData</li>
-     * </ul>
-     */
-    private List<String> excluded = new ArrayList<>();
+	/**
+	 * 排除路径,支持ant风格路径和类路径.<br>
+	 * <p>
+	 * 范例：
+	 * <ul>
+	 *     <li>/a/c/d</li>
+	 *     <li>/&#8270;&#8270;/example/&#8270;</li>
+	 *     <li>com.example.controller#getData</li>
+	 * </ul>
+	 */
+	private List<String> excluded = new ArrayList<>();
 
-    /**
-     * 返回排除路径
-     *
-     * @return 排除路径
-     */
-    public List<String> getExcluded() {
-        return excluded;
-    }
+	/**
+	 * 返回排除路径.
+	 *
+	 * @return 排除路径
+	 */
+	public List<String> getExcluded() {
+		return excluded;
+	}
 
-    /**
-     * 设置排除路径
-     *
-     * @param excluded
-     *         排除路径
-     */
-    public void setExcluded(@Nullable List<String> excluded) {
-        if (excluded != null) {
-            this.excluded = excluded;
-        }
-    }
+	/**
+	 * 设置排除路径.
+	 *
+	 * @param excluded
+	 *         排除路径
+	 */
+	public void setExcluded(@Nullable List<String> excluded) {
+		if (excluded != null) {
+			this.excluded = excluded;
+		}
+	}
 
-    /**
-     * 添加排除路径
-     *
-     * @param excluded
-     *         排除路径
-     */
-    public void addExcluded(List<String> excluded) {
-        this.excluded.addAll(excluded);
-    }
+	/**
+	 * 添加排除路径.
+	 *
+	 * @param excluded
+	 *         排除路径
+	 */
+	public void addExcluded(List<String> excluded) {
+		this.excluded.addAll(excluded);
+	}
 
-    /**
-     * 添加排除路径
-     *
-     * @param excluded
-     *         排除路径
-     */
-    public void addExcluded(String... excluded) {
-        this.excluded.addAll(Arrays.asList(excluded));
-    }
+	/**
+	 * 添加排除路径.
+	 *
+	 * @param excluded
+	 *         排除路径
+	 */
+	public void addExcluded(String... excluded) {
+		this.excluded.addAll(Arrays.asList(excluded));
+	}
 }

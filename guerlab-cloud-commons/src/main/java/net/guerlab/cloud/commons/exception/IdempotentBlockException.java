@@ -10,59 +10,60 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.commons.exception;
 
-import net.guerlab.cloud.core.exception.AbstractI18nApplicationException;
+package net.guerlab.cloud.commons.exception;
 
 import java.io.Serial;
 
+import net.guerlab.cloud.core.exception.AbstractI18nApplicationException;
+
 /**
- * 幂等阻塞异常
+ * 幂等阻塞异常.
  *
  * @author guer
  */
 public class IdempotentBlockException extends AbstractI18nApplicationException {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    private static final String MESSAGE_KEY = "message.exception.commons.idempotentBlock";
+	private static final String MESSAGE_KEY = "message.exception.commons.idempotentBlock";
 
-    /**
-     * 加锁时长
-     */
-    private final Long time;
+	/**
+	 * 加锁时长.
+	 */
+	private final Long time;
 
-    /**
-     * 加锁时长单位
-     */
-    private final String timeUnit;
+	/**
+	 * 加锁时长单位.
+	 */
+	private final String timeUnit;
 
-    /**
-     * 构造幂等阻塞异常
-     *
-     * @param time
-     *         加锁时长
-     * @param timeUnit
-     *         加锁时长单位
-     */
-    public IdempotentBlockException(Long time, String timeUnit) {
-        this.time = time;
-        this.timeUnit = timeUnit;
-    }
+	/**
+	 * 构造幂等阻塞异常.
+	 *
+	 * @param time
+	 *         加锁时长
+	 * @param timeUnit
+	 *         加锁时长单位
+	 */
+	public IdempotentBlockException(Long time, String timeUnit) {
+		this.time = time;
+		this.timeUnit = timeUnit;
+	}
 
-    @Override
-    protected String getKey() {
-        return MESSAGE_KEY;
-    }
+	@Override
+	protected String getKey() {
+		return MESSAGE_KEY;
+	}
 
-    @Override
-    public int getErrorCode() {
-        return 429;
-    }
+	@Override
+	public int getErrorCode() {
+		return 429;
+	}
 
-    @Override
-    protected Object[] getArgs() {
-        return new Object[] { time, timeUnit };
-    }
+	@Override
+	protected Object[] getArgs() {
+		return new Object[] {time, timeUnit};
+	}
 }

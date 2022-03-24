@@ -13,82 +13,85 @@
 
 package net.guerlab.cloud.searchparams.mybatisplus;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import net.guerlab.cloud.searchparams.SearchModelType;
-import org.springframework.lang.Nullable;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
+import org.springframework.lang.Nullable;
+
+import net.guerlab.cloud.searchparams.SearchModelType;
+
 /**
- * 集合元素处理
+ * 集合元素处理.
  *
  * @author guer
  */
 public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 
-    private static String buildReplacement(int size) {
-        StringBuilder replacementBuilder = new StringBuilder();
-        replacementBuilder.append("(");
-        for (int i = 0; i < size; i++) {
-            if (i != 0) {
-                replacementBuilder.append(", ");
-            }
-            replacementBuilder.append("{");
-            replacementBuilder.append(i);
-            replacementBuilder.append("}");
-        }
-        replacementBuilder.append(")");
-        return replacementBuilder.toString();
-    }
+	private static String buildReplacement(int size) {
+		StringBuilder replacementBuilder = new StringBuilder();
+		replacementBuilder.append("(");
+		for (int i = 0; i < size; i++) {
+			if (i != 0) {
+				replacementBuilder.append(", ");
+			}
+			replacementBuilder.append("{");
+			replacementBuilder.append(i);
+			replacementBuilder.append("}");
+		}
+		replacementBuilder.append(")");
+		return replacementBuilder.toString();
+	}
 
-    @Override
-    public Class<?> acceptClass() {
-        return Collection.class;
-    }
+	@Override
+	public Class<?> acceptClass() {
+		return Collection.class;
+	}
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void setValue(Object object, String fieldName, String columnName, Object value,
-            SearchModelType searchModelType, @Nullable String customSql) {
-        Collection<Object> collection = (Collection<Object>) value;
+	@SuppressWarnings("unchecked")
+	@Override
+	public void setValue(Object object, String fieldName, String columnName, Object value,
+			SearchModelType searchModelType, @Nullable String customSql) {
+		Collection<Object> collection = (Collection<Object>) value;
 
-        if (collection.isEmpty()) {
-            return;
-        }
+		if (collection.isEmpty()) {
+			return;
+		}
 
-        List<Object> list = collection.stream().filter(Objects::nonNull).collect(Collectors.toList());
+		List<Object> list = collection.stream().filter(Objects::nonNull).collect(Collectors.toList());
 
-        if (list.isEmpty()) {
-            return;
-        }
+		if (list.isEmpty()) {
+			return;
+		}
 
-        QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
-        columnName = ColumnNameGetter.getColumnName(columnName, wrapper.getEntityClass());
-        switch (searchModelType) {
-            case NOT_IN -> wrapper.notIn(columnName, list);
-            case CUSTOM_SQL -> {
-                if (customSql == null) {
-                    break;
-                }
-                CustomerSqlInfo info = new CustomerSqlInfo(customSql);
-                String sql = info.sql;
-                if (info.matchFlag) {
-                    if (info.batch) {
-                        while (sql.contains(CustomerSqlInfo.BATCH_FLAG)) {
-                            sql = sql.replaceFirst(CustomerSqlInfo.BATCH_REG, buildReplacement(list.size()));
-                        }
-                    }
+		QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
+		columnName = ColumnNameGetter.getColumnName(columnName, wrapper.getEntityClass());
+		switch (searchModelType) {
+		case NOT_IN -> wrapper.notIn(columnName, list);
+		case CUSTOM_SQL -> {
+			if (customSql == null) {
+				break;
+			}
+			CustomerSqlInfo info = new CustomerSqlInfo(customSql);
+			String sql = info.sql;
+			if (info.matchFlag) {
+				if (info.batch) {
+					while (sql.contains(CustomerSqlInfo.BATCH_FLAG)) {
+						sql = sql.replaceFirst(CustomerSqlInfo.BATCH_REG, buildReplacement(list.size()));
+					}
+				}
 
-                    sql = sql.replaceAll(CustomerSqlInfo.MATCH_REG, "{0}");
-                    wrapper.apply(sql, list.toArray());
-                } else {
-                    wrapper.apply(sql);
-                }
-            }
-            default -> wrapper.in(columnName, list);
-        }
-    }
+				sql = sql.replaceAll(CustomerSqlInfo.MATCH_REG, "{0}");
+				wrapper.apply(sql, list.toArray());
+			}
+			else {
+				wrapper.apply(sql);
+			}
+		}
+		default -> wrapper.in(columnName, list);
+		}
+	}
 }

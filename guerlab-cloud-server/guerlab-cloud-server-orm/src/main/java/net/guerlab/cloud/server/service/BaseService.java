@@ -10,12 +10,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.server.service;
 
 import net.guerlab.cloud.searchparams.SearchParams;
 
 /**
- * 基本服务接口
+ * 基本服务接口.
  *
  * @param <T>
  *         数据类型
@@ -24,6 +25,4 @@ import net.guerlab.cloud.searchparams.SearchParams;
  * @author guer
  */
 public interface BaseService<T, SP extends SearchParams>
-        extends BaseFindService<T, SP>, BaseSaveService<T, SP>, BaseUpdateService<T, SP>, BaseDeleteService<T, SP>, QueryWrapperGetter<T, SP> {
-
-}
+		extends BaseFindService<T, SP>, BaseSaveService<T, SP>, BaseUpdateService<T, SP>, BaseDeleteService<T, SP>, QueryWrapperGetter<T, SP> { }

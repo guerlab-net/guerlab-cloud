@@ -10,13 +10,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.auth.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
- * 抽象登录成功信息
+ * 抽象登录成功信息.
  *
  * @author guer
  */
@@ -25,21 +26,21 @@ import lombok.Data;
 @Schema(name = "AbstractLoginResponse", description = "抽象登录成功信息")
 public class AbstractLoginResponse<T> {
 
-    /**
-     * accessToken
-     */
-    @Schema(description = "accessToken")
-    protected TokenInfo accessToken;
+	/**
+	 * accessToken.
+	 */
+	@Schema(description = "accessToken")
+	protected TokenInfo accessToken;
 
-    /**
-     * refreshToken
-     */
-    @Schema(description = "refreshToken")
-    protected TokenInfo refreshToken;
+	/**
+	 * refreshToken.
+	 */
+	@Schema(description = "refreshToken")
+	protected TokenInfo refreshToken;
 
-    /**
-     * 用户信息
-     */
-    @Schema(description = "用户信息")
-    protected T info;
+	/**
+	 * 用户信息.
+	 */
+	@Schema(description = "用户信息")
+	protected T info;
 }

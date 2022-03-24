@@ -10,13 +10,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.commons.domain;
 
 import java.util.ArrayList;
 
 /**
- * ID集合
+ * ID集合.
  *
  * @author guer
  */
-public class MultiId extends ArrayList<Long> {}
+public class MultiId extends ArrayList<Long> { }

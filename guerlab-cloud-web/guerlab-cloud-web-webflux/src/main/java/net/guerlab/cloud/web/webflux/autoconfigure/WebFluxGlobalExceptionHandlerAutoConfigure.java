@@ -10,14 +10,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.web.webflux.autoconfigure;
 
-import net.guerlab.cloud.commons.exception.handler.ResponseBuilder;
-import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
-import net.guerlab.cloud.web.core.autoconfigure.GlobalExceptionHandlerAutoConfigure;
-import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionHandler;
-import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionLogger;
-import net.guerlab.cloud.web.webflux.exception.handler.WebFluxErrorWebExceptionHandler;
+import java.util.Collection;
+import java.util.List;
+import java.util.ServiceLoader;
+import java.util.stream.Collectors;
+
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.autoconfigure.web.WebProperties;
@@ -31,13 +31,15 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.web.reactive.result.view.ViewResolver;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.ServiceLoader;
-import java.util.stream.Collectors;
+import net.guerlab.cloud.commons.exception.handler.ResponseBuilder;
+import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
+import net.guerlab.cloud.web.core.autoconfigure.GlobalExceptionHandlerAutoConfigure;
+import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionHandler;
+import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionLogger;
+import net.guerlab.cloud.web.webflux.exception.handler.WebFluxErrorWebExceptionHandler;
 
 /**
- * 异常统一处理配置自动配置
+ * 异常统一处理配置自动配置.
  *
  * @author guer
  */
@@ -45,76 +47,76 @@ import java.util.stream.Collectors;
 @AutoConfigureAfter(GlobalExceptionHandlerAutoConfigure.class)
 public class WebFluxGlobalExceptionHandlerAutoConfigure {
 
-    private final ServerProperties serverProperties;
+	private final ServerProperties serverProperties;
 
-    private final WebProperties.Resources resourceProperties;
+	private final WebProperties.Resources resourceProperties;
 
-    private final List<ViewResolver> viewResolvers;
+	private final List<ViewResolver> viewResolvers;
 
-    private final ServerCodecConfigurer serverCodecConfigurer;
+	private final ServerCodecConfigurer serverCodecConfigurer;
 
-    /**
-     * 创建异常统一处理配置自动配置
-     *
-     * @param serverProperties
-     *         ServerProperties
-     * @param webProperties
-     *         WebProperties
-     * @param viewResolvers
-     *         ViewResolver列表
-     * @param serverCodecConfigurer
-     *         ServerCodecConfigurer
-     */
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    public WebFluxGlobalExceptionHandlerAutoConfigure(ServerProperties serverProperties, WebProperties webProperties,
-            List<ViewResolver> viewResolvers, ServerCodecConfigurer serverCodecConfigurer) {
-        this.serverProperties = serverProperties;
-        this.resourceProperties = webProperties.getResources();
-        this.viewResolvers = viewResolvers;
-        this.serverCodecConfigurer = serverCodecConfigurer;
-    }
+	/**
+	 * 创建异常统一处理配置自动配置.
+	 *
+	 * @param serverProperties
+	 *         ServerProperties
+	 * @param webProperties
+	 *         WebProperties
+	 * @param viewResolvers
+	 *         ViewResolver列表
+	 * @param serverCodecConfigurer
+	 *         ServerCodecConfigurer
+	 */
+	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+	public WebFluxGlobalExceptionHandlerAutoConfigure(ServerProperties serverProperties, WebProperties webProperties,
+			List<ViewResolver> viewResolvers, ServerCodecConfigurer serverCodecConfigurer) {
+		this.serverProperties = serverProperties;
+		this.resourceProperties = webProperties.getResources();
+		this.viewResolvers = viewResolvers;
+		this.serverCodecConfigurer = serverCodecConfigurer;
+	}
 
-    /**
-     * 构建异常统一处理配置
-     *
-     * @param messageSource
-     *         消息源
-     * @param stackTracesHandler
-     *         堆栈处理
-     * @param globalExceptionLogger
-     *         默认全局异常处理日志记录器
-     * @return 异常统一处理配置
-     */
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @Bean
-    public GlobalExceptionHandler webFluxGlobalExceptionHandler(MessageSource messageSource,
-            StackTracesHandler stackTracesHandler, GlobalExceptionLogger globalExceptionLogger) {
-        Collection<ResponseBuilder> builders = ServiceLoader.load(ResponseBuilder.class).stream()
-                .map(ServiceLoader.Provider::get).collect(Collectors.toList());
-        return new GlobalExceptionHandler(messageSource, stackTracesHandler, globalExceptionLogger, builders);
-    }
+	/**
+	 * 构建异常统一处理配置.
+	 *
+	 * @param messageSource
+	 *         消息源
+	 * @param stackTracesHandler
+	 *         堆栈处理
+	 * @param globalExceptionLogger
+	 *         默认全局异常处理日志记录器
+	 * @return 异常统一处理配置
+	 */
+	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+	@Bean
+	public GlobalExceptionHandler webFluxGlobalExceptionHandler(MessageSource messageSource,
+			StackTracesHandler stackTracesHandler, GlobalExceptionLogger globalExceptionLogger) {
+		Collection<ResponseBuilder> builders = ServiceLoader.load(ResponseBuilder.class).stream()
+				.map(ServiceLoader.Provider::get).collect(Collectors.toList());
+		return new GlobalExceptionHandler(messageSource, stackTracesHandler, globalExceptionLogger, builders);
+	}
 
-    /**
-     * 构建异常处理
-     *
-     * @param errorAttributes
-     *         错误属性
-     * @param applicationContext
-     *         应用上下文
-     * @param globalExceptionHandler
-     *         全局错误处理
-     * @return 异常处理
-     */
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @Order(-2)
-    @Bean
-    public AbstractErrorWebExceptionHandler webFluxErrorWebExceptionHandler(ErrorAttributes errorAttributes,
-            ApplicationContext applicationContext, GlobalExceptionHandler globalExceptionHandler) {
-        AbstractErrorWebExceptionHandler exceptionHandler = new WebFluxErrorWebExceptionHandler(errorAttributes,
-                resourceProperties, this.serverProperties.getError(), applicationContext, globalExceptionHandler);
-        exceptionHandler.setViewResolvers(this.viewResolvers);
-        exceptionHandler.setMessageWriters(this.serverCodecConfigurer.getWriters());
-        exceptionHandler.setMessageReaders(this.serverCodecConfigurer.getReaders());
-        return exceptionHandler;
-    }
+	/**
+	 * 构建异常处理.
+	 *
+	 * @param errorAttributes
+	 *         错误属性
+	 * @param applicationContext
+	 *         应用上下文
+	 * @param globalExceptionHandler
+	 *         全局错误处理
+	 * @return 异常处理
+	 */
+	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+	@Order(-2)
+	@Bean
+	public AbstractErrorWebExceptionHandler webFluxErrorWebExceptionHandler(ErrorAttributes errorAttributes,
+			ApplicationContext applicationContext, GlobalExceptionHandler globalExceptionHandler) {
+		AbstractErrorWebExceptionHandler exceptionHandler = new WebFluxErrorWebExceptionHandler(errorAttributes,
+				resourceProperties, this.serverProperties.getError(), applicationContext, globalExceptionHandler);
+		exceptionHandler.setViewResolvers(this.viewResolvers);
+		exceptionHandler.setMessageWriters(this.serverCodecConfigurer.getWriters());
+		exceptionHandler.setMessageReaders(this.serverCodecConfigurer.getReaders());
+		return exceptionHandler;
+	}
 }

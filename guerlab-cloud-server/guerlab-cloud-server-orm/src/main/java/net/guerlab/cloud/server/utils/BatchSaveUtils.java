@@ -10,9 +10,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.server.utils;
 
-import net.guerlab.commons.collection.CollectionUtil;
+package net.guerlab.cloud.server.utils;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -21,36 +20,38 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import net.guerlab.commons.collection.CollectionUtil;
+
 /**
- * 批量保存工具
+ * 批量保存工具.
  *
  * @author guer
  */
-public class BatchSaveUtils {
+public final class BatchSaveUtils {
 
-    private BatchSaveUtils() {
+	private BatchSaveUtils() {
 
-    }
+	}
 
-    /**
-     * 批量保存过滤
-     *
-     * @param collection
-     *         待保存集合
-     * @param filter
-     *         批量保存过滤器
-     * @param <T>
-     *         实体类型
-     * @return 过滤后可保存集合
-     */
-    public static <T> List<T> filter(Collection<T> collection, Function<? super T, ? extends T> filter) {
-        if (CollectionUtil.isEmpty(collection)) {
-            return Collections.emptyList();
-        }
+	/**
+	 * 批量保存过滤.
+	 *
+	 * @param collection
+	 *         待保存集合
+	 * @param filter
+	 *         批量保存过滤器
+	 * @param <T>
+	 *         实体类型
+	 * @return 过滤后可保存集合
+	 */
+	public static <T> List<T> filter(Collection<T> collection, Function<? super T, ? extends T> filter) {
+		if (CollectionUtil.isEmpty(collection)) {
+			return Collections.emptyList();
+		}
 
-        List<T> list = collection.stream().filter(Objects::nonNull).map(filter).filter(Objects::nonNull)
-                .collect(Collectors.toList());
+		List<T> list = collection.stream().filter(Objects::nonNull).map(filter).filter(Objects::nonNull)
+				.collect(Collectors.toList());
 
-        return CollectionUtil.isEmpty(list) ? Collections.emptyList() : list;
-    }
+		return CollectionUtil.isEmpty(list) ? Collections.emptyList() : list;
+	}
 }

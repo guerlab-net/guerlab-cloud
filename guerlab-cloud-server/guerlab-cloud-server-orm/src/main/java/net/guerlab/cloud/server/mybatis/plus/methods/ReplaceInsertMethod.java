@@ -10,27 +10,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.server.mybatis.plus.methods;
 
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 
 /**
- * replace模式插入
+ * replace模式插入.
  *
  * @author guer
  */
 public class ReplaceInsertMethod extends AbstractMysqlBatchInsertMethod {
 
-    @Override
-    protected String methodName() {
-        return "replaceInsertList";
-    }
+	@Override
+	protected String methodName() {
+		return "replaceInsertList";
+	}
 
-    @Override
-    protected String buildSqlResult(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
-        String sql = "<script>REPLACE INTO %s %s VALUES %s</script>";
-        String fieldSql = prepareFieldSql(tableInfo);
-        String valueSql = prepareValuesSqlForMysqlBatch(tableInfo);
-        return String.format(sql, tableInfo.getTableName(), fieldSql, valueSql);
-    }
+	@Override
+	protected String buildSqlResult(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
+		String sql = "<script>REPLACE INTO %s %s VALUES %s</script>";
+		String fieldSql = prepareFieldSql(tableInfo);
+		String valueSql = prepareValuesSqlForMysqlBatch(tableInfo);
+		return String.format(sql, tableInfo.getTableName(), fieldSql, valueSql);
+	}
 }

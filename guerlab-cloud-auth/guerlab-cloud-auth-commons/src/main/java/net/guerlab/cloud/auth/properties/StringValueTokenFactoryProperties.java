@@ -10,16 +10,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.auth.properties;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 字符串类型 token 工厂配置
+ * 字符串类型 token 工厂配置.
  *
  * @author guer
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class StringValueTokenFactoryProperties extends EncryptionSupportTokenFactoryProperties<String> {}
+public class StringValueTokenFactoryProperties extends EncryptionSupportTokenFactoryProperties<String> { }

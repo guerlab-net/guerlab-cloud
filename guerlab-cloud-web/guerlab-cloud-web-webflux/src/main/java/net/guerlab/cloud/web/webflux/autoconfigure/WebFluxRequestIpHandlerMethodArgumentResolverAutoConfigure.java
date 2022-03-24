@@ -14,13 +14,15 @@
 package net.guerlab.cloud.web.webflux.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.web.webflux.support.WebFluxRequestIpHandlerMethodArgumentResolver;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 import org.springframework.web.reactive.result.method.annotation.ArgumentResolverConfigurer;
 
+import net.guerlab.cloud.web.webflux.support.WebFluxRequestIpHandlerMethodArgumentResolver;
+
 /**
- * 构造请求IP参数处理参数解析自动配置
+ * 构造请求IP参数处理参数解析自动配置.
  *
  * @author guer
  */
@@ -28,10 +30,10 @@ import org.springframework.web.reactive.result.method.annotation.ArgumentResolve
 @Configuration
 public class WebFluxRequestIpHandlerMethodArgumentResolverAutoConfigure implements WebFluxConfigurer {
 
-    @Override
-    public void configureArgumentResolvers(ArgumentResolverConfigurer configurer) {
-        configurer.addCustomResolver(new WebFluxRequestIpHandlerMethodArgumentResolver());
-        log.debug("add WebFluxRequestIpHandlerMethodArgumentResolver");
-    }
+	@Override
+	public void configureArgumentResolvers(ArgumentResolverConfigurer configurer) {
+		configurer.addCustomResolver(new WebFluxRequestIpHandlerMethodArgumentResolver());
+		log.debug("add WebFluxRequestIpHandlerMethodArgumentResolver");
+	}
 }
 

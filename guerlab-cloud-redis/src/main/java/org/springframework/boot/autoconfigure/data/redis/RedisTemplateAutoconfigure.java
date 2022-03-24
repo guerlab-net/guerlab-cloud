@@ -10,9 +10,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.boot.autoconfigure.data.redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -26,37 +28,37 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 
 /**
- * RedisTemplate自动配置
+ * RedisTemplate自动配置.
  *
  * @author guer
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(RedisOperations.class)
 @AutoConfigureBefore(RedisAutoConfiguration.class)
-@Import({ LettuceConnectionConfiguration.class, JedisConnectionConfiguration.class })
+@Import({LettuceConnectionConfiguration.class, JedisConnectionConfiguration.class})
 public class RedisTemplateAutoconfigure {
 
-    /**
-     * create RedisTemplate
-     *
-     * @param factory
-     *         RedisConnectionFactory
-     * @param objectMapper
-     *         objectMapper
-     * @return RedisTemplate
-     */
-    @Bean
-    @ConditionalOnMissingBean(name = "redisTemplate")
-    @ConditionalOnSingleCandidate(RedisConnectionFactory.class)
-    public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory factory, ObjectMapper objectMapper) {
-        ObjectMapper mapper = objectMapper.copy();
-        mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL);
+	/**
+	 * create RedisTemplate.
+	 *
+	 * @param factory
+	 *         RedisConnectionFactory
+	 * @param objectMapper
+	 *         objectMapper
+	 * @return RedisTemplate
+	 */
+	@Bean
+	@ConditionalOnMissingBean(name = "redisTemplate")
+	@ConditionalOnSingleCandidate(RedisConnectionFactory.class)
+	public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory factory, ObjectMapper objectMapper) {
+		ObjectMapper mapper = objectMapper.copy();
+		mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL);
 
-        RedisTemplate<?, ?> template = new RedisTemplate<>();
-        template.setConnectionFactory(factory);
-        template.setKeySerializer(new GenericJackson2JsonRedisSerializer(mapper));
-        template.setValueSerializer(new GenericJackson2JsonRedisSerializer(mapper));
+		RedisTemplate<?, ?> template = new RedisTemplate<>();
+		template.setConnectionFactory(factory);
+		template.setKeySerializer(new GenericJackson2JsonRedisSerializer(mapper));
+		template.setValueSerializer(new GenericJackson2JsonRedisSerializer(mapper));
 
-        return template;
-    }
+		return template;
+	}
 }

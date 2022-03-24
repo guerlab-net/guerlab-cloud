@@ -10,11 +10,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.commons.ip;
 
 /**
- * ip地址段
+ * ip地址段.
  *
  * @author guer
  */
-public interface IpRangeAddress extends IpAddress {}
+public interface IpRangeAddress extends IpAddress { }

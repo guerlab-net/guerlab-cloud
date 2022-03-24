@@ -10,16 +10,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.openapi.core.properties;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * 开放接口配置
+ * 开放接口配置.
  *
  * @author guer
  */
@@ -27,4 +29,4 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @ConfigurationProperties(prefix = "openapi")
-public class OpenApiProperties extends OpenAPI {}
+public class OpenApiProperties extends OpenAPI { }

@@ -10,12 +10,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.web.webmvc.autoconfigure;
 
+import java.util.List;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.guerlab.cloud.core.autoconfigure.ObjectMapperAutoconfigure;
-import net.guerlab.cloud.security.core.properties.CorsProperties;
-import net.guerlab.commons.collection.CollectionUtil;
+
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -29,10 +30,12 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
-import java.util.List;
+import net.guerlab.cloud.core.autoconfigure.ObjectMapperAutoconfigure;
+import net.guerlab.cloud.security.core.properties.CorsProperties;
+import net.guerlab.commons.collection.CollectionUtil;
 
 /**
- * web mvc配置
+ * web mvc配置.
  *
  * @author guer
  */
@@ -41,54 +44,54 @@ import java.util.List;
 @EnableConfigurationProperties(CorsProperties.class)
 public class WebMvcAutoconfigure {
 
-    /**
-     * webmvc自动配置
-     *
-     * @author guer
-     */
-    @Configuration
-    @ConditionalOnClass(WebMvcConfigurer.class)
-    public static class MvcAutoconfigure implements WebMvcConfigurer {
+	/**
+	 * webmvc自动配置.
+	 *
+	 * @author guer
+	 */
+	@Configuration
+	@ConditionalOnClass(WebMvcConfigurer.class)
+	public static class MvcAutoconfigure implements WebMvcConfigurer {
 
-        private final ObjectMapper objectMapper;
+		private final ObjectMapper objectMapper;
 
-        private final LocaleChangeInterceptor localeChangeInterceptor;
+		private final LocaleChangeInterceptor localeChangeInterceptor;
 
-        /**
-         * 初始化webmvc自动配置
-         *
-         * @param objectMapper
-         *         objectMapper
-         * @param localeChangeInterceptor
-         *         localeChangeInterceptor
-         */
-        @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-        public MvcAutoconfigure(ObjectMapper objectMapper, LocaleChangeInterceptor localeChangeInterceptor) {
-            this.objectMapper = objectMapper;
-            this.localeChangeInterceptor = localeChangeInterceptor;
-        }
+		/**
+		 * 初始化webmvc自动配置.
+		 *
+		 * @param objectMapper
+		 *         objectMapper
+		 * @param localeChangeInterceptor
+		 *         localeChangeInterceptor
+		 */
+		@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+		public MvcAutoconfigure(ObjectMapper objectMapper, LocaleChangeInterceptor localeChangeInterceptor) {
+			this.objectMapper = objectMapper;
+			this.localeChangeInterceptor = localeChangeInterceptor;
+		}
 
-        @Override
-        public void addInterceptors(InterceptorRegistry registry) {
-            registry.addInterceptor(localeChangeInterceptor);
-        }
+		@Override
+		public void addInterceptors(InterceptorRegistry registry) {
+			registry.addInterceptor(localeChangeInterceptor);
+		}
 
-        @Override
-        public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-            if (CollectionUtil.isEmpty(converters)) {
-                converters.add(new MappingJackson2HttpMessageConverter(objectMapper));
-                converters.add(new StringHttpMessageConverter());
-                return;
-            }
+		@Override
+		public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+			if (CollectionUtil.isEmpty(converters)) {
+				converters.add(new MappingJackson2HttpMessageConverter(objectMapper));
+				converters.add(new StringHttpMessageConverter());
+				return;
+			}
 
-            for (HttpMessageConverter<?> converter : converters) {
-                if (converter instanceof MappingJackson2XmlHttpMessageConverter) {
-                    continue;
-                }
-                if (converter instanceof AbstractJackson2HttpMessageConverter) {
-                    ((AbstractJackson2HttpMessageConverter) converter).setObjectMapper(objectMapper);
-                }
-            }
-        }
-    }
+			for (HttpMessageConverter<?> converter : converters) {
+				if (converter instanceof MappingJackson2XmlHttpMessageConverter) {
+					continue;
+				}
+				if (converter instanceof AbstractJackson2HttpMessageConverter) {
+					((AbstractJackson2HttpMessageConverter) converter).setObjectMapper(objectMapper);
+				}
+			}
+		}
+	}
 }

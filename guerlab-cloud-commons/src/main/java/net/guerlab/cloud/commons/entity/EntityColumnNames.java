@@ -14,49 +14,52 @@
 package net.guerlab.cloud.commons.entity;
 
 /**
- * 实体字段名称
+ * 实体字段名称.
  *
  * @author guer
  */
-public interface EntityColumnNames {
+public final class EntityColumnNames {
 
-    /**
-     * 字段名称-ID
-     */
-    String ID = "ID";
+	/**
+	 * 字段名称-ID.
+	 */
+	public static final String ID = "ID";
 
-    /**
-     * 字段名称-创建时间
-     */
-    String CREATED_TIME = "CREATED_TIME";
+	/**
+	 * 字段名称-创建时间.
+	 */
+	public static final String CREATED_TIME = "CREATED_TIME";
 
-    /**
-     * 字段名称-最后修改时间
-     */
-    String LAST_UPDATED_TIME = "LAST_UPDATED_TIME";
+	/**
+	 * 字段名称-最后修改时间.
+	 */
+	public static final String LAST_UPDATED_TIME = "LAST_UPDATED_TIME";
 
-    /**
-     * 字段名称-创建人
-     */
-    String CREATED_BY = "CREATED_BY";
+	/**
+	 * 字段名称-创建人.
+	 */
+	public static final String CREATED_BY = "CREATED_BY";
 
-    /**
-     * 字段名称-最后修改时间
-     */
-    String MODIFIED_BY = "MODIFIED_BY";
+	/**
+	 * 字段名称-最后修改时间.
+	 */
+	public static final String MODIFIED_BY = "MODIFIED_BY";
 
-    /**
-     * 字段名称-逻辑删除标识
-     */
-    String DELETED = "DELETED";
+	/**
+	 * 字段名称-逻辑删除标识.
+	 */
+	public static final String DELETED = "DELETED";
 
-    /**
-     * 字段名称-乐观锁版本
-     */
-    String VERSION = "VERSION";
+	/**
+	 * 字段名称-乐观锁版本.
+	 */
+	public static final String VERSION = "VERSION";
 
-    /**
-     * 字段名称-排序值
-     */
-    String ORDER_NUM = "ORDER_NUM";
+	/**
+	 * 字段名称-排序值.
+	 */
+	public static final String ORDER_NUM = "ORDER_NUM";
+
+	private EntityColumnNames() {
+	}
 }

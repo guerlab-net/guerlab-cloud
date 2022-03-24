@@ -10,31 +10,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.web.webmvc.interceptor;
 
-import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.commons.Constants;
-import net.guerlab.cloud.context.core.ContextAttributesHolder;
-import org.springframework.web.servlet.HandlerInterceptor;
+package net.guerlab.cloud.web.webmvc.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.context.core.ContextAttributesHolder;
+
 /**
- * 当前操作者信息处理请求拦截器
+ * 当前操作者信息处理请求拦截器.
  *
  * @author guer
  */
 @Slf4j
 public class CurrentOperatorInterceptor implements HandlerInterceptor {
 
-    @Override
-    public final boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        String currentOperator = request.getHeader(Constants.CURRENT_OPERATOR_HEADER);
-        log.debug("currentOperator: {}", currentOperator);
-        if (currentOperator != null) {
-            ContextAttributesHolder.get().put(Constants.CURRENT_OPERATOR, currentOperator);
-        }
-        return true;
-    }
+	@Override
+	public final boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+		String currentOperator = request.getHeader(Constants.CURRENT_OPERATOR_HEADER);
+		log.debug("currentOperator: {}", currentOperator);
+		if (currentOperator != null) {
+			ContextAttributesHolder.get().put(Constants.CURRENT_OPERATOR, currentOperator);
+		}
+		return true;
+	}
 }

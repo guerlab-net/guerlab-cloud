@@ -10,14 +10,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.server.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+
 import net.guerlab.cloud.searchparams.SearchParams;
 
 /**
- * 基本更新服务接口
+ * 基本更新服务接口.
  *
  * @param <T>
  *         数据类型
@@ -25,49 +27,49 @@ import net.guerlab.cloud.searchparams.SearchParams;
  *         搜索参数类型
  * @author guer
  */
-@SuppressWarnings({ "UnusedReturnValue", "unused" })
+@SuppressWarnings({"UnusedReturnValue", "unused"})
 public interface BaseUpdateService<T, SP extends SearchParams> extends QueryWrapperGetter<T, SP> {
 
-    /**
-     * 根据id更新
-     *
-     * @param entity
-     *         实体
-     * @return 是否更新成功
-     */
-    boolean updateById(T entity);
+	/**
+	 * 根据id更新.
+	 *
+	 * @param entity
+	 *         实体
+	 * @return 是否更新成功
+	 */
+	boolean updateById(T entity);
 
-    /**
-     * 根据条件更新
-     *
-     * @param entity
-     *         实体
-     * @param queryWrapper
-     *         条件
-     * @return 是否更新成功
-     */
-    boolean update(T entity, LambdaQueryWrapper<T> queryWrapper);
+	/**
+	 * 根据条件更新.
+	 *
+	 * @param entity
+	 *         实体
+	 * @param queryWrapper
+	 *         条件
+	 * @return 是否更新成功
+	 */
+	boolean update(T entity, LambdaQueryWrapper<T> queryWrapper);
 
-    /**
-     * 根据条件更新
-     *
-     * @param entity
-     *         实体
-     * @param queryWrapper
-     *         条件
-     * @return 是否更新成功
-     */
-    boolean update(T entity, QueryWrapper<T> queryWrapper);
+	/**
+	 * 根据条件更新.
+	 *
+	 * @param entity
+	 *         实体
+	 * @param queryWrapper
+	 *         条件
+	 * @return 是否更新成功
+	 */
+	boolean update(T entity, QueryWrapper<T> queryWrapper);
 
-    /**
-     * 根据条件更新
-     *
-     * @param entity
-     *         实体
-     * @param searchParams
-     *         搜索条件
-     * @return 是否更新成功
-     */
-    boolean update(T entity, SP searchParams);
+	/**
+	 * 根据条件更新.
+	 *
+	 * @param entity
+	 *         实体
+	 * @param searchParams
+	 *         搜索条件
+	 * @return 是否更新成功
+	 */
+	boolean update(T entity, SP searchParams);
 
 }

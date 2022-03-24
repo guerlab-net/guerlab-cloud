@@ -10,27 +10,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.auth.redis;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.guerlab.cloud.auth.domain.ITestTokenInfo;
-import net.guerlab.cloud.auth.domain.TestTokenInfo;
+
 import org.springframework.data.redis.core.RedisTemplate;
 
+import net.guerlab.cloud.auth.domain.ITestTokenInfo;
+import net.guerlab.cloud.auth.domain.TestTokenInfo;
+
 /**
- * 测试用redisTemplate操作包装类
+ * 测试用redisTemplate操作包装类.
  *
  * @author guer
  */
 public class TestRedisTemplateOperationsWrapper extends AbstractRedisTemplateOperationsWrapper<ITestTokenInfo> {
 
-    public TestRedisTemplateOperationsWrapper(ObjectMapper objectMapper, RedisTemplate<String, String> redisTemplate) {
-        super(objectMapper, redisTemplate);
-    }
+	public TestRedisTemplateOperationsWrapper(ObjectMapper objectMapper, RedisTemplate<String, String> redisTemplate) {
+		super(objectMapper, redisTemplate);
+	}
 
-    @Override
-    protected TypeReference<TestTokenInfo> getTypeReference() {
-        return new TypeReference<>() {};
-    }
+	@Override
+	protected TypeReference<TestTokenInfo> getTypeReference() {
+		return new TypeReference<>() { };
+	}
 }

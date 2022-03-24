@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
- * 排序字段
+ * 排序字段.
  *
  * @author guer
  */
@@ -33,15 +33,15 @@ import lombok.experimental.Accessors;
 @Schema(description = "排序字段")
 public class OrderBy {
 
-    /**
-     * 字段名
-     */
-    @Schema(description = "字段名")
-    private String columnName;
+	/**
+	 * 字段名.
+	 */
+	@Schema(description = "字段名")
+	private String columnName;
 
-    /**
-     * 是否升序
-     */
-    @Schema(description = "是否升序", defaultValue = "true")
-    private boolean asc = true;
+	/**
+	 * 是否升序.
+	 */
+	@Schema(description = "是否升序", defaultValue = "true")
+	private boolean asc = true;
 }

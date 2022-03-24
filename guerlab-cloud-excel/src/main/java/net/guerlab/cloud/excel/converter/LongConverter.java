@@ -10,6 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.excel.converter;
 
 import com.alibaba.excel.converters.Converter;
@@ -20,32 +21,32 @@ import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 
 /**
- * Long Converter
+ * Long Converter.
  *
  * @author guer
  */
 @SuppressWarnings("rawtypes")
 public class LongConverter implements Converter<Long> {
 
-    @Override
-    public Class<?> supportJavaTypeKey() {
-        return Long.class;
-    }
+	@Override
+	public Class<?> supportJavaTypeKey() {
+		return Long.class;
+	}
 
-    @Override
-    public CellDataTypeEnum supportExcelTypeKey() {
-        return CellDataTypeEnum.STRING;
-    }
+	@Override
+	public CellDataTypeEnum supportExcelTypeKey() {
+		return CellDataTypeEnum.STRING;
+	}
 
-    @Override
-    public Long convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty,
-            GlobalConfiguration globalConfiguration) {
-        return Long.parseLong(cellData.getStringValue());
-    }
+	@Override
+	public Long convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty,
+			GlobalConfiguration globalConfiguration) {
+		return Long.parseLong(cellData.getStringValue());
+	}
 
-    @Override
-    public WriteCellData<?> convertToExcelData(Long value, ExcelContentProperty contentProperty,
-            GlobalConfiguration globalConfiguration) {
-        return new WriteCellData(value.toString());
-    }
+	@Override
+	public WriteCellData<?> convertToExcelData(Long value, ExcelContentProperty contentProperty,
+			GlobalConfiguration globalConfiguration) {
+		return new WriteCellData(value.toString());
+	}
 }

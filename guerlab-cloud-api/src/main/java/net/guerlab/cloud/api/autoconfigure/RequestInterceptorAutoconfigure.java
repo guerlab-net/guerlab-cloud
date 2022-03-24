@@ -10,23 +10,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.api.autoconfigure;
 
 import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import feign.RequestInterceptor;
 import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.api.debug.DebugProxyRequestInterceptor;
-import net.guerlab.cloud.api.loadbalancer.LoadBalancerHeaderRequestInterceptor;
-import net.guerlab.cloud.api.properties.DebugProperties;
-import net.guerlab.cloud.loadbalancer.autoconfigure.GlobalLoadBalancerAutoConfiguration;
-import net.guerlab.cloud.loadbalancer.properties.VersionControlProperties;
+
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import net.guerlab.cloud.api.debug.DebugProxyRequestInterceptor;
+import net.guerlab.cloud.api.loadbalancer.LoadBalancerHeaderRequestInterceptor;
+import net.guerlab.cloud.api.properties.DebugProperties;
+import net.guerlab.cloud.loadbalancer.autoconfigure.GlobalLoadBalancerAutoConfiguration;
+import net.guerlab.cloud.loadbalancer.properties.VersionControlProperties;
+
 /**
- * 请求拦截器自动配置
+ * 请求拦截器自动配置.
  *
  * @author guer
  */
@@ -36,32 +39,32 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureAfter(GlobalLoadBalancerAutoConfiguration.class)
 public class RequestInterceptorAutoconfigure {
 
-    /**
-     * 构建负载均衡版本控制请求头注入拦截器
-     *
-     * @param properties
-     *         版本控制配置
-     * @param discoveryProperties
-     *         服务发现配置
-     * @return 负载均衡版本控制请求头注入拦截器
-     */
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @Bean
-    public RequestInterceptor loadBalancerHeaderRequestInterceptor(VersionControlProperties properties,
-            NacosDiscoveryProperties discoveryProperties) {
-        return new LoadBalancerHeaderRequestInterceptor(properties, discoveryProperties);
-    }
+	/**
+	 * 构建负载均衡版本控制请求头注入拦截器.
+	 *
+	 * @param properties
+	 *         版本控制配置
+	 * @param discoveryProperties
+	 *         服务发现配置
+	 * @return 负载均衡版本控制请求头注入拦截器
+	 */
+	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+	@Bean
+	public RequestInterceptor loadBalancerHeaderRequestInterceptor(VersionControlProperties properties,
+			NacosDiscoveryProperties discoveryProperties) {
+		return new LoadBalancerHeaderRequestInterceptor(properties, discoveryProperties);
+	}
 
-    /**
-     * 构建开发代理请求拦截器
-     *
-     * @param properties
-     *         开发模式配置
-     * @return 开发代理请求拦截器
-     */
-    @Bean
-    public RequestInterceptor debugProxyRequestInterceptor(DebugProperties properties) {
-        return new DebugProxyRequestInterceptor(properties);
-    }
+	/**
+	 * 构建开发代理请求拦截器.
+	 *
+	 * @param properties
+	 *         开发模式配置
+	 * @return 开发代理请求拦截器
+	 */
+	@Bean
+	public RequestInterceptor debugProxyRequestInterceptor(DebugProperties properties) {
+		return new DebugProxyRequestInterceptor(properties);
+	}
 
 }

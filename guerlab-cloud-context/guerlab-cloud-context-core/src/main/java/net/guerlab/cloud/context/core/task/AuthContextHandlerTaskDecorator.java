@@ -10,30 +10,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.context.core.task;
+
+import org.springframework.core.task.TaskDecorator;
 
 import net.guerlab.cloud.context.core.ContextAttributes;
 import net.guerlab.cloud.context.core.ContextAttributesHolder;
-import org.springframework.core.task.TaskDecorator;
 
 /**
- * 授权上下文处理异步任务装饰器
+ * 授权上下文处理异步任务装饰器.
  *
  * @author guer
  */
 public class AuthContextHandlerTaskDecorator implements TaskDecorator {
 
-    @Override
-    public Runnable decorate(Runnable runnable) {
-        ContextAttributes contextAttributes = ContextAttributesHolder.get();
+	@Override
+	public Runnable decorate(Runnable runnable) {
+		ContextAttributes contextAttributes = ContextAttributesHolder.get();
 
-        return () -> {
-            try {
-                ContextAttributesHolder.set(contextAttributes);
-                runnable.run();
-            } finally {
-                ContextAttributesHolder.get().clear();
-            }
-        };
-    }
+		return () -> {
+			try {
+				ContextAttributesHolder.set(contextAttributes);
+				runnable.run();
+			}
+			finally {
+				ContextAttributesHolder.get().clear();
+			}
+		};
+	}
 }

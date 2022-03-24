@@ -13,38 +13,40 @@
 
 package net.guerlab.cloud.server.mybatis.exception.handler.builder;
 
-import net.guerlab.cloud.commons.exception.handler.AbstractResponseBuilder;
-import net.guerlab.cloud.core.result.Fail;
 import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.mybatis.spring.MyBatisSystemException;
 
+import net.guerlab.cloud.commons.exception.handler.AbstractResponseBuilder;
+import net.guerlab.cloud.core.result.Fail;
+
 /**
- * TooManyResultsException异常处理
+ * TooManyResultsException异常处理.
  *
  * @author guer
  */
 public class MybatisSystemExceptionResponseBuilder extends AbstractResponseBuilder {
 
-    @Override
-    public boolean accept(Throwable e) {
-        return e instanceof MyBatisSystemException;
-    }
+	@Override
+	public boolean accept(Throwable e) {
+		return e instanceof MyBatisSystemException;
+	}
 
-    @Override
-    public Fail<Void> build(Throwable e) {
-        MyBatisSystemException exception = (MyBatisSystemException) e;
-        Throwable cause = exception.getCause();
-        if (cause instanceof TooManyResultsException) {
-            TooManyResultsExceptionResponseBuilder builder = new TooManyResultsExceptionResponseBuilder();
-            builder.setMessageSource(messageSource);
-            builder.setStackTracesHandler(stackTracesHandler);
+	@Override
+	public Fail<Void> build(Throwable e) {
+		MyBatisSystemException exception = (MyBatisSystemException) e;
+		Throwable cause = exception.getCause();
+		if (cause instanceof TooManyResultsException) {
+			TooManyResultsExceptionResponseBuilder builder = new TooManyResultsExceptionResponseBuilder();
+			builder.setMessageSource(messageSource);
+			builder.setStackTracesHandler(stackTracesHandler);
 
-            return builder.build(cause);
-        } else {
-            Fail<Void> fail = new Fail<>(exception.getMessage());
-            stackTracesHandler.setStackTrace(fail, e);
-            return fail;
-        }
-    }
+			return builder.build(cause);
+		}
+		else {
+			Fail<Void> fail = new Fail<>(exception.getMessage());
+			stackTracesHandler.setStackTrace(fail, e);
+			return fail;
+		}
+	}
 }
 

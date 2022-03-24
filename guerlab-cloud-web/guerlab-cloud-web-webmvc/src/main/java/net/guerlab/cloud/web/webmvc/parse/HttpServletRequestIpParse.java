@@ -10,34 +10,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.web.webmvc.parse;
 
-import net.guerlab.cloud.commons.ip.IpParser;
-import org.springframework.lang.Nullable;
+package net.guerlab.cloud.web.webmvc.parse;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.lang.Nullable;
+
+import net.guerlab.cloud.commons.ip.IpParser;
+
 /**
- * IP地址工具类
+ * IP地址工具类.
  *
  * @author guer
  */
 public class HttpServletRequestIpParse implements IpParser {
 
-    @Override
-    public boolean accept(Object request) {
-        return request instanceof HttpServletRequest;
-    }
+	@Override
+	public boolean accept(Object request) {
+		return request instanceof HttpServletRequest;
+	}
 
-    @Nullable
-    @Override
-    public String getIpByHeader(Object request, String headerName) {
-        return ((HttpServletRequest) request).getHeader(headerName);
-    }
+	@Nullable
+	@Override
+	public String getIpByHeader(Object request, String headerName) {
+		return ((HttpServletRequest) request).getHeader(headerName);
+	}
 
-    @Nullable
-    @Override
-    public String getIpByRemoteAddress(Object request) {
-        return ((HttpServletRequest) request).getRemoteAddr();
-    }
+	@Nullable
+	@Override
+	public String getIpByRemoteAddress(Object request) {
+		return ((HttpServletRequest) request).getRemoteAddr();
+	}
 }

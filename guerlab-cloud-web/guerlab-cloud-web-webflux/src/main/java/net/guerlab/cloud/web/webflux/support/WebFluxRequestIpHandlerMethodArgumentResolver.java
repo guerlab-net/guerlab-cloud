@@ -14,35 +14,37 @@
 package net.guerlab.cloud.web.webflux.support;
 
 import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.commons.ip.IpUtils;
-import net.guerlab.cloud.web.core.annotation.RequestIp;
+import reactor.core.publisher.Mono;
+
 import org.springframework.core.MethodParameter;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.reactive.BindingContext;
 import org.springframework.web.reactive.result.method.HandlerMethodArgumentResolver;
 import org.springframework.web.server.ServerWebExchange;
-import reactor.core.publisher.Mono;
+
+import net.guerlab.cloud.commons.ip.IpUtils;
+import net.guerlab.cloud.web.core.annotation.RequestIp;
 
 /**
- * 请求IP参数处理
+ * 请求IP参数处理.
  *
  * @author guer
  */
 @Slf4j
 public class WebFluxRequestIpHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
-    @Override
-    public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterAnnotation(RequestIp.class) != null;
-    }
+	@Override
+	public boolean supportsParameter(MethodParameter parameter) {
+		return parameter.getParameterAnnotation(RequestIp.class) != null;
+	}
 
-    @Override
-    public Mono<Object> resolveArgument(MethodParameter parameter, BindingContext bindingContext,
-            ServerWebExchange exchange) {
-        ServerHttpRequest request = exchange.getRequest();
-        log.debug("serverHttpRequest: {}", request);
-        String ip = IpUtils.getIp(request);
-        log.debug("get ip in serverHttpRequest: {}", ip);
-        return Mono.just(ip);
-    }
+	@Override
+	public Mono<Object> resolveArgument(MethodParameter parameter, BindingContext bindingContext,
+			ServerWebExchange exchange) {
+		ServerHttpRequest request = exchange.getRequest();
+		log.debug("serverHttpRequest: {}", request);
+		String ip = IpUtils.getIp(request);
+		log.debug("get ip in serverHttpRequest: {}", ip);
+		return Mono.just(ip);
+	}
 }

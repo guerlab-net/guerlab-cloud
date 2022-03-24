@@ -10,53 +10,54 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth.properties;
 
-import lombok.Data;
+package net.guerlab.cloud.auth.properties;
 
 import java.util.Collection;
 import java.util.Collections;
 
+import lombok.Data;
+
 /**
- * token 工厂配置
+ * token 工厂配置.
  *
  * @author guer
  */
 @Data
 public class TokenFactoryProperties {
 
-    /**
-     * 启用标志
-     */
-    private boolean enable = false;
+	/**
+	 * 启用标志.
+	 */
+	private boolean enable = false;
 
-    /**
-     * 默认工厂
-     */
-    private boolean defaultFactory = false;
+	/**
+	 * 默认工厂.
+	 */
+	private boolean defaultFactory = false;
 
-    /**
-     * 排序值
-     */
-    private int order = 0;
+	/**
+	 * 排序值.
+	 */
+	private int order = 0;
 
-    /**
-     * 允许的IP列表
-     */
-    private Collection<String> allowIpList = Collections.emptyList();
+	/**
+	 * 允许的IP列表.
+	 */
+	private Collection<String> allowIpList = Collections.emptyList();
 
-    /**
-     * 拒绝的IP列表
-     */
-    private Collection<String> denyIpList = Collections.emptyList();
+	/**
+	 * 拒绝的IP列表.
+	 */
+	private Collection<String> denyIpList = Collections.emptyList();
 
-    /**
-     * accessToken 过期时间
-     */
-    private long accessTokenExpire = 86400000;
+	/**
+	 * accessToken 过期时间.
+	 */
+	private long accessTokenExpire = 86400000;
 
-    /**
-     * refreshToken 过期时间
-     */
-    private long refreshTokenExpire = 172800000;
+	/**
+	 * refreshToken 过期时间.
+	 */
+	private long refreshTokenExpire = 172800000;
 }

@@ -10,26 +10,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.commons.exception;
 
-import net.guerlab.cloud.core.exception.AbstractI18nApplicationException;
+package net.guerlab.cloud.commons.exception;
 
 import java.io.Serial;
 
+import net.guerlab.cloud.core.exception.AbstractI18nApplicationException;
+
 /**
- * 纬度无效
+ * 纬度无效.
  *
  * @author guer
  */
 public class LatitudeInvalidException extends AbstractI18nApplicationException {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
+	@Serial
+	private static final long serialVersionUID = 1L;
 
-    private static final String MESSAGE_KEY = "message.exception.commons.latitudeInvalid";
+	private static final String MESSAGE_KEY = "message.exception.commons.latitudeInvalid";
 
-    @Override
-    protected String getKey() {
-        return MESSAGE_KEY;
-    }
+	@Override
+	protected String getKey() {
+		return MESSAGE_KEY;
+	}
 }

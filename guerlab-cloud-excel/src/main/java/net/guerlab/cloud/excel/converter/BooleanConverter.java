@@ -10,19 +10,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.excel.converter;
 
 /**
- * Boolean Converter
+ * Boolean Converter.
  *
  * @author guer
  */
 public class BooleanConverter extends AbstractBooleanConverter {
 
-    /**
-     * 默认Boolean Converter
-     */
-    public BooleanConverter() {
-        super("是", "否");
-    }
+	/**
+	 * 默认Boolean Converter.
+	 */
+	public BooleanConverter() {
+		super("是", "否");
+	}
 }

@@ -10,16 +10,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.loadbalancer.properties;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import net.guerlab.cloud.loadbalancer.Constants;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
+import net.guerlab.cloud.loadbalancer.Constants;
+
 /**
- * 版本控制配置
+ * 版本控制配置.
  *
  * @author guer
  */
@@ -29,18 +32,18 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 @ConfigurationProperties(prefix = VersionControlProperties.PROPERTIES_PREFIX)
 public class VersionControlProperties extends BaseRuleProperties {
 
-    /**
-     * 配置前缀
-     */
-    public static final String PROPERTIES_PREFIX = Constants.PROPERTIES_PREFIX + ".version-control";
+	/**
+	 * 配置前缀.
+	 */
+	public static final String PROPERTIES_PREFIX = Constants.PROPERTIES_PREFIX + ".version-control";
 
-    /**
-     * 请求头关键字
-     */
-    private String requestKey = "version";
+	/**
+	 * 请求头关键字.
+	 */
+	private String requestKey = "version";
 
-    /**
-     * 服务元信息关键字
-     */
-    private String metadataKey = "request-version-control";
+	/**
+	 * 服务元信息关键字.
+	 */
+	private String metadataKey = "request-version-control";
 }

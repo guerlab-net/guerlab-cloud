@@ -10,13 +10,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.auth.factory;
 
 import net.guerlab.cloud.auth.properties.Rc4TokenFactoryProperties;
 import net.guerlab.commons.encrypt.AuthCodeHelper;
 
 /**
- * 抽象rc4 token工厂
+ * 抽象rc4 token工厂.
  *
  * @param <T>
  *         数据实体类型
@@ -25,15 +26,15 @@ import net.guerlab.commons.encrypt.AuthCodeHelper;
  * @author guer
  */
 public abstract class AbstractRc4TokenFactory<T, P extends Rc4TokenFactoryProperties>
-        extends AbstractStringValueTokenFactory<T, P> {
+		extends AbstractStringValueTokenFactory<T, P> {
 
-    @Override
-    protected String buildToken(String dataString, String key, long expire) {
-        return AuthCodeHelper.encode(dataString, key, expire);
-    }
+	@Override
+	protected String buildToken(String dataString, String key, long expire) {
+		return AuthCodeHelper.encode(dataString, key, expire);
+	}
 
-    @Override
-    protected String parseDataString(String token, String key) {
-        return AuthCodeHelper.decode(token, key);
-    }
+	@Override
+	protected String parseDataString(String token, String key) {
+		return AuthCodeHelper.decode(token, key);
+	}
 }

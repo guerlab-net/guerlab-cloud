@@ -10,34 +10,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.api.headers;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.Ordered;
-import org.springframework.lang.Nullable;
-import org.springframework.web.servlet.HandlerInterceptor;
+package net.guerlab.cloud.api.headers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.core.Ordered;
+import org.springframework.lang.Nullable;
+import org.springframework.web.servlet.HandlerInterceptor;
+
 /**
- * 请求信息清理拦截器
+ * 请求信息清理拦截器.
  *
  * @author guer
  */
 @Slf4j
 public class HeadersContextCleanHandlerInterceptor implements HandlerInterceptor, Ordered {
 
-    @Override
-    public int getOrder() {
-        return Ordered.LOWEST_PRECEDENCE;
-    }
+	@Override
+	public int getOrder() {
+		return Ordered.LOWEST_PRECEDENCE;
+	}
 
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
-            @Nullable Exception ex) {
-        HeadersContextHandler.clean();
-        log.debug("invoke HeadersContextHandler.clean()");
-    }
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
+			@Nullable Exception ex) {
+		HeadersContextHandler.clean();
+		log.debug("invoke HeadersContextHandler.clean()");
+	}
 
 }

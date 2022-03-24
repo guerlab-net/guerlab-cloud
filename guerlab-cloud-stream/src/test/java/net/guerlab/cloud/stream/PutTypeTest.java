@@ -10,30 +10,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.stream;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * 推送类型格式化名称测试
+ * 推送类型格式化名称测试.
  *
  * @author guer
  */
 class PutTypeTest {
 
-    @Test
-    void input1() {
-        Assertions.assertEquals("onTest-in-0", PutType.IN.formatName("test"));
-    }
+	@Test
+	void input1() {
+		Assertions.assertEquals("onTest-in-0", PutType.IN.formatName("test"));
+	}
 
-    @Test
-    void input2() {
-        Assertions.assertEquals("onTest-in-0", PutType.IN.formatName("onTest"));
-    }
+	@Test
+	void input2() {
+		Assertions.assertEquals("onTest-in-0", PutType.IN.formatName("onTest"));
+	}
 
-    @Test
-    void output() {
-        Assertions.assertEquals("test-out-0", PutType.OUT.formatName("test"));
-    }
+	@Test
+	void output() {
+		Assertions.assertEquals("test-out-0", PutType.OUT.formatName("test"));
+	}
 }

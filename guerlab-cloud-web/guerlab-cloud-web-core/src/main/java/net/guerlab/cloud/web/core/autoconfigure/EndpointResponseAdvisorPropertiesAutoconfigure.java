@@ -10,11 +10,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.web.core.autoconfigure;
 
-import net.guerlab.cloud.web.core.endpoints.ResponseAdviceEndpoint;
-import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
 import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
@@ -23,8 +23,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import net.guerlab.cloud.web.core.endpoints.ResponseAdviceEndpoint;
+import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
+
 /**
- * endpoint's response advisor ignore configure
+ * endpoint's response advisor ignore configure.
  *
  * @author guer
  */
@@ -33,34 +36,34 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(name = "org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties")
 public class EndpointResponseAdvisorPropertiesAutoconfigure {
 
-    /**
-     * 基础路径设置
-     *
-     * @param webEndpointPropertiesObjectProvider
-     *         WebEndpointProperties提供者
-     * @param responseAdvisorProperties
-     *         http响应数据处理配置参数
-     */
-    @Autowired
-    public void basePathHandler(ObjectProvider<WebEndpointProperties> webEndpointPropertiesObjectProvider,
-            ResponseAdvisorProperties responseAdvisorProperties) {
-        webEndpointPropertiesObjectProvider.ifUnique(webEndpointProperties -> {
-            String basePath = StringUtils.trimToNull(webEndpointProperties.getBasePath());
-            if (basePath != null) {
-                responseAdvisorProperties.addExcluded(basePath + "/**");
-            }
-        });
-    }
+	/**
+	 * 基础路径设置.
+	 *
+	 * @param webEndpointPropertiesObjectProvider
+	 *         WebEndpointProperties提供者
+	 * @param responseAdvisorProperties
+	 *         http响应数据处理配置参数
+	 */
+	@Autowired
+	public void basePathHandler(ObjectProvider<WebEndpointProperties> webEndpointPropertiesObjectProvider,
+			ResponseAdvisorProperties responseAdvisorProperties) {
+		webEndpointPropertiesObjectProvider.ifUnique(webEndpointProperties -> {
+			String basePath = StringUtils.trimToNull(webEndpointProperties.getBasePath());
+			if (basePath != null) {
+				responseAdvisorProperties.addExcluded(basePath + "/**");
+			}
+		});
+	}
 
-    /**
-     * 构造响应环绕监控端点
-     *
-     * @param responseAdvisorProperties
-     *         http响应数据处理配置参数
-     * @return 响应环绕监控端点
-     */
-    @Bean
-    public ResponseAdviceEndpoint responseAdviceEndpoint(ResponseAdvisorProperties responseAdvisorProperties) {
-        return new ResponseAdviceEndpoint(responseAdvisorProperties);
-    }
+	/**
+	 * 构造响应环绕监控端点.
+	 *
+	 * @param responseAdvisorProperties
+	 *         http响应数据处理配置参数
+	 * @return 响应环绕监控端点
+	 */
+	@Bean
+	public ResponseAdviceEndpoint responseAdviceEndpoint(ResponseAdvisorProperties responseAdvisorProperties) {
+		return new ResponseAdviceEndpoint(responseAdvisorProperties);
+	}
 }

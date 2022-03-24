@@ -16,13 +16,15 @@ package net.guerlab.cloud.commons.api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import net.guerlab.cloud.commons.Constants;
-import net.guerlab.cloud.searchparams.SearchParams;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.searchparams.SearchParams;
+
 /**
- * APi定义
+ * APi定义.
  *
  * @param <SP>
  *         搜索参数类型
@@ -31,13 +33,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 @SuppressWarnings("unused")
 public interface Delete<SP extends SearchParams> {
 
-    /**
-     * 根据搜索参数删除数据
-     *
-     * @param searchParams
-     *         搜索参数
-     */
-    @DeleteMapping
-    @Operation(summary = "根据搜索参数删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
-    void delete(@Parameter(description = "搜索参数", required = true) @RequestBody SP searchParams);
+	/**
+	 * 根据搜索参数删除数据.
+	 *
+	 * @param searchParams
+	 *         搜索参数
+	 */
+	@DeleteMapping
+	@Operation(summary = "根据搜索参数删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
+	void delete(@Parameter(description = "搜索参数", required = true) @RequestBody SP searchParams);
 }

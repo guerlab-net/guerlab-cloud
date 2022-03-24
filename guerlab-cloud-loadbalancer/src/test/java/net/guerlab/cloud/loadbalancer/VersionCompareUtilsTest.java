@@ -10,61 +10,61 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.loadbalancer;
 
-import net.guerlab.cloud.loadbalancer.utils.VersionCompareUtils;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+package net.guerlab.cloud.loadbalancer;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import net.guerlab.cloud.loadbalancer.utils.VersionCompareUtils;
+
 /**
- * 版本控制测试
+ * 版本控制测试.
  *
  * @author guer
  */
 class VersionCompareUtilsTest {
 
-    // @formatter:off
-    private static final String[] ORIGINS = new String[] {
-            "1.0", "1.0.1", "1.1", "1.1.1", "1.2", "1.2.1", "str"
-    };
-    private static final String[] RANGES = new String[] {
-            "1.0.0", "1.0.1", "[1.0.0, 1.2.1]", "(1.0.0, 1.2.1)", "[1.0.0, 1.2.1)", "(1.0.0, 1.2.1]", "string", "[str, str]"
-    };
-    private static final Boolean[][] EXPECT = new Boolean[][] {
-            new Boolean[] { true, false, true, false, true, false, false, false },
-            new Boolean[] { false, true, true, true, true, true, false, false },
-            new Boolean[] { false, false, true, true, true, true, false, false },
-            new Boolean[] { false, false, true, true, true, true, false, false },
-            new Boolean[] { false, false, true, true, true, true, false, false },
-            new Boolean[] { false, false, true, false, false, true, false, false },
-            new Boolean[] { false, false, false, false, false, false, true, true },
-    };
-    // @formatter:on
+	private static final String[] ORIGINS = new String[] {
+			"1.0", "1.0.1", "1.1", "1.1.1", "1.2", "1.2.1", "str"
+	};
+	private static final String[] RANGES = new String[] {
+			"1.0.0", "1.0.1", "[1.0.0, 1.2.1]", "(1.0.0, 1.2.1)", "[1.0.0, 1.2.1)", "(1.0.0, 1.2.1]", "string", "[str, str]"
+	};
+	private static final Boolean[][] EXPECT = new Boolean[][] {
+			new Boolean[] {true, false, true, false, true, false, false, false},
+			new Boolean[] {false, true, true, true, true, true, false, false},
+			new Boolean[] {false, false, true, true, true, true, false, false},
+			new Boolean[] {false, false, true, true, true, true, false, false},
+			new Boolean[] {false, false, true, true, true, true, false, false},
+			new Boolean[] {false, false, true, false, false, true, false, false},
+			new Boolean[] {false, false, false, false, false, false, true, true},
+	};
 
-    static Stream<Arguments> testSourceProvider() {
-        List<Arguments> arguments = new ArrayList<>();
+	static Stream<Arguments> testSourceProvider() {
+		List<Arguments> arguments = new ArrayList<>();
 
-        for (int o = 0; o < ORIGINS.length; o++) {
-            for (int r = 0; r < RANGES.length; r++) {
-                arguments.add(Arguments.arguments(ORIGINS[o], RANGES[r], EXPECT[o][r]));
-            }
-        }
+		for (int o = 0; o < ORIGINS.length; o++) {
+			for (int r = 0; r < RANGES.length; r++) {
+				arguments.add(Arguments.arguments(ORIGINS[o], RANGES[r], EXPECT[o][r]));
+			}
+		}
 
-        return arguments.stream();
-    }
+		return arguments.stream();
+	}
 
-    /**
-     * 匹配测试
-     */
-    @ParameterizedTest
-    @MethodSource("testSourceProvider")
-    void match(String o, String r, boolean result) {
-        Assertions.assertEquals(result, VersionCompareUtils.match(o, r));
-    }
+	/**
+	 * 匹配测试.
+	 */
+	@ParameterizedTest
+	@MethodSource("testSourceProvider")
+	void match(String o, String r, boolean result) {
+		Assertions.assertEquals(result, VersionCompareUtils.match(o, r));
+	}
 }

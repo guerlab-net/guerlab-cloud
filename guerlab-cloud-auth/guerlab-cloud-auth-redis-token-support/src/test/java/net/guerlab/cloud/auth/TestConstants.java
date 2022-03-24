@@ -10,22 +10,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.auth;
 
 /**
- * 授权常量
+ * 授权常量.
  *
  * @author guer
  */
-public interface TestConstants {
+public final class TestConstants {
 
-    /**
-     * 用户id
-     */
-    String USER_ID = "userId";
+	/**
+	 * 用户id.
+	 */
+	public static final String USER_ID = "userId";
 
-    /**
-     * 用户名
-     */
-    String USERNAME = "username";
+	/**
+	 * 用户名.
+	 */
+	public static final String USERNAME = "username";
+
+	private TestConstants() {
+	}
 }

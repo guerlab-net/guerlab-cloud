@@ -13,13 +13,14 @@
 
 package net.guerlab.cloud.searchparams.mybatisplus;
 
+import java.util.Collection;
+
 import lombok.Getter;
 import lombok.Setter;
+
 import net.guerlab.cloud.searchparams.SearchModel;
 import net.guerlab.cloud.searchparams.SearchModelType;
 import net.guerlab.cloud.searchparams.SearchParams;
-
-import java.util.Collection;
 
 /**
  * @author guer
@@ -29,18 +30,18 @@ import java.util.Collection;
 @SuppressWarnings("unused")
 public class TestSearchParams implements SearchParams {
 
-    @SearchModel(value = SearchModelType.CUSTOM_SQL, sql = "'column' in ?")
-    private Collection<String> t1;
+	@SearchModel(value = SearchModelType.CUSTOM_SQL, sql = "'column' in ?")
+	private Collection<String> t1;
 
-    @SearchModel(value = SearchModelType.CUSTOM_SQL, sql = "'column' in ?*")
-    private Collection<String> t2;
+	@SearchModel(value = SearchModelType.CUSTOM_SQL, sql = "'column' in ?*")
+	private Collection<String> t2;
 
-    @SearchModel(value = SearchModelType.CUSTOM_SQL, sql = "'column' in ? and 'column' in ?")
-    private Collection<String> t3;
+	@SearchModel(value = SearchModelType.CUSTOM_SQL, sql = "'column' in ? and 'column' in ?")
+	private Collection<String> t3;
 
-    @SearchModel(value = SearchModelType.CUSTOM_SQL, sql = "'column' in ? and 'column' in ?*")
-    private Collection<String> t4;
+	@SearchModel(value = SearchModelType.CUSTOM_SQL, sql = "'column' in ? and 'column' in ?*")
+	private Collection<String> t4;
 
-    @SearchModel(value = SearchModelType.CUSTOM_SQL, sql = "'column' in ?* and 'column' in ?*")
-    private Collection<String> t5;
+	@SearchModel(value = SearchModelType.CUSTOM_SQL, sql = "'column' in ?* and 'column' in ?*")
+	private Collection<String> t5;
 }

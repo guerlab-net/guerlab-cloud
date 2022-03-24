@@ -13,26 +13,28 @@
 
 package net.guerlab.cloud.web.webmvc.interceptor;
 
-import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.context.core.ContextAttributesHolder;
-import org.springframework.lang.Nullable;
-import org.springframework.web.servlet.HandlerInterceptor;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.lang.Nullable;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import net.guerlab.cloud.context.core.ContextAttributesHolder;
+
 /**
- * 上下文属性保持器清理拦截器
+ * 上下文属性保持器清理拦截器.
  *
  * @author guer
  */
 @Slf4j
 public class ContextAttributesHolderCleanInterceptor implements HandlerInterceptor {
 
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
-            @Nullable Exception ex) {
-        ContextAttributesHolder.get().clear();
-        log.debug("invoke ContextAttributesHolder.get().clear()");
-    }
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
+			@Nullable Exception ex) {
+		ContextAttributesHolder.get().clear();
+		log.debug("invoke ContextAttributesHolder.get().clear()");
+	}
 }

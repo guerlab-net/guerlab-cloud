@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2021 guerlab.net and other contributors.
+ * Copyright 2018-2022 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@ package net.guerlab.cloud.core.converter;
 import org.springframework.core.convert.converter.Converter;
 
 /**
- * 可自动加载转换器
+ * 可自动加载转换器.
  *
  * @param <S>
  *         源对象类型
@@ -24,4 +24,4 @@ import org.springframework.core.convert.converter.Converter;
  *         目标对象类型
  * @author guer
  */
-public interface AutoLoadConverter<S, T> extends Converter<S, T> {}
+public interface AutoLoadConverter<S, T> extends Converter<S, T> { }

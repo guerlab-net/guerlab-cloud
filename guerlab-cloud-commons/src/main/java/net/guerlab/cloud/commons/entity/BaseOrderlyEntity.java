@@ -10,14 +10,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.commons.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
+
 import org.springframework.lang.Nullable;
 
 /**
- * 可排序实体
+ * 可排序实体.
  *
  * @param <E>
  *         对象类型
@@ -26,23 +28,23 @@ import org.springframework.lang.Nullable;
 @SuppressWarnings("unused")
 @Schema(name = "BaseOrderlyEntity", description = "可排序实体")
 public abstract class BaseOrderlyEntity<E extends BaseOrderlyEntity<E>> extends BaseEntity
-        implements IOrderlyEntity<E> {
+		implements IOrderlyEntity<E> {
 
-    /**
-     * 排序值
-     */
-    @Schema(description = "排序值")
-    @TableField(value = EntityColumnNames.ORDER_NUM)
-    protected Integer orderNum;
+	/**
+	 * 排序值.
+	 */
+	@Schema(description = "排序值")
+	@TableField(EntityColumnNames.ORDER_NUM)
+	protected Integer orderNum;
 
-    @Nullable
-    @Override
-    public Integer getOrderNum() {
-        return orderNum;
-    }
+	@Nullable
+	@Override
+	public Integer getOrderNum() {
+		return orderNum;
+	}
 
-    @Override
-    public void setOrderNum(@Nullable Integer orderNum) {
-        this.orderNum = orderNum;
-    }
+	@Override
+	public void setOrderNum(@Nullable Integer orderNum) {
+		this.orderNum = orderNum;
+	}
 }

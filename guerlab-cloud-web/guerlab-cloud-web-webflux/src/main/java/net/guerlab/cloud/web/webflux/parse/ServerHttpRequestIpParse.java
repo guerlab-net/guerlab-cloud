@@ -10,36 +10,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.web.webflux.parse;
 
-import net.guerlab.cloud.commons.ip.IpParser;
-import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.lang.Nullable;
+package net.guerlab.cloud.web.webflux.parse;
 
 import java.net.InetSocketAddress;
 
+import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.lang.Nullable;
+
+import net.guerlab.cloud.commons.ip.IpParser;
+
 /**
- * IP地址工具类
+ * IP地址工具类.
  *
  * @author guer
  */
 public class ServerHttpRequestIpParse implements IpParser {
 
-    @Override
-    public boolean accept(Object request) {
-        return request instanceof ServerHttpRequest;
-    }
+	@Override
+	public boolean accept(Object request) {
+		return request instanceof ServerHttpRequest;
+	}
 
-    @Nullable
-    @Override
-    public String getIpByHeader(Object request, String headerName) {
-        return ((ServerHttpRequest) request).getHeaders().getFirst(headerName);
-    }
+	@Nullable
+	@Override
+	public String getIpByHeader(Object request, String headerName) {
+		return ((ServerHttpRequest) request).getHeaders().getFirst(headerName);
+	}
 
-    @Nullable
-    @Override
-    public String getIpByRemoteAddress(Object request) {
-        InetSocketAddress socketAddress = ((ServerHttpRequest) request).getRemoteAddress();
-        return socketAddress != null ? socketAddress.getHostName() : null;
-    }
+	@Nullable
+	@Override
+	public String getIpByRemoteAddress(Object request) {
+		InetSocketAddress socketAddress = ((ServerHttpRequest) request).getRemoteAddress();
+		return socketAddress != null ? socketAddress.getHostName() : null;
+	}
 }

@@ -14,18 +14,18 @@
 package net.guerlab.cloud.distributed.fallback;
 
 /**
- * 快速失败处理工厂
+ * 快速失败处理工厂.
  *
  * @author guer
  */
 public interface FallbackFactory {
 
-    /**
-     * 创建快速失败结果
-     *
-     * @param args
-     *         参数列表
-     * @return 快速失败结果
-     */
-    Object create(Object[] args);
+	/**
+	 * 创建快速失败结果.
+	 *
+	 * @param args
+	 *         参数列表
+	 * @return 快速失败结果
+	 */
+	Object create(Object[] args);
 }

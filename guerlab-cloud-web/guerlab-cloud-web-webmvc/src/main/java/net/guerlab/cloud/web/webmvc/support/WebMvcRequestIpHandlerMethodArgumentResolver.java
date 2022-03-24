@@ -14,8 +14,7 @@
 package net.guerlab.cloud.web.webmvc.support;
 
 import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.commons.ip.IpUtils;
-import net.guerlab.cloud.web.core.annotation.RequestIp;
+
 import org.springframework.core.MethodParameter;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.support.WebDataBinderFactory;
@@ -23,27 +22,30 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import net.guerlab.cloud.commons.ip.IpUtils;
+import net.guerlab.cloud.web.core.annotation.RequestIp;
+
 /**
- * 请求IP参数处理
+ * 请求IP参数处理.
  *
  * @author guer
  */
 @Slf4j
 public class WebMvcRequestIpHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
-    @Override
-    public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterAnnotation(RequestIp.class) != null;
-    }
+	@Override
+	public boolean supportsParameter(MethodParameter parameter) {
+		return parameter.getParameterAnnotation(RequestIp.class) != null;
+	}
 
-    @Nullable
-    @Override
-    public Object resolveArgument(MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer,
-            NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) {
-        Object nativeRequest = webRequest.getNativeRequest();
-        log.debug("nativeRequest: {}", nativeRequest);
-        String ip = IpUtils.getIp(nativeRequest);
-        log.debug("get ip in nativeRequest: {}", ip);
-        return ip;
-    }
+	@Nullable
+	@Override
+	public Object resolveArgument(MethodParameter parameter, @Nullable ModelAndViewContainer mavContainer,
+			NativeWebRequest webRequest, @Nullable WebDataBinderFactory binderFactory) {
+		Object nativeRequest = webRequest.getNativeRequest();
+		log.debug("nativeRequest: {}", nativeRequest);
+		String ip = IpUtils.getIp(nativeRequest);
+		log.debug("get ip in nativeRequest: {}", ip);
+		return ip;
+	}
 }

@@ -10,12 +10,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.security.webmvc.autoconfigure;
 
+import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.security.core.AuthorizePathProvider;
-import net.guerlab.cloud.security.core.autoconfigure.AuthorizePathAutoconfigure;
-import net.guerlab.cloud.security.core.properties.DefaultCorsConfiguration;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Configuration;
@@ -27,10 +28,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.cors.CorsConfiguration;
 
-import java.util.List;
+import net.guerlab.cloud.security.core.AuthorizePathProvider;
+import net.guerlab.cloud.security.core.autoconfigure.AuthorizePathAutoconfigure;
+import net.guerlab.cloud.security.core.properties.DefaultCorsConfiguration;
 
 /**
- * WebMvc安全配置
+ * WebMvc安全配置.
  *
  * @author guer
  */
@@ -40,50 +43,51 @@ import java.util.List;
 @AutoConfigureAfter(AuthorizePathAutoconfigure.class)
 public class WebMvcSecurityAutoconfigure extends WebSecurityConfigurerAdapter {
 
-    private final ObjectProvider<CorsConfiguration> configProvider;
+	private final ObjectProvider<CorsConfiguration> configProvider;
 
-    private final ObjectProvider<AuthorizePathProvider> authorizePathProviders;
+	private final ObjectProvider<AuthorizePathProvider> authorizePathProviders;
 
-    /**
-     * 初始化WebMvc安全配置
-     *
-     * @param configProvider
-     *         CorsConfiguration
-     * @param authorizePathProviders
-     *         授权路径提供者
-     */
-    public WebMvcSecurityAutoconfigure(ObjectProvider<CorsConfiguration> configProvider,
-            ObjectProvider<AuthorizePathProvider> authorizePathProviders) {
-        this.configProvider = configProvider;
-        this.authorizePathProviders = authorizePathProviders;
-    }
+	/**
+	 * 初始化WebMvc安全配置.
+	 *
+	 * @param configProvider
+	 *         CorsConfiguration
+	 * @param authorizePathProviders
+	 *         授权路径提供者
+	 */
+	public WebMvcSecurityAutoconfigure(ObjectProvider<CorsConfiguration> configProvider,
+			ObjectProvider<AuthorizePathProvider> authorizePathProviders) {
+		this.configProvider = configProvider;
+		this.authorizePathProviders = authorizePathProviders;
+	}
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic().and().formLogin();
-        http.csrf().disable();
-        http.cors().configurationSource(request -> configProvider.getIfAvailable(DefaultCorsConfiguration::new));
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.httpBasic().and().formLogin();
+		http.csrf().disable();
+		http.cors().configurationSource(request -> configProvider.getIfAvailable(DefaultCorsConfiguration::new));
 
-        for (AuthorizePathProvider provider : authorizePathProviders) {
-            authorizePathConfig(http, provider.httpMethod(), provider.paths());
-        }
+		for (AuthorizePathProvider provider : authorizePathProviders) {
+			authorizePathConfig(http, provider.httpMethod(), provider.paths());
+		}
 
-        http.authorizeRequests().anyRequest().permitAll();
-    }
+		http.authorizeRequests().anyRequest().permitAll();
+	}
 
-    private void authorizePathConfig(HttpSecurity http, @Nullable HttpMethod httpMethod, List<String> paths)
-            throws Exception {
-        if (CollectionUtils.isEmpty(paths)) {
-            return;
-        }
+	private void authorizePathConfig(HttpSecurity http, @Nullable HttpMethod httpMethod, List<String> paths)
+			throws Exception {
+		if (CollectionUtils.isEmpty(paths)) {
+			return;
+		}
 
-        log.debug("authorizePathConfig[method: {}, paths: {}]", httpMethod, paths);
+		log.debug("authorizePathConfig[method: {}, paths: {}]", httpMethod, paths);
 
-        if (httpMethod == null) {
-            http.authorizeRequests().antMatchers(paths.toArray(new String[0])).authenticated();
-        } else {
-            http.authorizeRequests().antMatchers(httpMethod, paths.toArray(new String[0])).authenticated();
-        }
-    }
+		if (httpMethod == null) {
+			http.authorizeRequests().antMatchers(paths.toArray(new String[0])).authenticated();
+		}
+		else {
+			http.authorizeRequests().antMatchers(httpMethod, paths.toArray(new String[0])).authenticated();
+		}
+	}
 
 }

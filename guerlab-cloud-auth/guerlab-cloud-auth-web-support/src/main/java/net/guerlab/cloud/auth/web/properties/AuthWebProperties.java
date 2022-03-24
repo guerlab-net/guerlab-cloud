@@ -10,75 +10,78 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.auth.web.properties;
 
-import lombok.Data;
-import net.guerlab.commons.collection.CollectionUtil;
-import org.springframework.util.AntPathMatcher;
+package net.guerlab.cloud.auth.web.properties;
 
 import java.util.Collections;
 import java.util.List;
 
+import lombok.Data;
+
+import org.springframework.util.AntPathMatcher;
+
+import net.guerlab.commons.collection.CollectionUtil;
+
 /**
- * 认证配置
+ * 认证配置.
  *
  * @author guer
  */
 @Data
 public class AuthWebProperties {
 
-    private static final AntPathMatcher MATCHER = new AntPathMatcher();
+	private static final AntPathMatcher MATCHER = new AntPathMatcher();
 
-    /**
-     * 包含路径
-     */
-    private List<String> includePatterns = Collections.emptyList();
+	/**
+	 * 包含路径.
+	 */
+	private List<String> includePatterns = Collections.emptyList();
 
-    /**
-     * 排除路径
-     */
-    private List<String> excludePatterns = Collections.emptyList();
+	/**
+	 * 排除路径.
+	 */
+	private List<String> excludePatterns = Collections.emptyList();
 
-    /**
-     * 判断路径是否匹配
-     *
-     * @param path
-     *         路径
-     * @return 是否匹配
-     */
-    public boolean match(String path) {
-        boolean include = include(path);
-        boolean notExclude = !exclude(path);
-        return include && notExclude;
-    }
+	/**
+	 * 判断路径是否匹配.
+	 *
+	 * @param path
+	 *         路径
+	 * @return 是否匹配
+	 */
+	public boolean match(String path) {
+		boolean include = include(path);
+		boolean notExclude = !exclude(path);
+		return include && notExclude;
+	}
 
-    /**
-     * 判断路径是否在包含列表中
-     *
-     * @param path
-     *         路径
-     * @return 是否在包含列表中
-     */
-    private boolean include(String path) {
-        if (CollectionUtil.isEmpty(includePatterns)) {
-            return true;
-        }
+	/**
+	 * 判断路径是否在包含列表中.
+	 *
+	 * @param path
+	 *         路径
+	 * @return 是否在包含列表中
+	 */
+	private boolean include(String path) {
+		if (CollectionUtil.isEmpty(includePatterns)) {
+			return true;
+		}
 
-        return includePatterns.stream().anyMatch(pattern -> MATCHER.match(pattern, path));
-    }
+		return includePatterns.stream().anyMatch(pattern -> MATCHER.match(pattern, path));
+	}
 
-    /**
-     * 判断路径是否在排除列表中
-     *
-     * @param path
-     *         路径
-     * @return 是否在排除列表中
-     */
-    private boolean exclude(String path) {
-        if (CollectionUtil.isEmpty(excludePatterns)) {
-            return false;
-        }
+	/**
+	 * 判断路径是否在排除列表中.
+	 *
+	 * @param path
+	 *         路径
+	 * @return 是否在排除列表中
+	 */
+	private boolean exclude(String path) {
+		if (CollectionUtil.isEmpty(excludePatterns)) {
+			return false;
+		}
 
-        return excludePatterns.stream().anyMatch(pattern -> MATCHER.match(pattern, path));
-    }
+		return excludePatterns.stream().anyMatch(pattern -> MATCHER.match(pattern, path));
+	}
 }

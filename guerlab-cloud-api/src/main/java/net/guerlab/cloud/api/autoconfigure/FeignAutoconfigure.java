@@ -10,21 +10,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.api.autoconfigure;
+
+import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 import net.guerlab.cloud.api.feign.ErrorDecoderChain;
 import net.guerlab.cloud.api.feign.FailResponseDecoder;
 import net.guerlab.cloud.api.feign.OrderedErrorDecoder;
 import net.guerlab.cloud.api.feign.ResultDecoder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
-import java.util.List;
 
 /**
- * feign自动配置
+ * feign自动配置.
  *
  * @author guer
  */
@@ -32,44 +35,44 @@ import java.util.List;
 @Configuration
 public class FeignAutoconfigure {
 
-    /**
-     * 构造结果解析
-     *
-     * @param objectMapper
-     *         objectMapper
-     * @return 结果解析
-     */
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @Bean
-    public ResultDecoder resultDecoder(ObjectMapper objectMapper) {
-        return new ResultDecoder(objectMapper);
-    }
+	/**
+	 * 构造结果解析.
+	 *
+	 * @param objectMapper
+	 *         objectMapper
+	 * @return 结果解析
+	 */
+	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+	@Bean
+	public ResultDecoder resultDecoder(ObjectMapper objectMapper) {
+		return new ResultDecoder(objectMapper);
+	}
 
-    /**
-     * 失败响应解析
-     *
-     * @param objectMapper
-     *         objectMapper
-     * @return 失败响应解析
-     */
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @Bean
-    public FailResponseDecoder failResponseDecoder(ObjectMapper objectMapper) {
-        return new FailResponseDecoder(objectMapper);
-    }
+	/**
+	 * 失败响应解析.
+	 *
+	 * @param objectMapper
+	 *         objectMapper
+	 * @return 失败响应解析
+	 */
+	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+	@Bean
+	public FailResponseDecoder failResponseDecoder(ObjectMapper objectMapper) {
+		return new FailResponseDecoder(objectMapper);
+	}
 
-    /**
-     * 构造错误解析器链
-     *
-     * @param decoders
-     *         错误解析器
-     * @return 错误解析器链
-     */
-    @Bean
-    public ErrorDecoderChain errorDecoderChain(List<OrderedErrorDecoder> decoders) {
-        ErrorDecoderChain chain = new ErrorDecoderChain();
-        chain.setDecoders(decoders);
-        return chain;
-    }
+	/**
+	 * 构造错误解析器链.
+	 *
+	 * @param decoders
+	 *         错误解析器
+	 * @return 错误解析器链
+	 */
+	@Bean
+	public ErrorDecoderChain errorDecoderChain(List<OrderedErrorDecoder> decoders) {
+		ErrorDecoderChain chain = new ErrorDecoderChain();
+		chain.setDecoders(decoders);
+		return chain;
+	}
 
 }

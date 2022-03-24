@@ -10,37 +10,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.web.core.exception.handler.builder;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.RequestParamsError;
 import net.guerlab.cloud.web.core.exception.handler.AbstractRequestParamsErrorResponseBuilder;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import java.util.Collection;
-import java.util.stream.Collectors;
-
 /**
- * ConstraintViolationException异常处理
+ * ConstraintViolationException异常处理.
  *
  * @author guer
  */
 public class ConstraintViolationExceptionResponseBuilder extends AbstractRequestParamsErrorResponseBuilder {
 
-    @Override
-    public boolean accept(Throwable e) {
-        return e instanceof ConstraintViolationException;
-    }
+	@Override
+	public boolean accept(Throwable e) {
+		return e instanceof ConstraintViolationException;
+	}
 
-    @Override
-    public Fail<Collection<String>> build(Throwable e) {
-        ConstraintViolationException exception = (ConstraintViolationException) e;
+	@Override
+	public Fail<Collection<String>> build(Throwable e) {
+		ConstraintViolationException exception = (ConstraintViolationException) e;
 
-        Collection<ConstraintViolation<?>> constraintViolations = exception.getConstraintViolations();
+		Collection<ConstraintViolation<?>> constraintViolations = exception.getConstraintViolations();
 
-        Collection<String> displayMessageList = constraintViolations.stream().map(ConstraintViolation::getMessage)
-                .collect(Collectors.toList());
-        return build0(new RequestParamsError(exception, displayMessageList));
-    }
+		Collection<String> displayMessageList = constraintViolations.stream().map(ConstraintViolation::getMessage)
+				.collect(Collectors.toList());
+		return build0(new RequestParamsError(exception, displayMessageList));
+	}
 }

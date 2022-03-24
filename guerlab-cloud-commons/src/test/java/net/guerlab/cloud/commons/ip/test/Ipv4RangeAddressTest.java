@@ -10,45 +10,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.commons.ip.test;
 
-import net.guerlab.cloud.commons.ip.IpUtils;
-import net.guerlab.cloud.commons.ip.Ipv4;
-import net.guerlab.cloud.commons.ip.Ipv4Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import net.guerlab.cloud.commons.ip.IpUtils;
+import net.guerlab.cloud.commons.ip.Ipv4;
+import net.guerlab.cloud.commons.ip.Ipv4Utils;
+
 /**
- * ipv4地址段测试
+ * ipv4地址段测试.
  *
  * @author guer
  */
 class Ipv4RangeAddressTest {
 
-    @Test
-    void parseIpv4WithRangeLinkFlag() {
-        String startAddress = "192.168.1.1";
-        String endAddress = "192.168.2.255";
-        Ipv4 ipv4 = Ipv4Utils.parseIpv4WithRangeLinkFlag(startAddress + "-" + endAddress);
-        Assertions.assertEquals(IpUtils.parseIpv4Address(startAddress), ipv4.getStartAddress());
-        Assertions.assertEquals(IpUtils.parseIpv4Address(endAddress), ipv4.getEndAddress());
-    }
+	@Test
+	void parseIpv4WithRangeLinkFlag() {
+		String startAddress = "192.168.1.1";
+		String endAddress = "192.168.2.255";
+		Ipv4 ipv4 = Ipv4Utils.parseIpv4WithRangeLinkFlag(startAddress + "-" + endAddress);
+		Assertions.assertEquals(IpUtils.parseIpv4Address(startAddress), ipv4.getStartAddress());
+		Assertions.assertEquals(IpUtils.parseIpv4Address(endAddress), ipv4.getEndAddress());
+	}
 
-    @ParameterizedTest
-    @ValueSource(strings = { "192.168.1.1-252", "192.168.1.1-2.255", "192.168.1.1-170.2.255",
-            "192.168.1.1-193.255.255.255", "192.168.1.1/20-192.170.101.1/20", "192.168.1.152/27" })
-    void parse(String address) {
-        Ipv4 ipv4 = IpUtils.parseIpv4(address);
-        Assertions.assertNotNull(ipv4);
-        System.out.println(ipv4);
-    }
+	@ParameterizedTest
+	@ValueSource(strings = {"192.168.1.1-252", "192.168.1.1-2.255", "192.168.1.1-170.2.255",
+			"192.168.1.1-193.255.255.255", "192.168.1.1/20-192.170.101.1/20", "192.168.1.152/27"})
+	void parse(String address) {
+		Ipv4 ipv4 = IpUtils.parseIpv4(address);
+		Assertions.assertNotNull(ipv4);
+		System.out.println(ipv4);
+	}
 
-    @Test
-    void rangeCheck() {
-        Ipv4 ipv4 = IpUtils.parseIpv4("192.168.1.152/27");
-        Assertions.assertEquals(ipv4.getStartAddress(), IpUtils.parseIpv4("192.168.1.128").getStartAddress());
-        Assertions.assertEquals(ipv4.getEndAddress(), IpUtils.parseIpv4("192.168.1.159").getStartAddress());
-    }
+	@Test
+	void rangeCheck() {
+		Ipv4 ipv4 = IpUtils.parseIpv4("192.168.1.152/27");
+		Assertions.assertEquals(ipv4.getStartAddress(), IpUtils.parseIpv4("192.168.1.128").getStartAddress());
+		Assertions.assertEquals(ipv4.getEndAddress(), IpUtils.parseIpv4("192.168.1.159").getStartAddress());
+	}
 }

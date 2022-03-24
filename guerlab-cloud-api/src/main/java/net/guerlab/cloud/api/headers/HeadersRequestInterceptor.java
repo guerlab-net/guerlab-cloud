@@ -10,6 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.api.headers;
 
 import feign.RequestInterceptor;
@@ -17,15 +18,15 @@ import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 请求头处理请求拦截器
+ * 请求头处理请求拦截器.
  *
  * @author guer
  */
 @Slf4j
 public class HeadersRequestInterceptor implements RequestInterceptor {
 
-    @Override
-    public void apply(RequestTemplate requestTemplate) {
-        HeadersContextHandler.forEach(requestTemplate::header);
-    }
+	@Override
+	public void apply(RequestTemplate requestTemplate) {
+		HeadersContextHandler.forEach(requestTemplate::header);
+	}
 }

@@ -10,43 +10,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.searchparams.map;
+
+import java.util.Map;
+
+import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.searchparams.AbstractSearchParamsUtilInstance;
 import net.guerlab.cloud.searchparams.SearchModelType;
 import net.guerlab.cloud.searchparams.SearchParamsHandler;
-import org.springframework.lang.Nullable;
-
-import java.util.Map;
 
 /**
- * Map处理实例
+ * Map处理实例.
  *
  * @author guer
  */
 public class MapSearchParamsUtilInstance extends AbstractSearchParamsUtilInstance {
 
-    private static final Class<?> CLAZZ = Map.class;
+	private static final Class<?> CLAZZ = Map.class;
 
-    /**
-     * 初始化Map处理实例
-     */
-    public MapSearchParamsUtilInstance() {
-        setDefaultHandler(new DefaultHandler());
-    }
+	/**
+	 * 初始化Map处理实例.
+	 */
+	public MapSearchParamsUtilInstance() {
+		setDefaultHandler(new DefaultHandler());
+	}
 
-    @Override
-    public boolean accept(Object object) {
-        return CLAZZ.isInstance(object);
-    }
+	@Override
+	public boolean accept(Object object) {
+		return CLAZZ.isInstance(object);
+	}
 
-    private static class DefaultHandler implements SearchParamsHandler {
+	private static class DefaultHandler implements SearchParamsHandler {
 
-        @SuppressWarnings({ "unchecked", "rawtypes" })
-        @Override
-        public void setValue(Object object, String fieldName, String columnName, Object value,
-                SearchModelType searchModelType, @Nullable String customSql) {
-            ((Map) object).put(fieldName, value);
-        }
-    }
+		@SuppressWarnings({"unchecked", "rawtypes"})
+		@Override
+		public void setValue(Object object, String fieldName, String columnName, Object value,
+				SearchModelType searchModelType, @Nullable String customSql) {
+			((Map) object).put(fieldName, value);
+		}
+	}
 }

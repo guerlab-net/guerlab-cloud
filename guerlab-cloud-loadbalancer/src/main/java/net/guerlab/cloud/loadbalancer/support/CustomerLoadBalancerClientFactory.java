@@ -10,38 +10,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.loadbalancer.support;
 
+import java.util.Collections;
+
 import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.loadbalancer.autoconfigure.CustomerLoadBalancerClientConfiguration;
+
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties;
 import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification;
 import org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory;
 
-import java.util.Collections;
+import net.guerlab.cloud.loadbalancer.autoconfigure.CustomerLoadBalancerClientConfiguration;
 
 /**
- * 自定义负载均衡客户端工厂
+ * 自定义负载均衡客户端工厂.
  *
  * @author guer
  */
 @Slf4j
 public class CustomerLoadBalancerClientFactory extends LoadBalancerClientFactory {
 
-    /**
-     * 初始化自定义负载均衡客户端工厂
-     *
-     * @param properties
-     *         LoadBalancerClientsProperties
-     */
-    public CustomerLoadBalancerClientFactory(LoadBalancerClientsProperties properties) {
-        super(properties);
-        Class<CustomerLoadBalancerClientConfiguration> clazz = CustomerLoadBalancerClientConfiguration.class;
+	/**
+	 * 初始化自定义负载均衡客户端工厂.
+	 *
+	 * @param properties
+	 *         LoadBalancerClientsProperties
+	 */
+	public CustomerLoadBalancerClientFactory(LoadBalancerClientsProperties properties) {
+		super(properties);
+		Class<CustomerLoadBalancerClientConfiguration> clazz = CustomerLoadBalancerClientConfiguration.class;
 
-        LoadBalancerClientSpecification specification = new LoadBalancerClientSpecification();
-        specification.setName("default." + clazz.getName());
-        specification.setConfiguration(new Class[] { clazz });
+		LoadBalancerClientSpecification specification = new LoadBalancerClientSpecification();
+		specification.setName("default." + clazz.getName());
+		specification.setConfiguration(new Class[] {clazz});
 
-        setConfigurations(Collections.singletonList(specification));
-    }
+		setConfigurations(Collections.singletonList(specification));
+	}
 }

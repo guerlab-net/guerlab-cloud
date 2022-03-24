@@ -10,16 +10,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.commons.entity;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import org.springframework.lang.Nullable;
+package net.guerlab.cloud.commons.entity;
 
 import java.util.Collection;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+
+import org.springframework.lang.Nullable;
+
 /**
- * 树形结构对象
+ * 树形结构对象.
  *
  * @param <E>
  *         对象类型
@@ -31,34 +33,34 @@ import java.util.Collection;
 @Schema(name = "TreeEntity", description = "树形结构对象")
 public class TreeEntity<E, PK> {
 
-    /**
-     * 对象ID
-     */
-    @Schema(description = "对象ID")
-    private PK id;
+	/**
+	 * 对象ID.
+	 */
+	@Schema(description = "对象ID")
+	private PK id;
 
-    /**
-     * 上级ID
-     */
-    @Schema(description = "上级ID")
-    private PK parentId;
+	/**
+	 * 上级ID.
+	 */
+	@Schema(description = "上级ID")
+	private PK parentId;
 
-    /**
-     * 标签
-     */
-    @Schema(description = "标签")
-    private String label;
+	/**
+	 * 标签.
+	 */
+	@Schema(description = "标签")
+	private String label;
 
-    /**
-     * 目标对象
-     */
-    @Schema(description = "目标对象")
-    private E object;
+	/**
+	 * 目标对象.
+	 */
+	@Schema(description = "目标对象")
+	private E object;
 
-    /**
-     * 下级列表
-     */
-    @Nullable
-    @Schema(description = "下级列表")
-    protected Collection<TreeEntity<E, PK>> children;
+	/**
+	 * 下级列表.
+	 */
+	@Nullable
+	@Schema(description = "下级列表")
+	protected Collection<TreeEntity<E, PK>> children;
 }

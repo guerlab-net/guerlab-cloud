@@ -13,29 +13,30 @@
 
 package net.guerlab.cloud.web.webflux.autoconfigure;
 
-import net.guerlab.cloud.web.webflux.filter.CurrentOperatorFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerMapping;
 
+import net.guerlab.cloud.web.webflux.filter.CurrentOperatorFilter;
+
 /**
- * 当前操作者信息处理请求拦截器自动配置
+ * 当前操作者信息处理请求拦截器自动配置.
  *
  * @author guer
  */
 @Configuration
 public class CurrentOperatorFilterAutoConfigure {
 
-    /**
-     * 初始化当前操作者信息处理请求拦截器
-     *
-     * @param requestMappingHandlerMapping
-     *         requestMappingHandlerMapping
-     * @return 当前操作者信息处理请求拦截器
-     */
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @Bean
-    public CurrentOperatorFilter currentOperatorFilter(RequestMappingHandlerMapping requestMappingHandlerMapping) {
-        return new CurrentOperatorFilter(requestMappingHandlerMapping);
-    }
+	/**
+	 * 初始化当前操作者信息处理请求拦截器.
+	 *
+	 * @param requestMappingHandlerMapping
+	 *         requestMappingHandlerMapping
+	 * @return 当前操作者信息处理请求拦截器
+	 */
+	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+	@Bean
+	public CurrentOperatorFilter currentOperatorFilter(RequestMappingHandlerMapping requestMappingHandlerMapping) {
+		return new CurrentOperatorFilter(requestMappingHandlerMapping);
+	}
 }

@@ -10,27 +10,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.context.webflux.autoconfigure;
 
-import net.guerlab.cloud.context.webflux.filter.ContextAttributesServerWebExchangeDecoratorFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import net.guerlab.cloud.context.webflux.filter.ContextAttributesServerWebExchangeDecoratorFilter;
+
 /**
- * 上下文属性包装器处理自动配置
+ * 上下文属性包装器处理自动配置.
  *
  * @author guer
  */
 @Configuration
 public class ContextAttributesServerWebExchangeDecoratorFilterAutoconfigure {
 
-    /**
-     * 创建上下文属性包装器处理
-     *
-     * @return 上下文属性包装器处理
-     */
-    @Bean
-    public ContextAttributesServerWebExchangeDecoratorFilter contextAttributesServerWebExchangeDecoratorFilter() {
-        return new ContextAttributesServerWebExchangeDecoratorFilter();
-    }
+	/**
+	 * 创建上下文属性包装器处理.
+	 *
+	 * @return 上下文属性包装器处理
+	 */
+	@Bean
+	public ContextAttributesServerWebExchangeDecoratorFilter contextAttributesServerWebExchangeDecoratorFilter() {
+		return new ContextAttributesServerWebExchangeDecoratorFilter();
+	}
 }

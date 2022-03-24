@@ -10,12 +10,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.security.webflux.autoconfigure;
 
+import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.security.core.AuthorizePathProvider;
-import net.guerlab.cloud.security.core.autoconfigure.AuthorizePathAutoconfigure;
-import net.guerlab.cloud.security.core.properties.DefaultCorsConfiguration;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
@@ -27,10 +28,12 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.cors.CorsConfiguration;
 
-import java.util.List;
+import net.guerlab.cloud.security.core.AuthorizePathProvider;
+import net.guerlab.cloud.security.core.autoconfigure.AuthorizePathAutoconfigure;
+import net.guerlab.cloud.security.core.properties.DefaultCorsConfiguration;
 
 /**
- * WebFlux安全配置
+ * WebFlux安全配置.
  *
  * @author guer
  */
@@ -39,58 +42,59 @@ import java.util.List;
 @AutoConfigureAfter(AuthorizePathAutoconfigure.class)
 public class WebFluxSecurityAutoconfigure {
 
-    private final ObjectProvider<CorsConfiguration> configProvider;
+	private final ObjectProvider<CorsConfiguration> configProvider;
 
-    private final ObjectProvider<AuthorizePathProvider> authorizePathProviders;
+	private final ObjectProvider<AuthorizePathProvider> authorizePathProviders;
 
-    /**
-     * 构造WebFlux安全配置
-     *
-     * @param configProvider
-     *         CorsConfiguration
-     * @param authorizePathProviders
-     *         授权路径提供者
-     */
-    public WebFluxSecurityAutoconfigure(ObjectProvider<CorsConfiguration> configProvider,
-            ObjectProvider<AuthorizePathProvider> authorizePathProviders) {
-        this.configProvider = configProvider;
-        this.authorizePathProviders = authorizePathProviders;
-    }
+	/**
+	 * 构造WebFlux安全配置.
+	 *
+	 * @param configProvider
+	 *         CorsConfiguration
+	 * @param authorizePathProviders
+	 *         授权路径提供者
+	 */
+	public WebFluxSecurityAutoconfigure(ObjectProvider<CorsConfiguration> configProvider,
+			ObjectProvider<AuthorizePathProvider> authorizePathProviders) {
+		this.configProvider = configProvider;
+		this.authorizePathProviders = authorizePathProviders;
+	}
 
-    /**
-     * 构造SecurityWebFilterChain
-     *
-     * @param http
-     *         ServerHttpSecurity
-     * @return SecurityWebFilterChain
-     */
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @Bean
-    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-        http.httpBasic().and().formLogin();
-        http.csrf().disable();
-        http.cors().configurationSource(request -> configProvider.getIfAvailable(DefaultCorsConfiguration::new));
+	/**
+	 * 构造SecurityWebFilterChain.
+	 *
+	 * @param http
+	 *         ServerHttpSecurity
+	 * @return SecurityWebFilterChain
+	 */
+	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+	@Bean
+	public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+		http.httpBasic().and().formLogin();
+		http.csrf().disable();
+		http.cors().configurationSource(request -> configProvider.getIfAvailable(DefaultCorsConfiguration::new));
 
-        authorizePathProviders.stream()
-                .forEach(provider -> authorizePathConfig(http, provider.httpMethod(), provider.paths()));
+		authorizePathProviders.stream()
+				.forEach(provider -> authorizePathConfig(http, provider.httpMethod(), provider.paths()));
 
-        http.authorizeExchange().anyExchange().permitAll();
+		http.authorizeExchange().anyExchange().permitAll();
 
-        return http.build();
-    }
+		return http.build();
+	}
 
-    private void authorizePathConfig(ServerHttpSecurity http, @Nullable HttpMethod httpMethod, List<String> paths) {
-        if (CollectionUtils.isEmpty(paths)) {
-            return;
-        }
+	private void authorizePathConfig(ServerHttpSecurity http, @Nullable HttpMethod httpMethod, List<String> paths) {
+		if (CollectionUtils.isEmpty(paths)) {
+			return;
+		}
 
-        log.debug("authorizePathConfig[method: {}, paths: {}]", httpMethod, paths);
+		log.debug("authorizePathConfig[method: {}, paths: {}]", httpMethod, paths);
 
-        if (httpMethod == null) {
-            http.authorizeExchange().pathMatchers(paths.toArray(new String[0])).authenticated();
-        } else {
-            http.authorizeExchange().pathMatchers(httpMethod, paths.toArray(new String[0])).authenticated();
-        }
-    }
+		if (httpMethod == null) {
+			http.authorizeExchange().pathMatchers(paths.toArray(new String[0])).authenticated();
+		}
+		else {
+			http.authorizeExchange().pathMatchers(httpMethod, paths.toArray(new String[0])).authenticated();
+		}
+	}
 
 }

@@ -13,60 +13,62 @@
 
 package net.guerlab.cloud.searchparams.mybatisplus;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import net.guerlab.commons.reflection.FieldUtil;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.lang.Nullable;
-
 import java.lang.reflect.Field;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import org.apache.commons.lang3.StringUtils;
+
+import org.springframework.lang.Nullable;
+
+import net.guerlab.commons.reflection.FieldUtil;
+
 /**
- * 字段名称获取
+ * 字段名称获取.
  *
  * @author guer
  */
-public class ColumnNameGetter {
+public final class ColumnNameGetter {
 
-    private ColumnNameGetter() {
+	private ColumnNameGetter() {
 
-    }
+	}
 
-    /**
-     * 获取字段名
-     *
-     * @param columnName
-     *         字段名称
-     * @param entityClass
-     *         实体类类型
-     * @return 字段名
-     */
-    public static String getColumnName(String columnName, @Nullable Class<?> entityClass) {
-        if (entityClass == null) {
-            return columnName;
-        }
+	/**
+	 * 获取字段名.
+	 *
+	 * @param columnName
+	 *         字段名称
+	 * @param entityClass
+	 *         实体类类型
+	 * @return 字段名
+	 */
+	public static String getColumnName(String columnName, @Nullable Class<?> entityClass) {
+		if (entityClass == null) {
+			return columnName;
+		}
 
-        Field field = FieldUtil.getField(entityClass, columnName);
-        if (field == null) {
-            return columnName;
-        }
+		Field field = FieldUtil.getField(entityClass, columnName);
+		if (field == null) {
+			return columnName;
+		}
 
-        TableField tableField = field.getAnnotation(TableField.class);
-        if (tableField != null) {
-            String tableFieldValue = StringUtils.trimToNull(tableField.value());
-            if (tableFieldValue != null) {
-                return tableFieldValue;
-            }
-        }
+		TableField tableField = field.getAnnotation(TableField.class);
+		if (tableField != null) {
+			String tableFieldValue = StringUtils.trimToNull(tableField.value());
+			if (tableFieldValue != null) {
+				return tableFieldValue;
+			}
+		}
 
-        TableId tableId = field.getAnnotation(TableId.class);
-        if (tableId != null) {
-            String tableIdValue = StringUtils.trimToNull(tableId.value());
-            if (tableIdValue != null) {
-                return tableIdValue;
-            }
-        }
+		TableId tableId = field.getAnnotation(TableId.class);
+		if (tableId != null) {
+			String tableIdValue = StringUtils.trimToNull(tableId.value());
+			if (tableIdValue != null) {
+				return tableIdValue;
+			}
+		}
 
-        return columnName;
-    }
+		return columnName;
+	}
 }

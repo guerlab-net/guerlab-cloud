@@ -10,6 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.auth.properties;
 
 import lombok.Data;
@@ -17,7 +18,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * 加密支持token 工厂配置
+ * 加密支持token 工厂配置.
  *
  * @param <K>
  *         密钥类型
@@ -28,13 +29,13 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class EncryptionSupportTokenFactoryProperties<K> extends TokenFactoryProperties {
 
-    /**
-     * accessToken key
-     */
-    private K accessTokenKey;
+	/**
+	 * accessToken key.
+	 */
+	private K accessTokenKey;
 
-    /**
-     * refreshToken key
-     */
-    private K refreshTokenKey;
+	/**
+	 * refreshToken key.
+	 */
+	private K refreshTokenKey;
 }

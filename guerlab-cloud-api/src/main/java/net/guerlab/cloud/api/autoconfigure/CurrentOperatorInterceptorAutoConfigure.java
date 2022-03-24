@@ -10,18 +10,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.api.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.api.headers.CurrentOperatorInterceptor;
-import net.guerlab.cloud.loadbalancer.autoconfigure.GlobalLoadBalancerAutoConfiguration;
+
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import net.guerlab.cloud.api.headers.CurrentOperatorInterceptor;
+import net.guerlab.cloud.loadbalancer.autoconfigure.GlobalLoadBalancerAutoConfiguration;
+
 /**
- * 当前操作者信息处理请求拦截器自动配置
+ * 当前操作者信息处理请求拦截器自动配置.
  *
  * @author guer
  */
@@ -31,13 +34,13 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureAfter(GlobalLoadBalancerAutoConfiguration.class)
 public class CurrentOperatorInterceptorAutoConfigure {
 
-    /**
-     * 构建当前操作者信息处理请求拦截器
-     *
-     * @return 当前操作者信息处理请求拦截器
-     */
-    @Bean
-    public CurrentOperatorInterceptor currentOperatorInterceptor() {
-        return new CurrentOperatorInterceptor();
-    }
+	/**
+	 * 构建当前操作者信息处理请求拦截器.
+	 *
+	 * @return 当前操作者信息处理请求拦截器
+	 */
+	@Bean
+	public CurrentOperatorInterceptor currentOperatorInterceptor() {
+		return new CurrentOperatorInterceptor();
+	}
 }

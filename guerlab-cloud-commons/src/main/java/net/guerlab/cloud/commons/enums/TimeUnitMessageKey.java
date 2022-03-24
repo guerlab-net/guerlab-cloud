@@ -17,74 +17,74 @@ import java.util.EnumMap;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 时间单位语言包key
+ * 时间单位语言包key.
  *
  * @author guer
  */
 public enum TimeUnitMessageKey {
-    /**
-     * 纳秒
-     */
-    NANOSECONDS(TimeUnit.NANOSECONDS, "time.nanoSeconds"),
-    /**
-     * 微秒
-     */
-    MICROSECONDS(TimeUnit.MICROSECONDS, "time.microSeconds"),
-    /**
-     * 毫秒
-     */
-    MILLISECONDS(TimeUnit.MILLISECONDS, "time.milliSeconds"),
-    /**
-     * 秒
-     */
-    SECONDS(TimeUnit.SECONDS, "time.seconds"),
-    /**
-     * 分
-     */
-    MINUTES(TimeUnit.MINUTES, "time.minutes"),
-    /**
-     * 小时
-     */
-    HOURS(TimeUnit.HOURS, "time.hours"),
-    /**
-     * 天
-     */
-    DAYS(TimeUnit.DAYS, "time.days");
+	/**
+	 * 纳秒.
+	 */
+	NANOSECONDS(TimeUnit.NANOSECONDS, "time.nanoSeconds"),
+	/**
+	 * 微秒.
+	 */
+	MICROSECONDS(TimeUnit.MICROSECONDS, "time.microSeconds"),
+	/**
+	 * 毫秒.
+	 */
+	MILLISECONDS(TimeUnit.MILLISECONDS, "time.milliSeconds"),
+	/**
+	 * 秒.
+	 */
+	SECONDS(TimeUnit.SECONDS, "time.seconds"),
+	/**
+	 * 分.
+	 */
+	MINUTES(TimeUnit.MINUTES, "time.minutes"),
+	/**
+	 * 小时.
+	 */
+	HOURS(TimeUnit.HOURS, "time.hours"),
+	/**
+	 * 天.
+	 */
+	DAYS(TimeUnit.DAYS, "time.days");
 
-    private static final EnumMap<TimeUnit, String> KEY_MAP = new EnumMap<>(TimeUnit.class);
+	private static final EnumMap<TimeUnit, String> KEY_MAP = new EnumMap<>(TimeUnit.class);
 
-    static {
-        for (TimeUnitMessageKey value : TimeUnitMessageKey.values()) {
-            KEY_MAP.put(value.timeUnit, value.key);
-        }
-    }
+	static {
+		for (TimeUnitMessageKey value : TimeUnitMessageKey.values()) {
+			KEY_MAP.put(value.timeUnit, value.key);
+		}
+	}
 
-    private final TimeUnit timeUnit;
+	private final TimeUnit timeUnit;
 
-    private final String key;
+	private final String key;
 
-    TimeUnitMessageKey(TimeUnit timeUnit, String key) {
-        this.timeUnit = timeUnit;
-        this.key = key;
-    }
+	TimeUnitMessageKey(TimeUnit timeUnit, String key) {
+		this.timeUnit = timeUnit;
+		this.key = key;
+	}
 
-    /**
-     * 根据时间单位获取语言包key
-     *
-     * @param timeUnit
-     *         时间单位
-     * @return 语言包key
-     */
-    public static String getKey(TimeUnit timeUnit) {
-        return KEY_MAP.get(timeUnit);
-    }
+	/**
+	 * 根据时间单位获取语言包key.
+	 *
+	 * @param timeUnit
+	 *         时间单位
+	 * @return 语言包key
+	 */
+	public static String getKey(TimeUnit timeUnit) {
+		return KEY_MAP.get(timeUnit);
+	}
 
-    /**
-     * 获取语言包key
-     *
-     * @return 语言包key
-     */
-    public String getKey() {
-        return key;
-    }
+	/**
+	 * 获取语言包key.
+	 *
+	 * @return 语言包key
+	 */
+	public String getKey() {
+		return key;
+	}
 }

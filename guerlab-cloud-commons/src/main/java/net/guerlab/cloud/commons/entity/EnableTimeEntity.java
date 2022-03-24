@@ -13,46 +13,46 @@
 
 package net.guerlab.cloud.commons.entity;
 
-import org.springframework.lang.Nullable;
-
 import java.time.LocalDateTime;
 
+import org.springframework.lang.Nullable;
+
 /**
- * 启用时间实体
+ * 启用时间实体.
  *
  * @author guer
  */
 public interface EnableTimeEntity {
 
-    /**
-     * 获取启用开始日期
-     *
-     * @return 启用开始日期
-     */
-    @Nullable
-    LocalDateTime getEnableStartTime();
+	/**
+	 * 获取启用开始日期.
+	 *
+	 * @return 启用开始日期
+	 */
+	@Nullable
+	LocalDateTime getEnableStartTime();
 
-    /**
-     * 设置启用开始日期
-     *
-     * @param enableStartTime
-     *         启用开始日期
-     */
-    void setEnableStartTime(@Nullable LocalDateTime enableStartTime);
+	/**
+	 * 设置启用开始日期.
+	 *
+	 * @param enableStartTime
+	 *         启用开始日期
+	 */
+	void setEnableStartTime(@Nullable LocalDateTime enableStartTime);
 
-    /**
-     * 获取启用结束日期
-     *
-     * @return 启用结束日期
-     */
-    @Nullable
-    LocalDateTime getEnableEndTime();
+	/**
+	 * 获取启用结束日期.
+	 *
+	 * @return 启用结束日期
+	 */
+	@Nullable
+	LocalDateTime getEnableEndTime();
 
-    /**
-     * 设置启用结束日期
-     *
-     * @param enableEndTime
-     *         启用结束日期
-     */
-    void setEnableEndTime(@Nullable LocalDateTime enableEndTime);
+	/**
+	 * 设置启用结束日期.
+	 *
+	 * @param enableEndTime
+	 *         启用结束日期
+	 */
+	void setEnableEndTime(@Nullable LocalDateTime enableEndTime);
 }

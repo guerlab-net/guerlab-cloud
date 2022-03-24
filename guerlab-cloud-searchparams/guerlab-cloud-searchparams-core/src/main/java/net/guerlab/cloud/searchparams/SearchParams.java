@@ -10,14 +10,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.searchparams;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
- * 搜索参数
+ * 搜索参数.
  *
  * @author guer
  */
 @Schema(name = "SearchParams", description = "搜索参数")
-public interface SearchParams {}
+public interface SearchParams { }

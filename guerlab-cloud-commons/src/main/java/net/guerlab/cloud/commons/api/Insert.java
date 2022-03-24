@@ -15,12 +15,14 @@ package net.guerlab.cloud.commons.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import net.guerlab.cloud.commons.Constants;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import net.guerlab.cloud.commons.Constants;
+
 /**
- * APi定义
+ * APi定义.
  *
  * @param <E>
  *         返回实体类型
@@ -29,14 +31,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 @SuppressWarnings("unused")
 public interface Insert<E> {
 
-    /**
-     * 新增实体
-     *
-     * @param entity
-     *         实体
-     * @return 保存后的实体
-     */
-    @PostMapping
-    @Operation(summary = "新增实体", security = @SecurityRequirement(name = Constants.TOKEN))
-    E insert(@RequestBody E entity);
+	/**
+	 * 新增实体.
+	 *
+	 * @param entity
+	 *         实体
+	 * @return 保存后的实体
+	 */
+	@PostMapping
+	@Operation(summary = "新增实体", security = @SecurityRequirement(name = Constants.TOKEN))
+	E insert(@RequestBody E entity);
 }

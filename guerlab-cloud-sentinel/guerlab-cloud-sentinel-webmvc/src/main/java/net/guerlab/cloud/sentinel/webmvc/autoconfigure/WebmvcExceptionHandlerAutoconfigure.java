@@ -10,23 +10,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.sentinel.webmvc.autoconfigure;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
-import net.guerlab.commons.exception.ApplicationException;
 import org.apache.commons.lang3.StringUtils;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import net.guerlab.commons.exception.ApplicationException;
 
 /**
- * 自定义限流处理自动配置
+ * 自定义限流处理自动配置.
  *
  * @author guer
  */
@@ -34,37 +37,37 @@ import javax.servlet.http.HttpServletResponse;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class WebmvcExceptionHandlerAutoconfigure {
 
-    /**
-     * 构造自定义限流处理
-     *
-     * @return 自定义限流处理
-     */
-    @Bean
-    public CustomerBlockExceptionHandler customerBlockExceptionHandler() {
-        return new CustomerBlockExceptionHandler();
-    }
+	/**
+	 * 构造自定义限流处理.
+	 *
+	 * @return 自定义限流处理
+	 */
+	@Bean
+	public CustomerBlockExceptionHandler customerBlockExceptionHandler() {
+		return new CustomerBlockExceptionHandler();
+	}
 
-    /**
-     * 自定义限流处理
-     *
-     * @author guer
-     */
-    public static class CustomerBlockExceptionHandler implements BlockExceptionHandler {
+	/**
+	 * 自定义限流处理.
+	 *
+	 * @author guer
+	 */
+	public static class CustomerBlockExceptionHandler implements BlockExceptionHandler {
 
-        private static final String DEFAULT_BLOCK_MSG_PREFIX = "Blocked by Sentinel: ";
+		private static final String DEFAULT_BLOCK_MSG_PREFIX = "Blocked by Sentinel: ";
 
-        @Override
-        public void handle(HttpServletRequest request, HttpServletResponse response, BlockException ex) {
-            if (HttpMethod.GET.matches(request.getMethod())) {
-                String queryString = StringUtils.trimToNull(request.getQueryString());
+		@Override
+		public void handle(HttpServletRequest request, HttpServletResponse response, BlockException ex) {
+			if (HttpMethod.GET.matches(request.getMethod())) {
+				String queryString = StringUtils.trimToNull(request.getQueryString());
 
-                if (queryString != null) {
-                    request.getRequestURL().append("?").append(queryString);
-                }
-            }
+				if (queryString != null) {
+					request.getRequestURL().append("?").append(queryString);
+				}
+			}
 
-            throw new ApplicationException(DEFAULT_BLOCK_MSG_PREFIX + ex.getClass().getSimpleName(),
-                    HttpStatus.TOO_MANY_REQUESTS.value());
-        }
-    }
+			throw new ApplicationException(DEFAULT_BLOCK_MSG_PREFIX + ex.getClass().getSimpleName(),
+					HttpStatus.TOO_MANY_REQUESTS.value());
+		}
+	}
 }

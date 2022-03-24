@@ -10,18 +10,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.openapi.webmvc.autoconfigure;
 
+import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
-import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Arrays;
-import java.util.List;
+import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
 
 /**
- * OpenApi相关路径配置
+ * OpenApi相关路径配置.
  *
  * @author guer
  */
@@ -29,28 +31,26 @@ import java.util.List;
 @Configuration
 public class OpenApiWebmvcAutoconfigure {
 
-    /**
-     * 设置http响应数据处理配置参数
-     *
-     * @param responseAdvisorProperties
-     *         http响应数据处理配置参数
-     */
-    @Autowired(required = false)
-    public void responseAdvisorAddExcluded(ResponseAdvisorProperties responseAdvisorProperties) {
-        // @formatter:off
-        List<String> excluded = Arrays.asList(
-                "org.springdoc.webmvc.ui.SwaggerWelcomeWebMvc#openapiJson",
-                "org.springdoc.webmvc.ui.SwaggerConfigResource#openapiJson",
-                "org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiJson",
-                "org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiYaml",
-                "org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource#openapiJson",
-                "org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource#openapiYaml"
-        );
-        // @formatter:on
+	/**
+	 * 设置http响应数据处理配置参数.
+	 *
+	 * @param responseAdvisorProperties
+	 *         http响应数据处理配置参数
+	 */
+	@Autowired(required = false)
+	public void responseAdvisorAddExcluded(ResponseAdvisorProperties responseAdvisorProperties) {
+		List<String> excluded = List.of(
+				"org.springdoc.webmvc.ui.SwaggerWelcomeWebMvc#openapiJson",
+				"org.springdoc.webmvc.ui.SwaggerConfigResource#openapiJson",
+				"org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiJson",
+				"org.springdoc.webmvc.api.OpenApiWebMvcResource#openapiYaml",
+				"org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource#openapiJson",
+				"org.springdoc.webmvc.api.MultipleOpenApiWebMvcResource#openapiYaml"
+		);
 
-        log.debug("add excluded: {}", excluded);
+		log.debug("add excluded: {}", excluded);
 
-        responseAdvisorProperties.addExcluded(excluded);
-    }
+		responseAdvisorProperties.addExcluded(excluded);
+	}
 
 }

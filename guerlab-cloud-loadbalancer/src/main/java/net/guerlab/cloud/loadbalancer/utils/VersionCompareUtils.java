@@ -10,17 +10,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.loadbalancer.utils;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.lang.Nullable;
+package net.guerlab.cloud.loadbalancer.utils;
 
 import java.util.Arrays;
 import java.util.Objects;
 
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+
+import org.springframework.lang.Nullable;
+
 /**
- * 版本比较工具类<br>
+ * 版本比较工具类.<br>
  * 对于非数值类型的版本号将忽略匹配直接通过
  * <table class="striped">
  * <caption><b>版本号匹配结果</b></caption>
@@ -53,236 +55,242 @@ import java.util.Objects;
  * @author guer
  */
 @Slf4j
-public class VersionCompareUtils {
+public final class VersionCompareUtils {
 
-    /**
-     * 版本号内容间隔符
-     */
-    private static final String INTERVAL = "\\.";
+	/**
+	 * 版本号内容间隔符.
+	 */
+	private static final String INTERVAL = "\\.";
 
-    /**
-     * 分组间隔符
-     */
-    private static final String GROUP = ",";
+	/**
+	 * 分组间隔符.
+	 */
+	private static final String GROUP = ",";
 
-    /**
-     * 左包含
-     */
-    private static final String LEFT_CONTAIN = "[";
+	/**
+	 * 左包含.
+	 */
+	private static final String LEFT_CONTAIN = "[";
 
-    /**
-     * 右包含
-     */
-    private static final String RIGHT_CONTAIN = "]";
+	/**
+	 * 右包含.
+	 */
+	private static final String RIGHT_CONTAIN = "]";
 
-    /**
-     * 左不包含
-     */
-    private static final String LEFT_NOT_CONTAIN = "(";
+	/**
+	 * 左不包含.
+	 */
+	private static final String LEFT_NOT_CONTAIN = "(";
 
-    /**
-     * 右不包含
-     */
-    private static final String RIGHT_NOT_CONTAIN = ")";
+	/**
+	 * 右不包含.
+	 */
+	private static final String RIGHT_NOT_CONTAIN = ")";
 
-    /**
-     * 分组尺寸
-     */
-    private static final int GROUP_SIZE = 2;
+	/**
+	 * 分组尺寸.
+	 */
+	private static final int GROUP_SIZE = 2;
 
-    private VersionCompareUtils() {
-    }
+	private VersionCompareUtils() {
+	}
 
-    /**
-     * 匹配检查
-     *
-     * @param origin
-     *         源版本，支持单版本号格式
-     * @param range
-     *         检查范围，支持单版本号格式和范围版本号格式
-     * @return 是否匹配
-     */
-    public static boolean match(String origin, String range) {
-        origin = StringUtils.trimToNull(origin);
-        range = StringUtils.trimToNull(range);
+	/**
+	 * 匹配检查.
+	 *
+	 * @param origin
+	 *         源版本，支持单版本号格式
+	 * @param range
+	 *         检查范围，支持单版本号格式和范围版本号格式
+	 * @return 是否匹配
+	 */
+	public static boolean match(String origin, String range) {
+		origin = StringUtils.trimToNull(origin);
+		range = StringUtils.trimToNull(range);
 
-        if (origin == null || range == null) {
-            return false;
-        }
+		if (origin == null || range == null) {
+			return false;
+		}
 
-        boolean hasLeftFlag = range.startsWith(LEFT_CONTAIN) || range.startsWith(LEFT_NOT_CONTAIN);
-        boolean hasRightFlag = range.endsWith(RIGHT_CONTAIN) || range.endsWith(RIGHT_NOT_CONTAIN);
-        boolean hasGroupFlag = range.contains(GROUP);
+		boolean hasLeftFlag = range.startsWith(LEFT_CONTAIN) || range.startsWith(LEFT_NOT_CONTAIN);
+		boolean hasRightFlag = range.endsWith(RIGHT_CONTAIN) || range.endsWith(RIGHT_NOT_CONTAIN);
+		boolean hasGroupFlag = range.contains(GROUP);
 
-        boolean noRangeMath = !hasLeftFlag && !hasRightFlag && !hasGroupFlag;
+		boolean noRangeMath = !hasLeftFlag && !hasRightFlag && !hasGroupFlag;
 
-        try {
-            if (noRangeMath) {
-                return equalsMatch(origin, range);
-            } else if (hasLeftFlag && hasRightFlag && hasGroupFlag) {
-                return rangeMatch(origin, range);
-            } else {
-                return false;
-            }
-        } catch (Exception e) {
-            log.debug(e.getLocalizedMessage(), e);
-            return false;
-        }
-    }
+		try {
+			if (noRangeMath) {
+				return equalsMatch(origin, range);
+			}
+			else if (hasLeftFlag && hasRightFlag && hasGroupFlag) {
+				return rangeMatch(origin, range);
+			}
+			else {
+				return false;
+			}
+		}
+		catch (Exception e) {
+			log.debug(e.getLocalizedMessage(), e);
+			return false;
+		}
+	}
 
-    /**
-     * 相等匹配
-     *
-     * @param origin
-     *         请求源版本
-     * @param range
-     *         范围版本
-     * @return 是否匹配
-     */
-    private static boolean equalsMatch(String origin, String range) {
-        String[] originValues = origin.split(INTERVAL);
-        String[] rangeValues = range.split(INTERVAL);
+	/**
+	 * 相等匹配.
+	 *
+	 * @param origin
+	 *         请求源版本
+	 * @param range
+	 *         范围版本
+	 * @return 是否匹配
+	 */
+	private static boolean equalsMatch(String origin, String range) {
+		String[] originValues = origin.split(INTERVAL);
+		String[] rangeValues = range.split(INTERVAL);
 
-        int size = Math.max(originValues.length, rangeValues.length);
+		int size = Math.max(originValues.length, rangeValues.length);
 
-        Integer[] origins = formatVersionString(originValues, size);
-        Integer[] ranges = formatVersionString(rangeValues, size);
+		Integer[] origins = formatVersionString(originValues, size);
+		Integer[] ranges = formatVersionString(rangeValues, size);
 
-        for (int i = 0; i < size; i++) {
-            Integer ov = origins[i];
-            Integer rv = ranges[i];
-            if (!Objects.equals(ov, rv)) {
-                return false;
-            }
-        }
+		for (int i = 0; i < size; i++) {
+			Integer ov = origins[i];
+			Integer rv = ranges[i];
+			if (!Objects.equals(ov, rv)) {
+				return false;
+			}
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    /**
-     * 范围匹配
-     *
-     * @param origin
-     *         请求源版本
-     * @param range
-     *         范围版本
-     * @return 是否匹配
-     */
-    private static boolean rangeMatch(String origin, String range) {
-        boolean leftContain = range.startsWith(LEFT_CONTAIN);
-        boolean rightContain = range.endsWith(RIGHT_CONTAIN);
+	/**
+	 * 范围匹配.
+	 *
+	 * @param origin
+	 *         请求源版本
+	 * @param range
+	 *         范围版本
+	 * @return 是否匹配
+	 */
+	private static boolean rangeMatch(String origin, String range) {
+		boolean leftContain = range.startsWith(LEFT_CONTAIN);
+		boolean rightContain = range.endsWith(RIGHT_CONTAIN);
 
-        range = range.replace(LEFT_CONTAIN, "");
-        range = range.replace(LEFT_NOT_CONTAIN, "");
-        range = range.replace(RIGHT_CONTAIN, "");
-        range = range.replace(RIGHT_NOT_CONTAIN, "");
+		range = range.replace(LEFT_CONTAIN, "");
+		range = range.replace(LEFT_NOT_CONTAIN, "");
+		range = range.replace(RIGHT_CONTAIN, "");
+		range = range.replace(RIGHT_NOT_CONTAIN, "");
 
-        String[] rangeGroup = range.split(GROUP);
-        if (rangeGroup.length != GROUP_SIZE) {
-            return false;
-        }
+		String[] rangeGroup = range.split(GROUP);
+		if (rangeGroup.length != GROUP_SIZE) {
+			return false;
+		}
 
-        boolean leftRangeMatchResult = rangeMatch(origin, StringUtils.trimToEmpty(rangeGroup[0]), leftContain, true);
-        boolean rightRangeMatchResult = rangeMatch(origin, StringUtils.trimToEmpty(rangeGroup[1]), rightContain, false);
+		boolean leftRangeMatchResult = rangeMatch(origin, StringUtils.trimToEmpty(rangeGroup[0]), leftContain, true);
+		boolean rightRangeMatchResult = rangeMatch(origin, StringUtils.trimToEmpty(rangeGroup[1]), rightContain, false);
 
-        return leftRangeMatchResult && rightRangeMatchResult;
-    }
+		return leftRangeMatchResult && rightRangeMatchResult;
+	}
 
-    /**
-     * 范围匹配
-     *
-     * @param origin
-     *         请求源版本
-     * @param range
-     *         范围版本
-     * @param contain
-     *         是否包含
-     * @param leftMath
-     *         左匹配模式
-     * @return 是否匹配
-     */
-    private static boolean rangeMatch(String origin, String range, boolean contain, boolean leftMath) {
-        String[] originValues = versionStringFilter(origin).split(INTERVAL);
-        String[] rangeValues = versionStringFilter(range).split(INTERVAL);
+	/**
+	 * 范围匹配.
+	 *
+	 * @param origin
+	 *         请求源版本
+	 * @param range
+	 *         范围版本
+	 * @param contain
+	 *         是否包含
+	 * @param leftMath
+	 *         左匹配模式
+	 * @return 是否匹配
+	 */
+	private static boolean rangeMatch(String origin, String range, boolean contain, boolean leftMath) {
+		String[] originValues = versionStringFilter(origin).split(INTERVAL);
+		String[] rangeValues = versionStringFilter(range).split(INTERVAL);
 
-        int size = Math.max(originValues.length, rangeValues.length);
+		int size = Math.max(originValues.length, rangeValues.length);
 
-        Integer[] origins = formatVersionString(originValues, size);
-        Integer[] ranges = formatVersionString(rangeValues, size);
+		Integer[] origins = formatVersionString(originValues, size);
+		Integer[] ranges = formatVersionString(rangeValues, size);
 
-        for (int i = 0; i < size; i++) {
-            Integer ov = origins[i];
-            Integer rv = ranges[i];
-            int compareResult = ov.compareTo(rv);
+		for (int i = 0; i < size; i++) {
+			Integer ov = origins[i];
+			Integer rv = ranges[i];
+			int compareResult = ov.compareTo(rv);
 
-            if (compareResult < 0) {
-                return !leftMath;
-            } else if (compareResult > 0) {
-                return leftMath;
-            } else if (i == size - 1) {
-                return contain;
-            }
-        }
-        return false;
-    }
+			if (compareResult < 0) {
+				return !leftMath;
+			}
+			else if (compareResult > 0) {
+				return leftMath;
+			}
+			else if (i == size - 1) {
+				return contain;
+			}
+		}
+		return false;
+	}
 
-    /**
-     * 字符串版本过滤器
-     *
-     * @param origin
-     *         待过滤字符串
-     * @return 过滤后的字符串
-     */
-    private static String versionStringFilter(@Nullable String origin) {
-        if (origin == null) {
-            return "";
-        }
-        StringBuilder builder = new StringBuilder();
+	/**
+	 * 字符串版本过滤器.
+	 *
+	 * @param origin
+	 *         待过滤字符串
+	 * @return 过滤后的字符串
+	 */
+	private static String versionStringFilter(@Nullable String origin) {
+		if (origin == null) {
+			return "";
+		}
+		StringBuilder builder = new StringBuilder();
 
-        for (char cv : origin.toCharArray()) {
-            boolean isNumber = cv >= '0' && cv <= '9';
-            boolean isPoint = cv == '.';
-            if (isNumber || isPoint) {
-                builder.append(cv);
-            }
-        }
+		for (char cv : origin.toCharArray()) {
+			boolean isNumber = cv >= '0' && cv <= '9';
+			boolean isPoint = cv == '.';
+			if (isNumber || isPoint) {
+				builder.append(cv);
+			}
+		}
 
-        return builder.toString();
-    }
+		return builder.toString();
+	}
 
-    /**
-     * 格式化字符串版本数组
-     *
-     * @param values
-     *         字符串版本数组
-     * @param length
-     *         数值版本数组长度
-     * @return 数值版本数组
-     */
-    private static Integer[] formatVersionString(String[] values, int length) {
-        Integer[] result = new Integer[length];
-        Arrays.fill(result, 0);
+	/**
+	 * 格式化字符串版本数组.
+	 *
+	 * @param values
+	 *         字符串版本数组
+	 * @param length
+	 *         数值版本数组长度
+	 * @return 数值版本数组
+	 */
+	private static Integer[] formatVersionString(String[] values, int length) {
+		Integer[] result = new Integer[length];
+		Arrays.fill(result, 0);
 
-        int end = Math.min(values.length, length);
-        for (int i = 0; i < end; i++) {
-            result[i] = stringToInteger(values[i]);
-        }
+		int end = Math.min(values.length, length);
+		for (int i = 0; i < end; i++) {
+			result[i] = stringToInteger(values[i]);
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    /**
-     * 将string转换为integer
-     *
-     * @param str
-     *         待转换字符串
-     * @return 转换后数值
-     */
-    private static Integer stringToInteger(String str) {
-        try {
-            return Math.max(Integer.parseInt(str), 0);
-        } catch (Exception ignore) {
-            return 0;
-        }
-    }
+	/**
+	 * 将string转换为integer.
+	 *
+	 * @param str
+	 *         待转换字符串
+	 * @return 转换后数值
+	 */
+	private static Integer stringToInteger(String str) {
+		try {
+			return Math.max(Integer.parseInt(str), 0);
+		}
+		catch (Exception ignore) {
+			return 0;
+		}
+	}
 }

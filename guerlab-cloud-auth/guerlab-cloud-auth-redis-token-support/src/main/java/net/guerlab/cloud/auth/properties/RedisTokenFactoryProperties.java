@@ -10,6 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.auth.properties;
 
 import lombok.Data;
@@ -17,7 +18,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * redis token 工厂配置
+ * redis token 工厂配置.
  *
  * @author guer
  */
@@ -26,13 +27,13 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class RedisTokenFactoryProperties extends TokenFactoryProperties {
 
-    /**
-     * accessToken key 长度
-     */
-    private int accessTokenKeyLength;
+	/**
+	 * accessToken key 长度.
+	 */
+	private int accessTokenKeyLength;
 
-    /**
-     * refreshToken key 长度
-     */
-    private int refreshTokenKeyLength;
+	/**
+	 * refreshToken key 长度.
+	 */
+	private int refreshTokenKeyLength;
 }

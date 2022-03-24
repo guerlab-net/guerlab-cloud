@@ -10,37 +10,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.server.mybatis.plus.methods;
 
-import com.baomidou.mybatisplus.core.injector.AbstractMethod;
-import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
+package net.guerlab.cloud.server.mybatis.plus.methods;
 
 import java.util.List;
 import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import com.baomidou.mybatisplus.core.injector.AbstractMethod;
+import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
+
 /**
- * 自动加载注入方法加载器
+ * 自动加载注入方法加载器.
  *
  * @author guer
  */
 public class AutoLoadMethodLoader extends DefaultSqlInjector {
 
-    private final List<AbstractAutoLoadMethod> methods;
+	private final List<AbstractAutoLoadMethod> methods;
 
-    /**
-     * 初始化自动加载注入方法加载器
-     */
-    public AutoLoadMethodLoader() {
-        methods = StreamSupport.stream(ServiceLoader.load(AbstractAutoLoadMethod.class).spliterator(), false)
-                .collect(Collectors.toList());
-    }
+	/**
+	 * 初始化自动加载注入方法加载器.
+	 */
+	public AutoLoadMethodLoader() {
+		methods = StreamSupport.stream(ServiceLoader.load(AbstractAutoLoadMethod.class).spliterator(), false)
+				.collect(Collectors.toList());
+	}
 
-    @Override
-    public List<AbstractMethod> getMethodList(Class<?> mapperClass) {
-        List<AbstractMethod> methodList = super.getMethodList(mapperClass);
-        methodList.addAll(methods);
-        return methodList;
-    }
+	@Override
+	public List<AbstractMethod> getMethodList(Class<?> mapperClass) {
+		List<AbstractMethod> methodList = super.getMethodList(mapperClass);
+		methodList.addAll(methods);
+		return methodList;
+	}
 }

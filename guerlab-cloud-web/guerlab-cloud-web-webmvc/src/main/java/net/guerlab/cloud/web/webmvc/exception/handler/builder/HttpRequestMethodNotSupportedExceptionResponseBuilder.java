@@ -10,28 +10,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.web.webmvc.exception.handler.builder;
+
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.handler.AbstractI18nResponseBuilder;
 import net.guerlab.cloud.web.webmvc.exception.HttpRequestMethodNotSupportedExceptionInfo;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 /**
- * HttpRequestMethodNotSupportedException异常处理
+ * HttpRequestMethodNotSupportedException异常处理.
  *
  * @author guer
  */
 public class HttpRequestMethodNotSupportedExceptionResponseBuilder extends AbstractI18nResponseBuilder {
 
-    @Override
-    public boolean accept(Throwable e) {
-        return e instanceof HttpRequestMethodNotSupportedException;
-    }
+	@Override
+	public boolean accept(Throwable e) {
+		return e instanceof HttpRequestMethodNotSupportedException;
+	}
 
-    @Override
-    public Fail<Void> build(Throwable e) {
-        HttpRequestMethodNotSupportedException exception = (HttpRequestMethodNotSupportedException) e;
-        return buildByI18nInfo(new HttpRequestMethodNotSupportedExceptionInfo(exception), e);
-    }
+	@Override
+	public Fail<Void> build(Throwable e) {
+		HttpRequestMethodNotSupportedException exception = (HttpRequestMethodNotSupportedException) e;
+		return buildByI18nInfo(new HttpRequestMethodNotSupportedExceptionInfo(exception), e);
+	}
 }

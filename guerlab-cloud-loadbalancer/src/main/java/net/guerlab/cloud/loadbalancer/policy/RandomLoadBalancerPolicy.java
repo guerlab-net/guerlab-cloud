@@ -10,22 +10,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.loadbalancer.policy;
 
-import org.springframework.cloud.client.ServiceInstance;
+package net.guerlab.cloud.loadbalancer.policy;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.springframework.cloud.client.ServiceInstance;
+
 /**
- * 随机负载均衡策略
+ * 随机负载均衡策略.
  *
  * @author guer
  */
 public class RandomLoadBalancerPolicy extends AbstractLoadBalancerPolicy {
 
-    @Override
-    protected ServiceInstance choose0(List<ServiceInstance> instances) {
-        return instances.get(ThreadLocalRandom.current().nextInt(instances.size()));
-    }
+	@Override
+	protected ServiceInstance choose0(List<ServiceInstance> instances) {
+		return instances.get(ThreadLocalRandom.current().nextInt(instances.size()));
+	}
 }

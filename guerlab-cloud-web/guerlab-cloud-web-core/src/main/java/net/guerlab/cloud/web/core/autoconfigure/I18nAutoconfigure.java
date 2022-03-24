@@ -10,17 +10,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.web.core.autoconfigure;
 
-import net.guerlab.cloud.web.core.properties.I18nProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import net.guerlab.cloud.web.core.properties.I18nProperties;
+
 /**
- * 国际化配置
+ * 国际化配置.
  *
  * @author guer
  */
 @Configuration
 @EnableConfigurationProperties(I18nProperties.class)
-public class I18nAutoconfigure {}
+public class I18nAutoconfigure { }

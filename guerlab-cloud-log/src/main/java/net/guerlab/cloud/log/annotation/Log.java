@@ -10,33 +10,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.log.annotation;
 
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * 日志记录
+ * 日志记录.
  *
  * @author guer
  */
 @SuppressWarnings("unused")
-@Target({ ElementType.METHOD })
+@Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
 public @interface Log {
 
-    /**
-     * 类型
-     *
-     * @return 类型
-     */
-    String type() default "";
+	/**
+	 * 类型.
+	 *
+	 * @return 类型
+	 */
+	String type() default "";
 
-    /**
-     * 操作内容
-     *
-     * @return 操作内容
-     */
-    String value();
+	/**
+	 * 操作内容.
+	 *
+	 * @return 操作内容
+	 */
+	String value();
 }

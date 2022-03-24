@@ -14,8 +14,8 @@
 package net.guerlab.cloud.distributed.fallback;
 
 /**
- * 分布式锁快速失败处理工厂
+ * 分布式锁快速失败处理工厂.
  *
  * @author guer
  */
-public interface DistributedLockFallbackFactory extends FallbackFactory {}
+public interface DistributedLockFallbackFactory extends FallbackFactory { }

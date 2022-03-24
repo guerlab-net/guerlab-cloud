@@ -10,30 +10,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.stream;
 
 import java.util.Map;
 
 /**
- * 输出流配置
+ * 输出流配置.
  *
  * @author guer
  */
 public class OutputBindingDestinationAutoConfigure extends AbstractBindingDestinationAutoConfigure {
 
-    private final Map<String, String> bindingDestinations;
+	private final Map<String, String> bindingDestinations;
 
-    public OutputBindingDestinationAutoConfigure(Map<String, String> bindingDestinations) {
-        this.bindingDestinations = bindingDestinations;
-    }
+	public OutputBindingDestinationAutoConfigure(Map<String, String> bindingDestinations) {
+		this.bindingDestinations = bindingDestinations;
+	}
 
-    @Override
-    protected PutType putType() {
-        return PutType.OUT;
-    }
+	@Override
+	protected PutType putType() {
+		return PutType.OUT;
+	}
 
-    @Override
-    protected Map<String, String> getBindingDestinations() {
-        return bindingDestinations;
-    }
+	@Override
+	protected Map<String, String> getBindingDestinations() {
+		return bindingDestinations;
+	}
 }

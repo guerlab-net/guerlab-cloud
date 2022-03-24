@@ -10,6 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.excel.converter;
 
 import com.alibaba.excel.converters.Converter;
@@ -18,50 +19,52 @@ import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.data.ReadCellData;
 import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
-import net.guerlab.cloud.commons.domain.MultiId;
 import org.apache.commons.lang3.StringUtils;
 
+import net.guerlab.cloud.commons.domain.MultiId;
+
 /**
- * MultiId Converter
+ * MultiId Converter.
  *
  * @author guer
  */
 @SuppressWarnings("rawtypes")
 public class MultiIdConverter implements Converter<MultiId> {
 
-    private static final String SEPARATOR = ",";
+	private static final String SEPARATOR = ",";
 
-    @Override
-    public Class<?> supportJavaTypeKey() {
-        return MultiId.class;
-    }
+	@Override
+	public Class<?> supportJavaTypeKey() {
+		return MultiId.class;
+	}
 
-    @Override
-    public CellDataTypeEnum supportExcelTypeKey() {
-        return CellDataTypeEnum.STRING;
-    }
+	@Override
+	public CellDataTypeEnum supportExcelTypeKey() {
+		return CellDataTypeEnum.STRING;
+	}
 
-    @Override
-    public MultiId convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty,
-            GlobalConfiguration globalConfiguration) {
-        String value = StringUtils.trimToEmpty(cellData.getStringValue());
+	@Override
+	public MultiId convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty,
+			GlobalConfiguration globalConfiguration) {
+		String value = StringUtils.trimToEmpty(cellData.getStringValue());
 
-        MultiId multiString = new MultiId();
+		MultiId multiString = new MultiId();
 
-        for (String val : value.split(SEPARATOR)) {
-            try {
-                multiString.add(Long.parseLong(val));
-            } catch (Exception ignored) {
-                // ignore this exception
-            }
-        }
+		for (String val : value.split(SEPARATOR)) {
+			try {
+				multiString.add(Long.parseLong(val));
+			}
+			catch (Exception ignored) {
+				// ignore this exception
+			}
+		}
 
-        return multiString;
-    }
+		return multiString;
+	}
 
-    @Override
-    public WriteCellData<?> convertToExcelData(MultiId value, ExcelContentProperty contentProperty,
-            GlobalConfiguration globalConfiguration) {
-        return new WriteCellData(StringUtils.join(value, SEPARATOR));
-    }
+	@Override
+	public WriteCellData<?> convertToExcelData(MultiId value, ExcelContentProperty contentProperty,
+			GlobalConfiguration globalConfiguration) {
+		return new WriteCellData(StringUtils.join(value, SEPARATOR));
+	}
 }

@@ -10,34 +10,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.stream;
 
 /**
- * Binding名称常量
+ * Binding名称常量.
  *
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface BindingNameConstants {
+public final class BindingNameConstants {
 
-    /**
-     * 输出参数后缀
-     */
-    String OUT_PARAM_SUFFIX = "-out-";
+	/**
+	 * 输出参数后缀.
+	 */
+	public static final String OUT_PARAM_SUFFIX = "-out-";
 
-    /**
-     * 默认输出参数后缀
-     */
-    String DEFAULT_OUT_PARAM_SUFFIX = OUT_PARAM_SUFFIX + "0";
+	/**
+	 * 默认输出参数后缀.
+	 */
+	public static final String DEFAULT_OUT_PARAM_SUFFIX = OUT_PARAM_SUFFIX + "0";
 
-    /**
-     * 输入参数后缀
-     */
-    String IN_PARAM_SUFFIX = "-in-";
+	/**
+	 * 输入参数后缀.
+	 */
+	public static final String IN_PARAM_SUFFIX = "-in-";
 
-    /**
-     * 默认输入参数后缀
-     */
-    String DEFAULT_IN_PARAM_SUFFIX = IN_PARAM_SUFFIX + "0";
+	/**
+	 * 默认输入参数后缀.
+	 */
+	public static final String DEFAULT_IN_PARAM_SUFFIX = IN_PARAM_SUFFIX + "0";
 
+	private BindingNameConstants() {
+	}
 }

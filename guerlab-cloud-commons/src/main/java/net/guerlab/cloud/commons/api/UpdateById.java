@@ -16,13 +16,15 @@ package net.guerlab.cloud.commons.api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import net.guerlab.cloud.commons.Constants;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import net.guerlab.cloud.commons.Constants;
+
 /**
- * APi定义
+ * APi定义.
  *
  * @param <E>
  *         返回实体类型
@@ -31,27 +33,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 @SuppressWarnings("unused")
 public interface UpdateById<E> {
 
-    /**
-     * 请求路径
-     */
-    String UPDATE_BY_ID_PATH = "/{id}";
+	/**
+	 * 请求路径.
+	 */
+	String UPDATE_BY_ID_PATH = "/{id}";
 
-    /**
-     * 路径参数名
-     */
-    String UPDATE_BY_ID_PARAM = "id";
+	/**
+	 * 路径参数名.
+	 */
+	String UPDATE_BY_ID_PARAM = "id";
 
-    /**
-     * 根据Id编辑数据
-     *
-     * @param id
-     *         主键ID
-     * @param entity
-     *         实体
-     * @return 更新后的实体
-     */
-    @PostMapping(UPDATE_BY_ID_PATH)
-    @Operation(summary = "根据Id编辑数据", security = @SecurityRequirement(name = Constants.TOKEN))
-    E updateById(@Parameter(description = "ID", required = true) @PathVariable(UPDATE_BY_ID_PARAM) Long id,
-            @RequestBody E entity);
+	/**
+	 * 根据Id编辑数据.
+	 *
+	 * @param id
+	 *         主键ID
+	 * @param entity
+	 *         实体
+	 * @return 更新后的实体
+	 */
+	@PostMapping(UPDATE_BY_ID_PATH)
+	@Operation(summary = "根据Id编辑数据", security = @SecurityRequirement(name = Constants.TOKEN))
+	E updateById(@Parameter(description = "ID", required = true) @PathVariable(UPDATE_BY_ID_PARAM) Long id,
+			@RequestBody E entity);
 }

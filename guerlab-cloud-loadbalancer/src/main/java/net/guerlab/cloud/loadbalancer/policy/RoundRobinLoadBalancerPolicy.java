@@ -10,29 +10,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package net.guerlab.cloud.loadbalancer.policy;
 
-import org.springframework.cloud.client.ServiceInstance;
+package net.guerlab.cloud.loadbalancer.policy;
 
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.springframework.cloud.client.ServiceInstance;
+
 /**
- * 轮询负载均衡策略
+ * 轮询负载均衡策略.
  *
  * @author guer
  */
 public class RoundRobinLoadBalancerPolicy extends AbstractLoadBalancerPolicy {
 
-    /**
-     * 当前偏移量
-     */
-    private final AtomicInteger position = new AtomicInteger(new Random().nextInt(1000));
+	/**
+	 * 当前偏移量.
+	 */
+	private final AtomicInteger position = new AtomicInteger(new Random().nextInt(1000));
 
-    @Override
-    protected ServiceInstance choose0(List<ServiceInstance> instances) {
-        int pos = Math.abs(this.position.incrementAndGet());
-        return instances.get(pos % instances.size());
-    }
+	@Override
+	protected ServiceInstance choose0(List<ServiceInstance> instances) {
+		int pos = Math.abs(this.position.incrementAndGet());
+		return instances.get(pos % instances.size());
+	}
 }

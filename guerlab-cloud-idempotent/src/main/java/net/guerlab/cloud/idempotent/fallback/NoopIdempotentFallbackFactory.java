@@ -16,10 +16,8 @@ package net.guerlab.cloud.idempotent.fallback;
 import net.guerlab.cloud.distributed.fallback.NoopFallbackFactory;
 
 /**
- * 处理幂等快速失败处理工厂的无操作实现
+ * 处理幂等快速失败处理工厂的无操作实现.
  *
  * @author guer
  */
-public final class NoopIdempotentFallbackFactory extends NoopFallbackFactory implements IdempotentFallbackFactory {
-
-}
+public final class NoopIdempotentFallbackFactory extends NoopFallbackFactory implements IdempotentFallbackFactory { }

@@ -10,6 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.commons.i18n;
 
 import org.springframework.beans.factory.ObjectProvider;
@@ -21,7 +22,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.support.AbstractResourceBasedMessageSource;
 
 /**
- * 多消息源处理
+ * 多消息源处理.
  *
  * @author guer
  */
@@ -29,19 +30,19 @@ import org.springframework.context.support.AbstractResourceBasedMessageSource;
 @AutoConfigureAfter(MessageSourceAutoConfiguration.class)
 public class MultiMessageSourceAwareAutoConfigure {
 
-    /**
-     * 多消息源处理
-     *
-     * @param messageSource
-     *         信息源
-     * @param listProvider
-     *         多消息源处理提供者列表
-     */
-    @Autowired
-    public void handler(MessageSource messageSource, ObjectProvider<MultiMessageSourceProvider> listProvider) {
-        if (!(messageSource instanceof AbstractResourceBasedMessageSource resourceBasedMessageSource)) {
-            return;
-        }
-        listProvider.stream().map(MultiMessageSourceProvider::get).forEach(resourceBasedMessageSource::addBasenames);
-    }
+	/**
+	 * 多消息源处理.
+	 *
+	 * @param messageSource
+	 *         信息源
+	 * @param listProvider
+	 *         多消息源处理提供者列表
+	 */
+	@Autowired
+	public void handler(MessageSource messageSource, ObjectProvider<MultiMessageSourceProvider> listProvider) {
+		if (!(messageSource instanceof AbstractResourceBasedMessageSource resourceBasedMessageSource)) {
+			return;
+		}
+		listProvider.stream().map(MultiMessageSourceProvider::get).forEach(resourceBasedMessageSource::addBasenames);
+	}
 }

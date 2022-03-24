@@ -10,25 +10,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package net.guerlab.cloud.loadbalancer.properties;
 
 import lombok.Data;
 
 /**
- * 基础规则配置
+ * 基础规则配置.
  *
  * @author guer
  */
 @Data
 public class BaseRuleProperties {
 
-    /**
-     * 是否启用
-     */
-    private boolean enabled = false;
+	/**
+	 * 是否启用.
+	 */
+	private boolean enabled = false;
 
-    /**
-     * 排序
-     */
-    private int order = 0;
+	/**
+	 * 排序.
+	 */
+	private int order = 0;
 }

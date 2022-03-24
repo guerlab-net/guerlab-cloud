@@ -28,7 +28,7 @@
     <parent>
         <groupId>net.guerlab.builder</groupId>
         <artifactId>guerlab-builder</artifactId>
-        <version>1.0.4</version>
+        <version>1.1.0</version>
     </parent>
 
     <licenses>
@@ -66,7 +66,7 @@
     </issueManagement>
 
     <properties>
-        <revision>2022.3.0</revision>
+        <revision>2022.3.1-SNAPSHOT</revision>
         <main.basedir>${basedir}</main.basedir>
 
         <java.version>17</java.version>
@@ -534,6 +534,15 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
     <modules>
         <module>guerlab-cloud-api</module>
