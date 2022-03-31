@@ -39,9 +39,5 @@
             <groupId>org.redisson</groupId>
             <artifactId>redisson-spring-boot-starter</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-data-26</artifactId>
-        </dependency>
     </dependencies>
 </project>
