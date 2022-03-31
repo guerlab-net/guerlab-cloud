@@ -162,7 +162,7 @@ public interface BaseFindService<T, SP extends SearchParams> extends QueryWrappe
 	 *         实体
 	 * @return 实体总数
 	 */
-	int selectCount(T entity);
+	long selectCount(T entity);
 
 	/**
 	 * 查询总记录数.
@@ -171,6 +171,6 @@ public interface BaseFindService<T, SP extends SearchParams> extends QueryWrappe
 	 *         搜索参数对象
 	 * @return 实体总数
 	 */
-	int selectCount(SP searchParams);
+	long selectCount(SP searchParams);
 
 }

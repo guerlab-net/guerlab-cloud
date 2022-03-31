@@ -141,7 +141,7 @@ public abstract class BaseController<E, SP extends SearchParams, S extends BaseS
 	}
 
 	@Override
-	public int selectCount(@RequestBody SP searchParams) {
+	public long selectCount(@RequestBody SP searchParams) {
 		beforeFind(searchParams);
 		return getService().selectCount(searchParams);
 	}

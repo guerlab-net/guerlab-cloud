@@ -20,6 +20,7 @@ import java.util.stream.StreamSupport;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
+import com.baomidou.mybatisplus.core.metadata.TableInfo;
 
 /**
  * 自动加载注入方法加载器.
@@ -39,8 +40,8 @@ public class AutoLoadMethodLoader extends DefaultSqlInjector {
 	}
 
 	@Override
-	public List<AbstractMethod> getMethodList(Class<?> mapperClass) {
-		List<AbstractMethod> methodList = super.getMethodList(mapperClass);
+	public List<AbstractMethod> getMethodList(Class<?> mapperClass, TableInfo tableInfo) {
+		List<AbstractMethod> methodList = super.getMethodList(mapperClass, tableInfo);
 		methodList.addAll(methods);
 		return methodList;
 	}

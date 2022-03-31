@@ -153,15 +153,17 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	}
 
 	@Override
-	public int selectCount(T entity) {
+	public long selectCount(T entity) {
 		QueryWrapper<T> queryWrapper = getQueryWrapper();
 		queryWrapper.setEntity(entity);
-		return getBaseMapper().selectCount(queryWrapper);
+		Long result = getBaseMapper().selectCount(queryWrapper);
+		return result == null ? 0 : result;
 	}
 
 	@Override
-	public int selectCount(SP searchParams) {
-		return getBaseMapper().selectCount(getQueryWrapperWithSelectMethod(searchParams));
+	public long selectCount(SP searchParams) {
+		Long result = getBaseMapper().selectCount(getQueryWrapperWithSelectMethod(searchParams));
+		return result == null ? 0 : result;
 	}
 
 	@Override
@@ -369,7 +371,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	 */
 	@SuppressWarnings("unchecked")
 	protected Class<T> currentMapperClass() {
-		return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), 1);
+		return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), BaseServiceImpl.class, 1);
 	}
 
 	/**
@@ -379,7 +381,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	 */
 	@SuppressWarnings("unchecked")
 	protected Class<T> currentModelClass() {
-		return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), 0);
+		return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), BaseServiceImpl.class, 0);
 	}
 
 	/**
