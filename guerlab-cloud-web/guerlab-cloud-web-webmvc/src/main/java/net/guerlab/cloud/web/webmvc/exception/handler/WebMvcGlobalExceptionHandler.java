@@ -18,6 +18,7 @@ import java.util.Collection;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.context.MessageSource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import net.guerlab.cloud.commons.exception.handler.ResponseBuilder;
@@ -25,6 +26,7 @@ import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionHandler;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionLogger;
+import net.guerlab.cloud.web.core.properties.GlobalExceptionProperties;
 import net.guerlab.cloud.web.core.request.RequestHolder;
 
 /**
@@ -34,6 +36,8 @@ import net.guerlab.cloud.web.core.request.RequestHolder;
  */
 @Slf4j
 public class WebMvcGlobalExceptionHandler extends GlobalExceptionHandler {
+
+	private final GlobalExceptionProperties globalExceptionProperties;
 
 	/**
 	 * 初始化异常统一处理配置.
@@ -46,10 +50,14 @@ public class WebMvcGlobalExceptionHandler extends GlobalExceptionHandler {
 	 *         全局异常处理日志记录器
 	 * @param builders
 	 *         异常信息构建者列表
+	 * @param globalExceptionProperties
+	 *         全局异常处理配置
 	 */
 	public WebMvcGlobalExceptionHandler(MessageSource messageSource, StackTracesHandler stackTracesHandler,
-			GlobalExceptionLogger globalExceptionLogger, Collection<ResponseBuilder> builders) {
+			GlobalExceptionLogger globalExceptionLogger, Collection<ResponseBuilder> builders,
+			GlobalExceptionProperties globalExceptionProperties) {
 		super(messageSource, stackTracesHandler, globalExceptionLogger, builders);
+		this.globalExceptionProperties = globalExceptionProperties;
 	}
 
 	/**
@@ -60,9 +68,9 @@ public class WebMvcGlobalExceptionHandler extends GlobalExceptionHandler {
 	 * @return 响应数据
 	 */
 	@ExceptionHandler(Exception.class)
-	public Fail<?> exceptionHandler(Exception e) {
+	public ResponseEntity<Fail<?>> exceptionHandler(Exception e) {
 		globalExceptionLogger.debug(e, RequestHolder.getRequestMethod(), RequestHolder.getRequestPath());
-		return build(e);
+		return ResponseEntity.status(globalExceptionProperties.getStatusCode()).body(build(e));
 	}
 
 }

@@ -43,6 +43,11 @@ public class GlobalExceptionProperties implements GlobalExceptionConfig {
 	private static final String ALL = "*";
 
 	/**
+	 * 异常处理返回状态码.
+	 */
+	private int statusCode = 500;
+
+	/**
 	 * 是否打印堆栈根据.
 	 */
 	private boolean printStackTrace;

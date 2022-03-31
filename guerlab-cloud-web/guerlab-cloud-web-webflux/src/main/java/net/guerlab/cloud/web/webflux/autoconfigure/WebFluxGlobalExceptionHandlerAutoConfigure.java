@@ -36,6 +36,7 @@ import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.web.core.autoconfigure.GlobalExceptionHandlerAutoConfigure;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionHandler;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionLogger;
+import net.guerlab.cloud.web.core.properties.GlobalExceptionProperties;
 import net.guerlab.cloud.web.webflux.exception.handler.WebFluxErrorWebExceptionHandler;
 
 /**
@@ -105,15 +106,17 @@ public class WebFluxGlobalExceptionHandlerAutoConfigure {
 	 *         应用上下文
 	 * @param globalExceptionHandler
 	 *         全局错误处理
+	 * @param globalExceptionProperties
+	 *         全局异常处理配置
 	 * @return 异常处理
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	@Order(-2)
 	@Bean
 	public AbstractErrorWebExceptionHandler webFluxErrorWebExceptionHandler(ErrorAttributes errorAttributes,
-			ApplicationContext applicationContext, GlobalExceptionHandler globalExceptionHandler) {
+			ApplicationContext applicationContext, GlobalExceptionHandler globalExceptionHandler, GlobalExceptionProperties globalExceptionProperties) {
 		AbstractErrorWebExceptionHandler exceptionHandler = new WebFluxErrorWebExceptionHandler(errorAttributes,
-				resourceProperties, this.serverProperties.getError(), applicationContext, globalExceptionHandler);
+				resourceProperties, this.serverProperties.getError(), applicationContext, globalExceptionHandler, globalExceptionProperties);
 		exceptionHandler.setViewResolvers(this.viewResolvers);
 		exceptionHandler.setMessageWriters(this.serverCodecConfigurer.getWriters());
 		exceptionHandler.setMessageReaders(this.serverCodecConfigurer.getReaders());

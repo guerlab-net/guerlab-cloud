@@ -21,7 +21,6 @@ import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.DefaultErrorWebExceptionHandler;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.context.ApplicationContext;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RequestPredicates;
@@ -32,6 +31,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionHandler;
+import net.guerlab.cloud.web.core.properties.GlobalExceptionProperties;
 import net.guerlab.cloud.web.webflux.utils.RequestUtils;
 
 /**
@@ -43,6 +43,8 @@ import net.guerlab.cloud.web.webflux.utils.RequestUtils;
 public class WebFluxErrorWebExceptionHandler extends DefaultErrorWebExceptionHandler {
 
 	private final GlobalExceptionHandler globalExceptionHandler;
+
+	private final GlobalExceptionProperties globalExceptionProperties;
 
 	/**
 	 * 创建异常处理.
@@ -57,12 +59,15 @@ public class WebFluxErrorWebExceptionHandler extends DefaultErrorWebExceptionHan
 	 *         ApplicationContext
 	 * @param globalExceptionHandler
 	 *         异常统一处理配置
+	 * @param globalExceptionProperties
+	 *         全局异常处理配置
 	 */
 	public WebFluxErrorWebExceptionHandler(ErrorAttributes errorAttributes, WebProperties.Resources resources,
 			ErrorProperties errorProperties, ApplicationContext applicationContext,
-			GlobalExceptionHandler globalExceptionHandler) {
+			GlobalExceptionHandler globalExceptionHandler, GlobalExceptionProperties globalExceptionProperties) {
 		super(errorAttributes, resources, errorProperties, applicationContext);
 		this.globalExceptionHandler = globalExceptionHandler;
+		this.globalExceptionProperties = globalExceptionProperties;
 	}
 
 	@Override
@@ -78,7 +83,7 @@ public class WebFluxErrorWebExceptionHandler extends DefaultErrorWebExceptionHan
 
 		Fail<?> fail = globalExceptionHandler.build(error);
 
-		return ServerResponse.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON)
+		return ServerResponse.status(globalExceptionProperties.getStatusCode()).contentType(MediaType.APPLICATION_JSON)
 				.body(BodyInserters.fromValue(fail));
 	}
 }
