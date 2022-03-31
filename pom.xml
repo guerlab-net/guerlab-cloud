@@ -76,23 +76,23 @@
         <guerlab-commons.version>2.0.1</guerlab-commons.version>
 
         <!-- spring -->
-        <spring-boot.version>2.6.4</spring-boot.version>
+        <spring-boot.version>2.6.6</spring-boot.version>
         <spring-cloud.version>2021.0.1</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
 
         <!-- other -->
-        <mybatis.version>3.5.7</mybatis.version>
-        <mybatis-starter.version>2.2.0</mybatis-starter.version>
+        <mybatis.version>3.5.9</mybatis.version>
+        <mybatis-starter.version>2.2.2</mybatis-starter.version>
         <mybatis-typehandlers-jsr310.version>1.0.2</mybatis-typehandlers-jsr310.version>
-        <mybatis-plus.version>3.4.3</mybatis-plus.version>
-        <swagger.version>2.1.10</swagger.version>
+        <mybatis-plus.version>3.5.1</mybatis-plus.version>
+        <swagger.version>2.1.13</swagger.version>
         <jjwt.version>0.9.1</jjwt.version>
         <guava.version>24.1.1-jre</guava.version>
         <easyexcel.version>3.0.5</easyexcel.version>
-        <springdoc.version>1.5.12</springdoc.version>
+        <springdoc.version>1.6.6</springdoc.version>
         <nacos.version>2.0.4</nacos.version>
         <findbugs.version>3.0.2</findbugs.version>
-        <redisson.version>3.16.8</redisson.version>
+        <redisson.version>3.17.0</redisson.version>
     </properties>
 
     <dependencyManagement>
@@ -519,17 +519,6 @@
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson-spring-boot-starter</artifactId>
-                <version>${redisson.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.redisson</groupId>
-                        <artifactId>redisson-spring-data-25</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>org.redisson</groupId>
-                <artifactId>redisson-spring-data-26</artifactId>
                 <version>${redisson.version}</version>
             </dependency>
         </dependencies>
