@@ -27,10 +27,18 @@ import org.apache.ibatis.mapping.SqlSource;
 public abstract class AbstractMysqlBatchInsertMethod extends AbstractAutoLoadMethod {
 
 	/**
+	 * 构造抽象批量插入方法.
+	 *
+	 * @param methodName 方法名
+	 */
+	public AbstractMysqlBatchInsertMethod(String methodName) {
+		super(methodName);
+	}
+
+	/**
 	 * 准备字段sql.
 	 *
-	 * @param tableInfo
-	 *         表信息
+	 * @param tableInfo 表信息
 	 * @return 字段sql
 	 */
 	protected static String prepareFieldSql(TableInfo tableInfo) {
@@ -49,8 +57,7 @@ public abstract class AbstractMysqlBatchInsertMethod extends AbstractAutoLoadMet
 	/**
 	 * 准备值列表字段sql.
 	 *
-	 * @param tableInfo
-	 *         表信息
+	 * @param tableInfo 表信息
 	 * @return 值列表字段sql
 	 */
 	protected static String prepareValuesSqlForMysqlBatch(TableInfo tableInfo) {
@@ -71,26 +78,16 @@ public abstract class AbstractMysqlBatchInsertMethod extends AbstractAutoLoadMet
 	public final MappedStatement injectMappedStatement(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo) {
 		String sqlResult = buildSqlResult(mapperClass, modelClass, tableInfo);
 		SqlSource sqlSource = languageDriver.createSqlSource(configuration, sqlResult, modelClass);
-		return addInsertMappedStatement(mapperClass, modelClass, methodName(), sqlSource, new NoKeyGenerator(), null,
+		return addInsertMappedStatement(mapperClass, modelClass, methodName, sqlSource, new NoKeyGenerator(), null,
 				null);
 	}
 
 	/**
-	 * 获取方法名称.
-	 *
-	 * @return 方法名称
-	 */
-	protected abstract String methodName();
-
-	/**
 	 * 构造sql.
 	 *
-	 * @param mapperClass
-	 *         mapper类型
-	 * @param modelClass
-	 *         model类型
-	 * @param tableInfo
-	 *         表信息
+	 * @param mapperClass mapper类型
+	 * @param modelClass  model类型
+	 * @param tableInfo   表信息
 	 * @return sql
 	 */
 	protected abstract String buildSqlResult(Class<?> mapperClass, Class<?> modelClass, TableInfo tableInfo);

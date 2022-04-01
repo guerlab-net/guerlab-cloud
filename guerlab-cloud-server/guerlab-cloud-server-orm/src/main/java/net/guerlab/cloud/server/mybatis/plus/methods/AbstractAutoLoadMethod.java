@@ -37,10 +37,18 @@ public abstract class AbstractAutoLoadMethod extends AbstractMethod {
 	protected static final Collection<Field> BASE_ENTITY_FIELDS = FieldUtil.getFields(BaseEntity.class);
 
 	/**
+	 * 构造自动加载注入方法.
+	 *
+	 * @param methodName 方法名
+	 */
+	public AbstractAutoLoadMethod(String methodName) {
+		super(methodName);
+	}
+
+	/**
 	 * 获取字段列表.
 	 *
-	 * @param tableInfo
-	 *         表信息
+	 * @param tableInfo 表信息
 	 * @return 字段列表
 	 */
 	protected static Stream<TableFieldInfo> getFieldStream(TableInfo tableInfo) {
@@ -50,10 +58,8 @@ public abstract class AbstractAutoLoadMethod extends AbstractMethod {
 	/**
 	 * 字段过滤.
 	 *
-	 * @param tableInfo
-	 *         表信息
-	 * @param fieldInfo
-	 *         表字段信息
+	 * @param tableInfo 表信息
+	 * @param fieldInfo 表字段信息
 	 * @return 是否有效
 	 */
 	protected static boolean filedFilter(TableInfo tableInfo, TableFieldInfo fieldInfo) {

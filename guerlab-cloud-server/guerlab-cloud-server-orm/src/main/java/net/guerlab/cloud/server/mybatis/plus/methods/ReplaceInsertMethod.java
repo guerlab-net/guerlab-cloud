@@ -22,9 +22,11 @@ import com.baomidou.mybatisplus.core.metadata.TableInfo;
  */
 public class ReplaceInsertMethod extends AbstractMysqlBatchInsertMethod {
 
-	@Override
-	protected String methodName() {
-		return "replaceInsertList";
+	/**
+	 * 构造replace模式插入方法.
+	 */
+	public ReplaceInsertMethod() {
+		super("replaceInsertList");
 	}
 
 	@Override

@@ -27,9 +27,11 @@ import org.springframework.lang.Nullable;
  */
 public class InsertOrUpdateMethod extends AbstractMysqlBatchInsertMethod {
 
-	@Override
-	protected String methodName() {
-		return "insertOrUpdateList";
+	/**
+	 * 构造插入或更新方法.
+	 */
+	public InsertOrUpdateMethod() {
+		super("insertOrUpdateList");
 	}
 
 	@Override
