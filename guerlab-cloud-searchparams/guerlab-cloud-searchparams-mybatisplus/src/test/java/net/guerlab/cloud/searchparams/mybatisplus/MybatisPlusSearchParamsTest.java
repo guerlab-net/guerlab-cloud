@@ -94,4 +94,18 @@ class MybatisPlusSearchParamsTest {
 				"(('column' in (#{ew.paramNameValuePairs.MPGENVAL1}, #{ew.paramNameValuePairs.MPGENVAL2}) and 'column' in (#{ew.paramNameValuePairs.MPGENVAL1}, #{ew.paramNameValuePairs.MPGENVAL2})))",
 				queryWrapper.getSqlSegment());
 	}
+
+	@Test
+	void test6() {
+		TestSearchParams searchParams = new TestSearchParams();
+		searchParams.setT6(Arrays.asList("a", "b"));
+
+		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
+
+		SearchParamsUtils.handler(searchParams, queryWrapper);
+
+		Assertions.assertEquals(
+				"((_v = #{ew.paramNameValuePairs.MPGENVAL1} OR _v = #{ew.paramNameValuePairs.MPGENVAL2}))",
+				queryWrapper.getSqlSegment());
+	}
 }

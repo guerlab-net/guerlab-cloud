@@ -44,4 +44,11 @@ public @interface SearchModel {
 	 * @return 自定义sql
 	 */
 	String sql() default "";
+
+	/**
+	 * 自定义sql提供器列表.
+	 *
+	 * @return 自定义sql提供器列表
+	 */
+	Class<? extends SqlProvider>[] sqlProviders() default {};
 }

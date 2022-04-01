@@ -44,4 +44,7 @@ public class TestSearchParams implements SearchParams {
 
 	@SearchModel(value = SearchModelType.CUSTOM_SQL, sql = "'column' in ?* and 'column' in ?*")
 	private Collection<String> t5;
+
+	@SearchModel(sqlProviders = TestSqlProvider.class)
+	private Collection<String> t6;
 }
