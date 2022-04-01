@@ -25,8 +25,7 @@ import net.guerlab.cloud.auth.web.properties.AuthWebProperties;
 /**
  * 抽象token处理.
  *
- * @param <A>
- *         授权配置类型
+ * @param <A> 授权配置类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -57,10 +56,8 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebPropertie
 	/**
 	 * 判断是否处理该token.
 	 *
-	 * @param token
-	 *         token
-	 * @param request
-	 *         请求对象
+	 * @param token   token
+	 * @param request 请求对象
 	 * @return 是否处理该token
 	 */
 	protected abstract boolean accept(String token, HttpServletRequest request);
@@ -68,8 +65,7 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebPropertie
 	/**
 	 * 设置Token信息.
 	 *
-	 * @param token
-	 *         token
+	 * @param token token
 	 */
 	protected abstract void setTokenInfo(String token);
 
@@ -85,8 +81,7 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebPropertie
 	/**
 	 * 设置授权配置.
 	 *
-	 * @param authProperties
-	 *         授权配置
+	 * @param authProperties 授权配置
 	 */
 	@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 	@Autowired

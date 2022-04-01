@@ -36,10 +36,8 @@ public abstract class AbstractContextHandler {
 	/**
 	 * 设置内容.
 	 *
-	 * @param key
-	 *         key
-	 * @param value
-	 *         内容
+	 * @param key   key
+	 * @param value 内容
 	 */
 	@SuppressWarnings("SameParameterValue")
 	public static void set(String key, Object value) {
@@ -49,10 +47,8 @@ public abstract class AbstractContextHandler {
 	/**
 	 * 获取内容.
 	 *
-	 * @param key
-	 *         key
-	 * @param <T>
-	 *         值类型
+	 * @param key key
+	 * @param <T> 值类型
 	 * @return 内容
 	 */
 	@SuppressWarnings("unchecked")
@@ -73,8 +69,7 @@ public abstract class AbstractContextHandler {
 	/**
 	 * 设置上下文属性.
 	 *
-	 * @param contextAttributes
-	 *         上下文属性
+	 * @param contextAttributes 上下文属性
 	 */
 	public static void setContextAttributes(ContextAttributes contextAttributes) {
 		ContextAttributesHolder.set(contextAttributes);
@@ -100,8 +95,7 @@ public abstract class AbstractContextHandler {
 	/**
 	 * 设置token.
 	 *
-	 * @param token
-	 *         token
+	 * @param token token
 	 */
 	public static void setToken(String token) {
 		set(Constants.TOKEN, token);
@@ -120,8 +114,7 @@ public abstract class AbstractContextHandler {
 	/**
 	 * 设置当前操作者.
 	 *
-	 * @param currentOperator
-	 *         当前操作者
+	 * @param currentOperator 当前操作者
 	 */
 	public static void setCurrentOperator(String currentOperator) {
 		set(Constants.CURRENT_OPERATOR, currentOperator);

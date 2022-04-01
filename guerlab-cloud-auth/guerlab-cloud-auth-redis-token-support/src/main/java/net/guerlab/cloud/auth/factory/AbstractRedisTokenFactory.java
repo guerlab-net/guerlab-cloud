@@ -24,10 +24,8 @@ import net.guerlab.commons.random.RandomUtil;
 /**
  * 抽象redis token工厂.
  *
- * @param <T>
- *         数据实体类型
- * @param <P>
- *         配置类型
+ * @param <T> 数据实体类型
+ * @param <P> 配置类型
  * @author guer
  */
 public abstract class AbstractRedisTokenFactory<T, P extends RedisTokenFactoryProperties>
@@ -41,8 +39,7 @@ public abstract class AbstractRedisTokenFactory<T, P extends RedisTokenFactoryPr
 	/**
 	 * 初始化redis token工厂.
 	 *
-	 * @param redisOperationsWrapper
-	 *         redis操作包装对象
+	 * @param redisOperationsWrapper redis操作包装对象
 	 */
 	protected AbstractRedisTokenFactory(RedisOperationsWrapper<T> redisOperationsWrapper) {
 		this.redisOperationsWrapper = redisOperationsWrapper;

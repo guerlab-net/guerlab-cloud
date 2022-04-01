@@ -40,12 +40,9 @@ import static net.guerlab.cloud.commons.api.SelectPage.PAGE_SIZE_VALUE;
 /**
  * 基础控制器实现.
  *
- * @param <E>
- *         实体类型
- * @param <SP>
- *         搜索参数类型
- * @param <S>
- *         服务接口类型
+ * @param <E>  实体类型
+ * @param <SP> 搜索参数类型
+ * @param <S>  服务接口类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -60,8 +57,7 @@ public abstract class BaseController<E, SP extends SearchParams, S extends BaseS
 	/**
 	 * 根据服务实例创建控制器.
 	 *
-	 * @param service
-	 *         服务实例
+	 * @param service 服务实例
 	 */
 	public BaseController(S service) {
 		this.service = service;
@@ -149,8 +145,7 @@ public abstract class BaseController<E, SP extends SearchParams, S extends BaseS
 	/**
 	 * 查询前置环绕.
 	 *
-	 * @param searchParams
-	 *         搜索参数
+	 * @param searchParams 搜索参数
 	 */
 	@SuppressWarnings("EmptyMethod")
 	protected void beforeFind(SP searchParams) {
@@ -160,10 +155,8 @@ public abstract class BaseController<E, SP extends SearchParams, S extends BaseS
 	/**
 	 * 查询后置焕然.
 	 *
-	 * @param list
-	 *         结果列表
-	 * @param searchParams
-	 *         搜索参数
+	 * @param list         结果列表
+	 * @param searchParams 搜索参数
 	 */
 	@SuppressWarnings("EmptyMethod")
 	protected void afterFind(Collection<E> list, @Nullable SP searchParams) {
@@ -192,12 +185,9 @@ public abstract class BaseController<E, SP extends SearchParams, S extends BaseS
 	/**
 	 * 拷贝属性.
 	 *
-	 * @param requestEntity
-	 *         请求对象
-	 * @param inStorageEntity
-	 *         在库对象
-	 * @param id
-	 *         主键
+	 * @param requestEntity   请求对象
+	 * @param inStorageEntity 在库对象
+	 * @param id              主键
 	 */
 	protected void copyProperties(E requestEntity, E inStorageEntity, @Nullable Long id) {
 		if (inStorageEntity instanceof BaseEntity tempEntity) {

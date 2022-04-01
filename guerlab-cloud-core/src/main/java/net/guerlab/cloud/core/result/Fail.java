@@ -18,8 +18,7 @@ import org.springframework.lang.Nullable;
 /**
  * 通用失败JSON返回结果集.
  *
- * @param <T>
- *         数据类型
+ * @param <T> 数据类型
  * @author guer
  */
 public class Fail<T> extends Result<T> {
@@ -36,8 +35,7 @@ public class Fail<T> extends Result<T> {
 	/**
 	 * 通过设置消息内容来初始化结果集.
 	 *
-	 * @param message
-	 *         消息内容
+	 * @param message 消息内容
 	 */
 	public Fail(@Nullable String message) {
 		this(message, null);
@@ -46,8 +44,7 @@ public class Fail<T> extends Result<T> {
 	/**
 	 * 通过设置数据来初始化结果集.
 	 *
-	 * @param data
-	 *         数据
+	 * @param data 数据
 	 */
 	public Fail(@Nullable T data) {
 		this(MSG, data);
@@ -56,10 +53,8 @@ public class Fail<T> extends Result<T> {
 	/**
 	 * 通过设置消息内容和数据来初始化结果集.
 	 *
-	 * @param message
-	 *         消息内容
-	 * @param data
-	 *         数据
+	 * @param message 消息内容
+	 * @param data    数据
 	 */
 	public Fail(@Nullable String message, @Nullable T data) {
 		super(false, message, data);
@@ -68,10 +63,8 @@ public class Fail<T> extends Result<T> {
 	/**
 	 * 通过设置数据来初始化结果集.
 	 *
-	 * @param message
-	 *         消息内容
-	 * @param errorCode
-	 *         错误代码
+	 * @param message   消息内容
+	 * @param errorCode 错误代码
 	 */
 	public Fail(@Nullable String message, int errorCode) {
 		this(message, null);
@@ -81,12 +74,9 @@ public class Fail<T> extends Result<T> {
 	/**
 	 * 通过设置数据来初始化结果集.
 	 *
-	 * @param message
-	 *         消息内容
-	 * @param errorCode
-	 *         错误代码
-	 * @param errorDetail
-	 *         错误详情
+	 * @param message     消息内容
+	 * @param errorCode   错误代码
+	 * @param errorDetail 错误详情
 	 */
 	public Fail(@Nullable String message, int errorCode, @Nullable String errorDetail) {
 		this(message, null);

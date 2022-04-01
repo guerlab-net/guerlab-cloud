@@ -101,10 +101,8 @@ public final class GeoHashUtils {
 	/**
 	 * 获取相邻的geoHash.
 	 *
-	 * @param geoHash
-	 *         geoHash
-	 * @param length
-	 *         长度
+	 * @param geoHash geoHash
+	 * @param length  长度
 	 * @return 相邻的geoHash
 	 */
 	public static GeoHash getGeoHashExpand(final String geoHash, int length) {
@@ -128,8 +126,7 @@ public final class GeoHashUtils {
 	/**
 	 * 解析.
 	 *
-	 * @param geoHash
-	 *         geoHash
+	 * @param geoHash geoHash
 	 * @return 地理对象
 	 */
 	@SuppressWarnings("unused")
@@ -160,10 +157,8 @@ public final class GeoHashUtils {
 	/**
 	 * 编码geoHash.
 	 *
-	 * @param longitude
-	 *         经度
-	 * @param latitude
-	 *         纬度
+	 * @param longitude 经度
+	 * @param latitude  纬度
 	 * @return geoHash
 	 */
 	public static String encode(BigDecimal longitude, BigDecimal latitude) {
@@ -173,10 +168,8 @@ public final class GeoHashUtils {
 	/**
 	 * 编码geoHash.
 	 *
-	 * @param longitude
-	 *         经度
-	 * @param latitude
-	 *         纬度
+	 * @param longitude 经度
+	 * @param latitude  纬度
 	 * @return geoHash
 	 */
 	public static String encode(double longitude, double latitude) {

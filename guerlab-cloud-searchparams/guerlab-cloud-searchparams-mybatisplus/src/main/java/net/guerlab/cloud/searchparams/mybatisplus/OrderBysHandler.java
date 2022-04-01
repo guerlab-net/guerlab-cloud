@@ -55,8 +55,7 @@ public class OrderBysHandler extends AbstractMyBatisPlusSearchParamsHandler {
 	/**
 	 * 排序字段过滤.
 	 *
-	 * @param orderBy
-	 *         排序字段
+	 * @param orderBy 排序字段
 	 * @return 排序字段是否可以
 	 */
 	private boolean orderByFilter(@Nullable OrderBy orderBy) {

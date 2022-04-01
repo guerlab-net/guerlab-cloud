@@ -37,20 +37,13 @@ public final class PageUtils {
 	/**
 	 * 查询分页列表.
 	 *
-	 * @param wrapperGetter
-	 *         QueryWrapper获取接口对象
-	 * @param searchParams
-	 *         搜索参数对象
-	 * @param pageId
-	 *         分页ID
-	 * @param pageSize
-	 *         分页尺寸
-	 * @param mapper
-	 *         mapper对象
-	 * @param <T>
-	 *         实体类型
-	 * @param <SP>
-	 *         搜索参数对象类型
+	 * @param wrapperGetter QueryWrapper获取接口对象
+	 * @param searchParams  搜索参数对象
+	 * @param pageId        分页ID
+	 * @param pageSize      分页尺寸
+	 * @param mapper        mapper对象
+	 * @param <T>           实体类型
+	 * @param <SP>          搜索参数对象类型
 	 * @return 分页结果列表
 	 */
 	public static <T, SP extends SearchParams> Pageable<T> selectPage(QueryWrapperGetter<T, SP> wrapperGetter,

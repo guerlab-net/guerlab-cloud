@@ -45,8 +45,7 @@ public class ResultDecoder implements Decoder {
 	/**
 	 * 初始化结果解析.
 	 *
-	 * @param objectMapper
-	 *         objectMapper
+	 * @param objectMapper objectMapper
 	 */
 	public ResultDecoder(ObjectMapper objectMapper) {
 		this.objectMapper = objectMapper;

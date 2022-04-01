@@ -37,8 +37,7 @@ public class RuleAutoconfigure {
 	/**
 	 * 构造版本匹配规则.
 	 *
-	 * @param properties
-	 *         版本匹配规则配置
+	 * @param properties 版本匹配规则配置
 	 * @return 版本匹配规则
 	 */
 	@Bean
@@ -49,10 +48,8 @@ public class RuleAutoconfigure {
 	/**
 	 * 构造相同集群策略.
 	 *
-	 * @param nacosDiscoveryProperties
-	 *         Nacos发现配置
-	 * @param properties
-	 *         相同集群配置
+	 * @param nacosDiscoveryProperties Nacos发现配置
+	 * @param properties               相同集群配置
 	 * @return 相同集群策略
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")

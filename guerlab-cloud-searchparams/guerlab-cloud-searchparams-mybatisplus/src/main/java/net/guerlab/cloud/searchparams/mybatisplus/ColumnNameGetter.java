@@ -37,10 +37,8 @@ public final class ColumnNameGetter {
 	/**
 	 * 获取字段名.
 	 *
-	 * @param columnName
-	 *         字段名称
-	 * @param entityClass
-	 *         实体类类型
+	 * @param columnName  字段名称
+	 * @param entityClass 实体类类型
 	 * @return 字段名
 	 */
 	public static String getColumnName(String columnName, @Nullable Class<?> entityClass) {

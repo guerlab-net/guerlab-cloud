@@ -52,8 +52,7 @@ public enum PutType {
 	/**
 	 * 格式化名称.
 	 *
-	 * @param bindingName
-	 *         binding名称
+	 * @param bindingName binding名称
 	 * @return 名称
 	 */
 	public abstract String formatName(String bindingName);

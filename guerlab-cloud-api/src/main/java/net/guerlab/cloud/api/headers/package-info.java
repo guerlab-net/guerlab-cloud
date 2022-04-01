@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ * 请求头处理优化.
  */
 @NonNullApi
 package net.guerlab.cloud.api.headers;

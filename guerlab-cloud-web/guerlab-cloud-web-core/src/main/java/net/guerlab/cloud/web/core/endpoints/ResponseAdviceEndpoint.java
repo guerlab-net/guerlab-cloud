@@ -37,8 +37,7 @@ public class ResponseAdviceEndpoint {
 	/**
 	 * 创建响应环绕监控端点.
 	 *
-	 * @param properties
-	 *         http响应数据处理配置参数
+	 * @param properties http响应数据处理配置参数
 	 */
 	public ResponseAdviceEndpoint(ResponseAdvisorProperties properties) {
 		this.properties = properties;
@@ -57,8 +56,7 @@ public class ResponseAdviceEndpoint {
 	/**
 	 * 设置http响应数据处理配置参数.
 	 *
-	 * @param properties
-	 *         http响应数据处理配置参数
+	 * @param properties http响应数据处理配置参数
 	 */
 	@WriteOperation
 	public void set(@Nullable ResponseAdvisorProperties properties) {

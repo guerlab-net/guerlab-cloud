@@ -37,12 +37,9 @@ public class WebFluxResponseAdvisorAutoconfigure {
 	/**
 	 * 构建响应内容结果包装处理.
 	 *
-	 * @param serverCodecConfigurer
-	 *         ServerCodecConfigurer
-	 * @param requestedContentTypeResolver
-	 *         RequestedContentTypeResolver
-	 * @param support
-	 *         响应对象包装支持
+	 * @param serverCodecConfigurer        ServerCodecConfigurer
+	 * @param requestedContentTypeResolver RequestedContentTypeResolver
+	 * @param support                      响应对象包装支持
 	 * @return 响应内容结果包装处理
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")

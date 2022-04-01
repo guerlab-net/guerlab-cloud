@@ -28,8 +28,7 @@ public abstract class AbstractRequestParamsErrorResponseBuilder extends Abstract
 	/**
 	 * 根据请求参数构建异常信息.
 	 *
-	 * @param e
-	 *         请求参数异常
+	 * @param e 请求参数异常
 	 * @return 信息信息
 	 */
 	protected Fail<Collection<String>> build0(RequestParamsError e) {

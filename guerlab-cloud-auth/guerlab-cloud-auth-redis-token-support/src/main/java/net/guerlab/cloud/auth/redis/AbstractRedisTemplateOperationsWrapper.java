@@ -24,8 +24,7 @@ import org.springframework.lang.Nullable;
 /**
  * redisTemplate操作包装类.
  *
- * @param <T>
- *         数据实体类型
+ * @param <T> 数据实体类型
  * @author guer
  */
 public abstract class AbstractRedisTemplateOperationsWrapper<T> extends AbstractRedisOperationsWrapper<T> {
@@ -38,10 +37,8 @@ public abstract class AbstractRedisTemplateOperationsWrapper<T> extends Abstract
 	/**
 	 * 初始化redisTemplate操作包装类.
 	 *
-	 * @param objectMapper
-	 *         objectMapper
-	 * @param redisTemplate
-	 *         redisTemplate
+	 * @param objectMapper  objectMapper
+	 * @param redisTemplate redisTemplate
 	 */
 	protected AbstractRedisTemplateOperationsWrapper(ObjectMapper objectMapper,
 			RedisTemplate<String, String> redisTemplate) {

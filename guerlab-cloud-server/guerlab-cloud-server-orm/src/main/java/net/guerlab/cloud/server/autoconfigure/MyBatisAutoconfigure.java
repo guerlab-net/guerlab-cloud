@@ -46,8 +46,7 @@ public class MyBatisAutoconfigure {
 	/**
 	 * 会话模版配置.
 	 *
-	 * @param sqlSessionFactory
-	 *         会话工厂
+	 * @param sqlSessionFactory 会话工厂
 	 * @return 会话模板
 	 */
 	@Bean
@@ -60,8 +59,7 @@ public class MyBatisAutoconfigure {
 	/**
 	 * 配置默认事务管理器.
 	 *
-	 * @param dataSource
-	 *         数据源
+	 * @param dataSource 数据源
 	 * @return 事务管理器
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")

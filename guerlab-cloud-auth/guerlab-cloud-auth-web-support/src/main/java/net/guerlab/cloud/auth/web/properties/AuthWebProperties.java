@@ -45,8 +45,7 @@ public class AuthWebProperties {
 	/**
 	 * 判断路径是否匹配.
 	 *
-	 * @param path
-	 *         路径
+	 * @param path 路径
 	 * @return 是否匹配
 	 */
 	public boolean match(String path) {
@@ -58,8 +57,7 @@ public class AuthWebProperties {
 	/**
 	 * 判断路径是否在包含列表中.
 	 *
-	 * @param path
-	 *         路径
+	 * @param path 路径
 	 * @return 是否在包含列表中
 	 */
 	private boolean include(String path) {
@@ -73,8 +71,7 @@ public class AuthWebProperties {
 	/**
 	 * 判断路径是否在排除列表中.
 	 *
-	 * @param path
-	 *         路径
+	 * @param path 路径
 	 * @return 是否在排除列表中
 	 */
 	private boolean exclude(String path) {

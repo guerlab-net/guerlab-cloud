@@ -34,10 +34,8 @@ public class IdempotentAutoconfigure {
 	/**
 	 * 构造幂等处理切面.
 	 *
-	 * @param redisTemplate
-	 *         StringRedisTemplate
-	 * @param messageSource
-	 *         messageSource
+	 * @param redisTemplate StringRedisTemplate
+	 * @param messageSource messageSource
 	 * @return 幂等处理切面
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")

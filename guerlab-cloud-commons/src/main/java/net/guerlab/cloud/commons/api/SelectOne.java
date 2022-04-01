@@ -29,10 +29,8 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * APi定义.
  *
- * @param <E>
- *         返回实体类型
- * @param <SP>
- *         搜索参数类型
+ * @param <E>  返回实体类型
+ * @param <SP> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -46,8 +44,7 @@ public interface SelectOne<E, SP extends SearchParams> {
 	/**
 	 * 查询单一结果，根据搜索参数进行筛选.
 	 *
-	 * @param searchParams
-	 *         搜索参数对象
+	 * @param searchParams 搜索参数对象
 	 * @return 实体
 	 */
 	@Nullable
@@ -58,8 +55,7 @@ public interface SelectOne<E, SP extends SearchParams> {
 	/**
 	 * 查询单一结果，根据搜索参数进行筛选.
 	 *
-	 * @param searchParams
-	 *         搜索参数对象
+	 * @param searchParams 搜索参数对象
 	 * @return Optional
 	 */
 	default Optional<E> selectOneOptional(SP searchParams) {

@@ -74,12 +74,9 @@ public class MultiNacosApplicationAutoConfigure
 	/**
 	 * 通过服务注册与发现服务器配置、服务发现配置初始化、nacos服务管理初始化多实例注册自动配置.
 	 *
-	 * @param serverProperties
-	 *         服务注册与发现服务器配置
-	 * @param discoveryProperties
-	 *         服务发现配置
-	 * @param nacosServiceManager
-	 *         nacos服务管理
+	 * @param serverProperties    服务注册与发现服务器配置
+	 * @param discoveryProperties 服务发现配置
+	 * @param nacosServiceManager nacos服务管理
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	public MultiNacosApplicationAutoConfigure(NacosServerProperties serverProperties,
@@ -103,10 +100,8 @@ public class MultiNacosApplicationAutoConfigure
 	/**
 	 * 注册实例.
 	 *
-	 * @param appName
-	 *         应用名称
-	 * @param discoveryProperties
-	 *         服务发现配置
+	 * @param appName             应用名称
+	 * @param discoveryProperties 服务发现配置
 	 */
 	private void registerInstance(String appName, NacosDiscoveryProperties discoveryProperties) {
 		String clusterName = StringUtils.trimToNull(appName);

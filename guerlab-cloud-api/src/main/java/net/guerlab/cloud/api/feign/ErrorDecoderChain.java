@@ -41,8 +41,7 @@ public class ErrorDecoderChain implements ErrorDecoder {
 	/**
 	 * 设置错误解析器列表.
 	 *
-	 * @param decoders
-	 *         错误解析器列表
+	 * @param decoders 错误解析器列表
 	 */
 	public void setDecoders(List<OrderedErrorDecoder> decoders) {
 		this.decoders = new ArrayList<>(decoders);
@@ -52,8 +51,7 @@ public class ErrorDecoderChain implements ErrorDecoder {
 	/**
 	 * 添加错误解析器.
 	 *
-	 * @param decoder
-	 *         错误解析器
+	 * @param decoder 错误解析器
 	 */
 	public void addDecoder(OrderedErrorDecoder decoder) {
 		this.decoders.add(decoder);
@@ -63,8 +61,7 @@ public class ErrorDecoderChain implements ErrorDecoder {
 	/**
 	 * 添加错误解析器列表.
 	 *
-	 * @param decoders
-	 *         错误解析器列表
+	 * @param decoders 错误解析器列表
 	 */
 	public void addDecoders(Collection<OrderedErrorDecoder> decoders) {
 		if (decoders.isEmpty()) {

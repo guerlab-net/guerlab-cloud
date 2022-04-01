@@ -23,10 +23,8 @@ import net.guerlab.cloud.searchparams.SearchParamsUtils;
 /**
  * QueryWrapper获取接口.
  *
- * @param <T>
- *         实体类型
- * @param <SP>
- *         搜索参数类型
+ * @param <T>  实体类型
+ * @param <SP> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -35,8 +33,7 @@ public interface QueryWrapperGetter<T, SP extends SearchParams> {
 	/**
 	 * 获取QueryWrapper，并通过searchParams对象对QueryWrapper进行赋值.
 	 *
-	 * @param searchParams
-	 *         搜索对象
+	 * @param searchParams 搜索对象
 	 * @return QueryWrapper
 	 */
 	default QueryWrapper<T> getQueryWrapperWithSelectMethod(SP searchParams) {
@@ -55,8 +52,7 @@ public interface QueryWrapperGetter<T, SP extends SearchParams> {
 	/**
 	 * 获取QueryWrapper，并通过searchParams对象对QueryWrapper进行赋值.
 	 *
-	 * @param searchParams
-	 *         搜索对象
+	 * @param searchParams 搜索对象
 	 * @return QueryWrapper
 	 */
 	default QueryWrapper<T> getQueryWrapper(SP searchParams) {
@@ -99,8 +95,7 @@ public interface QueryWrapperGetter<T, SP extends SearchParams> {
 	/**
 	 * 查询加锁.
 	 *
-	 * @param wrapper
-	 *         QueryWrapper
+	 * @param wrapper QueryWrapper
 	 */
 	default void withLock(Join<T> wrapper) {
 		wrapper.last("FOR UPDATE");

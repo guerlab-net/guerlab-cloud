@@ -45,8 +45,7 @@ public class MissingServletRequestParameterExceptionInfo extends AbstractI18nInf
 	/**
 	 * 通过MissingServletRequestParameterException初始化.
 	 *
-	 * @param cause
-	 *         MissingServletRequestParameterException
+	 * @param cause MissingServletRequestParameterException
 	 */
 	public MissingServletRequestParameterExceptionInfo(MissingServletRequestParameterException cause) {
 		super(cause, 403);

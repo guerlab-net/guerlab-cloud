@@ -49,10 +49,8 @@ public class WebFluxSecurityAutoconfigure {
 	/**
 	 * 构造WebFlux安全配置.
 	 *
-	 * @param configProvider
-	 *         CorsConfiguration
-	 * @param authorizePathProviders
-	 *         授权路径提供者
+	 * @param configProvider         CorsConfiguration
+	 * @param authorizePathProviders 授权路径提供者
 	 */
 	public WebFluxSecurityAutoconfigure(ObjectProvider<CorsConfiguration> configProvider,
 			ObjectProvider<AuthorizePathProvider> authorizePathProviders) {
@@ -63,8 +61,7 @@ public class WebFluxSecurityAutoconfigure {
 	/**
 	 * 构造SecurityWebFilterChain.
 	 *
-	 * @param http
-	 *         ServerHttpSecurity
+	 * @param http ServerHttpSecurity
 	 * @return SecurityWebFilterChain
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")

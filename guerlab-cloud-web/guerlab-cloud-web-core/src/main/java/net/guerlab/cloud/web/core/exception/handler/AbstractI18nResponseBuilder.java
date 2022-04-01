@@ -27,10 +27,8 @@ public abstract class AbstractI18nResponseBuilder extends AbstractResponseBuilde
 	/**
 	 * 根据国际化信息构建异常信息.
 	 *
-	 * @param i18nInfo
-	 *         国际化信息
-	 * @param e
-	 *         异常
+	 * @param i18nInfo 国际化信息
+	 * @param e        异常
 	 * @return 异常信息
 	 */
 	protected Fail<Void> buildByI18nInfo(AbstractI18nInfo i18nInfo, Throwable e) {

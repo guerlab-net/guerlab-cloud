@@ -37,10 +37,8 @@ public final class TokenFactoryManager {
 	/**
 	 * 获取token工厂列表.
 	 *
-	 * @param entityClass
-	 *         实体类型
-	 * @param <T>
-	 *         数据实体类型
+	 * @param entityClass 实体类型
+	 * @param <T>         数据实体类型
 	 * @return token工厂列表
 	 */
 	public static <T> Collection<TokenFactory<T>> getTokenFactories(Class<T> entityClass) {
@@ -50,10 +48,8 @@ public final class TokenFactoryManager {
 	/**
 	 * 获取token工厂.
 	 *
-	 * @param entityClass
-	 *         实体类型
-	 * @param <T>
-	 *         数据实体类型
+	 * @param entityClass 实体类型
+	 * @param <T>         数据实体类型
 	 * @return token工厂
 	 */
 	public static <T> TokenFactory<T> getDefaultTokenFactory(Class<T> entityClass) {

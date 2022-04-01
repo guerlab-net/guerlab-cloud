@@ -36,8 +36,7 @@ public class FailResponseDecoder implements OrderedErrorDecoder {
 	/**
 	 * 初始化失败响应解析.
 	 *
-	 * @param objectMapper
-	 *         objectMapper
+	 * @param objectMapper objectMapper
 	 */
 	public FailResponseDecoder(ObjectMapper objectMapper) {
 		this.objectMapper = objectMapper;

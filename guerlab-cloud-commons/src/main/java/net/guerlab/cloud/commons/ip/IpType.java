@@ -41,8 +41,7 @@ public enum IpType {
 	/**
 	 * 判断是否为ipv4.
 	 *
-	 * @param ipType
-	 *         ip类型
+	 * @param ipType ip类型
 	 * @return 否为ipv4
 	 */
 	public static boolean isIpv4(IpType ipType) {
@@ -52,8 +51,7 @@ public enum IpType {
 	/**
 	 * 判断是否为ipv6.
 	 *
-	 * @param ipType
-	 *         ip类型
+	 * @param ipType ip类型
 	 * @return 否为ipv6
 	 */
 	public static boolean isIpv6(IpType ipType) {
@@ -63,8 +61,7 @@ public enum IpType {
 	/**
 	 * 判断是否为单个IP.
 	 *
-	 * @param ipType
-	 *         ip类型
+	 * @param ipType ip类型
 	 * @return 是否为单个IP
 	 */
 	public static boolean isSingleIp(IpType ipType) {
@@ -74,8 +71,7 @@ public enum IpType {
 	/**
 	 * 判断是否为IP范围段.
 	 *
-	 * @param ipType
-	 *         ip类型
+	 * @param ipType ip类型
 	 * @return 是否为IP范围段
 	 */
 	public static boolean isIpSegment(IpType ipType) {

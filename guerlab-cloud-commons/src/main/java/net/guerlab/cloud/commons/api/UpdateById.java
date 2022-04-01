@@ -26,8 +26,7 @@ import net.guerlab.cloud.commons.Constants;
 /**
  * APi定义.
  *
- * @param <E>
- *         返回实体类型
+ * @param <E> 返回实体类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -46,10 +45,8 @@ public interface UpdateById<E> {
 	/**
 	 * 根据Id编辑数据.
 	 *
-	 * @param id
-	 *         主键ID
-	 * @param entity
-	 *         实体
+	 * @param id     主键ID
+	 * @param entity 实体
 	 * @return 更新后的实体
 	 */
 	@PostMapping(UPDATE_BY_ID_PATH)

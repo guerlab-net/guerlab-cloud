@@ -52,8 +52,7 @@ public class OpenApiAutoconfigure {
 	/**
 	 * 根据SpringDocConfigProperties构建授权路径提供者.
 	 *
-	 * @param properties
-	 *         SpringDocConfigProperties
+	 * @param properties SpringDocConfigProperties
 	 * @return 授权路径提供者
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")

@@ -32,12 +32,9 @@ public final class UpdateUtils {
 	/**
 	 * 获取更新内容，当新旧内容一致时返回null，否则返回新内容.
 	 *
-	 * @param newData
-	 *         新内容
-	 * @param oldData
-	 *         旧内容
-	 * @param <T>
-	 *         内容格式
+	 * @param newData 新内容
+	 * @param oldData 旧内容
+	 * @param <T>     内容格式
 	 * @return 更新内容
 	 */
 	@Nullable

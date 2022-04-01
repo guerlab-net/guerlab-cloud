@@ -20,8 +20,7 @@ import org.springframework.lang.Nullable;
 /**
  * 树节点.
  *
- * @param <PK>
- *         主键类型
+ * @param <PK> 主键类型
  * @author guer
  */
 @Schema(name = "TreeNode", description = "TreeNode")

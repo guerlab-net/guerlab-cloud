@@ -38,8 +38,7 @@ public class Ipv4Address extends Ipv4 implements IpSingleAddress {
 	/**
 	 * 根据IPv4地址字符串构造IPv4地址对象.
 	 *
-	 * @param ipAddressStr
-	 *         IPv4地址字符串
+	 * @param ipAddressStr IPv4地址字符串
 	 */
 	Ipv4Address(String ipAddressStr) {
 		this(IpUtils.parseIpv4Address(ipAddressStr));
@@ -48,8 +47,7 @@ public class Ipv4Address extends Ipv4 implements IpSingleAddress {
 	/**
 	 * 根据IPv4地址构造IPv4地址对象.
 	 *
-	 * @param address
-	 *         IPv4地址
+	 * @param address IPv4地址
 	 */
 	Ipv4Address(long address) {
 		this.ipAddress = address;

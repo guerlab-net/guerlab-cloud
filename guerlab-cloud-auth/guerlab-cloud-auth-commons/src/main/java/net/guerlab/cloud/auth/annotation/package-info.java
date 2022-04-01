@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ * 授权注解.
  */
 @NonNullApi
 package net.guerlab.cloud.auth.annotation;

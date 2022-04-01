@@ -46,8 +46,7 @@ class CustomerSqlInfo {
 	/**
 	 * 通过sql片段构造自定义sql信息.
 	 *
-	 * @param sql
-	 *         自定义sql信息
+	 * @param sql 自定义sql信息
 	 */
 	CustomerSqlInfo(String sql) {
 		this.sql = "(" + sql + ")";

@@ -35,10 +35,8 @@ public class DistributedLockAutoconfigure {
 	/**
 	 * 构造分布式锁处理切面.
 	 *
-	 * @param redissonClient
-	 *         redissonClient
-	 * @param messageSource
-	 *         messageSource
+	 * @param redissonClient redissonClient
+	 * @param messageSource  messageSource
 	 * @return 分布式锁处理切面
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")

@@ -13,37 +13,37 @@
   -->
 
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>guerlab-cloud-redis</artifactId>
-    <name>Guerlab Cloud Redis</name>
+		 xmlns="http://maven.apache.org/POM/4.0.0"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>guerlab-cloud-redis</artifactId>
+	<name>Guerlab Cloud Redis</name>
 
-    <parent>
-        <groupId>net.guerlab.cloud</groupId>
-        <artifactId>guerlab-cloud</artifactId>
-        <version>${revision}</version>
-    </parent>
+	<parent>
+		<groupId>net.guerlab.cloud</groupId>
+		<artifactId>guerlab-cloud</artifactId>
+		<version>${revision}</version>
+	</parent>
 
-    <properties>
-        <main.basedir>${basedir}/..</main.basedir>
-    </properties>
+	<properties>
+		<main.basedir>${basedir}/..</main.basedir>
+	</properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>net.guerlab.cloud</groupId>
-            <artifactId>guerlab-cloud-core</artifactId>
-        </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>net.guerlab.cloud</groupId>
+			<artifactId>guerlab-cloud-core</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson-spring-boot-starter</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson-spring-boot-starter</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
 </project>

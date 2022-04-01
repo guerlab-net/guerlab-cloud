@@ -20,8 +20,7 @@ import org.springframework.lang.Nullable;
 /**
  * 可排序对象接口.
  *
- * @param <E>
- *         对象类型
+ * @param <E> 对象类型
  * @author guer
  */
 public interface IOrderlyEntity<E extends IOrderlyEntity<E>> extends Comparable<E> {
@@ -38,10 +37,8 @@ public interface IOrderlyEntity<E extends IOrderlyEntity<E>> extends Comparable<
 	/**
 	 * 根据排序值返回排序顺序.
 	 *
-	 * @param o1
-	 *         参与排序对象1
-	 * @param o2
-	 *         参与排序对象2
+	 * @param o1 参与排序对象1
+	 * @param o2 参与排序对象2
 	 * @return 小于0时，在参与排序对象之前。
 	 * 大于0时，在参与排序对象之后。
 	 * 等于0时，顺序保持不变
@@ -61,16 +58,14 @@ public interface IOrderlyEntity<E extends IOrderlyEntity<E>> extends Comparable<
 	/**
 	 * 设置排序值.
 	 *
-	 * @param orderNum
-	 *         排序值
+	 * @param orderNum 排序值
 	 */
 	void setOrderNum(@Nullable Integer orderNum);
 
 	/**
 	 * 根据排序值返回排序顺序.
 	 *
-	 * @param o
-	 *         参与排序对象
+	 * @param o 参与排序对象
 	 * @return 小于0时，在参与排序对象之前。
 	 * 大于0时，在参与排序对象之后。
 	 * 等于0时，顺序保持不变

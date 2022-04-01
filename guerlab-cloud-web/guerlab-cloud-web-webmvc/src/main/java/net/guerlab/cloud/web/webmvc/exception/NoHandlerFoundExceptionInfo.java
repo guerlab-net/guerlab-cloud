@@ -47,8 +47,7 @@ public class NoHandlerFoundExceptionInfo extends AbstractI18nInfo {
 	/**
 	 * 通过NoHandlerFoundException初始化.
 	 *
-	 * @param cause
-	 *         NoHandlerFoundException
+	 * @param cause NoHandlerFoundException
 	 */
 	public NoHandlerFoundExceptionInfo(NoHandlerFoundException cause) {
 		super(cause, 404);

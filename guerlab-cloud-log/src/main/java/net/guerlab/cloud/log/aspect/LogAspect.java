@@ -60,10 +60,8 @@ public class LogAspect {
 	/**
 	 * 通过日志处理对象提供者和messageSource初始化日期处理切面.
 	 *
-	 * @param logHandlersProvider
-	 *         日志处理对象提供者
-	 * @param messageSource
-	 *         messageSource
+	 * @param logHandlersProvider 日志处理对象提供者
+	 * @param messageSource       messageSource
 	 */
 	public LogAspect(ObjectProvider<LogHandler> logHandlersProvider, MessageSource messageSource) {
 		this.logHandlersProvider = logHandlersProvider;
@@ -73,13 +71,10 @@ public class LogAspect {
 	/**
 	 * 日志处理.
 	 *
-	 * @param point
-	 *         切入点
-	 * @param log
-	 *         日志注解
+	 * @param point 切入点
+	 * @param log   日志注解
 	 * @return 方法返回信息
-	 * @throws Throwable
-	 *         当方法内部抛出异常时候抛出Throwable
+	 * @throws Throwable 当方法内部抛出异常时候抛出Throwable
 	 */
 	@Around("@annotation(log) && !@annotation(net.guerlab.cloud.auth.annotation.IgnoreLogin)")
 	public Object handler(ProceedingJoinPoint point, Log log) throws Throwable {
@@ -101,14 +96,10 @@ public class LogAspect {
 	/**
 	 * 日志处理.
 	 *
-	 * @param point
-	 *         切入点
-	 * @param log
-	 *         日志注解
-	 * @param result
-	 *         响应数据
-	 * @param ex
-	 *         异常信息
+	 * @param point  切入点
+	 * @param log    日志注解
+	 * @param result 响应数据
+	 * @param ex     异常信息
 	 */
 	private void handler(ProceedingJoinPoint point, Log log, @Nullable Object result, @Nullable Throwable ex) {
 		Signature signature = point.getSignature();

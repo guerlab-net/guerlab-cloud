@@ -23,8 +23,7 @@ import org.springframework.lang.Nullable;
 /**
  * 可分页对象.
  *
- * @param <T>
- *         数据类型
+ * @param <T> 数据类型
  * @author guer
  */
 @Data
@@ -74,8 +73,7 @@ public class Pageable<T> {
 	/**
 	 * 通过分页尺寸构造对象.
 	 *
-	 * @param pageSize
-	 *         分页尺寸
+	 * @param pageSize 分页尺寸
 	 */
 	public Pageable(int pageSize) {
 		this.pageSize = pageSize;
@@ -84,10 +82,8 @@ public class Pageable<T> {
 	/**
 	 * 通过分页尺寸、数据总数构造对象.
 	 *
-	 * @param pageSize
-	 *         分页尺寸
-	 * @param count
-	 *         数据总数
+	 * @param pageSize 分页尺寸
+	 * @param count    数据总数
 	 */
 	public Pageable(long pageSize, long count) {
 		this.pageSize = pageSize;
@@ -97,12 +93,9 @@ public class Pageable<T> {
 	/**
 	 * 通过分页尺寸、数据总数、数据列表构造对象.
 	 *
-	 * @param pageSize
-	 *         分页尺寸
-	 * @param count
-	 *         数据总数
-	 * @param dataList
-	 *         数据列表
+	 * @param pageSize 分页尺寸
+	 * @param count    数据总数
+	 * @param dataList 数据列表
 	 */
 	public Pageable(long pageSize, long count, @Nullable Collection<T> dataList) {
 		this(pageSize, count);
@@ -115,8 +108,7 @@ public class Pageable<T> {
 	/**
 	 * 获取空列表对象.
 	 *
-	 * @param <T>
-	 *         参数对象类型
+	 * @param <T> 参数对象类型
 	 * @return 空列表对象
 	 */
 	@SuppressWarnings("unchecked")

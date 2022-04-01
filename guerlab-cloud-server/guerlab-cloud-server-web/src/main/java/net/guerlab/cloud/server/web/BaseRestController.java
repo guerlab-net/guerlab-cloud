@@ -19,12 +19,9 @@ import net.guerlab.cloud.server.service.BaseService;
 /**
  * 基础Rest控制器实现.
  *
- * @param <E>
- *         实体类型
- * @param <S>
- *         服务接口类型
- * @param <SP>
- *         搜索参数对象类型
+ * @param <E>  实体类型
+ * @param <S>  服务接口类型
+ * @param <SP> 搜索参数对象类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -34,8 +31,7 @@ public abstract class BaseRestController<E, SP extends SearchParams, S extends B
 	/**
 	 * 根据服务实例创建控制器.
 	 *
-	 * @param service
-	 *         服务实例
+	 * @param service 服务实例
 	 */
 	public BaseRestController(S service) {
 		super(service);

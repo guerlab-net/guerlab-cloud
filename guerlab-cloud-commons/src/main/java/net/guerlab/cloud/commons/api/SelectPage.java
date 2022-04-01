@@ -28,10 +28,8 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * APi定义.
  *
- * @param <E>
- *         返回实体类型
- * @param <SP>
- *         搜索参数类型
+ * @param <E>  返回实体类型
+ * @param <SP> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -62,12 +60,9 @@ public interface SelectPage<E, SP extends SearchParams> {
 	/**
 	 * 查询分页列表.
 	 *
-	 * @param searchParams
-	 *         搜索参数对象
-	 * @param pageId
-	 *         分页ID
-	 * @param pageSize
-	 *         分页尺寸
+	 * @param searchParams 搜索参数对象
+	 * @param pageId       分页ID
+	 * @param pageSize     分页尺寸
 	 * @return 实体分页列表
 	 */
 	@PostMapping(SELECT_PAGE_PATH)

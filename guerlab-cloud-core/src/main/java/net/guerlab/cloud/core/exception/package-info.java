@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ *
  */
 @NonNullApi
 package net.guerlab.cloud.core.exception;

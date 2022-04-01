@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ * 授权工厂类.
  */
 @NonNullApi
 package net.guerlab.cloud.auth.factory;

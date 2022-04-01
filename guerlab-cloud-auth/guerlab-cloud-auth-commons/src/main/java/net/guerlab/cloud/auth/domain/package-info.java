@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ * 授权相关结构定义.
  */
 @NonNullApi
 package net.guerlab.cloud.auth.domain;

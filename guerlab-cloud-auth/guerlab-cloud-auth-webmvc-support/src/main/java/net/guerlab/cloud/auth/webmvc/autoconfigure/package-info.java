@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ * webmvc授权自持自动装配.
  */
 @NonNullApi
 package net.guerlab.cloud.auth.webmvc.autoconfigure;

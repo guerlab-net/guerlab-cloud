@@ -20,8 +20,7 @@ import lombok.ToString;
 /**
  * 加密支持token 工厂配置.
  *
- * @param <K>
- *         密钥类型
+ * @param <K> 密钥类型
  * @author guer
  */
 @Data

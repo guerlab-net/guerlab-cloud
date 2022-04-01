@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ * 授权枚举.
  */
 @NonNullApi
 package net.guerlab.cloud.auth.enums;

@@ -42,10 +42,8 @@ public class RequestInterceptorAutoconfigure {
 	/**
 	 * 构建负载均衡版本控制请求头注入拦截器.
 	 *
-	 * @param properties
-	 *         版本控制配置
-	 * @param discoveryProperties
-	 *         服务发现配置
+	 * @param properties          版本控制配置
+	 * @param discoveryProperties 服务发现配置
 	 * @return 负载均衡版本控制请求头注入拦截器
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -58,8 +56,7 @@ public class RequestInterceptorAutoconfigure {
 	/**
 	 * 构建开发代理请求拦截器.
 	 *
-	 * @param properties
-	 *         开发模式配置
+	 * @param properties 开发模式配置
 	 * @return 开发代理请求拦截器
 	 */
 	@Bean

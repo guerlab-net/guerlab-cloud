@@ -56,8 +56,7 @@ public abstract class AbstractResponseBuilder implements ResponseBuilder {
 	/**
 	 * 获取异常信息.
 	 *
-	 * @param msg
-	 *         异常信息
+	 * @param msg 异常信息
 	 * @return 异常信息
 	 */
 	@Nullable

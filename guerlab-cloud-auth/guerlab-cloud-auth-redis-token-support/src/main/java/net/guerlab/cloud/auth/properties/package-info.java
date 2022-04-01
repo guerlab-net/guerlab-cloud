@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ * redis授权工厂配置类.
  */
 @NonNullApi
 package net.guerlab.cloud.auth.properties;

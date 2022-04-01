@@ -53,10 +53,8 @@ public class RedisCacheManagerBuilderCustomizerAutoconfigure {
 	/**
 	 * 初始化redis缓存管理定制自动配置.
 	 *
-	 * @param objectMapper
-	 *         objectMapper
-	 * @param properties
-	 *         按key分组redis缓存配置
+	 * @param objectMapper objectMapper
+	 * @param properties   按key分组redis缓存配置
 	 */
 	public RedisCacheManagerBuilderCustomizerAutoconfigure(ObjectMapper objectMapper,
 			GroupByKeysRedisCacheProperties properties) {
@@ -70,8 +68,7 @@ public class RedisCacheManagerBuilderCustomizerAutoconfigure {
 	/**
 	 * 构造默认redis缓存配置.
 	 *
-	 * @param cacheProperties
-	 *         缓存配置
+	 * @param cacheProperties 缓存配置
 	 * @return 默认redis缓存配置
 	 */
 	@Bean

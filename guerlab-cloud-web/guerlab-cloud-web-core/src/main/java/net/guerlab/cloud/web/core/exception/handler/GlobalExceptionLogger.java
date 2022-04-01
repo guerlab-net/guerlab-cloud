@@ -23,12 +23,9 @@ public interface GlobalExceptionLogger {
 	/**
 	 * 记录日志.
 	 *
-	 * @param e
-	 *         异常
-	 * @param requestMethod
-	 *         请求方法
-	 * @param requestPath
-	 *         请求路径
+	 * @param e             异常
+	 * @param requestMethod 请求方法
+	 * @param requestPath   请求路径
 	 */
 	void debug(Throwable e, String requestMethod, String requestPath);
 }

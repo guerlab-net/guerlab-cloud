@@ -36,8 +36,7 @@ public interface IGeoEntity {
 	/**
 	 * 设置经度.
 	 *
-	 * @param longitude
-	 *         经度
+	 * @param longitude 经度
 	 */
 	void setLongitude(@Nullable BigDecimal longitude);
 
@@ -52,8 +51,7 @@ public interface IGeoEntity {
 	/**
 	 * 设置纬度.
 	 *
-	 * @param latitude
-	 *         纬度
+	 * @param latitude 纬度
 	 */
 	void setLatitude(@Nullable BigDecimal latitude);
 
@@ -68,8 +66,7 @@ public interface IGeoEntity {
 	/**
 	 * 设置地理hash.
 	 *
-	 * @param geoHash
-	 *         地理hash
+	 * @param geoHash 地理hash
 	 */
 	void setGeoHash(@Nullable String geoHash);
 }

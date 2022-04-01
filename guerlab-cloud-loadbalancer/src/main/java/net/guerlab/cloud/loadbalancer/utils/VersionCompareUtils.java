@@ -98,10 +98,8 @@ public final class VersionCompareUtils {
 	/**
 	 * 匹配检查.
 	 *
-	 * @param origin
-	 *         源版本，支持单版本号格式
-	 * @param range
-	 *         检查范围，支持单版本号格式和范围版本号格式
+	 * @param origin 源版本，支持单版本号格式
+	 * @param range  检查范围，支持单版本号格式和范围版本号格式
 	 * @return 是否匹配
 	 */
 	public static boolean match(String origin, String range) {
@@ -138,10 +136,8 @@ public final class VersionCompareUtils {
 	/**
 	 * 相等匹配.
 	 *
-	 * @param origin
-	 *         请求源版本
-	 * @param range
-	 *         范围版本
+	 * @param origin 请求源版本
+	 * @param range  范围版本
 	 * @return 是否匹配
 	 */
 	private static boolean equalsMatch(String origin, String range) {
@@ -167,10 +163,8 @@ public final class VersionCompareUtils {
 	/**
 	 * 范围匹配.
 	 *
-	 * @param origin
-	 *         请求源版本
-	 * @param range
-	 *         范围版本
+	 * @param origin 请求源版本
+	 * @param range  范围版本
 	 * @return 是否匹配
 	 */
 	private static boolean rangeMatch(String origin, String range) {
@@ -196,14 +190,10 @@ public final class VersionCompareUtils {
 	/**
 	 * 范围匹配.
 	 *
-	 * @param origin
-	 *         请求源版本
-	 * @param range
-	 *         范围版本
-	 * @param contain
-	 *         是否包含
-	 * @param leftMath
-	 *         左匹配模式
+	 * @param origin   请求源版本
+	 * @param range    范围版本
+	 * @param contain  是否包含
+	 * @param leftMath 左匹配模式
 	 * @return 是否匹配
 	 */
 	private static boolean rangeMatch(String origin, String range, boolean contain, boolean leftMath) {
@@ -236,8 +226,7 @@ public final class VersionCompareUtils {
 	/**
 	 * 字符串版本过滤器.
 	 *
-	 * @param origin
-	 *         待过滤字符串
+	 * @param origin 待过滤字符串
 	 * @return 过滤后的字符串
 	 */
 	private static String versionStringFilter(@Nullable String origin) {
@@ -260,10 +249,8 @@ public final class VersionCompareUtils {
 	/**
 	 * 格式化字符串版本数组.
 	 *
-	 * @param values
-	 *         字符串版本数组
-	 * @param length
-	 *         数值版本数组长度
+	 * @param values 字符串版本数组
+	 * @param length 数值版本数组长度
 	 * @return 数值版本数组
 	 */
 	private static Integer[] formatVersionString(String[] values, int length) {
@@ -281,8 +268,7 @@ public final class VersionCompareUtils {
 	/**
 	 * 将string转换为integer.
 	 *
-	 * @param str
-	 *         待转换字符串
+	 * @param str 待转换字符串
 	 * @return 转换后数值
 	 */
 	private static Integer stringToInteger(String str) {

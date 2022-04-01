@@ -13,28 +13,28 @@
   -->
 
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>guerlab-cloud-auth</artifactId>
-    <name>Guerlab Cloud Auth</name>
-    <packaging>pom</packaging>
+		 xmlns="http://maven.apache.org/POM/4.0.0"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>guerlab-cloud-auth</artifactId>
+	<name>Guerlab Cloud Auth</name>
+	<packaging>pom</packaging>
 
-    <parent>
-        <groupId>net.guerlab.cloud</groupId>
-        <artifactId>guerlab-cloud</artifactId>
-        <version>${revision}</version>
-    </parent>
+	<parent>
+		<groupId>net.guerlab.cloud</groupId>
+		<artifactId>guerlab-cloud</artifactId>
+		<version>${revision}</version>
+	</parent>
 
-    <properties>
-        <main.basedir>${basedir}/..</main.basedir>
-    </properties>
+	<properties>
+		<main.basedir>${basedir}/..</main.basedir>
+	</properties>
 
-    <modules>
-        <module>guerlab-cloud-auth-commons</module>
-        <module>guerlab-cloud-auth-redis-token-support</module>
-        <module>guerlab-cloud-auth-web-support</module>
-        <module>guerlab-cloud-auth-webflux-support</module>
-        <module>guerlab-cloud-auth-webmvc-support</module>
-    </modules>
+	<modules>
+		<module>guerlab-cloud-auth-commons</module>
+		<module>guerlab-cloud-auth-redis-token-support</module>
+		<module>guerlab-cloud-auth-web-support</module>
+		<module>guerlab-cloud-auth-webflux-support</module>
+		<module>guerlab-cloud-auth-webmvc-support</module>
+	</modules>
 </project>

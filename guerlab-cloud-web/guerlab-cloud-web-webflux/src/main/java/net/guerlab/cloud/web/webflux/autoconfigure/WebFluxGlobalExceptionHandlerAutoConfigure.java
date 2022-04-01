@@ -59,14 +59,10 @@ public class WebFluxGlobalExceptionHandlerAutoConfigure {
 	/**
 	 * 创建异常统一处理配置自动配置.
 	 *
-	 * @param serverProperties
-	 *         ServerProperties
-	 * @param webProperties
-	 *         WebProperties
-	 * @param viewResolvers
-	 *         ViewResolver列表
-	 * @param serverCodecConfigurer
-	 *         ServerCodecConfigurer
+	 * @param serverProperties      ServerProperties
+	 * @param webProperties         WebProperties
+	 * @param viewResolvers         ViewResolver列表
+	 * @param serverCodecConfigurer ServerCodecConfigurer
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	public WebFluxGlobalExceptionHandlerAutoConfigure(ServerProperties serverProperties, WebProperties webProperties,
@@ -80,12 +76,9 @@ public class WebFluxGlobalExceptionHandlerAutoConfigure {
 	/**
 	 * 构建异常统一处理配置.
 	 *
-	 * @param messageSource
-	 *         消息源
-	 * @param stackTracesHandler
-	 *         堆栈处理
-	 * @param globalExceptionLogger
-	 *         默认全局异常处理日志记录器
+	 * @param messageSource         消息源
+	 * @param stackTracesHandler    堆栈处理
+	 * @param globalExceptionLogger 默认全局异常处理日志记录器
 	 * @return 异常统一处理配置
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -100,14 +93,10 @@ public class WebFluxGlobalExceptionHandlerAutoConfigure {
 	/**
 	 * 构建异常处理.
 	 *
-	 * @param errorAttributes
-	 *         错误属性
-	 * @param applicationContext
-	 *         应用上下文
-	 * @param globalExceptionHandler
-	 *         全局错误处理
-	 * @param globalExceptionProperties
-	 *         全局异常处理配置
+	 * @param errorAttributes           错误属性
+	 * @param applicationContext        应用上下文
+	 * @param globalExceptionHandler    全局错误处理
+	 * @param globalExceptionProperties 全局异常处理配置
 	 * @return 异常处理
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")

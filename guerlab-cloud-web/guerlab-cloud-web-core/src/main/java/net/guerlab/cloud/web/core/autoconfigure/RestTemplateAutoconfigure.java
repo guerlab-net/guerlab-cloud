@@ -44,8 +44,7 @@ public class RestTemplateAutoconfigure {
 	/**
 	 * 初始化LoadBalancedRestTemplate.
 	 *
-	 * @param objectMapper
-	 *         objectMapper
+	 * @param objectMapper objectMapper
 	 * @return LoadBalancedRestTemplate
 	 */
 	@Bean
@@ -60,8 +59,7 @@ public class RestTemplateAutoconfigure {
 	/**
 	 * 初始化RestTemplate.
 	 *
-	 * @param objectMapper
-	 *         objectMapper
+	 * @param objectMapper objectMapper
 	 * @return RestTemplate
 	 */
 	@Bean

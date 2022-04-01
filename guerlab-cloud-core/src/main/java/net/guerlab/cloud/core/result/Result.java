@@ -23,8 +23,7 @@ import org.springframework.lang.Nullable;
 /**
  * 通用JSON返回结果集.
  *
- * @param <T>
- *         数据类型
+ * @param <T> 数据类型
  * @author guer
  */
 @Data
@@ -71,8 +70,7 @@ public class Result<T> {
 	/**
 	 * 通过设置消息内容来初始化结果集.
 	 *
-	 * @param message
-	 *         消息内容
+	 * @param message 消息内容
 	 */
 	public Result(@Nullable String message) {
 		this(false, message, null);
@@ -81,10 +79,8 @@ public class Result<T> {
 	/**
 	 * 通过设置消息内容和数据来初始化结果集.
 	 *
-	 * @param message
-	 *         消息内容
-	 * @param data
-	 *         数据
+	 * @param message 消息内容
+	 * @param data    数据
 	 */
 	public Result(@Nullable String message, @Nullable T data) {
 		this(false, message, data);
@@ -93,10 +89,8 @@ public class Result<T> {
 	/**
 	 * 通过设置消息内容和数据来初始化结果集.
 	 *
-	 * @param message
-	 *         消息内容
-	 * @param errorCode
-	 *         错误码
+	 * @param message   消息内容
+	 * @param errorCode 错误码
 	 */
 	public Result(@Nullable String message, int errorCode) {
 		this(false, message, null, errorCode);
@@ -105,12 +99,9 @@ public class Result<T> {
 	/**
 	 * 通过设置响应状态、消息内容和数据来初始化结果集.
 	 *
-	 * @param status
-	 *         响应状态
-	 * @param message
-	 *         消息内容
-	 * @param data
-	 *         数据
+	 * @param status  响应状态
+	 * @param message 消息内容
+	 * @param data    数据
 	 */
 	public Result(boolean status, @Nullable String message, @Nullable T data) {
 		this(status, message, data, 0);
@@ -119,14 +110,10 @@ public class Result<T> {
 	/**
 	 * 通过设置响应状态、消息内容和数据来初始化结果集.
 	 *
-	 * @param status
-	 *         响应状态
-	 * @param message
-	 *         消息内容
-	 * @param data
-	 *         数据
-	 * @param errorCode
-	 *         错误码
+	 * @param status    响应状态
+	 * @param message   消息内容
+	 * @param data      数据
+	 * @param errorCode 错误码
 	 */
 	public Result(boolean status, @Nullable String message, @Nullable T data, int errorCode) {
 		this.status = status;
@@ -138,8 +125,7 @@ public class Result<T> {
 	/**
 	 * 添加堆栈跟踪列表.
 	 *
-	 * @param stackTraces
-	 *         堆栈跟踪列表
+	 * @param stackTraces 堆栈跟踪列表
 	 * @return 通用JSON返回结果集
 	 */
 	public Result<T> addStackTraces(@Nullable List<ApplicationStackTrace> stackTraces) {
@@ -152,8 +138,7 @@ public class Result<T> {
 	/**
 	 * 添加堆栈跟踪.
 	 *
-	 * @param stackTrace
-	 *         堆栈跟踪
+	 * @param stackTrace 堆栈跟踪
 	 * @return 通用JSON返回结果集
 	 */
 	public Result<T> addStackTraces(@Nullable ApplicationStackTrace stackTrace) {

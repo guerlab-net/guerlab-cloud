@@ -54,8 +54,7 @@ public class MessageSourceAutoConfigure {
 	/**
 	 * 创建MessageSource.
 	 *
-	 * @param properties
-	 *         MessageSourceProperties
+	 * @param properties MessageSourceProperties
 	 * @return MessageSource
 	 */
 	@Bean(name = AbstractApplicationContext.MESSAGE_SOURCE_BEAN_NAME)

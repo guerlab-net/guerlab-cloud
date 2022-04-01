@@ -45,8 +45,7 @@ public class HttpRequestMethodNotSupportedExceptionInfo extends AbstractI18nInfo
 	/**
 	 * 通过HttpRequestMethodNotSupportedException初始化.
 	 *
-	 * @param cause
-	 *         HttpRequestMethodNotSupportedException
+	 * @param cause HttpRequestMethodNotSupportedException
 	 */
 	public HttpRequestMethodNotSupportedExceptionInfo(HttpRequestMethodNotSupportedException cause) {
 		super(cause, 405);

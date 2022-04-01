@@ -40,10 +40,8 @@ public final class TreeUtils {
 	/**
 	 * 树型格式化.
 	 *
-	 * @param data
-	 *         数据列表
-	 * @param <E>
-	 *         树节点类型
+	 * @param data 数据列表
+	 * @param <E>  树节点类型
 	 * @return 树结构列表
 	 */
 	public static <E extends TreeNode<Long>> List<TreeEntity<E, Long>> tree(Collection<E> data) {
@@ -53,14 +51,10 @@ public final class TreeUtils {
 	/**
 	 * 树型格式化.
 	 *
-	 * @param data
-	 *         数据列表
-	 * @param rootId
-	 *         根ID
-	 * @param <E>
-	 *         树节点类型
-	 * @param <PK>
-	 *         主键类型
+	 * @param data   数据列表
+	 * @param rootId 根ID
+	 * @param <E>    树节点类型
+	 * @param <PK>   主键类型
 	 * @return 树结构列表
 	 */
 	public static <E extends TreeNode<PK>, PK> List<TreeEntity<E, PK>> tree(Collection<E> data, PK rootId) {
@@ -100,12 +94,9 @@ public final class TreeUtils {
 	/**
 	 * 构造树形结构对象.
 	 *
-	 * @param entity
-	 *         树节点
-	 * @param <E>
-	 *         树节点类型
-	 * @param <PK>
-	 *         主键类型
+	 * @param entity 树节点
+	 * @param <E>    树节点类型
+	 * @param <PK>   主键类型
 	 * @return 树形结构对象
 	 */
 	private static <E extends TreeNode<PK>, PK> TreeEntity<E, PK> buildTreeEntity(E entity) {

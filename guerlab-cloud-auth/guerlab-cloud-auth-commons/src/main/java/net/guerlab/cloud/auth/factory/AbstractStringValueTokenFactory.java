@@ -31,10 +31,8 @@ import net.guerlab.cloud.auth.properties.StringValueTokenFactoryProperties;
 /**
  * 抽象字符串类型值 token工厂.
  *
- * @param <T>
- *         数据实体类型
- * @param <P>
- *         配置类型
+ * @param <T> 数据实体类型
+ * @param <P> 配置类型
  * @author guer
  */
 public abstract class AbstractStringValueTokenFactory<T, P extends StringValueTokenFactoryProperties>
@@ -63,14 +61,10 @@ public abstract class AbstractStringValueTokenFactory<T, P extends StringValueTo
 	/**
 	 * 构造token.
 	 *
-	 * @param prefix
-	 *         前缀
-	 * @param data
-	 *         数据
-	 * @param expire
-	 *         过期时间
-	 * @param key
-	 *         密钥
+	 * @param prefix 前缀
+	 * @param data   数据
+	 * @param expire 过期时间
+	 * @param key    密钥
 	 * @return token信息
 	 */
 	private TokenInfo build(String prefix, Map<String, String> data, long expire, String key) {
@@ -102,12 +96,9 @@ public abstract class AbstractStringValueTokenFactory<T, P extends StringValueTo
 	/**
 	 * 构造token.
 	 *
-	 * @param dataString
-	 *         数据字符串
-	 * @param key
-	 *         密钥
-	 * @param expire
-	 *         过期时间
+	 * @param dataString 数据字符串
+	 * @param key        密钥
+	 * @param expire     过期时间
 	 * @return token
 	 */
 	protected abstract String buildToken(String dataString, String key, long expire);
@@ -115,12 +106,9 @@ public abstract class AbstractStringValueTokenFactory<T, P extends StringValueTo
 	/**
 	 * 解析token.
 	 *
-	 * @param token
-	 *         token
-	 * @param key
-	 *         密钥
-	 * @param tokenType
-	 *         令牌类型
+	 * @param token     token
+	 * @param key       密钥
+	 * @param tokenType 令牌类型
 	 * @return 数据
 	 */
 	private Map<String, String> parserToken(String token, String key, TokenType tokenType) {
@@ -173,10 +161,8 @@ public abstract class AbstractStringValueTokenFactory<T, P extends StringValueTo
 	/**
 	 * 解析数据字符串.
 	 *
-	 * @param token
-	 *         token
-	 * @param key
-	 *         密钥
+	 * @param token token
+	 * @param key   密钥
 	 * @return 数据字符串
 	 */
 	@Nullable
@@ -216,8 +202,7 @@ public abstract class AbstractStringValueTokenFactory<T, P extends StringValueTo
 	/**
 	 * 解析token.
 	 *
-	 * @param body
-	 *         token内容
+	 * @param body token内容
 	 * @return 实体
 	 */
 	protected abstract T parse0(Map<String, String> body);
@@ -225,10 +210,8 @@ public abstract class AbstractStringValueTokenFactory<T, P extends StringValueTo
 	/**
 	 * 构建token.
 	 *
-	 * @param data
-	 *         data
-	 * @param entity
-	 *         实体
+	 * @param data   data
+	 * @param entity 实体
 	 */
 	protected abstract void generateToken0(Map<String, String> data, T entity);
 }

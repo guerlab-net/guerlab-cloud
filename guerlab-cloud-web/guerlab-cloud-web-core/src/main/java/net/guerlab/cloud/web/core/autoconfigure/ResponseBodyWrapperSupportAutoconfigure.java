@@ -32,8 +32,7 @@ public class ResponseBodyWrapperSupportAutoconfigure {
 	/**
 	 * 构造响应对象包装支持.
 	 *
-	 * @param properties
-	 *         http响应数据处理配置参数
+	 * @param properties http响应数据处理配置参数
 	 * @return 响应对象包装支持
 	 */
 	@Bean

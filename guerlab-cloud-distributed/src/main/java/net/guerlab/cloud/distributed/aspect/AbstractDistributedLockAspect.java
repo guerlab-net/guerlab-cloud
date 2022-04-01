@@ -54,8 +54,7 @@ public abstract class AbstractDistributedLockAspect {
 	/**
 	 * 创建抽象分布式锁处理切面.
 	 *
-	 * @param messageSource
-	 *         messageSource
+	 * @param messageSource messageSource
 	 */
 	protected AbstractDistributedLockAspect(MessageSource messageSource) {
 		this.messageSource = messageSource;
@@ -64,12 +63,9 @@ public abstract class AbstractDistributedLockAspect {
 	/**
 	 * 构造锁KEY.
 	 *
-	 * @param methodSignature
-	 *         方法签名
-	 * @param args
-	 *         参数表
-	 * @param lockKey
-	 *         名称
+	 * @param methodSignature 方法签名
+	 * @param args            参数表
+	 * @param lockKey         名称
 	 * @return 锁KEY
 	 */
 	protected String buildLockKey(MethodSignature methodSignature, Object[] args, String lockKey) {
@@ -88,12 +84,9 @@ public abstract class AbstractDistributedLockAspect {
 	/**
 	 * 解析SpEL表达式.
 	 *
-	 * @param expression
-	 *         表达式
-	 * @param names
-	 *         参数名列表
-	 * @param args
-	 *         参数值列表
+	 * @param expression 表达式
+	 * @param names      参数名列表
+	 * @param args       参数值列表
 	 * @return 锁KEY
 	 */
 	@Nullable
@@ -111,8 +104,7 @@ public abstract class AbstractDistributedLockAspect {
 	/**
 	 * 根据方法签名构造KEY.
 	 *
-	 * @param methodSignature
-	 *         方法签名
+	 * @param methodSignature 方法签名
 	 * @return KEY
 	 */
 	protected String buildLockKeyByMethodSignature(MethodSignature methodSignature) {
@@ -147,10 +139,8 @@ public abstract class AbstractDistributedLockAspect {
 	/**
 	 * 根据消息KEY构造异常.
 	 *
-	 * @param messageKey
-	 *         消息Key
-	 * @param args
-	 *         参数列表
+	 * @param messageKey 消息Key
+	 * @param args       参数列表
 	 * @return 异常
 	 */
 	@Nullable
@@ -170,8 +160,7 @@ public abstract class AbstractDistributedLockAspect {
 	/**
 	 * 获取加锁时间单位显示名称.
 	 *
-	 * @param timeUnit
-	 *         分布式锁注解
+	 * @param timeUnit 分布式锁注解
 	 * @return 加锁时间单位显示名称
 	 */
 	protected String getTimeUnitName(TimeUnit timeUnit) {
@@ -186,12 +175,9 @@ public abstract class AbstractDistributedLockAspect {
 	/**
 	 * 获取快速失败结果.
 	 *
-	 * @param fallbackFactoryClass
-	 *         快速失败工厂类
-	 * @param args
-	 *         参数列表
-	 * @param <C>
-	 *         工厂类型
+	 * @param fallbackFactoryClass 快速失败工厂类
+	 * @param args                 参数列表
+	 * @param <C>                  工厂类型
 	 * @return 快速失败结果
 	 */
 	@Nullable

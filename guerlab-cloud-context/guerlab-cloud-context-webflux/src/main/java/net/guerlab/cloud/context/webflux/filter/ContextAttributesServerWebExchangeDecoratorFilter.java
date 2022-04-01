@@ -59,8 +59,7 @@ public class ContextAttributesServerWebExchangeDecoratorFilter implements WebFil
 		/**
 		 * 创建上下文属性包装器.
 		 *
-		 * @param delegate
-		 *         原始ServerWebExchange
+		 * @param delegate 原始ServerWebExchange
 		 */
 		protected ContextAttributesServerWebExchangeDecorator(ServerWebExchange delegate) {
 			super(delegate);

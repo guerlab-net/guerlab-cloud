@@ -88,8 +88,7 @@ public enum TokenType {
 	/**
 	 * 通过简短名称获取令牌类型.
 	 *
-	 * @param simpleName
-	 *         简短名称
+	 * @param simpleName 简短名称
 	 * @return 令牌类型
 	 */
 	@Nullable

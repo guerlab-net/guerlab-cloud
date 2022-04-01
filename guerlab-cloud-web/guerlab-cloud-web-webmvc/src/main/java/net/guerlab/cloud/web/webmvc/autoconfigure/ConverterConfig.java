@@ -39,8 +39,7 @@ public class ConverterConfig {
 	/**
 	 * 自动加载转换器.
 	 *
-	 * @param handlerAdapter
-	 *         RequestMappingHandlerAdapter
+	 * @param handlerAdapter RequestMappingHandlerAdapter
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	@Autowired

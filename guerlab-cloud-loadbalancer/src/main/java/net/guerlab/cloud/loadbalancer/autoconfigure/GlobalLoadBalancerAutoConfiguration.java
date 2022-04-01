@@ -53,8 +53,7 @@ public class GlobalLoadBalancerAutoConfiguration {
 	/**
 	 * 通过负载均衡客户端说明列表提供者初始化全局负载均衡自定义配置.
 	 *
-	 * @param configurations
-	 *         负载均衡客户端说明列表提供者
+	 * @param configurations 负载均衡客户端说明列表提供者
 	 */
 	public GlobalLoadBalancerAutoConfiguration(ObjectProvider<LoadBalancerClientSpecification> configurations) {
 		this.configurations = configurations;
@@ -63,8 +62,7 @@ public class GlobalLoadBalancerAutoConfiguration {
 	/**
 	 * 构造负载均衡客户端工厂.
 	 *
-	 * @param properties
-	 *         负载均衡客户端配置
+	 * @param properties 负载均衡客户端配置
 	 * @return 负载均衡客户端工厂
 	 */
 	@Bean

@@ -49,14 +49,10 @@ public class WebMvcGlobalExceptionHandlerAutoConfigure {
 		/**
 		 * 初始化异常统一处理配置.
 		 *
-		 * @param messageSource
-		 *         messageSource
-		 * @param stackTracesHandler
-		 *         堆栈处理
-		 * @param globalExceptionLogger
-		 *         全局异常处理日志记录器
-		 * @param globalExceptionProperties
-		 *         全局异常处理配置
+		 * @param messageSource             messageSource
+		 * @param stackTracesHandler        堆栈处理
+		 * @param globalExceptionLogger     全局异常处理日志记录器
+		 * @param globalExceptionProperties 全局异常处理配置
 		 */
 		public DefaultWebMvcGlobalExceptionHandler(MessageSource messageSource, StackTracesHandler stackTracesHandler,
 				GlobalExceptionLogger globalExceptionLogger, GlobalExceptionProperties globalExceptionProperties) {

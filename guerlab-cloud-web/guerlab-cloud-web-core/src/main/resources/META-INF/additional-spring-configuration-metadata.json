@@ -20,48 +20,48 @@
     }
   ],
   "properties": [
-		{
-			"name": "spring.i18n.default-locale",
-			"type": "java.util.Locale",
-			"sourceType": "net.guerlab.cloud.web.core.properties.I18nProperties",
-			"description": "默认语言.",
-			"defaultValue": "java.util.Locale.getDefault()"
-		},
-		{
-			"name": "spring.global-exception.status-code",
-			"type": "java.lang.Integer",
-			"sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
-			"description": "异常处理返回状态码.",
-			"defaultValue": 500
-		},
-		{
-			"name": "spring.global-exception.print-stack-trace",
-			"type": "java.lang.Boolean",
-			"sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
-			"description": "是否打印堆栈根据.",
-			"defaultValue": false
-		},
-		{
-			"name": "spring.global-exception.stack-trace-excludes",
-			"type": "java.util.List<java.lang.String>",
-			"sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
-			"description": "堆栈跟踪排除列表."
-		},
-		{
-			"name": "spring.global-exception.stack-trace-includes",
-			"type": "java.util.List<java.lang.String>",
-			"sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
-			"description": "堆栈跟踪包含列表."
-		},
-		{
-			"name": "spring.global-exception.log-ignore-paths",
-			"type": "java.util.List<net.guerlab.cloud.web.core.properties.GlobalExceptionProperties.Url>",
-			"sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
-			"description": "日志忽略路径列表."
-		},
-		{
-			"name": "spring.response-advisor.excluded",
-			"type": "java.util.List<java.lang.String>",
+    {
+      "name": "spring.i18n.default-locale",
+      "type": "java.util.Locale",
+      "sourceType": "net.guerlab.cloud.web.core.properties.I18nProperties",
+      "description": "默认语言.",
+      "defaultValue": "java.util.Locale.getDefault()"
+    },
+    {
+      "name": "spring.global-exception.status-code",
+      "type": "java.lang.Integer",
+      "sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
+      "description": "异常处理返回状态码.",
+      "defaultValue": 500
+    },
+    {
+      "name": "spring.global-exception.print-stack-trace",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
+      "description": "是否打印堆栈根据.",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.global-exception.stack-trace-excludes",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
+      "description": "堆栈跟踪排除列表."
+    },
+    {
+      "name": "spring.global-exception.stack-trace-includes",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
+      "description": "堆栈跟踪包含列表."
+    },
+    {
+      "name": "spring.global-exception.log-ignore-paths",
+      "type": "java.util.List<net.guerlab.cloud.web.core.properties.GlobalExceptionProperties.Url>",
+      "sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
+      "description": "日志忽略路径列表."
+    },
+    {
+      "name": "spring.response-advisor.excluded",
+      "type": "java.util.List<java.lang.String>",
       "sourceType": "net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties",
       "description": "排除路径."
     }

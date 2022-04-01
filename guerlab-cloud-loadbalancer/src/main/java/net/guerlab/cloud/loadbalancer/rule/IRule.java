@@ -37,10 +37,8 @@ public interface IRule extends Ordered, Comparable<IRule> {
 	/**
 	 * 选择实例.
 	 *
-	 * @param instances
-	 *         实例列表
-	 * @param request
-	 *         请求
+	 * @param instances 实例列表
+	 * @param request   请求
 	 * @return 实例列表
 	 */
 	@Nullable
@@ -49,8 +47,7 @@ public interface IRule extends Ordered, Comparable<IRule> {
 	/**
 	 * 默认排序方式.
 	 *
-	 * @param other
-	 *         其他策略
+	 * @param other 其他策略
 	 * @return 排序结果
 	 */
 	@Override

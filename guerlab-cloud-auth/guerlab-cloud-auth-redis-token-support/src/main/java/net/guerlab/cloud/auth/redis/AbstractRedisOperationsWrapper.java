@@ -23,8 +23,7 @@ import net.guerlab.commons.exception.ApplicationException;
 /**
  * 抽象redis操作包装对象.
  *
- * @param <T>
- *         数据实体类型
+ * @param <T> 数据实体类型
  * @author guer
  */
 public abstract class AbstractRedisOperationsWrapper<T> implements RedisOperationsWrapper<T> {
@@ -37,8 +36,7 @@ public abstract class AbstractRedisOperationsWrapper<T> implements RedisOperatio
 	/**
 	 * 初始化redis操作包装对象.
 	 *
-	 * @param objectMapper
-	 *         objectMapper
+	 * @param objectMapper objectMapper
 	 */
 	protected AbstractRedisOperationsWrapper(ObjectMapper objectMapper) {
 		this.objectMapper = objectMapper;
@@ -59,12 +57,9 @@ public abstract class AbstractRedisOperationsWrapper<T> implements RedisOperatio
 	/**
 	 * 保存对象字符串.
 	 *
-	 * @param key
-	 *         key
-	 * @param dataString
-	 *         对象字符串
-	 * @param timeout
-	 *         超时时间
+	 * @param key        key
+	 * @param dataString 对象字符串
+	 * @param timeout    超时时间
 	 * @return 是否成功
 	 */
 	protected abstract boolean put0(String key, String dataString, long timeout);
@@ -87,8 +82,7 @@ public abstract class AbstractRedisOperationsWrapper<T> implements RedisOperatio
 	/**
 	 * 获取对象字符串.
 	 *
-	 * @param key
-	 *         key
+	 * @param key key
 	 * @return 对象字符串
 	 */
 	@Nullable

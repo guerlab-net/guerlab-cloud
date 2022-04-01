@@ -39,12 +39,9 @@ public final class BeanConvertUtils {
 	/**
 	 * 转换为目标类型.
 	 *
-	 * @param <T>
-	 *         目标类型
-	 * @param <E>
-	 *         实体类型
-	 * @param entity
-	 *         实体
+	 * @param <T>    目标类型
+	 * @param <E>    实体类型
+	 * @param entity 实体
 	 * @return 目标类型
 	 */
 	@Nullable
@@ -55,14 +52,10 @@ public final class BeanConvertUtils {
 	/**
 	 * 转换为目标类型.
 	 *
-	 * @param <T>
-	 *         目标类型
-	 * @param <E>
-	 *         实体类型
-	 * @param entity
-	 *         实体
-	 * @param targetClass
-	 *         目标类型
+	 * @param <T>         目标类型
+	 * @param <E>         实体类型
+	 * @param entity      实体
+	 * @param targetClass 目标类型
 	 * @return 目标类型
 	 */
 	@Nullable
@@ -87,12 +80,9 @@ public final class BeanConvertUtils {
 	/**
 	 * 转换为目标列表.
 	 *
-	 * @param <T>
-	 *         目标类型
-	 * @param <E>
-	 *         实体类型
-	 * @param entityList
-	 *         实体列表
+	 * @param <T>        目标类型
+	 * @param <E>        实体类型
+	 * @param entityList 实体列表
 	 * @return 目标列表
 	 */
 	public static <T, E extends Convert<T>> List<T> toList(Collection<E> entityList) {
@@ -102,14 +92,10 @@ public final class BeanConvertUtils {
 	/**
 	 * 转换为目标列表.
 	 *
-	 * @param <T>
-	 *         目标类型
-	 * @param <E>
-	 *         实体类型
-	 * @param entityList
-	 *         实体列表
-	 * @param targetClass
-	 *         目标类型
+	 * @param <T>         目标类型
+	 * @param <E>         实体类型
+	 * @param entityList  实体列表
+	 * @param targetClass 目标类型
 	 * @return 目标列表
 	 */
 	public static <T, E> List<T> toList(Collection<E> entityList, Class<T> targetClass) {
@@ -119,12 +105,9 @@ public final class BeanConvertUtils {
 	/**
 	 * 转换为目标列表对象.
 	 *
-	 * @param <T>
-	 *         目标类型
-	 * @param <E>
-	 *         实体类型
-	 * @param list
-	 *         实体列表对象
+	 * @param <T>  目标类型
+	 * @param <E>  实体类型
+	 * @param list 实体列表对象
 	 * @return 目标列表对象
 	 */
 	public static <T, E extends Convert<T>> Pageable<T> toPageable(@Nullable Pageable<E> list) {
@@ -142,14 +125,10 @@ public final class BeanConvertUtils {
 	/**
 	 * 转换为目标列表对象.
 	 *
-	 * @param <T>
-	 *         目标类型
-	 * @param <E>
-	 *         实体类型
-	 * @param list
-	 *         实体列表对象
-	 * @param dtoClass
-	 *         目标类型
+	 * @param <T>      目标类型
+	 * @param <E>      实体类型
+	 * @param list     实体列表对象
+	 * @param dtoClass 目标类型
 	 * @return 目标列表对象
 	 */
 	public static <T, E> Pageable<T> toPageable(@Nullable Pageable<E> list, Class<T> dtoClass) {
@@ -167,14 +146,10 @@ public final class BeanConvertUtils {
 	/**
 	 * 转换为目标列表对象.
 	 *
-	 * @param <T>
-	 *         目标类型
-	 * @param <E>
-	 *         实体类型
-	 * @param list
-	 *         实体列表对象
-	 * @param convertFunction
-	 *         对象转换方法
+	 * @param <T>             目标类型
+	 * @param <E>             实体类型
+	 * @param list            实体列表对象
+	 * @param convertFunction 对象转换方法
 	 * @return 目标列表对象
 	 */
 	public static <T, E> Pageable<T> toPageable(@Nullable Pageable<E> list, Function<E, T> convertFunction) {

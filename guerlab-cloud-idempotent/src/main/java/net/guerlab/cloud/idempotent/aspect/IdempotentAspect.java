@@ -44,10 +44,8 @@ public class IdempotentAspect extends AbstractDistributedLockAspect {
 	/**
 	 * 创建幂等处理切面.
 	 *
-	 * @param redisTemplate
-	 *         redisTemplate
-	 * @param messageSource
-	 *         messageSource
+	 * @param redisTemplate redisTemplate
+	 * @param messageSource messageSource
 	 */
 	public IdempotentAspect(StringRedisTemplate redisTemplate, MessageSource messageSource) {
 		super(messageSource);
@@ -57,13 +55,10 @@ public class IdempotentAspect extends AbstractDistributedLockAspect {
 	/**
 	 * 幂等处理.
 	 *
-	 * @param point
-	 *         切入点
-	 * @param idempotent
-	 *         幂等注解
+	 * @param point      切入点
+	 * @param idempotent 幂等注解
 	 * @return 方法返回信息
-	 * @throws Throwable
-	 *         当方法内部抛出异常时候抛出Throwable
+	 * @throws Throwable 当方法内部抛出异常时候抛出Throwable
 	 */
 	@Around("@annotation(idempotent)")
 	public Object handler(ProceedingJoinPoint point, Idempotent idempotent) throws Throwable {

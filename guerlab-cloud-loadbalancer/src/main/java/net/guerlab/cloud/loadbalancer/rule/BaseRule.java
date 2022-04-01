@@ -30,8 +30,7 @@ public abstract class BaseRule<P extends BaseRuleProperties> implements IRule {
 	/**
 	 * 通过配置初始化策略.
 	 *
-	 * @param properties
-	 *         配置
+	 * @param properties 配置
 	 */
 	protected BaseRule(P properties) {
 		this.properties = properties;

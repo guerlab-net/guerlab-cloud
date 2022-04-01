@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ * 基于redis的授权工厂.
  */
 @NonNullApi
 package net.guerlab.cloud.auth.factory;

@@ -36,12 +36,9 @@ public final class BatchSaveUtils {
 	/**
 	 * 批量保存过滤.
 	 *
-	 * @param collection
-	 *         待保存集合
-	 * @param filter
-	 *         批量保存过滤器
-	 * @param <T>
-	 *         实体类型
+	 * @param collection 待保存集合
+	 * @param filter     批量保存过滤器
+	 * @param <T>        实体类型
 	 * @return 过滤后可保存集合
 	 */
 	public static <T> List<T> filter(Collection<T> collection, Function<? super T, ? extends T> filter) {

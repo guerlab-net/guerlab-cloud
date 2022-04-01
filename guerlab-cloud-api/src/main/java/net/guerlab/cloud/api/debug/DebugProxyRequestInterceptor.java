@@ -55,8 +55,7 @@ public class DebugProxyRequestInterceptor implements RequestInterceptor {
 	/**
 	 * 初始化开发代理请求拦截器.
 	 *
-	 * @param properties
-	 *         debug配置
+	 * @param properties debug配置
 	 */
 	public DebugProxyRequestInterceptor(DebugProperties properties) {
 		this.properties = properties;
@@ -96,8 +95,7 @@ public class DebugProxyRequestInterceptor implements RequestInterceptor {
 	/**
 	 * 判断是否为本地服务.
 	 *
-	 * @param serviceName
-	 *         服务名称
+	 * @param serviceName 服务名称
 	 * @return 是否为本地服务
 	 */
 	private boolean isLocalService(String serviceName) {

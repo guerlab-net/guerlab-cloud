@@ -45,10 +45,8 @@ public class FeignClientEndpoint {
 	/**
 	 * 构建feign客户端实例信息.
 	 *
-	 * @param beanName
-	 *         bean名称
-	 * @param obj
-	 *         代理对象
+	 * @param beanName bean名称
+	 * @param obj      代理对象
 	 * @return feign客户端实例信息
 	 */
 	@Nullable
@@ -82,8 +80,7 @@ public class FeignClientEndpoint {
 	/**
 	 * 获取代理对象.
 	 *
-	 * @param obj
-	 *         对象
+	 * @param obj 对象
 	 * @return 获取代理对象
 	 */
 	@Nullable
@@ -133,8 +130,7 @@ public class FeignClientEndpoint {
 	/**
 	 * 根据名称获取feign客户端实例信息.
 	 *
-	 * @param arg0
-	 *         bean名称
+	 * @param arg0 bean名称
 	 * @return feign客户端实例信息
 	 */
 	@SuppressWarnings("unused")

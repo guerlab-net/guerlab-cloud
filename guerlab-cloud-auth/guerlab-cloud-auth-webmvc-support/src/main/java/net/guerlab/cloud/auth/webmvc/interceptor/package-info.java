@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ * webmvc授权支持拦截器.
  */
 @NonNullApi
 package net.guerlab.cloud.auth.webmvc.interceptor;

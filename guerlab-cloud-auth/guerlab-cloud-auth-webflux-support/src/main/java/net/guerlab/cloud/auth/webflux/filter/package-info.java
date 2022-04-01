@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ * webflux授权支持.
  */
 @NonNullApi
 package net.guerlab.cloud.auth.webflux.filter;

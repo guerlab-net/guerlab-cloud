@@ -42,12 +42,9 @@ import net.guerlab.commons.collection.CollectionUtil;
 /**
  * 基本服务实现.
  *
- * @param <T>
- *         数据类型
- * @param <M>
- *         Mapper类型
- * @param <SP>
- *         搜索参数类型
+ * @param <T>  数据类型
+ * @param <M>  Mapper类型
+ * @param <SP> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings({"EmptyMethod", "unused"})
@@ -94,8 +91,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	/**
 	 * 设置mapper对象.
 	 *
-	 * @param baseMapper
-	 *         mapper对象
+	 * @param baseMapper mapper对象
 	 */
 	@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 	@Autowired
@@ -180,8 +176,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	/**
 	 * 添加前.
 	 *
-	 * @param entity
-	 *         实体
+	 * @param entity 实体
 	 */
 	protected void insertBefore(T entity) {
 		/* 默认空实现 */
@@ -190,8 +185,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	/**
 	 * 添加后.
 	 *
-	 * @param entity
-	 *         实体
+	 * @param entity 实体
 	 */
 	protected void insertAfter(T entity) {
 		/* 默认空实现 */
@@ -211,8 +205,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	/**
 	 * 保存检查.
 	 *
-	 * @param entity
-	 *         实体
+	 * @param entity 实体
 	 * @return 如果返回null则不保存该对象，否则保存该对象
 	 */
 	@Nullable
@@ -229,10 +222,8 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	/**
 	 * 批量保存.
 	 *
-	 * @param entityList
-	 *         实体列表
-	 * @param batchSize
-	 *         单次操作数量
+	 * @param entityList 实体列表
+	 * @param batchSize  单次操作数量
 	 */
 	@SuppressWarnings("SameParameterValue")
 	protected final void saveBatch(Collection<T> entityList, int batchSize) {
@@ -243,14 +234,10 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	/**
 	 * 批量执行.
 	 *
-	 * @param list
-	 *         实体列表
-	 * @param batchSize
-	 *         单次执行数量
-	 * @param consumer
-	 *         操作内容
-	 * @param <E>
-	 *         实体类型
+	 * @param list      实体列表
+	 * @param batchSize 单次执行数量
+	 * @param consumer  操作内容
+	 * @param <E>       实体类型
 	 */
 	protected <E> void executeBatch(Collection<E> list, int batchSize, BiConsumer<SqlSession, E> consumer) {
 		SqlHelper.executeBatch(this.entityClass, LOGGER, list, batchSize, consumer);
@@ -282,8 +269,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	/**
 	 * 更新前.
 	 *
-	 * @param entity
-	 *         实体
+	 * @param entity 实体
 	 */
 	protected void updateBefore(T entity) {
 		/* 默认空实现 */
@@ -292,8 +278,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	/**
 	 * 更新后.
 	 *
-	 * @param entity
-	 *         实体
+	 * @param entity 实体
 	 */
 	protected void updateAfter(T entity) {
 		/* 默认空实现 */
@@ -310,8 +295,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	/**
 	 * 删除前.
 	 *
-	 * @param searchParams
-	 *         搜索参数
+	 * @param searchParams 搜索参数
 	 */
 	protected void deleteBefore(SP searchParams) {
 		/* 默认空实现 */
@@ -320,8 +304,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	/**
 	 * 删除后.
 	 *
-	 * @param searchParams
-	 *         搜索参数
+	 * @param searchParams 搜索参数
 	 */
 	protected void deleteAfter(SP searchParams) {
 		/* 默认空实现 */
@@ -337,8 +320,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	/**
 	 * 删除前.
 	 *
-	 * @param id
-	 *         id
+	 * @param id id
 	 */
 	protected void deleteByIdBefore(Long id) {
 		/* 默认空实现 */
@@ -347,8 +329,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	/**
 	 * 删除后.
 	 *
-	 * @param id
-	 *         id
+	 * @param id id
 	 */
 	protected void deleteByIdAfter(Long id) {
 		/* 默认空实现 */
@@ -387,8 +368,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	/**
 	 * 设置序列.
 	 *
-	 * @param sequence
-	 *         序列
+	 * @param sequence 序列
 	 */
 	@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 	@Autowired

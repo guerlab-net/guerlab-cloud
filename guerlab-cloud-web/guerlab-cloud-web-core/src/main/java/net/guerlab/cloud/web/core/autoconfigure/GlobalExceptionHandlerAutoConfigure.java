@@ -35,8 +35,7 @@ public class GlobalExceptionHandlerAutoConfigure {
 	/**
 	 * 构建 堆栈处理.
 	 *
-	 * @param properties
-	 *         全局异常处理配置
+	 * @param properties 全局异常处理配置
 	 * @return 堆栈处理
 	 */
 	@Bean
@@ -47,8 +46,7 @@ public class GlobalExceptionHandlerAutoConfigure {
 	/**
 	 * 构建 全局异常处理日志记录器.
 	 *
-	 * @param properties
-	 *         全局异常处理配置
+	 * @param properties 全局异常处理配置
 	 * @return 全局异常处理日志记录器
 	 */
 	@Bean

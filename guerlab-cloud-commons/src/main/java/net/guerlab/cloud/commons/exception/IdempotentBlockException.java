@@ -42,10 +42,8 @@ public class IdempotentBlockException extends AbstractI18nApplicationException {
 	/**
 	 * 构造幂等阻塞异常.
 	 *
-	 * @param time
-	 *         加锁时长
-	 * @param timeUnit
-	 *         加锁时长单位
+	 * @param time     加锁时长
+	 * @param timeUnit 加锁时长单位
 	 */
 	public IdempotentBlockException(Long time, String timeUnit) {
 		this.time = time;

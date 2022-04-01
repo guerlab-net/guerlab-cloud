@@ -29,10 +29,8 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * APi定义.
  *
- * @param <E>
- *         返回实体类型
- * @param <SP>
- *         搜索参数类型
+ * @param <E>  返回实体类型
+ * @param <SP> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -51,10 +49,8 @@ public interface SelectById<E, SP extends SearchParams> {
 	/**
 	 * 根据主键ID查询对象.
 	 *
-	 * @param id
-	 *         主键ID
-	 * @param searchParams
-	 *         搜索参数
+	 * @param id           主键ID
+	 * @param searchParams 搜索参数
 	 * @return 对象
 	 */
 	@Nullable
@@ -66,8 +62,7 @@ public interface SelectById<E, SP extends SearchParams> {
 	/**
 	 * 通过Id查询单一结果.
 	 *
-	 * @param id
-	 *         主键id
+	 * @param id 主键id
 	 * @return 实体
 	 */
 	@Nullable
@@ -78,8 +73,7 @@ public interface SelectById<E, SP extends SearchParams> {
 	/**
 	 * 通过Id查询单一结果.
 	 *
-	 * @param id
-	 *         主键id
+	 * @param id 主键id
 	 * @return Optional
 	 */
 	default Optional<E> selectByIdOptional(Long id) {

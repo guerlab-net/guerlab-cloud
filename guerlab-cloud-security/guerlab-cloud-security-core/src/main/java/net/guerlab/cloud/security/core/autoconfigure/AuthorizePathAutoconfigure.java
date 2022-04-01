@@ -41,8 +41,7 @@ public class AuthorizePathAutoconfigure {
 	/**
 	 * 根据webEndpointProperties构建授权路径提供者.
 	 *
-	 * @param webEndpointPropertiesProvider
-	 *         webEndpointProperties提供者
+	 * @param webEndpointPropertiesProvider webEndpointProperties提供者
 	 * @return 授权路径提供者
 	 */
 	@Bean
@@ -63,8 +62,7 @@ public class AuthorizePathAutoconfigure {
 	/**
 	 * 全类型请求授权路径提供者.
 	 *
-	 * @param properties
-	 *         授权路径配置
+	 * @param properties 授权路径配置
 	 * @return 授权路径提供者
 	 */
 	@Bean
@@ -75,8 +73,7 @@ public class AuthorizePathAutoconfigure {
 	/**
 	 * GET请求授权路径提供者.
 	 *
-	 * @param properties
-	 *         授权路径配置
+	 * @param properties 授权路径配置
 	 * @return 授权路径提供者
 	 */
 	@Bean
@@ -87,8 +84,7 @@ public class AuthorizePathAutoconfigure {
 	/**
 	 * HEAD请求授权路径提供者.
 	 *
-	 * @param properties
-	 *         授权路径配置
+	 * @param properties 授权路径配置
 	 * @return 授权路径提供者
 	 */
 	@Bean
@@ -99,8 +95,7 @@ public class AuthorizePathAutoconfigure {
 	/**
 	 * POST请求授权路径提供者.
 	 *
-	 * @param properties
-	 *         授权路径配置
+	 * @param properties 授权路径配置
 	 * @return 授权路径提供者
 	 */
 	@Bean
@@ -111,8 +106,7 @@ public class AuthorizePathAutoconfigure {
 	/**
 	 * PUT请求授权路径提供者.
 	 *
-	 * @param properties
-	 *         授权路径配置
+	 * @param properties 授权路径配置
 	 * @return 授权路径提供者
 	 */
 	@Bean
@@ -123,8 +117,7 @@ public class AuthorizePathAutoconfigure {
 	/**
 	 * PATCH请求授权路径提供者.
 	 *
-	 * @param properties
-	 *         授权路径配置
+	 * @param properties 授权路径配置
 	 * @return 授权路径提供者
 	 */
 	@Bean
@@ -135,8 +128,7 @@ public class AuthorizePathAutoconfigure {
 	/**
 	 * DELETE请求授权路径提供者.
 	 *
-	 * @param properties
-	 *         授权路径配置
+	 * @param properties 授权路径配置
 	 * @return 授权路径提供者
 	 */
 	@Bean
@@ -147,8 +139,7 @@ public class AuthorizePathAutoconfigure {
 	/**
 	 * OPTIONS请求授权路径提供者.
 	 *
-	 * @param properties
-	 *         授权路径配置
+	 * @param properties 授权路径配置
 	 * @return 授权路径提供者
 	 */
 	@Bean
@@ -159,8 +150,7 @@ public class AuthorizePathAutoconfigure {
 	/**
 	 * TRACE请求授权路径提供者.
 	 *
-	 * @param properties
-	 *         授权路径配置
+	 * @param properties 授权路径配置
 	 * @return 授权路径提供者
 	 */
 	@Bean

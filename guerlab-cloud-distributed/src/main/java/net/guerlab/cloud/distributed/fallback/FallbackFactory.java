@@ -23,8 +23,7 @@ public interface FallbackFactory {
 	/**
 	 * 创建快速失败结果.
 	 *
-	 * @param args
-	 *         参数列表
+	 * @param args 参数列表
 	 * @return 快速失败结果
 	 */
 	Object create(Object[] args);

@@ -18,10 +18,8 @@ import org.springframework.core.convert.converter.Converter;
 /**
  * 可自动加载转换器.
  *
- * @param <S>
- *         源对象类型
- * @param <T>
- *         目标对象类型
+ * @param <S> 源对象类型
+ * @param <T> 目标对象类型
  * @author guer
  */
 public interface AutoLoadConverter<S, T> extends Converter<S, T> { }

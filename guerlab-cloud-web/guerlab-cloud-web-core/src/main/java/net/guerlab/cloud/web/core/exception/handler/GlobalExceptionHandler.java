@@ -59,14 +59,10 @@ public class GlobalExceptionHandler {
 	/**
 	 * 创建异常统一处理配置.
 	 *
-	 * @param messageSource
-	 *         messageSource
-	 * @param stackTracesHandler
-	 *         堆栈处理
-	 * @param globalExceptionLogger
-	 *         全局异常处理日志记录器
-	 * @param builders
-	 *         异常信息构建者列表
+	 * @param messageSource         messageSource
+	 * @param stackTracesHandler    堆栈处理
+	 * @param globalExceptionLogger 全局异常处理日志记录器
+	 * @param builders              异常信息构建者列表
 	 */
 	public GlobalExceptionHandler(MessageSource messageSource, StackTracesHandler stackTracesHandler,
 			GlobalExceptionLogger globalExceptionLogger, Collection<ResponseBuilder> builders) {
@@ -88,8 +84,7 @@ public class GlobalExceptionHandler {
 	/**
 	 * 异常信息构建处理.
 	 *
-	 * @param e
-	 *         异常
+	 * @param e 异常
 	 * @return 异常信息
 	 */
 	public Fail<?> build(Throwable e) {

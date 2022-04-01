@@ -41,10 +41,8 @@ public final class HeadersContextHandler {
 	/**
 	 * 设置内容.
 	 *
-	 * @param key
-	 *         key
-	 * @param value
-	 *         内容
+	 * @param key   key
+	 * @param value 内容
 	 */
 	@SuppressWarnings("SameParameterValue")
 	public static void set(String key, String value) {
@@ -54,8 +52,7 @@ public final class HeadersContextHandler {
 	/**
 	 * 获取内容.
 	 *
-	 * @param key
-	 *         key
+	 * @param key key
 	 * @return 内容
 	 */
 	@SuppressWarnings({"SameParameterValue"})
@@ -67,8 +64,7 @@ public final class HeadersContextHandler {
 	/**
 	 * 对内容遍历.
 	 *
-	 * @param action
-	 *         遍历处理
+	 * @param action 遍历处理
 	 */
 	public static void forEach(BiConsumer<? super String, ? super String> action) {
 		THREAD_LOCAL.get().forEach(action);

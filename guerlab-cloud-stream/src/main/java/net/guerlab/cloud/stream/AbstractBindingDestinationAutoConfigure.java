@@ -29,8 +29,7 @@ public abstract class AbstractBindingDestinationAutoConfigure {
 	/**
 	 * 初始化binding目的地.
 	 *
-	 * @param bindingServiceProperties
-	 *         bindingServiceProperties
+	 * @param bindingServiceProperties bindingServiceProperties
 	 */
 	@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 	@Autowired

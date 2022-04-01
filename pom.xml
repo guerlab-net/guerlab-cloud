@@ -13,547 +13,547 @@
   -->
 
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>net.guerlab.cloud</groupId>
-    <artifactId>guerlab-cloud</artifactId>
-    <version>${revision}</version>
-    <packaging>pom</packaging>
+		 xmlns="http://maven.apache.org/POM/4.0.0"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.guerlab.cloud</groupId>
+	<artifactId>guerlab-cloud</artifactId>
+	<version>${revision}</version>
+	<packaging>pom</packaging>
 
-    <name>Guerlab Cloud</name>
-    <description>Guerlab Cloud</description>
-    <url>https://gitee.com/guerlab_net/guerlab-cloud</url>
+	<name>Guerlab Cloud</name>
+	<description>Guerlab Cloud</description>
+	<url>https://gitee.com/guerlab_net/guerlab-cloud</url>
 
-    <parent>
-        <groupId>net.guerlab.builder</groupId>
-        <artifactId>guerlab-builder</artifactId>
-        <version>1.1.0</version>
-    </parent>
+	<parent>
+		<groupId>net.guerlab.builder</groupId>
+		<artifactId>guerlab-builder</artifactId>
+		<version>1.2.0</version>
+	</parent>
 
-    <licenses>
-        <license>
-            <name>GNU LESSER GENERAL PUBLIC LICENSE Version 3</name>
-            <url>https://www.gnu.org/licenses/lgpl-3.0.txt</url>
-        </license>
-    </licenses>
+	<licenses>
+		<license>
+			<name>GNU LESSER GENERAL PUBLIC LICENSE Version 3</name>
+			<url>https://www.gnu.org/licenses/lgpl-3.0.txt</url>
+		</license>
+	</licenses>
 
-    <developers>
-        <developer>
-            <id>guer</id>
-            <name>guer</name>
-            <email>master@guerlab.net</email>
-            <organization>guerlab</organization>
-            <organizationUrl>https://www.guerlab.net</organizationUrl>
-        </developer>
-    </developers>
+	<developers>
+		<developer>
+			<id>guer</id>
+			<name>guer</name>
+			<email>master@guerlab.net</email>
+			<organization>guerlab</organization>
+			<organizationUrl>https://www.guerlab.net</organizationUrl>
+		</developer>
+	</developers>
 
-    <organization>
-        <name>guerlab</name>
-        <url>https://www.guerlab.net</url>
-    </organization>
+	<organization>
+		<name>guerlab</name>
+		<url>https://www.guerlab.net</url>
+	</organization>
 
-    <scm>
-        <connection>scm:git:https://gitee.com/guerlab_net/guerlab-cloud.git</connection>
-        <developerConnection>scm:git:https://gitee.com/guerlab_net/guerlab-cloud.git</developerConnection>
-        <url>https://gitee.com/guerlab_net/guerlab-cloud</url>
-        <tag>HEAD</tag>
-    </scm>
+	<scm>
+		<connection>scm:git:https://gitee.com/guerlab_net/guerlab-cloud.git</connection>
+		<developerConnection>scm:git:https://gitee.com/guerlab_net/guerlab-cloud.git</developerConnection>
+		<url>https://gitee.com/guerlab_net/guerlab-cloud</url>
+		<tag>HEAD</tag>
+	</scm>
 
-    <issueManagement>
-        <system>gitee</system>
-        <url>https://gitee.com/guerlab_net/guerlab-cloud/issues</url>
-    </issueManagement>
+	<issueManagement>
+		<system>gitee</system>
+		<url>https://gitee.com/guerlab_net/guerlab-cloud/issues</url>
+	</issueManagement>
 
-    <properties>
-        <revision>2022.3.1-SNAPSHOT</revision>
-        <main.basedir>${basedir}</main.basedir>
+	<properties>
+		<revision>2022.3.1-SNAPSHOT</revision>
+		<main.basedir>${basedir}</main.basedir>
 
-        <java.version>17</java.version>
-        <project.encoding>UTF-8</project.encoding>
+		<java.version>17</java.version>
+		<project.encoding>UTF-8</project.encoding>
 
-        <!-- guerlab -->
-        <guerlab-commons.version>2.0.1</guerlab-commons.version>
+		<!-- guerlab -->
+		<guerlab-commons.version>2.0.1</guerlab-commons.version>
 
-        <!-- spring -->
-        <spring-boot.version>2.6.6</spring-boot.version>
-        <spring-cloud.version>2021.0.1</spring-cloud.version>
-        <spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
+		<!-- spring -->
+		<spring-boot.version>2.6.6</spring-boot.version>
+		<spring-cloud.version>2021.0.1</spring-cloud.version>
+		<spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
 
-        <!-- other -->
-        <mybatis.version>3.5.9</mybatis.version>
-        <mybatis-starter.version>2.2.2</mybatis-starter.version>
-        <mybatis-typehandlers-jsr310.version>1.0.2</mybatis-typehandlers-jsr310.version>
-        <mybatis-plus.version>3.5.1</mybatis-plus.version>
-        <swagger.version>2.1.13</swagger.version>
-        <jjwt.version>0.9.1</jjwt.version>
-        <guava.version>24.1.1-jre</guava.version>
-        <easyexcel.version>3.0.5</easyexcel.version>
-        <springdoc.version>1.6.6</springdoc.version>
-        <nacos.version>2.0.4</nacos.version>
-        <findbugs.version>3.0.2</findbugs.version>
-        <redisson.version>3.17.0</redisson.version>
-    </properties>
+		<!-- other -->
+		<mybatis.version>3.5.9</mybatis.version>
+		<mybatis-starter.version>2.2.2</mybatis-starter.version>
+		<mybatis-typehandlers-jsr310.version>1.0.2</mybatis-typehandlers-jsr310.version>
+		<mybatis-plus.version>3.5.1</mybatis-plus.version>
+		<swagger.version>2.1.13</swagger.version>
+		<jjwt.version>0.9.1</jjwt.version>
+		<guava.version>24.1.1-jre</guava.version>
+		<easyexcel.version>3.0.5</easyexcel.version>
+		<springdoc.version>1.6.6</springdoc.version>
+		<nacos.version>2.0.4</nacos.version>
+		<findbugs.version>3.0.2</findbugs.version>
+		<redisson.version>3.17.0</redisson.version>
+	</properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring-boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${spring-cloud-alibaba.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.alibaba.cloud</groupId>
+				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
+				<version>${spring-cloud-alibaba.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 
-            <!-- guerlab-cloud basic -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-api</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud basic -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-api</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud auth -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-auth</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-auth-commons</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-auth-redis-token-support</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-auth-web-support</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-auth-webflux-support</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-auth-webmvc-support</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud auth -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-auth</artifactId>
+				<version>${revision}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-auth-commons</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-auth-redis-token-support</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-auth-web-support</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-auth-webflux-support</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-auth-webmvc-support</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud cache -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-cache</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-cache-redis</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud cache -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-cache</artifactId>
+				<version>${revision}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-cache-redis</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud commons -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-commons</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud commons -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-commons</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud context -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-context</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-context-core</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-context-webflux</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-context-webmvc</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud context -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-context</artifactId>
+				<version>${revision}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-context-core</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-context-webflux</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-context-webmvc</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud core -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-core</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud core -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-core</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud distributed -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-distributed</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud distributed -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-distributed</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud excel -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-excel</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud excel -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-excel</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud geo -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-geo</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud geo -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-geo</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud load idempotent -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-idempotent</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud load idempotent -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-idempotent</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud load balancer -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-loadbalancer</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud load balancer -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-loadbalancer</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud log -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-log</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud log -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-log</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud openapi-->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-openapi</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-openapi-core</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-openapi-webflux</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-openapi-webmvc</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud openapi-->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-openapi</artifactId>
+				<version>${revision}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-openapi-core</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-openapi-webflux</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-openapi-webmvc</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud redis -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-redis</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud redis -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-redis</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud rsa -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-rsa</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud rsa -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-rsa</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud searchparams -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-searchparams</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-searchparams-core</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-searchparams-mybatisplus</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud searchparams -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-searchparams</artifactId>
+				<version>${revision}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-searchparams-core</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-searchparams-mybatisplus</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud security-->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-security</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-security-core</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-security-webflux</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-security-webmvc</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud security-->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-security</artifactId>
+				<version>${revision}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-security-core</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-security-webflux</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-security-webmvc</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud sentinel-->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-sentinel</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-sentinel-webflux</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-sentinel-webmvc</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud sentinel-->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-sentinel</artifactId>
+				<version>${revision}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-sentinel-webflux</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-sentinel-webmvc</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud server -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-server</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-server-commons</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-server-orm</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-server-web</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud server -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-server</artifactId>
+				<version>${revision}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-server-commons</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-server-orm</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-server-web</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud stream -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-stream</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud stream -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-stream</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab-cloud web -->
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-web</artifactId>
-                <version>${revision}</version>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-web-core</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-web-webflux</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.guerlab.cloud</groupId>
-                <artifactId>guerlab-cloud-web-webmvc</artifactId>
-                <version>${revision}</version>
-            </dependency>
+			<!-- guerlab-cloud web -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-web</artifactId>
+				<version>${revision}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-web-core</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-web-webflux</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-web-webmvc</artifactId>
+				<version>${revision}</version>
+			</dependency>
 
-            <!-- guerlab -->
-            <dependency>
-                <groupId>net.guerlab</groupId>
-                <artifactId>guerlab-commons</artifactId>
-                <version>${guerlab-commons.version}</version>
-            </dependency>
+			<!-- guerlab -->
+			<dependency>
+				<groupId>net.guerlab</groupId>
+				<artifactId>guerlab-commons</artifactId>
+				<version>${guerlab-commons.version}</version>
+			</dependency>
 
-            <!-- mybatis -->
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis</artifactId>
-                <version>${mybatis.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis-starter.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis-typehandlers-jsr310</artifactId>
-                <version>${mybatis-typehandlers-jsr310.version}</version>
-            </dependency>
+			<!-- mybatis -->
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis</artifactId>
+				<version>${mybatis.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis.spring.boot</groupId>
+				<artifactId>mybatis-spring-boot-starter</artifactId>
+				<version>${mybatis-starter.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-typehandlers-jsr310</artifactId>
+				<version>${mybatis-typehandlers-jsr310.version}</version>
+			</dependency>
 
-            <!-- swagger -->
-            <dependency>
-                <groupId>io.swagger.core.v3</groupId>
-                <artifactId>swagger-annotations</artifactId>
-                <version>${swagger.version}</version>
-            </dependency>
+			<!-- swagger -->
+			<dependency>
+				<groupId>io.swagger.core.v3</groupId>
+				<artifactId>swagger-annotations</artifactId>
+				<version>${swagger.version}</version>
+			</dependency>
 
-            <!-- mybatis plus -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-annotation</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-core</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-extension</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
+			<!-- mybatis plus -->
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus</artifactId>
+				<version>${mybatis-plus.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-annotation</artifactId>
+				<version>${mybatis-plus.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-boot-starter</artifactId>
+				<version>${mybatis-plus.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-core</artifactId>
+				<version>${mybatis-plus.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-extension</artifactId>
+				<version>${mybatis-plus.version}</version>
+			</dependency>
 
-            <!-- guava -->
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
-            </dependency>
+			<!-- guava -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
 
-            <!-- excel -->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>easyexcel</artifactId>
-                <version>${easyexcel.version}</version>
-            </dependency>
+			<!-- excel -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>easyexcel</artifactId>
+				<version>${easyexcel.version}</version>
+			</dependency>
 
-            <!-- jwt -->
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jjwt.version}</version>
-            </dependency>
+			<!-- jwt -->
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt</artifactId>
+				<version>${jjwt.version}</version>
+			</dependency>
 
-            <!-- swagger -->
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-common</artifactId>
-                <version>${springdoc.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-ui</artifactId>
-                <version>${springdoc.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-webflux-ui</artifactId>
-                <version>${springdoc.version}</version>
-            </dependency>
+			<!-- swagger -->
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-common</artifactId>
+				<version>${springdoc.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-ui</artifactId>
+				<version>${springdoc.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springdoc</groupId>
+				<artifactId>springdoc-openapi-webflux-ui</artifactId>
+				<version>${springdoc.version}</version>
+			</dependency>
 
-            <!-- nacos -->
-            <dependency>
-                <groupId>com.alibaba.nacos</groupId>
-                <artifactId>nacos-client</artifactId>
-                <version>${nacos.version}</version>
-            </dependency>
+			<!-- nacos -->
+			<dependency>
+				<groupId>com.alibaba.nacos</groupId>
+				<artifactId>nacos-client</artifactId>
+				<version>${nacos.version}</version>
+			</dependency>
 
-            <!-- findbugs -->
-            <dependency>
-                <groupId>com.google.code.findbugs</groupId>
-                <artifactId>jsr305</artifactId>
-                <version>${findbugs.version}</version>
-            </dependency>
+			<!-- findbugs -->
+			<dependency>
+				<groupId>com.google.code.findbugs</groupId>
+				<artifactId>jsr305</artifactId>
+				<version>${findbugs.version}</version>
+			</dependency>
 
-            <!-- redisson -->
-            <dependency>
-                <groupId>org.redisson</groupId>
-                <artifactId>redisson</artifactId>
-                <version>${redisson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.redisson</groupId>
-                <artifactId>redisson-spring-boot-starter</artifactId>
-                <version>${redisson.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+			<!-- redisson -->
+			<dependency>
+				<groupId>org.redisson</groupId>
+				<artifactId>redisson</artifactId>
+				<version>${redisson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.redisson</groupId>
+				<artifactId>redisson-spring-boot-starter</artifactId>
+				<version>${redisson.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 
-    <modules>
-        <module>guerlab-cloud-api</module>
-        <module>guerlab-cloud-auth</module>
-        <module>guerlab-cloud-cache</module>
-        <module>guerlab-cloud-commons</module>
-        <module>guerlab-cloud-context</module>
-        <module>guerlab-cloud-core</module>
-        <module>guerlab-cloud-distributed</module>
-        <module>guerlab-cloud-excel</module>
-        <module>guerlab-cloud-geo</module>
-        <module>guerlab-cloud-idempotent</module>
-        <module>guerlab-cloud-loadbalancer</module>
-        <module>guerlab-cloud-log</module>
-        <module>guerlab-cloud-openapi</module>
-        <module>guerlab-cloud-redis</module>
-        <module>guerlab-cloud-rsa</module>
-        <module>guerlab-cloud-searchparams</module>
-        <module>guerlab-cloud-security</module>
-        <module>guerlab-cloud-sentinel</module>
-        <module>guerlab-cloud-server</module>
-        <module>guerlab-cloud-stream</module>
-        <module>guerlab-cloud-web</module>
-    </modules>
+	<modules>
+		<module>guerlab-cloud-api</module>
+		<module>guerlab-cloud-auth</module>
+		<module>guerlab-cloud-cache</module>
+		<module>guerlab-cloud-commons</module>
+		<module>guerlab-cloud-context</module>
+		<module>guerlab-cloud-core</module>
+		<module>guerlab-cloud-distributed</module>
+		<module>guerlab-cloud-excel</module>
+		<module>guerlab-cloud-geo</module>
+		<module>guerlab-cloud-idempotent</module>
+		<module>guerlab-cloud-loadbalancer</module>
+		<module>guerlab-cloud-log</module>
+		<module>guerlab-cloud-openapi</module>
+		<module>guerlab-cloud-redis</module>
+		<module>guerlab-cloud-rsa</module>
+		<module>guerlab-cloud-searchparams</module>
+		<module>guerlab-cloud-security</module>
+		<module>guerlab-cloud-sentinel</module>
+		<module>guerlab-cloud-server</module>
+		<module>guerlab-cloud-stream</module>
+		<module>guerlab-cloud-web</module>
+	</modules>
 </project>

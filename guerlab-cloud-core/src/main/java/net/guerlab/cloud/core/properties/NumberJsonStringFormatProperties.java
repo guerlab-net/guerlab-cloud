@@ -119,8 +119,7 @@ public class NumberJsonStringFormatProperties {
 	/**
 	 * 设置是否格式化所有数值类型.
 	 *
-	 * @param formatAllNumber
-	 *         是否格式化所有数值类型
+	 * @param formatAllNumber 是否格式化所有数值类型
 	 */
 	public void setFormatAllNumber(boolean formatAllNumber) {
 		this.formatAllNumber = formatAllNumber;
@@ -138,8 +137,7 @@ public class NumberJsonStringFormatProperties {
 	/**
 	 * 设置是否格式化BigDecimal.
 	 *
-	 * @param formatBigDecimal
-	 *         是否格式化BigDecimal
+	 * @param formatBigDecimal 是否格式化BigDecimal
 	 */
 	public void setFormatBigDecimal(boolean formatBigDecimal) {
 		this.formatBigDecimal = formatBigDecimal;
@@ -157,8 +155,7 @@ public class NumberJsonStringFormatProperties {
 	/**
 	 * 设置是否格式化BigInteger.
 	 *
-	 * @param formatBigInteger
-	 *         是否格式化BigInteger
+	 * @param formatBigInteger 是否格式化BigInteger
 	 */
 	public void setFormatBigInteger(boolean formatBigInteger) {
 		this.formatBigInteger = formatBigInteger;
@@ -176,8 +173,7 @@ public class NumberJsonStringFormatProperties {
 	/**
 	 * 设置是否格式化Byte包装类.
 	 *
-	 * @param formatByteClass
-	 *         是否格式化Byte包装类
+	 * @param formatByteClass 是否格式化Byte包装类
 	 */
 	public void setFormatByteClass(boolean formatByteClass) {
 		this.formatByteClass = formatByteClass;
@@ -195,8 +191,7 @@ public class NumberJsonStringFormatProperties {
 	/**
 	 * 设置是否格式化Byte基本类型.
 	 *
-	 * @param formatByteType
-	 *         是否格式化Byte基本类型
+	 * @param formatByteType 是否格式化Byte基本类型
 	 */
 	public void setFormatByteType(boolean formatByteType) {
 		this.formatByteType = formatByteType;
@@ -214,8 +209,7 @@ public class NumberJsonStringFormatProperties {
 	/**
 	 * 设置是否格式化Short包装类.
 	 *
-	 * @param formatShortClass
-	 *         是否格式化Short包装类
+	 * @param formatShortClass 是否格式化Short包装类
 	 */
 	public void setFormatShortClass(boolean formatShortClass) {
 		this.formatShortClass = formatShortClass;
@@ -233,8 +227,7 @@ public class NumberJsonStringFormatProperties {
 	/**
 	 * 设置是否格式化Short基本类型.
 	 *
-	 * @param formatShortType
-	 *         是否格式化Short基本类型
+	 * @param formatShortType 是否格式化Short基本类型
 	 */
 	public void setFormatShortType(boolean formatShortType) {
 		this.formatShortType = formatShortType;
@@ -252,8 +245,7 @@ public class NumberJsonStringFormatProperties {
 	/**
 	 * 设置是否格式化Integer包装类.
 	 *
-	 * @param formatIntegerClass
-	 *         是否格式化Integer包装类
+	 * @param formatIntegerClass 是否格式化Integer包装类
 	 */
 	public void setFormatIntegerClass(boolean formatIntegerClass) {
 		this.formatIntegerClass = formatIntegerClass;
@@ -271,8 +263,7 @@ public class NumberJsonStringFormatProperties {
 	/**
 	 * 设置是否格式化Integer基本类型.
 	 *
-	 * @param formatIntegerType
-	 *         是否格式化Integer基本类型
+	 * @param formatIntegerType 是否格式化Integer基本类型
 	 */
 	public void setFormatIntegerType(boolean formatIntegerType) {
 		this.formatIntegerType = formatIntegerType;
@@ -290,8 +281,7 @@ public class NumberJsonStringFormatProperties {
 	/**
 	 * 设置是否格式化Long包装类.
 	 *
-	 * @param formatLongClass
-	 *         是否格式化Long包装类
+	 * @param formatLongClass 是否格式化Long包装类
 	 */
 	public void setFormatLongClass(boolean formatLongClass) {
 		this.formatLongClass = formatLongClass;
@@ -309,8 +299,7 @@ public class NumberJsonStringFormatProperties {
 	/**
 	 * 设置是否格式化Long基本类型.
 	 *
-	 * @param formatLongType
-	 *         是否格式化Long基本类型
+	 * @param formatLongType 是否格式化Long基本类型
 	 */
 	public void setFormatLongType(boolean formatLongType) {
 		this.formatLongType = formatLongType;
@@ -328,8 +317,7 @@ public class NumberJsonStringFormatProperties {
 	/**
 	 * 设置是否格式化Float包装类.
 	 *
-	 * @param formatFloatClass
-	 *         是否格式化Float包装类
+	 * @param formatFloatClass 是否格式化Float包装类
 	 */
 	public void setFormatFloatClass(boolean formatFloatClass) {
 		this.formatFloatClass = formatFloatClass;
@@ -347,8 +335,7 @@ public class NumberJsonStringFormatProperties {
 	/**
 	 * 设置是否格式化Float基本类型.
 	 *
-	 * @param formatFloatType
-	 *         是否格式化Float基本类型
+	 * @param formatFloatType 是否格式化Float基本类型
 	 */
 	public void setFormatFloatType(boolean formatFloatType) {
 		this.formatFloatType = formatFloatType;
@@ -366,8 +353,7 @@ public class NumberJsonStringFormatProperties {
 	/**
 	 * 设置是否格式化Double包装类.
 	 *
-	 * @param formatDoubleClass
-	 *         是否格式化Double包装类
+	 * @param formatDoubleClass 是否格式化Double包装类
 	 */
 	public void setFormatDoubleClass(boolean formatDoubleClass) {
 		this.formatDoubleClass = formatDoubleClass;
@@ -385,8 +371,7 @@ public class NumberJsonStringFormatProperties {
 	/**
 	 * 设置是否格式化Double基本类型.
 	 *
-	 * @param formatDoubleType
-	 *         是否格式化Double基本类型
+	 * @param formatDoubleType 是否格式化Double基本类型
 	 */
 	public void setFormatDoubleType(boolean formatDoubleType) {
 		this.formatDoubleType = formatDoubleType;
@@ -404,8 +389,7 @@ public class NumberJsonStringFormatProperties {
 	/**
 	 * 设置待格式化数值类型类.
 	 *
-	 * @param formatNumberClassList
-	 *         待格式化数值类型类
+	 * @param formatNumberClassList 待格式化数值类型类
 	 */
 	public void setFormatNumberClassList(List<Class<? extends Number>> formatNumberClassList) {
 		this.formatNumberClassList = formatNumberClassList;

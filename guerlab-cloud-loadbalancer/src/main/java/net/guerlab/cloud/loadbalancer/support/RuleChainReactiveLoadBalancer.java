@@ -70,16 +70,11 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
 	/**
 	 * 初始化基于规则链的负责均衡的实现.
 	 *
-	 * @param serviceId
-	 *         服务ID
-	 * @param serviceInstanceListSupplierProvider
-	 *         服务实例列表供应
-	 * @param ruleProvider
-	 *         规则链提供者
-	 * @param loadBalancerProperties
-	 *         负载均衡配置
-	 * @param policy
-	 *         负载均衡策略
+	 * @param serviceId                           服务ID
+	 * @param serviceInstanceListSupplierProvider 服务实例列表供应
+	 * @param ruleProvider                        规则链提供者
+	 * @param loadBalancerProperties              负载均衡配置
+	 * @param policy                              负载均衡策略
 	 */
 	public RuleChainReactiveLoadBalancer(String serviceId,
 			ObjectProvider<ServiceInstanceListSupplier> serviceInstanceListSupplierProvider,
@@ -116,10 +111,8 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
 	/**
 	 * 构造响应.
 	 *
-	 * @param instances
-	 *         实例列表
-	 * @param request
-	 *         请求
+	 * @param instances 实例列表
+	 * @param request   请求
 	 * @return 响应
 	 */
 	private Response<ServiceInstance> buildResponse(List<ServiceInstance> instances, Request<?> request) {
@@ -163,10 +156,8 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
 	/**
 	 * 根据规则链过滤实例.
 	 *
-	 * @param instances
-	 *         实例列表
-	 * @param request
-	 *         请求
+	 * @param instances 实例列表
+	 * @param request   请求
 	 * @return 过滤后的实例列表
 	 */
 	@Nullable

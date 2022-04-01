@@ -18,8 +18,7 @@ import org.springframework.lang.Nullable;
 /**
  * 通用成功JSON返回结果集.
  *
- * @param <T>
- *         数据类型
+ * @param <T> 数据类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -40,8 +39,7 @@ public class Succeed<T> extends Result<T> {
 	/**
 	 * 通过设置消息内容来初始化结果集.
 	 *
-	 * @param message
-	 *         消息内容
+	 * @param message 消息内容
 	 */
 	public Succeed(@Nullable String message) {
 		this(message, null);
@@ -50,8 +48,7 @@ public class Succeed<T> extends Result<T> {
 	/**
 	 * 通过设置数据来初始化结果集.
 	 *
-	 * @param data
-	 *         数据
+	 * @param data 数据
 	 */
 	public Succeed(@Nullable T data) {
 		this(MSG, data);
@@ -60,10 +57,8 @@ public class Succeed<T> extends Result<T> {
 	/**
 	 * 通过设置消息内容和数据来初始化结果集.
 	 *
-	 * @param message
-	 *         消息内容
-	 * @param data
-	 *         数据
+	 * @param message 消息内容
+	 * @param data    数据
 	 */
 	public Succeed(@Nullable String message, @Nullable T data) {
 		super(true, message, data);

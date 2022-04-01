@@ -13,35 +13,35 @@
   -->
 
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>guerlab-cloud-searchparams-core</artifactId>
-    <name>Guerlab Cloud SearchParams Core</name>
+		 xmlns="http://maven.apache.org/POM/4.0.0"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>guerlab-cloud-searchparams-core</artifactId>
+	<name>Guerlab Cloud SearchParams Core</name>
 
-    <parent>
-        <groupId>net.guerlab.cloud</groupId>
-        <artifactId>guerlab-cloud-searchparams</artifactId>
-        <version>${revision}</version>
-    </parent>
+	<parent>
+		<groupId>net.guerlab.cloud</groupId>
+		<artifactId>guerlab-cloud-searchparams</artifactId>
+		<version>${revision}</version>
+	</parent>
 
-    <properties>
-        <main.basedir>${basedir}/../..</main.basedir>
-    </properties>
+	<properties>
+		<main.basedir>${basedir}/../..</main.basedir>
+	</properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>net.guerlab.cloud</groupId>
-            <artifactId>guerlab-cloud-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations</artifactId>
-        </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>net.guerlab.cloud</groupId>
+			<artifactId>guerlab-cloud-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+		</dependency>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+	</dependencies>
 </project>

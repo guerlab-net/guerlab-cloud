@@ -36,10 +36,8 @@ import net.guerlab.cloud.auth.properties.JwtTokenFactoryProperties;
 /**
  * 抽象jwt token工厂.
  *
- * @param <T>
- *         数据实体类型
- * @param <P>
- *         配置类型
+ * @param <T> 数据实体类型
+ * @param <P> 配置类型
  * @author guer
  */
 public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProperties>
@@ -60,14 +58,10 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
 	/**
 	 * 构造token信息.
 	 *
-	 * @param prefix
-	 *         token前缀
-	 * @param builder
-	 *         JwtBuilder
-	 * @param expire
-	 *         有效期
-	 * @param privateKey
-	 *         私钥
+	 * @param prefix     token前缀
+	 * @param builder    JwtBuilder
+	 * @param expire     有效期
+	 * @param privateKey 私钥
 	 * @return token信息
 	 */
 	private static TokenInfo build(String prefix, JwtBuilder builder, long expire, PrivateKey privateKey) {
@@ -99,12 +93,9 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
 	/**
 	 * 解析token.
 	 *
-	 * @param token
-	 *         token
-	 * @param publicKey
-	 *         公钥
-	 * @param tokenType
-	 *         token类型
+	 * @param token     token
+	 * @param publicKey 公钥
+	 * @param tokenType token类型
 	 * @return 解析后信息
 	 */
 	private static Jws<Claims> parserToken(String token, PublicKey publicKey, TokenType tokenType) {
@@ -156,8 +147,7 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
 	/**
 	 * 解析token.
 	 *
-	 * @param body
-	 *         token内容
+	 * @param body token内容
 	 * @return 实体
 	 */
 	protected abstract T parse0(Claims body);
@@ -165,10 +155,8 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
 	/**
 	 * 构建token.
 	 *
-	 * @param builder
-	 *         jwtBuilder
-	 * @param entity
-	 *         实体
+	 * @param builder jwtBuilder
+	 * @param entity  实体
 	 */
 	protected abstract void generateToken0(JwtBuilder builder, T entity);
 }

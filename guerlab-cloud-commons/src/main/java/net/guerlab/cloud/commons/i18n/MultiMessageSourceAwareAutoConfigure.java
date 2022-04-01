@@ -33,10 +33,8 @@ public class MultiMessageSourceAwareAutoConfigure {
 	/**
 	 * 多消息源处理.
 	 *
-	 * @param messageSource
-	 *         信息源
-	 * @param listProvider
-	 *         多消息源处理提供者列表
+	 * @param messageSource 信息源
+	 * @param listProvider  多消息源处理提供者列表
 	 */
 	@Autowired
 	public void handler(MessageSource messageSource, ObjectProvider<MultiMessageSourceProvider> listProvider) {

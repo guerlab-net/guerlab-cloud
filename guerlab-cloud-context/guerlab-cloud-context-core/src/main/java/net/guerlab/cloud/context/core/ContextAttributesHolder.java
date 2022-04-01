@@ -52,8 +52,7 @@ public final class ContextAttributesHolder {
 	/**
 	 * 从指定对象上获取获取上下文属性.
 	 *
-	 * @param object
-	 *         指定对象
+	 * @param object 指定对象
 	 * @return 上下文属性
 	 */
 	public static ContextAttributes get(@Nullable Object object) {
@@ -71,10 +70,8 @@ public final class ContextAttributesHolder {
 	/**
 	 * 从指定对象上设置当前线程的上下文属性.
 	 *
-	 * @param object
-	 *         指定对象
-	 * @param contextAttributes
-	 *         上下文属性
+	 * @param object            指定对象
+	 * @param contextAttributes 上下文属性
 	 */
 	@SuppressWarnings("unused")
 	public static void set(ContextAttributes contextAttributes, @Nullable Object object) {
@@ -97,8 +94,7 @@ public final class ContextAttributesHolder {
 	/**
 	 * 设置当前线程的上下文属性.
 	 *
-	 * @param contextAttributes
-	 *         上下文属性
+	 * @param contextAttributes 上下文属性
 	 */
 	public static void set(ContextAttributes contextAttributes) {
 		THREAD_LOCAL.set(contextAttributes);

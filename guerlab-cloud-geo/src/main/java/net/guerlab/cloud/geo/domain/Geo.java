@@ -44,10 +44,8 @@ public class Geo {
 	/**
 	 * 创建地理位置对象.
 	 *
-	 * @param longitude
-	 *         经度
-	 * @param latitude
-	 *         纬度
+	 * @param longitude 经度
+	 * @param latitude  纬度
 	 */
 	public Geo(BigDecimal longitude, BigDecimal latitude) {
 		this.longitude = longitude;

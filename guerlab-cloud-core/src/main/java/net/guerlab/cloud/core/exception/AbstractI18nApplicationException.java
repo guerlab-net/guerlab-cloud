@@ -47,8 +47,7 @@ public abstract class AbstractI18nApplicationException extends ApplicationExcept
 	/**
 	 * 构造一个国际化异常信息.
 	 *
-	 * @param errorCode
-	 *         错误码
+	 * @param errorCode 错误码
 	 */
 	protected AbstractI18nApplicationException(int errorCode) {
 		super(errorCode);
@@ -57,14 +56,10 @@ public abstract class AbstractI18nApplicationException extends ApplicationExcept
 	/**
 	 * 构造一个国际化异常信息.
 	 *
-	 * @param message
-	 *         异常信息
-	 * @param cause
-	 *         导致的原因
-	 * @param enableSuppression
-	 *         启用抑制
-	 * @param writableStackTrace
-	 *         写入异常栈
+	 * @param message            异常信息
+	 * @param cause              导致的原因
+	 * @param enableSuppression  启用抑制
+	 * @param writableStackTrace 写入异常栈
 	 */
 	protected AbstractI18nApplicationException(String message, Throwable cause, boolean enableSuppression,
 			boolean writableStackTrace) {
@@ -74,16 +69,11 @@ public abstract class AbstractI18nApplicationException extends ApplicationExcept
 	/**
 	 * 构造一个国际化异常信息.
 	 *
-	 * @param message
-	 *         异常信息
-	 * @param cause
-	 *         导致的原因
-	 * @param enableSuppression
-	 *         启用抑制
-	 * @param writableStackTrace
-	 *         写入异常栈
-	 * @param errorCode
-	 *         错误码
+	 * @param message            异常信息
+	 * @param cause              导致的原因
+	 * @param enableSuppression  启用抑制
+	 * @param writableStackTrace 写入异常栈
+	 * @param errorCode          错误码
 	 */
 	protected AbstractI18nApplicationException(String message, Throwable cause, boolean enableSuppression,
 			boolean writableStackTrace, int errorCode) {
@@ -93,10 +83,8 @@ public abstract class AbstractI18nApplicationException extends ApplicationExcept
 	/**
 	 * 构造一个国际化异常信息.
 	 *
-	 * @param message
-	 *         异常信息
-	 * @param cause
-	 *         导致的原因
+	 * @param message 异常信息
+	 * @param cause   导致的原因
 	 */
 	protected AbstractI18nApplicationException(String message, Throwable cause) {
 		super(message, cause);
@@ -105,12 +93,9 @@ public abstract class AbstractI18nApplicationException extends ApplicationExcept
 	/**
 	 * 构造一个国际化异常信息.
 	 *
-	 * @param message
-	 *         异常信息
-	 * @param cause
-	 *         导致的原因
-	 * @param errorCode
-	 *         错误码
+	 * @param message   异常信息
+	 * @param cause     导致的原因
+	 * @param errorCode 错误码
 	 */
 	protected AbstractI18nApplicationException(String message, Throwable cause, int errorCode) {
 		super(message, cause, errorCode);
@@ -119,8 +104,7 @@ public abstract class AbstractI18nApplicationException extends ApplicationExcept
 	/**
 	 * 构造一个国际化异常信息.
 	 *
-	 * @param message
-	 *         异常信息
+	 * @param message 异常信息
 	 */
 	protected AbstractI18nApplicationException(String message) {
 		super(message);
@@ -129,10 +113,8 @@ public abstract class AbstractI18nApplicationException extends ApplicationExcept
 	/**
 	 * 构造一个国际化异常信息.
 	 *
-	 * @param message
-	 *         异常信息
-	 * @param errorCode
-	 *         错误码
+	 * @param message   异常信息
+	 * @param errorCode 错误码
 	 */
 	protected AbstractI18nApplicationException(String message, int errorCode) {
 		super(message, errorCode);
@@ -141,8 +123,7 @@ public abstract class AbstractI18nApplicationException extends ApplicationExcept
 	/**
 	 * 构造一个国际化异常信息.
 	 *
-	 * @param cause
-	 *         导致的原因
+	 * @param cause 导致的原因
 	 */
 	protected AbstractI18nApplicationException(Throwable cause) {
 		super(cause);
@@ -151,10 +132,8 @@ public abstract class AbstractI18nApplicationException extends ApplicationExcept
 	/**
 	 * 构造一个国际化异常信息.
 	 *
-	 * @param cause
-	 *         导致的原因
-	 * @param errorCode
-	 *         错误码
+	 * @param cause     导致的原因
+	 * @param errorCode 错误码
 	 */
 	protected AbstractI18nApplicationException(Throwable cause, int errorCode) {
 		super(cause, errorCode);
@@ -163,8 +142,7 @@ public abstract class AbstractI18nApplicationException extends ApplicationExcept
 	/**
 	 * 获取国际化处理后内容.
 	 *
-	 * @param messageSource
-	 *         messageSource
+	 * @param messageSource messageSource
 	 * @return 国际化处理后内容
 	 */
 	@Nullable

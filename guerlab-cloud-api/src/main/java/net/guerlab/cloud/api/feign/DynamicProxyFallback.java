@@ -43,12 +43,9 @@ public final class DynamicProxyFallback {
 	/**
 	 * 创建代理对象.
 	 *
-	 * @param targetClass
-	 *         对象类型
-	 * @param cause
-	 *         异常信息
-	 * @param <T>
-	 *         对象类型
+	 * @param targetClass 对象类型
+	 * @param cause       异常信息
+	 * @param <T>         对象类型
 	 * @return 代理对象
 	 */
 	@SuppressWarnings("unchecked")

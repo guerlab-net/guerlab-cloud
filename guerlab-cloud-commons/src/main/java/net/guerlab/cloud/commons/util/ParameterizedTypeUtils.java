@@ -30,10 +30,8 @@ public final class ParameterizedTypeUtils {
 	/**
 	 * 获取范型类型.
 	 *
-	 * @param obj
-	 *         对象
-	 * @param index
-	 *         所要获取的范型的ID
+	 * @param obj   对象
+	 * @param index 所要获取的范型的ID
 	 * @return 范型类型
 	 */
 	private static Type getType(Object obj, int index) {
@@ -55,12 +53,9 @@ public final class ParameterizedTypeUtils {
 	/**
 	 * 获取范型类.
 	 *
-	 * @param obj
-	 *         对象
-	 * @param index
-	 *         所要获取的范型的ID
-	 * @param <T>
-	 *         范型类
+	 * @param obj   对象
+	 * @param index 所要获取的范型的ID
+	 * @param <T>   范型类
 	 * @return 范型类
 	 */
 	@SuppressWarnings("unchecked")

@@ -81,10 +81,8 @@ public final class TwoFactorAuthentication {
 	/**
 	 * 生成OTP识别的字符串，只需要把该方法返回值生成二维码扫描就可以了.
 	 *
-	 * @param user
-	 *         账号
-	 * @param secret
-	 *         密钥
+	 * @param user   账号
+	 * @param secret 密钥
 	 * @return OTP识别的字符串
 	 */
 	public static String getQrCode(String user, String secret) {
@@ -94,10 +92,8 @@ public final class TwoFactorAuthentication {
 	/**
 	 * Check the code entered by the user to see if it is valid 验证code是否合法.
 	 *
-	 * @param secret
-	 *         The users secret.
-	 * @param code
-	 *         The code displayed on the users device
+	 * @param secret The users secret.
+	 * @param code   The code displayed on the users device
 	 * @return authentication succeed return true, authentication failed return false
 	 */
 	public static boolean checkCode(String secret, String code) {
@@ -107,12 +103,9 @@ public final class TwoFactorAuthentication {
 	/**
 	 * Check the code entered by the user to see if it is valid 验证code是否合法.
 	 *
-	 * @param secret
-	 *         The users secret.
-	 * @param code
-	 *         The code displayed on the users device
-	 * @param millisecond
-	 *         The millisecond (System.currentTimeMillis() for example)
+	 * @param secret      The users secret.
+	 * @param code        The code displayed on the users device
+	 * @param millisecond The millisecond (System.currentTimeMillis() for example)
 	 * @return authentication succeed return true, authentication failed return false
 	 */
 	@SuppressWarnings("WeakerAccess")
@@ -123,16 +116,12 @@ public final class TwoFactorAuthentication {
 	/**
 	 * Check the code entered by the user to see if it is valid 验证code是否合法.
 	 *
-	 * @param secret
-	 *         The users secret.
-	 * @param code
-	 *         The code displayed on the users device
-	 * @param millisecond
-	 *         The millisecond (System.currentTimeMillis() for example)
-	 * @param windowSize
-	 *         the windows size. This is an integer value representing the number of
-	 *         * 30 second windows we allow The bigger the window, the more tolerant of
-	 *         * clock skew we are.
+	 * @param secret      The users secret.
+	 * @param code        The code displayed on the users device
+	 * @param millisecond The millisecond (System.currentTimeMillis() for example)
+	 * @param windowSize  the windows size. This is an integer value representing the number of
+	 *                    * 30 second windows we allow The bigger the window, the more tolerant of
+	 *                    * clock skew we are.
 	 * @return authentication succeed return true, authentication failed return false
 	 */
 	@SuppressWarnings("WeakerAccess")

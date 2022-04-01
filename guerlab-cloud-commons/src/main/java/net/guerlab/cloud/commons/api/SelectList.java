@@ -28,10 +28,8 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * APi定义.
  *
- * @param <E>
- *         返回实体类型
- * @param <SP>
- *         搜索参数类型
+ * @param <E>  返回实体类型
+ * @param <SP> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -45,8 +43,7 @@ public interface SelectList<E, SP extends SearchParams> {
 	/**
 	 * 查询列表.
 	 *
-	 * @param searchParams
-	 *         搜索参数对象
+	 * @param searchParams 搜索参数对象
 	 * @return 实体列表
 	 */
 	@PostMapping(SELECT_LIST_PATH)

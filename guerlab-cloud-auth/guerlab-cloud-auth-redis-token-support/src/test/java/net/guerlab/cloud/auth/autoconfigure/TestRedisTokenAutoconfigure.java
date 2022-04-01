@@ -38,10 +38,8 @@ public class TestRedisTokenAutoconfigure {
 	/**
 	 * 构造测试用redisTemplate操作包装类.
 	 *
-	 * @param objectMapper
-	 *         objectMapper
-	 * @param redisTemplate
-	 *         redisTemplate
+	 * @param objectMapper  objectMapper
+	 * @param redisTemplate redisTemplate
 	 * @return 测试用redisTemplate操作包装类
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -54,8 +52,7 @@ public class TestRedisTokenAutoconfigure {
 	/**
 	 * 构造测试用redis token 工厂.
 	 *
-	 * @param redisOperationsWrapper
-	 *         redis操作包装对象
+	 * @param redisOperationsWrapper redis操作包装对象
 	 * @return 测试用redis token 工厂
 	 */
 	@Bean

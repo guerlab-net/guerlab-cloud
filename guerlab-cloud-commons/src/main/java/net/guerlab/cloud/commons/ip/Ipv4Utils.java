@@ -45,8 +45,7 @@ public final class Ipv4Utils {
 	/**
 	 * 判断是否为ipv4格式字符串.
 	 *
-	 * @param ip
-	 *         ip地址
+	 * @param ip ip地址
 	 * @return 是否为ipv4格式
 	 */
 	public static boolean isIpv4(String ip) {
@@ -56,8 +55,7 @@ public final class Ipv4Utils {
 	/**
 	 * 判断是否为单个ipv4地址格式字符串.
 	 *
-	 * @param ip
-	 *         ip地址
+	 * @param ip ip地址
 	 * @return 是否为单个ipv4地址格式字符串
 	 */
 	public static boolean isSingleIpv4(String ip) {
@@ -67,8 +65,7 @@ public final class Ipv4Utils {
 	/**
 	 * 判断是否为范围ipv4地址格式字符串.
 	 *
-	 * @param ip
-	 *         ip地址
+	 * @param ip ip地址
 	 * @return 是否为范围ipv4地址格式字符串
 	 */
 	public static boolean isSegmentIpv4(String ip) {
@@ -103,8 +100,7 @@ public final class Ipv4Utils {
 	/**
 	 * 解析ipv4地址.
 	 *
-	 * @param address
-	 *         IP地址
+	 * @param address IP地址
 	 * @return IP地址
 	 */
 	public static Ipv4 parseIpv4(long address) {
@@ -114,8 +110,7 @@ public final class Ipv4Utils {
 	/**
 	 * 解析ipv4地址.
 	 *
-	 * @param address
-	 *         IP地址
+	 * @param address IP地址
 	 * @return IP地址
 	 */
 	public static Ipv4 parseIpv4(String address) {
@@ -153,8 +148,7 @@ public final class Ipv4Utils {
 	/**
 	 * 基于范围链接符标志的解析.
 	 *
-	 * @param ipRange
-	 *         ip范围
+	 * @param ipRange ip范围
 	 * @return ipv4地址段
 	 */
 	public static Ipv4RangeAddress parseIpv4WithRangeLinkFlag(String ipRange) {
@@ -176,8 +170,7 @@ public final class Ipv4Utils {
 	/**
 	 * 基于子网掩码标志的解析.
 	 *
-	 * @param ipRange
-	 *         ip范围
+	 * @param ipRange ip范围
 	 * @return ipv4地址段
 	 */
 	public static Ipv4RangeAddress parseIpv4WithMaskFlag(String ipRange) {
@@ -201,8 +194,7 @@ public final class Ipv4Utils {
 	/**
 	 * 解析ipv4分组地址.
 	 *
-	 * @param str
-	 *         ipv4分组地址
+	 * @param str ipv4分组地址
 	 * @return 地址值
 	 */
 	private static long parseIpv4GroupValue(String str) {
@@ -215,8 +207,7 @@ public final class Ipv4Utils {
 	/**
 	 * 通过掩码长度构造IPv4掩码地址.
 	 *
-	 * @param prefix
-	 *         掩码长度
+	 * @param prefix 掩码长度
 	 * @return IPv4掩码地址
 	 */
 	public static Ipv4Address computeIpv4MaskFromNetworkPrefix(int prefix) {
@@ -227,10 +218,8 @@ public final class Ipv4Utils {
 	/**
 	 * 通过起始地址和结束地址构造IPv4掩码地址.
 	 *
-	 * @param startAddress
-	 *         起始地址
-	 * @param endAddress
-	 *         结束地址
+	 * @param startAddress 起始地址
+	 * @param endAddress   结束地址
 	 * @return IPv4掩码地址
 	 */
 	public static long calculationIpv4Mask(long startAddress, long endAddress) {
@@ -246,8 +235,7 @@ public final class Ipv4Utils {
 	/**
 	 * 将数值类型地址转变为字符串格式地址.
 	 *
-	 * @param ipAddress
-	 *         数值类型地址
+	 * @param ipAddress 数值类型地址
 	 * @return 字符串格式地址
 	 */
 	public static String convertIpv4String(long ipAddress) {
@@ -258,8 +246,7 @@ public final class Ipv4Utils {
 	/**
 	 * 解析IPv4字符串格式地址.
 	 *
-	 * @param ipAddressStr
-	 *         字符串格式地址
+	 * @param ipAddressStr 字符串格式地址
 	 * @return 数值类型地址
 	 */
 	public static long parseIpv4Address(String ipAddressStr) {

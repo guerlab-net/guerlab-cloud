@@ -25,8 +25,7 @@ import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
 /**
  * 抽象token后置处理.
  *
- * @param <A>
- *         授权配置类型
+ * @param <A> 授权配置类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -37,12 +36,9 @@ public abstract class AbstractTokenAfterHandlerFilter<A extends AuthWebPropertie
 	/**
 	 * 初始化token后置处理.
 	 *
-	 * @param responseAdvisorProperties
-	 *         http响应数据处理配置参数
-	 * @param requestMappingHandlerMapping
-	 *         requestMappingHandlerMapping
-	 * @param authProperties
-	 *         认证配置
+	 * @param responseAdvisorProperties    http响应数据处理配置参数
+	 * @param requestMappingHandlerMapping requestMappingHandlerMapping
+	 * @param authProperties               认证配置
 	 */
 	protected AbstractTokenAfterHandlerFilter(ResponseAdvisorProperties responseAdvisorProperties,
 			RequestMappingHandlerMapping requestMappingHandlerMapping, A authProperties) {

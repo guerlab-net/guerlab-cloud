@@ -21,8 +21,7 @@ import net.guerlab.cloud.auth.domain.TokenInfo;
 /**
  * 抽象token工厂.
  *
- * @param <T>
- *         数据实体类型
+ * @param <T> 数据实体类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -64,8 +63,7 @@ public interface TokenFactory<T> extends Ordered, Comparable<TokenFactory<?>> {
 	/**
 	 * 判断是否使用该token工厂.
 	 *
-	 * @param token
-	 *         token
+	 * @param token token
 	 * @return 是否使用
 	 */
 	default boolean accept(String token) {
@@ -75,8 +73,7 @@ public interface TokenFactory<T> extends Ordered, Comparable<TokenFactory<?>> {
 	/**
 	 * 判断是否使用该token工厂.
 	 *
-	 * @param token
-	 *         token
+	 * @param token token
 	 * @return 是否使用
 	 */
 	default boolean acceptAccessToken(@Nullable String token) {
@@ -86,8 +83,7 @@ public interface TokenFactory<T> extends Ordered, Comparable<TokenFactory<?>> {
 	/**
 	 * 判断是否使用该token工厂.
 	 *
-	 * @param token
-	 *         token
+	 * @param token token
 	 * @return 是否使用
 	 */
 	default boolean acceptRefreshToken(@Nullable String token) {
@@ -97,8 +93,7 @@ public interface TokenFactory<T> extends Ordered, Comparable<TokenFactory<?>> {
 	/**
 	 * 判断是否使用该token工厂.
 	 *
-	 * @param ip
-	 *         ip
+	 * @param ip ip
 	 * @return 是否使用
 	 */
 	boolean acceptIp(String ip);
@@ -113,8 +108,7 @@ public interface TokenFactory<T> extends Ordered, Comparable<TokenFactory<?>> {
 	/**
 	 * 构造access token.
 	 *
-	 * @param entity
-	 *         数据实体
+	 * @param entity 数据实体
 	 * @return token信息
 	 */
 	TokenInfo generateByAccessToken(T entity);
@@ -122,8 +116,7 @@ public interface TokenFactory<T> extends Ordered, Comparable<TokenFactory<?>> {
 	/**
 	 * 构造refresh token.
 	 *
-	 * @param entity
-	 *         数据实体
+	 * @param entity 数据实体
 	 * @return token信息
 	 */
 	TokenInfo generateByRefreshToken(T entity);
@@ -131,8 +124,7 @@ public interface TokenFactory<T> extends Ordered, Comparable<TokenFactory<?>> {
 	/**
 	 * 根据access token解析数据实体.
 	 *
-	 * @param token
-	 *         access token
+	 * @param token access token
 	 * @return 数据实体
 	 */
 	T parseByAccessToken(String token);
@@ -140,8 +132,7 @@ public interface TokenFactory<T> extends Ordered, Comparable<TokenFactory<?>> {
 	/**
 	 * 根据refresh token解析数据实体.
 	 *
-	 * @param token
-	 *         refresh token
+	 * @param token refresh token
 	 * @return 数据实体
 	 */
 	T parseByRefreshToken(String token);

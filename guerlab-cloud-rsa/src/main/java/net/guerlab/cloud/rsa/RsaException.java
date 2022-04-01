@@ -30,8 +30,7 @@ public class RsaException extends RuntimeException {
 	/**
 	 * 构造RSA异常.
 	 *
-	 * @param message
-	 *         异常信息
+	 * @param message 异常信息
 	 */
 	public RsaException(String message) {
 		super(message);
@@ -40,10 +39,8 @@ public class RsaException extends RuntimeException {
 	/**
 	 * 构造RSA异常.
 	 *
-	 * @param message
-	 *         异常信息
-	 * @param cause
-	 *         异常源
+	 * @param message 异常信息
+	 * @param cause   异常源
 	 */
 	public RsaException(String message, Throwable cause) {
 		super(message, cause);
@@ -52,8 +49,7 @@ public class RsaException extends RuntimeException {
 	/**
 	 * 构造RSA异常.
 	 *
-	 * @param cause
-	 *         异常源
+	 * @param cause 异常源
 	 */
 	public RsaException(Throwable cause) {
 		super(cause);
@@ -62,14 +58,10 @@ public class RsaException extends RuntimeException {
 	/**
 	 * 构造RSA异常.
 	 *
-	 * @param message
-	 *         异常信息
-	 * @param cause
-	 *         异常源
-	 * @param enableSuppression
-	 *         是否启用抑制
-	 * @param writableStackTrace
-	 *         是否可写堆栈跟踪
+	 * @param message            异常信息
+	 * @param cause              异常源
+	 * @param enableSuppression  是否启用抑制
+	 * @param writableStackTrace 是否可写堆栈跟踪
 	 */
 	public RsaException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);

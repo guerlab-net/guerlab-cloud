@@ -39,10 +39,8 @@ public class EndpointResponseAdvisorPropertiesAutoconfigure {
 	/**
 	 * 基础路径设置.
 	 *
-	 * @param webEndpointPropertiesObjectProvider
-	 *         WebEndpointProperties提供者
-	 * @param responseAdvisorProperties
-	 *         http响应数据处理配置参数
+	 * @param webEndpointPropertiesObjectProvider WebEndpointProperties提供者
+	 * @param responseAdvisorProperties           http响应数据处理配置参数
 	 */
 	@Autowired
 	public void basePathHandler(ObjectProvider<WebEndpointProperties> webEndpointPropertiesObjectProvider,
@@ -58,8 +56,7 @@ public class EndpointResponseAdvisorPropertiesAutoconfigure {
 	/**
 	 * 构造响应环绕监控端点.
 	 *
-	 * @param responseAdvisorProperties
-	 *         http响应数据处理配置参数
+	 * @param responseAdvisorProperties http响应数据处理配置参数
 	 * @return 响应环绕监控端点
 	 */
 	@Bean

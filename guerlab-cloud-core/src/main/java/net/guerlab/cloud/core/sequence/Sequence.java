@@ -79,10 +79,8 @@ public class Sequence {
 	 * <p>
 	 * 注：sequence
 	 *
-	 * @param workerId
-	 *         工作机器ID,数据范围为0~31
-	 * @param dataCenterId
-	 *         数据中心ID,数据范围为0~31
+	 * @param workerId     工作机器ID,数据范围为0~31
+	 * @param dataCenterId 数据中心ID,数据范围为0~31
 	 */
 	public Sequence(long workerId, long dataCenterId) {
 		if (workerId > MAX_WORKER_ID || workerId < 0) {
@@ -101,8 +99,7 @@ public class Sequence {
 	/**
 	 * 设置是否使用时钟.
 	 *
-	 * @param clock
-	 *         是否使用时钟
+	 * @param clock 是否使用时钟
 	 */
 	public void setClock(boolean clock) {
 		isClock = clock;
@@ -167,8 +164,7 @@ public class Sequence {
 	/**
 	 * 保证返回的毫秒数在参数之后(阻塞到下一个毫秒，直到获得新的时间戳).
 	 *
-	 * @param lastTimestamp
-	 *         lastTimestamp
+	 * @param lastTimestamp lastTimestamp
 	 * @return timestamp
 	 */
 	private long tilNextMillis(long lastTimestamp) {

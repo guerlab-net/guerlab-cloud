@@ -35,8 +35,7 @@ public interface EnableTimeEntity {
 	/**
 	 * 设置启用开始日期.
 	 *
-	 * @param enableStartTime
-	 *         启用开始日期
+	 * @param enableStartTime 启用开始日期
 	 */
 	void setEnableStartTime(@Nullable LocalDateTime enableStartTime);
 
@@ -51,8 +50,7 @@ public interface EnableTimeEntity {
 	/**
 	 * 设置启用结束日期.
 	 *
-	 * @param enableEndTime
-	 *         启用结束日期
+	 * @param enableEndTime 启用结束日期
 	 */
 	void setEnableEndTime(@Nullable LocalDateTime enableEndTime);
 }

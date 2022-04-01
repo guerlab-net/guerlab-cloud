@@ -61,10 +61,8 @@ public class ObjectMapperAutoconfigure {
 	/**
 	 * 设置ObjectMapper属性.
 	 *
-	 * @param objectMapper
-	 *         objectMapper
-	 * @param properties
-	 *         数值json格式化配置
+	 * @param objectMapper objectMapper
+	 * @param properties   数值json格式化配置
 	 */
 	public static void setProperties(ObjectMapper objectMapper, NumberJsonStringFormatProperties properties) {
 		SimpleModule module = new SimpleModule();
@@ -150,8 +148,7 @@ public class ObjectMapperAutoconfigure {
 	/**
 	 * 设置ObjectMapper属性.
 	 *
-	 * @param objectMapper
-	 *         objectMapper
+	 * @param objectMapper objectMapper
 	 */
 	public static void setProperties(ObjectMapper objectMapper) {
 		setProperties(objectMapper, SpringUtils.getBean(NumberJsonStringFormatProperties.class));
@@ -160,10 +157,8 @@ public class ObjectMapperAutoconfigure {
 	/**
 	 * objectMapper扩展设置.
 	 *
-	 * @param objectMapperProvider
-	 *         objectMapper提供者
-	 * @param properties
-	 *         数值json格式化配置
+	 * @param objectMapperProvider objectMapper提供者
+	 * @param properties           数值json格式化配置
 	 */
 	@Autowired
 	public void objectMapperAdvice(ObjectProvider<ObjectMapper> objectMapperProvider,

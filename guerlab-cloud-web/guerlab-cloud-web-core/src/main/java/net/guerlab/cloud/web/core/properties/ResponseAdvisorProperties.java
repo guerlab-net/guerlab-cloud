@@ -62,8 +62,7 @@ public class ResponseAdvisorProperties {
 	/**
 	 * 设置排除路径.
 	 *
-	 * @param excluded
-	 *         排除路径
+	 * @param excluded 排除路径
 	 */
 	public void setExcluded(@Nullable List<String> excluded) {
 		if (excluded != null) {
@@ -74,8 +73,7 @@ public class ResponseAdvisorProperties {
 	/**
 	 * 添加排除路径.
 	 *
-	 * @param excluded
-	 *         排除路径
+	 * @param excluded 排除路径
 	 */
 	public void addExcluded(List<String> excluded) {
 		this.excluded.addAll(excluded);
@@ -84,8 +82,7 @@ public class ResponseAdvisorProperties {
 	/**
 	 * 添加排除路径.
 	 *
-	 * @param excluded
-	 *         排除路径
+	 * @param excluded 排除路径
 	 */
 	public void addExcluded(String... excluded) {
 		this.excluded.addAll(Arrays.asList(excluded));

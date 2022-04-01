@@ -26,10 +26,8 @@ import net.guerlab.cloud.commons.ip.IpUtils;
 /**
  * 抽象token工厂.
  *
- * @param <T>
- *         数据实体类型
- * @param <P>
- *         配置类型
+ * @param <T> 数据实体类型
+ * @param <P> 配置类型
  * @author guer
  */
 public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> implements TokenFactory<T> {
@@ -42,8 +40,7 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
 	/**
 	 * 获取对象值.
 	 *
-	 * @param obj
-	 *         对象
+	 * @param obj 对象
 	 * @return 对象值
 	 */
 	protected static String getObjectValue(@Nullable Object obj) {
@@ -111,8 +108,7 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
 	/**
 	 * 设置token 工厂配置.
 	 *
-	 * @param properties
-	 *         token 工厂配置
+	 * @param properties token 工厂配置
 	 */
 	@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 	@Autowired

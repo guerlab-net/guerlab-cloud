@@ -24,8 +24,7 @@ import net.guerlab.cloud.commons.Constants;
 /**
  * APi定义.
  *
- * @param <E>
- *         返回实体类型
+ * @param <E> 返回实体类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -34,8 +33,7 @@ public interface Insert<E> {
 	/**
 	 * 新增实体.
 	 *
-	 * @param entity
-	 *         实体
+	 * @param entity 实体
 	 * @return 保存后的实体
 	 */
 	@PostMapping

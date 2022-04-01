@@ -62,12 +62,9 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 	/**
 	 * 获取注解.
 	 *
-	 * @param handlerMethod
-	 *         处理方法
-	 * @param annotationClass
-	 *         注解类
-	 * @param <A>
-	 *         注解类
+	 * @param handlerMethod   处理方法
+	 * @param annotationClass 注解类
+	 * @param <A>             注解类
 	 * @return 注解对象
 	 */
 	@SuppressWarnings("SameParameterValue")
@@ -134,8 +131,7 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 	/**
 	 * 获取token.
 	 *
-	 * @param request
-	 *         http请求对象
+	 * @param request http请求对象
 	 * @return token
 	 */
 	@Nullable
@@ -182,12 +178,9 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 	/**
 	 * 获取令牌成功前置处理.
 	 *
-	 * @param request
-	 *         请求
-	 * @param handlerMethod
-	 *         处理方法
-	 * @param token
-	 *         令牌
+	 * @param request       请求
+	 * @param handlerMethod 处理方法
+	 * @param token         令牌
 	 */
 	protected void preHandleWithToken(HttpServletRequest request, HandlerMethod handlerMethod, String token) {
 
@@ -231,8 +224,7 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 	/**
 	 * 设置http响应数据处理配置参数.
 	 *
-	 * @param responseAdvisorProperties
-	 *         http响应数据处理配置参数
+	 * @param responseAdvisorProperties http响应数据处理配置参数
 	 */
 	@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 	@Autowired

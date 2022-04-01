@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ * API相关自动装配类.
  */
 @NonNullApi
 package net.guerlab.cloud.api.autoconfigure;

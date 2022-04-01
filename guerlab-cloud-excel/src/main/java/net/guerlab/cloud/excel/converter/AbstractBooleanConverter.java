@@ -40,10 +40,8 @@ public class AbstractBooleanConverter implements Converter<Boolean> {
 	/**
 	 * 创建Boolean Converter.
 	 *
-	 * @param trueValue
-	 *         true value
-	 * @param falseValue
-	 *         false value
+	 * @param trueValue  true value
+	 * @param falseValue false value
 	 */
 	public AbstractBooleanConverter(String trueValue, String falseValue) {
 		Assert.hasText(trueValue, () -> "trueValue is empty");

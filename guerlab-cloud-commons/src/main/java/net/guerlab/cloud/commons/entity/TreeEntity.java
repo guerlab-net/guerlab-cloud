@@ -23,10 +23,8 @@ import org.springframework.lang.Nullable;
 /**
  * 树形结构对象.
  *
- * @param <E>
- *         对象类型
- * @param <PK>
- *         主键类型
+ * @param <E>  对象类型
+ * @param <PK> 主键类型
  * @author guer
  */
 @Data
@@ -34,33 +32,29 @@ import org.springframework.lang.Nullable;
 public class TreeEntity<E, PK> {
 
 	/**
-	 * 对象ID.
-	 */
-	@Schema(description = "对象ID")
-	private PK id;
-
-	/**
-	 * 上级ID.
-	 */
-	@Schema(description = "上级ID")
-	private PK parentId;
-
-	/**
-	 * 标签.
-	 */
-	@Schema(description = "标签")
-	private String label;
-
-	/**
-	 * 目标对象.
-	 */
-	@Schema(description = "目标对象")
-	private E object;
-
-	/**
 	 * 下级列表.
 	 */
 	@Nullable
 	@Schema(description = "下级列表")
 	protected Collection<TreeEntity<E, PK>> children;
+	/**
+	 * 对象ID.
+	 */
+	@Schema(description = "对象ID")
+	private PK id;
+	/**
+	 * 上级ID.
+	 */
+	@Schema(description = "上级ID")
+	private PK parentId;
+	/**
+	 * 标签.
+	 */
+	@Schema(description = "标签")
+	private String label;
+	/**
+	 * 目标对象.
+	 */
+	@Schema(description = "目标对象")
+	private E object;
 }

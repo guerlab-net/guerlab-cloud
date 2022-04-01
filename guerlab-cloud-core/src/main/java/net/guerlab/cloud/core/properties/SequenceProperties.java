@@ -47,8 +47,7 @@ public class SequenceProperties {
 	/**
 	 * 设置工作节点ID.
 	 *
-	 * @param workerId
-	 *         工作节点ID
+	 * @param workerId 工作节点ID
 	 */
 	public void setWorkerId(long workerId) {
 		this.workerId = workerId;
@@ -66,8 +65,7 @@ public class SequenceProperties {
 	/**
 	 * 设置数据中心ID.
 	 *
-	 * @param dataCenterId
-	 *         数据中心ID
+	 * @param dataCenterId 数据中心ID
 	 */
 	public void setDataCenterId(long dataCenterId) {
 		this.dataCenterId = dataCenterId;

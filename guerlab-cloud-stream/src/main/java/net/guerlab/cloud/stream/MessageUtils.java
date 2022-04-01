@@ -45,10 +45,8 @@ public final class MessageUtils {
 	/**
 	 * 判断消息体来源的应用名称是否和期望的应用名称一致.
 	 *
-	 * @param message
-	 *         消息体
-	 * @param appName
-	 *         应用名称
+	 * @param message 消息体
+	 * @param appName 应用名称
 	 * @return 判断
 	 */
 	public static boolean orangeAppNameSame(Message<?> message, String appName) {
@@ -58,8 +56,7 @@ public final class MessageUtils {
 	/**
 	 * 判断消息体来源的应用名称是否和当前应用名称一致.
 	 *
-	 * @param message
-	 *         消息体
+	 * @param message 消息体
 	 * @return 判断
 	 */
 	public static boolean orangeAppNameSame(Message<?> message) {
@@ -69,8 +66,7 @@ public final class MessageUtils {
 	/**
 	 * 获取消息体中的应用名称.
 	 *
-	 * @param message
-	 *         消息体
+	 * @param message 消息体
 	 * @return 源应用名称
 	 */
 	public static String getAppName(Message<?> message) {
@@ -80,10 +76,8 @@ public final class MessageUtils {
 	/**
 	 * 构造消息体构造者.
 	 *
-	 * @param message
-	 *         消息
-	 * @param <T>
-	 *         消息类型
+	 * @param message 消息
+	 * @param <T>     消息类型
 	 * @return 消息体构造者
 	 */
 	public static <T> MessageBuilder<T> toBuilder(T message) {
@@ -95,8 +89,7 @@ public final class MessageUtils {
 	/**
 	 * 获取监听器名称.
 	 *
-	 * @param bindingName
-	 *         binding名称
+	 * @param bindingName binding名称
 	 * @return 监听器名称
 	 */
 	public static String getListenerName(String bindingName) {
@@ -108,8 +101,8 @@ public final class MessageUtils {
 
 	/**
 	 * 获取对象字符串.
-	 * @param value
-	 *         获取对象字符串
+	 *
+	 * @param value 获取对象字符串
 	 * @return 对象字符串
 	 */
 	private static String toString(@Nullable Object value) {

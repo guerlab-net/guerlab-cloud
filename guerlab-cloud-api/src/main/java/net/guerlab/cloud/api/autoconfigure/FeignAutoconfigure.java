@@ -38,8 +38,7 @@ public class FeignAutoconfigure {
 	/**
 	 * 构造结果解析.
 	 *
-	 * @param objectMapper
-	 *         objectMapper
+	 * @param objectMapper objectMapper
 	 * @return 结果解析
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -51,8 +50,7 @@ public class FeignAutoconfigure {
 	/**
 	 * 失败响应解析.
 	 *
-	 * @param objectMapper
-	 *         objectMapper
+	 * @param objectMapper objectMapper
 	 * @return 失败响应解析
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -64,8 +62,7 @@ public class FeignAutoconfigure {
 	/**
 	 * 构造错误解析器链.
 	 *
-	 * @param decoders
-	 *         错误解析器
+	 * @param decoders 错误解析器
 	 * @return 错误解析器链
 	 */
 	@Bean

@@ -56,14 +56,10 @@ public final class ExcelUtils {
 	/**
 	 * 导出excel.
 	 *
-	 * @param list
-	 *         对象列表
-	 * @param head
-	 *         对象类型
-	 * @param fileName
-	 *         文件名
-	 * @param <T>
-	 *         对象类型
+	 * @param list     对象列表
+	 * @param head     对象类型
+	 * @param fileName 文件名
+	 * @param <T>      对象类型
 	 * @return 响应
 	 */
 	public static <T> ResponseEntity<byte[]> exportExcel(Collection<?> list, Class<T> head, String fileName) {
@@ -100,8 +96,7 @@ public final class ExcelUtils {
 	/**
 	 * 获取Excel输出构建器.
 	 *
-	 * @param file
-	 *         File to write
+	 * @param file File to write
 	 * @return Excel输出构建器
 	 */
 	public static ExcelWriterBuilder write(File file) {
@@ -111,10 +106,8 @@ public final class ExcelUtils {
 	/**
 	 * 获取Excel输出构建器.
 	 *
-	 * @param file
-	 *         File to write
-	 * @param head
-	 *         Annotate the class for configuration information
+	 * @param file File to write
+	 * @param head Annotate the class for configuration information
 	 * @return Excel输出构建器
 	 */
 	public static ExcelWriterBuilder write(File file, Class<?> head) {
@@ -124,8 +117,7 @@ public final class ExcelUtils {
 	/**
 	 * 获取Excel输出构建器.
 	 *
-	 * @param pathName
-	 *         File path to write
+	 * @param pathName File path to write
 	 * @return Excel输出构建器
 	 */
 	public static ExcelWriterBuilder write(String pathName) {
@@ -135,10 +127,8 @@ public final class ExcelUtils {
 	/**
 	 * 获取Excel输出构建器.
 	 *
-	 * @param pathName
-	 *         File path to write
-	 * @param head
-	 *         Annotate the class for configuration information
+	 * @param pathName File path to write
+	 * @param head     Annotate the class for configuration information
 	 * @return Excel输出构建器
 	 */
 	public static ExcelWriterBuilder write(String pathName, Class<?> head) {
@@ -148,8 +138,7 @@ public final class ExcelUtils {
 	/**
 	 * 获取Excel输出构建器.
 	 *
-	 * @param outputStream
-	 *         Output stream to write
+	 * @param outputStream Output stream to write
 	 * @return Excel输出构建器
 	 */
 	public static ExcelWriterBuilder write(OutputStream outputStream) {
@@ -159,10 +148,8 @@ public final class ExcelUtils {
 	/**
 	 * 获取Excel输出构建器.
 	 *
-	 * @param outputStream
-	 *         Output stream to write
-	 * @param head
-	 *         Annotate the class for configuration information.
+	 * @param outputStream Output stream to write
+	 * @param head         Annotate the class for configuration information.
 	 * @return Excel输出构建器
 	 */
 	public static ExcelWriterBuilder write(OutputStream outputStream, Class<?> head) {
@@ -172,8 +159,7 @@ public final class ExcelUtils {
 	/**
 	 * 注册全局转换器.
 	 *
-	 * @param converter
-	 *         转换器
+	 * @param converter 转换器
 	 */
 	public static void registerGlobalConverter(Converter<?> converter) {
 		CONVERTERS.add(converter);
@@ -182,8 +168,7 @@ public final class ExcelUtils {
 	/**
 	 * 注册转换器对象.
 	 *
-	 * @param builder
-	 *         ExcelWriterBuilder
+	 * @param builder ExcelWriterBuilder
 	 * @return ExcelWriterBuilder
 	 */
 	public static ExcelWriterBuilder registerConverter(ExcelWriterBuilder builder) {

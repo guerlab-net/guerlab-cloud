@@ -51,10 +51,8 @@ public class RedisCacheConfig {
 	/**
 	 * 构造RedisCacheConfiguration.
 	 *
-	 * @param keySerializationPair
-	 *         keySerializationPair
-	 * @param valueSerializationPair
-	 *         valueSerializationPair
+	 * @param keySerializationPair   keySerializationPair
+	 * @param valueSerializationPair valueSerializationPair
 	 * @return RedisCacheConfiguration
 	 */
 	public RedisCacheConfiguration build(SerializationPair<String> keySerializationPair,

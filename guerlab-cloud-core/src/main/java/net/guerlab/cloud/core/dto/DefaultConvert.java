@@ -26,8 +26,7 @@ import net.guerlab.commons.exception.ApplicationException;
 /**
  * 转换为对象.
  *
- * @param <D>
- *         对象类型
+ * @param <D> 对象类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -36,8 +35,7 @@ public interface DefaultConvert<D> extends Convert<D> {
 	/**
 	 * 从type列表中获取对象类型.
 	 *
-	 * @param types
-	 *         type列表
+	 * @param types type列表
 	 * @return 对象类型
 	 */
 	@Nullable

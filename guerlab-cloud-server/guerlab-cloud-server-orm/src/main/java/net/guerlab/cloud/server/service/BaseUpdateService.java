@@ -21,10 +21,8 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * 基本更新服务接口.
  *
- * @param <T>
- *         数据类型
- * @param <SP>
- *         搜索参数类型
+ * @param <T>  数据类型
+ * @param <SP> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings({"UnusedReturnValue", "unused"})
@@ -33,8 +31,7 @@ public interface BaseUpdateService<T, SP extends SearchParams> extends QueryWrap
 	/**
 	 * 根据id更新.
 	 *
-	 * @param entity
-	 *         实体
+	 * @param entity 实体
 	 * @return 是否更新成功
 	 */
 	boolean updateById(T entity);
@@ -42,10 +39,8 @@ public interface BaseUpdateService<T, SP extends SearchParams> extends QueryWrap
 	/**
 	 * 根据条件更新.
 	 *
-	 * @param entity
-	 *         实体
-	 * @param queryWrapper
-	 *         条件
+	 * @param entity       实体
+	 * @param queryWrapper 条件
 	 * @return 是否更新成功
 	 */
 	boolean update(T entity, LambdaQueryWrapper<T> queryWrapper);
@@ -53,10 +48,8 @@ public interface BaseUpdateService<T, SP extends SearchParams> extends QueryWrap
 	/**
 	 * 根据条件更新.
 	 *
-	 * @param entity
-	 *         实体
-	 * @param queryWrapper
-	 *         条件
+	 * @param entity       实体
+	 * @param queryWrapper 条件
 	 * @return 是否更新成功
 	 */
 	boolean update(T entity, QueryWrapper<T> queryWrapper);
@@ -64,10 +57,8 @@ public interface BaseUpdateService<T, SP extends SearchParams> extends QueryWrap
 	/**
 	 * 根据条件更新.
 	 *
-	 * @param entity
-	 *         实体
-	 * @param searchParams
-	 *         搜索条件
+	 * @param entity       实体
+	 * @param searchParams 搜索条件
 	 * @return 是否更新成功
 	 */
 	boolean update(T entity, SP searchParams);

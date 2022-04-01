@@ -41,10 +41,8 @@ public class RedisTemplateAutoconfigure {
 	/**
 	 * create RedisTemplate.
 	 *
-	 * @param factory
-	 *         RedisConnectionFactory
-	 * @param objectMapper
-	 *         objectMapper
+	 * @param factory      RedisConnectionFactory
+	 * @param objectMapper objectMapper
 	 * @return RedisTemplate
 	 */
 	@Bean

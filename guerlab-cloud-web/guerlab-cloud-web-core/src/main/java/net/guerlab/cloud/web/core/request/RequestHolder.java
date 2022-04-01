@@ -42,8 +42,7 @@ public final class RequestHolder {
 	 * 获取请求方法.
 	 *
 	 * @return 请求方法
-	 * @throws NullPointerException
-	 *         当获取失败的时候抛出NullPointerException
+	 * @throws NullPointerException 当获取失败的时候抛出NullPointerException
 	 */
 	public static String getRequestMethod() {
 		String requestMethod = requestMethod();
@@ -70,8 +69,7 @@ public final class RequestHolder {
 	 * 获取请求路径.
 	 *
 	 * @return 请求路径
-	 * @throws NullPointerException
-	 *         当获取失败的时候抛出NullPointerException
+	 * @throws NullPointerException 当获取失败的时候抛出NullPointerException
 	 */
 	public static String getRequestPath() {
 		String requestPath = requestPath();

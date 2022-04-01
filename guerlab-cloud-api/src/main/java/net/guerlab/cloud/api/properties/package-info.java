@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ * 配置类.
  */
 @NonNullApi
 package net.guerlab.cloud.api.properties;

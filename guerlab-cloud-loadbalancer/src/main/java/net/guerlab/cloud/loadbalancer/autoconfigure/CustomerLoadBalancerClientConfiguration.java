@@ -41,16 +41,11 @@ public class CustomerLoadBalancerClientConfiguration {
 	/**
 	 * 构造服务实例的负载均衡器.
 	 *
-	 * @param environment
-	 *         系统环境
-	 * @param loadBalancerClientFactory
-	 *         负载均衡客户端工厂类
-	 * @param ruleProvider
-	 *         规则对象提供
-	 * @param loadBalancerProperties
-	 *         负载均衡配置
-	 * @param policy
-	 *         负载均衡策略
+	 * @param environment               系统环境
+	 * @param loadBalancerClientFactory 负载均衡客户端工厂类
+	 * @param ruleProvider              规则对象提供
+	 * @param loadBalancerProperties    负载均衡配置
+	 * @param policy                    负载均衡策略
 	 * @return 服务实例的负载均衡器
 	 */
 	@Bean

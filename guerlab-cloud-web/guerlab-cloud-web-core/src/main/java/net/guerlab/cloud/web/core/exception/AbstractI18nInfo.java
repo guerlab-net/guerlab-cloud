@@ -43,10 +43,8 @@ public abstract class AbstractI18nInfo {
 	/**
 	 * 通过异常和错误码初始化.
 	 *
-	 * @param throwable
-	 *         异常
-	 * @param errorCode
-	 *         错误码
+	 * @param throwable 异常
+	 * @param errorCode 错误码
 	 */
 	protected AbstractI18nInfo(@Nullable Throwable throwable, int errorCode) {
 		this.throwable = throwable;
@@ -56,8 +54,7 @@ public abstract class AbstractI18nInfo {
 	/**
 	 * 获取国际化处理后内容.
 	 *
-	 * @param messageSource
-	 *         messageSource
+	 * @param messageSource messageSource
 	 * @return 国际化处理后内容
 	 */
 	@Nullable

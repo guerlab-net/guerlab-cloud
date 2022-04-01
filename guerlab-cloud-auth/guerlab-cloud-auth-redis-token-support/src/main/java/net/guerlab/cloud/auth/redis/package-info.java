@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ * redis操作相关.
  */
 @NonNullApi
 package net.guerlab.cloud.auth.redis;

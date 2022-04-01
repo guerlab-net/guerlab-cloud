@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ * 监控端点相关.
  */
 @NonNullApi
 package net.guerlab.cloud.api.endpoints;

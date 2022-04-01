@@ -44,10 +44,8 @@ public class LoadBalancerHeaderRequestInterceptor implements RequestInterceptor 
 	/**
 	 * 初始化负载均衡版本控制请求头注入拦截器.
 	 *
-	 * @param properties
-	 *         版本控制配置
-	 * @param discoveryProperties
-	 *         服务发现配置
+	 * @param properties          版本控制配置
+	 * @param discoveryProperties 服务发现配置
 	 */
 	public LoadBalancerHeaderRequestInterceptor(VersionControlProperties properties,
 			NacosDiscoveryProperties discoveryProperties) {

@@ -59,8 +59,7 @@ public interface IpAddress {
 	/**
 	 * 判断是否包含某个IP.
 	 *
-	 * @param target
-	 *         目标IP
+	 * @param target 目标IP
 	 * @return 是否包含
 	 */
 	default boolean contains(IpSingleAddress target) {

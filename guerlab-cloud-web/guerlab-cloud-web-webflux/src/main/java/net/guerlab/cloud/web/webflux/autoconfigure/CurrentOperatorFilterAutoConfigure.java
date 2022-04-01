@@ -30,8 +30,7 @@ public class CurrentOperatorFilterAutoConfigure {
 	/**
 	 * 初始化当前操作者信息处理请求拦截器.
 	 *
-	 * @param requestMappingHandlerMapping
-	 *         requestMappingHandlerMapping
+	 * @param requestMappingHandlerMapping requestMappingHandlerMapping
 	 * @return 当前操作者信息处理请求拦截器
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")

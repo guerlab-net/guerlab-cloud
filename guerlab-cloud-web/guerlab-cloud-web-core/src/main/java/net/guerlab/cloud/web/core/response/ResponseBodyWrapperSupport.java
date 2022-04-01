@@ -49,8 +49,7 @@ public class ResponseBodyWrapperSupport {
 	/**
 	 * 初始化响应对象包装支持.
 	 *
-	 * @param properties
-	 *         http响应数据处理配置参数
+	 * @param properties http响应数据处理配置参数
 	 */
 	public ResponseBodyWrapperSupport(ResponseAdvisorProperties properties) {
 		this.properties = properties;
@@ -59,10 +58,8 @@ public class ResponseBodyWrapperSupport {
 	/**
 	 * 判断响应数据是否为不需要转换对象.
 	 *
-	 * @param body
-	 *         响应数据
-	 * @param returnType
-	 *         方法参数对象
+	 * @param body       响应数据
+	 * @param returnType 方法参数对象
 	 * @return 是否需要转换
 	 */
 	public boolean noConvertObject(@Nullable Object body, MethodParameter returnType) {
@@ -77,8 +74,7 @@ public class ResponseBodyWrapperSupport {
 	/**
 	 * 判断只是支持结果包装.
 	 *
-	 * @param returnType
-	 *         方法参数对象
+	 * @param returnType 方法参数对象
 	 * @return 是否支持结果包装
 	 */
 	public boolean supports(MethodParameter returnType) {
@@ -113,10 +109,8 @@ public class ResponseBodyWrapperSupport {
 	/**
 	 * 判断是否在排除路径中.
 	 *
-	 * @param requestPath
-	 *         请求路径
-	 * @param method
-	 *         处理方法
+	 * @param requestPath 请求路径
+	 * @param method      处理方法
 	 * @return 是否在排除路径中
 	 */
 	public boolean matchExcluded(String requestPath, @Nullable Method method) {

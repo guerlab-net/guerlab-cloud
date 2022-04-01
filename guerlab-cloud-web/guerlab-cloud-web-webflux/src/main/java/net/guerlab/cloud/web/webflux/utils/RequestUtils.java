@@ -35,8 +35,7 @@ public final class RequestUtils {
 	/**
 	 * 解析请求路径.
 	 *
-	 * @param request
-	 *         请求对象
+	 * @param request 请求对象
 	 * @return 请求路径
 	 */
 	public static String parseRequestUri(ServerHttpRequest request) {
@@ -46,8 +45,7 @@ public final class RequestUtils {
 	/**
 	 * 解析请求路径.
 	 *
-	 * @param request
-	 *         请求对象
+	 * @param request 请求对象
 	 * @return 请求路径
 	 */
 	public static String parseRequestUri(ServerRequest request) {

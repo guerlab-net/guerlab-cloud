@@ -25,10 +25,8 @@ import net.guerlab.cloud.auth.properties.Md5TokenFactoryProperties;
 /**
  * 抽象md5 token工厂.
  *
- * @param <T>
- *         数据实体类型
- * @param <P>
- *         配置类型
+ * @param <T> 数据实体类型
+ * @param <P> 配置类型
  * @author guer
  */
 public abstract class AbstractMd5TokenFactory<T, P extends Md5TokenFactoryProperties>

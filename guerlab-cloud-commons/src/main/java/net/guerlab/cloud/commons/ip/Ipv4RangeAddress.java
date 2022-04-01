@@ -55,14 +55,10 @@ public class Ipv4RangeAddress extends Ipv4 implements IpRangeAddress {
 	/**
 	 * 通过开始地址、结束地址、掩码地址、掩码长度构造ipv4范围地址.
 	 *
-	 * @param startAddress
-	 *         开始地址
-	 * @param endAddress
-	 *         结束地址
-	 * @param mask
-	 *         掩码地址
-	 * @param maskLength
-	 *         掩码长度
+	 * @param startAddress 开始地址
+	 * @param endAddress   结束地址
+	 * @param mask         掩码地址
+	 * @param maskLength   掩码长度
 	 */
 	Ipv4RangeAddress(long startAddress, long endAddress, long mask, int maskLength) {
 		this.startAddress = startAddress;
@@ -74,10 +70,8 @@ public class Ipv4RangeAddress extends Ipv4 implements IpRangeAddress {
 	/**
 	 * 通过开始地址、结束地址构造ipv4范围地址.
 	 *
-	 * @param startAddress
-	 *         开始地址
-	 * @param endAddress
-	 *         结束地址
+	 * @param startAddress 开始地址
+	 * @param endAddress   结束地址
 	 */
 	Ipv4RangeAddress(long startAddress, long endAddress) {
 		this(startAddress, endAddress, IpUtils.calculationIpv4Mask(startAddress, endAddress), -1);

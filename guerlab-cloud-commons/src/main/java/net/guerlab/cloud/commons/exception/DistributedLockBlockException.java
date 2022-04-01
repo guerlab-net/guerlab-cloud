@@ -42,10 +42,8 @@ public class DistributedLockBlockException extends AbstractI18nApplicationExcept
 	/**
 	 * 构造分布式锁阻塞异常.
 	 *
-	 * @param time
-	 *         加锁时长
-	 * @param timeUnit
-	 *         加锁时长单位
+	 * @param time     加锁时长
+	 * @param timeUnit 加锁时长单位
 	 */
 	public DistributedLockBlockException(Long time, String timeUnit) {
 		this.time = time;

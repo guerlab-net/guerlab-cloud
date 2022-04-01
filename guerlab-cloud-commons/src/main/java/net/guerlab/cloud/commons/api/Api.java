@@ -50,10 +50,8 @@ import static net.guerlab.cloud.commons.api.UpdateById.UPDATE_BY_ID_PATH;
 /**
  * APi定义.
  *
- * @param <E>
- *         返回实体类型
- * @param <SP>
- *         搜索参数类型
+ * @param <E>  返回实体类型
+ * @param <SP> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -62,10 +60,8 @@ public interface Api<E, SP extends SearchParams> {
 	/**
 	 * 根据主键ID查询对象.
 	 *
-	 * @param id
-	 *         主键ID
-	 * @param searchParams
-	 *         搜索参数
+	 * @param id           主键ID
+	 * @param searchParams 搜索参数
 	 * @return 对象
 	 */
 	@Nullable
@@ -77,8 +73,7 @@ public interface Api<E, SP extends SearchParams> {
 	/**
 	 * 通过Id查询单一结果.
 	 *
-	 * @param id
-	 *         主键id
+	 * @param id 主键id
 	 * @return 实体
 	 */
 	@Nullable
@@ -89,8 +84,7 @@ public interface Api<E, SP extends SearchParams> {
 	/**
 	 * 通过Id查询单一结果.
 	 *
-	 * @param id
-	 *         主键id
+	 * @param id 主键id
 	 * @return Optional
 	 */
 	default Optional<E> selectByIdOptional(Long id) {
@@ -100,8 +94,7 @@ public interface Api<E, SP extends SearchParams> {
 	/**
 	 * 查询单一结果，根据搜索参数进行筛选.
 	 *
-	 * @param searchParams
-	 *         搜索参数对象
+	 * @param searchParams 搜索参数对象
 	 * @return 实体
 	 */
 	@Nullable
@@ -112,8 +105,7 @@ public interface Api<E, SP extends SearchParams> {
 	/**
 	 * 查询单一结果，根据搜索参数进行筛选.
 	 *
-	 * @param searchParams
-	 *         搜索参数对象
+	 * @param searchParams 搜索参数对象
 	 * @return Optional
 	 */
 	default Optional<E> selectOneOptional(SP searchParams) {
@@ -123,8 +115,7 @@ public interface Api<E, SP extends SearchParams> {
 	/**
 	 * 查询列表.
 	 *
-	 * @param searchParams
-	 *         搜索参数对象
+	 * @param searchParams 搜索参数对象
 	 * @return 实体列表
 	 */
 	@PostMapping(SELECT_LIST_PATH)
@@ -134,12 +125,9 @@ public interface Api<E, SP extends SearchParams> {
 	/**
 	 * 查询分页列表.
 	 *
-	 * @param searchParams
-	 *         搜索参数对象
-	 * @param pageId
-	 *         分页ID
-	 * @param pageSize
-	 *         分页尺寸
+	 * @param searchParams 搜索参数对象
+	 * @param pageId       分页ID
+	 * @param pageSize     分页尺寸
 	 * @return 实体分页列表
 	 */
 	@PostMapping(SELECT_PAGE_PATH)
@@ -151,8 +139,7 @@ public interface Api<E, SP extends SearchParams> {
 	/**
 	 * 查询总记录数.
 	 *
-	 * @param searchParams
-	 *         搜索参数对象
+	 * @param searchParams 搜索参数对象
 	 * @return 实体总数
 	 */
 	@PostMapping(SELECT_COUNT_PATH)
@@ -162,8 +149,7 @@ public interface Api<E, SP extends SearchParams> {
 	/**
 	 * 新增实体.
 	 *
-	 * @param entity
-	 *         实体
+	 * @param entity 实体
 	 * @return 保存后的实体
 	 */
 	@PostMapping
@@ -173,10 +159,8 @@ public interface Api<E, SP extends SearchParams> {
 	/**
 	 * 根据Id编辑数据.
 	 *
-	 * @param id
-	 *         主键ID
-	 * @param entity
-	 *         实体
+	 * @param id     主键ID
+	 * @param entity 实体
 	 * @return 更新后的实体
 	 */
 	@PostMapping(UPDATE_BY_ID_PATH)
@@ -187,8 +171,7 @@ public interface Api<E, SP extends SearchParams> {
 	/**
 	 * 根据Id删除数据.
 	 *
-	 * @param id
-	 *         主键ID
+	 * @param id 主键ID
 	 */
 	@DeleteMapping(DELETE_BY_ID_PATH)
 	@Operation(summary = "根据Id删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
@@ -197,8 +180,7 @@ public interface Api<E, SP extends SearchParams> {
 	/**
 	 * 根据搜索参数删除数据.
 	 *
-	 * @param searchParams
-	 *         搜索参数
+	 * @param searchParams 搜索参数
 	 */
 	@DeleteMapping
 	@Operation(summary = "根据搜索参数删除数据", security = @SecurityRequirement(name = Constants.TOKEN))

@@ -42,8 +42,7 @@ public final class FailParser {
 	/**
 	 * 解析异常.
 	 *
-	 * @param rootNode
-	 *         json节点
+	 * @param rootNode json节点
 	 * @return 异常信息
 	 */
 	public static ApplicationException parse(JsonNode rootNode) {
@@ -57,8 +56,7 @@ public final class FailParser {
 	/**
 	 * 解析message字段.
 	 *
-	 * @param rootNode
-	 *         跟节点
+	 * @param rootNode 跟节点
 	 * @return message字段
 	 */
 	private static String getMessage(JsonNode rootNode) {
@@ -68,8 +66,7 @@ public final class FailParser {
 	/**
 	 * 解析错误编码.
 	 *
-	 * @param rootNode
-	 *         跟节点
+	 * @param rootNode 跟节点
 	 * @return 错误编码
 	 */
 	private static int getErrorCode(JsonNode rootNode) {
@@ -83,8 +80,7 @@ public final class FailParser {
 	/**
 	 * 解析堆栈信息列表.
 	 *
-	 * @param rootNode
-	 *         跟节点
+	 * @param rootNode 跟节点
 	 * @return 堆栈信息列表
 	 */
 	private static List<ApplicationStackTrace> getStackTraces(JsonNode rootNode) {
@@ -105,8 +101,7 @@ public final class FailParser {
 	/**
 	 * 解析应用堆栈信息.
 	 *
-	 * @param node
-	 *         节点
+	 * @param node 节点
 	 * @return 应用堆栈信息
 	 */
 	@Nullable

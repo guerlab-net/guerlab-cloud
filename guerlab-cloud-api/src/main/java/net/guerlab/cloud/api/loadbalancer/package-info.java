@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ * 负载均衡增强.
  */
 @NonNullApi
 package net.guerlab.cloud.api.loadbalancer;

@@ -38,8 +38,7 @@ public class AuthAsyncConfigurer implements AsyncConfigurer {
 	/**
 	 * 根据异步任务装饰器初始化.
 	 *
-	 * @param taskDecorator
-	 *         异步任务装饰器
+	 * @param taskDecorator 异步任务装饰器
 	 */
 	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	public AuthAsyncConfigurer(TaskDecorator taskDecorator) {

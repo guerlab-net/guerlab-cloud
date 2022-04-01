@@ -20,10 +20,8 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * 基本保存服务接口.
  *
- * @param <T>
- *         数据类型
- * @param <SP>
- *         搜索参数类型
+ * @param <T>  数据类型
+ * @param <SP> 搜索参数类型
  * @author guer
  */
 public interface BaseSaveService<T, SP extends SearchParams> extends QueryWrapperGetter<T, SP> {
@@ -31,16 +29,14 @@ public interface BaseSaveService<T, SP extends SearchParams> extends QueryWrappe
 	/**
 	 * 添加.
 	 *
-	 * @param entity
-	 *         实体
+	 * @param entity 实体
 	 */
 	void insert(T entity);
 
 	/**
 	 * 批量保存.
 	 *
-	 * @param collection
-	 *         待保存列表
+	 * @param collection 待保存列表
 	 * @return 已保存列表W
 	 */
 	Collection<T> batchInsert(Collection<T> collection);

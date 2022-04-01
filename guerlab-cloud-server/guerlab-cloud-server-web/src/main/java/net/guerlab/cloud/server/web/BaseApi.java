@@ -21,12 +21,9 @@ import net.guerlab.cloud.server.service.BaseService;
 /**
  * 基础Api实现.
  *
- * @param <E>
- *         实体类型
- * @param <SP>
- *         搜索参数类型
- * @param <S>
- *         服务接口类型
+ * @param <E>  实体类型
+ * @param <SP> 搜索参数类型
+ * @param <S>  服务接口类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -37,8 +34,7 @@ public abstract class BaseApi<E, SP extends SearchParams, S extends BaseService<
 	/**
 	 * 根据服务实例创建控制器.
 	 *
-	 * @param service
-	 *         服务实例
+	 * @param service 服务实例
 	 */
 	public BaseApi(S service) {
 		super(service);

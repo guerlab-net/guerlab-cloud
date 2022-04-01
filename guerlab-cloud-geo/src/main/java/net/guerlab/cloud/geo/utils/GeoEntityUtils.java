@@ -42,8 +42,7 @@ public final class GeoEntityUtils {
 	/**
 	 * 属性值检查.
 	 *
-	 * @param entity
-	 *         地理信息实体
+	 * @param entity 地理信息实体
 	 */
 	public static void propertiesCheck(@Nullable IGeoEntity entity) {
 		if (entity == null) {
@@ -60,8 +59,7 @@ public final class GeoEntityUtils {
 	/**
 	 * 设置地理信息.
 	 *
-	 * @param entity
-	 *         地理信息实体
+	 * @param entity 地理信息实体
 	 */
 	public static void setGeoInfo(@Nullable IGeoEntity entity) {
 		if (entity == null) {
@@ -84,8 +82,7 @@ public final class GeoEntityUtils {
 	/**
 	 * 解析搜索参数为Map结构.
 	 *
-	 * @param searchParams
-	 *         地理信息实体搜索参数
+	 * @param searchParams 地理信息实体搜索参数
 	 * @return 参数Map
 	 */
 	public static Map<String, Object> parseSearchParams(GeoSearchParams searchParams) {

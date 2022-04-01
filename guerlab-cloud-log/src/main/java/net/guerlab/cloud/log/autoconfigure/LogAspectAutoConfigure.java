@@ -32,10 +32,8 @@ public class LogAspectAutoConfigure {
 	/**
 	 * 构造日志切面.
 	 *
-	 * @param logHandlersProvider
-	 *         日志处理器列表提供者
-	 * @param messageSource
-	 *         messageSource
+	 * @param logHandlersProvider 日志处理器列表提供者
+	 * @param messageSource       messageSource
 	 * @return 日志切面
 	 */
 	@Bean

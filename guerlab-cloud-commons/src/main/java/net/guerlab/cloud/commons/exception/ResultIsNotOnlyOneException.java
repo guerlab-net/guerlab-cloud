@@ -37,8 +37,7 @@ public class ResultIsNotOnlyOneException extends AbstractI18nApplicationExceptio
 	/**
 	 * 创建匹配结果不唯一异常.
 	 *
-	 * @param size
-	 *         结果数量
+	 * @param size 结果数量
 	 */
 	public ResultIsNotOnlyOneException(String size) {
 		this.size = size;

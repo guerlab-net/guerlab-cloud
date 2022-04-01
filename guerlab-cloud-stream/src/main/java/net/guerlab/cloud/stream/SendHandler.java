@@ -22,8 +22,7 @@ import org.springframework.messaging.support.MessageBuilder;
 /**
  * 发送处理.
  *
- * @param <T>
- *         待发送内容类型
+ * @param <T> 待发送内容类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -42,10 +41,8 @@ public class SendHandler<T> {
 	/**
 	 * 创建发送处理.
 	 *
-	 * @param bindingName
-	 *         bindingName
-	 * @param streamBridge
-	 *         streamBridge
+	 * @param bindingName  bindingName
+	 * @param streamBridge streamBridge
 	 */
 	public SendHandler(String bindingName, StreamBridge streamBridge) {
 		Objects.requireNonNull(bindingName, "bindingName can not be null");
@@ -57,8 +54,7 @@ public class SendHandler<T> {
 	/**
 	 * 格式化bindingName.
 	 *
-	 * @param bindingName
-	 *         bindingName
+	 * @param bindingName bindingName
 	 * @return 格式化后的bindingName
 	 */
 	private static String formatBindingName(String bindingName) {
@@ -73,8 +69,7 @@ public class SendHandler<T> {
 	/**
 	 * 发送.
 	 *
-	 * @param payload
-	 *         待发送内容
+	 * @param payload 待发送内容
 	 * @return 是否发送成功
 	 */
 	public boolean send(T payload) {
@@ -91,8 +86,7 @@ public class SendHandler<T> {
 	/**
 	 * 构造消息体.
 	 *
-	 * @param payload
-	 *         消息体内容
+	 * @param payload 消息体内容
 	 * @return 消息体
 	 */
 	protected Message<T> buildMessage(T payload) {

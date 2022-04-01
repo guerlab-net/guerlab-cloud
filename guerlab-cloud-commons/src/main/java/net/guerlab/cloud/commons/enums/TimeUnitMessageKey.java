@@ -71,8 +71,7 @@ public enum TimeUnitMessageKey {
 	/**
 	 * 根据时间单位获取语言包key.
 	 *
-	 * @param timeUnit
-	 *         时间单位
+	 * @param timeUnit 时间单位
 	 * @return 语言包key
 	 */
 	public static String getKey(TimeUnit timeUnit) {

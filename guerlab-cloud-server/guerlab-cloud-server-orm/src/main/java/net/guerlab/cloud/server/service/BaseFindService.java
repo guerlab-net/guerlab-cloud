@@ -27,10 +27,8 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * 基本查询服务接口.
  *
- * @param <T>
- *         数据类型
- * @param <SP>
- *         搜索参数类型
+ * @param <T>  数据类型
+ * @param <SP> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -39,8 +37,7 @@ public interface BaseFindService<T, SP extends SearchParams> extends QueryWrappe
 	/**
 	 * 查询单一结果，根据实体内非null字段按照值相等方式查询.
 	 *
-	 * @param entity
-	 *         实体
+	 * @param entity 实体
 	 * @return 实体
 	 */
 	@Nullable
@@ -49,8 +46,7 @@ public interface BaseFindService<T, SP extends SearchParams> extends QueryWrappe
 	/**
 	 * 查询单一结果，根据实体内非null字段按照值相等方式查询.
 	 *
-	 * @param entity
-	 *         实体
+	 * @param entity 实体
 	 * @return Optional
 	 */
 	default Optional<T> selectOneOptional(T entity) {
@@ -60,8 +56,7 @@ public interface BaseFindService<T, SP extends SearchParams> extends QueryWrappe
 	/**
 	 * 查询单一结果，根据搜索参数进行筛选.
 	 *
-	 * @param searchParams
-	 *         搜索参数对象
+	 * @param searchParams 搜索参数对象
 	 * @return 实体
 	 */
 	@Nullable
@@ -70,8 +65,7 @@ public interface BaseFindService<T, SP extends SearchParams> extends QueryWrappe
 	/**
 	 * 查询单一结果，根据搜索参数进行筛选.
 	 *
-	 * @param searchParams
-	 *         搜索参数对象
+	 * @param searchParams 搜索参数对象
 	 * @return Optional
 	 */
 	default Optional<T> selectOneOptional(SP searchParams) {
@@ -81,8 +75,7 @@ public interface BaseFindService<T, SP extends SearchParams> extends QueryWrappe
 	/**
 	 * 通过Id查询单一结果.
 	 *
-	 * @param id
-	 *         主键id
+	 * @param id 主键id
 	 * @return 实体
 	 */
 	@Nullable
@@ -91,8 +84,7 @@ public interface BaseFindService<T, SP extends SearchParams> extends QueryWrappe
 	/**
 	 * 通过Id查询单一结果.
 	 *
-	 * @param id
-	 *         主键id
+	 * @param id 主键id
 	 * @return Optional
 	 */
 	default Optional<T> selectByIdOptional(Long id) {
@@ -102,8 +94,7 @@ public interface BaseFindService<T, SP extends SearchParams> extends QueryWrappe
 	/**
 	 * 查询列表.
 	 *
-	 * @param entity
-	 *         实体
+	 * @param entity 实体
 	 * @return 实体列表
 	 */
 	Collection<T> selectList(T entity);
@@ -111,8 +102,7 @@ public interface BaseFindService<T, SP extends SearchParams> extends QueryWrappe
 	/**
 	 * 查询列表.
 	 *
-	 * @param queryWrapper
-	 *         查询条件
+	 * @param queryWrapper 查询条件
 	 * @return 实体列表
 	 */
 	Collection<T> selectList(QueryWrapper<T> queryWrapper);
@@ -120,8 +110,7 @@ public interface BaseFindService<T, SP extends SearchParams> extends QueryWrappe
 	/**
 	 * 查询列表.
 	 *
-	 * @param queryWrapper
-	 *         查询条件
+	 * @param queryWrapper 查询条件
 	 * @return 实体列表
 	 */
 	Collection<T> selectList(LambdaQueryWrapper<T> queryWrapper);
@@ -136,8 +125,7 @@ public interface BaseFindService<T, SP extends SearchParams> extends QueryWrappe
 	/**
 	 * 获取所有对象.
 	 *
-	 * @param searchParams
-	 *         搜索参数对象
+	 * @param searchParams 搜索参数对象
 	 * @return 实体列表
 	 */
 	Collection<T> selectList(SP searchParams);
@@ -145,12 +133,9 @@ public interface BaseFindService<T, SP extends SearchParams> extends QueryWrappe
 	/**
 	 * 查询列表.
 	 *
-	 * @param searchParams
-	 *         搜索参数对象
-	 * @param pageId
-	 *         分页ID
-	 * @param pageSize
-	 *         分页尺寸
+	 * @param searchParams 搜索参数对象
+	 * @param pageId       分页ID
+	 * @param pageSize     分页尺寸
 	 * @return 实体列表
 	 */
 	Pageable<T> selectPage(SP searchParams, int pageId, int pageSize);
@@ -158,8 +143,7 @@ public interface BaseFindService<T, SP extends SearchParams> extends QueryWrappe
 	/**
 	 * 查询总记录数.
 	 *
-	 * @param entity
-	 *         实体
+	 * @param entity 实体
 	 * @return 实体总数
 	 */
 	long selectCount(T entity);
@@ -167,8 +151,7 @@ public interface BaseFindService<T, SP extends SearchParams> extends QueryWrappe
 	/**
 	 * 查询总记录数.
 	 *
-	 * @param searchParams
-	 *         搜索参数对象
+	 * @param searchParams 搜索参数对象
 	 * @return 实体总数
 	 */
 	long selectCount(SP searchParams);

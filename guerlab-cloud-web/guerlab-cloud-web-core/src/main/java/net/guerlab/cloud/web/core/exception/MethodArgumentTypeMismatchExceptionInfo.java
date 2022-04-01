@@ -30,8 +30,7 @@ public class MethodArgumentTypeMismatchExceptionInfo extends AbstractI18nInfo {
 	/**
 	 * 通过MethodArgumentTypeMismatchException初始化.
 	 *
-	 * @param cause
-	 *         MethodArgumentTypeMismatchException
+	 * @param cause MethodArgumentTypeMismatchException
 	 */
 	public MethodArgumentTypeMismatchExceptionInfo(MethodArgumentTypeMismatchException cause) {
 		super(cause, 403);

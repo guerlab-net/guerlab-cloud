@@ -60,10 +60,8 @@ public class WebMvcAutoconfigure {
 		/**
 		 * 初始化webmvc自动配置.
 		 *
-		 * @param objectMapper
-		 *         objectMapper
-		 * @param localeChangeInterceptor
-		 *         localeChangeInterceptor
+		 * @param objectMapper            objectMapper
+		 * @param localeChangeInterceptor localeChangeInterceptor
 		 */
 		@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 		public MvcAutoconfigure(ObjectMapper objectMapper, LocaleChangeInterceptor localeChangeInterceptor) {

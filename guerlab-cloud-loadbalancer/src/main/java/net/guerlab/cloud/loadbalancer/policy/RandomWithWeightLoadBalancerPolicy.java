@@ -47,8 +47,7 @@ public class RandomWithWeightLoadBalancerPolicy extends AbstractLoadBalancerPoli
 	/**
 	 * 获取权重.
 	 *
-	 * @param metadata
-	 *         元信息
+	 * @param metadata 元信息
 	 * @return 权重
 	 */
 	private static double getWeight(@Nullable Map<String, String> metadata) {

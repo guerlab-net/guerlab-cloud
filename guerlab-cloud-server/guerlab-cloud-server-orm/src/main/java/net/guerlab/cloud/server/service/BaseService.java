@@ -18,10 +18,8 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * 基本服务接口.
  *
- * @param <T>
- *         数据类型
- * @param <SP>
- *         搜索参数类型
+ * @param <T>  数据类型
+ * @param <SP> 搜索参数类型
  * @author guer
  */
 public interface BaseService<T, SP extends SearchParams>

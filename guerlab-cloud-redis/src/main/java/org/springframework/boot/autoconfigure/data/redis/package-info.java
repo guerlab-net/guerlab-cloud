@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ *
  */
 @NonNullApi
 package org.springframework.boot.autoconfigure.data.redis;

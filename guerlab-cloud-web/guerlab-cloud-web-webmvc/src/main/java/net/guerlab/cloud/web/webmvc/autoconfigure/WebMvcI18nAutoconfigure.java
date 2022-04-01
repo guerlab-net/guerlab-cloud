@@ -37,8 +37,7 @@ public class WebMvcI18nAutoconfigure {
 	/**
 	 * create LocaleResolver.
 	 *
-	 * @param properties
-	 *         I18nProperties
+	 * @param properties I18nProperties
 	 * @return LocaleResolver
 	 */
 	@Bean

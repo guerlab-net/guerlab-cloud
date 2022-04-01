@@ -74,12 +74,9 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> im
 	/**
 	 * 初始化Token处理过滤器.
 	 *
-	 * @param responseAdvisorProperties
-	 *         http响应数据处理配置参数
-	 * @param requestMappingHandlerMapping
-	 *         requestMappingHandlerMapping
-	 * @param authProperties
-	 *         认证配置
+	 * @param responseAdvisorProperties    http响应数据处理配置参数
+	 * @param requestMappingHandlerMapping requestMappingHandlerMapping
+	 * @param authProperties               认证配置
 	 */
 	protected AbstractTokenHandlerFilter(ResponseAdvisorProperties responseAdvisorProperties,
 			RequestMappingHandlerMapping requestMappingHandlerMapping, A authProperties) {
@@ -91,12 +88,9 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> im
 	/**
 	 * 获取注解.
 	 *
-	 * @param handlerMethod
-	 *         处理方法
-	 * @param annotationClass
-	 *         注解类
-	 * @param <A>
-	 *         注解类
+	 * @param handlerMethod   处理方法
+	 * @param annotationClass 注解类
+	 * @param <A>             注解类
 	 * @return 注解对象
 	 */
 	@SuppressWarnings("SameParameterValue")
@@ -138,12 +132,9 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> im
 	/**
 	 * 请求前置处理.
 	 *
-	 * @param request
-	 *         请求
-	 * @param handlerMethod
-	 *         处理方法
-	 * @param exchange
-	 *         交换器
+	 * @param request       请求
+	 * @param handlerMethod 处理方法
+	 * @param exchange      交换器
 	 */
 	protected final void preHandle(ServerHttpRequest request, HandlerMethod handlerMethod, ServerWebExchange exchange) {
 		String requestUri = parseRequestUri(request);
@@ -183,8 +174,7 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> im
 	/**
 	 * 获取token.
 	 *
-	 * @param request
-	 *         http请求对象
+	 * @param request http请求对象
 	 * @return token
 	 */
 	@Nullable
@@ -230,12 +220,9 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> im
 	/**
 	 * 获取令牌成功前置处理.
 	 *
-	 * @param request
-	 *         请求
-	 * @param handlerMethod
-	 *         处理方法
-	 * @param token
-	 *         令牌
+	 * @param request       请求
+	 * @param handlerMethod 处理方法
+	 * @param token         令牌
 	 */
 	protected abstract void preHandleWithToken(ServerHttpRequest request, HandlerMethod handlerMethod, String token);
 

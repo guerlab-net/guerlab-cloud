@@ -41,8 +41,7 @@ public class DefaultStackTracesHandler implements StackTracesHandler {
 	/**
 	 * 通过全局异常处理配置初始化.
 	 *
-	 * @param config
-	 *         全局异常处理配置
+	 * @param config 全局异常处理配置
 	 */
 	public DefaultStackTracesHandler(GlobalExceptionConfig config) {
 		this.config = config;
@@ -60,8 +59,7 @@ public class DefaultStackTracesHandler implements StackTracesHandler {
 	/**
 	 * 获取应用堆栈跟踪列表.
 	 *
-	 * @param throwable
-	 *         异常
+	 * @param throwable 异常
 	 * @return 应用堆栈跟踪列表
 	 */
 	protected List<ApplicationStackTrace> getStackTraces(@Nullable Throwable throwable) {
@@ -77,10 +75,8 @@ public class DefaultStackTracesHandler implements StackTracesHandler {
 	/**
 	 * 设置内部应用堆栈.
 	 *
-	 * @param stackTraces
-	 *         应用堆栈跟踪列表
-	 * @param throwable
-	 *         异常
+	 * @param stackTraces 应用堆栈跟踪列表
+	 * @param throwable   异常
 	 */
 	protected void setSubStackTrace(List<ApplicationStackTrace> stackTraces, @Nullable Throwable throwable) {
 		if (throwable == null) {
@@ -105,8 +101,7 @@ public class DefaultStackTracesHandler implements StackTracesHandler {
 	/**
 	 * 构建.
 	 *
-	 * @param element
-	 *         堆栈跟踪元素
+	 * @param element 堆栈跟踪元素
 	 * @return 堆栈跟踪元素文本
 	 */
 	@Nullable

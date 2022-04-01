@@ -26,8 +26,7 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * APi定义.
  *
- * @param <SP>
- *         搜索参数类型
+ * @param <SP> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
@@ -41,8 +40,7 @@ public interface SelectCount<SP extends SearchParams> {
 	/**
 	 * 查询总记录数.
 	 *
-	 * @param searchParams
-	 *         搜索参数对象
+	 * @param searchParams 搜索参数对象
 	 * @return 实体总数
 	 */
 	@PostMapping(SELECT_COUNT_PATH)

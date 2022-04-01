@@ -12,7 +12,7 @@
  */
 
 /**
- * @author guer
+ * Feign扩展.
  */
 @NonNullApi
 package net.guerlab.cloud.api.feign;

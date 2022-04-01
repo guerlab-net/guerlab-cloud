@@ -35,8 +35,7 @@ public final class EnableDateEntityUtils {
 	/**
 	 * 值处理.
 	 *
-	 * @param entity
-	 *         启用日期实体
+	 * @param entity 启用日期实体
 	 */
 	public static void valueHandler(EnableDateEntity entity) {
 		LocalDate enableStartDate = entity.getEnableStartDate();
@@ -57,10 +56,8 @@ public final class EnableDateEntityUtils {
 	/**
 	 * 判断是否在日期范围内.
 	 *
-	 * @param entity
-	 *         启用日期实体
-	 * @param date
-	 *         日期
+	 * @param entity 启用日期实体
+	 * @param date   日期
 	 * @return 是否在范围内
 	 */
 	public static boolean inDateRange(EnableDateEntity entity, LocalDate date) {

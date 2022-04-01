@@ -40,8 +40,7 @@ public abstract class AbstractLoadBalancerPolicy implements LoadBalancerPolicy {
 	/**
 	 * 根据策略选择实例.
 	 *
-	 * @param instances
-	 *         实例列表
+	 * @param instances 实例列表
 	 * @return 实例
 	 */
 	@Nullable

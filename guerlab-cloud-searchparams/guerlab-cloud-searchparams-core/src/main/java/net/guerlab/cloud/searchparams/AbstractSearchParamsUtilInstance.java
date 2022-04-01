@@ -41,8 +41,7 @@ public abstract class AbstractSearchParamsUtilInstance {
 	/**
 	 * 判断是否允许.
 	 *
-	 * @param object
-	 *         输出对象
+	 * @param object 输出对象
 	 * @return 返回true表示进行处理，否则不进行处理
 	 */
 	public abstract boolean accept(Object object);
@@ -50,8 +49,7 @@ public abstract class AbstractSearchParamsUtilInstance {
 	/**
 	 * 设置默认处理器对象.
 	 *
-	 * @param handler
-	 *         处理器
+	 * @param handler 处理器
 	 */
 	public void setDefaultHandler(SearchParamsHandler handler) {
 		defaultHandler = handler;
@@ -60,10 +58,8 @@ public abstract class AbstractSearchParamsUtilInstance {
 	/**
 	 * 添加处理器对象.
 	 *
-	 * @param type
-	 *         数据类型
-	 * @param handler
-	 *         处理器
+	 * @param type    数据类型
+	 * @param handler 处理器
 	 */
 	public void addHandler(Class<?> type, SearchParamsHandler handler) {
 		SearchParamsHandlerWrapper wrapper = new SearchParamsHandlerWrapper();
@@ -76,10 +72,8 @@ public abstract class AbstractSearchParamsUtilInstance {
 	/**
 	 * 移除处理器对象.
 	 *
-	 * @param type
-	 *         数据类型
-	 * @param handler
-	 *         处理器
+	 * @param type    数据类型
+	 * @param handler 处理器
 	 */
 	public void removeHandler(Class<?> type, SearchParamsHandler handler) {
 		SearchParamsHandlerWrapper wrapper = new SearchParamsHandlerWrapper();
@@ -92,8 +86,7 @@ public abstract class AbstractSearchParamsUtilInstance {
 	/**
 	 * 获取处理器对象.
 	 *
-	 * @param type
-	 *         数据类型
+	 * @param type 数据类型
 	 * @return 处理器对象
 	 */
 	@Nullable
@@ -116,10 +109,8 @@ public abstract class AbstractSearchParamsUtilInstance {
 	/**
 	 * 后置处理.
 	 *
-	 * @param searchParams
-	 *         搜索参数
-	 * @param object
-	 *         输出对象
+	 * @param searchParams 搜索参数
+	 * @param object       输出对象
 	 */
 	@SuppressWarnings("EmptyMethod")
 	public void afterHandler(SearchParams searchParams, Object object) {

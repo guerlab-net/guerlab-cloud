@@ -47,8 +47,7 @@ public class CurrentOperatorFilter implements WebFilter, Ordered {
 	/**
 	 * 初始化当前操作者信息处理请求拦截器.
 	 *
-	 * @param requestMappingHandlerMapping
-	 *         requestMappingHandlerMapping
+	 * @param requestMappingHandlerMapping requestMappingHandlerMapping
 	 */
 	public CurrentOperatorFilter(RequestMappingHandlerMapping requestMappingHandlerMapping) {
 		this.requestMappingHandlerMapping = requestMappingHandlerMapping;

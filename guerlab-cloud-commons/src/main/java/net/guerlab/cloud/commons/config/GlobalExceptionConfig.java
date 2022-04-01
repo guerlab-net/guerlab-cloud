@@ -30,8 +30,7 @@ public interface GlobalExceptionConfig {
 	/**
 	 * 判断是否在排除列表中匹配.
 	 *
-	 * @param methodKey
-	 *         方法签名
+	 * @param methodKey 方法签名
 	 * @return 是否匹配
 	 */
 	boolean excludeMatch(String methodKey);
@@ -39,8 +38,7 @@ public interface GlobalExceptionConfig {
 	/**
 	 * 判断是否在包含列表中匹配.
 	 *
-	 * @param methodKey
-	 *         方法签名
+	 * @param methodKey 方法签名
 	 * @return 是否匹配
 	 */
 	boolean includeMatch(String methodKey);

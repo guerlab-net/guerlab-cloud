@@ -84,10 +84,8 @@ public class RsaKeys {
 	/**
 	 * 创建RSA公/私钥对.
 	 *
-	 * @param publicKey
-	 *         RSA私钥
-	 * @param privateKey
-	 *         RSA私钥
+	 * @param publicKey  RSA私钥
+	 * @param privateKey RSA私钥
 	 */
 	public RsaKeys(String publicKey, String privateKey) {
 		this.publicKey = publicKey;
@@ -100,8 +98,7 @@ public class RsaKeys {
 	/**
 	 * 设置RSA公钥.
 	 *
-	 * @param publicKey
-	 *         RSA公钥
+	 * @param publicKey RSA公钥
 	 */
 	public void setPublicKey(String publicKey) {
 		this.publicKey = publicKey;
@@ -111,8 +108,7 @@ public class RsaKeys {
 	/**
 	 * 设置RSA私钥.
 	 *
-	 * @param privateKey
-	 *         RSA私钥
+	 * @param privateKey RSA私钥
 	 */
 	public void setPrivateKey(String privateKey) {
 		this.privateKey = privateKey;

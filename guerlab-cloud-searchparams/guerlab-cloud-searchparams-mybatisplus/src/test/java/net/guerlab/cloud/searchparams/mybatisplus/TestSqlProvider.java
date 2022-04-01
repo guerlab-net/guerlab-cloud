@@ -20,7 +20,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import net.guerlab.cloud.searchparams.SqlProvider;
 
 /**
- * TestSqlProvider
+ * TestSqlProvider.
  *
  * @author guer
  */

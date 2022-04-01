@@ -50,10 +50,8 @@ public class SpringUtils implements ApplicationContextAware {
 	/**
 	 * 根据bean类型获取bean实例列表.
 	 *
-	 * @param clazz
-	 *         bean类型
-	 * @param <T>
-	 *         bean类型
+	 * @param clazz bean类型
+	 * @param <T>   bean类型
 	 * @return bean实例列表
 	 */
 	public static <T> Collection<T> getBeans(Class<T> clazz) {
@@ -63,10 +61,8 @@ public class SpringUtils implements ApplicationContextAware {
 	/**
 	 * 根据bean类型获取bean实例.
 	 *
-	 * @param clazz
-	 *         bean类型
-	 * @param <T>
-	 *         bean类型
+	 * @param clazz bean类型
+	 * @param <T>   bean类型
 	 * @return bean实例
 	 */
 	public static <T> T getBean(Class<T> clazz) {
@@ -76,8 +72,7 @@ public class SpringUtils implements ApplicationContextAware {
 	/**
 	 * 根据注解类型获取bean实例.
 	 *
-	 * @param annotationType
-	 *         注解类型
+	 * @param annotationType 注解类型
 	 * @return bean实例和实例名称散列表
 	 */
 	public static Map<String, Object> getBeanMapWithAnnotation(Class<? extends Annotation> annotationType) {
@@ -87,12 +82,9 @@ public class SpringUtils implements ApplicationContextAware {
 	/**
 	 * 根据注解类型获取bean实例.
 	 *
-	 * @param clazz
-	 *         实例类型
-	 * @param annotationType
-	 *         注解类型
-	 * @param <T>
-	 *         实例类型
+	 * @param clazz          实例类型
+	 * @param annotationType 注解类型
+	 * @param <T>            实例类型
 	 * @return bean实例和实例名称散列表
 	 */
 	@SuppressWarnings("unchecked")
@@ -119,8 +111,7 @@ public class SpringUtils implements ApplicationContextAware {
 	/**
 	 * 根据注解类型获取bean实例.
 	 *
-	 * @param annotationType
-	 *         注解类型
+	 * @param annotationType 注解类型
 	 * @return bean实例列表
 	 */
 	public static Collection<Object> getBeansWithAnnotation(Class<? extends Annotation> annotationType) {
@@ -130,12 +121,9 @@ public class SpringUtils implements ApplicationContextAware {
 	/**
 	 * 根据注解类型获取bean实例.
 	 *
-	 * @param clazz
-	 *         bean类型
-	 * @param annotationType
-	 *         注解类型
-	 * @param <T>
-	 *         bean类型
+	 * @param clazz          bean类型
+	 * @param annotationType 注解类型
+	 * @param <T>            bean类型
 	 * @return bean实例列表
 	 */
 	public static <T> Collection<T> getBeansWithAnnotation(Class<T> clazz, Class<? extends Annotation> annotationType) {
@@ -145,10 +133,8 @@ public class SpringUtils implements ApplicationContextAware {
 	/**
 	 * 根据指定类型获取bean实例和实例名称.
 	 *
-	 * @param clazz
-	 *         bean实例类
-	 * @param <T>
-	 *         bean实例类型
+	 * @param clazz bean实例类
+	 * @param <T>   bean实例类型
 	 * @return bean实例和实例名称散列表
 	 */
 	public static <T> Map<String, T> getBeanMap(Class<T> clazz) {
@@ -167,8 +153,7 @@ public class SpringUtils implements ApplicationContextAware {
 	/**
 	 * 获取属性.
 	 *
-	 * @param propertyName
-	 *         属性名
+	 * @param propertyName 属性名
 	 * @return 属性值
 	 */
 	@Nullable
@@ -189,8 +174,7 @@ public class SpringUtils implements ApplicationContextAware {
 	/**
 	 * 推送事件.
 	 *
-	 * @param event
-	 *         事件
+	 * @param event 事件
 	 */
 	public static void publishEvent(ApplicationEvent event) {
 		getContext().publishEvent(event);

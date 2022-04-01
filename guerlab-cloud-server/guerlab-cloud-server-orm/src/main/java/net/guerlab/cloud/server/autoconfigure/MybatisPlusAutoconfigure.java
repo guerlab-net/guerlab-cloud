@@ -74,8 +74,7 @@ public class MybatisPlusAutoconfigure {
 	/**
 	 * 构造雪花ID生成器.
 	 *
-	 * @param sequence
-	 *         雪花ID序列
+	 * @param sequence 雪花ID序列
 	 * @return 雪花ID生成器
 	 */
 	@Bean
@@ -94,8 +93,7 @@ public class MybatisPlusAutoconfigure {
 		/**
 		 * 通过雪花ID序列进行初始化.
 		 *
-		 * @param sequence
-		 *         雪花ID序列
+		 * @param sequence 雪花ID序列
 		 */
 		public SnowflakeIdGenerator(Sequence sequence) {
 			this.sequence = sequence;

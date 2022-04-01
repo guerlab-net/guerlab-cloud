@@ -44,10 +44,8 @@ public final class RemoteException extends RuntimeException {
 	/**
 	 * 构造远端异常.
 	 *
-	 * @param message
-	 *         异常信息
-	 * @param applicationStackTraces
-	 *         应用堆栈列表
+	 * @param message                异常信息
+	 * @param applicationStackTraces 应用堆栈列表
 	 * @return 远端异常
 	 */
 	@Nullable

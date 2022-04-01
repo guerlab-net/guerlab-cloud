@@ -32,8 +32,7 @@ public class SimpleAuthorizePathProvider implements AuthorizePathProvider {
 	/**
 	 * 根据路径列表构造授权路径提供者.
 	 *
-	 * @param paths
-	 *         路径列表
+	 * @param paths 路径列表
 	 */
 	public SimpleAuthorizePathProvider(List<String> paths) {
 		this.paths = paths;
@@ -42,10 +41,8 @@ public class SimpleAuthorizePathProvider implements AuthorizePathProvider {
 	/**
 	 * 根据路径列表构造授权路径提供者.
 	 *
-	 * @param httpMethod
-	 *         请求方法
-	 * @param paths
-	 *         路径列表
+	 * @param httpMethod 请求方法
+	 * @param paths      路径列表
 	 */
 	public SimpleAuthorizePathProvider(HttpMethod httpMethod, List<String> paths) {
 		this.httpMethod = httpMethod;

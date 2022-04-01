@@ -33,8 +33,7 @@ public class SequenceAutoconfigure {
 	/**
 	 * 分布式序列自动配置.
 	 *
-	 * @param properties
-	 *         分布式序列自动配置属性
+	 * @param properties 分布式序列自动配置属性
 	 * @return 分布式序列
 	 */
 	@Bean

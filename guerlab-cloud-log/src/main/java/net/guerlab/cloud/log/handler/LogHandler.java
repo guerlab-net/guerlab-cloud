@@ -30,12 +30,9 @@ public interface LogHandler {
 	/**
 	 * 根据方法签名和日志注解内容判断是否进行处理.
 	 *
-	 * @param methodSignature
-	 *         方法签名
-	 * @param logGroup
-	 *         日志分组
-	 * @param log
-	 *         日志注解
+	 * @param methodSignature 方法签名
+	 * @param logGroup        日志分组
+	 * @param log             日志注解
 	 * @return 是否进行处理
 	 */
 	boolean accept(MethodSignature methodSignature, @Nullable LogGroup logGroup, Log log);
@@ -43,18 +40,12 @@ public interface LogHandler {
 	/**
 	 * 日志处理.
 	 *
-	 * @param logContent
-	 *         日志内容
-	 * @param requestMethod
-	 *         请求方法
-	 * @param requestUri
-	 *         请求uri
-	 * @param operationParam
-	 *         操作参数
-	 * @param result
-	 *         响应
-	 * @param ex
-	 *         异常
+	 * @param logContent     日志内容
+	 * @param requestMethod  请求方法
+	 * @param requestUri     请求uri
+	 * @param operationParam 操作参数
+	 * @param result         响应
+	 * @param ex             异常
 	 */
 	void handler(String logContent, String requestMethod, String requestUri, @Nullable Object operationParam,
 			@Nullable Object result, @Nullable Throwable ex);

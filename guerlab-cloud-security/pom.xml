@@ -13,26 +13,26 @@
   -->
 
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>guerlab-cloud-security</artifactId>
-    <name>Guerlab Cloud Security</name>
-    <packaging>pom</packaging>
+		 xmlns="http://maven.apache.org/POM/4.0.0"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>guerlab-cloud-security</artifactId>
+	<name>Guerlab Cloud Security</name>
+	<packaging>pom</packaging>
 
-    <parent>
-        <groupId>net.guerlab.cloud</groupId>
-        <artifactId>guerlab-cloud</artifactId>
-        <version>${revision}</version>
-    </parent>
+	<parent>
+		<groupId>net.guerlab.cloud</groupId>
+		<artifactId>guerlab-cloud</artifactId>
+		<version>${revision}</version>
+	</parent>
 
-    <properties>
-        <main.basedir>${basedir}/..</main.basedir>
-    </properties>
+	<properties>
+		<main.basedir>${basedir}/..</main.basedir>
+	</properties>
 
-    <modules>
-        <module>guerlab-cloud-security-core</module>
-        <module>guerlab-cloud-security-webflux</module>
-        <module>guerlab-cloud-security-webmvc</module>
-    </modules>
+	<modules>
+		<module>guerlab-cloud-security-core</module>
+		<module>guerlab-cloud-security-webflux</module>
+		<module>guerlab-cloud-security-webmvc</module>
+	</modules>
 </project>

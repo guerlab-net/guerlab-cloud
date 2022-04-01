@@ -42,10 +42,8 @@ public class DistributedLockAspect extends AbstractDistributedLockAspect {
 	/**
 	 * 创建分布式锁处理切面.
 	 *
-	 * @param redissonClient
-	 *         redisTemplate
-	 * @param messageSource
-	 *         messageSource
+	 * @param redissonClient redisTemplate
+	 * @param messageSource  messageSource
 	 */
 	public DistributedLockAspect(RedissonClient redissonClient, MessageSource messageSource) {
 		super(messageSource);
@@ -55,13 +53,10 @@ public class DistributedLockAspect extends AbstractDistributedLockAspect {
 	/**
 	 * 分布式锁处理.
 	 *
-	 * @param point
-	 *         切入点
-	 * @param distributedLock
-	 *         分布式锁注解
+	 * @param point           切入点
+	 * @param distributedLock 分布式锁注解
 	 * @return 方法返回信息
-	 * @throws Throwable
-	 *         当方法内部抛出异常时候抛出Throwable
+	 * @throws Throwable 当方法内部抛出异常时候抛出Throwable
 	 */
 	@Around("@annotation(distributedLock)")
 	public Object handler(ProceedingJoinPoint point, DistributedLock distributedLock) throws Throwable {

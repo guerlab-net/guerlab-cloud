@@ -43,8 +43,7 @@ public interface DeleteById {
 	/**
 	 * 根据Id删除数据.
 	 *
-	 * @param id
-	 *         主键ID
+	 * @param id 主键ID
 	 */
 	@DeleteMapping(DELETE_BY_ID_PATH)
 	@Operation(summary = "根据Id删除数据", security = @SecurityRequirement(name = Constants.TOKEN))

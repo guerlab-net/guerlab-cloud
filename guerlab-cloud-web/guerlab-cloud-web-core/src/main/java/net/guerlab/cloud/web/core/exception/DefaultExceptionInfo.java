@@ -38,8 +38,7 @@ public class DefaultExceptionInfo extends AbstractI18nInfo {
 	/**
 	 * 通过异常信息初始化.
 	 *
-	 * @param cause
-	 *         Throwable
+	 * @param cause Throwable
 	 */
 	public DefaultExceptionInfo(Throwable cause) {
 		super(cause, 500);

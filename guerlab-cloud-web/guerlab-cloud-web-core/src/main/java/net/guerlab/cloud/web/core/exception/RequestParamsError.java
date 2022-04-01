@@ -45,10 +45,8 @@ public class RequestParamsError extends ApplicationException {
 	/**
 	 * 通过消息内容和ConstraintViolationException初始化.
 	 *
-	 * @param cause
-	 *         ConstraintViolationException
-	 * @param displayMessageList
-	 *         错误消息列表
+	 * @param cause              ConstraintViolationException
+	 * @param displayMessageList 错误消息列表
 	 */
 	public RequestParamsError(ConstraintViolationException cause, Collection<String> displayMessageList) {
 		super(getMessage(displayMessageList), cause, 400);
@@ -58,10 +56,8 @@ public class RequestParamsError extends ApplicationException {
 	/**
 	 * 通过消息内容和MethodArgumentNotValidException初始化.
 	 *
-	 * @param cause
-	 *         MethodArgumentNotValidException
-	 * @param displayMessageList
-	 *         错误消息列表
+	 * @param cause              MethodArgumentNotValidException
+	 * @param displayMessageList 错误消息列表
 	 */
 	public RequestParamsError(MethodArgumentNotValidException cause, Collection<String> displayMessageList) {
 		super(getMessage(displayMessageList), cause, 400);

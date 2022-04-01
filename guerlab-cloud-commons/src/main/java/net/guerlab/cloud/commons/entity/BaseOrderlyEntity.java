@@ -21,8 +21,7 @@ import org.springframework.lang.Nullable;
 /**
  * 可排序实体.
  *
- * @param <E>
- *         对象类型
+ * @param <E> 对象类型
  * @author guer
  */
 @SuppressWarnings("unused")
