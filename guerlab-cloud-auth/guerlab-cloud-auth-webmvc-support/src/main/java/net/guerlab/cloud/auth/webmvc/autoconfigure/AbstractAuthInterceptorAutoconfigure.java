@@ -42,8 +42,7 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProp
 	/**
 	 * 初始化鉴权拦截器配置.
 	 *
-	 * @param properties
-	 *         认证配置
+	 * @param properties 认证配置
 	 */
 	protected AbstractAuthInterceptorAutoconfigure(A properties) {
 		this.properties = properties;
@@ -70,8 +69,7 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProp
 	/**
 	 * 添加其他拦截器处理.
 	 *
-	 * @param registry
-	 *         InterceptorRegistry实例
+	 * @param registry InterceptorRegistry实例
 	 */
 	@SuppressWarnings({"EmptyMethod", "unused"})
 	protected void addInterceptorsInternal(InterceptorRegistry registry) {
@@ -81,8 +79,7 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProp
 	/**
 	 * 设置路径信息.
 	 *
-	 * @param interceptor
-	 *         拦截器
+	 * @param interceptor 拦截器
 	 */
 	protected final void setPathPatterns(InterceptorRegistration interceptor) {
 		List<String> includePatterns = properties.getIncludePatterns();
@@ -94,8 +91,7 @@ public abstract class AbstractAuthInterceptorAutoconfigure<A extends AuthWebProp
 	/**
 	 * 设置token处理拦截器列表.
 	 *
-	 * @param tokenHandlerInterceptors
-	 *         token处理拦截器列表
+	 * @param tokenHandlerInterceptors token处理拦截器列表
 	 */
 	@SuppressWarnings("SpringJavaAutowiredMembersInspection")
 	@Autowired(required = false)
