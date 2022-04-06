@@ -16,6 +16,7 @@ package net.guerlab.cloud.cache.redis.autoconfigure;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Configurable;
@@ -26,7 +27,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext.SerializationPair;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -60,8 +61,11 @@ public class RedisCacheManagerBuilderCustomizerAutoconfigure {
 			GroupByKeysRedisCacheProperties properties) {
 		this.properties = properties;
 
-		Jackson2JsonRedisSerializer<Object> redisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
-		redisSerializer.setObjectMapper(objectMapper);
+		ObjectMapper usedObjectMapper = objectMapper.copy();
+		GenericJackson2JsonRedisSerializer.registerNullValueSerializer(usedObjectMapper, null);
+		usedObjectMapper.activateDefaultTyping(usedObjectMapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+
+		GenericJackson2JsonRedisSerializer redisSerializer = new GenericJackson2JsonRedisSerializer(usedObjectMapper);
 		valueSerializationPair = SerializationPair.fromSerializer(redisSerializer);
 	}
 
