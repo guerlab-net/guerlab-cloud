@@ -25,6 +25,7 @@ import org.springframework.lang.Nullable;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 public final class RequestHolder {
 
 	private static final Collection<RequestContextHolder> HOLDERS;
@@ -89,6 +90,32 @@ public final class RequestHolder {
 	@Nullable
 	public static String requestPath() {
 		return HOLDERS.stream().map(RequestContextHolder::getRequestPath).filter(Objects::nonNull).findFirst()
+				.orElse(null);
+	}
+
+	/**
+	 * 获取响应码.
+	 *
+	 * @return 响应码
+	 */
+	public static Integer getResponseStatusCode() {
+		Integer responseStatusCode = responseStatusCode();
+
+		if (responseStatusCode == null) {
+			throw new NullPointerException("responseStatusCode is null");
+		}
+
+		return responseStatusCode;
+	}
+
+	/**
+	 * 获取响应码.
+	 *
+	 * @return 响应码
+	 */
+	@Nullable
+	public static Integer responseStatusCode() {
+		return HOLDERS.stream().map(RequestContextHolder::getResponseStatusCode).filter(Objects::nonNull).findFirst()
 				.orElse(null);
 	}
 }

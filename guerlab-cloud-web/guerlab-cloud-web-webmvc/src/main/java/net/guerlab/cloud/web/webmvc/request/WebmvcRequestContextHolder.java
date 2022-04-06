@@ -13,6 +13,7 @@
 
 package net.guerlab.cloud.web.webmvc.request;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +43,9 @@ public class WebmvcRequestContextHolder implements net.guerlab.cloud.web.core.re
 
 	private static String parseRequestUri(HttpServletRequest request) {
 		String contextPath = request.getContextPath();
-		String requestUri = request.getRequestURI();
+		// 处理因为forward导致的requestUri丢失的问题
+		Object forwardRequestUri = request.getAttribute(RequestDispatcher.FORWARD_REQUEST_URI);
+		String requestUri = forwardRequestUri == null ? request.getRequestURI() : String.valueOf(forwardRequestUri);
 
 		if (contextPath != null) {
 			String newRequestUri = requestUri.replaceFirst(contextPath, "");
@@ -65,5 +68,16 @@ public class WebmvcRequestContextHolder implements net.guerlab.cloud.web.core.re
 	public String getRequestPath() {
 		HttpServletRequest request = getRequest();
 		return request != null ? parseRequestUri(request) : null;
+	}
+
+	@Nullable
+	@Override
+	public Integer getResponseStatusCode() {
+		HttpServletRequest request = getRequest();
+		if (request == null) {
+			return null;
+		}
+		Object errorStatusCode = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+		return errorStatusCode instanceof Integer ? (Integer) errorStatusCode : null;
 	}
 }

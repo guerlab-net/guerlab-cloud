@@ -58,4 +58,10 @@ public class WebfluxRequestContextHolder implements RequestContextHolder {
 	public String getRequestPath() {
 		return RequestUtils.parseRequestUri(getRequest());
 	}
+
+	@Nullable
+	@Override
+	public Integer getResponseStatusCode() {
+		return null;
+	}
 }

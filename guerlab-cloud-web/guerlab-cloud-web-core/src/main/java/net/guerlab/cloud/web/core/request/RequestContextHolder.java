@@ -37,4 +37,12 @@ public interface RequestContextHolder {
 	 */
 	@Nullable
 	String getRequestPath();
+
+	/**
+	 * 获取响应码.
+	 *
+	 * @return 响应码
+	 */
+	@Nullable
+	Integer getResponseStatusCode();
 }
