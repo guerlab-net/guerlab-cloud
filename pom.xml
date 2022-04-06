@@ -529,6 +529,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>${maven.plugin.checkstyle.version}</version>
 			</plugin>
 		</plugins>
 	</build>
