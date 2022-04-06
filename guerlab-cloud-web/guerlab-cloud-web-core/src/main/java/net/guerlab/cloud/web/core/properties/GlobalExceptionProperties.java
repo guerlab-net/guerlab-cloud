@@ -18,11 +18,13 @@ import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpMethod;
 import org.springframework.lang.Nullable;
+import org.springframework.util.AntPathMatcher;
 
 import net.guerlab.cloud.commons.config.GlobalExceptionConfig;
 
@@ -37,6 +39,8 @@ import net.guerlab.cloud.commons.config.GlobalExceptionConfig;
 @ConfigurationProperties("spring.global-exception")
 public class GlobalExceptionProperties implements GlobalExceptionConfig {
 
+	private final AntPathMatcher matcher = new AntPathMatcher();
+
 	/**
 	 * 通用匹配符.
 	 */
@@ -46,6 +50,11 @@ public class GlobalExceptionProperties implements GlobalExceptionConfig {
 	 * 异常处理返回状态码.
 	 */
 	private int statusCode = 500;
+
+	/**
+	 * 路径响应码列表.
+	 */
+	private List<UrlResponseCode> statusCodes = new ArrayList<>();
 
 	/**
 	 * 是否打印堆栈根据.
@@ -101,7 +110,55 @@ public class GlobalExceptionProperties implements GlobalExceptionConfig {
 	}
 
 	/**
-	 * 忽略路径.
+	 * 获取响应码.
+	 *
+	 * @param requestMethod 请求方法
+	 * @param requestPath   请求路径
+	 * @return 响应码.
+	 */
+	public int getStatusCode(String requestMethod, String requestPath) {
+		int statusCode = getStatusCode();
+		if (statusCodes != null && !statusCodes.isEmpty()) {
+			UrlResponseCode urlResponseCode = statusCodes.stream()
+					.filter(url -> urlResponseCodeMatch(requestMethod, requestPath, url)).findFirst()
+					.orElse(null);
+			if (urlResponseCode != null) {
+				statusCode = urlResponseCode.getStatusCode();
+			}
+		}
+		return statusCode;
+	}
+
+	/**
+	 * 获取首条匹配的路径响应码.
+	 *
+	 * @param requestMethod 请求方法
+	 * @param requestPath   请求路径
+	 * @return 路径响应码.
+	 */
+	@Nullable
+	public UrlResponseCode getFirstMatchUrlResponseCode(String requestMethod, String requestPath) {
+		if (statusCodes == null || statusCodes.isEmpty()) {
+			return null;
+		}
+		return statusCodes.stream().filter(url -> urlResponseCodeMatch(requestMethod, requestPath, url)).findFirst()
+				.orElse(null);
+	}
+
+	private boolean urlResponseCodeMatch(String requestMethod, String requestPath, UrlResponseCode url) {
+		String path = StringUtils.trimToNull(url.getPath());
+		if (path == null) {
+			return false;
+		}
+		HttpMethod method = url.getMethod();
+		if (method != null && !method.matches(requestMethod)) {
+			return false;
+		}
+		return matcher.match(path, requestPath);
+	}
+
+	/**
+	 * 路径.
 	 */
 	@Setter
 	@Getter
@@ -118,5 +175,18 @@ public class GlobalExceptionProperties implements GlobalExceptionConfig {
 		 */
 		@Nullable
 		private String path;
+	}
+
+	/**
+	 * 路径响应码.
+	 */
+	@Setter
+	@Getter
+	public static class UrlResponseCode extends Url {
+
+		/**
+		 * 异常处理返回状态码.
+		 */
+		private int statusCode = 500;
 	}
 }

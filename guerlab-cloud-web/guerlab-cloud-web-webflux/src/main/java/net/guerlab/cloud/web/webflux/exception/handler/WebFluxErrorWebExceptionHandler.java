@@ -71,13 +71,15 @@ public class WebFluxErrorWebExceptionHandler extends DefaultErrorWebExceptionHan
 
 	@Override
 	protected Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
+		String requestMethod = request.methodName();
+		String requestPath = RequestUtils.parseRequestUri(request);
 		Throwable error = getError(request);
-		globalExceptionHandler.getGlobalExceptionLogger()
-				.debug(error, request.methodName(), RequestUtils.parseRequestUri(request));
+		globalExceptionHandler.getGlobalExceptionLogger().debug(error, requestMethod, requestPath);
 
 		Fail<?> fail = globalExceptionHandler.build(error);
 
-		return ServerResponse.status(globalExceptionProperties.getStatusCode()).contentType(MediaType.APPLICATION_JSON)
+		int statusCode = globalExceptionProperties.getStatusCode(requestMethod, requestPath);
+		return ServerResponse.status(statusCode).contentType(MediaType.APPLICATION_JSON)
 				.body(BodyInserters.fromValue(fail));
 	}
 }

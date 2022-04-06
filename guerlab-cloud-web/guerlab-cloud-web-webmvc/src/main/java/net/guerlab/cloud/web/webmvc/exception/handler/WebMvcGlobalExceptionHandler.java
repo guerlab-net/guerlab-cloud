@@ -63,8 +63,13 @@ public class WebMvcGlobalExceptionHandler extends GlobalExceptionHandler {
 	 */
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<Fail<?>> exceptionHandler(Exception e) {
-		globalExceptionLogger.debug(e, RequestHolder.getRequestMethod(), RequestHolder.getRequestPath());
-		return ResponseEntity.status(globalExceptionProperties.getStatusCode()).body(build(e));
+		String requestMethod = RequestHolder.getRequestMethod();
+		String requestPath = RequestHolder.getRequestPath();
+		Integer responseStatusCode = RequestHolder.responseStatusCode();
+		globalExceptionLogger.debug(e, requestMethod, requestPath);
+
+		int statusCode = responseStatusCode != null ? responseStatusCode : globalExceptionProperties.getStatusCode(requestMethod, requestPath);
+		return ResponseEntity.status(statusCode).body(build(e));
 	}
 
 }
