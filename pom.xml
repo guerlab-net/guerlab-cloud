@@ -87,12 +87,18 @@
 		<mybatis-plus.version>3.5.1</mybatis-plus.version>
 		<swagger.version>2.1.13</swagger.version>
 		<jjwt.version>0.9.1</jjwt.version>
-		<guava.version>24.1.1-jre</guava.version>
+		<guava.version>30.1-jre</guava.version>
 		<easyexcel.version>3.0.5</easyexcel.version>
 		<springdoc.version>1.6.6</springdoc.version>
 		<nacos.version>2.0.4</nacos.version>
 		<findbugs.version>3.0.2</findbugs.version>
 		<redisson.version>3.17.0</redisson.version>
+
+		<!-- fix loophole version -->
+		<bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
+		<commons-io.version>2.11.0</commons-io.version>
+		<commons-compress.version>1.21</commons-compress.version>
+		<spring-cloud-function.version>3.2.3</spring-cloud-function.version>
 	</properties>
 
 	<dependencyManagement>
@@ -520,6 +526,33 @@
 				<groupId>org.redisson</groupId>
 				<artifactId>redisson-spring-boot-starter</artifactId>
 				<version>${redisson.version}</version>
+			</dependency>
+
+			<!-- fix loophole version -->
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcprov-jdk15on</artifactId>
+				<version>${bcprov-jdk15on.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons-io.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-compress</artifactId>
+				<version>${commons-compress.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-function-core</artifactId>
+				<version>${spring-cloud-function.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-function-context</artifactId>
+				<version>${spring-cloud-function.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
