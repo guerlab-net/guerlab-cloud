@@ -13,6 +13,9 @@
 
 package net.guerlab.cloud.commons.i18n;
 
+import java.util.Collection;
+import java.util.stream.Stream;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -22,7 +25,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.support.AbstractResourceBasedMessageSource;
 
 /**
- * 多消息源处理.
+ * 消息源处理.
  *
  * @author guer
  */
@@ -31,16 +34,20 @@ import org.springframework.context.support.AbstractResourceBasedMessageSource;
 public class MultiMessageSourceAwareAutoConfigure {
 
 	/**
-	 * 多消息源处理.
+	 * 消息源处理.
 	 *
-	 * @param messageSource 信息源
-	 * @param listProvider  多消息源处理提供者列表
+	 * @param messageSource  信息源
+	 * @param providers      消息源处理提供者列表
+	 * @param multiProviders 消息源列表处理提供者列表
 	 */
 	@Autowired
-	public void handler(MessageSource messageSource, ObjectProvider<MultiMessageSourceProvider> listProvider) {
+	public void handler(MessageSource messageSource, ObjectProvider<MultiMessageSourceProvider> providers, ObjectProvider<MultiMessageBatchSourceProvider> multiProviders) {
 		if (!(messageSource instanceof AbstractResourceBasedMessageSource resourceBasedMessageSource)) {
 			return;
 		}
-		listProvider.stream().map(MultiMessageSourceProvider::get).forEach(resourceBasedMessageSource::addBasenames);
+
+		Stream.concat(providers.stream().map(MultiMessageSourceProvider::get), multiProviders.stream()
+						.map(MultiMessageBatchSourceProvider::get).flatMap(Collection::stream))
+				.distinct().forEach(resourceBasedMessageSource::addBasenames);
 	}
 }
