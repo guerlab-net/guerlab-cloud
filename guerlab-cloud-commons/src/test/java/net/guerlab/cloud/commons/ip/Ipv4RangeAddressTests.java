@@ -18,10 +18,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import net.guerlab.cloud.commons.ip.IpUtils;
-import net.guerlab.cloud.commons.ip.Ipv4;
-import net.guerlab.cloud.commons.ip.Ipv4Utils;
-
 /**
  * ipv4地址段测试.
  *

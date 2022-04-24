@@ -18,8 +18,6 @@ import java.util.Objects;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import net.guerlab.cloud.commons.ip.IpUtils;
-
 /**
  * ipv4地址测试.
  *

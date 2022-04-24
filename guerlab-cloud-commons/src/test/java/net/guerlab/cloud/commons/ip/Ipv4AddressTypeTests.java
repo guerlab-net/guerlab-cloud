@@ -16,10 +16,6 @@ package net.guerlab.cloud.commons.ip;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import net.guerlab.cloud.commons.ip.IpType;
-import net.guerlab.cloud.commons.ip.IpUtils;
-import net.guerlab.cloud.commons.ip.Ipv4;
-
 /**
  * ipv4地址类型测试.
  *
