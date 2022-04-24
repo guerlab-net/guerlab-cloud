@@ -15,6 +15,6 @@
  *
  */
 @NonNullApi
-package net.guerlab.cloud.commons.util.test;
+package net.guerlab.cloud.web.core.controller;
 
 import org.springframework.lang.NonNullApi;

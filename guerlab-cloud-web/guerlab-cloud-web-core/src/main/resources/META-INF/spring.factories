@@ -1,4 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+net.guerlab.cloud.web.core.autoconfigure.CommonControllerAutoConfigure,\
 net.guerlab.cloud.web.core.autoconfigure.EndpointResponseAdvisorPropertiesAutoconfigure,\
 net.guerlab.cloud.web.core.autoconfigure.GlobalExceptionHandlerAutoConfigure,\
 net.guerlab.cloud.web.core.autoconfigure.I18nAutoconfigure,\
