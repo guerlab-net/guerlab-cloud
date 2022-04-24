@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.openapi.webflux.autoconfigure.OpenApiWebfluxAutoconfigure
+net.guerlab.cloud.openapi.webflux.autoconfigure.OpenApiWebfluxAutoConfigure

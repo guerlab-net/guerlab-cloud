@@ -26,7 +26,7 @@ import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import net.guerlab.cloud.auth.autoconfigure.TestRedisTokenAutoconfigure;
+import net.guerlab.cloud.auth.autoconfigure.TestRedisTokenAutoConfigure;
 import net.guerlab.cloud.auth.domain.ITestTokenInfo;
 import net.guerlab.cloud.auth.domain.TestTokenInfo;
 import net.guerlab.cloud.auth.domain.TokenInfo;
@@ -51,7 +51,7 @@ class RedisTestCase {
 		TestPropertyValues.of("auth.test.token-factory.redis.access-token-key-length=6").applyTo(context);
 		TestPropertyValues.of("auth.test.token-factory.redis.refresh-token-key-length=6").applyTo(context);
 		context.registerBean("objectMapper", ObjectMapper.class);
-		context.register(RedisAutoConfiguration.class, TestRedisTokenAutoconfigure.class);
+		context.register(RedisAutoConfiguration.class, TestRedisTokenAutoConfigure.class);
 		context.refresh();
 	}
 

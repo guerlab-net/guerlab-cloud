@@ -37,7 +37,7 @@
     {
       "name": "spring.cloud.loadbalancer.policy",
       "type": "java.lang.String",
-      "sourceType": "net.guerlab.cloud.loadbalancer.autoconfigure.LoadBalancerPolicyAutoconfigure",
+      "sourceType": "net.guerlab.cloud.loadbalancer.autoconfigure.LoadBalancerPolicyAutoConfigure",
       "description": "负载均衡策略.可使用的类型有roundRobin、randomWithWeight、random.",
       "defaultValue": "roundRobin"
     },

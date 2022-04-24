@@ -64,7 +64,6 @@ public class WebFluxGlobalExceptionHandlerAutoConfigure {
 	 * @param viewResolvers         ViewResolver列表
 	 * @param serverCodecConfigurer ServerCodecConfigurer
 	 */
-	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	public WebFluxGlobalExceptionHandlerAutoConfigure(ServerProperties serverProperties, WebProperties webProperties,
 			List<ViewResolver> viewResolvers, ServerCodecConfigurer serverCodecConfigurer) {
 		this.serverProperties = serverProperties;
@@ -81,7 +80,6 @@ public class WebFluxGlobalExceptionHandlerAutoConfigure {
 	 * @param globalExceptionLogger 默认全局异常处理日志记录器
 	 * @return 异常统一处理配置
 	 */
-	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	@Bean
 	public GlobalExceptionHandler webFluxGlobalExceptionHandler(MessageSource messageSource,
 			StackTracesHandler stackTracesHandler, GlobalExceptionLogger globalExceptionLogger) {
@@ -99,7 +97,6 @@ public class WebFluxGlobalExceptionHandlerAutoConfigure {
 	 * @param globalExceptionProperties 全局异常处理配置
 	 * @return 异常处理
 	 */
-	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	@Order(-2)
 	@Bean
 	public AbstractErrorWebExceptionHandler webFluxErrorWebExceptionHandler(ErrorAttributes errorAttributes,

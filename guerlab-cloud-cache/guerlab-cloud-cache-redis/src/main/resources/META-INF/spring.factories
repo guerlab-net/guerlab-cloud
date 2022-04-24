@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.cache.redis.autoconfigure.RedisCacheManagerBuilderCustomizerAutoconfigure
+net.guerlab.cloud.cache.redis.autoconfigure.RedisCacheManagerBuilderCustomizerAutoConfigure

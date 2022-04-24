@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import net.guerlab.cloud.auth.autoconfigure.TestAuthAutoconfigure;
+import net.guerlab.cloud.auth.autoconfigure.TestAuthAutoConfigure;
 import net.guerlab.cloud.auth.domain.ITestTokenInfo;
 import net.guerlab.cloud.auth.domain.TestTokenInfo;
 import net.guerlab.cloud.auth.domain.TokenInfo;
@@ -48,7 +48,7 @@ class Rc4TestCase {
 	@BeforeAll
 	static void setUp() {
 		context = new AnnotationConfigApplicationContext();
-		context.register(TestAuthAutoconfigure.class, TestJwtTokenFactory.class, TestMd5TokenFactory.class,
+		context.register(TestAuthAutoConfigure.class, TestJwtTokenFactory.class, TestMd5TokenFactory.class,
 				TestRc4TokenFactory.class);
 		TestPropertyValues.of("auth.test.token-factory.rc4.access-token-key=test-access-rc4").applyTo(context);
 		TestPropertyValues.of("auth.test.token-factory.rc4.refresh-token-key=test-refresh-rc4").applyTo(context);

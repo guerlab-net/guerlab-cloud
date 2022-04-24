@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.sentinel.webflux.autoconfigure.WebfluxExceptionHandlerAutoconfigure
+net.guerlab.cloud.sentinel.webflux.autoconfigure.WebfluxExceptionHandlerAutoConfigure

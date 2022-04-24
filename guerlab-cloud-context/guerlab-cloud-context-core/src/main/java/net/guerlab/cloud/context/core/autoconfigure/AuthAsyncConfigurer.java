@@ -27,7 +27,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
  * @author guer
  */
 @Configuration
-@AutoConfigureAfter(AuthContextHandlerTaskDecoratorAutoconfigure.class)
+@AutoConfigureAfter(AuthContextHandlerTaskDecoratorAutoConfigure.class)
 public class AuthAsyncConfigurer implements AsyncConfigurer {
 
 	/**
@@ -40,7 +40,6 @@ public class AuthAsyncConfigurer implements AsyncConfigurer {
 	 *
 	 * @param taskDecorator 异步任务装饰器
 	 */
-	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	public AuthAsyncConfigurer(TaskDecorator taskDecorator) {
 		this.taskDecorator = taskDecorator;
 	}

@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import net.guerlab.cloud.auth.autoconfigure.TestAuthAutoconfigure;
+import net.guerlab.cloud.auth.autoconfigure.TestAuthAutoConfigure;
 import net.guerlab.cloud.auth.domain.ITestTokenInfo;
 import net.guerlab.cloud.auth.domain.TestTokenInfo;
 import net.guerlab.cloud.auth.domain.TokenInfo;
@@ -52,7 +52,7 @@ class JwtTestCase {
 		RsaKeys rsaKeys = RsaUtils.buildKeys();
 
 		context = new AnnotationConfigApplicationContext();
-		context.register(TestAuthAutoconfigure.class, TestJwtTokenFactory.class, TestMd5TokenFactory.class,
+		context.register(TestAuthAutoConfigure.class, TestJwtTokenFactory.class, TestMd5TokenFactory.class,
 				TestRc4TokenFactory.class);
 		TestPropertyValues.of(
 						"auth.test.token-factory.jwt.access-token-key.public-key=" + rsaKeys.getPublicKeyFormattedContent())
