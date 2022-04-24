@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.ip.test;
+package net.guerlab.cloud.commons.ip;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ import net.guerlab.cloud.commons.ip.Ipv4Utils;
  *
  * @author guer
  */
-class Ipv4RangeAddressTest {
+class Ipv4RangeAddressTests {
 
 	@Test
 	void parseIpv4WithRangeLinkFlag() {

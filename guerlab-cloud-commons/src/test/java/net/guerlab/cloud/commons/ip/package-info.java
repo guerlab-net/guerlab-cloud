@@ -15,6 +15,6 @@
  *
  */
 @NonNullApi
-package net.guerlab.cloud.commons.ip.test;
+package net.guerlab.cloud.commons.ip;
 
 import org.springframework.lang.NonNullApi;

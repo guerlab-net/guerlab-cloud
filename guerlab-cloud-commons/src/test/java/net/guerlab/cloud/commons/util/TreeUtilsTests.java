@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.util.test;
+package net.guerlab.cloud.commons.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,12 +24,11 @@ import org.junit.jupiter.api.Test;
 import net.guerlab.cloud.commons.entity.IOrderlyEntity;
 import net.guerlab.cloud.commons.entity.TreeEntity;
 import net.guerlab.cloud.commons.entity.TreeNode;
-import net.guerlab.cloud.commons.util.TreeUtils;
 
 /**
  * @author guer
  */
-class TreeTest {
+class TreeUtilsTests {
 
 	@Test
 	void orderTreeEntity() {

@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.ip.test;
+package net.guerlab.cloud.commons.ip;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,7 +29,7 @@ import net.guerlab.cloud.commons.ip.Ipv4;
  * @author guer
  */
 @Slf4j
-class IpUtilsTest {
+class IpUtilsTests {
 
 	@Test
 	void range1() {

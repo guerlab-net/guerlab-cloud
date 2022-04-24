@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.ip.test;
+package net.guerlab.cloud.commons.ip;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ import net.guerlab.cloud.commons.ip.Ipv4;
  *
  * @author guer
  */
-class Ipv4AddressTypeTest {
+class Ipv4AddressTypeTests {
 
 	@Test
 	void single() {

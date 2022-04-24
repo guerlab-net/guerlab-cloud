@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.ip.test;
+package net.guerlab.cloud.commons.ip;
 
 import java.util.Objects;
 
@@ -25,7 +25,7 @@ import net.guerlab.cloud.commons.ip.IpUtils;
  *
  * @author guer
  */
-class Ipv4AddressTest {
+class Ipv4AddressTests {
 
 	@Test
 	void parseTest() {
