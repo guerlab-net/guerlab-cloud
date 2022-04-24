@@ -30,13 +30,6 @@ import org.springframework.lang.Nullable;
 @Data
 @Schema(name = "TreeEntity", description = "树形结构对象")
 public class TreeEntity<E, PK> {
-
-	/**
-	 * 下级列表.
-	 */
-	@Nullable
-	@Schema(description = "下级列表")
-	protected Collection<TreeEntity<E, PK>> children;
 	/**
 	 * 对象ID.
 	 */
@@ -57,4 +50,25 @@ public class TreeEntity<E, PK> {
 	 */
 	@Schema(description = "目标对象")
 	private E object;
+	/**
+	 * 选中状态.
+	 */
+	@Schema(description = "选中状态")
+	private boolean selected = false;
+	/**
+	 * 展开标记.
+	 */
+	@Schema(description = "展开标记")
+	private boolean expanded = true;
+	/**
+	 * 禁用标记.
+	 */
+	@Schema(description = "禁用标记")
+	private boolean disabled = false;
+	/**
+	 * 下级列表.
+	 */
+	@Nullable
+	@Schema(description = "下级列表")
+	protected Collection<TreeEntity<E, PK>> children;
 }
