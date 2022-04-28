@@ -54,7 +54,7 @@ public final class EnumDescriptionUtils {
 			return Collections.emptyList();
 		}
 
-		if (!clazz.isEnum() || clazz.isAssignableFrom(EnumDescriptionSupport.class)) {
+		if (!clazz.isEnum() || !clazz.isAssignableFrom(EnumDescriptionSupport.class)) {
 			return Collections.emptyList();
 		}
 
