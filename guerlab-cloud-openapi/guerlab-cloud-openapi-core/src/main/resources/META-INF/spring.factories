@@ -1,3 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.openapi.core.autoconfigure.OpenApiAutoConfigure,\
-net.guerlab.cloud.openapi.core.autoconfigure.CommonControllerOpenApiAutoConfigure
+net.guerlab.cloud.openapi.core.autoconfigure.OpenApiAutoConfigure

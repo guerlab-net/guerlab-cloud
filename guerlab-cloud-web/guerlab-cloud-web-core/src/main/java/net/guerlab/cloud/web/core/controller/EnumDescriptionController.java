@@ -16,9 +16,11 @@ package net.guerlab.cloud.web.core.controller;
 import java.util.List;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,8 +46,9 @@ public class EnumDescriptionController {
 	 */
 	@IgnoreLogin
 	@Operation(summary = "根据类路径获取枚举说明列表")
-	@GetMapping("/${path}")
-	public List<EnumDescription> get(String path) {
+	@GetMapping("/{path}")
+	public List<EnumDescription> get(
+			@Parameter(description = "路径", required = true) @PathVariable("path") String path) {
 		return EnumDescriptionUtils.getDescriptions(path);
 	}
 }
