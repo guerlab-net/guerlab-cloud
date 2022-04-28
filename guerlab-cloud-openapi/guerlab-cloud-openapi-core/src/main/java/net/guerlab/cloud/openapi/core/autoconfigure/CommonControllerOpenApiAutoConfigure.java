@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.web.core.autoconfigure;
+package net.guerlab.cloud.openapi.core.autoconfigure;
 
 import java.util.Collections;
 
@@ -19,11 +19,8 @@ import javax.annotation.PostConstruct;
 
 import org.springdoc.core.SpringDocConfigProperties;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
-
-import net.guerlab.cloud.openapi.core.properties.OpenApiProperties;
 
 import static org.springdoc.core.Constants.SPRINGDOC_ENABLED;
 
@@ -33,7 +30,6 @@ import static org.springdoc.core.Constants.SPRINGDOC_ENABLED;
  * @author guer
  */
 @Configuration
-@ConditionalOnClass(OpenApiProperties.class)
 @ConditionalOnProperty(name = SPRINGDOC_ENABLED, matchIfMissing = true)
 public class CommonControllerOpenApiAutoConfigure {
 
