@@ -31,7 +31,6 @@ import net.guerlab.cloud.commons.util.EnumDescriptionUtils;
  *
  * @author guer
  */
-@IgnoreLogin
 @Tag(name = "枚举说明")
 @RestController
 @RequestMapping("/enumDescription")
@@ -43,6 +42,7 @@ public class EnumDescriptionController {
 	 * @param path 类路径
 	 * @return 枚举说明列表
 	 */
+	@IgnoreLogin
 	@Operation(summary = "根据类路径获取枚举说明列表")
 	@GetMapping("/${path}")
 	public List<EnumDescription> get(String path) {
