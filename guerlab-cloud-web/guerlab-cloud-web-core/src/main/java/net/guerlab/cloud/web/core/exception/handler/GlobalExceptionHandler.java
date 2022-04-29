@@ -16,6 +16,7 @@ package net.guerlab.cloud.web.core.exception.handler;
 import java.util.Collection;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.context.MessageSource;
 
@@ -28,6 +29,7 @@ import net.guerlab.cloud.core.result.Fail;
  *
  * @author guer
  */
+@Slf4j
 public class GlobalExceptionHandler {
 
 	/**
@@ -88,7 +90,10 @@ public class GlobalExceptionHandler {
 	 * @return 异常信息
 	 */
 	public Fail<?> build(Throwable e) {
-		return builders.stream().sorted().filter(builder -> builder.accept(e)).findFirst().orElse(defaultBuilder)
-				.build(e);
+		log.debug("catch exception: {}", e.getClass());
+		ResponseBuilder responseBuilder = builders.stream().sorted().filter(builder -> builder.accept(e)).findFirst()
+				.orElse(defaultBuilder);
+		log.debug("use ResponseBuilder: {}", responseBuilder);
+		return responseBuilder.build(e);
 	}
 }

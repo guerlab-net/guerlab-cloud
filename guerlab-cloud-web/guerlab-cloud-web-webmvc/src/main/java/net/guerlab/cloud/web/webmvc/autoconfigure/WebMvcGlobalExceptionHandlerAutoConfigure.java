@@ -19,10 +19,13 @@ import java.util.stream.Collectors;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import net.guerlab.cloud.commons.exception.handler.ResponseBuilder;
 import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
+import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.autoconfigure.GlobalExceptionHandlerAutoConfigure;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionLogger;
 import net.guerlab.cloud.web.core.properties.GlobalExceptionProperties;
@@ -59,6 +62,17 @@ public class WebMvcGlobalExceptionHandlerAutoConfigure {
 			super(messageSource, stackTracesHandler, globalExceptionLogger,
 					ServiceLoader.load(ResponseBuilder.class).stream().map(ServiceLoader.Provider::get)
 							.collect(Collectors.toList()), globalExceptionProperties);
+		}
+
+		/**
+		 * 异常处理.
+		 *
+		 * @param e 异常
+		 * @return 响应数据
+		 */
+		@ExceptionHandler(Exception.class)
+		public ResponseEntity<Fail<?>> exceptionHandler(Exception e) {
+			return super.exceptionHandler0(e);
 		}
 	}
 }
