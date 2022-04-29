@@ -23,6 +23,7 @@ import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.core.result.Result;
@@ -46,6 +47,7 @@ public class CustomerErrorController extends AbstractErrorController {
 		super(errorAttributes, errorViewResolvers);
 	}
 
+	@ResponseBody
 	@RequestMapping
 	public Result<Void> error(HttpServletRequest request) {
 		HttpStatus status = getStatus(request);
