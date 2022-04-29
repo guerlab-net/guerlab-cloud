@@ -16,16 +16,25 @@ package net.guerlab.cloud.web.webmvc.autoconfigure;
 import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.SearchStrategy;
+import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import net.guerlab.cloud.commons.exception.handler.ResponseBuilder;
 import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
-import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.autoconfigure.GlobalExceptionHandlerAutoConfigure;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionLogger;
 import net.guerlab.cloud.web.core.properties.GlobalExceptionProperties;
@@ -36,9 +45,27 @@ import net.guerlab.cloud.web.webmvc.exception.handler.WebMvcGlobalExceptionHandl
  *
  * @author guer
  */
+@Slf4j
 @Configuration
 @AutoConfigureAfter(GlobalExceptionHandlerAutoConfigure.class)
+@AutoConfigureBefore(ErrorMvcAutoConfiguration.class)
 public class WebMvcGlobalExceptionHandlerAutoConfigure {
+
+	/**
+	 * 创建异常控制器.
+	 *
+	 * @param errorAttributes    errorAttributes
+	 * @param errorViewResolvers errorViewResolvers
+	 * @return 异常控制器
+	 */
+	@Bean
+	@ConditionalOnMissingBean(value = ErrorController.class, search = SearchStrategy.CURRENT)
+	public AbstractErrorController basicErrorController(ErrorAttributes errorAttributes,
+			ObjectProvider<ErrorViewResolver> errorViewResolvers) {
+		log.debug("create CustomerErrorController");
+		return new CustomerErrorController(errorAttributes, errorViewResolvers.orderedStream()
+				.collect(Collectors.toList()));
+	}
 
 	/**
 	 * 异常统一处理配置.
@@ -62,17 +89,6 @@ public class WebMvcGlobalExceptionHandlerAutoConfigure {
 			super(messageSource, stackTracesHandler, globalExceptionLogger,
 					ServiceLoader.load(ResponseBuilder.class).stream().map(ServiceLoader.Provider::get)
 							.collect(Collectors.toList()), globalExceptionProperties);
-		}
-
-		/**
-		 * 异常处理.
-		 *
-		 * @param e 异常
-		 * @return 响应数据
-		 */
-		@ExceptionHandler(Exception.class)
-		public ResponseEntity<Fail<?>> exceptionHandler(Exception e) {
-			return super.exceptionHandler0(e);
 		}
 	}
 }

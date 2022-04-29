@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import net.guerlab.cloud.commons.exception.handler.ResponseBuilder;
 import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
@@ -60,7 +61,8 @@ public class WebMvcGlobalExceptionHandler extends GlobalExceptionHandler {
 	 * @param e 异常
 	 * @return 响应数据
 	 */
-	protected ResponseEntity<Fail<?>> exceptionHandler0(Exception e) {
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Fail<?>> exceptionHandler0(Exception e) {
 		String requestMethod = RequestHolder.getRequestMethod();
 		String requestPath = RequestHolder.getRequestPath();
 		Integer responseStatusCode = RequestHolder.responseStatusCode();
