@@ -49,10 +49,11 @@ public class StringHandler extends AbstractMyBatisPlusSearchParamsHandler {
 		QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
 		columnName = ColumnNameGetter.getColumnName(columnName, wrapper.getEntityClass());
 		switch (searchModelType) {
+		case IS_NULL -> wrapper.isNull(columnName);
+		case IS_NOT_NULL -> wrapper.isNotNull(columnName);
+		case NOT_EQUAL_TO -> wrapper.ne(columnName, str);
 		case GREATER_THAN -> wrapper.gt(columnName, str);
 		case GREATER_THAN_OR_EQUAL_TO -> wrapper.ge(columnName, str);
-		case IS_NOT_NULL -> wrapper.isNotNull(columnName);
-		case IS_NULL -> wrapper.isNull(columnName);
 		case LESS_THAN -> wrapper.lt(columnName, str);
 		case LESS_THAN_OR_EQUAL_TO -> wrapper.le(columnName, str);
 		case LIKE -> wrapper.like(columnName, str);
@@ -61,7 +62,6 @@ public class StringHandler extends AbstractMyBatisPlusSearchParamsHandler {
 		case START_NOT_WITH -> wrapper.notLike(columnName, str + PERCENT);
 		case END_WITH -> wrapper.likeLeft(columnName, str);
 		case END_NOT_WITH -> wrapper.notLike(columnName, PERCENT + str);
-		case NOT_EQUAL_TO -> wrapper.ne(columnName, str);
 		case CUSTOM_SQL -> {
 			if (customSql == null) {
 				break;

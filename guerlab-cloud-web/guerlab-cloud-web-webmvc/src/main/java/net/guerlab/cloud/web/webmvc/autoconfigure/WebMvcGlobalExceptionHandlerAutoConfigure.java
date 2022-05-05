@@ -16,8 +16,20 @@ package net.guerlab.cloud.web.webmvc.autoconfigure;
 import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.SearchStrategy;
+import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
+import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -33,9 +45,27 @@ import net.guerlab.cloud.web.webmvc.exception.handler.WebMvcGlobalExceptionHandl
  *
  * @author guer
  */
+@Slf4j
 @Configuration
 @AutoConfigureAfter(GlobalExceptionHandlerAutoConfigure.class)
+@AutoConfigureBefore(ErrorMvcAutoConfiguration.class)
 public class WebMvcGlobalExceptionHandlerAutoConfigure {
+
+	/**
+	 * 创建异常控制器.
+	 *
+	 * @param errorAttributes    errorAttributes
+	 * @param errorViewResolvers errorViewResolvers
+	 * @return 异常控制器
+	 */
+	@Bean
+	@ConditionalOnMissingBean(value = ErrorController.class, search = SearchStrategy.CURRENT)
+	public AbstractErrorController basicErrorController(ErrorAttributes errorAttributes,
+			ObjectProvider<ErrorViewResolver> errorViewResolvers) {
+		log.debug("create CustomerErrorController");
+		return new CustomerErrorController(errorAttributes, errorViewResolvers.orderedStream()
+				.collect(Collectors.toList()));
+	}
 
 	/**
 	 * 异常统一处理配置.

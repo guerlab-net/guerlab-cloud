@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.security.webmvc.autoconfigure.WebMvcSecurityAutoconfigure
+net.guerlab.cloud.security.webmvc.autoconfigure.WebMvcSecurityAutoConfigure

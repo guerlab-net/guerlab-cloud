@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.security.core.autoconfigure.AuthorizePathAutoconfigure
+net.guerlab.cloud.security.core.autoconfigure.AuthorizePathAutoConfigure

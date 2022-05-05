@@ -62,7 +62,7 @@ public class WebMvcGlobalExceptionHandler extends GlobalExceptionHandler {
 	 * @return 响应数据
 	 */
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<Fail<?>> exceptionHandler(Exception e) {
+	public ResponseEntity<Fail<?>> exceptionHandler0(Exception e) {
 		String requestMethod = RequestHolder.getRequestMethod();
 		String requestPath = RequestHolder.getRequestPath();
 		Integer responseStatusCode = RequestHolder.responseStatusCode();

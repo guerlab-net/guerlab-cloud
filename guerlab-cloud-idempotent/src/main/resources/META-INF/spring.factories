@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.idempotent.autoconfigure.IdempotentAutoconfigure
+net.guerlab.cloud.idempotent.autoconfigure.IdempotentAutoConfigure

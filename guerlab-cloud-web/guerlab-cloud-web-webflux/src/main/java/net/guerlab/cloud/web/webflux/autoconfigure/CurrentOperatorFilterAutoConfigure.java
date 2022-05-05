@@ -33,7 +33,6 @@ public class CurrentOperatorFilterAutoConfigure {
 	 * @param requestMappingHandlerMapping requestMappingHandlerMapping
 	 * @return 当前操作者信息处理请求拦截器
 	 */
-	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	@Bean
 	public CurrentOperatorFilter currentOperatorFilter(RequestMappingHandlerMapping requestMappingHandlerMapping) {
 		return new CurrentOperatorFilter(requestMappingHandlerMapping);

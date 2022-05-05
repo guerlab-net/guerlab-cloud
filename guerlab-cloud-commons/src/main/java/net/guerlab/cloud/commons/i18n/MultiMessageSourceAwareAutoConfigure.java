@@ -13,6 +13,10 @@
 
 package net.guerlab.cloud.commons.i18n;
 
+import java.util.List;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -22,25 +26,50 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.support.AbstractResourceBasedMessageSource;
 
 /**
- * 多消息源处理.
+ * 消息源处理.
  *
  * @author guer
  */
+@Slf4j
 @Configurable
 @AutoConfigureAfter(MessageSourceAutoConfiguration.class)
 public class MultiMessageSourceAwareAutoConfigure {
 
 	/**
-	 * 多消息源处理.
+	 * 注册消息源.
 	 *
 	 * @param messageSource 信息源
-	 * @param listProvider  多消息源处理提供者列表
+	 * @param providers     消息源处理提供者列表
 	 */
 	@Autowired
-	public void handler(MessageSource messageSource, ObjectProvider<MultiMessageSourceProvider> listProvider) {
+	public void registerMultiMessageSourceProvider(MessageSource messageSource, ObjectProvider<MultiMessageSourceProvider> providers) {
 		if (!(messageSource instanceof AbstractResourceBasedMessageSource resourceBasedMessageSource)) {
 			return;
 		}
-		listProvider.stream().map(MultiMessageSourceProvider::get).forEach(resourceBasedMessageSource::addBasenames);
+
+		providers.forEach(provider -> {
+			String basename = provider.get();
+			log.debug("add message source: {}", basename);
+			resourceBasedMessageSource.addBasenames(basename);
+		});
+	}
+
+	/**
+	 * 注册消息源.
+	 *
+	 * @param messageSource 信息源
+	 * @param providers     消息源列表处理提供者列表
+	 */
+	@Autowired
+	public void registerMultiMessageBatchSourceProvider(MessageSource messageSource, ObjectProvider<MultiMessageBatchSourceProvider> providers) {
+		if (!(messageSource instanceof AbstractResourceBasedMessageSource resourceBasedMessageSource)) {
+			return;
+		}
+
+		providers.forEach(provider -> {
+			List<String> baseNames = provider.get();
+			log.debug("add message sources: {}", baseNames);
+			resourceBasedMessageSource.addBasenames(baseNames.toArray(new String[] {}));
+		});
 	}
 }

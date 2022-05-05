@@ -72,7 +72,7 @@ public abstract class BaseEntitySearchParams extends BaseSearchParams {
 	 */
 	@Schema(description = "创建时间开始范围")
 	@Column(name = EntityColumnNames.CREATED_TIME)
-	@SearchModel(SearchModelType.START_WITH)
+	@SearchModel(SearchModelType.GREATER_THAN_OR_EQUAL_TO)
 	private LocalDateTime createdTimeStartWith;
 
 	/**
@@ -80,7 +80,7 @@ public abstract class BaseEntitySearchParams extends BaseSearchParams {
 	 */
 	@Schema(description = "创建时间结束范围")
 	@Column(name = EntityColumnNames.CREATED_TIME)
-	@SearchModel(SearchModelType.END_NOT_WITH)
+	@SearchModel(SearchModelType.LESS_THAN_OR_EQUAL_TO)
 	private LocalDateTime createdTimeEndWith;
 
 	/**
@@ -88,7 +88,7 @@ public abstract class BaseEntitySearchParams extends BaseSearchParams {
 	 */
 	@Schema(description = "最后修改时间开始范围")
 	@Column(name = EntityColumnNames.LAST_UPDATED_TIME)
-	@SearchModel(SearchModelType.START_WITH)
+	@SearchModel(SearchModelType.GREATER_THAN_OR_EQUAL_TO)
 	private LocalDateTime lastUpdatedTimeStartWith;
 
 	/**
@@ -96,7 +96,7 @@ public abstract class BaseEntitySearchParams extends BaseSearchParams {
 	 */
 	@Schema(description = "最后修改时间结束范围")
 	@Column(name = EntityColumnNames.LAST_UPDATED_TIME)
-	@SearchModel(SearchModelType.END_NOT_WITH)
+	@SearchModel(SearchModelType.LESS_THAN_OR_EQUAL_TO)
 	private LocalDateTime lastUpdatedTimeEndWith;
 
 	/**

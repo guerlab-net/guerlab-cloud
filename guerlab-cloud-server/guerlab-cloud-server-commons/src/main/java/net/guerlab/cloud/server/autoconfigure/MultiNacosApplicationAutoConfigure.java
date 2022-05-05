@@ -78,7 +78,6 @@ public class MultiNacosApplicationAutoConfigure
 	 * @param discoveryProperties 服务发现配置
 	 * @param nacosServiceManager nacos服务管理
 	 */
-	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	public MultiNacosApplicationAutoConfigure(NacosServerProperties serverProperties,
 			NacosDiscoveryProperties discoveryProperties, NacosServiceManager nacosServiceManager) {
 		this.serverProperties = serverProperties;

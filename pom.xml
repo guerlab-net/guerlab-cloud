@@ -28,7 +28,7 @@
 	<parent>
 		<groupId>net.guerlab.builder</groupId>
 		<artifactId>guerlab-builder</artifactId>
-		<version>1.2.0</version>
+		<version>1.2.1</version>
 	</parent>
 
 	<licenses>
@@ -66,7 +66,7 @@
 	</issueManagement>
 
 	<properties>
-		<revision>2022.4.1</revision>
+		<revision>2022.5.0</revision>
 		<main.basedir>${basedir}</main.basedir>
 
 		<java.version>17</java.version>
@@ -76,8 +76,8 @@
 		<guerlab-commons.version>2.0.1</guerlab-commons.version>
 
 		<!-- spring -->
-		<spring-boot.version>2.6.6</spring-boot.version>
-		<spring-cloud.version>2021.0.1</spring-cloud.version>
+		<spring-boot.version>2.6.7</spring-boot.version>
+		<spring-cloud.version>2021.0.2</spring-cloud.version>
 		<spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
 
 		<!-- other -->
@@ -87,12 +87,18 @@
 		<mybatis-plus.version>3.5.1</mybatis-plus.version>
 		<swagger.version>2.1.13</swagger.version>
 		<jjwt.version>0.9.1</jjwt.version>
-		<guava.version>24.1.1-jre</guava.version>
+		<guava.version>30.1-jre</guava.version>
 		<easyexcel.version>3.0.5</easyexcel.version>
 		<springdoc.version>1.6.6</springdoc.version>
 		<nacos.version>2.0.4</nacos.version>
 		<findbugs.version>3.0.2</findbugs.version>
 		<redisson.version>3.17.0</redisson.version>
+
+		<!-- fix loophole version -->
+		<bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
+		<commons-io.version>2.11.0</commons-io.version>
+		<commons-compress.version>1.21</commons-compress.version>
+		<spring-cloud-function.version>3.2.3</spring-cloud-function.version>
 	</properties>
 
 	<dependencyManagement>
@@ -520,6 +526,33 @@
 				<groupId>org.redisson</groupId>
 				<artifactId>redisson-spring-boot-starter</artifactId>
 				<version>${redisson.version}</version>
+			</dependency>
+
+			<!-- fix loophole version -->
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcprov-jdk15on</artifactId>
+				<version>${bcprov-jdk15on.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${commons-io.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-compress</artifactId>
+				<version>${commons-compress.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-function-core</artifactId>
+				<version>${spring-cloud-function.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-function-context</artifactId>
+				<version>${spring-cloud-function.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

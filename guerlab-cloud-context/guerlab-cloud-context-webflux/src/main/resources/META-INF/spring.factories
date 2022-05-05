@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.context.webflux.autoconfigure.ContextAttributesServerWebExchangeDecoratorFilterAutoconfigure
+net.guerlab.cloud.context.webflux.autoconfigure.ContextAttributesServerWebExchangeDecoratorFilterAutoConfigure

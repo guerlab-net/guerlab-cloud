@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.distributed.autoconfigure.DistributedLockAutoconfigure
+net.guerlab.cloud.distributed.autoconfigure.DistributedLockAutoConfigure

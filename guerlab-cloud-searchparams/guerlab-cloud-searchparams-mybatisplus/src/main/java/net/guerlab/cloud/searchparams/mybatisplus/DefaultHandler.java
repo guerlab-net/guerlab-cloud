@@ -33,12 +33,12 @@ public class DefaultHandler implements SearchParamsHandler {
 		QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
 		columnName = ColumnNameGetter.getColumnName(columnName, wrapper.getEntityClass());
 		switch (searchModelType) {
-		case GREATER_THAN -> wrapper.gt(columnName, value);
-		case GREATER_THAN_OR_EQUAL_TO -> wrapper.ge(columnName, value);
-		case IS_NOT_NULL -> wrapper.isNotNull(columnName);
 		case IS_NULL -> wrapper.isNull(columnName);
+		case IS_NOT_NULL -> wrapper.isNotNull(columnName);
+		case GREATER_THAN -> wrapper.gt(columnName, value);
+		case GREATER_THAN_OR_EQUAL_TO, START_WITH -> wrapper.ge(columnName, value);
 		case LESS_THAN -> wrapper.lt(columnName, value);
-		case LESS_THAN_OR_EQUAL_TO -> wrapper.le(columnName, value);
+		case LESS_THAN_OR_EQUAL_TO, END_WITH -> wrapper.le(columnName, value);
 		case NOT_EQUAL_TO, NOT_LIKE, START_NOT_WITH, END_NOT_WITH -> wrapper.ne(columnName, value);
 		case CUSTOM_SQL -> {
 			if (customSql == null) {
