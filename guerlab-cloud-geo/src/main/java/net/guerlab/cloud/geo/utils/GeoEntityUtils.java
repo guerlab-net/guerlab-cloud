@@ -19,11 +19,11 @@ import java.util.Map;
 
 import org.springframework.lang.Nullable;
 
-import net.guerlab.cloud.commons.entity.IGeoEntity;
-import net.guerlab.cloud.commons.exception.GeoEntityInvalidException;
-import net.guerlab.cloud.commons.exception.LatitudeInvalidException;
-import net.guerlab.cloud.commons.exception.LongitudeInvalidException;
 import net.guerlab.cloud.geo.domain.GeoHash;
+import net.guerlab.cloud.geo.entity.IGeoEntity;
+import net.guerlab.cloud.geo.exception.GeoEntityInvalidException;
+import net.guerlab.cloud.geo.exception.LatitudeInvalidException;
+import net.guerlab.cloud.geo.exception.LongitudeInvalidException;
 import net.guerlab.cloud.geo.searchparams.GeoSearchParams;
 import net.guerlab.cloud.searchparams.SearchParamsUtils;
 
@@ -34,6 +34,11 @@ import net.guerlab.cloud.searchparams.SearchParamsUtils;
  */
 @SuppressWarnings("unused")
 public final class GeoEntityUtils {
+
+	/**
+	 * geoHashInfo key.
+	 */
+	public static final String GEO_HASH_INFO_KEY = "geoHashInfo";
 
 	private GeoEntityUtils() {
 
@@ -106,7 +111,7 @@ public final class GeoEntityUtils {
 
 		GeoHash geoHashInfo = GeoHashUtils.getGeoHashExpand(geoHash, 6);
 
-		params.put("geoHashInfo", geoHashInfo);
+		params.put(GEO_HASH_INFO_KEY, geoHashInfo);
 	}
 
 	@Nullable

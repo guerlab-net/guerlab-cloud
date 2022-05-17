@@ -26,7 +26,6 @@ import net.guerlab.cloud.commons.entity.BaseEntity;
  *
  * @author guer
  */
-@SuppressWarnings("unused")
 @Setter
 @Getter
 @Schema(name = "GeoEntity", description = "地理信息对象")

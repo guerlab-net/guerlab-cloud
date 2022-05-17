@@ -22,7 +22,6 @@ import org.springframework.lang.Nullable;
  *
  * @author guer
  */
-@SuppressWarnings("unused")
 public interface IGeoEntity {
 
 	/**

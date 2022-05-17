@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.exception;
+package net.guerlab.cloud.geo.exception;
 
 import java.io.Serial;
 
@@ -27,7 +27,7 @@ public class LongitudeInvalidException extends AbstractI18nApplicationException 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	private static final String MESSAGE_KEY = "message.exception.commons.longitudeInvalid";
+	private static final String MESSAGE_KEY = "message.exception.geo.longitudeInvalid";
 
 	@Override
 	protected String getKey() {

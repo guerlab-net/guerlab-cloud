@@ -11,23 +11,23 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.exception;
+package net.guerlab.cloud.geo.exception;
 
 import java.io.Serial;
 
 import net.guerlab.cloud.core.exception.AbstractI18nApplicationException;
 
 /**
- * 无效的地理信息实体.
+ * 纬度无效.
  *
  * @author guer
  */
-public class GeoEntityInvalidException extends AbstractI18nApplicationException {
+public class LatitudeInvalidException extends AbstractI18nApplicationException {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	private static final String MESSAGE_KEY = "message.exception.commons.geoEntityInvalid";
+	private static final String MESSAGE_KEY = "message.exception.geo.latitudeInvalid";
 
 	@Override
 	protected String getKey() {
