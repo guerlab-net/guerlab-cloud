@@ -28,6 +28,11 @@ import org.springframework.lang.Nullable;
 public interface IGeoPoint extends Serializable {
 
 	/**
+	 * wkb类型.
+	 */
+	int WKB_TYPE = 1;
+
+	/**
 	 * 获取空间引用标识符.
 	 *
 	 * @return 空间引用标识符

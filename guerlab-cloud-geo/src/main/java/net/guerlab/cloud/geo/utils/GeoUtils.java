@@ -54,11 +54,6 @@ public final class GeoUtils {
 	 */
 	public static final int DEFAULT_SRID_BYTES = 0;
 
-	/**
-	 * WKB类型-点.
-	 */
-	public static final int WKB_TYPE_POINT = 1;
-
 	private GeoUtils() {
 	}
 
@@ -132,7 +127,7 @@ public final class GeoUtils {
 		boolean bigEndian = (bytes[4] == BIG_ENDIAN_BYTE);
 		byte[] wkbTypeBytes = Arrays.copyOfRange(bytes, 5, 9);
 		int wkbType = bytesToInt(wkbTypeBytes, bigEndian);
-		if (wkbType != WKB_TYPE_POINT) {
+		if (wkbType != IGeoPoint.WKB_TYPE) {
 			throw new IllegalArgumentException("wkbType is not Point");
 		}
 
@@ -176,7 +171,7 @@ public final class GeoUtils {
 		byte[] bytes = new byte[25];
 		System.arraycopy(intToBytes(srid, bigEndian), 0, bytes, 0, 4);
 		bytes[4] = bigEndian ? BIG_ENDIAN_BYTE : LITTLE_ENDIAN_BYTE;
-		System.arraycopy(intToBytes(WKB_TYPE_POINT, bigEndian), 0, bytes, 5, 4);
+		System.arraycopy(intToBytes(IGeoPoint.WKB_TYPE, bigEndian), 0, bytes, 5, 4);
 		System.arraycopy(longToBytes(Double.doubleToLongBits(longitude), bigEndian), 0, bytes, 9, 8);
 		System.arraycopy(longToBytes(Double.doubleToLongBits(latitude), bigEndian), 0, bytes, 17, 8);
 
