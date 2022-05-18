@@ -58,14 +58,14 @@ public final class GeoUtils {
 	}
 
 	/**
-	 * 计算两点之间距离，单位：km，结果保留2位小数四舍五入.
+	 * 计算两点之间距离，单位：米，结果保留2位小数四舍五入.
 	 *
 	 * @param from 起点
 	 * @param to   终点
 	 * @return 距离
 	 */
 	public static BigDecimal distance(IGeoPoint from, IGeoPoint to) {
-		return distance(from, to, LengthUnit.KILOMETER);
+		return distance(from, to, LengthUnit.METRE);
 	}
 
 	/**
@@ -112,7 +112,7 @@ public final class GeoUtils {
 		double cos = Math.cos(radiansFromY) * Math.cos(radiansToY) * Math.cos(radiansFromX - radiansToX)
 				+ Math.sin(radiansFromY) * Math.sin(radiansToY);
 		double acos = Math.acos(cos);
-		return BigDecimal.valueOf(EARTH_RADIUS * acos).multiply(new BigDecimal(unit.getRatio()))
+		return BigDecimal.valueOf(EARTH_RADIUS * acos).multiply(unit.getRatio())
 				.setScale(scale, roundingMode);
 	}
 

@@ -32,31 +32,31 @@ class GeoUtilsTests {
 
 	@BeforeAll
 	static void before() {
-		from.setLongitude(new BigDecimal("116.510958"));
-		from.setLatitude(new BigDecimal("39.90786"));
+		from.setLongitude(new BigDecimal("104.075274"));
+		from.setLatitude(new BigDecimal("30.654147"));
 
-		to.setLongitude(new BigDecimal("116.510842"));
-		to.setLatitude(new BigDecimal("39.90777"));
+		to.setLongitude(new BigDecimal("104.059301"));
+		to.setLatitude(new BigDecimal("30.671344"));
 	}
 
 	@Test
 	void distance() {
-		Assertions.assertEquals(new BigDecimal("14.07"), GeoUtils.distance(from, to));
+		Assertions.assertEquals(new BigDecimal("2447.59"), GeoUtils.distance(from, to));
 	}
 
 	@Test
 	void kilometerTest() {
-		Assertions.assertEquals(new BigDecimal("14.07"), GeoUtils.distance(from, to, LengthUnit.KILOMETER));
+		Assertions.assertEquals(new BigDecimal("2.45"), GeoUtils.distance(from, to, LengthUnit.KILOMETER));
 	}
 
 	@Test
 	void metreTest() {
-		Assertions.assertEquals(new BigDecimal("14072.86"), GeoUtils.distance(from, to, LengthUnit.METRE));
+		Assertions.assertEquals(new BigDecimal("2447.59"), GeoUtils.distance(from, to, LengthUnit.METRE));
 	}
 
 	@Test
 	void centimeterTest() {
-		Assertions.assertEquals(new BigDecimal("1407285.71"), GeoUtils.distance(from, to, LengthUnit.CENTIMETER));
+		Assertions.assertEquals(new BigDecimal("244759.38"), GeoUtils.distance(from, to, LengthUnit.CENTIMETER));
 	}
 
 	@Test

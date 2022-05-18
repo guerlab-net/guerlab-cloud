@@ -13,6 +13,8 @@
 
 package net.guerlab.cloud.geo.enums;
 
+import java.math.BigDecimal;
+
 import lombok.Getter;
 
 /**
@@ -26,24 +28,24 @@ public enum LengthUnit {
 	/**
 	 * 千米.
 	 */
-	KILOMETER(1),
+	KILOMETER(new BigDecimal("0.001")),
 
 	/**
 	 * 米.
 	 */
-	METRE(1000),
+	METRE(BigDecimal.ONE),
 
 	/**
 	 * 厘米.
 	 */
-	CENTIMETER(1000 * 100);
+	CENTIMETER(new BigDecimal("100"));
 
 	/**
 	 * 基于千米的比例.
 	 */
-	private final long ratio;
+	private final BigDecimal ratio;
 
-	LengthUnit(long ratio) {
+	LengthUnit(BigDecimal ratio) {
 		this.ratio = ratio;
 	}
 }
