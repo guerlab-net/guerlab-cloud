@@ -11,25 +11,25 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.geo.entity;
+package net.guerlab.cloud.geo.domain;
 
 import java.math.BigDecimal;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
-
-import net.guerlab.cloud.commons.entity.BaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * 地理信息对象.
+ * 地理坐标点.
  *
  * @author guer
  */
-@Setter
-@Getter
-@Schema(name = "GeoEntity", description = "地理信息对象")
-public class GeoEntity extends BaseEntity implements IGeoEntity {
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Schema(name = "GeoPoint", description = "地理坐标点")
+public class GeoPoint implements IGeoPoint {
 
 	/**
 	 * 经度.
@@ -42,10 +42,4 @@ public class GeoEntity extends BaseEntity implements IGeoEntity {
 	 */
 	@Schema(description = "纬度")
 	private BigDecimal latitude;
-
-	/**
-	 * 地理hash.
-	 */
-	@Schema(description = "地理hash")
-	private String geoHash;
 }

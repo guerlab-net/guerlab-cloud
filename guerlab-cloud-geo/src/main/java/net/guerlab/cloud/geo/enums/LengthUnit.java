@@ -11,10 +11,39 @@
  * limitations under the License.
  */
 
-/**
- *
- */
-@NonNullApi
-package net.guerlab.cloud.geo.entity;
+package net.guerlab.cloud.geo.enums;
 
-import org.springframework.lang.NonNullApi;
+import lombok.Getter;
+
+/**
+ * 长度单位.
+ *
+ * @author guer
+ */
+@Getter
+public enum LengthUnit {
+
+	/**
+	 * 千米.
+	 */
+	KILOMETER(1),
+
+	/**
+	 * 米.
+	 */
+	METRE(1000),
+
+	/**
+	 * 厘米.
+	 */
+	CENTIMETER(1000 * 100);
+
+	/**
+	 * 基于千米的比例.
+	 */
+	private final long ratio;
+
+	LengthUnit(long ratio) {
+		this.ratio = ratio;
+	}
+}

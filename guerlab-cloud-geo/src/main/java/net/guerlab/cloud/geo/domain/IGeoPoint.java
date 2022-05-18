@@ -11,18 +11,18 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.geo.entity;
+package net.guerlab.cloud.geo.domain;
 
 import java.math.BigDecimal;
 
 import org.springframework.lang.Nullable;
 
 /**
- * 地理信息对象接口.
+ * 地理坐标点接口.
  *
  * @author guer
  */
-public interface IGeoEntity {
+public interface IGeoPoint {
 
 	/**
 	 * 获取经度.
@@ -33,13 +33,6 @@ public interface IGeoEntity {
 	BigDecimal getLongitude();
 
 	/**
-	 * 设置经度.
-	 *
-	 * @param longitude 经度
-	 */
-	void setLongitude(@Nullable BigDecimal longitude);
-
-	/**
 	 * 获取纬度.
 	 *
 	 * @return 纬度
@@ -48,24 +41,11 @@ public interface IGeoEntity {
 	BigDecimal getLatitude();
 
 	/**
-	 * 设置纬度.
+	 * 判断是否为空.
 	 *
-	 * @param latitude 纬度
+	 * @return 是否为空
 	 */
-	void setLatitude(@Nullable BigDecimal latitude);
-
-	/**
-	 * 获取地理hash.
-	 *
-	 * @return 地理hash
-	 */
-	@Nullable
-	String getGeoHash();
-
-	/**
-	 * 设置地理hash.
-	 *
-	 * @param geoHash 地理hash
-	 */
-	void setGeoHash(@Nullable String geoHash);
+	default boolean isEmpty() {
+		return getLongitude() == null || getLatitude() == null;
+	}
 }

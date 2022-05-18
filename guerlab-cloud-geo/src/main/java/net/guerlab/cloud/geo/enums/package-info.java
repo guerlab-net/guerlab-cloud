@@ -15,6 +15,6 @@
  *
  */
 @NonNullApi
-package net.guerlab.cloud.geo.searchparams;
+package net.guerlab.cloud.geo.enums;
 
 import org.springframework.lang.NonNullApi;

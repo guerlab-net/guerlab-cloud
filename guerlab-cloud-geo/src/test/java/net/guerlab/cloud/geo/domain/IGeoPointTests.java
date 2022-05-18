@@ -15,40 +15,25 @@ package net.guerlab.cloud.geo.domain;
 
 import java.math.BigDecimal;
 
-import lombok.Data;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
- * 地理位置对象.
- *
  * @author guer
  */
-@Data
-public class Geo {
+class IGeoPointTests {
 
-	/**
-	 * 经度.
-	 */
-	private BigDecimal longitude;
-
-	/**
-	 * 纬度.
-	 */
-	private BigDecimal latitude;
-
-	/**
-	 * 创建地理位置对象.
-	 */
-	public Geo() {
+	@Test
+	void isEmpty() {
+		GeoPoint point = new GeoPoint();
+		Assertions.assertTrue(point.isEmpty());
 	}
 
-	/**
-	 * 创建地理位置对象.
-	 *
-	 * @param longitude 经度
-	 * @param latitude  纬度
-	 */
-	public Geo(BigDecimal longitude, BigDecimal latitude) {
-		this.longitude = longitude;
-		this.latitude = latitude;
+	@Test
+	void notEmpty() {
+		GeoPoint point = new GeoPoint();
+		point.setLongitude(new BigDecimal("116.51095809414983"));
+		point.setLatitude(new BigDecimal("39.90785996429622"));
+		Assertions.assertFalse(point.isEmpty());
 	}
 }
