@@ -17,9 +17,7 @@ import java.io.Serial;
 import java.math.BigDecimal;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * 地理坐标点.
@@ -27,13 +25,17 @@ import lombok.NoArgsConstructor;
  * @author guer
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Schema(name = "GeoPoint", description = "地理坐标点")
 public class GeoPoint implements IGeoPoint {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 空间引用标识符.
+	 */
+	@Schema(description = "空间引用标识符")
+	private Integer srid;
 
 	/**
 	 * 经度.

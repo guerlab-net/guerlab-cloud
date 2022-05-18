@@ -152,7 +152,10 @@ public final class GeoHashUtils {
 		lat[2] = (lat[0] + lat[1]) / 2.0;
 		lon[2] = (lon[0] + lon[1]) / 2.0;
 
-		return new GeoPoint(BigDecimal.valueOf(lon[2]), BigDecimal.valueOf(lat[2]));
+		GeoPoint point = new GeoPoint();
+		point.setLongitude(BigDecimal.valueOf(lon[2]));
+		point.setLatitude(BigDecimal.valueOf(lat[2]));
+		return point;
 	}
 
 	/**

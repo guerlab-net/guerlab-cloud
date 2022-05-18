@@ -58,4 +58,27 @@ class GeoUtilsTests {
 	void centimeterTest() {
 		Assertions.assertEquals(new BigDecimal("1407285.71"), GeoUtils.distance(from, to, LengthUnit.CENTIMETER));
 	}
+
+	@Test
+	void toBytes() {
+		GeoPoint point = new GeoPoint();
+		point.setLongitude(new BigDecimal("116.510958"));
+		point.setLatitude(new BigDecimal("39.90786"));
+
+		byte[] bytes = new byte[] {0, 0, 0, 0, 1, 1, 0, 0, 0, 75, -24, 46, -119, -77, 32, 93, 64, 92, -84, -88, -63, 52, -12, 67, 64};
+
+		Assertions.assertArrayEquals(bytes, GeoUtils.toBytes(point));
+	}
+
+	@Test
+	void toPoint() {
+		byte[] bytes = new byte[] {0, 0, 0, 0, 1, 1, 0, 0, 0, 75, -24, 46, -119, -77, 32, 93, 64, 92, -84, -88, -63, 52, -12, 67, 64};
+
+		GeoPoint point = new GeoPoint();
+		point.setSrid(0);
+		point.setLongitude(new BigDecimal("116.510958"));
+		point.setLatitude(new BigDecimal("39.90786"));
+
+		Assertions.assertEquals(point, GeoUtils.toGeoPoint(bytes));
+	}
 }

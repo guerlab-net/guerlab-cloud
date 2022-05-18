@@ -16,6 +16,8 @@ package net.guerlab.cloud.geo.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.springframework.lang.Nullable;
 
 /**
@@ -24,6 +26,13 @@ import org.springframework.lang.Nullable;
  * @author guer
  */
 public interface IGeoPoint extends Serializable {
+
+	/**
+	 * 获取空间引用标识符.
+	 *
+	 * @return 空间引用标识符
+	 */
+	Integer getSrid();
 
 	/**
 	 * 获取经度.
@@ -46,6 +55,7 @@ public interface IGeoPoint extends Serializable {
 	 *
 	 * @return 是否为空
 	 */
+	@JsonIgnore
 	default boolean isEmpty() {
 		return getLongitude() == null || getLatitude() == null;
 	}
