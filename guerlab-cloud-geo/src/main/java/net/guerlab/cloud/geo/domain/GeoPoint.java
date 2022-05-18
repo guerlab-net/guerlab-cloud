@@ -13,6 +13,7 @@
 
 package net.guerlab.cloud.geo.domain;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -30,6 +31,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Schema(name = "GeoPoint", description = "地理坐标点")
 public class GeoPoint implements IGeoPoint {
+
+	@Serial
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 经度.

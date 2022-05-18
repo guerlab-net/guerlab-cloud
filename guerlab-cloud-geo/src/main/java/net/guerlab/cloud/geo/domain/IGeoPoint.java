@@ -13,6 +13,7 @@
 
 package net.guerlab.cloud.geo.domain;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import org.springframework.lang.Nullable;
@@ -22,7 +23,7 @@ import org.springframework.lang.Nullable;
  *
  * @author guer
  */
-public interface IGeoPoint {
+public interface IGeoPoint extends Serializable {
 
 	/**
 	 * 获取经度.
