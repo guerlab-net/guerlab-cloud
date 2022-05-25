@@ -32,7 +32,7 @@ import net.guerlab.cloud.api.feign.ResultDecoder;
  * @author guer
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class FeignAutoConfigure {
 
 	/**

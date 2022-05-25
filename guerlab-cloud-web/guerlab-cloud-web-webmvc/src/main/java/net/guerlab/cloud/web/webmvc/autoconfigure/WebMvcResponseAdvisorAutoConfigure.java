@@ -39,7 +39,7 @@ import net.guerlab.cloud.web.core.response.ResponseBodyWrapperSupport;
  * @author guer
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(ResponseBodyAdvice.class)
 @ConditionalOnProperty(prefix = "spring.web", name = "wrapper-response", havingValue = "true", matchIfMissing = true)
 public class WebMvcResponseAdvisorAutoConfigure {

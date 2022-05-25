@@ -24,7 +24,7 @@ import net.guerlab.cloud.web.core.endpoints.MessageSourcesEndpoint;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class MessageSourcesEndpointAutoConfigure {
 
 	/**

@@ -23,7 +23,7 @@ import net.guerlab.cloud.context.webflux.filter.ContextAttributesServerWebExchan
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class ContextAttributesServerWebExchangeDecoratorFilterAutoConfigure {
 
 	/**

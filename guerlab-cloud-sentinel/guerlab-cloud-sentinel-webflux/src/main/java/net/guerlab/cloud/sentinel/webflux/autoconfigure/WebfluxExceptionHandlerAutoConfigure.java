@@ -36,7 +36,7 @@ import net.guerlab.cloud.web.core.autoconfigure.GlobalExceptionHandlerAutoConfig
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 @AutoConfigureAfter(GlobalExceptionHandlerAutoConfigure.class)
 public class WebfluxExceptionHandlerAutoConfigure {

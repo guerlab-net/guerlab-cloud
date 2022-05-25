@@ -34,7 +34,7 @@ import net.guerlab.cloud.server.mybatis.plus.methods.AutoLoadMethodLoader;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @AutoConfigureBefore(IdentifierGeneratorAutoConfiguration.class)
 public class MybatisPlusAutoConfigure {
 

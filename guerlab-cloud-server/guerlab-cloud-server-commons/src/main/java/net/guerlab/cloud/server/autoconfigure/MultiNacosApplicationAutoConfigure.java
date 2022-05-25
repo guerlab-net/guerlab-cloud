@@ -41,7 +41,7 @@ import net.guerlab.commons.exception.ApplicationException;
  * @author guer
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(NacosServerProperties.class)
 public class MultiNacosApplicationAutoConfigure
 		implements ApplicationListener<WebServerInitializedEvent>, DisposableBean {

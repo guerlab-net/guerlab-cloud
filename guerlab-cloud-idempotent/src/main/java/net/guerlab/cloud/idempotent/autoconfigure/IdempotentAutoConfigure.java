@@ -27,7 +27,7 @@ import net.guerlab.cloud.idempotent.aspect.IdempotentAspect;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 public class IdempotentAutoConfigure {
 

@@ -28,7 +28,7 @@ import net.guerlab.cloud.distributed.aspect.DistributedLockAspect;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(RedisAutoConfiguration.class)
 public class DistributedLockAutoConfigure {
 

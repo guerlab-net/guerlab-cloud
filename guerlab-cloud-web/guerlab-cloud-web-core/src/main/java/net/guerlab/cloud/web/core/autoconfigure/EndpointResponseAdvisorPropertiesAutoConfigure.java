@@ -31,7 +31,7 @@ import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(ResponseAdvisorProperties.class)
 @ConditionalOnClass(name = "org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties")
 public class EndpointResponseAdvisorPropertiesAutoConfigure {

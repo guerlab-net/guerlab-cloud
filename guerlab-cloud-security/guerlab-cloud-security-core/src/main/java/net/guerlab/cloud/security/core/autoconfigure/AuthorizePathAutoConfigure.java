@@ -34,7 +34,7 @@ import net.guerlab.cloud.security.core.properties.CorsProperties;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({AuthorizePathProperties.class, CorsProperties.class})
 public class AuthorizePathAutoConfigure {
 

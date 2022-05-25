@@ -34,7 +34,7 @@ import net.guerlab.cloud.loadbalancer.autoconfigure.GlobalLoadBalancerAutoConfig
  * @author guer
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(GlobalLoadBalancerAutoConfiguration.class)
 public class HeadersContextAutoConfigure {
 

@@ -27,7 +27,7 @@ import net.guerlab.cloud.web.webflux.support.WebFluxRequestIpHandlerMethodArgume
  * @author guer
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class WebFluxRequestIpHandlerMethodArgumentResolverAutoConfigure implements WebFluxConfigurer {
 
 	@Override

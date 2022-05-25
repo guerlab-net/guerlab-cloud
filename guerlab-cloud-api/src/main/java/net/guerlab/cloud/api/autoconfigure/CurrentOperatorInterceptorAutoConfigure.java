@@ -29,7 +29,7 @@ import net.guerlab.cloud.loadbalancer.autoconfigure.GlobalLoadBalancerAutoConfig
  * @author guer
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(name = "net.guerlab.cloud.auth.context.AbstractContextHandler")
 @AutoConfigureAfter(GlobalLoadBalancerAutoConfiguration.class)
 public class CurrentOperatorInterceptorAutoConfigure {

@@ -30,7 +30,7 @@ import net.guerlab.cloud.loadbalancer.rule.VersionMatchRule;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({VersionControlProperties.class, ClusterSameProperties.class})
 public class RuleAutoConfigure {
 

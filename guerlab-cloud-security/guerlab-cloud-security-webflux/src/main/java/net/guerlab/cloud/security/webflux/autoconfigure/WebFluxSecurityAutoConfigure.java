@@ -38,7 +38,7 @@ import net.guerlab.cloud.security.core.properties.DefaultCorsConfiguration;
  * @author guer
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(AuthorizePathAutoConfigure.class)
 public class WebFluxSecurityAutoConfigure {
 

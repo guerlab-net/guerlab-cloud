@@ -24,7 +24,7 @@ import net.guerlab.cloud.context.core.task.AuthContextHandlerTaskDecorator;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class AuthContextHandlerTaskDecoratorAutoConfigure {
 
 	/**

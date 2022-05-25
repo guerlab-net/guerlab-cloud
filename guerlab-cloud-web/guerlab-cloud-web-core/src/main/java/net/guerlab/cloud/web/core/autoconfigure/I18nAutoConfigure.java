@@ -23,6 +23,6 @@ import net.guerlab.cloud.web.core.properties.I18nProperties;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(I18nProperties.class)
 public class I18nAutoConfigure { }

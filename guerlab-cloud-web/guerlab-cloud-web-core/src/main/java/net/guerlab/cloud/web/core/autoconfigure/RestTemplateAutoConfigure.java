@@ -37,7 +37,7 @@ import net.guerlab.cloud.core.autoconfigure.ObjectMapperAutoConfigure;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(ObjectMapperAutoConfigure.class)
 public class RestTemplateAutoConfigure {
 

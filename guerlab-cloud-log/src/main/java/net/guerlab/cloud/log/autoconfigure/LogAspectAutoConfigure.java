@@ -26,7 +26,7 @@ import net.guerlab.cloud.log.handler.LogHandler;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class LogAspectAutoConfigure {
 
 	/**

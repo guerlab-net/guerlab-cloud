@@ -46,7 +46,7 @@ import net.guerlab.cloud.web.webmvc.exception.handler.WebMvcGlobalExceptionHandl
  * @author guer
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(GlobalExceptionHandlerAutoConfigure.class)
 @AutoConfigureBefore(ErrorMvcAutoConfiguration.class)
 public class WebMvcGlobalExceptionHandlerAutoConfigure {

@@ -54,7 +54,7 @@ import net.guerlab.commons.time.jackson.serializer.YearSerializer;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(NumberJsonStringFormatProperties.class)
 public class ObjectMapperAutoConfigure {
 
