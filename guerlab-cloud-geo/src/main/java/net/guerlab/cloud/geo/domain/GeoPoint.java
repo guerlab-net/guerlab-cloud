@@ -11,45 +11,41 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.entity;
+package net.guerlab.cloud.geo.domain;
 
+import java.io.Serial;
 import java.math.BigDecimal;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-import org.springframework.lang.Nullable;
 
 /**
- * 地理信息对象.
+ * 地理坐标点.
  *
  * @author guer
  */
-@SuppressWarnings("unused")
 @Data
-@EqualsAndHashCode(callSuper = true)
-@Schema(name = "GeoEntity", description = "地理信息对象")
-public class GeoEntity extends BaseEntity implements IGeoEntity {
+@Schema(name = "GeoPoint", description = "地理坐标点")
+public class GeoPoint implements IGeoPoint {
+
+	@Serial
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 空间引用标识符.
+	 */
+	@Schema(description = "空间引用标识符")
+	private Integer srid;
 
 	/**
 	 * 经度.
 	 */
-	@Nullable
 	@Schema(description = "经度")
 	private BigDecimal longitude;
 
 	/**
 	 * 纬度.
 	 */
-	@Nullable
 	@Schema(description = "纬度")
 	private BigDecimal latitude;
-
-	/**
-	 * 地理hash.
-	 */
-	@Nullable
-	@Schema(description = "地理hash")
-	private String geoHash;
 }

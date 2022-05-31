@@ -26,7 +26,7 @@ import net.guerlab.cloud.core.sequence.Sequence;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(SequenceProperties.class)
 public class SequenceAutoConfigure {
 

@@ -28,7 +28,7 @@ import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
  * @author guer
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class OpenApiWebmvcAutoConfigure {
 
 	/**

@@ -44,7 +44,7 @@ import net.guerlab.cloud.web.webflux.exception.handler.WebFluxErrorWebExceptionH
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(GlobalExceptionHandlerAutoConfigure.class)
 public class WebFluxGlobalExceptionHandlerAutoConfigure {
 

@@ -29,7 +29,7 @@ import net.guerlab.cloud.web.webmvc.support.WebMvcRequestIpHandlerMethodArgument
  * @author guer
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class WebMvcRequestIpHandlerMethodArgumentResolverAutoConfigure implements WebMvcConfigurer {
 
 	@Override

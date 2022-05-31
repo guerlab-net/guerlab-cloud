@@ -11,26 +11,17 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.exception;
-
-import java.io.Serial;
-
-import net.guerlab.cloud.core.exception.AbstractI18nApplicationException;
+package net.guerlab.cloud.web.core.data;
 
 /**
- * 经度无效.
+ * 无操作数据处理.
  *
  * @author guer
  */
-public class LongitudeInvalidException extends AbstractI18nApplicationException {
-
-	@Serial
-	private static final long serialVersionUID = 1L;
-
-	private static final String MESSAGE_KEY = "message.exception.commons.longitudeInvalid";
+public class NopeDataHandler implements DataHandler {
 
 	@Override
-	protected String getKey() {
-		return MESSAGE_KEY;
+	public Object transformation(Object value) {
+		return value;
 	}
 }

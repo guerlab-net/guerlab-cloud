@@ -39,7 +39,7 @@ import net.guerlab.cloud.security.core.properties.DefaultCorsConfiguration;
  */
 @Slf4j
 @Order(99)
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(AuthorizePathAutoConfigure.class)
 public class WebMvcSecurityAutoConfigure extends WebSecurityConfigurerAdapter {
 

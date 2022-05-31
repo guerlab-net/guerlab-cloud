@@ -33,7 +33,7 @@ import net.guerlab.commons.exception.ApplicationException;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class WebmvcExceptionHandlerAutoConfigure {
 

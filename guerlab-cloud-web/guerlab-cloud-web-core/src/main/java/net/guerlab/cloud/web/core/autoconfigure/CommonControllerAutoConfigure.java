@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ComponentScan("net.guerlab.cloud.web.core.controller")
 public class CommonControllerAutoConfigure {
 }

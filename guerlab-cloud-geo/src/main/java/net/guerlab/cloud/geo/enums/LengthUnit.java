@@ -11,44 +11,41 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.geo.domain;
+package net.guerlab.cloud.geo.enums;
 
 import java.math.BigDecimal;
 
-import lombok.Data;
+import lombok.Getter;
 
 /**
- * 地理位置对象.
+ * 长度单位.
  *
  * @author guer
  */
-@Data
-public class Geo {
+@Getter
+public enum LengthUnit {
 
 	/**
-	 * 经度.
+	 * 千米.
 	 */
-	private BigDecimal longitude;
+	KILOMETER(new BigDecimal("0.001")),
 
 	/**
-	 * 纬度.
+	 * 米.
 	 */
-	private BigDecimal latitude;
+	METRE(BigDecimal.ONE),
 
 	/**
-	 * 创建地理位置对象.
+	 * 厘米.
 	 */
-	public Geo() {
-	}
+	CENTIMETER(new BigDecimal("100"));
 
 	/**
-	 * 创建地理位置对象.
-	 *
-	 * @param longitude 经度
-	 * @param latitude  纬度
+	 * 基于千米的比例.
 	 */
-	public Geo(BigDecimal longitude, BigDecimal latitude) {
-		this.longitude = longitude;
-		this.latitude = latitude;
+	private final BigDecimal ratio;
+
+	LengthUnit(BigDecimal ratio) {
+		this.ratio = ratio;
 	}
 }

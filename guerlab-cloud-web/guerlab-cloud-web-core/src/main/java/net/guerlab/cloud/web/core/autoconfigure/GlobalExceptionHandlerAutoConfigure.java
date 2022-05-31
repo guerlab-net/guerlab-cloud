@@ -28,7 +28,7 @@ import net.guerlab.cloud.web.core.properties.GlobalExceptionProperties;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(GlobalExceptionProperties.class)
 public class GlobalExceptionHandlerAutoConfigure {
 

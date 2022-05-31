@@ -25,7 +25,7 @@ import net.guerlab.cloud.auth.properties.TestRc4TokenFactoryProperties;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({TestJwtTokenFactoryProperties.class, TestMd5TokenFactoryProperties.class,
 		TestRc4TokenFactoryProperties.class})
 public class TestAuthAutoConfigure { }

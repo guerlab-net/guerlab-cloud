@@ -39,7 +39,7 @@ import net.guerlab.commons.collection.CollectionUtil;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(ObjectMapperAutoConfigure.class)
 @EnableConfigurationProperties(CorsProperties.class)
 public class WebMvcAutoConfigure {
@@ -49,7 +49,7 @@ public class WebMvcAutoConfigure {
 	 *
 	 * @author guer
 	 */
-	@Configuration
+	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnClass(WebMvcConfigurer.class)
 	public static class MvcAutoConfigure implements WebMvcConfigurer {
 

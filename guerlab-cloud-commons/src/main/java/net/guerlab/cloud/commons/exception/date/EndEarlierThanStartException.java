@@ -11,26 +11,31 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.exception;
+package net.guerlab.cloud.commons.exception.date;
 
 import java.io.Serial;
 
 import net.guerlab.cloud.core.exception.AbstractI18nApplicationException;
 
 /**
- * 无效的地理信息实体.
+ * 结束日期不能大于开始日期.
  *
  * @author guer
  */
-public class GeoEntityInvalidException extends AbstractI18nApplicationException {
+public class EndEarlierThanStartException extends AbstractI18nApplicationException {
 
 	@Serial
 	private static final long serialVersionUID = 1L;
 
-	private static final String MESSAGE_KEY = "message.exception.commons.geoEntityInvalid";
+	private static final String MESSAGE_KEY = "message.exception.date.endEarlierThanStart";
 
 	@Override
 	protected String getKey() {
 		return MESSAGE_KEY;
+	}
+
+	@Override
+	public int getErrorCode() {
+		return 401;
 	}
 }

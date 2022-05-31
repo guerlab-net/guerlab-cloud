@@ -26,7 +26,7 @@ import net.guerlab.cloud.web.webmvc.interceptor.CurrentOperatorInterceptor;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class InterceptorAutoConfigure implements WebMvcConfigurer {
 
 	@Override

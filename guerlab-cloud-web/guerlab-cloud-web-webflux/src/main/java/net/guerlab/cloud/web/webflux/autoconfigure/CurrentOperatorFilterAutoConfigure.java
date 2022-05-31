@@ -24,7 +24,7 @@ import net.guerlab.cloud.web.webflux.filter.CurrentOperatorFilter;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class CurrentOperatorFilterAutoConfigure {
 
 	/**

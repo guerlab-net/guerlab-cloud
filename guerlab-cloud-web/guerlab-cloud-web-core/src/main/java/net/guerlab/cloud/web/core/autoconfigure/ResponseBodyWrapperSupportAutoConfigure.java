@@ -25,7 +25,7 @@ import net.guerlab.cloud.web.core.response.ResponseBodyWrapperSupport;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(ResponseAdvisorProperties.class)
 public class ResponseBodyWrapperSupportAutoConfigure {
 

@@ -23,7 +23,7 @@ import net.guerlab.cloud.api.endpoints.FeignClientEndpoint;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class EndPointsAutoConfigure {
 
 	/**

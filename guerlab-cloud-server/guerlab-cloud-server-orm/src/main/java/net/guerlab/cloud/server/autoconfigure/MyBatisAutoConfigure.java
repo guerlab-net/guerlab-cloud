@@ -32,7 +32,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnClass({DataSource.class, SqlSessionTemplate.class, SqlSessionFactory.class,
 		PlatformTransactionManager.class})
 @EnableTransactionManagement

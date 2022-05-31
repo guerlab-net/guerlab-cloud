@@ -40,7 +40,7 @@ import static org.springdoc.core.Constants.SPRINGDOC_ENABLED;
  * @author guer
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(OpenApiProperties.class)
 @AutoConfigureBefore(AuthorizePathAutoConfigure.class)
 public class OpenApiAutoConfigure {

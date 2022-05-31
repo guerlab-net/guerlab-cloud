@@ -14,9 +14,11 @@
 package net.guerlab.cloud.geo.utils;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
-import net.guerlab.cloud.geo.domain.Geo;
 import net.guerlab.cloud.geo.domain.GeoHash;
+import net.guerlab.cloud.geo.domain.GeoPoint;
+import net.guerlab.cloud.geo.domain.IGeoPoint;
 
 /**
  * 地理hash工具.
@@ -129,8 +131,7 @@ public final class GeoHashUtils {
 	 * @param geoHash geoHash
 	 * @return 地理对象
 	 */
-	@SuppressWarnings("unused")
-	public static Geo decode(String geoHash) {
+	public static IGeoPoint decode(String geoHash) {
 		boolean even = true;
 		double[] lat = new double[3];
 		double[] lon = new double[3];
@@ -151,17 +152,21 @@ public final class GeoHashUtils {
 		lat[2] = (lat[0] + lat[1]) / 2.0;
 		lon[2] = (lon[0] + lon[1]) / 2.0;
 
-		return new Geo(BigDecimal.valueOf(lon[2]), BigDecimal.valueOf(lat[2]));
+		GeoPoint point = new GeoPoint();
+		point.setLongitude(BigDecimal.valueOf(lon[2]));
+		point.setLatitude(BigDecimal.valueOf(lat[2]));
+		return point;
 	}
 
 	/**
 	 * 编码geoHash.
 	 *
-	 * @param longitude 经度
-	 * @param latitude  纬度
+	 * @param point 地理坐标点
 	 * @return geoHash
 	 */
-	public static String encode(BigDecimal longitude, BigDecimal latitude) {
+	public static String encode(IGeoPoint point) {
+		BigDecimal longitude = Objects.requireNonNull(point.getLongitude());
+		BigDecimal latitude = Objects.requireNonNull(point.getLatitude());
 		return encode(longitude.doubleValue(), latitude.doubleValue());
 	}
 

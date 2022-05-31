@@ -29,7 +29,7 @@ import net.guerlab.cloud.web.core.properties.I18nProperties;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnClass({LocaleResolver.class, LocaleChangeInterceptor.class, SessionLocaleResolver.class})
 @EnableConfigurationProperties(I18nProperties.class)
 public class WebMvcI18nAutoConfigure {

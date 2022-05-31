@@ -26,7 +26,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(AuthContextHandlerTaskDecoratorAutoConfigure.class)
 public class AuthAsyncConfigurer implements AsyncConfigurer {
 

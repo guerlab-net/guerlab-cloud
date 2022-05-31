@@ -31,7 +31,7 @@ import net.guerlab.cloud.auth.redis.TestRedisTemplateOperationsWrapper;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties({TestRedisTokenFactoryProperties.class})
 public class TestRedisTokenAutoConfigure {
 

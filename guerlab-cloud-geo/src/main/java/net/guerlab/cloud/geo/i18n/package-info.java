@@ -15,6 +15,6 @@
  *
  */
 @NonNullApi
-package net.guerlab.cloud.geo.entity;
+package net.guerlab.cloud.geo.i18n;
 
 import org.springframework.lang.NonNullApi;

@@ -30,7 +30,7 @@ import net.guerlab.cloud.web.webflux.response.ResponseBodyResultWrapperHandler;
  * @author guer
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnProperty(prefix = "spring.web", name = "wrapper-response", havingValue = "true", matchIfMissing = true)
 public class WebFluxResponseAdvisorAutoConfigure {
 

@@ -32,7 +32,7 @@ import net.guerlab.cloud.core.converter.AutoLoadConverter;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnBean(RequestMappingHandlerAdapter.class)
 public class ConverterAutoConfigure {
 

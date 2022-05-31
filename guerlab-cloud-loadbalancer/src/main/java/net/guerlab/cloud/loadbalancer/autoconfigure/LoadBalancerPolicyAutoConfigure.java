@@ -29,7 +29,7 @@ import net.guerlab.cloud.loadbalancer.policy.RoundRobinLoadBalancerPolicy;
  *
  * @author guer
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class LoadBalancerPolicyAutoConfigure {
 
 	/**

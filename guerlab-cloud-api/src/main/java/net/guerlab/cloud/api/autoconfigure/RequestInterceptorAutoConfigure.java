@@ -34,7 +34,7 @@ import net.guerlab.cloud.loadbalancer.properties.VersionControlProperties;
  * @author guer
  */
 @Slf4j
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(DebugProperties.class)
 @AutoConfigureAfter(GlobalLoadBalancerAutoConfiguration.class)
 public class RequestInterceptorAutoConfigure {
