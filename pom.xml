@@ -543,16 +543,6 @@
 				<artifactId>commons-compress</artifactId>
 				<version>${commons-compress.version}</version>
 			</dependency>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-function-core</artifactId>
-				<version>${spring-cloud-function.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-function-context</artifactId>
-				<version>${spring-cloud-function.version}</version>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
