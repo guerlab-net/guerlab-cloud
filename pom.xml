@@ -98,7 +98,6 @@
 		<bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
 		<commons-io.version>2.11.0</commons-io.version>
 		<commons-compress.version>1.21</commons-compress.version>
-		<spring-cloud-function.version>3.2.3</spring-cloud-function.version>
 	</properties>
 
 	<dependencyManagement>
