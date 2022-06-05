@@ -363,6 +363,7 @@
 				<groupId>net.guerlab.cloud</groupId>
 				<artifactId>guerlab-cloud-server-commons</artifactId>
 				<version>${revision}</version>
+				<type>pom</type>
 			</dependency>
 			<dependency>
 				<groupId>net.guerlab.cloud</groupId>
