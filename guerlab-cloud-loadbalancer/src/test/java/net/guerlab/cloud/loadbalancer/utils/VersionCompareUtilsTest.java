@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.loadbalancer;
+package net.guerlab.cloud.loadbalancer.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +21,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import net.guerlab.cloud.loadbalancer.utils.VersionCompareUtils;
 
 /**
  * 版本控制测试.

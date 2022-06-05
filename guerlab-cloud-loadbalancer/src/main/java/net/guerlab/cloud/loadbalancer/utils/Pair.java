@@ -11,10 +11,13 @@
  * limitations under the License.
  */
 
-/**
- *
- */
-@NonNullApi
-package net.guerlab.cloud.loadbalancer;
+package net.guerlab.cloud.loadbalancer.utils;
 
-import org.springframework.lang.NonNullApi;
+/**
+ * Pair.
+ *
+ * @author guer
+ */
+public record Pair<T>(T item, double weight) {
+
+}
