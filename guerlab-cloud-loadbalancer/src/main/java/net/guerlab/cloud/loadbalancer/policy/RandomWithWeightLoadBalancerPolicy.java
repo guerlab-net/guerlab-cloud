@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.alibaba.nacos.client.naming.utils.Chooser;
-import com.alibaba.nacos.client.naming.utils.Pair;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.cloud.client.ServiceInstance;
@@ -26,6 +24,8 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 
 import net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties;
+import net.guerlab.cloud.loadbalancer.utils.Chooser;
+import net.guerlab.cloud.loadbalancer.utils.Pair;
 
 /**
  * 加权随机负载均衡策略.

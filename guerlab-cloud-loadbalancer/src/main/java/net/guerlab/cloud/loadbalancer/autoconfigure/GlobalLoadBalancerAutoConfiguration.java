@@ -15,10 +15,7 @@ package net.guerlab.cloud.loadbalancer.autoconfigure;
 
 import java.util.stream.Collectors;
 
-import com.alibaba.cloud.nacos.discovery.NacosDiscoveryAutoConfiguration;
-
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties;
@@ -39,7 +36,6 @@ import net.guerlab.cloud.loadbalancer.support.CustomerLoadBalancerClientFactory;
  * @author guer
  */
 @Configuration(proxyBeanMethods = false)
-@AutoConfigureAfter(NacosDiscoveryAutoConfiguration.class)
 @AutoConfigureBefore({BlockingLoadBalancerClientAutoConfiguration.class, LoadBalancerAutoConfiguration.class})
 @EnableConfigurationProperties({LoadBalancerProperties.class, LoadBalancerClientsProperties.class})
 @LoadBalancerClients(defaultConfiguration = CustomerLoadBalancerClientConfiguration.class)
