@@ -68,12 +68,6 @@ public class LoadBalancerHeaderRequestInterceptor implements RequestInterceptor 
 			return;
 		}
 
-		String metadataKey = StringUtils.trimToNull(properties.getMetadataKey());
-		if (metadataKey == null) {
-			log.debug("metadataKey is null");
-			return;
-		}
-
 		if (currentInstance == null) {
 			log.debug("current instance is null");
 			return;
@@ -85,9 +79,9 @@ public class LoadBalancerHeaderRequestInterceptor implements RequestInterceptor 
 			return;
 		}
 
-		String version = StringUtils.trimToNull(metaData.get(metadataKey));
+		String version = StringUtils.trimToNull(metaData.get(requestKey));
 		if (version == null) {
-			log.debug("cannot find metadata: {}", metadataKey);
+			log.debug("cannot find metadata: {}", requestKey);
 			return;
 		}
 
