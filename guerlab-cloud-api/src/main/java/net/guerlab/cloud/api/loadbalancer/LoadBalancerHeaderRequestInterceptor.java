@@ -15,11 +15,14 @@ package net.guerlab.cloud.api.loadbalancer;
 
 import java.util.Map;
 
-import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+
+import org.springframework.cloud.client.discovery.event.InstancePreRegisteredEvent;
+import org.springframework.cloud.client.serviceregistry.Registration;
+import org.springframework.context.event.EventListener;
 
 import net.guerlab.cloud.loadbalancer.properties.VersionControlProperties;
 
@@ -37,20 +40,24 @@ public class LoadBalancerHeaderRequestInterceptor implements RequestInterceptor 
 	private final VersionControlProperties properties;
 
 	/**
-	 * 服务发现配置.
+	 * 当前实例.
 	 */
-	private final NacosDiscoveryProperties discoveryProperties;
+	private Registration currentInstance;
 
 	/**
 	 * 初始化负载均衡版本控制请求头注入拦截器.
 	 *
-	 * @param properties          版本控制配置
-	 * @param discoveryProperties 服务发现配置
+	 * @param properties 版本控制配置
 	 */
-	public LoadBalancerHeaderRequestInterceptor(VersionControlProperties properties,
-			NacosDiscoveryProperties discoveryProperties) {
+	public LoadBalancerHeaderRequestInterceptor(VersionControlProperties properties) {
 		this.properties = properties;
-		this.discoveryProperties = discoveryProperties;
+	}
+
+	@EventListener
+	public void onInstancePreRegisteredEvent(
+			InstancePreRegisteredEvent instancePreRegisteredEvent) {
+		currentInstance = instancePreRegisteredEvent.getRegistration();
+		log.debug("set currentInstance: {}", currentInstance);
 	}
 
 	@Override
@@ -61,15 +68,26 @@ public class LoadBalancerHeaderRequestInterceptor implements RequestInterceptor 
 			return;
 		}
 
-		Map<String, String> metaData = discoveryProperties.getMetadata();
+		String metadataKey = StringUtils.trimToNull(properties.getMetadataKey());
+		if (metadataKey == null) {
+			log.debug("metadataKey is null");
+			return;
+		}
+
+		if (currentInstance == null) {
+			log.debug("current instance is null");
+			return;
+		}
+
+		Map<String, String> metaData = currentInstance.getMetadata();
 		if (metaData == null || metaData.isEmpty()) {
 			log.debug("metadata is null or empty");
 			return;
 		}
 
-		String version = StringUtils.trimToNull(metaData.get("version"));
+		String version = StringUtils.trimToNull(metaData.get(metadataKey));
 		if (version == null) {
-			log.debug("cannot find version metadata");
+			log.debug("cannot find metadata: {}", metadataKey);
 			return;
 		}
 

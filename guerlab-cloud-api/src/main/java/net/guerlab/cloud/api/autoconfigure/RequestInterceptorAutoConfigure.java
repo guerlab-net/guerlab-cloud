@@ -13,7 +13,6 @@
 
 package net.guerlab.cloud.api.autoconfigure;
 
-import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
 import feign.RequestInterceptor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,14 +41,12 @@ public class RequestInterceptorAutoConfigure {
 	/**
 	 * 构建负载均衡版本控制请求头注入拦截器.
 	 *
-	 * @param properties          版本控制配置
-	 * @param discoveryProperties 服务发现配置
+	 * @param properties 版本控制配置
 	 * @return 负载均衡版本控制请求头注入拦截器
 	 */
 	@Bean
-	public RequestInterceptor loadBalancerHeaderRequestInterceptor(VersionControlProperties properties,
-			NacosDiscoveryProperties discoveryProperties) {
-		return new LoadBalancerHeaderRequestInterceptor(properties, discoveryProperties);
+	public RequestInterceptor loadBalancerHeaderRequestInterceptor(VersionControlProperties properties) {
+		return new LoadBalancerHeaderRequestInterceptor(properties);
 	}
 
 	/**
