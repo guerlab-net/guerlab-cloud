@@ -39,7 +39,7 @@
       "type": "java.util.List<java.lang.String>",
       "sourceType": "net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties",
       "description": "权重元信息字段列表.",
-      "defaultValue": "\"nacos.weight\", \"service.weight\", \"weight\""
+      "defaultValue": "\"service.weight\", \"weight\""
     },
     {
       "name": "spring.cloud.loadbalancer.policy",

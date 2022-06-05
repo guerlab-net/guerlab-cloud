@@ -47,6 +47,6 @@ public class LoadBalancerProperties {
 	/**
 	 * 权重元信息字段列表.
 	 */
-	private List<String> weightMetadataKeys = Arrays.asList("nacos.weight", "service.weight", "weight");
+	private List<String> weightMetadataKeys = Arrays.asList("service.weight", "weight");
 
 }
