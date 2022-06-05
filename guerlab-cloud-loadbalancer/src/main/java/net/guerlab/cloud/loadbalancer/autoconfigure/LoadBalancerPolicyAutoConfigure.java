@@ -13,6 +13,7 @@
 
 package net.guerlab.cloud.loadbalancer.autoconfigure;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -51,6 +52,7 @@ public class LoadBalancerPolicyAutoConfigure {
 	 */
 	@Bean
 	@ConditionalOnMissingBean
+	@ConditionalOnClass(name = {"com.alibaba.nacos.client.naming.utils.Chooser", "com.alibaba.nacos.client.naming.utils.Pair"})
 	@ConditionalOnProperty(prefix = Constants.PROPERTIES_PREFIX, name = Constants.PROPERTIES_POLICY, havingValue = "randomWithWeight")
 	public LoadBalancerPolicy randomWithWeightLoadBalancerPolicy() {
 		return new RandomWithWeightLoadBalancerPolicy();
