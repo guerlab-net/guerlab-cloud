@@ -13,9 +13,6 @@
 
 package net.guerlab.cloud.loadbalancer.autoconfigure;
 
-import com.alibaba.cloud.nacos.NacosDiscoveryProperties;
-
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -49,14 +46,11 @@ public class RuleAutoConfigure {
 	/**
 	 * 构造相同集群策略.
 	 *
-	 * @param nacosDiscoveryProperties Nacos发现配置
-	 * @param properties               相同集群配置
+	 * @param properties 配置
 	 * @return 相同集群策略
 	 */
 	@Bean
-	@ConditionalOnBean(NacosDiscoveryProperties.class)
-	public IRule clusterSameRule(NacosDiscoveryProperties nacosDiscoveryProperties, ClusterSameProperties properties) {
-		String clusterName = nacosDiscoveryProperties.getClusterName();
-		return new ClusterSameRule(clusterName, properties);
+	public IRule clusterSameRule(ClusterSameProperties properties) {
+		return new ClusterSameRule(properties);
 	}
 }

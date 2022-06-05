@@ -36,4 +36,14 @@ public class ClusterSameProperties extends BaseRuleProperties {
 	 * 配置前缀.
 	 */
 	public static final String PROPERTIES_PREFIX = Constants.PROPERTIES_PREFIX + ".cluster-same";
+
+	/**
+	 * 集群名称.
+	 */
+	private String clusterName;
+
+	/**
+	 * 集群元信息字段.
+	 */
+	private String metadataKey = "cluster";
 }
