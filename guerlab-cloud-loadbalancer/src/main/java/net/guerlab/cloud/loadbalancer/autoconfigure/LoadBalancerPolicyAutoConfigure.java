@@ -13,7 +13,6 @@
 
 package net.guerlab.cloud.loadbalancer.autoconfigure;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +23,7 @@ import net.guerlab.cloud.loadbalancer.policy.LoadBalancerPolicy;
 import net.guerlab.cloud.loadbalancer.policy.RandomLoadBalancerPolicy;
 import net.guerlab.cloud.loadbalancer.policy.RandomWithWeightLoadBalancerPolicy;
 import net.guerlab.cloud.loadbalancer.policy.RoundRobinLoadBalancerPolicy;
+import net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties;
 
 /**
  * 负载均衡策略自动配置.
@@ -48,14 +48,14 @@ public class LoadBalancerPolicyAutoConfigure {
 	/**
 	 * 构造加权随机负载均衡策略.
 	 *
+	 * @param properties 负载均衡配置
 	 * @return 加权随机负载均衡策略
 	 */
 	@Bean
 	@ConditionalOnMissingBean
-	@ConditionalOnClass(name = {"com.alibaba.nacos.client.naming.utils.Chooser", "com.alibaba.nacos.client.naming.utils.Pair"})
 	@ConditionalOnProperty(prefix = Constants.PROPERTIES_PREFIX, name = Constants.PROPERTIES_POLICY, havingValue = "randomWithWeight")
-	public LoadBalancerPolicy randomWithWeightLoadBalancerPolicy() {
-		return new RandomWithWeightLoadBalancerPolicy();
+	public LoadBalancerPolicy randomWithWeightLoadBalancerPolicy(LoadBalancerProperties properties) {
+		return new RandomWithWeightLoadBalancerPolicy(properties);
 	}
 
 	/**

@@ -14,10 +14,8 @@
 package net.guerlab.cloud.loadbalancer.policy;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import com.alibaba.nacos.client.naming.utils.Chooser;
 import com.alibaba.nacos.client.naming.utils.Pair;
@@ -25,6 +23,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.lang.Nullable;
+import org.springframework.util.CollectionUtils;
+
+import net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties;
 
 /**
  * 加权随机负载均衡策略.
@@ -40,33 +41,12 @@ public class RandomWithWeightLoadBalancerPolicy extends AbstractLoadBalancerPoli
 	private static final double DEFAULT_WEIGHT = 1.0;
 
 	/**
-	 * 权重key列表.
+	 * 负载均衡配置.
 	 */
-	private static final List<String> WEIGHT_METADATA_KEYS = Arrays.asList("nacos.weight", "service.weight", "weight");
+	private final LoadBalancerProperties properties;
 
-	/**
-	 * 获取权重.
-	 *
-	 * @param metadata 元信息
-	 * @return 权重
-	 */
-	private static double getWeight(@Nullable Map<String, String> metadata) {
-		if (metadata == null || metadata.isEmpty()) {
-			return DEFAULT_WEIGHT;
-		}
-
-		return WEIGHT_METADATA_KEYS.stream().map(key -> parseWeight(metadata, key)).filter(Objects::nonNull).findFirst()
-				.orElse(DEFAULT_WEIGHT);
-	}
-
-	@Nullable
-	private static Double parseWeight(Map<String, String> metadata, String key) {
-		try {
-			return Double.parseDouble(metadata.get(key));
-		}
-		catch (Exception e) {
-			return null;
-		}
+	public RandomWithWeightLoadBalancerPolicy(LoadBalancerProperties properties) {
+		this.properties = properties;
 	}
 
 	@Override
@@ -78,5 +58,37 @@ public class RandomWithWeightLoadBalancerPolicy extends AbstractLoadBalancerPoli
 		Chooser<String, ServiceInstance> chooser = new Chooser<>("randomWithWeight");
 		chooser.refresh(instancesWithWeight);
 		return chooser.randomWithWeight();
+	}
+
+	/**
+	 * 获取权重.
+	 *
+	 * @param metadata 元信息
+	 * @return 权重
+	 */
+	private double getWeight(@Nullable Map<String, String> metadata) {
+		List<String> weightMetadataKeys = properties.getWeightMetadataKeys();
+		if (CollectionUtils.isEmpty(metadata) || CollectionUtils.isEmpty(weightMetadataKeys)) {
+			return DEFAULT_WEIGHT;
+		}
+
+		Double weight;
+		for (String metadataKey : weightMetadataKeys) {
+			weight = parseWeight(metadata, metadataKey);
+			if (weight != null) {
+				return weight;
+			}
+		}
+		return DEFAULT_WEIGHT;
+	}
+
+	@Nullable
+	private static Double parseWeight(Map<String, String> metadata, String key) {
+		try {
+			return Double.parseDouble(metadata.get(key));
+		}
+		catch (Exception e) {
+			return null;
+		}
 	}
 }
