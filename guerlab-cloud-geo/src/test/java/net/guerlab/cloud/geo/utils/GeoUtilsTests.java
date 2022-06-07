@@ -27,8 +27,8 @@ import net.guerlab.cloud.geo.enums.LengthUnit;
  */
 class GeoUtilsTests {
 
-	static GeoPoint from = new GeoPoint();
-	static GeoPoint to = new GeoPoint();
+	static final GeoPoint from = new GeoPoint();
+	static final GeoPoint to = new GeoPoint();
 
 	@BeforeAll
 	static void before() {

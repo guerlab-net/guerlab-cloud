@@ -55,13 +55,7 @@ public final class DynamicProxyFallback {
 	}
 
 	@Slf4j
-	private static class FallbackInvocationHandler implements InvocationHandler {
-
-		private final Throwable cause;
-
-		FallbackInvocationHandler(Throwable cause) {
-			this.cause = cause;
-		}
+	private record FallbackInvocationHandler(Throwable cause) implements InvocationHandler {
 
 		@Nullable
 		@SuppressWarnings("SuspiciousInvocationHandlerImplementation")

@@ -27,7 +27,7 @@ import net.guerlab.cloud.geo.domain.GeoPoint;
  */
 class GeoHashUtilsTests {
 
-	static GeoPoint point = new GeoPoint();
+	static final GeoPoint point = new GeoPoint();
 
 	@BeforeAll
 	static void before() {

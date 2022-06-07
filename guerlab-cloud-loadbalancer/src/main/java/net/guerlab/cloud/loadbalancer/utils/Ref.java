@@ -30,7 +30,7 @@ public class Ref<T> {
 
 	private final List<Pair<T>> itemsWithWeight;
 
-	private final List<T> items = new ArrayList<T>();
+	private final List<T> items = new ArrayList<>();
 
 	private Poller<T> poller = new GenericPoller<>(items);
 
