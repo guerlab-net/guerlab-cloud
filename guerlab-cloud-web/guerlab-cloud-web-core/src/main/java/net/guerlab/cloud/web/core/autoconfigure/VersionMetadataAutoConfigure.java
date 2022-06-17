@@ -36,6 +36,8 @@ public class VersionMetadataAutoConfigure {
 
 	private static final String VERSION_METADATA_KEY = "version";
 
+	private static final String COMPLETE_VERSION_METADATA_KEY = "version.complete";
+
 	private BuildProperties buildProperties;
 
 	public VersionMetadataAutoConfigure(ObjectProvider<BuildProperties> buildPropertiesProvider) {
@@ -68,6 +70,8 @@ public class VersionMetadataAutoConfigure {
 		}
 
 		metadata.put(VERSION_METADATA_KEY, version.toString());
+		metadata.put(COMPLETE_VERSION_METADATA_KEY, versionString);
 		log.debug("add metadata {} = {}", VERSION_METADATA_KEY, version);
+		log.debug("add metadata {} = {}", COMPLETE_VERSION_METADATA_KEY, versionString);
 	}
 }
