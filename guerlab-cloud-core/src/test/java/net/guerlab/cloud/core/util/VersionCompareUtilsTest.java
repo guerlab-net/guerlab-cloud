@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.loadbalancer.utils;
+package net.guerlab.cloud.core.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ class VersionCompareUtilsTest {
 			new Boolean[] {false, false, true, true, true, true, false, false},
 			new Boolean[] {false, false, true, true, true, true, false, false},
 			new Boolean[] {false, false, true, false, false, true, false, false},
-			new Boolean[] {false, false, false, false, false, false, true, true},
+			new Boolean[] {false, false, false, false, false, false, false, false},
 	};
 
 	static Stream<Arguments> testSourceProvider() {

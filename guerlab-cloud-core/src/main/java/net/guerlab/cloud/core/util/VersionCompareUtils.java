@@ -11,15 +11,14 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.loadbalancer.utils;
+package net.guerlab.cloud.core.util;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
-import org.springframework.lang.Nullable;
+import net.guerlab.cloud.core.domain.Version;
 
 /**
  * 版本比较工具类.<br>
@@ -48,7 +47,7 @@ import org.springframework.lang.Nullable;
  * <tr><th scope="row">1.1.1</th>   <td>False</td>  <td>False</td>  <td>True</td>   <td>True</td>   <td>True</td>   <td>True</td>   <td>False</td>  <td>False</td>
  * <tr><th scope="row">1.2</th>     <td>False</td>  <td>False</td>  <td>True</td>   <td>True</td>   <td>True</td>   <td>True</td>   <td>False</td>  <td>False</td>
  * <tr><th scope="row">1.2.1</th>   <td>False</td>  <td>False</td>  <td>True</td>   <td>False</td>  <td>False</td>  <td>True</td>   <td>False</td>  <td>False</td>
- * <tr><th scope="row">str</th>     <td>False</td>  <td>False</td>  <td>False</td>  <td>False</td>  <td>False</td>  <td>False</td>  <td>True</td>   <td>True</td>
+ * <tr><th scope="row">str</th>     <td>False</td>  <td>False</td>  <td>False</td>  <td>False</td>  <td>False</td>  <td>False</td>  <td>False</td>   <td>False</td>
  * </tbody>
  * </table>
  *
@@ -56,11 +55,6 @@ import org.springframework.lang.Nullable;
  */
 @Slf4j
 public final class VersionCompareUtils {
-
-	/**
-	 * 版本号内容间隔符.
-	 */
-	private static final String INTERVAL = "\\.";
 
 	/**
 	 * 分组间隔符.
@@ -141,20 +135,20 @@ public final class VersionCompareUtils {
 	 * @return 是否匹配
 	 */
 	private static boolean equalsMatch(String origin, String range) {
-		String[] originValues = origin.split(INTERVAL);
-		String[] rangeValues = range.split(INTERVAL);
+		Version originValue = Version.parse(origin);
+		Version rangeValue = Version.parse(range);
 
-		int size = Math.max(originValues.length, rangeValues.length);
+		if (originValue == null || rangeValue == null) {
+			return false;
+		}
 
-		Integer[] origins = formatVersionString(originValues, size);
-		Integer[] ranges = formatVersionString(rangeValues, size);
-
-		for (int i = 0; i < size; i++) {
-			Integer ov = origins[i];
-			Integer rv = ranges[i];
-			if (!Objects.equals(ov, rv)) {
+		while (!Objects.equals(originValue, rangeValue)) {
+			if (!Objects.equals(originValue.value(), rangeValue.value())) {
 				return false;
 			}
+
+			originValue = originValue.safeChildren();
+			rangeValue = rangeValue.safeChildren();
 		}
 
 		return true;
@@ -197,18 +191,15 @@ public final class VersionCompareUtils {
 	 * @return 是否匹配
 	 */
 	private static boolean rangeMatch(String origin, String range, boolean contain, boolean leftMath) {
-		String[] originValues = versionStringFilter(origin).split(INTERVAL);
-		String[] rangeValues = versionStringFilter(range).split(INTERVAL);
+		Version originValue = Version.parse(origin);
+		Version rangeValue = Version.parse(range);
 
-		int size = Math.max(originValues.length, rangeValues.length);
+		if (originValue == null || rangeValue == null) {
+			return false;
+		}
 
-		Integer[] origins = formatVersionString(originValues, size);
-		Integer[] ranges = formatVersionString(rangeValues, size);
-
-		for (int i = 0; i < size; i++) {
-			Integer ov = origins[i];
-			Integer rv = ranges[i];
-			int compareResult = ov.compareTo(rv);
+		while (!Objects.equals(originValue, rangeValue)) {
+			int compareResult = Long.compare(originValue.value(), rangeValue.value());
 
 			if (compareResult < 0) {
 				return !leftMath;
@@ -216,67 +207,11 @@ public final class VersionCompareUtils {
 			else if (compareResult > 0) {
 				return leftMath;
 			}
-			else if (i == size - 1) {
-				return contain;
-			}
-		}
-		return false;
-	}
 
-	/**
-	 * 字符串版本过滤器.
-	 *
-	 * @param origin 待过滤字符串
-	 * @return 过滤后的字符串
-	 */
-	private static String versionStringFilter(@Nullable String origin) {
-		if (origin == null) {
-			return "";
-		}
-		StringBuilder builder = new StringBuilder();
-
-		for (char cv : origin.toCharArray()) {
-			boolean isNumber = cv >= '0' && cv <= '9';
-			boolean isPoint = cv == '.';
-			if (isNumber || isPoint) {
-				builder.append(cv);
-			}
+			originValue = originValue.safeChildren();
+			rangeValue = rangeValue.safeChildren();
 		}
 
-		return builder.toString();
-	}
-
-	/**
-	 * 格式化字符串版本数组.
-	 *
-	 * @param values 字符串版本数组
-	 * @param length 数值版本数组长度
-	 * @return 数值版本数组
-	 */
-	private static Integer[] formatVersionString(String[] values, int length) {
-		Integer[] result = new Integer[length];
-		Arrays.fill(result, 0);
-
-		int end = Math.min(values.length, length);
-		for (int i = 0; i < end; i++) {
-			result[i] = stringToInteger(values[i]);
-		}
-
-		return result;
-	}
-
-	/**
-	 * 将string转换为integer.
-	 *
-	 * @param str 待转换字符串
-	 * @return 转换后数值
-	 */
-	private static Integer stringToInteger(String str) {
-		try {
-			return Math.max(Integer.parseInt(str), 0);
-		}
-		catch (Exception ignore) {
-			return 0;
-		}
+		return contain;
 	}
 }
