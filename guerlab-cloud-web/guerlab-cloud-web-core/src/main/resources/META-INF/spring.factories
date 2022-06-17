@@ -6,4 +6,5 @@ net.guerlab.cloud.web.core.autoconfigure.GlobalExceptionHandlerAutoConfigure,\
 net.guerlab.cloud.web.core.autoconfigure.I18nAutoConfigure,\
 net.guerlab.cloud.web.core.autoconfigure.MessageSourcesEndpointAutoConfigure,\
 net.guerlab.cloud.web.core.autoconfigure.ResponseBodyWrapperSupportAutoConfigure,\
-net.guerlab.cloud.web.core.autoconfigure.RestTemplateAutoConfigure
+net.guerlab.cloud.web.core.autoconfigure.RestTemplateAutoConfigure,\
+net.guerlab.cloud.web.core.autoconfigure.VersionMetadataAutoConfigure
