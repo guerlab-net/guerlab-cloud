@@ -53,7 +53,7 @@ public class LoadBalancerHeaderRequestInterceptor implements RequestInterceptor 
 		this.properties = properties;
 	}
 
-	@EventListener
+	@EventListener(InstancePreRegisteredEvent.class)
 	public void onInstancePreRegisteredEvent(
 			InstancePreRegisteredEvent instancePreRegisteredEvent) {
 		currentInstance = instancePreRegisteredEvent.getRegistration();
