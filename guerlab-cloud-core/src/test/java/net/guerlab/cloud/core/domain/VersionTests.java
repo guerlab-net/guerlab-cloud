@@ -94,4 +94,13 @@ class VersionTests {
 
 		Assertions.assertEquals(target, versions);
 	}
+
+	@Test
+	void empty() {
+		Version version = Version.parse("4.0");
+		Assertions.assertTrue(Version.notEmpty(version));
+		Assertions.assertTrue(Version.notEmpty(version.safeChildren()));
+		Assertions.assertTrue(Version.isEmpty(version.safeChildren().safeChildren()));
+		Assertions.assertTrue(Version.isEmpty(version.safeChildren().children()));
+	}
 }

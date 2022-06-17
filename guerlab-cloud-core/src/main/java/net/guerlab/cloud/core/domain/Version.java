@@ -26,6 +26,11 @@ import org.springframework.lang.Nullable;
  */
 public record Version(long value, net.guerlab.cloud.core.domain.Version children) implements Comparable<Version> {
 
+	/**
+	 * 空版本.
+	 */
+	public static final Version EMPTY = new Version(0, null);
+
 	private static final String VERSION_REG = "((\\d+\\.)|(\\d+))+";
 
 	public Version(long value, @Nullable Version children) {
@@ -71,6 +76,35 @@ public record Version(long value, net.guerlab.cloud.core.domain.Version children
 		Pattern pattern = Pattern.compile(VERSION_REG);
 		Matcher matcher = pattern.matcher(originVersion);
 		return matcher.find() ? matcher.group() : null;
+	}
+
+	/**
+	 * 判断版本对象是否为空.
+	 *
+	 * @param version 版本
+	 * @return 是否为空
+	 */
+	public static boolean isEmpty(@Nullable Version version) {
+		return version == null || version == EMPTY;
+	}
+
+	/**
+	 * 判断版本对象是否非空.
+	 *
+	 * @param version 版本
+	 * @return 是否非空
+	 */
+	public static boolean notEmpty(@Nullable Version version) {
+		return !isEmpty(version);
+	}
+
+	/**
+	 * 获取安全下级.
+	 *
+	 * @return 安全下级
+	 */
+	public Version safeChildren() {
+		return children == null ? EMPTY : children;
 	}
 
 	@Override
