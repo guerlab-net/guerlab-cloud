@@ -21,6 +21,13 @@
   ],
   "properties": [
     {
+      "name": "spring.cloud.discovery.version-metadata-key",
+      "type": "java.lang.String",
+      "sourceType": "net.guerlab.cloud.web.core.autoconfigure.VersionMetadataAutoConfigure",
+      "description": "版本元信息Key.",
+      "defaultValue": "version"
+    },
+    {
       "name": "spring.i18n.default-locale",
       "type": "java.util.Locale",
       "sourceType": "net.guerlab.cloud.web.core.properties.I18nProperties",

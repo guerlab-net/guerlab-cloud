@@ -18,6 +18,7 @@ import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.cloud.client.discovery.event.InstancePreRegisteredEvent;
 import org.springframework.context.annotation.Configuration;
@@ -34,11 +35,15 @@ import net.guerlab.cloud.core.domain.Version;
 @Configuration(proxyBeanMethods = false)
 public class VersionMetadataAutoConfigure {
 
-	private static final String VERSION_METADATA_KEY = "version";
-
 	private static final String COMPLETE_VERSION_METADATA_KEY = "version.complete";
 
 	private BuildProperties buildProperties;
+
+	/**
+	 * 版本元信息Key.
+	 */
+	@Value("${spring.cloud.discovery.version-metadata-key:version}")
+	private String versionMetadataKey;
 
 	public VersionMetadataAutoConfigure(ObjectProvider<BuildProperties> buildPropertiesProvider) {
 		buildPropertiesProvider.ifAvailable(buildProperties -> this.buildProperties = buildProperties);
@@ -52,8 +57,8 @@ public class VersionMetadataAutoConfigure {
 		}
 
 		Map<String, String> metadata = event.getRegistration().getMetadata();
-		if (metadata.containsKey(VERSION_METADATA_KEY)) {
-			log.debug("metadata has '{}' property", VERSION_METADATA_KEY);
+		if (metadata.containsKey(versionMetadataKey)) {
+			log.debug("metadata has '{}' property", versionMetadataKey);
 			return;
 		}
 
@@ -69,9 +74,9 @@ public class VersionMetadataAutoConfigure {
 			return;
 		}
 
-		metadata.put(VERSION_METADATA_KEY, version.toString());
+		metadata.put(versionMetadataKey, version.toString());
 		metadata.put(COMPLETE_VERSION_METADATA_KEY, versionString);
-		log.debug("add metadata {} = {}", VERSION_METADATA_KEY, version);
+		log.debug("add metadata {} = {}", versionMetadataKey, version);
 		log.debug("add metadata {} = {}", COMPLETE_VERSION_METADATA_KEY, versionString);
 	}
 }
