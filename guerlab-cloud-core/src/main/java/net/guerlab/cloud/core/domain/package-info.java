@@ -15,6 +15,6 @@
  *
  */
 @NonNullApi
-package net.guerlab.cloud.server.autoconfigure;
+package net.guerlab.cloud.core.domain;
 
 import org.springframework.lang.NonNullApi;

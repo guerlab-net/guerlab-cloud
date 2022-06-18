@@ -11,10 +11,29 @@
  * limitations under the License.
  */
 
-/**
- *
- */
-@NonNullApi
-package net.guerlab.cloud.loadbalancer;
+package net.guerlab.cloud.loadbalancer.utils;
 
-import org.springframework.lang.NonNullApi;
+import java.util.List;
+
+/**
+ * Poller.
+ *
+ * @author guer
+ */
+public interface Poller<T> {
+
+	/**
+	 * Get next element selected by poller.
+	 *
+	 * @return next element
+	 */
+	T next();
+
+	/**
+	 * Update items stored in poller.
+	 *
+	 * @param items new item list
+	 * @return new poller instance
+	 */
+	Poller<T> refresh(List<T> items);
+}

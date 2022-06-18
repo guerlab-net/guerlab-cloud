@@ -23,8 +23,8 @@ import org.springframework.cloud.client.loadbalancer.Request;
 import org.springframework.cloud.client.loadbalancer.RequestDataContext;
 import org.springframework.lang.Nullable;
 
+import net.guerlab.cloud.core.util.VersionCompareUtils;
 import net.guerlab.cloud.loadbalancer.properties.VersionControlProperties;
-import net.guerlab.cloud.loadbalancer.utils.VersionCompareUtils;
 
 /**
  * 版本匹配规则.

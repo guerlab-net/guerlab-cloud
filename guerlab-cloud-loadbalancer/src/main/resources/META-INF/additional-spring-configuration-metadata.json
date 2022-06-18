@@ -35,6 +35,13 @@
       "defaultValue": "false"
     },
     {
+      "name": "spring.cloud.loadbalancer.weight-metadata-keys",
+      "type": "java.util.List<java.lang.String>",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties",
+      "description": "权重元信息字段列表.",
+      "defaultValue": "\"service.weight\", \"weight\""
+    },
+    {
       "name": "spring.cloud.loadbalancer.policy",
       "type": "java.lang.String",
       "sourceType": "net.guerlab.cloud.loadbalancer.autoconfigure.LoadBalancerPolicyAutoConfigure",

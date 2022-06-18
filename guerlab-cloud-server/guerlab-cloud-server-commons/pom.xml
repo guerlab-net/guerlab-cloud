@@ -18,6 +18,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>guerlab-cloud-server-commons</artifactId>
 	<name>Guerlab Cloud Server Commons</name>
+	<packaging>pom</packaging>
 
 	<parent>
 		<groupId>net.guerlab.cloud</groupId>

@@ -66,7 +66,7 @@
 	</issueManagement>
 
 	<properties>
-		<revision>2022.5.1</revision>
+		<revision>2022.6.0</revision>
 		<main.basedir>${basedir}</main.basedir>
 
 		<java.version>17</java.version>
@@ -363,6 +363,7 @@
 				<groupId>net.guerlab.cloud</groupId>
 				<artifactId>guerlab-cloud-server-commons</artifactId>
 				<version>${revision}</version>
+				<type>pom</type>
 			</dependency>
 			<dependency>
 				<groupId>net.guerlab.cloud</groupId>
