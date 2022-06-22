@@ -1,6 +1,5 @@
 # Guerlab Cloud
 
-![](https://www.oscs1024.com/platform/badge/guerlab-net/guerlab-cloud.svg)
 ![](https://img.shields.io/maven-central/v/net.guerlab.cloud/guerlab-cloud.svg)
 ![](https://img.shields.io/badge/LICENSE-LGPL--3.0-brightgreen.svg)
 
