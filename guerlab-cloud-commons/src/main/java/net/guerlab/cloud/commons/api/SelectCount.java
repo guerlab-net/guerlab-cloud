@@ -45,5 +45,5 @@ public interface SelectCount<SP extends SearchParams> {
 	 */
 	@PostMapping(SELECT_COUNT_PATH)
 	@Operation(summary = "查询总记录数", security = @SecurityRequirement(name = Constants.TOKEN))
-	int selectCount(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
+	long selectCount(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
 }
