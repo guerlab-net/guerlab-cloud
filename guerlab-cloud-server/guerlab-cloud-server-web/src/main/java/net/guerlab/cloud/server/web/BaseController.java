@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 guerlab.net and other contributors.
+ * Copyright 2018-2023 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,12 +30,6 @@ import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.log.annotation.Log;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.service.BaseService;
-
-import static net.guerlab.cloud.commons.api.SelectById.SELECT_BY_ID_PARAM;
-import static net.guerlab.cloud.commons.api.SelectPage.PAGE_ID;
-import static net.guerlab.cloud.commons.api.SelectPage.PAGE_ID_VALUE;
-import static net.guerlab.cloud.commons.api.SelectPage.PAGE_SIZE;
-import static net.guerlab.cloud.commons.api.SelectPage.PAGE_SIZE_VALUE;
 
 /**
  * 基础控制器实现.
