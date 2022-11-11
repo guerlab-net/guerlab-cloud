@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 guerlab.net and other contributors.
+ * Copyright 2018-2023 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@ package net.guerlab.cloud.web.webmvc.parse;
 
 import javax.servlet.http.HttpServletRequest;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.commons.ip.IpParser;
@@ -24,6 +26,7 @@ import net.guerlab.cloud.commons.ip.IpParser;
  *
  * @author guer
  */
+@Slf4j
 public class HttpServletRequestIpParse implements IpParser {
 
 	@Override
@@ -34,7 +37,9 @@ public class HttpServletRequestIpParse implements IpParser {
 	@Nullable
 	@Override
 	public String getIpByHeader(Object request, String headerName) {
-		return ((HttpServletRequest) request).getHeader(headerName);
+		String value = ((HttpServletRequest) request).getHeader(headerName);
+		log.debug("header: {} -> {}", headerName, value);
+		return value;
 	}
 
 	@Nullable
