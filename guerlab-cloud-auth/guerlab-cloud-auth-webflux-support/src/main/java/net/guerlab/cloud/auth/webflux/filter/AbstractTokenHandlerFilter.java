@@ -109,7 +109,7 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> im
 	}
 
 	private static boolean isIgnoreMethod(ServerHttpRequest request) {
-		String requestMethod = request.getMethodValue();
+		String requestMethod = request.getMethod().name();
 
 		return Arrays.asList(IGNORE_METHODS).contains(requestMethod);
 	}
@@ -140,7 +140,7 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> im
 		String requestUri = parseRequestUri(request);
 
 		if (isIgnoreMethod(request)) {
-			log.debug("is ignore method[interceptor = {}, requestMethod = [{}]]", this, request.getMethodValue());
+			log.debug("is ignore method[interceptor = {}, requestMethod = [{}]]", this, request.getMethod().name());
 			return;
 		}
 		else if (uriNotMatch(requestUri)) {
@@ -148,7 +148,8 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> im
 			return;
 		}
 
-		log.debug("intercept request[interceptor = {}, request = [{} {}]]", this, request.getMethodValue(), requestUri);
+		log.debug("intercept request[interceptor = {}, request = [{} {}]]", this, request.getMethod()
+				.name(), requestUri);
 
 		boolean needLogin = getAnnotation(handlerMethod, IgnoreLogin.class) == null;
 

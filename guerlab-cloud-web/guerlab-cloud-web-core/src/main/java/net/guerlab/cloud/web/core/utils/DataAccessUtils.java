@@ -39,7 +39,7 @@ public final class DataAccessUtils {
 	 * @param object      对象
 	 * @param dataHandler 数据处理器
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	public static void objectHandler(String filedName, @Nullable Object object, DataHandler dataHandler) {
 		if (object == null) {
 			return;

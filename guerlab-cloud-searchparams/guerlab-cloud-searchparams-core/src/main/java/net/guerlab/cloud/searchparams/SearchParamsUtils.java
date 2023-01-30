@@ -241,7 +241,7 @@ public final class SearchParamsUtils {
 		}
 
 		Class<? extends SqlProvider>[] providerClassArray = searchModel.sqlProviders();
-		if (providerClassArray == null || providerClassArray.length <= 0) {
+		if (providerClassArray == null || providerClassArray.length == 0) {
 			return Stream.empty();
 		}
 

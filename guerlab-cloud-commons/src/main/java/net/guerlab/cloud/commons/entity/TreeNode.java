@@ -45,6 +45,7 @@ public interface TreeNode<PK> {
 	 *
 	 * @return 标签
 	 */
+	@SuppressWarnings("SameReturnValue")
 	@Nullable
 	String label();
 }

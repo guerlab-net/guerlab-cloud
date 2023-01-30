@@ -28,12 +28,12 @@ public class TwoFactorAuthenticationBindInfo {
 	/**
 	 * 密钥.
 	 */
-	@Schema(description = "密钥", required = true)
+	@Schema(description = "密钥", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String secretKey;
 
 	/**
 	 * 二维码内容.
 	 */
-	@Schema(description = "二维码内容", required = true)
+	@Schema(description = "二维码内容", requiredMode = Schema.RequiredMode.REQUIRED)
 	private String qrBarcode;
 }

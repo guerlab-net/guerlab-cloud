@@ -40,7 +40,6 @@ import net.guerlab.cloud.core.domain.Version;
  *     <th>[str, str]</th>
  * </thead>
  * <tbody style="text-align:right">
- *
  * <tr><th scope="row">1.0</th>     <td>True</td>   <td>False</td>  <td>True</td>   <td>False</td>  <td>True</td>   <td>False</td>  <td>False</td>  <td>False</td>
  * <tr><th scope="row">1.0.1</th>   <td>False</td>  <td>True</td>   <td>True</td>   <td>True</td>   <td>True</td>   <td>True</td>   <td>False</td>  <td>False</td>
  * <tr><th scope="row">1.1</th>     <td>False</td>  <td>False</td>  <td>True</td>   <td>True</td>   <td>True</td>   <td>True</td>   <td>False</td>  <td>False</td>

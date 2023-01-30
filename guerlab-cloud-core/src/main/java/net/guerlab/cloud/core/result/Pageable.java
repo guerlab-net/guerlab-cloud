@@ -111,7 +111,7 @@ public class Pageable<T> {
 	 * @param <T> 参数对象类型
 	 * @return 空列表对象
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked", "SameReturnValue"})
 	public static <T> Pageable<T> empty() {
 		return EMPTY;
 	}

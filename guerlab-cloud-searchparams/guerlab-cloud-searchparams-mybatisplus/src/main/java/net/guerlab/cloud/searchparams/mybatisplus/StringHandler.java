@@ -27,11 +27,6 @@ import net.guerlab.cloud.searchparams.SearchModelType;
  */
 public class StringHandler extends AbstractMyBatisPlusSearchParamsHandler {
 
-	/**
-	 * 通用匹配符.
-	 */
-	private static final char PERCENT = '%';
-
 	@Override
 	public Class<?> acceptClass() {
 		return String.class;
@@ -59,9 +54,9 @@ public class StringHandler extends AbstractMyBatisPlusSearchParamsHandler {
 		case LIKE -> wrapper.like(columnName, str);
 		case NOT_LIKE -> wrapper.notLike(columnName, str);
 		case START_WITH -> wrapper.likeRight(columnName, str);
-		case START_NOT_WITH -> wrapper.notLike(columnName, str + PERCENT);
+		case START_NOT_WITH -> wrapper.notLikeRight(columnName, str);
 		case END_WITH -> wrapper.likeLeft(columnName, str);
-		case END_NOT_WITH -> wrapper.notLike(columnName, PERCENT + str);
+		case END_NOT_WITH -> wrapper.notLikeLeft(columnName, str);
 		case CUSTOM_SQL -> {
 			if (customSql == null) {
 				break;

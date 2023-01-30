@@ -289,7 +289,7 @@ public final class RsaUtils {
 	@Nullable
 	public static RsaKeys read(InputStream inputStream) throws IOException {
 		byte[] bytes = inputStream.readAllBytes();
-		if (bytes == null || bytes.length <= 0) {
+		if (bytes == null || bytes.length == 0) {
 			return null;
 		}
 		String content = new String(bytes);

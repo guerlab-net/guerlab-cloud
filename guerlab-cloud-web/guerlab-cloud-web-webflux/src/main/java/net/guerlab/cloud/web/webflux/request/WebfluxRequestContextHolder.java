@@ -50,7 +50,7 @@ public class WebfluxRequestContextHolder implements RequestContextHolder {
 	@Nullable
 	@Override
 	public String getRequestMethod() {
-		return getRequest().getMethodValue();
+		return getRequest().getMethod().name();
 	}
 
 	@Nullable
