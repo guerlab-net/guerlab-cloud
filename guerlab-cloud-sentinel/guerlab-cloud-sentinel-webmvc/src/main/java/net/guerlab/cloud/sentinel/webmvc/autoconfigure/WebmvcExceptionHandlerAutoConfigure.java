@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2022 guerlab.net and other contributors.
+ * Copyright 2018-2023 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,11 +13,10 @@
 
 package net.guerlab.cloud.sentinel.webmvc.autoconfigure;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.alibaba.csp.sentinel.adapter.spring.webmvc.callback.BlockExceptionHandler;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;

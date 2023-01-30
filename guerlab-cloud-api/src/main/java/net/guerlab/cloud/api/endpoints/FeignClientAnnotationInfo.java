@@ -24,32 +24,32 @@ import lombok.Data;
 public class FeignClientAnnotationInfo {
 
 	/**
-	 * feign注解上的name.
+	 * 带有可选协议前缀的服务id.
 	 */
 	private String name;
 
 	/**
-	 * feign注解上的contextId.
+	 * 如果存在，它将用作bean名称而不是名称，但不会用作服务id.
 	 */
 	private String contextId;
 
 	/**
-	 * feign注解上的url.
+	 * 绝对URL或可解析的主机名（协议是可选的）.
 	 */
 	private String url;
 
 	/**
-	 * feign注解上的decode404.
+	 * 是否应该解码404而不是抛出FeignExceptions.
 	 */
-	private boolean decode404;
+	private boolean dismiss404;
 
 	/**
-	 * feign注解上的path.
+	 * 所有方法级映射使用的路径前缀.
 	 */
 	private String path;
 
 	/**
-	 * feign注解上的primary.
+	 * 是否将外部代理标记为主bean.
 	 */
 	private boolean primary;
 }

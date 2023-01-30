@@ -16,8 +16,8 @@ package net.guerlab.cloud.web.core.exception.handler.builder;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.RequestParamsError;

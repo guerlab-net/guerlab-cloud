@@ -13,7 +13,7 @@
 
 package net.guerlab.cloud.context.webmvc.holder;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import net.guerlab.cloud.context.core.ContextAttributes;
 import net.guerlab.cloud.context.core.ObjectContextAttributesHolder;

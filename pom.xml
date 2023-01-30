@@ -76,28 +76,28 @@
 		<guerlab-commons.version>2.0.1</guerlab-commons.version>
 
 		<!-- spring -->
-		<spring-boot.version>2.6.7</spring-boot.version>
-		<spring-cloud.version>2021.0.3</spring-cloud.version>
-		<spring-cloud-alibaba.version>2021.0.1.0</spring-cloud-alibaba.version>
+		<spring-boot.version>3.0.0</spring-boot.version>
+		<spring-cloud.version>2022.0.0</spring-cloud.version>
+		<spring-cloud-alibaba.version>2022.0.0.0-RC1</spring-cloud-alibaba.version>
 
 		<!-- other -->
-		<mybatis.version>3.5.9</mybatis.version>
-		<mybatis-starter.version>2.2.2</mybatis-starter.version>
+		<mybatis.version>3.5.11</mybatis.version>
+		<mybatis-starter.version>3.0.1</mybatis-starter.version>
 		<mybatis-typehandlers-jsr310.version>1.0.2</mybatis-typehandlers-jsr310.version>
-		<mybatis-plus.version>3.5.1</mybatis-plus.version>
-		<swagger.version>2.1.13</swagger.version>
+		<mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+		<swagger.version>2.2.8</swagger.version>
 		<jjwt.version>0.9.1</jjwt.version>
-		<guava.version>30.1-jre</guava.version>
-		<easyexcel.version>3.0.5</easyexcel.version>
-		<springdoc.version>1.6.6</springdoc.version>
-		<nacos.version>2.0.4</nacos.version>
+		<guava.version>31.1-jre</guava.version>
+		<easyexcel.version>3.2.0</easyexcel.version>
+		<springdoc.version>1.6.14</springdoc.version>
+		<nacos.version>2.2.0</nacos.version>
 		<findbugs.version>3.0.2</findbugs.version>
-		<redisson.version>3.17.0</redisson.version>
+		<redisson.version>3.19.1</redisson.version>
 
 		<!-- fix loophole version -->
 		<bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
 		<commons-io.version>2.11.0</commons-io.version>
-		<commons-compress.version>1.21</commons-compress.version>
+		<commons-compress.version>1.22</commons-compress.version>
 	</properties>
 
 	<dependencyManagement>

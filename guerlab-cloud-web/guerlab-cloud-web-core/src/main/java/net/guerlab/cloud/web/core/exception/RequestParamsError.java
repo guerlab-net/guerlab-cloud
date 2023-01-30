@@ -16,8 +16,7 @@ package net.guerlab.cloud.web.core.exception;
 import java.io.Serial;
 import java.util.Collection;
 
-import javax.validation.ConstraintViolationException;
-
+import jakarta.validation.ConstraintViolationException;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 

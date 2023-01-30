@@ -65,7 +65,7 @@ public class FeignClientEndpoint {
 		annotationInfo.setName(feignClientAnnotation.name());
 		annotationInfo.setContextId(feignClientAnnotation.contextId());
 		annotationInfo.setUrl(feignClientAnnotation.url());
-		annotationInfo.setDecode404(feignClientAnnotation.decode404());
+		annotationInfo.setDismiss404(feignClientAnnotation.dismiss404());
 		annotationInfo.setPath(feignClientAnnotation.path());
 		annotationInfo.setPrimary(feignClientAnnotation.primary());
 

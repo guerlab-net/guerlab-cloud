@@ -19,12 +19,14 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.lang.Nullable;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.cors.CorsConfiguration;
 
@@ -39,9 +41,10 @@ import net.guerlab.cloud.security.core.properties.DefaultCorsConfiguration;
  */
 @Slf4j
 @Order(99)
+@EnableWebSecurity
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(AuthorizePathAutoConfigure.class)
-public class WebMvcSecurityAutoConfigure extends WebSecurityConfigurerAdapter {
+public class WebMvcSecurityAutoConfigure {
 
 	private final ObjectProvider<CorsConfiguration> configProvider;
 
@@ -59,8 +62,14 @@ public class WebMvcSecurityAutoConfigure extends WebSecurityConfigurerAdapter {
 		this.authorizePathProviders = authorizePathProviders;
 	}
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+	/**
+	 * 构造SecurityFilterChain.
+	 *
+	 * @param http HttpSecurity
+	 * @return SecurityFilterChain
+	 */
+	@Bean
+	public SecurityFilterChain securityWebFilterChain(HttpSecurity http) throws Exception {
 		http.httpBasic().and().formLogin();
 		http.csrf().disable();
 		http.cors().configurationSource(request -> configProvider.getIfAvailable(DefaultCorsConfiguration::new));
@@ -69,7 +78,9 @@ public class WebMvcSecurityAutoConfigure extends WebSecurityConfigurerAdapter {
 			authorizePathConfig(http, provider.httpMethod(), provider.paths());
 		}
 
-		http.authorizeRequests().anyRequest().permitAll();
+		http.authorizeHttpRequests().anyRequest().permitAll();
+
+		return http.build();
 	}
 
 	private void authorizePathConfig(HttpSecurity http, @Nullable HttpMethod httpMethod, List<String> paths)
@@ -81,10 +92,10 @@ public class WebMvcSecurityAutoConfigure extends WebSecurityConfigurerAdapter {
 		log.debug("authorizePathConfig[method: {}, paths: {}]", httpMethod, paths);
 
 		if (httpMethod == null) {
-			http.authorizeRequests().antMatchers(paths.toArray(new String[0])).authenticated();
+			http.authorizeHttpRequests().requestMatchers((paths.toArray(new String[0]))).authenticated();
 		}
 		else {
-			http.authorizeRequests().antMatchers(httpMethod, paths.toArray(new String[0])).authenticated();
+			http.authorizeHttpRequests().requestMatchers(httpMethod, paths.toArray(new String[0])).authenticated();
 		}
 	}
 

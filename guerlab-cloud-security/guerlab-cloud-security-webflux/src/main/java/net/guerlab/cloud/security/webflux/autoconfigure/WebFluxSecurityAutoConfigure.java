@@ -23,6 +23,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.lang.Nullable;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.util.CollectionUtils;
@@ -38,6 +39,7 @@ import net.guerlab.cloud.security.core.properties.DefaultCorsConfiguration;
  * @author guer
  */
 @Slf4j
+@EnableWebSecurity
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(AuthorizePathAutoConfigure.class)
 public class WebFluxSecurityAutoConfigure {
@@ -71,8 +73,9 @@ public class WebFluxSecurityAutoConfigure {
 		http.csrf().disable();
 		http.cors().configurationSource(request -> configProvider.getIfAvailable(DefaultCorsConfiguration::new));
 
-		authorizePathProviders.stream()
-				.forEach(provider -> authorizePathConfig(http, provider.httpMethod(), provider.paths()));
+		for (AuthorizePathProvider provider : authorizePathProviders) {
+			authorizePathConfig(http, provider.httpMethod(), provider.paths());
+		}
 
 		http.authorizeExchange().anyExchange().permitAll();
 
