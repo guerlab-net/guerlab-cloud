@@ -1,4 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.core.autoconfigure.ObjectMapperAutoConfigure,\
-net.guerlab.cloud.core.autoconfigure.SequenceAutoConfigure,\
-net.guerlab.cloud.core.util.SpringUtils

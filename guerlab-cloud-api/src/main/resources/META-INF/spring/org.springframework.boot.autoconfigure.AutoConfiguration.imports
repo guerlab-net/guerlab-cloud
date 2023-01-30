@@ -1,0 +1,5 @@
+net.guerlab.cloud.api.autoconfigure.CurrentOperatorInterceptorAutoConfigure
+net.guerlab.cloud.api.autoconfigure.EndPointsAutoConfigure
+net.guerlab.cloud.api.autoconfigure.FeignAutoConfigure
+net.guerlab.cloud.api.autoconfigure.HeadersContextAutoConfigure
+net.guerlab.cloud.api.autoconfigure.RequestInterceptorAutoConfigure

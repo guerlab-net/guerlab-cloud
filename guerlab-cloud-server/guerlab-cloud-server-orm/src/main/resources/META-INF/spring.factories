@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.server.autoconfigure.MyBatisAutoConfigure,\
-net.guerlab.cloud.server.autoconfigure.MybatisPlusAutoConfigure

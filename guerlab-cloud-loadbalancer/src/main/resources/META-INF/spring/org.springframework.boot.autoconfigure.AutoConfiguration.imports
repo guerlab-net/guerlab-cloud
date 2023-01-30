@@ -1,0 +1,4 @@
+net.guerlab.cloud.loadbalancer.autoconfigure.GlobalLoadBalancerAutoConfiguration
+net.guerlab.cloud.loadbalancer.autoconfigure.LoadBalancedWebClientBuilderAutoConfigure
+net.guerlab.cloud.loadbalancer.autoconfigure.LoadBalancerPolicyAutoConfigure
+net.guerlab.cloud.loadbalancer.autoconfigure.RuleAutoConfigure

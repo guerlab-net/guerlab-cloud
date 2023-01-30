@@ -1,3 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.context.core.autoconfigure.AuthContextHandlerTaskDecoratorAutoConfigure,\
-net.guerlab.cloud.context.core.autoconfigure.AuthAsyncConfigurer

@@ -1,0 +1,2 @@
+net.guerlab.cloud.server.autoconfigure.MyBatisAutoConfigure
+net.guerlab.cloud.server.autoconfigure.MybatisPlusAutoConfigure

@@ -1,5 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-net.guerlab.cloud.web.webflux.autoconfigure.CurrentOperatorFilterAutoConfigure,\
-net.guerlab.cloud.web.webflux.autoconfigure.WebFluxGlobalExceptionHandlerAutoConfigure,\
-net.guerlab.cloud.web.webflux.autoconfigure.WebFluxRequestIpHandlerMethodArgumentResolverAutoConfigure,\
-net.guerlab.cloud.web.webflux.autoconfigure.WebFluxResponseAdvisorAutoConfigure

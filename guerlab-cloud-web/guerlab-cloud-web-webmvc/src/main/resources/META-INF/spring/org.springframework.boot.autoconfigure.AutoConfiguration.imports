@@ -1,0 +1,7 @@
+net.guerlab.cloud.web.webmvc.autoconfigure.ConverterAutoConfigure
+net.guerlab.cloud.web.webmvc.autoconfigure.InterceptorAutoConfigure
+net.guerlab.cloud.web.webmvc.autoconfigure.WebMvcAutoConfigure
+net.guerlab.cloud.web.webmvc.autoconfigure.WebMvcGlobalExceptionHandlerAutoConfigure
+net.guerlab.cloud.web.webmvc.autoconfigure.WebMvcI18nAutoConfigure
+net.guerlab.cloud.web.webmvc.autoconfigure.WebMvcRequestIpHandlerMethodArgumentResolverAutoConfigure
+net.guerlab.cloud.web.webmvc.autoconfigure.WebMvcResponseAdvisorAutoConfigure
