@@ -18,12 +18,11 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.lang.Nullable;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.util.CollectionUtils;
@@ -39,9 +38,8 @@ import net.guerlab.cloud.security.core.properties.DefaultCorsConfiguration;
  * @author guer
  */
 @Slf4j
-@EnableWebSecurity
-@Configuration(proxyBeanMethods = false)
-@AutoConfigureAfter(AuthorizePathAutoConfigure.class)
+@EnableWebFluxSecurity
+@AutoConfiguration(after = AuthorizePathAutoConfigure.class)
 public class WebFluxSecurityAutoConfigure {
 
 	private final ObjectProvider<CorsConfiguration> configProvider;
@@ -66,7 +64,6 @@ public class WebFluxSecurityAutoConfigure {
 	 * @param http ServerHttpSecurity
 	 * @return SecurityWebFilterChain
 	 */
-	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	@Bean
 	public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
 		http.httpBasic().and().formLogin();
