@@ -13,8 +13,8 @@
 
 package net.guerlab.cloud.web.core.autoconfigure;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.web.core.properties.I18nProperties;
 
@@ -23,6 +23,6 @@ import net.guerlab.cloud.web.core.properties.I18nProperties;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @EnableConfigurationProperties(I18nProperties.class)
 public class I18nAutoConfigure { }

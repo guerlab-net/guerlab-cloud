@@ -13,8 +13,8 @@
 
 package net.guerlab.cloud.api.autoconfigure;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.api.endpoints.FeignClientEndpoint;
 
@@ -23,7 +23,7 @@ import net.guerlab.cloud.api.endpoints.FeignClientEndpoint;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class EndPointsAutoConfigure {
 
 	/**

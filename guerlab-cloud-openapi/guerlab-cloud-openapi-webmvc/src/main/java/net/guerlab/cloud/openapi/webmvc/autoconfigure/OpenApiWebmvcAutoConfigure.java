@@ -18,7 +18,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 
 import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
 
@@ -28,7 +28,7 @@ import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
  * @author guer
  */
 @Slf4j
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class OpenApiWebmvcAutoConfigure {
 
 	/**

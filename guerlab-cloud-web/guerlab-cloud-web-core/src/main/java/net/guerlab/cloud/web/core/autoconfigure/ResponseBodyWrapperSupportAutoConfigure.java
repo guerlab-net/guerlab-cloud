@@ -13,9 +13,9 @@
 
 package net.guerlab.cloud.web.core.autoconfigure;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
 import net.guerlab.cloud.web.core.response.ResponseBodyWrapperSupport;
@@ -25,7 +25,7 @@ import net.guerlab.cloud.web.core.response.ResponseBodyWrapperSupport;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @EnableConfigurationProperties(ResponseAdvisorProperties.class)
 public class ResponseBodyWrapperSupportAutoConfigure {
 

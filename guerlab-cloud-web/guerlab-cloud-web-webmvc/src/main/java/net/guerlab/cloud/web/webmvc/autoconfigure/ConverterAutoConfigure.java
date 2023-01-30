@@ -17,8 +17,8 @@ import java.util.ServiceLoader;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.GenericConversionService;
 import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
@@ -32,7 +32,7 @@ import net.guerlab.cloud.core.converter.AutoLoadConverter;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @ConditionalOnBean(RequestMappingHandlerAdapter.class)
 public class ConverterAutoConfigure {
 

@@ -18,8 +18,8 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.api.feign.ErrorDecoderChain;
 import net.guerlab.cloud.api.feign.FailResponseDecoder;
@@ -32,7 +32,7 @@ import net.guerlab.cloud.api.feign.ResultDecoder;
  * @author guer
  */
 @Slf4j
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class FeignAutoConfigure {
 
 	/**

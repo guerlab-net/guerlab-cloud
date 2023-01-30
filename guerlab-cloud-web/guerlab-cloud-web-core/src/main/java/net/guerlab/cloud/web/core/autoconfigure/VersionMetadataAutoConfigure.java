@@ -19,9 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.cloud.client.discovery.event.InstancePreRegisteredEvent;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
 
 import net.guerlab.cloud.core.domain.Version;
@@ -32,7 +32,7 @@ import net.guerlab.cloud.core.domain.Version;
  * @author guer
  */
 @Slf4j
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class VersionMetadataAutoConfigure {
 
 	private static final String COMPLETE_VERSION_METADATA_KEY = "version.complete";

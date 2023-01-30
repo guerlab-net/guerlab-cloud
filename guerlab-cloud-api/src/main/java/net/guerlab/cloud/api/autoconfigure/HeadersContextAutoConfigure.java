@@ -15,12 +15,11 @@ package net.guerlab.cloud.api.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.lang.NonNull;
 
@@ -34,8 +33,7 @@ import net.guerlab.cloud.loadbalancer.autoconfigure.GlobalLoadBalancerAutoConfig
  * @author guer
  */
 @Slf4j
-@Configuration(proxyBeanMethods = false)
-@AutoConfigureAfter(GlobalLoadBalancerAutoConfiguration.class)
+@AutoConfiguration(after = GlobalLoadBalancerAutoConfiguration.class)
 public class HeadersContextAutoConfigure {
 
 	/**

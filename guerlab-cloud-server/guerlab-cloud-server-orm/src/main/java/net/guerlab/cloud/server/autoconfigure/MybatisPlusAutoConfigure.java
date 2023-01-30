@@ -20,10 +20,9 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.core.sequence.Sequence;
 import net.guerlab.cloud.server.mybatis.plus.metadata.BaseEntityMetaObjectHandler;
@@ -34,8 +33,7 @@ import net.guerlab.cloud.server.mybatis.plus.methods.AutoLoadMethodLoader;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
-@AutoConfigureBefore(IdentifierGeneratorAutoConfiguration.class)
+@AutoConfiguration(before = IdentifierGeneratorAutoConfiguration.class)
 public class MybatisPlusAutoConfigure {
 
 	/**

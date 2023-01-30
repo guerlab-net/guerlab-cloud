@@ -17,11 +17,11 @@ import java.util.Collections;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 
 import net.guerlab.cloud.security.core.AuthorizePathProvider;
@@ -34,7 +34,7 @@ import net.guerlab.cloud.security.core.properties.CorsProperties;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @EnableConfigurationProperties({AuthorizePathProperties.class, CorsProperties.class})
 public class AuthorizePathAutoConfigure {
 

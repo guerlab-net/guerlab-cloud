@@ -16,10 +16,9 @@ package net.guerlab.cloud.api.autoconfigure;
 import feign.RequestInterceptor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.api.debug.DebugProxyRequestInterceptor;
 import net.guerlab.cloud.api.loadbalancer.LoadBalancerHeaderRequestInterceptor;
@@ -33,9 +32,8 @@ import net.guerlab.cloud.loadbalancer.properties.VersionControlProperties;
  * @author guer
  */
 @Slf4j
-@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(DebugProperties.class)
-@AutoConfigureAfter(GlobalLoadBalancerAutoConfiguration.class)
+@AutoConfiguration(after = GlobalLoadBalancerAutoConfiguration.class)
 public class RequestInterceptorAutoConfigure {
 
 	/**

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
@@ -26,7 +26,6 @@ import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.codec.ServerCodecConfigurer;
 import org.springframework.web.reactive.result.view.ViewResolver;
@@ -44,8 +43,7 @@ import net.guerlab.cloud.web.webflux.exception.handler.WebFluxErrorWebExceptionH
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
-@AutoConfigureAfter(GlobalExceptionHandlerAutoConfigure.class)
+@AutoConfiguration(after = GlobalExceptionHandlerAutoConfigure.class)
 public class WebFluxGlobalExceptionHandlerAutoConfigure {
 
 	private final ServerProperties serverProperties;

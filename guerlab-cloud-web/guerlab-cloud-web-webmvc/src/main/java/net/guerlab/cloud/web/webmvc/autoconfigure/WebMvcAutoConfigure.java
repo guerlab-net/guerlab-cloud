@@ -17,10 +17,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.AbstractJackson2HttpMessageConverter;
@@ -39,8 +38,7 @@ import net.guerlab.commons.collection.CollectionUtil;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
-@AutoConfigureAfter(ObjectMapperAutoConfigure.class)
+@AutoConfiguration(after = ObjectMapperAutoConfigure.class)
 @EnableConfigurationProperties(CorsProperties.class)
 public class WebMvcAutoConfigure {
 
@@ -49,7 +47,7 @@ public class WebMvcAutoConfigure {
 	 *
 	 * @author guer
 	 */
-	@Configuration(proxyBeanMethods = false)
+	@AutoConfiguration
 	@ConditionalOnClass(WebMvcConfigurer.class)
 	public static class MvcAutoConfigure implements WebMvcConfigurer {
 

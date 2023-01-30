@@ -14,9 +14,9 @@
 package net.guerlab.cloud.log.autoconfigure;
 
 import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.log.aspect.LogAspect;
 import net.guerlab.cloud.log.handler.LogHandler;
@@ -26,7 +26,7 @@ import net.guerlab.cloud.log.handler.LogHandler;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class LogAspectAutoConfigure {
 
 	/**

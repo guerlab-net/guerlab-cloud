@@ -13,9 +13,9 @@
 
 package net.guerlab.cloud.web.core.autoconfigure;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.web.core.exception.handler.DefaultGlobalExceptionLogger;
@@ -28,7 +28,7 @@ import net.guerlab.cloud.web.core.properties.GlobalExceptionProperties;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @EnableConfigurationProperties(GlobalExceptionProperties.class)
 public class GlobalExceptionHandlerAutoConfigure {
 

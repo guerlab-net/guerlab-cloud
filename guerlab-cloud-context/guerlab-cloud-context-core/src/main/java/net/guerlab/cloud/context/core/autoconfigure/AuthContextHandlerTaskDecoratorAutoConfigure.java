@@ -13,8 +13,8 @@
 
 package net.guerlab.cloud.context.core.autoconfigure;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskDecorator;
 
 import net.guerlab.cloud.context.core.task.AuthContextHandlerTaskDecorator;
@@ -24,7 +24,7 @@ import net.guerlab.cloud.context.core.task.AuthContextHandlerTaskDecorator;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class AuthContextHandlerTaskDecoratorAutoConfigure {
 
 	/**

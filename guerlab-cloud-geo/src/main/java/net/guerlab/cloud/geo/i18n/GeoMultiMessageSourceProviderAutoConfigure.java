@@ -13,9 +13,8 @@
 
 package net.guerlab.cloud.geo.i18n;
 
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.commons.i18n.MultiMessageSourceAwareAutoConfigure;
 import net.guerlab.cloud.commons.i18n.MultiMessageSourceProvider;
@@ -25,8 +24,7 @@ import net.guerlab.cloud.commons.i18n.MultiMessageSourceProvider;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
-@AutoConfigureBefore(MultiMessageSourceAwareAutoConfigure.class)
+@AutoConfiguration(before = MultiMessageSourceAwareAutoConfigure.class)
 public class GeoMultiMessageSourceProviderAutoConfigure {
 
 	/**

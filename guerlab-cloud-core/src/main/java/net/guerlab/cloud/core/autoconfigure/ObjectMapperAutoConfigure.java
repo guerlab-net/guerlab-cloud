@@ -29,8 +29,8 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties;
@@ -54,7 +54,7 @@ import net.guerlab.commons.time.jackson.serializer.YearSerializer;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @EnableConfigurationProperties(NumberJsonStringFormatProperties.class)
 public class ObjectMapperAutoConfigure {
 

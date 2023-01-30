@@ -13,8 +13,8 @@
 
 package net.guerlab.cloud.context.webflux.autoconfigure;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.context.webflux.filter.ContextAttributesServerWebExchangeDecoratorFilter;
 
@@ -23,7 +23,7 @@ import net.guerlab.cloud.context.webflux.filter.ContextAttributesServerWebExchan
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class ContextAttributesServerWebExchangeDecoratorFilterAutoConfigure {
 
 	/**

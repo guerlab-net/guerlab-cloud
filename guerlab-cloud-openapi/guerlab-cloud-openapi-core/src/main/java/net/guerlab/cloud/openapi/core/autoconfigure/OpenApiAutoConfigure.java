@@ -20,11 +20,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springdoc.core.SpringDocAnnotationsUtils;
 import org.springdoc.core.SpringDocConfigProperties;
 
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.openapi.core.properties.OpenApiProperties;
 import net.guerlab.cloud.security.core.AuthorizePathProvider;
@@ -40,9 +39,8 @@ import static org.springdoc.core.Constants.SPRINGDOC_ENABLED;
  * @author guer
  */
 @Slf4j
-@Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(OpenApiProperties.class)
-@AutoConfigureBefore(AuthorizePathAutoConfigure.class)
+@AutoConfiguration(before = AuthorizePathAutoConfigure.class)
 public class OpenApiAutoConfigure {
 
 	static {

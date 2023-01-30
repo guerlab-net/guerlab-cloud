@@ -13,8 +13,8 @@
 
 package net.guerlab.cloud.web.core.autoconfigure;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.web.core.aspect.DataAccessAspect;
 
@@ -23,7 +23,7 @@ import net.guerlab.cloud.web.core.aspect.DataAccessAspect;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class DataAccessAspectAutoConfigure {
 
 	/**

@@ -16,7 +16,7 @@ package net.guerlab.cloud.loadbalancer.autoconfigure;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClientsProperties;
 import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClientSpecification;
@@ -25,7 +25,6 @@ import org.springframework.cloud.loadbalancer.config.BlockingLoadBalancerClientA
 import org.springframework.cloud.loadbalancer.config.LoadBalancerAutoConfiguration;
 import org.springframework.cloud.loadbalancer.support.LoadBalancerClientFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties;
 import net.guerlab.cloud.loadbalancer.support.CustomerLoadBalancerClientFactory;
@@ -35,8 +34,7 @@ import net.guerlab.cloud.loadbalancer.support.CustomerLoadBalancerClientFactory;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
-@AutoConfigureBefore({BlockingLoadBalancerClientAutoConfiguration.class, LoadBalancerAutoConfiguration.class})
+@AutoConfiguration(before = {BlockingLoadBalancerClientAutoConfiguration.class, LoadBalancerAutoConfiguration.class})
 @EnableConfigurationProperties({LoadBalancerProperties.class, LoadBalancerClientsProperties.class})
 @LoadBalancerClients(defaultConfiguration = CustomerLoadBalancerClientConfiguration.class)
 public class GlobalLoadBalancerAutoConfiguration {

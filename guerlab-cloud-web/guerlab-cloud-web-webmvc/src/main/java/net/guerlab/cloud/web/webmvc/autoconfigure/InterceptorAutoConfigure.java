@@ -13,7 +13,7 @@
 
 package net.guerlab.cloud.web.webmvc.autoconfigure;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.core.Ordered;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -26,7 +26,7 @@ import net.guerlab.cloud.web.webmvc.interceptor.CurrentOperatorInterceptor;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class InterceptorAutoConfigure implements WebMvcConfigurer {
 
 	@Override

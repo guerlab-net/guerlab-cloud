@@ -15,9 +15,9 @@ package net.guerlab.cloud.auth.autoconfigure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import net.guerlab.cloud.auth.domain.ITestTokenInfo;
@@ -31,7 +31,7 @@ import net.guerlab.cloud.auth.redis.TestRedisTemplateOperationsWrapper;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @EnableConfigurationProperties({TestRedisTokenFactoryProperties.class})
 public class TestRedisTokenAutoConfigure {
 

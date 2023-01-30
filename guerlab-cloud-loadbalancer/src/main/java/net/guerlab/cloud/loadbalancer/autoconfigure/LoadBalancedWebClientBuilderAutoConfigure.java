@@ -13,11 +13,11 @@
 
 package net.guerlab.cloud.loadbalancer.autoconfigure;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**
@@ -25,7 +25,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @ConditionalOnClass(name = "org.springframework.web.reactive.function.client.WebClient")
 public class LoadBalancedWebClientBuilderAutoConfigure {
 

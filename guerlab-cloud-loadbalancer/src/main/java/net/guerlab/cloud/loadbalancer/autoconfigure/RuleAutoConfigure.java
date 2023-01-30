@@ -13,9 +13,9 @@
 
 package net.guerlab.cloud.loadbalancer.autoconfigure;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.loadbalancer.properties.ClusterSameProperties;
 import net.guerlab.cloud.loadbalancer.properties.VersionControlProperties;
@@ -28,7 +28,7 @@ import net.guerlab.cloud.loadbalancer.rule.VersionMatchRule;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @EnableConfigurationProperties({VersionControlProperties.class, ClusterSameProperties.class})
 public class RuleAutoConfigure {
 

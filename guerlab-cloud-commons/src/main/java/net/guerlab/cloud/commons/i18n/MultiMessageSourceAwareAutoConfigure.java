@@ -19,8 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.AbstractResourceBasedMessageSource;
@@ -31,8 +30,7 @@ import org.springframework.context.support.AbstractResourceBasedMessageSource;
  * @author guer
  */
 @Slf4j
-@Configurable
-@AutoConfigureAfter(MessageSourceAutoConfiguration.class)
+@AutoConfiguration(after = MessageSourceAutoConfiguration.class)
 public class MultiMessageSourceAwareAutoConfigure {
 
 	/**

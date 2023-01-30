@@ -13,8 +13,8 @@
 
 package net.guerlab.cloud.web.webflux.autoconfigure;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerMapping;
 
 import net.guerlab.cloud.web.webflux.filter.CurrentOperatorFilter;
@@ -24,7 +24,7 @@ import net.guerlab.cloud.web.webflux.filter.CurrentOperatorFilter;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class CurrentOperatorFilterAutoConfigure {
 
 	/**

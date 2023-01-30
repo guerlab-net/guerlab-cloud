@@ -18,10 +18,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.web.core.endpoints.ResponseAdviceEndpoint;
 import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
@@ -31,7 +31,7 @@ import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @EnableConfigurationProperties(ResponseAdvisorProperties.class)
 @ConditionalOnClass(name = "org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties")
 public class EndpointResponseAdvisorPropertiesAutoConfigure {

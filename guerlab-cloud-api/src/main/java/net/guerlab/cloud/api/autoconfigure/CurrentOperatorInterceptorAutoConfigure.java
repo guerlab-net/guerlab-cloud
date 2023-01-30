@@ -15,10 +15,9 @@ package net.guerlab.cloud.api.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.api.headers.CurrentOperatorInterceptor;
 import net.guerlab.cloud.loadbalancer.autoconfigure.GlobalLoadBalancerAutoConfiguration;
@@ -29,9 +28,8 @@ import net.guerlab.cloud.loadbalancer.autoconfigure.GlobalLoadBalancerAutoConfig
  * @author guer
  */
 @Slf4j
-@Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(name = "net.guerlab.cloud.auth.context.AbstractContextHandler")
-@AutoConfigureAfter(GlobalLoadBalancerAutoConfiguration.class)
+@AutoConfiguration(after = GlobalLoadBalancerAutoConfiguration.class)
 public class CurrentOperatorInterceptorAutoConfigure {
 
 	/**

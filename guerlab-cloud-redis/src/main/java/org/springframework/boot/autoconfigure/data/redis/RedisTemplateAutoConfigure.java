@@ -15,12 +15,11 @@ package org.springframework.boot.autoconfigure.data.redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisOperations;
@@ -32,9 +31,8 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(RedisOperations.class)
-@AutoConfigureBefore(RedisAutoConfiguration.class)
+@AutoConfiguration(before = RedisAutoConfiguration.class)
 @Import({LettuceConnectionConfiguration.class, JedisConnectionConfiguration.class})
 public class RedisTemplateAutoConfigure {
 

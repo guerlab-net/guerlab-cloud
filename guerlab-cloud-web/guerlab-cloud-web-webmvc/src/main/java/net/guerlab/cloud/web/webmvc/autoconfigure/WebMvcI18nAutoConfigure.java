@@ -13,11 +13,11 @@
 
 package net.guerlab.cloud.web.webmvc.autoconfigure;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
@@ -29,7 +29,7 @@ import net.guerlab.cloud.web.core.properties.I18nProperties;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @ConditionalOnClass({LocaleResolver.class, LocaleChangeInterceptor.class, SessionLocaleResolver.class})
 @EnableConfigurationProperties(I18nProperties.class)
 public class WebMvcI18nAutoConfigure {

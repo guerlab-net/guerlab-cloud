@@ -15,8 +15,7 @@ package net.guerlab.cloud.context.core.autoconfigure;
 
 import java.util.concurrent.Executor;
 
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.core.task.TaskDecorator;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -26,8 +25,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
-@AutoConfigureAfter(AuthContextHandlerTaskDecoratorAutoConfigure.class)
+@AutoConfiguration(after = AuthContextHandlerTaskDecoratorAutoConfigure.class)
 public class AuthAsyncConfigurer implements AsyncConfigurer {
 
 	/**

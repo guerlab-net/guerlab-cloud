@@ -15,7 +15,7 @@ package net.guerlab.cloud.web.webflux.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 import org.springframework.web.reactive.result.method.annotation.ArgumentResolverConfigurer;
 
@@ -27,7 +27,7 @@ import net.guerlab.cloud.web.webflux.support.WebFluxRequestIpHandlerMethodArgume
  * @author guer
  */
 @Slf4j
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class WebFluxRequestIpHandlerMethodArgumentResolverAutoConfigure implements WebFluxConfigurer {
 
 	@Override

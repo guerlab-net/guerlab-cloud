@@ -20,10 +20,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.BeansException;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.lang.Nullable;
 
@@ -33,7 +33,7 @@ import org.springframework.lang.Nullable;
  * @author guer
  */
 @SuppressWarnings("unused")
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class SpringUtils implements ApplicationContextAware {
 
 	private static ApplicationContext context = null;

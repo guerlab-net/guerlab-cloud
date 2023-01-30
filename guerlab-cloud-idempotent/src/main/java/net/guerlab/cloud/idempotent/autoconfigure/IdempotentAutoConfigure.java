@@ -13,11 +13,10 @@
 
 package net.guerlab.cloud.idempotent.autoconfigure;
 
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.StringRedisTemplate;
 
 import net.guerlab.cloud.idempotent.aspect.IdempotentAspect;
@@ -27,8 +26,7 @@ import net.guerlab.cloud.idempotent.aspect.IdempotentAspect;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
-@AutoConfigureAfter(RedisAutoConfiguration.class)
+@AutoConfiguration(after = RedisAutoConfiguration.class)
 public class IdempotentAutoConfigure {
 
 	/**

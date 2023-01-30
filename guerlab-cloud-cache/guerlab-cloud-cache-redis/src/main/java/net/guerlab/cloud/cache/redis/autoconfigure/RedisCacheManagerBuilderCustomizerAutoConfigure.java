@@ -19,8 +19,7 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.cache.CacheProperties;
 import org.springframework.boot.autoconfigure.cache.RedisCacheManagerBuilderCustomizer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -39,9 +38,8 @@ import net.guerlab.cloud.cache.redis.properties.GroupByKeysRedisCacheProperties;
  * @author guer
  */
 @EnableCaching
-@Configurable
 @EnableConfigurationProperties(GroupByKeysRedisCacheProperties.class)
-@AutoConfigureBefore(RedisCacheConfiguration.class)
+@AutoConfiguration(before = RedisCacheConfiguration.class)
 public class RedisCacheManagerBuilderCustomizerAutoConfigure {
 
 	private final GroupByKeysRedisCacheProperties properties;

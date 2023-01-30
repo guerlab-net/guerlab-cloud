@@ -15,11 +15,10 @@ package net.guerlab.cloud.distributed.autoconfigure;
 
 import org.redisson.api.RedissonClient;
 
-import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.distributed.aspect.DistributedLockAspect;
 
@@ -28,8 +27,7 @@ import net.guerlab.cloud.distributed.aspect.DistributedLockAspect;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
-@AutoConfigureAfter(RedisAutoConfiguration.class)
+@AutoConfiguration(after = RedisAutoConfiguration.class)
 public class DistributedLockAutoConfigure {
 
 	/**

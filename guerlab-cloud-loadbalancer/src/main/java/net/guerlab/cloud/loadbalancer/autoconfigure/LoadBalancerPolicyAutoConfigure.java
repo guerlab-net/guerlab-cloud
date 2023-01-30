@@ -13,10 +13,10 @@
 
 package net.guerlab.cloud.loadbalancer.autoconfigure;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import net.guerlab.cloud.loadbalancer.Constants;
 import net.guerlab.cloud.loadbalancer.policy.LoadBalancerPolicy;
@@ -30,7 +30,7 @@ import net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties;
  *
  * @author guer
  */
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class LoadBalancerPolicyAutoConfigure {
 
 	/**

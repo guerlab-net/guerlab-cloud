@@ -17,7 +17,7 @@ import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -29,7 +29,7 @@ import net.guerlab.cloud.web.webmvc.support.WebMvcRequestIpHandlerMethodArgument
  * @author guer
  */
 @Slf4j
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 public class WebMvcRequestIpHandlerMethodArgumentResolverAutoConfigure implements WebMvcConfigurer {
 
 	@Override
