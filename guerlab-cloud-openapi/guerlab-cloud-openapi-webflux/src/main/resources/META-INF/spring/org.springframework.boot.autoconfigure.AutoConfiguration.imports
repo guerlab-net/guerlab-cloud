@@ -1,1 +1,4 @@
 net.guerlab.cloud.openapi.webflux.autoconfigure.OpenApiWebfluxAutoConfigure
+org.springdoc.webflux.core.SpringDocWebFluxConfiguration
+org.springdoc.webflux.core.MultipleOpenApiSupportConfiguration
+org.springdoc.webflux.ui.SwaggerConfig
