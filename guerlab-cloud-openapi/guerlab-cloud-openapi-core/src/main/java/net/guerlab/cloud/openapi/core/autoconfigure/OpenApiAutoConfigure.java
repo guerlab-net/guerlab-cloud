@@ -17,8 +17,8 @@ import java.util.Collections;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springdoc.core.SpringDocAnnotationsUtils;
-import org.springdoc.core.SpringDocConfigProperties;
+import org.springdoc.core.properties.SpringDocConfigProperties;
+import org.springdoc.core.utils.SpringDocAnnotationsUtils;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -31,7 +31,7 @@ import net.guerlab.cloud.security.core.SimpleAuthorizePathProvider;
 import net.guerlab.cloud.security.core.autoconfigure.AuthorizePathAutoConfigure;
 import net.guerlab.cloud.web.core.annotation.RequestIp;
 
-import static org.springdoc.core.Constants.SPRINGDOC_ENABLED;
+import static org.springdoc.core.utils.Constants.SPRINGDOC_ENABLED;
 
 /**
  * OpenApi相关路径配置.

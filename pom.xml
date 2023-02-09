@@ -89,7 +89,7 @@
 		<jjwt.version>0.9.1</jjwt.version>
 		<guava.version>31.0.1-jre</guava.version>
 		<easyexcel.version>3.2.0</easyexcel.version>
-		<springdoc.version>1.6.14</springdoc.version>
+		<springdoc.version>2.0.2</springdoc.version>
 		<nacos.version>2.2.0</nacos.version>
 		<findbugs.version>3.0.2</findbugs.version>
 		<redisson.version>3.19.1</redisson.version>
@@ -488,17 +488,17 @@
 			<!-- swagger -->
 			<dependency>
 				<groupId>org.springdoc</groupId>
-				<artifactId>springdoc-openapi-common</artifactId>
+				<artifactId>springdoc-openapi-starter-common</artifactId>
 				<version>${springdoc.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springdoc</groupId>
-				<artifactId>springdoc-openapi-ui</artifactId>
+				<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 				<version>${springdoc.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springdoc</groupId>
-				<artifactId>springdoc-openapi-webflux-ui</artifactId>
+				<artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
 				<version>${springdoc.version}</version>
 			</dependency>
 
