@@ -1,4 +1,4 @@
 net.guerlab.cloud.openapi.webmvc.autoconfigure.OpenApiWebmvcAutoConfigure
-org.springdoc.webmvc.core.SpringDocWebMvcConfiguration
-org.springdoc.webmvc.core.MultipleOpenApiSupportConfiguration
+org.springdoc.webmvc.core.configuration.SpringDocWebMvcConfiguration
+org.springdoc.webmvc.core.configuration.MultipleOpenApiSupportConfiguration
 org.springdoc.webmvc.ui.SwaggerConfig

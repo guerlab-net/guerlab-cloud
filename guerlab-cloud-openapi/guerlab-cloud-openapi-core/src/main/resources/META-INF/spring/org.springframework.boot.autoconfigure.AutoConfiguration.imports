@@ -1,6 +1,6 @@
 net.guerlab.cloud.openapi.core.autoconfigure.OpenApiAutoConfigure
-org.springdoc.core.SpringDocConfiguration
-org.springdoc.core.SpringDocConfigProperties
-org.springdoc.core.SwaggerUiConfigProperties
-org.springdoc.core.SwaggerUiConfigParameters
-org.springdoc.core.SwaggerUiOAuthProperties
+org.springdoc.core.configuration.SpringDocConfiguration
+org.springdoc.core.properties.SpringDocConfigProperties
+org.springdoc.core.properties.SwaggerUiConfigProperties
+org.springdoc.core.properties.SwaggerUiConfigParameters
+org.springdoc.core.properties.SwaggerUiOAuthProperties
