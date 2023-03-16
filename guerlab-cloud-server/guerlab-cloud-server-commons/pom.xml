@@ -53,14 +53,11 @@
 			<artifactId>spring-cloud-starter-bootstrap</artifactId>
 		</dependency>
 
-		<!-- spring cloud alibaba -->
+		<!-- spring cloud tencent -->
 		<dependency>
-			<groupId>com.alibaba.cloud</groupId>
-			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.alibaba.cloud</groupId>
-			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+			<groupId>com.tencent.cloud</groupId>
+			<artifactId>spring-cloud-starter-tencent-all</artifactId>
+			<type>pom</type>
 		</dependency>
 
 		<dependency>

@@ -133,6 +133,5 @@ logging:
     org.apache: 'OFF'
     org.hibernate: 'OFF'
     springfox: 'OFF'
-    com.alibaba.nacos: 'OFF'
     io.undertow: 'OFF'
     net.guerlab.cloud: INFO

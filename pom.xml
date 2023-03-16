@@ -66,7 +66,7 @@
 	</issueManagement>
 
 	<properties>
-		<revision>2023.1.0-SNAPSHOT</revision>
+		<revision>2023.2.0-SNAPSHOT</revision>
 		<main.basedir>${basedir}</main.basedir>
 
 		<java.version>17</java.version>
@@ -78,7 +78,7 @@
 		<!-- spring -->
 		<spring-boot.version>3.0.2</spring-boot.version>
 		<spring-cloud.version>2022.0.1</spring-cloud.version>
-		<spring-cloud-alibaba.version>2022.0.0.0-RC1</spring-cloud-alibaba.version>
+		<spring-cloud-tencent.version>1.10.1-2022.0.1</spring-cloud-tencent.version>
 
 		<!-- other -->
 		<mybatis.version>3.5.11</mybatis.version>
@@ -90,7 +90,6 @@
 		<guava.version>31.0.1-jre</guava.version>
 		<easyexcel.version>3.2.0</easyexcel.version>
 		<springdoc.version>2.0.2</springdoc.version>
-		<nacos.version>2.2.0</nacos.version>
 		<findbugs.version>3.0.2</findbugs.version>
 		<redisson.version>3.19.1</redisson.version>
 
@@ -117,9 +116,9 @@
 				<scope>import</scope>
 			</dependency>
 			<dependency>
-				<groupId>com.alibaba.cloud</groupId>
-				<artifactId>spring-cloud-alibaba-dependencies</artifactId>
-				<version>${spring-cloud-alibaba.version}</version>
+				<groupId>com.tencent.cloud</groupId>
+				<artifactId>spring-cloud-tencent-dependencies</artifactId>
+				<version>${spring-cloud-tencent.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -334,24 +333,6 @@
 				<version>${revision}</version>
 			</dependency>
 
-			<!-- guerlab-cloud sentinel-->
-			<dependency>
-				<groupId>net.guerlab.cloud</groupId>
-				<artifactId>guerlab-cloud-sentinel</artifactId>
-				<version>${revision}</version>
-				<type>pom</type>
-			</dependency>
-			<dependency>
-				<groupId>net.guerlab.cloud</groupId>
-				<artifactId>guerlab-cloud-sentinel-webflux</artifactId>
-				<version>${revision}</version>
-			</dependency>
-			<dependency>
-				<groupId>net.guerlab.cloud</groupId>
-				<artifactId>guerlab-cloud-sentinel-webmvc</artifactId>
-				<version>${revision}</version>
-			</dependency>
-
 			<!-- guerlab-cloud server -->
 			<dependency>
 				<groupId>net.guerlab.cloud</groupId>
@@ -502,13 +483,6 @@
 				<version>${springdoc.version}</version>
 			</dependency>
 
-			<!-- nacos -->
-			<dependency>
-				<groupId>com.alibaba.nacos</groupId>
-				<artifactId>nacos-client</artifactId>
-				<version>${nacos.version}</version>
-			</dependency>
-
 			<!-- findbugs -->
 			<dependency>
 				<groupId>com.google.code.findbugs</groupId>
@@ -575,7 +549,6 @@
 		<module>guerlab-cloud-rsa</module>
 		<module>guerlab-cloud-searchparams</module>
 		<module>guerlab-cloud-security</module>
-		<module>guerlab-cloud-sentinel</module>
 		<module>guerlab-cloud-server</module>
 		<module>guerlab-cloud-stream</module>
 		<module>guerlab-cloud-web</module>
