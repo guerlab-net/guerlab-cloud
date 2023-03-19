@@ -190,7 +190,7 @@ public final class SearchParamsUtils {
 		}
 
 		List<SqlProvider> sqlProviders = getCustomerSqlProviders(searchModel, field)
-				.filter(provider -> provider.accept(field.getType(), object))
+				.filter(provider -> provider.accept(object, value))
 				.toList();
 
 		if (!sqlProviders.isEmpty()) {

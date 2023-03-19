@@ -23,11 +23,11 @@ public interface SqlProvider {
 	/**
 	 * 判断是否允许处理.
 	 *
-	 * @param fieldClass 字段类型
-	 * @param object     处理对象
+	 * @param object 处理对象
+	 * @param value  参数值
 	 * @return 是否处理
 	 */
-	boolean accept(Class<?> fieldClass, Object object);
+	boolean accept(Object object, Object value);
 
 	/**
 	 * 处理.

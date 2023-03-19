@@ -27,8 +27,8 @@ import net.guerlab.cloud.searchparams.SqlProvider;
 public class TestSqlProvider implements SqlProvider {
 
 	@Override
-	public boolean accept(Class<?> fieldClass, Object object) {
-		return Collection.class.isAssignableFrom(fieldClass) && object instanceof QueryWrapper;
+	public boolean accept(Object object, Object value) {
+		return object instanceof QueryWrapper && value instanceof Collection;
 	}
 
 	@Override
