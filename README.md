@@ -4,7 +4,8 @@
 ![](https://img.shields.io/badge/LICENSE-LGPL--3.0-brightgreen.svg)
 
 基于java17进行开发<br>
-基于Spring Cloud与Spring Cloud Alibaba的扩展框架，提供授权、feign、缓存、负载均衡、请求上下文、国际化、excel、安全、消息队列、web、openapi(swagger)、RSA等扩展<br>
+基于Spring Cloud与Spring Cloud
+Tencent的扩展框架，提供授权、feign、缓存、负载均衡、请求上下文、国际化、excel、安全、消息队列、web、openapi(swagger)、RSA等扩展<br>
 
 ## 依赖管理
 
@@ -59,9 +60,6 @@
 | guerlab-cloud-security-core            | 对spring security的增强支持核心实现           |
 | guerlab-cloud-security-webflux         | 对spring security在webflux环境下的增强支持    |
 | guerlab-cloud-security-webmvc          | 对spring security在webmvc环境下的增强支持     |
-| guerlab-cloud-sentinel                 | 提供sentinel的扩展支持                     |
-| guerlab-cloud-sentinel-webflux         | 对sentinel在webflux环境下的增强支持           |
-| guerlab-cloud-sentinel-webmvc          | 对sentinel在webmvc环境下的增强支持            |
 | guerlab-cloud-server                   | 服务实现                                |
 | guerlab-cloud-server-api-rest          | 服务端的rest端点支持                        |
 | guerlab-cloud-server-commons           | server实现的基础支持                       |
