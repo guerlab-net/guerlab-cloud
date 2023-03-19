@@ -13,6 +13,8 @@
 
 package net.guerlab.cloud.api;
 
+import org.springframework.lang.Nullable;
+
 /**
  * API常量.
  *
@@ -27,20 +29,21 @@ public final class ApiConstants {
 	public static final String SERVICE_ID_PROPERTIES_PREFIX = "guerlab.cloud.api.names";
 
 	/**
-	 * 默认API服务后缀.
+	 * 服务ID模板.
 	 */
-	public static final String DEFAULT_API_SERVICE_SUFFIX = "-api";
-
-	/**
-	 * 默认内部服务后缀.
-	 */
-	public static final String DEFAULT_INTERNAL_SERVICE_SUFFIX = "-internal";
-
-	/**
-	 * 默认公共服务后缀.
-	 */
-	public static final String DEFAULT_COMMONS_SERVICE_SUFFIX = "-commons";
+	public static final String SERVICE_ID_FORMAT = "${" + SERVICE_ID_PROPERTIES_PREFIX + ".%s:%s}";
 
 	private ApiConstants() {
+	}
+
+	/**
+	 * 获取服务ID配置Key.
+	 *
+	 * @param key         key
+	 * @param defaultName 默认名称
+	 * @return 服务ID配置Key
+	 */
+	public static String getServerIdKey(String key, @Nullable String defaultName) {
+		return String.format(SERVICE_ID_FORMAT, key, defaultName == null ? key : defaultName);
 	}
 }
