@@ -49,7 +49,7 @@ public final class MessageUtils {
 	 * @param appName 应用名称
 	 * @return 判断
 	 */
-	public static boolean orangeAppNameSame(Message<?> message, String appName) {
+	public static boolean originAppNameSame(Message<?> message, String appName) {
 		return Objects.equals(toString(message.getHeaders().get(HEADER_ORIGIN_APPLICATION_NAME)), appName);
 	}
 
@@ -59,8 +59,8 @@ public final class MessageUtils {
 	 * @param message 消息体
 	 * @return 判断
 	 */
-	public static boolean orangeAppNameSame(Message<?> message) {
-		return orangeAppNameSame(message, getApplicationName());
+	public static boolean originAppNameSame(Message<?> message) {
+		return originAppNameSame(message, getApplicationName());
 	}
 
 	/**
