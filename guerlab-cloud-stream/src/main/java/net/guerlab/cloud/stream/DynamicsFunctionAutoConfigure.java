@@ -13,8 +13,8 @@
 
 package net.guerlab.cloud.stream;
 
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 /**
@@ -23,7 +23,7 @@ import org.springframework.context.annotation.Import;
  * @author guer
  */
 @Import(DynamicsFunctionRegistry.class)
-@Configuration(proxyBeanMethods = false)
+@AutoConfiguration
 @EnableConfigurationProperties(DynamicsFunctionProperties.class)
 public class DynamicsFunctionAutoConfigure {
 }
