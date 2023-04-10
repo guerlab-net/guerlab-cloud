@@ -1,0 +1,19 @@
+{
+  "groups": [
+    {
+      "name": "spring.cloud.function.dynamics",
+      "type": "net.guerlab.cloud.stream.DynamicsFunctionProperties",
+      "description": "动态方法配置.",
+      "sourceType": "net.guerlab.cloud.stream.DynamicsFunctionProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.cloud.function.dynamics.definitions",
+      "type": "java.util.List<net.guerlab.cloud.stream.DynamicsFunctionDefinition>",
+      "description": "定义列表.",
+      "sourceType": "net.guerlab.cloud.stream.DynamicsFunctionProperties"
+    }
+  ],
+  "hints": []
+}
