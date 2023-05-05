@@ -98,7 +98,6 @@
 		<commons-io.version>2.11.0</commons-io.version>
 		<commons-compress.version>1.23.0</commons-compress.version>
 		<commons-fileupload.version>1.5</commons-fileupload.version>
-		<shakeyaml.version>2.0</shakeyaml.version>
 	</properties>
 
 	<dependencyManagement>
@@ -534,11 +533,6 @@
 				<groupId>commons-fileupload</groupId>
 				<artifactId>commons-fileupload</artifactId>
 				<version>${commons-fileupload.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.yaml</groupId>
-				<artifactId>snakeyaml</artifactId>
-				<version>${shakeyaml.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
