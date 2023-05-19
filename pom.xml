@@ -78,7 +78,7 @@
 		<!-- spring -->
 		<spring-boot.version>3.0.6</spring-boot.version>
 		<spring-cloud.version>2022.0.2</spring-cloud.version>
-		<spring-cloud-tencent.version>1.11.2-2022.0.1</spring-cloud-tencent.version>
+		<spring-cloud-tencent.version>1.11.4-2022.0.1</spring-cloud-tencent.version>
 
 		<!-- other -->
 		<mybatis.version>3.5.13</mybatis.version>
