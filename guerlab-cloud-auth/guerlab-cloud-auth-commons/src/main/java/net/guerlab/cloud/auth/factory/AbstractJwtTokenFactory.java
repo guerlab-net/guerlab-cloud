@@ -26,8 +26,8 @@ import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.security.SignatureException;
 
 import net.guerlab.cloud.auth.domain.TokenInfo;
 import net.guerlab.cloud.auth.enums.TokenType;
@@ -77,8 +77,7 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
 			builder.setExpiration(exp).setNotBefore(now);
 		}
 
-		SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.RS256;
-		builder.signWith(signatureAlgorithm, privateKey);
+		builder.signWith(privateKey, SignatureAlgorithm.RS256);
 
 		TokenInfo tokenInfo = new TokenInfo();
 		tokenInfo.setExpire(exp == null ? -1 : expire);
@@ -100,7 +99,7 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
 	 */
 	private static Jws<Claims> parserToken(String token, PublicKey publicKey, TokenType tokenType) {
 		try {
-			return Jwts.parser().setSigningKey(publicKey).parseClaimsJws(token);
+			return Jwts.parserBuilder().setSigningKey(publicKey).build().parseClaimsJws(token);
 		}
 		catch (ExpiredJwtException e) {
 			throw tokenType.expiredException();

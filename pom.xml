@@ -66,7 +66,7 @@
 	</issueManagement>
 
 	<properties>
-		<revision>2023.2.0-SNAPSHOT</revision>
+		<revision>2023.2.0</revision>
 		<main.basedir>${basedir}</main.basedir>
 
 		<java.version>17</java.version>
@@ -76,27 +76,28 @@
 		<guerlab-commons.version>2.0.1</guerlab-commons.version>
 
 		<!-- spring -->
-		<spring-boot.version>3.0.2</spring-boot.version>
-		<spring-cloud.version>2022.0.1</spring-cloud.version>
-		<spring-cloud-tencent.version>1.10.1-2022.0.1</spring-cloud-tencent.version>
+		<spring-boot.version>3.0.6</spring-boot.version>
+		<spring-cloud.version>2022.0.2</spring-cloud.version>
+		<spring-cloud-tencent.version>1.11.4-2022.0.1</spring-cloud-tencent.version>
 
 		<!-- other -->
-		<mybatis.version>3.5.11</mybatis.version>
+		<mybatis.version>3.5.13</mybatis.version>
 		<mybatis-starter.version>3.0.1</mybatis-starter.version>
 		<mybatis-typehandlers-jsr310.version>1.0.2</mybatis-typehandlers-jsr310.version>
 		<mybatis-plus.version>3.5.3.1</mybatis-plus.version>
-		<swagger.version>2.2.8</swagger.version>
-		<jjwt.version>0.9.1</jjwt.version>
-		<guava.version>31.0.1-jre</guava.version>
-		<easyexcel.version>3.2.0</easyexcel.version>
-		<springdoc.version>2.0.2</springdoc.version>
+		<swagger.version>2.2.9</swagger.version>
+		<jjwt.version>0.11.5</jjwt.version>
+		<guava.version>31.1-jre</guava.version>
+		<easyexcel.version>3.2.1</easyexcel.version>
+		<springdoc.version>2.1.0</springdoc.version>
 		<findbugs.version>3.0.2</findbugs.version>
-		<redisson.version>3.19.1</redisson.version>
+		<redisson.version>3.21.0</redisson.version>
 
 		<!-- fix loophole version -->
 		<bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
 		<commons-io.version>2.11.0</commons-io.version>
-		<commons-compress.version>1.22</commons-compress.version>
+		<commons-compress.version>1.23.0</commons-compress.version>
+		<commons-fileupload.version>1.5</commons-fileupload.version>
 	</properties>
 
 	<dependencyManagement>
@@ -462,7 +463,17 @@
 			<!-- jwt -->
 			<dependency>
 				<groupId>io.jsonwebtoken</groupId>
-				<artifactId>jjwt</artifactId>
+				<artifactId>jjwt-api</artifactId>
+				<version>${jjwt.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-impl</artifactId>
+				<version>${jjwt.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-jackson</artifactId>
 				<version>${jjwt.version}</version>
 			</dependency>
 
@@ -517,6 +528,11 @@
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-compress</artifactId>
 				<version>${commons-compress.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-fileupload</groupId>
+				<artifactId>commons-fileupload</artifactId>
+				<version>${commons-fileupload.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

@@ -129,10 +129,10 @@ public record Version(long value, net.guerlab.cloud.core.domain.Version children
 	@Override
 	public String toString() {
 		if (children == null) {
-			return "" + value;
+			return String.valueOf(value);
 		}
 		else {
-			return "" + value + "." + children;
+			return value + "." + children;
 		}
 	}
 }

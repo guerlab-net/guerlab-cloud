@@ -43,5 +43,6 @@ public class OrderBy {
 	 * 是否升序.
 	 */
 	@Schema(description = "是否升序", defaultValue = "true")
+	@Builder.Default
 	private boolean asc = true;
 }
