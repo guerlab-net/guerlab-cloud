@@ -110,8 +110,8 @@ public final class SearchParamsUtils {
 	 * @param object       输出对象
 	 */
 	public static void handler(SearchParams searchParams, Object object) {
-		INSTANCES_CACHE.values().stream().filter(instance -> instance.accept(object)).findFirst()
-				.ifPresent(searchParamsUtilInstance -> handler(searchParams, object, searchParamsUtilInstance));
+		INSTANCES_CACHE.values().stream().filter(instance -> instance.accept(object))
+				.forEach(instance -> handler(searchParams, object, instance));
 	}
 
 	/**
