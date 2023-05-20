@@ -307,6 +307,11 @@
 			</dependency>
 			<dependency>
 				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-searchparams-elasticsearch</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
 				<artifactId>guerlab-cloud-searchparams-mybatisplus</artifactId>
 				<version>${revision}</version>
 			</dependency>
