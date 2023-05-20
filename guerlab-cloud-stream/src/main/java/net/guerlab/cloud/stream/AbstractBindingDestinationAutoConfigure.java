@@ -31,7 +31,7 @@ public abstract class AbstractBindingDestinationAutoConfigure {
 	 *
 	 * @param bindingServiceProperties bindingServiceProperties
 	 */
-	@SuppressWarnings("SpringJavaAutowiredMembersInspection")
+	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	@Autowired
 	public void initBindingDestination(BindingServiceProperties bindingServiceProperties) {
 		Map<String, BindingProperties> bindings = bindingServiceProperties.getBindings();
