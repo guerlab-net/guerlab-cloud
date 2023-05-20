@@ -14,9 +14,11 @@
 package net.guerlab.cloud.searchparams.mybatisplus;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.lang.Nullable;
 
+import net.guerlab.cloud.searchparams.JsonField;
 import net.guerlab.cloud.searchparams.SearchModelType;
 import net.guerlab.cloud.searchparams.SearchParamsHandler;
 
@@ -29,9 +31,55 @@ public class DefaultHandler implements SearchParamsHandler {
 
 	@Override
 	public void setValue(Object object, String fieldName, String columnName, Object value,
-			SearchModelType searchModelType, @Nullable String customSql) {
+			SearchModelType searchModelType, @Nullable String customSql, @Nullable JsonField jsonField) {
 		QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
 		columnName = ColumnNameGetter.getColumnName(columnName, wrapper.getEntityClass());
+
+		if (jsonField != null) {
+			setValueWithJsonField(wrapper, columnName, value, searchModelType, jsonField);
+		}
+		else {
+			setValueWithoutJsonField(wrapper, columnName, value, searchModelType, customSql);
+		}
+	}
+
+	private void setValueWithJsonField(QueryWrapper<?> wrapper, String columnName, Object value,
+			SearchModelType searchModelType, JsonField jsonField) {
+		DbType dbType = DbTypeUtils.getDbType(wrapper);
+		String jsonPath = getJsonPath(jsonField);
+		if (dbType == DbType.MYSQL) {
+			String sqlTemplate;
+			if (searchModelType == SearchModelType.NOT_IN) {
+				sqlTemplate = "JSON_SEARCH(%s, 'one', '%s', null, '%s') IS NULL";
+			}
+			else {
+				sqlTemplate = "JSON_SEARCH(%s, 'one', '%s', null, '%s') IS NOT NULL";
+			}
+			wrapper.apply(String.format(sqlTemplate, columnName, value, jsonPath));
+		}
+		else if (dbType == DbType.ORACLE) {
+			String sqlTemplate;
+			if (searchModelType == SearchModelType.NOT_IN) {
+				sqlTemplate = "json_exists(%s, '%s?(!(@ == \"%s\"))')";
+			}
+			else {
+				sqlTemplate = "json_exists(%s, '%s?(@ == \"%s\")')";
+			}
+
+			wrapper.apply(String.format(sqlTemplate, columnName, jsonPath, value));
+		}
+	}
+
+	private String getJsonPath(JsonField jsonField) {
+		String jsonPath = StringUtils.trimToEmpty(jsonField.jsonPath());
+		if (jsonPath == null) {
+			jsonPath = "$";
+		}
+		return jsonPath;
+	}
+
+	private void setValueWithoutJsonField(QueryWrapper<?> wrapper, String columnName, Object value,
+			SearchModelType searchModelType, @Nullable String customSql) {
 		switch (searchModelType) {
 		case IS_NULL -> wrapper.isNull(columnName);
 		case IS_NOT_NULL -> wrapper.isNotNull(columnName);

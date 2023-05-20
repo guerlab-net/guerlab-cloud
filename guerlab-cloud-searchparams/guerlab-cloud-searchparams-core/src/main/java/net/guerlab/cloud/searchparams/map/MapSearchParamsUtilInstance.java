@@ -18,6 +18,7 @@ import java.util.Map;
 import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.searchparams.AbstractSearchParamsUtilInstance;
+import net.guerlab.cloud.searchparams.JsonField;
 import net.guerlab.cloud.searchparams.SearchModelType;
 import net.guerlab.cloud.searchparams.SearchParamsHandler;
 
@@ -47,7 +48,7 @@ public class MapSearchParamsUtilInstance extends AbstractSearchParamsUtilInstanc
 		@SuppressWarnings({"unchecked", "rawtypes"})
 		@Override
 		public void setValue(Object object, String fieldName, String columnName, Object value,
-				SearchModelType searchModelType, @Nullable String customSql) {
+				SearchModelType searchModelType, @Nullable String customSql, JsonField jsonField) {
 			((Map) object).put(fieldName, value);
 		}
 	}

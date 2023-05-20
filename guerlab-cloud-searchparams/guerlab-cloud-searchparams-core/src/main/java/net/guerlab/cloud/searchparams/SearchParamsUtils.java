@@ -203,8 +203,12 @@ public final class SearchParamsUtils {
 			return;
 		}
 
-		handler.setValue(object, field.getName(), getColumnName(field), value, searchModelType,
-				StringUtils.trimToNull(getCustomSql(searchModel)));
+		String columnName = getColumnName(field);
+
+		JsonField jsonField = field.getAnnotation(JsonField.class);
+
+		handler.setValue(object, field.getName(), columnName, value, searchModelType,
+				StringUtils.trimToNull(getCustomSql(searchModel)), jsonField);
 	}
 
 	/**

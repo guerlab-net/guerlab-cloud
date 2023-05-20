@@ -32,7 +32,8 @@ public interface SearchParamsHandler {
 	 * @param value           参数值
 	 * @param searchModelType 搜索模式类型
 	 * @param customSql       自定义sql
+	 * @param jsonField       json字段信息
 	 */
 	void setValue(Object object, String fieldName, String columnName, Object value, SearchModelType searchModelType,
-			@Nullable String customSql);
+			@Nullable String customSql, @Nullable JsonField jsonField);
 }

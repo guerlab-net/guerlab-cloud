@@ -13,6 +13,9 @@
 
 package net.guerlab.cloud.searchparams.mybatisplus;
 
+import org.apache.commons.lang3.StringUtils;
+
+import net.guerlab.cloud.searchparams.JsonField;
 import net.guerlab.cloud.searchparams.SearchParamsHandler;
 
 /**
@@ -28,4 +31,12 @@ public abstract class AbstractMyBatisPlusSearchParamsHandler implements SearchPa
 	 * @return 允许处理的数据类型
 	 */
 	public abstract Class<?> acceptClass();
+
+	protected String getJsonPath(JsonField jsonField) {
+		String jsonPath = StringUtils.trimToEmpty(jsonField.jsonPath());
+		if (jsonPath == null) {
+			jsonPath = "$";
+		}
+		return jsonPath;
+	}
 }

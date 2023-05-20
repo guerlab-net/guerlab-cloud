@@ -11,23 +11,24 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.searchparams;
+package net.guerlab.cloud.searchparams.mybatisplus;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import org.springframework.core.Ordered;
+import org.springframework.lang.Nullable;
 
 /**
- * 基础搜索参数.
+ * 数据库类型提供器.
  *
  * @author guer
  */
-@Data
-@Schema(name = "BaseSearchParams", description = "基础对象搜索参数")
-public class BaseSearchParams implements SearchParams {
+public interface DbTypeProvider extends Ordered {
 
 	/**
-	 * 排序字段列表.
+	 * 根据对象获取该对象的数据库类型.
+	 *
+	 * @param object 对象
+	 * @return 数据库类型
 	 */
-	@Schema(description = "排序字段列表")
-	private OrderBys orderBys;
+	@Nullable
+	DbType getDbType(Object object);
 }

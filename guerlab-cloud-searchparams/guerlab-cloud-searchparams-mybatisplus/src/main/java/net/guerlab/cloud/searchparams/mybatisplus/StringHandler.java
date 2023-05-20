@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.lang.Nullable;
 
+import net.guerlab.cloud.searchparams.JsonField;
 import net.guerlab.cloud.searchparams.SearchModelType;
 
 /**
@@ -34,7 +35,7 @@ public class StringHandler extends AbstractMyBatisPlusSearchParamsHandler {
 
 	@Override
 	public void setValue(Object object, String fieldName, String columnName, Object value,
-			SearchModelType searchModelType, @Nullable String customSql) {
+			SearchModelType searchModelType, @Nullable String customSql, @Nullable JsonField jsonField) {
 		String str = StringUtils.trimToNull((String) value);
 
 		if (str == null) {
@@ -43,6 +44,44 @@ public class StringHandler extends AbstractMyBatisPlusSearchParamsHandler {
 
 		QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
 		columnName = ColumnNameGetter.getColumnName(columnName, wrapper.getEntityClass());
+
+		if (jsonField != null) {
+			setValueWithJsonField(wrapper, columnName, str, searchModelType, jsonField);
+		}
+		else {
+			setValueWithoutJsonField(wrapper, columnName, str, searchModelType, customSql);
+		}
+	}
+
+	private void setValueWithJsonField(QueryWrapper<?> wrapper, String columnName, String str,
+			SearchModelType searchModelType, JsonField jsonField) {
+		DbType dbType = DbTypeUtils.getDbType(wrapper);
+		String jsonPath = getJsonPath(jsonField);
+		if (dbType == DbType.MYSQL) {
+			String sqlTemplate;
+			if (searchModelType == SearchModelType.NOT_IN) {
+				sqlTemplate = "JSON_SEARCH(%s, 'one', '%s', null, '%s') IS NULL";
+			}
+			else {
+				sqlTemplate = "JSON_SEARCH(%s, 'one', '%s', null, '%s') IS NOT NULL";
+			}
+			wrapper.apply(String.format(sqlTemplate, columnName, str, jsonPath));
+		}
+		else if (dbType == DbType.ORACLE) {
+			String sqlTemplate;
+			if (searchModelType == SearchModelType.NOT_IN) {
+				sqlTemplate = "json_exists(%s, '%s?(!(@ == \"%s\"))')";
+			}
+			else {
+				sqlTemplate = "json_exists(%s, '%s?(@ == \"%s\")')";
+			}
+
+			wrapper.apply(String.format(sqlTemplate, columnName, jsonPath, str));
+		}
+	}
+
+	private void setValueWithoutJsonField(QueryWrapper<?> wrapper, String columnName, String str,
+			SearchModelType searchModelType, @Nullable String customSql) {
 		switch (searchModelType) {
 		case IS_NULL -> wrapper.isNull(columnName);
 		case IS_NOT_NULL -> wrapper.isNotNull(columnName);
@@ -63,10 +102,10 @@ public class StringHandler extends AbstractMyBatisPlusSearchParamsHandler {
 			}
 			CustomerSqlInfo info = new CustomerSqlInfo(customSql);
 			if (info.batch) {
-				wrapper.apply(info.sql.replaceAll(CustomerSqlInfo.BATCH_REG, "{0}"), value);
+				wrapper.apply(info.sql.replaceAll(CustomerSqlInfo.BATCH_REG, "{0}"), str);
 			}
 			else if (info.matchFlag) {
-				wrapper.apply(info.sql.replaceAll(CustomerSqlInfo.MATCH_REG, "{0}"), value);
+				wrapper.apply(info.sql.replaceAll(CustomerSqlInfo.MATCH_REG, "{0}"), str);
 			}
 			else {
 				wrapper.apply(info.sql);

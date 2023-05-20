@@ -18,6 +18,7 @@ import java.util.Collection;
 import lombok.Getter;
 import lombok.Setter;
 
+import net.guerlab.cloud.searchparams.JsonField;
 import net.guerlab.cloud.searchparams.SearchModel;
 import net.guerlab.cloud.searchparams.SearchModelType;
 import net.guerlab.cloud.searchparams.SearchParams;
@@ -47,4 +48,18 @@ public class TestSearchParams implements SearchParams {
 
 	@SearchModel(sqlProviders = TestSqlProvider.class)
 	private Collection<String> t6;
+
+	@JsonField(jsonPath = "$.a.b")
+	private Collection<String> t7;
+
+	@JsonField(jsonPath = "$.a.b")
+	@SearchModel(SearchModelType.NOT_IN)
+	private Collection<String> t8;
+
+	@JsonField(jsonPath = "$.a.b")
+	private String t9;
+
+	@JsonField(jsonPath = "$.a.b")
+	@SearchModel(SearchModelType.NOT_IN)
+	private String t10;
 }

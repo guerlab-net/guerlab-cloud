@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.lang.Nullable;
 
+import net.guerlab.cloud.searchparams.JsonField;
 import net.guerlab.cloud.searchparams.OrderBy;
 import net.guerlab.cloud.searchparams.OrderBys;
 import net.guerlab.cloud.searchparams.SearchModelType;
@@ -39,7 +40,7 @@ public class OrderBysHandler extends AbstractMyBatisPlusSearchParamsHandler {
 
 	@Override
 	public void setValue(Object object, String fieldName, String columnName, Object value,
-			SearchModelType searchModelType, @Nullable String customSql) {
+			SearchModelType searchModelType, @Nullable String customSql, @Nullable JsonField jsonField) {
 		QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
 		List<OrderBy> orderBys = (OrderBys) value;
 		orderBys = orderBys.stream().filter(this::orderByFilter).collect(Collectors.toList());

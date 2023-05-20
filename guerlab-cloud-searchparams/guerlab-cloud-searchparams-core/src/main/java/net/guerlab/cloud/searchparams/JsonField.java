@@ -13,21 +13,28 @@
 
 package net.guerlab.cloud.searchparams;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * 基础搜索参数.
+ * json字段信息.
  *
  * @author guer
  */
-@Data
-@Schema(name = "BaseSearchParams", description = "基础对象搜索参数")
-public class BaseSearchParams implements SearchParams {
+@Target(ElementType.FIELD)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Inherited
+public @interface JsonField {
 
 	/**
-	 * 排序字段列表.
+	 * jsonPath.
+	 *
+	 * @return jsonPath
 	 */
-	@Schema(description = "排序字段列表")
-	private OrderBys orderBys;
+	String jsonPath() default "";
 }
