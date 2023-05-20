@@ -48,7 +48,7 @@ public class MapSearchParamsUtilInstance extends AbstractSearchParamsUtilInstanc
 		@SuppressWarnings({"unchecked", "rawtypes"})
 		@Override
 		public void setValue(Object object, String fieldName, String columnName, Object value,
-				SearchModelType searchModelType, @Nullable String customSql, JsonField jsonField) {
+				SearchModelType searchModelType, @Nullable String customSql, @Nullable JsonField jsonField) {
 			((Map) object).put(fieldName, value);
 		}
 	}
