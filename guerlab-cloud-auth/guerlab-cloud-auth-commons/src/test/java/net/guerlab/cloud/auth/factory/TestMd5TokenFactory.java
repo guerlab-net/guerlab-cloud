@@ -32,6 +32,10 @@ public class TestMd5TokenFactory extends AbstractMd5TokenFactory<ITestTokenInfo,
 	 */
 	public static final String PREFIX = "TEST_MD5";
 
+	public TestMd5TokenFactory(TestMd5TokenFactoryProperties properties) {
+		super(properties);
+	}
+
 	@Override
 	protected void generateToken0(Map<String, String> map, ITestTokenInfo user) {
 		map.put(TestConstants.USERNAME, user.getUsername());

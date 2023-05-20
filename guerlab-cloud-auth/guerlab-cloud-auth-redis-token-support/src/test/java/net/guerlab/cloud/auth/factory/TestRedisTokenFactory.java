@@ -29,8 +29,8 @@ public class TestRedisTokenFactory extends AbstractRedisTokenFactory<ITestTokenI
 	 */
 	public static final String PREFIX = "TEST_REDIS";
 
-	public TestRedisTokenFactory(RedisOperationsWrapper<ITestTokenInfo> redisOperationsWrapper) {
-		super(redisOperationsWrapper);
+	public TestRedisTokenFactory(TestRedisTokenFactoryProperties properties, RedisOperationsWrapper<ITestTokenInfo> redisOperationsWrapper) {
+		super(properties, redisOperationsWrapper);
 	}
 
 	@Override

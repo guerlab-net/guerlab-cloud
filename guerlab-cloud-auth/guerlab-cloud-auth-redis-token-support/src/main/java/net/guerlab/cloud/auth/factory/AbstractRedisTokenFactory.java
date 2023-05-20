@@ -39,9 +39,11 @@ public abstract class AbstractRedisTokenFactory<T, P extends RedisTokenFactoryPr
 	/**
 	 * 初始化redis token工厂.
 	 *
+	 * @param properties             配置
 	 * @param redisOperationsWrapper redis操作包装对象
 	 */
-	protected AbstractRedisTokenFactory(RedisOperationsWrapper<T> redisOperationsWrapper) {
+	protected AbstractRedisTokenFactory(P properties, RedisOperationsWrapper<T> redisOperationsWrapper) {
+		super(properties);
 		this.redisOperationsWrapper = redisOperationsWrapper;
 	}
 

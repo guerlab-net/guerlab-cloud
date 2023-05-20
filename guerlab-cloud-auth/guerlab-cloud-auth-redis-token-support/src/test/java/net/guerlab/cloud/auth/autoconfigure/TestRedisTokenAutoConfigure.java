@@ -52,11 +52,12 @@ public class TestRedisTokenAutoConfigure {
 	/**
 	 * 构造测试用redis token 工厂.
 	 *
+	 * @param properties             测试配置
 	 * @param redisOperationsWrapper redis操作包装对象
 	 * @return 测试用redis token 工厂
 	 */
 	@Bean
-	public TestRedisTokenFactory testRedisTokenFactory(RedisOperationsWrapper<ITestTokenInfo> redisOperationsWrapper) {
-		return new TestRedisTokenFactory(redisOperationsWrapper);
+	public TestRedisTokenFactory testRedisTokenFactory(TestRedisTokenFactoryProperties properties, RedisOperationsWrapper<ITestTokenInfo> redisOperationsWrapper) {
+		return new TestRedisTokenFactory(properties, redisOperationsWrapper);
 	}
 }

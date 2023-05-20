@@ -32,6 +32,10 @@ public class TestRc4TokenFactory extends AbstractRc4TokenFactory<ITestTokenInfo,
 	 */
 	public static final String PREFIX = "TEST_RC4";
 
+	public TestRc4TokenFactory(TestRc4TokenFactoryProperties properties) {
+		super(properties);
+	}
+
 	@Override
 	protected void generateToken0(Map<String, String> map, ITestTokenInfo user) {
 		map.put(TestConstants.USERNAME, user.getUsername());
