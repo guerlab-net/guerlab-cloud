@@ -20,7 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.reflection.MetaObject;
 
 import net.guerlab.cloud.auth.context.AbstractContextHandler;
-import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.commons.entity.EnabledEntity;
 import net.guerlab.cloud.commons.entity.IOrderlyEntity;
 
 /**
@@ -53,10 +53,10 @@ public class BaseEntityMetaObjectHandler implements MetaObjectHandler {
 		setFieldValByName("modifiedBy", createdBy, metaObject);
 
 		if (metaObject.getOriginalObject() instanceof IOrderlyEntity<?> obj) {
-
-			if (obj.getOrderNum() == null) {
-				obj.setOrderNum(Constants.DEFAULT_ORDER_NUM);
-			}
+			obj.orderNumDefaultHandler();
+		}
+		if (metaObject.getOriginalObject() instanceof EnabledEntity obj) {
+			obj.enabledDefaultHandler();
 		}
 	}
 

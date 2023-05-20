@@ -91,9 +91,9 @@ class TreeUtilsTests {
 
 		private Long parentId;
 
-		private Integer orderNum;
+		private Long orderNum;
 
-		TestEntity1(Long id, Long parentId, int orderNum) {
+		TestEntity1(Long id, Long parentId, long orderNum) {
 			this.id = id;
 			this.parentId = parentId;
 			this.orderNum = orderNum;
