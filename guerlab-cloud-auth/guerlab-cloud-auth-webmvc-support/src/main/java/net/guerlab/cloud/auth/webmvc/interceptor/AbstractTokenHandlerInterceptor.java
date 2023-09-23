@@ -16,10 +16,10 @@ package net.guerlab.cloud.auth.webmvc.interceptor;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 
 import net.guerlab.cloud.auth.web.properties.AuthWebProperties;
+import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
 
 /**
  * 抽象token处理.
@@ -34,7 +34,12 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebPropertie
 	/**
 	 * 授权配置.
 	 */
-	protected A authProperties;
+	protected final A authProperties;
+
+	public AbstractTokenHandlerInterceptor(ResponseAdvisorProperties responseAdvisorProperties, A authProperties) {
+		super(responseAdvisorProperties);
+		this.authProperties = authProperties;
+	}
 
 	@Override
 	public int getOrder() {
@@ -75,16 +80,5 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebPropertie
 	 */
 	public A getAuthProperties() {
 		return authProperties;
-	}
-
-	/**
-	 * 设置授权配置.
-	 *
-	 * @param authProperties 授权配置
-	 */
-	@SuppressWarnings("SpringJavaAutowiredMembersInspection")
-	@Autowired
-	public void setAuthProperties(A authProperties) {
-		this.authProperties = authProperties;
 	}
 }

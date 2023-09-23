@@ -15,7 +15,6 @@ package net.guerlab.cloud.auth.factory;
 
 import java.util.Collection;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 
@@ -35,7 +34,11 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
 	/**
 	 * 配置文件.
 	 */
-	protected P properties;
+	protected final P properties;
+
+	public AbstractTokenFactory(P properties) {
+		this.properties = properties;
+	}
 
 	/**
 	 * 获取对象值.
@@ -103,16 +106,5 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
 		}
 
 		return getOrder() - o.getOrder();
-	}
-
-	/**
-	 * 设置token 工厂配置.
-	 *
-	 * @param properties token 工厂配置
-	 */
-	@SuppressWarnings("SpringJavaAutowiredMembersInspection")
-	@Autowired
-	public void setProperties(P properties) {
-		this.properties = properties;
 	}
 }

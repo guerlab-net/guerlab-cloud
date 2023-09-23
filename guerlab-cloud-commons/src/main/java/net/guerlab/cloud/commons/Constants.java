@@ -33,7 +33,7 @@ public final class Constants {
 	/**
 	 * 默认排序值.
 	 */
-	public static final Integer DEFAULT_ORDER_NUM = 0;
+	public static final Long DEFAULT_ORDER_NUM = 0L;
 
 	/**
 	 * TOKEN.

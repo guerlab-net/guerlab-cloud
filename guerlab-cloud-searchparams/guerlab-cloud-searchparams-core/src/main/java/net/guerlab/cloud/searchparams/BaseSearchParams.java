@@ -14,16 +14,14 @@
 package net.guerlab.cloud.searchparams;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * 基础搜索参数.
  *
  * @author guer
  */
-@Setter
-@Getter
+@Data
 @Schema(name = "BaseSearchParams", description = "基础对象搜索参数")
 public class BaseSearchParams implements SearchParams {
 

@@ -110,8 +110,8 @@ public final class SearchParamsUtils {
 	 * @param object       输出对象
 	 */
 	public static void handler(SearchParams searchParams, Object object) {
-		INSTANCES_CACHE.values().stream().filter(instance -> instance.accept(object)).findFirst()
-				.ifPresent(searchParamsUtilInstance -> handler(searchParams, object, searchParamsUtilInstance));
+		INSTANCES_CACHE.values().stream().filter(instance -> instance.accept(object))
+				.forEach(instance -> handler(searchParams, object, instance));
 	}
 
 	/**
@@ -203,8 +203,12 @@ public final class SearchParamsUtils {
 			return;
 		}
 
-		handler.setValue(object, field.getName(), getColumnName(field), value, searchModelType,
-				StringUtils.trimToNull(getCustomSql(searchModel)));
+		String columnName = getColumnName(field);
+
+		JsonField jsonField = field.getAnnotation(JsonField.class);
+
+		handler.setValue(object, field.getName(), columnName, value, searchModelType,
+				StringUtils.trimToNull(getCustomSql(searchModel)), jsonField);
 	}
 
 	/**

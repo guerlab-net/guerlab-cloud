@@ -17,8 +17,9 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import net.guerlab.cloud.commons.entity.EntityColumnNames;
 import net.guerlab.cloud.searchparams.BaseSearchParams;
@@ -31,8 +32,9 @@ import net.guerlab.cloud.searchparams.SearchModelType;
  *
  * @author guer
  */
-@Setter
-@Getter
+@Data
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
 @Schema(name = "BaseEntitySearchParams", description = "基础对象搜索参数")
 public abstract class BaseEntitySearchParams extends BaseSearchParams {
 

@@ -27,7 +27,6 @@ import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,12 +71,17 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	/**
 	 * 序列.
 	 */
-	protected Sequence sequence;
+	protected final Sequence sequence;
 
 	/**
 	 * mapper.
 	 */
-	protected M baseMapper;
+	protected final M baseMapper;
+
+	public BaseServiceImpl(Sequence sequence, M baseMapper) {
+		this.sequence = sequence;
+		this.baseMapper = baseMapper;
+	}
 
 	/**
 	 * 获取mapper.
@@ -86,17 +90,6 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	 */
 	public final M getBaseMapper() {
 		return this.baseMapper;
-	}
-
-	/**
-	 * 设置mapper对象.
-	 *
-	 * @param baseMapper mapper对象
-	 */
-	@SuppressWarnings("SpringJavaAutowiredMembersInspection")
-	@Autowired
-	public void setBaseMapper(M baseMapper) {
-		this.baseMapper = baseMapper;
 	}
 
 	@Override
@@ -363,16 +356,5 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	@SuppressWarnings("unchecked")
 	protected Class<T> currentModelClass() {
 		return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), BaseServiceImpl.class, 0);
-	}
-
-	/**
-	 * 设置序列.
-	 *
-	 * @param sequence 序列
-	 */
-	@SuppressWarnings("SpringJavaAutowiredMembersInspection")
-	@Autowired
-	public void setSequence(Sequence sequence) {
-		this.sequence = sequence;
 	}
 }

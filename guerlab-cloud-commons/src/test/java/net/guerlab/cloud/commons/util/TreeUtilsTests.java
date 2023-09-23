@@ -44,7 +44,7 @@ class TreeUtilsTests {
 		TreeEntity<TestEntity1, Long> root = roots.get(0);
 		Assertions.assertNotNull(root);
 		Assertions.assertTrue(root.getChildren() != null && !root.getChildren().isEmpty());
-		Assertions.assertEquals(3, root.getObject().getOrderNum());
+		Assertions.assertEquals(2, root.getObject().getOrderNum());
 	}
 
 	@Test
@@ -91,9 +91,9 @@ class TreeUtilsTests {
 
 		private Long parentId;
 
-		private Integer orderNum;
+		private Long orderNum;
 
-		TestEntity1(Long id, Long parentId, int orderNum) {
+		TestEntity1(Long id, Long parentId, long orderNum) {
 			this.id = id;
 			this.parentId = parentId;
 			this.orderNum = orderNum;

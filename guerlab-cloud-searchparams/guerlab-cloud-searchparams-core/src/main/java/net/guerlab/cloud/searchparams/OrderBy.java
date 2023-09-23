@@ -14,10 +14,8 @@
 package net.guerlab.cloud.searchparams;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -26,8 +24,6 @@ import lombok.experimental.Accessors;
  * @author guer
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Accessors(chain = true)
 @Builder
 @Schema(description = "排序字段")
@@ -45,4 +41,18 @@ public class OrderBy {
 	@Schema(description = "是否升序", defaultValue = "true")
 	@Builder.Default
 	private boolean asc = true;
+
+	@SuppressWarnings("unused")
+	public OrderBy() {
+		this(null, true);
+	}
+
+	public OrderBy(String columnName) {
+		this(columnName, true);
+	}
+
+	public OrderBy(String columnName, boolean asc) {
+		this.columnName = columnName;
+		this.asc = asc;
+	}
 }

@@ -34,6 +34,10 @@ public abstract class AbstractMd5TokenFactory<T, P extends Md5TokenFactoryProper
 
 	private static final String TOKEN_CONNECTORS = ".";
 
+	public AbstractMd5TokenFactory(P properties) {
+		super(properties);
+	}
+
 	@Override
 	protected String buildToken(String dataString, String key, long expire) {
 		String sign = DigestUtils.md5Hex(dataString + TOKEN_CONNECTORS + key);

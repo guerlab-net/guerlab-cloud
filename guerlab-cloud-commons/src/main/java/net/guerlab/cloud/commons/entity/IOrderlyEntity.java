@@ -17,6 +17,8 @@ import java.util.Comparator;
 
 import org.springframework.lang.Nullable;
 
+import net.guerlab.cloud.commons.Constants;
+
 /**
  * 可排序对象接口.
  *
@@ -53,14 +55,14 @@ public interface IOrderlyEntity<E extends IOrderlyEntity<E>> extends Comparable<
 	 * @return 排序值
 	 */
 	@Nullable
-	Integer getOrderNum();
+	Long getOrderNum();
 
 	/**
 	 * 设置排序值.
 	 *
 	 * @param orderNum 排序值
 	 */
-	void setOrderNum(@Nullable Integer orderNum);
+	void setOrderNum(@Nullable Long orderNum);
 
 	/**
 	 * 根据排序值返回排序顺序.
@@ -73,5 +75,14 @@ public interface IOrderlyEntity<E extends IOrderlyEntity<E>> extends Comparable<
 	@Override
 	default int compareTo(E o) {
 		return compareTo(this, o);
+	}
+
+	/**
+	 * 排序值默认处理.
+	 */
+	default void orderNumDefaultHandler() {
+		if (getOrderNum() == null) {
+			setOrderNum(Constants.DEFAULT_ORDER_NUM);
+		}
 	}
 }

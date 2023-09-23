@@ -23,7 +23,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.Ordered;
 import org.springframework.lang.Nullable;
 import org.springframework.web.method.HandlerMethod;
@@ -56,7 +55,11 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 	/**
 	 * http响应数据处理配置参数.
 	 */
-	protected ResponseAdvisorProperties responseAdvisorProperties;
+	protected final ResponseAdvisorProperties responseAdvisorProperties;
+
+	public AbstractHandlerInterceptor(ResponseAdvisorProperties responseAdvisorProperties) {
+		this.responseAdvisorProperties = responseAdvisorProperties;
+	}
 
 	/**
 	 * 获取注解.
@@ -218,16 +221,5 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 		request.setAttribute(REAL_REQUEST_PATH, realRequestPath);
 
 		return realRequestPath;
-	}
-
-	/**
-	 * 设置http响应数据处理配置参数.
-	 *
-	 * @param responseAdvisorProperties http响应数据处理配置参数
-	 */
-	@SuppressWarnings("SpringJavaAutowiredMembersInspection")
-	@Autowired
-	public void setResponseAdvisorProperties(ResponseAdvisorProperties responseAdvisorProperties) {
-		this.responseAdvisorProperties = responseAdvisorProperties;
 	}
 }

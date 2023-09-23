@@ -34,16 +34,16 @@ public abstract class BaseOrderlyEntity<E extends BaseOrderlyEntity<E>> extends 
 	 */
 	@Schema(description = "排序值")
 	@TableField(EntityColumnNames.ORDER_NUM)
-	protected Integer orderNum;
+	protected Long orderNum;
 
 	@Nullable
 	@Override
-	public Integer getOrderNum() {
+	public Long getOrderNum() {
 		return orderNum;
 	}
 
 	@Override
-	public void setOrderNum(@Nullable Integer orderNum) {
+	public void setOrderNum(@Nullable Long orderNum) {
 		this.orderNum = orderNum;
 	}
 }

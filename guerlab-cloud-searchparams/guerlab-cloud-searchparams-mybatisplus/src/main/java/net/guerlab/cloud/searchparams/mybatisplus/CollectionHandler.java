@@ -22,6 +22,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import org.springframework.lang.Nullable;
 
+import net.guerlab.cloud.searchparams.JsonField;
 import net.guerlab.cloud.searchparams.SearchModelType;
 
 /**
@@ -54,7 +55,7 @@ public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void setValue(Object object, String fieldName, String columnName, Object value,
-			SearchModelType searchModelType, @Nullable String customSql) {
+			SearchModelType searchModelType, @Nullable String customSql, @Nullable JsonField jsonField) {
 		Collection<Object> collection = (Collection<Object>) value;
 
 		if (collection.isEmpty()) {
@@ -69,29 +70,79 @@ public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 
 		QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
 		columnName = ColumnNameGetter.getColumnName(columnName, wrapper.getEntityClass());
-		switch (searchModelType) {
-		case NOT_IN -> wrapper.notIn(columnName, list);
-		case CUSTOM_SQL -> {
-			if (customSql == null) {
-				break;
-			}
-			CustomerSqlInfo info = new CustomerSqlInfo(customSql);
-			String sql = info.sql;
-			if (info.matchFlag) {
-				if (info.batch) {
-					while (sql.contains(CustomerSqlInfo.BATCH_FLAG)) {
-						sql = sql.replaceFirst(CustomerSqlInfo.BATCH_REG, buildReplacement(list.size()));
-					}
-				}
 
-				sql = sql.replaceAll(CustomerSqlInfo.MATCH_REG, "{0}");
-				wrapper.apply(sql, list.toArray());
+		String finalColumnName = columnName;
+
+		if (jsonField != null) {
+			DbType dbType = DbTypeUtils.getDbType(object);
+			String jsonPath = getJsonPath(jsonField);
+			if (dbType == DbType.MYSQL) {
+				wrapper.and((w) -> {
+					String sqlTemplate;
+					boolean isNotIn = searchModelType == SearchModelType.NOT_IN;
+					if (isNotIn) {
+						sqlTemplate = "JSON_SEARCH(%s, 'one', '%s', null, '%s') IS NULL";
+					}
+					else {
+						sqlTemplate = "JSON_SEARCH(%s, 'one', '%s', null, '%s') IS NOT NULL";
+					}
+					for (Object o : list) {
+						if (isNotIn) {
+							w.apply(String.format(sqlTemplate, finalColumnName, o, jsonPath));
+						}
+						else {
+							w.or().apply(String.format(sqlTemplate, finalColumnName, o, jsonPath));
+						}
+					}
+				});
 			}
-			else {
-				wrapper.apply(sql);
+			else if (dbType == DbType.ORACLE) {
+				wrapper.and((w) -> {
+					String sqlTemplate;
+					boolean isNotIn = searchModelType == SearchModelType.NOT_IN;
+					if (isNotIn) {
+						sqlTemplate = "json_exists(%s, '%s?(!(@ == \"%s\"))')";
+					}
+					else {
+						sqlTemplate = "json_exists(%s, '%s?(@ == \"%s\")')";
+					}
+
+					for (Object o : list) {
+						if (isNotIn) {
+							w.apply(String.format(sqlTemplate, finalColumnName, jsonPath, o));
+						}
+						else {
+							w.or().apply(String.format(sqlTemplate, finalColumnName, jsonPath, o));
+						}
+					}
+				});
 			}
 		}
-		default -> wrapper.in(columnName, list);
+		else {
+			switch (searchModelType) {
+			case NOT_IN -> wrapper.notIn(columnName, list);
+			case CUSTOM_SQL -> {
+				if (customSql == null) {
+					break;
+				}
+				CustomerSqlInfo info = new CustomerSqlInfo(customSql);
+				String sql = info.sql;
+				if (info.matchFlag) {
+					if (info.batch) {
+						while (sql.contains(CustomerSqlInfo.BATCH_FLAG)) {
+							sql = sql.replaceFirst(CustomerSqlInfo.BATCH_REG, buildReplacement(list.size()));
+						}
+					}
+
+					sql = sql.replaceAll(CustomerSqlInfo.MATCH_REG, "{0}");
+					wrapper.apply(sql, list.toArray());
+				}
+				else {
+					wrapper.apply(sql);
+				}
+			}
+			default -> wrapper.in(columnName, list);
+			}
 		}
 	}
 }

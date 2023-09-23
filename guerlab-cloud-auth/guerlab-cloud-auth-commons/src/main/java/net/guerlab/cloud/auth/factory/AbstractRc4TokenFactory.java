@@ -26,6 +26,10 @@ import net.guerlab.commons.encrypt.AuthCodeHelper;
 public abstract class AbstractRc4TokenFactory<T, P extends Rc4TokenFactoryProperties>
 		extends AbstractStringValueTokenFactory<T, P> {
 
+	public AbstractRc4TokenFactory(P properties) {
+		super(properties);
+	}
+
 	@Override
 	protected String buildToken(String dataString, String key, long expire) {
 		return AuthCodeHelper.encode(dataString, key, expire);

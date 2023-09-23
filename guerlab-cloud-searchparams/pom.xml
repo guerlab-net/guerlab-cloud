@@ -33,5 +33,6 @@
 	<modules>
 		<module>guerlab-cloud-searchparams-core</module>
 		<module>guerlab-cloud-searchparams-mybatisplus</module>
+		<module>guerlab-cloud-searchparams-elasticsearch</module>
 	</modules>
 </project>

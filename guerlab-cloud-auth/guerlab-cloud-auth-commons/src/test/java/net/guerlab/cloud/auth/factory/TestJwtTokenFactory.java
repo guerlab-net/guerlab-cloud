@@ -33,6 +33,10 @@ public class TestJwtTokenFactory extends AbstractJwtTokenFactory<ITestTokenInfo,
 	 */
 	public static final String PREFIX = "TEST_JWT";
 
+	public TestJwtTokenFactory(TestJwtTokenFactoryProperties properties) {
+		super(properties);
+	}
+
 	@Override
 	protected void generateToken0(JwtBuilder builder, ITestTokenInfo user) {
 		builder.setSubject(user.getUsername());

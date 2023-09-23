@@ -93,7 +93,7 @@ public abstract class AbstractAuthInterceptorAutoConfigure<A extends AuthWebProp
 	 *
 	 * @param tokenHandlerInterceptors token处理拦截器列表
 	 */
-	@SuppressWarnings("SpringJavaAutowiredMembersInspection")
+	@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 	@Autowired(required = false)
 	public void setTokenHandlerInterceptors(
 			Collection<? extends AbstractTokenHandlerInterceptor<A>> tokenHandlerInterceptors) {
