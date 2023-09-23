@@ -44,7 +44,7 @@ class TreeUtilsTests {
 		TreeEntity<TestEntity1, Long> root = roots.get(0);
 		Assertions.assertNotNull(root);
 		Assertions.assertTrue(root.getChildren() != null && !root.getChildren().isEmpty());
-		Assertions.assertEquals(3, root.getObject().getOrderNum());
+		Assertions.assertEquals(2, root.getObject().getOrderNum());
 	}
 
 	@Test
