@@ -11,37 +11,16 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.server.web;
-
-import lombok.extern.slf4j.Slf4j;
+package net.guerlab.cloud.commons.api;
 
 import net.guerlab.cloud.searchparams.SearchParams;
-import net.guerlab.cloud.server.service.BaseService;
 
 /**
- * 基础Api实现.
+ * 查询APi定义.
  *
- * @param <E>  实体类型
+ * @param <E>  返回实体类型
  * @param <SP> 搜索参数类型
- * @param <S>  服务接口类型
  * @author guer
  */
 @SuppressWarnings("unused")
-@Slf4j
-public abstract class BaseApi<E, SP extends SearchParams, S extends BaseService<E, SP>>
-		extends BaseController<E, SP, S> {
-
-	/**
-	 * 根据服务实例创建控制器.
-	 *
-	 * @param service 服务实例
-	 */
-	public BaseApi(S service) {
-		super(service);
-	}
-
-	@Override
-	protected boolean queryAllowReturnNull() {
-		return true;
-	}
-}
+public interface QueryApi<E, SP extends SearchParams> extends Api, SelectById<E, SP>, SelectOne<E, SP>, SelectList<E, SP>, SelectPage<E, SP>, SelectCount<SP> { }

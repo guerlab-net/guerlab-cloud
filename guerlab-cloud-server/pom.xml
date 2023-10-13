@@ -33,6 +33,5 @@
 	<modules>
 		<module>guerlab-cloud-server-commons</module>
 		<module>guerlab-cloud-server-orm</module>
-		<module>guerlab-cloud-server-web</module>
 	</modules>
 </project>

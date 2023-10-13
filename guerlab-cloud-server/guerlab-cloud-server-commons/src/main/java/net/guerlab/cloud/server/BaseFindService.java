@@ -11,34 +11,23 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.server.service;
+package net.guerlab.cloud.server;
 
-import java.util.Collection;
-
+import net.guerlab.cloud.commons.api.SelectById;
+import net.guerlab.cloud.commons.api.SelectCount;
+import net.guerlab.cloud.commons.api.SelectList;
+import net.guerlab.cloud.commons.api.SelectOne;
+import net.guerlab.cloud.commons.api.SelectPage;
 import net.guerlab.cloud.searchparams.SearchParams;
 
 /**
- * 基本保存服务接口.
+ * 基本查询服务接口.
  *
- * @param <T>  数据类型
+ * @param <E>  数据类型
  * @param <SP> 搜索参数类型
  * @author guer
  */
-public interface BaseSaveService<T, SP extends SearchParams> extends QueryWrapperGetter<T, SP> {
-
-	/**
-	 * 添加.
-	 *
-	 * @param entity 实体
-	 */
-	void insert(T entity);
-
-	/**
-	 * 批量保存.
-	 *
-	 * @param collection 待保存列表
-	 * @return 已保存列表W
-	 */
-	Collection<T> batchInsert(Collection<T> collection);
+@SuppressWarnings("unused")
+public interface BaseFindService<E, SP extends SearchParams> extends SelectOne<E, SP>, SelectById<E, SP>, SelectList<E, SP>, SelectPage<E, SP>, SelectCount<SP> {
 
 }

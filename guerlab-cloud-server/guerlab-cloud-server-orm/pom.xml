@@ -33,7 +33,6 @@
 		<dependency>
 			<groupId>net.guerlab.cloud</groupId>
 			<artifactId>guerlab-cloud-server-commons</artifactId>
-			<type>pom</type>
 		</dependency>
 
 		<dependency>

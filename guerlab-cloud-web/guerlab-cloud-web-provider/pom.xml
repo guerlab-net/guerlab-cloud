@@ -16,8 +16,8 @@
 		 xmlns="http://maven.apache.org/POM/4.0.0"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>guerlab-cloud-web-webmvc</artifactId>
-	<name>Guerlab Cloud Web Webmvc</name>
+	<artifactId>guerlab-cloud-web-provider</artifactId>
+	<name>Guerlab Cloud Web Provider</name>
 
 	<parent>
 		<groupId>net.guerlab.cloud</groupId>
@@ -32,26 +32,25 @@
 	<dependencies>
 		<dependency>
 			<groupId>net.guerlab.cloud</groupId>
-			<artifactId>guerlab-cloud-web-provider</artifactId>
+			<artifactId>guerlab-cloud-app</artifactId>
+			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>net.guerlab.cloud</groupId>
-			<artifactId>guerlab-cloud-security-webmvc</artifactId>
+			<artifactId>guerlab-cloud-log</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>net.guerlab.cloud</groupId>
-			<artifactId>guerlab-cloud-context-webmvc</artifactId>
+			<artifactId>guerlab-cloud-security-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.guerlab.cloud</groupId>
+			<artifactId>guerlab-cloud-web-core</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-		</dependency>
-
-		<!-- spring boot -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-undertow</artifactId>
+			<artifactId>spring-web</artifactId>
 		</dependency>
 
 		<dependency>

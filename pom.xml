@@ -124,11 +124,19 @@
 				<scope>import</scope>
 			</dependency>
 
-			<!-- guerlab-cloud basic -->
+			<!-- guerlab-cloud api -->
 			<dependency>
 				<groupId>net.guerlab.cloud</groupId>
 				<artifactId>guerlab-cloud-api</artifactId>
 				<version>${revision}</version>
+			</dependency>
+
+			<!-- guerlab-cloud app -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-app</artifactId>
+				<version>${revision}</version>
+				<type>pom</type>
 			</dependency>
 
 			<!-- guerlab-cloud auth -->
@@ -330,6 +338,11 @@
 			</dependency>
 			<dependency>
 				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-security-provider</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
 				<artifactId>guerlab-cloud-security-webflux</artifactId>
 				<version>${revision}</version>
 			</dependency>
@@ -350,16 +363,10 @@
 				<groupId>net.guerlab.cloud</groupId>
 				<artifactId>guerlab-cloud-server-commons</artifactId>
 				<version>${revision}</version>
-				<type>pom</type>
 			</dependency>
 			<dependency>
 				<groupId>net.guerlab.cloud</groupId>
 				<artifactId>guerlab-cloud-server-orm</artifactId>
-				<version>${revision}</version>
-			</dependency>
-			<dependency>
-				<groupId>net.guerlab.cloud</groupId>
-				<artifactId>guerlab-cloud-server-web</artifactId>
 				<version>${revision}</version>
 			</dependency>
 
@@ -380,6 +387,11 @@
 			<dependency>
 				<groupId>net.guerlab.cloud</groupId>
 				<artifactId>guerlab-cloud-web-core</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-web-provider</artifactId>
 				<version>${revision}</version>
 			</dependency>
 			<dependency>
@@ -554,6 +566,7 @@
 
 	<modules>
 		<module>guerlab-cloud-api</module>
+		<module>guerlab-cloud-app</module>
 		<module>guerlab-cloud-auth</module>
 		<module>guerlab-cloud-cache</module>
 		<module>guerlab-cloud-commons</module>

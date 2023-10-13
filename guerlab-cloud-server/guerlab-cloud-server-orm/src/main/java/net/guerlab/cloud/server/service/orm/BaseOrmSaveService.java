@@ -11,12 +11,17 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.api;
+package net.guerlab.cloud.server.service.orm;
+
+import net.guerlab.cloud.searchparams.SearchParams;
+import net.guerlab.cloud.server.BaseSaveService;
 
 /**
- * APi定义.
+ * 基本ORM保存服务接口.
  *
+ * @param <E>  数据类型
+ * @param <SP> 搜索参数类型
  * @author guer
  */
-@SuppressWarnings("unused")
-public interface Api { }
+public interface BaseOrmSaveService<E, SP extends SearchParams> extends BaseSaveService<E>, QueryWrapperGetter<E, SP> {
+}

@@ -11,12 +11,27 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.api;
+package net.guerlab.cloud.server;
+
+import java.util.Collection;
+import java.util.List;
+
+import net.guerlab.cloud.commons.api.Insert;
 
 /**
- * APi定义.
+ * 基本保存服务接口.
  *
+ * @param <E> 数据类型
  * @author guer
  */
-@SuppressWarnings("unused")
-public interface Api { }
+public interface BaseSaveService<E> extends Insert<E> {
+
+	/**
+	 * 批量保存.
+	 *
+	 * @param collection 待保存列表
+	 * @return 已保存列表W
+	 */
+	List<E> batchInsert(Collection<? extends E> collection);
+
+}

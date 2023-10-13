@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.server.service;
+package net.guerlab.cloud.server.service.orm;
 
 import com.baomidou.mybatisplus.core.conditions.interfaces.Join;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -23,12 +23,12 @@ import net.guerlab.cloud.searchparams.SearchParamsUtils;
 /**
  * QueryWrapper获取接口.
  *
- * @param <T>  实体类型
+ * @param <E>  实体类型
  * @param <SP> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface QueryWrapperGetter<T, SP extends SearchParams> {
+public interface QueryWrapperGetter<E, SP extends SearchParams> {
 
 	/**
 	 * 获取QueryWrapper，并通过searchParams对象对QueryWrapper进行赋值.
@@ -36,7 +36,7 @@ public interface QueryWrapperGetter<T, SP extends SearchParams> {
 	 * @param searchParams 搜索对象
 	 * @return QueryWrapper
 	 */
-	default QueryWrapper<T> getQueryWrapperWithSelectMethod(SP searchParams) {
+	default QueryWrapper<E> getQueryWrapperWithSelectMethod(SP searchParams) {
 		return getQueryWrapper(searchParams);
 	}
 
@@ -45,7 +45,7 @@ public interface QueryWrapperGetter<T, SP extends SearchParams> {
 	 *
 	 * @return QueryWrapper
 	 */
-	default QueryWrapper<T> getQueryWrapperWithSelectMethod() {
+	default QueryWrapper<E> getQueryWrapperWithSelectMethod() {
 		return getQueryWrapper();
 	}
 
@@ -55,8 +55,8 @@ public interface QueryWrapperGetter<T, SP extends SearchParams> {
 	 * @param searchParams 搜索对象
 	 * @return QueryWrapper
 	 */
-	default QueryWrapper<T> getQueryWrapper(SP searchParams) {
-		QueryWrapper<T> wrapper = getQueryWrapper();
+	default QueryWrapper<E> getQueryWrapper(SP searchParams) {
+		QueryWrapper<E> wrapper = getQueryWrapper();
 
 		SearchParamsUtils.handler(searchParams, wrapper);
 
@@ -68,8 +68,8 @@ public interface QueryWrapperGetter<T, SP extends SearchParams> {
 	 *
 	 * @return QueryWrapper
 	 */
-	default QueryWrapper<T> getQueryWrapper() {
-		QueryWrapper<T> queryWrapper = new QueryWrapper<>();
+	default QueryWrapper<E> getQueryWrapper() {
+		QueryWrapper<E> queryWrapper = new QueryWrapper<>();
 		queryWrapper.setEntityClass(getEntityClass());
 		return queryWrapper;
 	}
@@ -79,8 +79,8 @@ public interface QueryWrapperGetter<T, SP extends SearchParams> {
 	 *
 	 * @return LambdaQueryWrapper
 	 */
-	default LambdaQueryWrapper<T> getLambdaQueryWrapper() {
-		LambdaQueryWrapper<T> queryWrapper = new LambdaQueryWrapper<>();
+	default LambdaQueryWrapper<E> getLambdaQueryWrapper() {
+		LambdaQueryWrapper<E> queryWrapper = new LambdaQueryWrapper<>();
 		queryWrapper.setEntityClass(getEntityClass());
 		return queryWrapper;
 	}
@@ -90,14 +90,14 @@ public interface QueryWrapperGetter<T, SP extends SearchParams> {
 	 *
 	 * @return 实体类型
 	 */
-	Class<T> getEntityClass();
+	Class<E> getEntityClass();
 
 	/**
 	 * 查询加锁.
 	 *
 	 * @param wrapper QueryWrapper
 	 */
-	default void withLock(Join<T> wrapper) {
+	default void withLock(Join<E> wrapper) {
 		wrapper.last("FOR UPDATE");
 	}
 }

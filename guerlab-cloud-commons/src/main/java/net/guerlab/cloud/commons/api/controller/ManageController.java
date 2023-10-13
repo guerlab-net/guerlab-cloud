@@ -11,12 +11,17 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.api;
+package net.guerlab.cloud.commons.api.controller;
+
+import net.guerlab.cloud.commons.api.ManageApi;
+import net.guerlab.cloud.searchparams.SearchParams;
 
 /**
- * APi定义.
+ * 管理控制器定义.
  *
+ * @param <E>  返回实体类型
+ * @param <SP> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface Api { }
+public interface ManageController<E, SP extends SearchParams> extends QueryController<E, SP>, ManageApi<E, SP> { }

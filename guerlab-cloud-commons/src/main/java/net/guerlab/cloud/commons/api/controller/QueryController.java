@@ -11,10 +11,17 @@
  * limitations under the License.
  */
 
-/**
- *
- */
-@NonNullApi
-package net.guerlab.cloud.server.web;
+package net.guerlab.cloud.commons.api.controller;
 
-import org.springframework.lang.NonNullApi;
+import net.guerlab.cloud.commons.api.QueryApi;
+import net.guerlab.cloud.searchparams.SearchParams;
+
+/**
+ * 查询控制器定义.
+ *
+ * @param <E>  返回实体类型
+ * @param <SP> 搜索参数类型
+ * @author guer
+ */
+@SuppressWarnings("unused")
+public interface QueryController<E, SP extends SearchParams> extends QueryApi<E, SP> { }

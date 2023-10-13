@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.server.service;
+package net.guerlab.cloud.server.service.orm;
 
 import java.util.Collection;
 import java.util.List;
@@ -23,6 +23,7 @@ import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
@@ -39,34 +40,35 @@ import net.guerlab.cloud.server.utils.PageUtils;
 import net.guerlab.commons.collection.CollectionUtil;
 
 /**
- * 基本服务实现.
+ * 基本ORM服务实现.
  *
- * @param <T>  数据类型
+ * @param <E>  数据类型
  * @param <M>  Mapper类型
  * @param <SP> 搜索参数类型
  * @author guer
  */
-@SuppressWarnings({"EmptyMethod", "unused"})
+@SuppressWarnings("unused")
+@Slf4j
 @Transactional(rollbackFor = Exception.class)
-public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends SearchParams>
-		implements BaseService<T, SP> {
+public abstract class BaseOrmServiceImpl<E, M extends BaseMapper<E>, SP extends SearchParams>
+		implements BaseOrmService<E, SP> {
 
 	/**
 	 * 默认单次操作数量.
 	 */
 	protected static final int DEFAULT_BATCH_SIZE = 1000;
 
-	private static final Log LOGGER = LogFactory.getLog(BaseServiceImpl.class);
+	private static final Log ORM_LOGGER = LogFactory.getLog(BaseOrmServiceImpl.class);
 
 	/**
 	 * 实体类型.
 	 */
-	protected final Class<T> entityClass = this.currentModelClass();
+	protected final Class<E> entityClass = this.currentModelClass();
 
 	/**
 	 * mapper类型.
 	 */
-	protected final Class<T> mapperClass = this.currentMapperClass();
+	protected final Class<E> mapperClass = this.currentMapperClass();
 
 	/**
 	 * 序列.
@@ -78,7 +80,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	 */
 	protected final M baseMapper;
 
-	public BaseServiceImpl(Sequence sequence, M baseMapper) {
+	public BaseOrmServiceImpl(Sequence sequence, M baseMapper) {
 		this.sequence = sequence;
 		this.baseMapper = baseMapper;
 	}
@@ -93,60 +95,31 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	}
 
 	@Override
-	public T selectOne(T entity) {
-		QueryWrapper<T> queryWrapper = getQueryWrapper();
+	public E selectOne(E entity) {
+		QueryWrapper<E> queryWrapper = getQueryWrapper();
 		queryWrapper.setEntity(entity);
 		return getBaseMapper().selectOne(queryWrapper);
 	}
 
 	@Override
-	public T selectOne(SP searchParams) {
+	public E selectOne(SP searchParams) {
 		return getBaseMapper().selectOne(getQueryWrapperWithSelectMethod(searchParams));
 	}
 
 	@Override
-	public T selectById(Long id) {
+	public E selectById(Long id) {
 		return getBaseMapper().selectById(id);
 	}
 
 	@Override
-	public Collection<T> selectList(T entity) {
-		QueryWrapper<T> queryWrapper = getQueryWrapper();
-		queryWrapper.setEntity(entity);
+	public List<E> selectList(SP searchParams) {
+		QueryWrapper<E> queryWrapper = getQueryWrapperWithSelectMethod(searchParams);
 		return getBaseMapper().selectList(queryWrapper);
 	}
 
 	@Override
-	public Collection<T> selectList(QueryWrapper<T> queryWrapper) {
-		return getBaseMapper().selectList(queryWrapper);
-	}
-
-	@Override
-	public Collection<T> selectList(LambdaQueryWrapper<T> queryWrapper) {
-		return getBaseMapper().selectList(queryWrapper);
-	}
-
-	@Override
-	public Collection<T> selectList() {
-		return selectList(getQueryWrapper());
-	}
-
-	@Override
-	public Collection<T> selectList(SP searchParams) {
-		return selectList(getQueryWrapperWithSelectMethod(searchParams));
-	}
-
-	@Override
-	public Pageable<T> selectPage(SP searchParams, int pageId, int pageSize) {
+	public Pageable<E> selectPage(SP searchParams, int pageId, int pageSize) {
 		return PageUtils.selectPage(this, searchParams, pageId, pageSize, getBaseMapper());
-	}
-
-	@Override
-	public long selectCount(T entity) {
-		QueryWrapper<T> queryWrapper = getQueryWrapper();
-		queryWrapper.setEntity(entity);
-		Long result = getBaseMapper().selectCount(queryWrapper);
-		return result == null ? 0 : result;
 	}
 
 	@Override
@@ -156,7 +129,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	}
 
 	@Override
-	public void insert(T entity) {
+	public E insert(E entity) {
 		if (entity instanceof BaseEntity tempEntity) {
 			tempEntity.setId(null);
 			tempEntity.setVersion(null);
@@ -164,6 +137,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 		insertBefore(entity);
 		getBaseMapper().insert(entity);
 		insertAfter(entity);
+		return entity;
 	}
 
 	/**
@@ -171,7 +145,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	 *
 	 * @param entity 实体
 	 */
-	protected void insertBefore(T entity) {
+	protected void insertBefore(E entity) {
 		/* 默认空实现 */
 	}
 
@@ -180,13 +154,13 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	 *
 	 * @param entity 实体
 	 */
-	protected void insertAfter(T entity) {
+	protected void insertAfter(E entity) {
 		/* 默认空实现 */
 	}
 
 	@Override
-	public Collection<T> batchInsert(Collection<T> collection) {
-		List<T> list = BatchSaveUtils.filter(collection, this::batchSaveBefore);
+	public List<E> batchInsert(Collection<? extends E> collection) {
+		List<E> list = BatchSaveUtils.filter(collection, this::batchSaveBefore);
 
 		if (CollectionUtil.isNotEmpty(list)) {
 			saveBatch(list, DEFAULT_BATCH_SIZE);
@@ -202,12 +176,13 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	 * @return 如果返回null则不保存该对象，否则保存该对象
 	 */
 	@Nullable
-	protected T batchSaveBefore(T entity) {
+	protected E batchSaveBefore(E entity) {
 		try {
 			insertBefore(entity);
 			return entity;
 		}
-		catch (Exception ignore) {
+		catch (Exception e) {
+			log.debug(e.getMessage(), e);
 			return null;
 		}
 	}
@@ -215,13 +190,13 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	/**
 	 * 批量保存.
 	 *
-	 * @param entityList 实体列表
-	 * @param batchSize  单次操作数量
+	 * @param entities  实体列表
+	 * @param batchSize 单次操作数量
 	 */
 	@SuppressWarnings("SameParameterValue")
-	protected final void saveBatch(Collection<T> entityList, int batchSize) {
+	protected final void saveBatch(Collection<E> entities, int batchSize) {
 		String sqlStatement = SqlHelper.getSqlStatement(this.mapperClass, SqlMethod.INSERT_ONE);
-		this.executeBatch(entityList, batchSize, (sqlSession, entity) -> sqlSession.insert(sqlStatement, entity));
+		this.executeBatch(entities, batchSize, (sqlSession, entity) -> sqlSession.insert(sqlStatement, entity));
 	}
 
 	/**
@@ -230,14 +205,13 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	 * @param list      实体列表
 	 * @param batchSize 单次执行数量
 	 * @param consumer  操作内容
-	 * @param <E>       实体类型
 	 */
-	protected <E> void executeBatch(Collection<E> list, int batchSize, BiConsumer<SqlSession, E> consumer) {
-		SqlHelper.executeBatch(this.entityClass, LOGGER, list, batchSize, consumer);
+	protected void executeBatch(Collection<E> list, int batchSize, BiConsumer<SqlSession, E> consumer) {
+		SqlHelper.executeBatch(this.entityClass, ORM_LOGGER, list, batchSize, consumer);
 	}
 
 	@Override
-	public boolean updateById(T entity) {
+	public boolean updateById(E entity) {
 		updateBefore(entity);
 		int result = getBaseMapper().updateById(entity);
 		updateAfter(entity);
@@ -245,17 +219,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	}
 
 	@Override
-	public boolean update(T entity, LambdaQueryWrapper<T> queryWrapper) {
-		return getBaseMapper().update(entity, queryWrapper) > 0;
-	}
-
-	@Override
-	public boolean update(T entity, QueryWrapper<T> queryWrapper) {
-		return getBaseMapper().update(entity, queryWrapper) > 0;
-	}
-
-	@Override
-	public boolean update(T entity, SP searchParams) {
+	public boolean update(E entity, SP searchParams) {
 		return getBaseMapper().update(entity, getQueryWrapper(searchParams)) > 0;
 	}
 
@@ -264,7 +228,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	 *
 	 * @param entity 实体
 	 */
-	protected void updateBefore(T entity) {
+	protected void updateBefore(E entity) {
 		/* 默认空实现 */
 	}
 
@@ -273,14 +237,14 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	 *
 	 * @param entity 实体
 	 */
-	protected void updateAfter(T entity) {
+	protected void updateAfter(E entity) {
 		/* 默认空实现 */
 	}
 
 	@Override
 	public void delete(SP searchParams) {
 		deleteBefore(searchParams);
-		QueryWrapper<T> queryWrapper = getQueryWrapper(searchParams);
+		QueryWrapper<E> queryWrapper = getQueryWrapper(searchParams);
 		getBaseMapper().delete(queryWrapper);
 		deleteAfter(searchParams);
 	}
@@ -329,12 +293,12 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	}
 
 	@Override
-	public void delete(LambdaQueryWrapper<T> queryWrapper) {
+	public void delete(LambdaQueryWrapper<E> queryWrapper) {
 		getBaseMapper().delete(queryWrapper);
 	}
 
 	@Override
-	public void delete(QueryWrapper<T> queryWrapper) {
+	public void delete(QueryWrapper<E> queryWrapper) {
 		getBaseMapper().delete(queryWrapper);
 	}
 
@@ -344,8 +308,8 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	 * @return mapper对象类型
 	 */
 	@SuppressWarnings("unchecked")
-	protected Class<T> currentMapperClass() {
-		return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), BaseServiceImpl.class, 1);
+	protected Class<E> currentMapperClass() {
+		return (Class<E>) ReflectionKit.getSuperClassGenericType(this.getClass(), BaseOrmServiceImpl.class, 1);
 	}
 
 	/**
@@ -354,7 +318,7 @@ public abstract class BaseServiceImpl<T, M extends BaseMapper<T>, SP extends Sea
 	 * @return 模型对象类型
 	 */
 	@SuppressWarnings("unchecked")
-	protected Class<T> currentModelClass() {
-		return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), BaseServiceImpl.class, 0);
+	protected Class<E> currentModelClass() {
+		return (Class<E>) ReflectionKit.getSuperClassGenericType(this.getClass(), BaseOrmServiceImpl.class, 0);
 	}
 }

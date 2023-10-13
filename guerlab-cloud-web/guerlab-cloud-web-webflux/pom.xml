@@ -32,7 +32,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>net.guerlab.cloud</groupId>
-			<artifactId>guerlab-cloud-web-core</artifactId>
+			<artifactId>guerlab-cloud-web-provider</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>net.guerlab.cloud</groupId>

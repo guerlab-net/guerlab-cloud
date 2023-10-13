@@ -11,12 +11,10 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.api;
-
 /**
- * APi定义.
  *
- * @author guer
  */
-@SuppressWarnings("unused")
-public interface Api { }
+@NonNullApi
+package net.guerlab.cloud.server;
+
+import org.springframework.lang.NonNullApi;

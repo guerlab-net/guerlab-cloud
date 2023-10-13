@@ -13,10 +13,14 @@
 
 package net.guerlab.cloud.commons.api;
 
+import net.guerlab.cloud.searchparams.SearchParams;
+
 /**
- * APi定义.
+ * 管理API定义.
  *
+ * @param <E>  返回实体类型
+ * @param <SP> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface Api { }
+public interface ManageApi<E, SP extends SearchParams> extends QueryApi<E, SP>, Insert<E>, UpdateById<E>, DeleteById, Delete<SP> { }

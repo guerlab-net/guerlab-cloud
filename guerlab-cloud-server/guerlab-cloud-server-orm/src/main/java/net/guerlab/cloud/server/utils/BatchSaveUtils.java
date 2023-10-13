@@ -41,7 +41,7 @@ public final class BatchSaveUtils {
 	 * @param <T>        实体类型
 	 * @return 过滤后可保存集合
 	 */
-	public static <T> List<T> filter(Collection<T> collection, Function<? super T, ? extends T> filter) {
+	public static <T> List<T> filter(Collection<? extends T> collection, Function<? super T, ? extends T> filter) {
 		if (CollectionUtil.isEmpty(collection)) {
 			return Collections.emptyList();
 		}

@@ -14,14 +14,9 @@
 package net.guerlab.cloud.commons.api;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
-import net.guerlab.cloud.commons.Constants;
 
 /**
  * APi定义.
@@ -35,22 +30,15 @@ public interface UpdateById<E> {
 	/**
 	 * 请求路径.
 	 */
-	String UPDATE_BY_ID_PATH = "/{id}";
-
-	/**
-	 * 路径参数名.
-	 */
-	String UPDATE_BY_ID_PARAM = "id";
+	String UPDATE_BY_ID_PATH = "/updateById";
 
 	/**
 	 * 根据Id编辑数据.
 	 *
-	 * @param id     主键ID
 	 * @param entity 实体
-	 * @return 更新后的实体
+	 * @return 是否更新成功
 	 */
 	@PostMapping(UPDATE_BY_ID_PATH)
-	@Operation(summary = "根据Id编辑数据", security = @SecurityRequirement(name = Constants.TOKEN))
-	E updateById(@Parameter(description = "ID", required = true) @PathVariable(UPDATE_BY_ID_PARAM) Long id,
-			@RequestBody E entity);
+	@Operation(summary = "根据Id编辑数据")
+	boolean updateById(@RequestBody E entity);
 }

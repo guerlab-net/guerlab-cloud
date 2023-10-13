@@ -11,49 +11,36 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.server.service;
+package net.guerlab.cloud.server.service.orm;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import net.guerlab.cloud.searchparams.SearchParams;
+import net.guerlab.cloud.server.BaseDeleteService;
 
 /**
- * 基本删除服务接口.
+ * 基本ORM删除服务接口.
  *
- * @param <T>  数据类型
+ * @param <E>  数据类型
  * @param <SP> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface BaseDeleteService<T, SP extends SearchParams> extends QueryWrapperGetter<T, SP> {
-
-	/**
-	 * 删除.
-	 *
-	 * @param searchParams 搜索参数
-	 */
-	void delete(SP searchParams);
-
-	/**
-	 * 根据Id删除.
-	 *
-	 * @param id 主键值
-	 */
-	void deleteById(Long id);
+public interface BaseOrmDeleteService<E, SP extends SearchParams> extends BaseDeleteService<SP>, QueryWrapperGetter<E, SP> {
 
 	/**
 	 * 删除，调用此方法会忽略删除检查逻辑.
 	 *
 	 * @param queryWrapper 删除条件
 	 */
-	void delete(LambdaQueryWrapper<T> queryWrapper);
+	void delete(LambdaQueryWrapper<E> queryWrapper);
 
 	/**
 	 * 删除，调用此方法会忽略删除检查逻辑.
 	 *
 	 * @param queryWrapper 删除条件
 	 */
-	void delete(QueryWrapper<T> queryWrapper);
+	void delete(QueryWrapper<E> queryWrapper);
 
 }

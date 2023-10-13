@@ -21,7 +21,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.SearchParams;
-import net.guerlab.cloud.server.service.QueryWrapperGetter;
+import net.guerlab.cloud.server.service.orm.QueryWrapperGetter;
 
 /**
  * 分页工具类.

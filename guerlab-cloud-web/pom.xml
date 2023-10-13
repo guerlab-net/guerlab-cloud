@@ -32,6 +32,7 @@
 
 	<modules>
 		<module>guerlab-cloud-web-core</module>
+		<module>guerlab-cloud-web-provider</module>
 		<module>guerlab-cloud-web-webflux</module>
 		<module>guerlab-cloud-web-webmvc</module>
 	</modules>

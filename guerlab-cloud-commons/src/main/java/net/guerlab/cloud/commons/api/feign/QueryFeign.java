@@ -11,12 +11,17 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.api;
+package net.guerlab.cloud.commons.api.feign;
+
+import net.guerlab.cloud.commons.api.QueryApi;
+import net.guerlab.cloud.searchparams.SearchParams;
 
 /**
- * APi定义.
+ * 查询Feign定义.
  *
+ * @param <E>  返回实体类型
+ * @param <SP> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface Api { }
+public interface QueryFeign<E, SP extends SearchParams> extends QueryApi<E, SP> { }
