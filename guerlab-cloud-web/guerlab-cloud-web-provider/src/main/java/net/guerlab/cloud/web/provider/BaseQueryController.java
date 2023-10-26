@@ -82,9 +82,6 @@ public abstract class BaseQueryController<E, SP extends SearchParams, A extends 
 	public V selectById(@Parameter(description = "ID", required = true) @PathVariable(SelectById.SELECT_BY_ID_PARAM) Long id, @Nullable SP searchParams) {
 		E entity = getApi().selectById(id);
 		if (entity == null) {
-			if (queryAllowReturnNull()) {
-				return null;
-			}
 			throw nullPointException();
 		}
 		V vo = convert(entity);
@@ -99,22 +96,12 @@ public abstract class BaseQueryController<E, SP extends SearchParams, A extends 
 		beforeFind(searchParams);
 		E entity = getApi().selectOne(searchParams);
 		if (entity == null) {
-			if (queryAllowReturnNull()) {
-				return null;
-			}
 			throw nullPointException();
 		}
 		V vo = convert(entity);
 		afterFind(Collections.singletonList(vo), searchParams);
 		return vo;
 	}
-
-	/**
-	 * 查询是否允许返回null.
-	 *
-	 * @return 查询是否允许返回null
-	 */
-	protected abstract boolean queryAllowReturnNull();
 
 	/**
 	 * 当对象为空的时候抛出的异常.
