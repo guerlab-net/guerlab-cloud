@@ -222,13 +222,6 @@
 				<version>${revision}</version>
 			</dependency>
 
-			<!-- guerlab-cloud distributed -->
-			<dependency>
-				<groupId>net.guerlab.cloud</groupId>
-				<artifactId>guerlab-cloud-distributed</artifactId>
-				<version>${revision}</version>
-			</dependency>
-
 			<!-- guerlab-cloud excel -->
 			<dependency>
 				<groupId>net.guerlab.cloud</groupId>
@@ -243,17 +236,33 @@
 				<version>${revision}</version>
 			</dependency>
 
-			<!-- guerlab-cloud load idempotent -->
-			<dependency>
-				<groupId>net.guerlab.cloud</groupId>
-				<artifactId>guerlab-cloud-idempotent</artifactId>
-				<version>${revision}</version>
-			</dependency>
-
 			<!-- guerlab-cloud load balancer -->
 			<dependency>
 				<groupId>net.guerlab.cloud</groupId>
 				<artifactId>guerlab-cloud-loadbalancer</artifactId>
+				<version>${revision}</version>
+			</dependency>
+
+			<!-- guerlab-cloud lock -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-lock</artifactId>
+				<version>${revision}</version>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-lock-core</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-lock-distributed</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-lock-idempotent</artifactId>
 				<version>${revision}</version>
 			</dependency>
 
@@ -572,11 +581,10 @@
 		<module>guerlab-cloud-commons</module>
 		<module>guerlab-cloud-context</module>
 		<module>guerlab-cloud-core</module>
-		<module>guerlab-cloud-distributed</module>
 		<module>guerlab-cloud-excel</module>
 		<module>guerlab-cloud-geo</module>
-		<module>guerlab-cloud-idempotent</module>
 		<module>guerlab-cloud-loadbalancer</module>
+		<module>guerlab-cloud-lock</module>
 		<module>guerlab-cloud-log</module>
 		<module>guerlab-cloud-openapi</module>
 		<module>guerlab-cloud-redis</module>
