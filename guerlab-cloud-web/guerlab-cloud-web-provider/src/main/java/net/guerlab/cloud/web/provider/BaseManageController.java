@@ -28,8 +28,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.api.DeleteById;
+import net.guerlab.cloud.commons.api.ManageApi;
 import net.guerlab.cloud.commons.api.UpdateById;
-import net.guerlab.cloud.commons.api.feign.ManageFeign;
 import net.guerlab.cloud.commons.entity.BaseEntity;
 import net.guerlab.cloud.log.annotation.Log;
 import net.guerlab.cloud.searchparams.SearchParams;
@@ -39,29 +39,29 @@ import net.guerlab.cloud.searchparams.SearchParams;
  *
  * @param <E>  实体类型
  * @param <SP> 搜索参数类型
- * @param <F>  feign接口类型
+ * @param <A>  api接口类型
  * @param <V>  返回对象类型
  * @author guer
  */
 @SuppressWarnings("unused")
 @Slf4j
 @Getter
-public abstract class BaseManageController<E extends BaseEntity, SP extends SearchParams, F extends ManageFeign<E, SP>, V> extends BaseQueryController<E, SP, F, V> {
+public abstract class BaseManageController<E extends BaseEntity, SP extends SearchParams, A extends ManageApi<E, SP>, V> extends BaseQueryController<E, SP, A, V> {
 
 	/**
-	 * 根据feign实例创建控制器.
+	 * 根据api实例创建控制器.
 	 *
-	 * @param feign feign实例
+	 * @param api api实例
 	 */
-	public BaseManageController(F feign) {
-		super(feign);
+	public BaseManageController(A api) {
+		super(api);
 	}
 
 	@Log("method.insert")
 	@PostMapping
 	@Operation(summary = "新增实体", security = @SecurityRequirement(name = Constants.TOKEN))
 	public V insert(@RequestBody E entity) {
-		entity = getFeign().insert(entity);
+		entity = getApi().insert(entity);
 		V vo = convert(entity);
 		afterFind(Collections.singletonList(vo), null);
 		return vo;
@@ -75,7 +75,7 @@ public abstract class BaseManageController<E extends BaseEntity, SP extends Sear
 		if (id == null) {
 			throw nullPointException();
 		}
-		getFeign().updateById(entity);
+		getApi().updateById(entity);
 		V vo = selectById(id, null);
 		if (vo == null) {
 			throw nullPointException();
@@ -87,13 +87,13 @@ public abstract class BaseManageController<E extends BaseEntity, SP extends Sear
 	@DeleteMapping(DeleteById.DELETE_BY_ID_PATH)
 	@Operation(summary = "根据Id删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
 	public void deleteById(@Parameter(description = "ID", required = true) @PathVariable(DeleteById.DELETE_BY_ID_PARAM) Long id) {
-		getFeign().deleteById(id);
+		getApi().deleteById(id);
 	}
 
 	@Log("method.delete")
 	@DeleteMapping
 	@Operation(summary = "根据搜索参数删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
 	public void delete(@Parameter(description = "搜索参数", required = true) @RequestBody SP searchParams) {
-		getFeign().delete(searchParams);
+		getApi().delete(searchParams);
 	}
 }

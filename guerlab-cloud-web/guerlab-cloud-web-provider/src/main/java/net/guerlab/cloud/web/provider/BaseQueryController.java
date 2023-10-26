@@ -31,12 +31,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.commons.api.QueryApi;
 import net.guerlab.cloud.commons.api.SelectById;
 import net.guerlab.cloud.commons.api.SelectCount;
 import net.guerlab.cloud.commons.api.SelectList;
 import net.guerlab.cloud.commons.api.SelectOne;
 import net.guerlab.cloud.commons.api.SelectPage;
-import net.guerlab.cloud.commons.api.feign.QueryFeign;
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.SearchParams;
 
@@ -45,27 +45,27 @@ import net.guerlab.cloud.searchparams.SearchParams;
  *
  * @param <E>  实体类型
  * @param <SP> 搜索参数类型
- * @param <F>  feign接口类型
+ * @param <A>  api接口类型
  * @param <V>  返回对象类型
  * @author guer
  */
 @SuppressWarnings("unused")
 @Slf4j
 @Getter
-public abstract class BaseQueryController<E, SP extends SearchParams, F extends QueryFeign<E, SP>, V> {
+public abstract class BaseQueryController<E, SP extends SearchParams, A extends QueryApi<E, SP>, V> {
 
 	/**
-	 * feign.
+	 * api.
 	 */
-	protected final F feign;
+	protected final A api;
 
 	/**
-	 * 根据feign实例创建控制器.
+	 * 根据api实例创建控制器.
 	 *
-	 * @param feign feign实例
+	 * @param api api实例
 	 */
-	public BaseQueryController(F feign) {
-		this.feign = feign;
+	public BaseQueryController(A api) {
+		this.api = api;
 	}
 
 	/**
@@ -80,7 +80,7 @@ public abstract class BaseQueryController<E, SP extends SearchParams, F extends 
 	@GetMapping(SelectById.SELECT_BY_ID_PATH)
 	@Operation(summary = "通过Id查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
 	public V selectById(@Parameter(description = "ID", required = true) @PathVariable(SelectById.SELECT_BY_ID_PARAM) Long id, @Nullable SP searchParams) {
-		E entity = getFeign().selectById(id);
+		E entity = getApi().selectById(id);
 		if (entity == null) {
 			if (queryAllowReturnNull()) {
 				return null;
@@ -97,7 +97,7 @@ public abstract class BaseQueryController<E, SP extends SearchParams, F extends 
 	@Operation(summary = "查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
 	public V selectOne(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams) {
 		beforeFind(searchParams);
-		E entity = getFeign().selectOne(searchParams);
+		E entity = getApi().selectOne(searchParams);
 		if (entity == null) {
 			if (queryAllowReturnNull()) {
 				return null;
@@ -130,7 +130,7 @@ public abstract class BaseQueryController<E, SP extends SearchParams, F extends 
 	@Operation(summary = "查询列表", security = @SecurityRequirement(name = Constants.TOKEN))
 	public List<V> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams) {
 		beforeFind(searchParams);
-		List<E> list = getFeign().selectList(searchParams);
+		List<E> list = getApi().selectList(searchParams);
 		if (list.isEmpty()) {
 			return Collections.emptyList();
 		}
@@ -145,7 +145,7 @@ public abstract class BaseQueryController<E, SP extends SearchParams, F extends 
 			@Parameter(description = "分页ID") @RequestParam(name = SelectPage.PAGE_ID, defaultValue = SelectPage.PAGE_ID_VALUE, required = false) int pageId,
 			@Parameter(description = "分页尺寸") @RequestParam(name = SelectPage.PAGE_SIZE, defaultValue = SelectPage.PAGE_SIZE_VALUE, required = false) int pageSize) {
 		beforeFind(searchParams);
-		Pageable<E> result = getFeign().selectPage(searchParams, pageId, pageSize);
+		Pageable<E> result = getApi().selectPage(searchParams, pageId, pageSize);
 		if (result.getList().isEmpty()) {
 			return Pageable.empty();
 		}
@@ -166,7 +166,7 @@ public abstract class BaseQueryController<E, SP extends SearchParams, F extends 
 	@Operation(summary = "查询总记录数", security = @SecurityRequirement(name = Constants.TOKEN))
 	public long selectCount(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams) {
 		beforeFind(searchParams);
-		return getFeign().selectCount(searchParams);
+		return getApi().selectCount(searchParams);
 	}
 
 	/**

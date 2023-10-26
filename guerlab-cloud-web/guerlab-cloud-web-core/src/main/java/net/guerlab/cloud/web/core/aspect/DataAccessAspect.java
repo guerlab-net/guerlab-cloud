@@ -47,7 +47,7 @@ public class DataAccessAspect implements ApplicationContextAware {
 	}
 
 	@Around("@annotation(dataAccess)")
-	public Object DataAccess(ProceedingJoinPoint point, DataAccess dataAccess) throws Throwable {
+	public Object dataAccess(ProceedingJoinPoint point, DataAccess dataAccess) throws Throwable {
 		Object result = point.proceed();
 		String filedName = StringUtils.trimToNull(dataAccess.fieldName());
 		if (ObjectUtils.isEmpty(result) || filedName == null) {
