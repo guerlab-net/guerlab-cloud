@@ -14,6 +14,7 @@
 package net.guerlab.cloud.auth.webmvc.interceptor;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.method.HandlerMethod;
@@ -27,6 +28,7 @@ import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
  * @param <A> 授权配置类型
  * @author guer
  */
+@Getter
 @SuppressWarnings("unused")
 @Slf4j
 public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebProperties> extends AbstractHandlerInterceptor {
@@ -73,12 +75,4 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebPropertie
 	 */
 	protected abstract void setTokenInfo(String token);
 
-	/**
-	 * 获取授权配置.
-	 *
-	 * @return 授权配置
-	 */
-	public A getAuthProperties() {
-		return authProperties;
-	}
 }

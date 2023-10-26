@@ -13,11 +13,14 @@
 
 package net.guerlab.cloud.excel.enums;
 
+import lombok.Getter;
+
 /**
  * excel类型.
  *
  * @author guer
  */
+@Getter
 public enum ExcelType {
 
 	/**
@@ -30,18 +33,13 @@ public enum ExcelType {
 	 */
 	XLS(".xls");
 
+	/**
+	 * 后缀.
+	 */
 	private final String suffix;
 
 	ExcelType(String suffix) {
 		this.suffix = suffix;
 	}
 
-	/**
-	 * 获取后缀.
-	 *
-	 * @return 后缀
-	 */
-	public String getSuffix() {
-		return suffix;
-	}
 }

@@ -50,7 +50,7 @@ public class Chooser<K, T> {
 	@Nullable
 	public T random() {
 		List<T> items = ref.getItems();
-		if (items.size() == 0) {
+		if (items.isEmpty()) {
 			return null;
 		}
 		if (items.size() == 1) {

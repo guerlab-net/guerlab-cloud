@@ -16,6 +16,8 @@ package net.guerlab.cloud.commons.enums;
 import java.util.EnumMap;
 import java.util.concurrent.TimeUnit;
 
+import lombok.Getter;
+
 /**
  * 时间单位语言包key.
  *
@@ -61,6 +63,10 @@ public enum TimeUnitMessageKey {
 
 	private final TimeUnit timeUnit;
 
+	/**
+	 * 语言包key.
+	 */
+	@Getter
 	private final String key;
 
 	TimeUnitMessageKey(TimeUnit timeUnit, String key) {
@@ -78,12 +84,4 @@ public enum TimeUnitMessageKey {
 		return KEY_MAP.get(timeUnit);
 	}
 
-	/**
-	 * 获取语言包key.
-	 *
-	 * @return 语言包key
-	 */
-	public String getKey() {
-		return key;
-	}
 }

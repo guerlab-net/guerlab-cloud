@@ -96,7 +96,7 @@ public class Ref<T> {
 		return itemsWithWeight.hashCode();
 	}
 
-	@SuppressWarnings({"unchecked", "ConstantConditions"})
+	@SuppressWarnings({"unchecked"})
 	@Override
 	public boolean equals(Object other) {
 		if (this == other) {
@@ -106,9 +106,6 @@ public class Ref<T> {
 			return false;
 		}
 		if (getClass() != other.getClass()) {
-			return false;
-		}
-		if (!(other.getClass().getGenericInterfaces()[0].equals(this.getClass().getGenericInterfaces()[0]))) {
 			return false;
 		}
 		Ref<T> otherRef = (Ref<T>) other;

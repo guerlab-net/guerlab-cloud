@@ -27,12 +27,12 @@ import net.guerlab.commons.collection.CollectionUtil;
  *
  * @author guer
  */
+@Getter
 public final class RemoteException extends RuntimeException {
 
 	/**
 	 * 应用堆栈跟踪.
 	 */
-	@Getter
 	private final ApplicationStackTrace applicationStackTrace;
 
 	private RemoteException(String message, ApplicationStackTrace applicationStackTrace,

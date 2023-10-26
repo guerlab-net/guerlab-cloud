@@ -80,7 +80,6 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
 		return null;
 	}
 
-	@Nullable
 	private static Class<?> resolveReturnValueType(HandlerResult result) {
 		Class<?> valueType = result.getReturnType().toClass();
 		Object value = result.getReturnValue();

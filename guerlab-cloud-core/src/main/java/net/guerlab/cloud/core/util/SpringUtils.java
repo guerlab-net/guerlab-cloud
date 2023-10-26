@@ -19,6 +19,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.Getter;
+
 import org.springframework.beans.BeansException;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.ApplicationContext;
@@ -36,16 +38,11 @@ import org.springframework.lang.Nullable;
 @AutoConfiguration
 public class SpringUtils implements ApplicationContextAware {
 
-	private static ApplicationContext context = null;
-
 	/**
-	 * 获取ApplicationContext.
-	 *
-	 * @return ApplicationContext
+	 * ApplicationContext.
 	 */
-	public static ApplicationContext getContext() {
-		return context;
-	}
+	@Getter
+	private static ApplicationContext context = null;
 
 	/**
 	 * 根据bean类型获取bean实例列表.

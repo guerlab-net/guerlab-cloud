@@ -58,7 +58,6 @@ public final class DynamicProxyFallback {
 	private record FallbackInvocationHandler(Throwable cause) implements InvocationHandler {
 
 		@Nullable
-		@SuppressWarnings("SuspiciousInvocationHandlerImplementation")
 		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) {
 			log.debug(String.format("%s fall", method.getName()), cause);
