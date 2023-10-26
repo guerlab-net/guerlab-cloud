@@ -13,6 +13,9 @@
 
 package net.guerlab.cloud.auth.context;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.commons.Constants;
@@ -118,5 +121,48 @@ public abstract class AbstractContextHandler {
 	 */
 	public static void setCurrentOperator(String currentOperator) {
 		set(Constants.CURRENT_OPERATOR, currentOperator);
+	}
+
+	/**
+	 * 设置可传递内容.
+	 *
+	 * @param key   key
+	 * @param value 内容
+	 */
+	@SuppressWarnings("SameParameterValue")
+	public static void setTransfer(String key, String value) {
+		set(Constants.ALLOW_TRANSFER_HEADER_PREFIX + key, value);
+	}
+
+	/**
+	 * 获取可传递内容.
+	 *
+	 * @param key key
+	 * @return 内容
+	 */
+	@Nullable
+	public static String getTransfer(String key) {
+		return get(Constants.ALLOW_TRANSFER_HEADER_PREFIX + key);
+	}
+
+	/**
+	 * 获取所有可传递内容.
+	 *
+	 * @return 所有可传递内容
+	 */
+	public static Map<String, String> getAllTransfer() {
+		Map<String, String> result = new HashMap<>();
+
+		for (Map.Entry<Object, Object> entry : ContextAttributesHolder.get().entrySet()) {
+			if (!(entry.getKey() instanceof String key) || !(entry.getValue() instanceof String value)) {
+				continue;
+			}
+			if (!key.startsWith(Constants.ALLOW_TRANSFER_HEADER_PREFIX)) {
+				continue;
+			}
+			result.put(key, value);
+		}
+
+		return result;
 	}
 }

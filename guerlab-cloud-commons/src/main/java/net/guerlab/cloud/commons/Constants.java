@@ -73,7 +73,7 @@ public final class Constants {
 	/**
 	 * 当前操作者-请求头.
 	 */
-	public static final String CURRENT_OPERATOR_HEADER = "X-CURRENT-OPERATOR";
+	public static final String CURRENT_OPERATOR_HEADER = "X-Current-Operator";
 
 	/**
 	 * 最大日期.
@@ -84,6 +84,11 @@ public final class Constants {
 	 * 最大日期时间.
 	 */
 	public static final LocalDateTime MAX_DATETIME = LocalDateTime.of(MAX_DATE, LocalTime.MAX);
+
+	/**
+	 * 允许传递的header前缀.
+	 */
+	public static final String ALLOW_TRANSFER_HEADER_PREFIX = "X-Transfer-Inside-";
 
 	private Constants() {
 	}
