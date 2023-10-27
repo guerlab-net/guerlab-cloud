@@ -79,6 +79,7 @@ public class ResultDecoder implements Decoder {
 					throw FailParser.parse(rootNode);
 				}
 				else if (!rootNode.has(Constants.FIELD_DATA)) {
+					log.debug("rootNode not has {} field, json is : {}", Constants.FIELD_DATA, resultBody);
 					return null;
 				}
 
