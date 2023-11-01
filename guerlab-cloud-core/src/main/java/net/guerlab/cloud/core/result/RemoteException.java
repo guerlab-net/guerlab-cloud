@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2023 guerlab.net and other contributors.
+ * Copyright 2018-2024 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,12 +27,12 @@ import net.guerlab.commons.collection.CollectionUtil;
  *
  * @author guer
  */
+@Getter
 public final class RemoteException extends RuntimeException {
 
 	/**
 	 * 应用堆栈跟踪.
 	 */
-	@Getter
 	private final ApplicationStackTrace applicationStackTrace;
 
 	private RemoteException(String message, ApplicationStackTrace applicationStackTrace,

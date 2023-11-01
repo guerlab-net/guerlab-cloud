@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2023 guerlab.net and other contributors.
+ * Copyright 2018-2024 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,11 +13,14 @@
 
 package net.guerlab.cloud.excel.enums;
 
+import lombok.Getter;
+
 /**
  * excel类型.
  *
  * @author guer
  */
+@Getter
 public enum ExcelType {
 
 	/**
@@ -30,18 +33,13 @@ public enum ExcelType {
 	 */
 	XLS(".xls");
 
+	/**
+	 * 后缀.
+	 */
 	private final String suffix;
 
 	ExcelType(String suffix) {
 		this.suffix = suffix;
 	}
 
-	/**
-	 * 获取后缀.
-	 *
-	 * @return 后缀
-	 */
-	public String getSuffix() {
-		return suffix;
-	}
 }

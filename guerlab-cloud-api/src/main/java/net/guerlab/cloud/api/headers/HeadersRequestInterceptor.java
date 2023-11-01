@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2023 guerlab.net and other contributors.
+ * Copyright 2018-2024 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,9 +13,13 @@
 
 package net.guerlab.cloud.api.headers;
 
+import java.util.Map;
+
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
+
+import net.guerlab.cloud.auth.context.AbstractContextHandler;
 
 /**
  * 请求头处理请求拦截器.
@@ -27,6 +31,10 @@ public class HeadersRequestInterceptor implements RequestInterceptor {
 
 	@Override
 	public void apply(RequestTemplate requestTemplate) {
+		Map<String, String> allTransfer = AbstractContextHandler.getAllTransfer();
+		for (Map.Entry<String, String> entry : allTransfer.entrySet()) {
+			requestTemplate.header(entry.getKey(), entry.getValue());
+		}
 		HeadersContextHandler.forEach(requestTemplate::header);
 	}
 }

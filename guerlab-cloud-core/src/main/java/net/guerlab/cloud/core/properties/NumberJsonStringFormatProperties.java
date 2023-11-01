@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2023 guerlab.net and other contributors.
+ * Copyright 2018-2024 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@ package net.guerlab.cloud.core.properties;
 
 import java.util.List;
 
+import lombok.Getter;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
@@ -23,6 +25,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
  *
  * @author guer
  */
+@Getter
 @RefreshScope
 @ConfigurationProperties("spring.jackson.format")
 public class NumberJsonStringFormatProperties {
@@ -108,30 +111,12 @@ public class NumberJsonStringFormatProperties {
 	private List<Class<? extends Number>> formatNumberClassList;
 
 	/**
-	 * 返回是否格式化所有数值类型.
-	 *
-	 * @return 是否格式化所有数值类型
-	 */
-	public boolean isFormatAllNumber() {
-		return formatAllNumber;
-	}
-
-	/**
 	 * 设置是否格式化所有数值类型.
 	 *
 	 * @param formatAllNumber 是否格式化所有数值类型
 	 */
 	public void setFormatAllNumber(boolean formatAllNumber) {
 		this.formatAllNumber = formatAllNumber;
-	}
-
-	/**
-	 * 返回是否格式化BigDecimal.
-	 *
-	 * @return 是否格式化BigDecimal
-	 */
-	public boolean isFormatBigDecimal() {
-		return formatBigDecimal;
 	}
 
 	/**
@@ -144,30 +129,12 @@ public class NumberJsonStringFormatProperties {
 	}
 
 	/**
-	 * 返回是否格式化BigInteger.
-	 *
-	 * @return 是否格式化BigInteger
-	 */
-	public boolean isFormatBigInteger() {
-		return formatBigInteger;
-	}
-
-	/**
 	 * 设置是否格式化BigInteger.
 	 *
 	 * @param formatBigInteger 是否格式化BigInteger
 	 */
 	public void setFormatBigInteger(boolean formatBigInteger) {
 		this.formatBigInteger = formatBigInteger;
-	}
-
-	/**
-	 * 返回是否格式化Byte包装类.
-	 *
-	 * @return 是否格式化Byte包装类
-	 */
-	public boolean isFormatByteClass() {
-		return formatByteClass;
 	}
 
 	/**
@@ -180,30 +147,12 @@ public class NumberJsonStringFormatProperties {
 	}
 
 	/**
-	 * 返回是否格式化Byte基本类型.
-	 *
-	 * @return 是否格式化Byte基本类型
-	 */
-	public boolean isFormatByteType() {
-		return formatByteType;
-	}
-
-	/**
 	 * 设置是否格式化Byte基本类型.
 	 *
 	 * @param formatByteType 是否格式化Byte基本类型
 	 */
 	public void setFormatByteType(boolean formatByteType) {
 		this.formatByteType = formatByteType;
-	}
-
-	/**
-	 * 返回是否格式化Short包装类.
-	 *
-	 * @return 是否格式化Short包装类
-	 */
-	public boolean isFormatShortClass() {
-		return formatShortClass;
 	}
 
 	/**
@@ -216,30 +165,12 @@ public class NumberJsonStringFormatProperties {
 	}
 
 	/**
-	 * 返回是否格式化Short基本类型.
-	 *
-	 * @return 是否格式化Short基本类型
-	 */
-	public boolean isFormatShortType() {
-		return formatShortType;
-	}
-
-	/**
 	 * 设置是否格式化Short基本类型.
 	 *
 	 * @param formatShortType 是否格式化Short基本类型
 	 */
 	public void setFormatShortType(boolean formatShortType) {
 		this.formatShortType = formatShortType;
-	}
-
-	/**
-	 * 返回是否格式化Integer包装类.
-	 *
-	 * @return 是否格式化Integer包装类
-	 */
-	public boolean isFormatIntegerClass() {
-		return formatIntegerClass;
 	}
 
 	/**
@@ -252,30 +183,12 @@ public class NumberJsonStringFormatProperties {
 	}
 
 	/**
-	 * 返回是否格式化Integer基本类型.
-	 *
-	 * @return 是否格式化Integer基本类型
-	 */
-	public boolean isFormatIntegerType() {
-		return formatIntegerType;
-	}
-
-	/**
 	 * 设置是否格式化Integer基本类型.
 	 *
 	 * @param formatIntegerType 是否格式化Integer基本类型
 	 */
 	public void setFormatIntegerType(boolean formatIntegerType) {
 		this.formatIntegerType = formatIntegerType;
-	}
-
-	/**
-	 * 返回是否格式化Long包装类.
-	 *
-	 * @return 是否格式化Long包装类
-	 */
-	public boolean isFormatLongClass() {
-		return formatLongClass;
 	}
 
 	/**
@@ -288,30 +201,12 @@ public class NumberJsonStringFormatProperties {
 	}
 
 	/**
-	 * 返回是否格式化Long基本类型.
-	 *
-	 * @return 是否格式化Long基本类型
-	 */
-	public boolean isFormatLongType() {
-		return formatLongType;
-	}
-
-	/**
 	 * 设置是否格式化Long基本类型.
 	 *
 	 * @param formatLongType 是否格式化Long基本类型
 	 */
 	public void setFormatLongType(boolean formatLongType) {
 		this.formatLongType = formatLongType;
-	}
-
-	/**
-	 * 返回是否格式化Float包装类.
-	 *
-	 * @return 是否格式化Float包装类
-	 */
-	public boolean isFormatFloatClass() {
-		return formatFloatClass;
 	}
 
 	/**
@@ -324,30 +219,12 @@ public class NumberJsonStringFormatProperties {
 	}
 
 	/**
-	 * 返回是否格式化Float基本类型.
-	 *
-	 * @return 是否格式化Float基本类型
-	 */
-	public boolean isFormatFloatType() {
-		return formatFloatType;
-	}
-
-	/**
 	 * 设置是否格式化Float基本类型.
 	 *
 	 * @param formatFloatType 是否格式化Float基本类型
 	 */
 	public void setFormatFloatType(boolean formatFloatType) {
 		this.formatFloatType = formatFloatType;
-	}
-
-	/**
-	 * 返回是否格式化Double包装类.
-	 *
-	 * @return 是否格式化Double包装类
-	 */
-	public boolean isFormatDoubleClass() {
-		return formatDoubleClass;
 	}
 
 	/**
@@ -360,30 +237,12 @@ public class NumberJsonStringFormatProperties {
 	}
 
 	/**
-	 * 返回是否格式化Double基本类型.
-	 *
-	 * @return 是否格式化Double基本类型
-	 */
-	public boolean isFormatDoubleType() {
-		return formatDoubleType;
-	}
-
-	/**
 	 * 设置是否格式化Double基本类型.
 	 *
 	 * @param formatDoubleType 是否格式化Double基本类型
 	 */
 	public void setFormatDoubleType(boolean formatDoubleType) {
 		this.formatDoubleType = formatDoubleType;
-	}
-
-	/**
-	 * 返回待格式化数值类型类.
-	 *
-	 * @return 待格式化数值类型类
-	 */
-	public List<Class<? extends Number>> getFormatNumberClassList() {
-		return formatNumberClassList;
 	}
 
 	/**

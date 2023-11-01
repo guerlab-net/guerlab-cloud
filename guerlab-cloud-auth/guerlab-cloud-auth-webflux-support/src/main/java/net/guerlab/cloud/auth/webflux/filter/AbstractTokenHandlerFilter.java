@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2023 guerlab.net and other contributors.
+ * Copyright 2018-2024 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@ package net.guerlab.cloud.auth.webflux.filter;
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import reactor.core.publisher.Mono;
@@ -69,6 +70,7 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> im
 	/**
 	 * 授权配置.
 	 */
+	@Getter
 	protected final A authProperties;
 
 	/**
@@ -259,12 +261,4 @@ public abstract class AbstractTokenHandlerFilter<A extends AuthWebProperties> im
 		return requestUri;
 	}
 
-	/**
-	 * 获取授权配置.
-	 *
-	 * @return 授权配置
-	 */
-	public A getAuthProperties() {
-		return authProperties;
-	}
 }

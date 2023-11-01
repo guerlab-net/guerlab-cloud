@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2023 guerlab.net and other contributors.
+ * Copyright 2018-2024 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
 
 package net.guerlab.cloud.commons.api;
 
-import java.util.Collection;
+import java.util.List;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -48,5 +48,5 @@ public interface SelectList<E, SP extends SearchParams> {
 	 */
 	@PostMapping(SELECT_LIST_PATH)
 	@Operation(summary = "查询列表", security = @SecurityRequirement(name = Constants.TOKEN))
-	Collection<E> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
+	List<E> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
 }

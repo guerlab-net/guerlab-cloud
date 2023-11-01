@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2023 guerlab.net and other contributors.
+ * Copyright 2018-2024 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ public final class BatchSaveUtils {
 	 * @param <T>        实体类型
 	 * @return 过滤后可保存集合
 	 */
-	public static <T> List<T> filter(Collection<T> collection, Function<? super T, ? extends T> filter) {
+	public static <T> List<T> filter(Collection<? extends T> collection, Function<? super T, ? extends T> filter) {
 		if (CollectionUtil.isEmpty(collection)) {
 			return Collections.emptyList();
 		}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2023 guerlab.net and other contributors.
+ * Copyright 2018-2024 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -96,7 +96,7 @@ public class Ref<T> {
 		return itemsWithWeight.hashCode();
 	}
 
-	@SuppressWarnings({"unchecked", "ConstantConditions"})
+	@SuppressWarnings({"unchecked"})
 	@Override
 	public boolean equals(Object other) {
 		if (this == other) {
@@ -106,9 +106,6 @@ public class Ref<T> {
 			return false;
 		}
 		if (getClass() != other.getClass()) {
-			return false;
-		}
-		if (!(other.getClass().getGenericInterfaces()[0].equals(this.getClass().getGenericInterfaces()[0]))) {
 			return false;
 		}
 		Ref<T> otherRef = (Ref<T>) other;

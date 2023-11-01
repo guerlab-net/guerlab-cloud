@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2023 guerlab.net and other contributors.
+ * Copyright 2018-2024 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@ package net.guerlab.cloud.commons.enums;
 
 import java.util.EnumMap;
 import java.util.concurrent.TimeUnit;
+
+import lombok.Getter;
 
 /**
  * 时间单位语言包key.
@@ -61,6 +63,10 @@ public enum TimeUnitMessageKey {
 
 	private final TimeUnit timeUnit;
 
+	/**
+	 * 语言包key.
+	 */
+	@Getter
 	private final String key;
 
 	TimeUnitMessageKey(TimeUnit timeUnit, String key) {
@@ -78,12 +84,4 @@ public enum TimeUnitMessageKey {
 		return KEY_MAP.get(timeUnit);
 	}
 
-	/**
-	 * 获取语言包key.
-	 *
-	 * @return 语言包key
-	 */
-	public String getKey() {
-		return key;
-	}
 }

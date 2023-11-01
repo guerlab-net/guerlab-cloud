@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2023 guerlab.net and other contributors.
+ * Copyright 2018-2024 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import lombok.Getter;
+
 import org.springframework.beans.BeansException;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.ApplicationContext;
@@ -36,16 +38,11 @@ import org.springframework.lang.Nullable;
 @AutoConfiguration
 public class SpringUtils implements ApplicationContextAware {
 
-	private static ApplicationContext context = null;
-
 	/**
-	 * 获取ApplicationContext.
-	 *
-	 * @return ApplicationContext
+	 * ApplicationContext.
 	 */
-	public static ApplicationContext getContext() {
-		return context;
-	}
+	@Getter
+	private static ApplicationContext context = null;
 
 	/**
 	 * 根据bean类型获取bean实例列表.

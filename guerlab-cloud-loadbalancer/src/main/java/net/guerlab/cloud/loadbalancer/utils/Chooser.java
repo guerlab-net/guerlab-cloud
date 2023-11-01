@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2023 guerlab.net and other contributors.
+ * Copyright 2018-2024 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ public class Chooser<K, T> {
 	@Nullable
 	public T random() {
 		List<T> items = ref.getItems();
-		if (items.size() == 0) {
+		if (items.isEmpty()) {
 			return null;
 		}
 		if (items.size() == 1) {

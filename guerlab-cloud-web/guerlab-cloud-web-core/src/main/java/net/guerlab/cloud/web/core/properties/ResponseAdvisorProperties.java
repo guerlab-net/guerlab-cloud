@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2023 guerlab.net and other contributors.
+ * Copyright 2018-2024 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import lombok.Getter;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.lang.Nullable;
@@ -33,6 +35,7 @@ import net.guerlab.cloud.web.core.annotation.ResponseObjectWrapper;
  *
  * @author guer
  */
+@Getter
 @SuppressWarnings("unused")
 @RefreshScope
 @ConfigurationProperties("spring.response-advisor")
@@ -49,15 +52,6 @@ public class ResponseAdvisorProperties {
 	 * </ul>
 	 */
 	private List<String> excluded = new ArrayList<>();
-
-	/**
-	 * 返回排除路径.
-	 *
-	 * @return 排除路径
-	 */
-	public List<String> getExcluded() {
-		return excluded;
-	}
 
 	/**
 	 * 设置排除路径.

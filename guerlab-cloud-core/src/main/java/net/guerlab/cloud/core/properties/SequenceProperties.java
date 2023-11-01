@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2023 guerlab.net and other contributors.
+ * Copyright 2018-2024 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,8 @@
 
 package net.guerlab.cloud.core.properties;
 
+import lombok.Getter;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
@@ -21,6 +23,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
  *
  * @author guer
  */
+@Getter
 @RefreshScope
 @ConfigurationProperties("sequence")
 public class SequenceProperties {
@@ -36,30 +39,12 @@ public class SequenceProperties {
 	private long dataCenterId;
 
 	/**
-	 * 返回工作节点ID.
-	 *
-	 * @return 工作节点ID
-	 */
-	public long getWorkerId() {
-		return workerId;
-	}
-
-	/**
 	 * 设置工作节点ID.
 	 *
 	 * @param workerId 工作节点ID
 	 */
 	public void setWorkerId(long workerId) {
 		this.workerId = workerId;
-	}
-
-	/**
-	 * 返回数据中心ID.
-	 *
-	 * @return 数据中心ID
-	 */
-	public long getDataCenterId() {
-		return dataCenterId;
 	}
 
 	/**
