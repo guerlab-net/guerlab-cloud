@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import net.guerlab.cloud.web.webmvc.interceptor.ContextAttributesHolderCleanInterceptor;
 import net.guerlab.cloud.web.webmvc.interceptor.CurrentOperatorInterceptor;
+import net.guerlab.cloud.web.webmvc.interceptor.TransferHeaderInterceptor;
 
 /**
  * 拦截器自动配置.
@@ -32,6 +33,7 @@ public class InterceptorAutoConfigure implements WebMvcConfigurer {
 	@Override
 	public final void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new ContextAttributesHolderCleanInterceptor()).order(Ordered.HIGHEST_PRECEDENCE);
-		registry.addInterceptor(new CurrentOperatorInterceptor()).order(Ordered.HIGHEST_PRECEDENCE + 1);
+		registry.addInterceptor(new TransferHeaderInterceptor()).order(Ordered.HIGHEST_PRECEDENCE + 1);
+		registry.addInterceptor(new CurrentOperatorInterceptor()).order(Ordered.HIGHEST_PRECEDENCE + 2);
 	}
 }
