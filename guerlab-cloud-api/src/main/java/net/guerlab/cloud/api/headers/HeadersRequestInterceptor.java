@@ -13,8 +13,6 @@
 
 package net.guerlab.cloud.api.headers;
 
-import java.util.Map;
-
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
@@ -31,10 +29,12 @@ public class HeadersRequestInterceptor implements RequestInterceptor {
 
 	@Override
 	public void apply(RequestTemplate requestTemplate) {
-		Map<String, String> allTransfer = AbstractContextHandler.getAllTransfer();
-		for (Map.Entry<String, String> entry : allTransfer.entrySet()) {
-			requestTemplate.header(entry.getKey(), entry.getValue());
-		}
-		HeadersContextHandler.forEach(requestTemplate::header);
+		AbstractContextHandler.getAllTransfer().forEach((header, value) -> addHeader(header, value, requestTemplate));
+		HeadersContextHandler.forEach((header, value) -> addHeader(header, value, requestTemplate));
+	}
+
+	private void addHeader(String header, String value, RequestTemplate requestTemplate) {
+		log.debug("add header: {} = {}", header, value);
+		requestTemplate.header(header, header);
 	}
 }
