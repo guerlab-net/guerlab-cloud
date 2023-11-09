@@ -35,6 +35,6 @@ public class HeadersRequestInterceptor implements RequestInterceptor {
 
 	private void addHeader(String header, String value, RequestTemplate requestTemplate) {
 		log.debug("add header: {} = {}", header, value);
-		requestTemplate.header(header, header);
+		requestTemplate.header(header, value);
 	}
 }
