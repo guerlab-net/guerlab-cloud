@@ -20,18 +20,23 @@ import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.lang.Nullable;
 
+import net.guerlab.cloud.commons.entity.IBaseEntity;
+
 /**
  * 插入或更新.
  *
+ * @param <E> 基础类类型
  * @author guer
  */
-public class InsertOrUpdateMethod extends AbstractMysqlBatchInsertMethod {
+public class InsertOrUpdateMethod<E extends IBaseEntity> extends AbstractMysqlBatchInsertMethod<E> {
 
 	/**
 	 * 构造插入或更新方法.
+	 *
+	 * @param baseClass 基础类
 	 */
-	public InsertOrUpdateMethod() {
-		super("insertOrUpdateList");
+	public InsertOrUpdateMethod(Class<E> baseClass) {
+		super(baseClass, "insertOrUpdateList");
 	}
 
 	@Override

@@ -30,14 +30,14 @@ public interface EnableTimeEntity {
 	 * @return 启用开始日期
 	 */
 	@Nullable
-	LocalDateTime getEnableStartTime();
+	LocalDateTime enableStartTime();
 
 	/**
 	 * 设置启用开始日期.
 	 *
 	 * @param enableStartTime 启用开始日期
 	 */
-	void setEnableStartTime(@Nullable LocalDateTime enableStartTime);
+	void enableStartTime(@Nullable LocalDateTime enableStartTime);
 
 	/**
 	 * 获取启用结束日期.
@@ -45,12 +45,12 @@ public interface EnableTimeEntity {
 	 * @return 启用结束日期
 	 */
 	@Nullable
-	LocalDateTime getEnableEndTime();
+	LocalDateTime enableEndTime();
 
 	/**
 	 * 设置启用结束日期.
 	 *
 	 * @param enableEndTime 启用结束日期
 	 */
-	void setEnableEndTime(@Nullable LocalDateTime enableEndTime);
+	void enableEndTime(@Nullable LocalDateTime enableEndTime);
 }

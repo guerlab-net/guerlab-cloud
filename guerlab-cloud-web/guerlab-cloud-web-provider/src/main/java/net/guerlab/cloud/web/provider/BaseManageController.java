@@ -30,7 +30,7 @@ import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.api.DeleteById;
 import net.guerlab.cloud.commons.api.ManageApi;
 import net.guerlab.cloud.commons.api.UpdateById;
-import net.guerlab.cloud.commons.entity.BaseEntity;
+import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.log.annotation.Log;
 import net.guerlab.cloud.searchparams.SearchParams;
 
@@ -46,7 +46,7 @@ import net.guerlab.cloud.searchparams.SearchParams;
 @SuppressWarnings("unused")
 @Slf4j
 @Getter
-public abstract class BaseManageController<E extends BaseEntity, SP extends SearchParams, A extends ManageApi<E, SP>, V> extends BaseQueryController<E, SP, A, V> {
+public abstract class BaseManageController<E extends IBaseEntity, SP extends SearchParams, A extends ManageApi<E, SP>, V> extends BaseQueryController<E, SP, A, V> {
 
 	/**
 	 * 根据api实例创建控制器.
@@ -71,7 +71,7 @@ public abstract class BaseManageController<E extends BaseEntity, SP extends Sear
 	@PostMapping(UpdateById.UPDATE_BY_ID_PATH)
 	@Operation(summary = "根据Id编辑数据", security = @SecurityRequirement(name = Constants.TOKEN))
 	public V updateById(@RequestBody E entity) {
-		Long id = entity.getId();
+		Long id = entity.id();
 		if (id == null) {
 			throw nullPointException();
 		}

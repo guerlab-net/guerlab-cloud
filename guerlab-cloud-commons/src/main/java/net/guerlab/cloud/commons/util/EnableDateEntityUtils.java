@@ -38,8 +38,8 @@ public final class EnableDateEntityUtils {
 	 * @param entity 启用日期实体
 	 */
 	public static void valueHandler(EnableDateEntity entity) {
-		LocalDate enableStartDate = entity.getEnableStartDate();
-		LocalDate enableEndDate = entity.getEnableEndDate();
+		LocalDate enableStartDate = entity.enableStartDate();
+		LocalDate enableEndDate = entity.enableEndDate();
 		if (enableStartDate == null) {
 			enableStartDate = LocalDate.now();
 		}
@@ -49,8 +49,8 @@ public final class EnableDateEntityUtils {
 		if (enableStartDate.isAfter(enableEndDate)) {
 			throw new StartDateIsAfterEndDateException();
 		}
-		entity.setEnableStartDate(enableStartDate);
-		entity.setEnableEndDate(enableEndDate);
+		entity.enableStartDate(enableStartDate);
+		entity.enableEndDate(enableEndDate);
 	}
 
 	/**
@@ -61,8 +61,8 @@ public final class EnableDateEntityUtils {
 	 * @return 是否在范围内
 	 */
 	public static boolean inDateRange(EnableDateEntity entity, LocalDate date) {
-		LocalDate enableStartDate = entity.getEnableStartDate();
-		LocalDate enableEndDate = entity.getEnableEndDate();
+		LocalDate enableStartDate = entity.enableStartDate();
+		LocalDate enableEndDate = entity.enableEndDate();
 
 		if (enableStartDate != null && date.isBefore(enableStartDate)) {
 			return false;

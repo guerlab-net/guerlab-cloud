@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.entity;
+package net.guerlab.cloud.commons.searchparams;
 
 /**
  * 实体字段名称.
@@ -44,16 +44,6 @@ public final class EntityColumnNames {
 	 * 字段名称-最后修改时间.
 	 */
 	public static final String MODIFIED_BY = "MODIFIED_BY";
-
-	/**
-	 * 字段名称-逻辑删除标识.
-	 */
-	public static final String DELETED = "DELETED";
-
-	/**
-	 * 字段名称-乐观锁版本.
-	 */
-	public static final String VERSION = "VERSION";
 
 	/**
 	 * 字段名称-排序值.
