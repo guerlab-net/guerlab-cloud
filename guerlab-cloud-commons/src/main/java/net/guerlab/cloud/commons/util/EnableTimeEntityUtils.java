@@ -38,8 +38,8 @@ public final class EnableTimeEntityUtils {
 	 * @param entity 启用时间实体
 	 */
 	public static void valueHandler(EnableTimeEntity entity) {
-		LocalDateTime enableStartTime = entity.getEnableStartTime();
-		LocalDateTime enableEndTime = entity.getEnableEndTime();
+		LocalDateTime enableStartTime = entity.enableStartTime();
+		LocalDateTime enableEndTime = entity.enableEndTime();
 		if (enableStartTime == null) {
 			enableStartTime = LocalDateTime.now();
 		}
@@ -49,8 +49,8 @@ public final class EnableTimeEntityUtils {
 		if (enableStartTime.isAfter(enableEndTime)) {
 			throw new StartTimeIsAfterEndTimeException();
 		}
-		entity.setEnableStartTime(enableStartTime);
-		entity.setEnableEndTime(enableEndTime);
+		entity.enableStartTime(enableStartTime);
+		entity.enableEndTime(enableEndTime);
 	}
 
 	/**
@@ -61,8 +61,8 @@ public final class EnableTimeEntityUtils {
 	 * @return 是否在范围内
 	 */
 	public static boolean inDateRange(EnableTimeEntity entity, LocalDateTime time) {
-		LocalDateTime enableStartTime = entity.getEnableStartTime();
-		LocalDateTime enableEndTime = entity.getEnableEndTime();
+		LocalDateTime enableStartTime = entity.enableStartTime();
+		LocalDateTime enableEndTime = entity.enableEndTime();
 
 		if (enableStartTime != null && time.isBefore(enableStartTime)) {
 			return false;

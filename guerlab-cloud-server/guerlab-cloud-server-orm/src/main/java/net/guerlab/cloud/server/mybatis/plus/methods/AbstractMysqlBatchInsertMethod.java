@@ -19,20 +19,24 @@ import org.apache.ibatis.executor.keygen.NoKeyGenerator;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.SqlSource;
 
+import net.guerlab.cloud.commons.entity.IBaseEntity;
+
 /**
  * 抽象批量插入.
  *
+ * @param <E> 基础类类型
  * @author guer
  */
-public abstract class AbstractMysqlBatchInsertMethod extends AbstractAutoLoadMethod {
+public abstract class AbstractMysqlBatchInsertMethod<E extends IBaseEntity> extends AbstractAutoLoadMethod<E> {
 
 	/**
 	 * 构造抽象批量插入方法.
 	 *
+	 * @param baseClass  基础类
 	 * @param methodName 方法名
 	 */
-	public AbstractMysqlBatchInsertMethod(String methodName) {
-		super(methodName);
+	public AbstractMysqlBatchInsertMethod(Class<E> baseClass, String methodName) {
+		super(baseClass, methodName);
 	}
 
 	/**
@@ -41,7 +45,7 @@ public abstract class AbstractMysqlBatchInsertMethod extends AbstractAutoLoadMet
 	 * @param tableInfo 表信息
 	 * @return 字段sql
 	 */
-	protected static String prepareFieldSql(TableInfo tableInfo) {
+	protected String prepareFieldSql(TableInfo tableInfo) {
 		String keyColumn = StringUtils.trimToNull(tableInfo.getKeyColumn());
 		StringBuilder fieldSql = new StringBuilder();
 		if (keyColumn != null) {
@@ -60,7 +64,7 @@ public abstract class AbstractMysqlBatchInsertMethod extends AbstractAutoLoadMet
 	 * @param tableInfo 表信息
 	 * @return 值列表字段sql
 	 */
-	protected static String prepareValuesSqlForMysqlBatch(TableInfo tableInfo) {
+	protected String prepareValuesSqlForMysqlBatch(TableInfo tableInfo) {
 		String keyColumn = StringUtils.trimToNull(tableInfo.getKeyColumn());
 		StringBuilder valueSql = new StringBuilder();
 		valueSql.append(

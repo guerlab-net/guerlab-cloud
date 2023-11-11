@@ -21,28 +21,31 @@ import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 
-import net.guerlab.cloud.commons.entity.BaseEntity;
+import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.commons.reflection.FieldUtil;
 
 /**
  * 自动加载注入方法.
  *
+ * @param <E> 基础类类型
  * @author guer
  */
-public abstract class AbstractAutoLoadMethod extends AbstractMethod {
+public abstract class AbstractAutoLoadMethod<E extends IBaseEntity> extends AbstractMethod {
 
-	/**
-	 * BaseEntity字段列表.
-	 */
-	protected static final Collection<Field> BASE_ENTITY_FIELDS = FieldUtil.getFields(BaseEntity.class);
+	protected final Class<E> baseClass;
+
+	protected final Collection<Field> baseFields;
 
 	/**
 	 * 构造自动加载注入方法.
 	 *
+	 * @param baseClass  基础类
 	 * @param methodName 方法名
 	 */
-	public AbstractAutoLoadMethod(String methodName) {
+	public AbstractAutoLoadMethod(Class<E> baseClass, String methodName) {
 		super(methodName);
+		this.baseClass = baseClass;
+		baseFields = FieldUtil.getFields(baseClass);
 	}
 
 	/**
@@ -51,7 +54,7 @@ public abstract class AbstractAutoLoadMethod extends AbstractMethod {
 	 * @param tableInfo 表信息
 	 * @return 字段列表
 	 */
-	protected static Stream<TableFieldInfo> getFieldStream(TableInfo tableInfo) {
+	protected Stream<TableFieldInfo> getFieldStream(TableInfo tableInfo) {
 		return tableInfo.getFieldList().stream().filter(tableField -> filedFilter(tableInfo, tableField));
 	}
 
@@ -62,9 +65,9 @@ public abstract class AbstractAutoLoadMethod extends AbstractMethod {
 	 * @param fieldInfo 表字段信息
 	 * @return 是否有效
 	 */
-	protected static boolean filedFilter(TableInfo tableInfo, TableFieldInfo fieldInfo) {
-		if (BaseEntity.class.isAssignableFrom(tableInfo.getEntityType())) {
-			return !BASE_ENTITY_FIELDS.contains(fieldInfo.getField());
+	protected boolean filedFilter(TableInfo tableInfo, TableFieldInfo fieldInfo) {
+		if (baseClass.isAssignableFrom(tableInfo.getEntityType())) {
+			return !baseFields.contains(fieldInfo.getField());
 		}
 		return true;
 	}

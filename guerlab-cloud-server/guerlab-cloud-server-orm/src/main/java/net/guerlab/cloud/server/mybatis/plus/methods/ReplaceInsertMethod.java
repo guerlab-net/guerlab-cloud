@@ -15,18 +15,23 @@ package net.guerlab.cloud.server.mybatis.plus.methods;
 
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 
+import net.guerlab.cloud.commons.entity.IBaseEntity;
+
 /**
  * replace模式插入.
  *
+ * @param <E> 基础类类型
  * @author guer
  */
-public class ReplaceInsertMethod extends AbstractMysqlBatchInsertMethod {
+public class ReplaceInsertMethod<E extends IBaseEntity> extends AbstractMysqlBatchInsertMethod<E> {
 
 	/**
 	 * 构造replace模式插入方法.
+	 *
+	 * @param baseClass 基础类
 	 */
-	public ReplaceInsertMethod() {
-		super("replaceInsertList");
+	public ReplaceInsertMethod(Class<E> baseClass) {
+		super(baseClass, "replaceInsertList");
 	}
 
 	@Override

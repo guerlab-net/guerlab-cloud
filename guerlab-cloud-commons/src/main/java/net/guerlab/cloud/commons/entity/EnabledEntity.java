@@ -28,21 +28,21 @@ public interface EnabledEntity {
 	 * @return 是否启用
 	 */
 	@Nullable
-	Boolean getEnabled();
+	Boolean enabled();
 
 	/**
 	 * 设置是否启用.
 	 *
 	 * @param enabled 是否启用
 	 */
-	void setEnabled(@Nullable Boolean enabled);
+	void enabled(@Nullable Boolean enabled);
 
 	/**
 	 * 是否启用默认处理.
 	 */
 	default void enabledDefaultHandler() {
-		if (getEnabled() == null) {
-			setEnabled(true);
+		if (enabled() == null) {
+			enabled(true);
 		}
 	}
 }

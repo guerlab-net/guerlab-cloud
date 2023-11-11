@@ -31,7 +31,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 
-import net.guerlab.cloud.commons.entity.BaseEntity;
+import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.core.sequence.Sequence;
 import net.guerlab.cloud.searchparams.SearchParams;
@@ -130,9 +130,8 @@ public abstract class BaseOrmServiceImpl<E, M extends BaseMapper<E>, SP extends 
 
 	@Override
 	public E insert(E entity) {
-		if (entity instanceof BaseEntity tempEntity) {
-			tempEntity.setId(null);
-			tempEntity.setVersion(null);
+		if (entity instanceof IBaseEntity tempEntity) {
+			tempEntity.id(null);
 		}
 		insertBefore(entity);
 		getBaseMapper().insert(entity);
