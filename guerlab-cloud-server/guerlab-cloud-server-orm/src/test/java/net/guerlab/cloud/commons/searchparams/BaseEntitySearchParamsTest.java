@@ -16,6 +16,8 @@ package net.guerlab.cloud.commons.searchparams;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
+import javax.annotation.Nullable;
+
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -108,48 +110,8 @@ public class BaseEntitySearchParamsTest {
 		}
 
 		@Override
-		public void id(Long id) {
+		public void id(@Nullable Long id) {
 			this.id = id;
-		}
-
-		@Override
-		public LocalDateTime createdTime() {
-			return createdTime;
-		}
-
-		@Override
-		public void createdTime(LocalDateTime createdTime) {
-			this.createdTime = createdTime;
-		}
-
-		@Override
-		public LocalDateTime lastUpdatedTime() {
-			return lastUpdatedTime;
-		}
-
-		@Override
-		public void lastUpdatedTime(LocalDateTime lastUpdatedTime) {
-			this.lastUpdatedTime = lastUpdatedTime;
-		}
-
-		@Override
-		public String createdBy() {
-			return createdBy;
-		}
-
-		@Override
-		public void createdBy(String createdBy) {
-			this.createdBy = createdBy;
-		}
-
-		@Override
-		public String modifiedBy() {
-			return modifiedBy;
-		}
-
-		@Override
-		public void modifiedBy(String modifiedBy) {
-			this.modifiedBy = modifiedBy;
 		}
 	}
 

@@ -194,7 +194,7 @@ public abstract class BaseOrmServiceImpl<E, M extends BaseMapper<E>, SP extends 
 	 */
 	@SuppressWarnings("SameParameterValue")
 	protected final void saveBatch(Collection<E> entities, int batchSize) {
-		String sqlStatement = SqlHelper.getSqlStatement(this.mapperClass, SqlMethod.INSERT_ONE);
+		String sqlStatement = SqlHelper.getSqlStatement(this.mapperClass, SqlMethod.UPDATE_BY_ID);
 		this.executeBatch(entities, batchSize, (sqlSession, entity) -> sqlSession.insert(sqlStatement, entity));
 	}
 
@@ -238,6 +238,47 @@ public abstract class BaseOrmServiceImpl<E, M extends BaseMapper<E>, SP extends 
 	 */
 	protected void updateAfter(E entity) {
 		/* 默认空实现 */
+	}
+
+	@Override
+	public List<E> batchUpdateById(Collection<? extends E> collection) {
+		List<E> list = BatchSaveUtils.filter(collection, this::batchUpdateBefore);
+
+		if (CollectionUtil.isNotEmpty(list)) {
+			updateBatch(list, DEFAULT_BATCH_SIZE);
+		}
+
+		return list;
+	}
+
+	/**
+	 * 更新检查.
+	 *
+	 * @param entity 实体
+	 * @return 如果返回null则不保存该对象，否则保存该对象
+	 */
+	@Nullable
+	protected E batchUpdateBefore(E entity) {
+		try {
+			updateBefore(entity);
+			return entity;
+		}
+		catch (Exception e) {
+			log.debug(e.getMessage(), e);
+			return null;
+		}
+	}
+
+	/**
+	 * 批量更新.
+	 *
+	 * @param entities  实体列表
+	 * @param batchSize 单次操作数量
+	 */
+	@SuppressWarnings("SameParameterValue")
+	protected final void updateBatch(Collection<E> entities, int batchSize) {
+		String sqlStatement = SqlHelper.getSqlStatement(this.mapperClass, SqlMethod.UPDATE_BY_ID);
+		this.executeBatch(entities, batchSize, (sqlSession, entity) -> sqlSession.update(sqlStatement, entity));
 	}
 
 	@Override

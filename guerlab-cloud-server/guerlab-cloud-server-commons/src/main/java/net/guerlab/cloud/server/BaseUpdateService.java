@@ -13,6 +13,9 @@
 
 package net.guerlab.cloud.server;
 
+import java.util.Collection;
+import java.util.List;
+
 import net.guerlab.cloud.commons.api.UpdateById;
 import net.guerlab.cloud.searchparams.SearchParams;
 
@@ -34,5 +37,13 @@ public interface BaseUpdateService<E, SP extends SearchParams> extends UpdateByI
 	 * @return 是否更新成功
 	 */
 	boolean update(E entity, SP searchParams);
+
+	/**
+	 * 批量更新.
+	 *
+	 * @param collection 待更新列表
+	 * @return 已更新列表
+	 */
+	List<E> batchUpdateById(Collection<? extends E> collection);
 
 }
