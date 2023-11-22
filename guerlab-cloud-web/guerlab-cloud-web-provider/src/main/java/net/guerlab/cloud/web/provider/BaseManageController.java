@@ -61,10 +61,21 @@ public abstract class BaseManageController<E extends IBaseEntity, SP extends Sea
 	@PostMapping
 	@Operation(summary = "新增实体", security = @SecurityRequirement(name = Constants.TOKEN))
 	public V insert(@RequestBody E entity) {
+		beforeInsertCheck(entity);
 		entity = getApi().insert(entity);
 		V vo = convert(entity);
 		afterFind(Collections.singletonList(vo), null);
 		return vo;
+	}
+
+	/**
+	 * 保存前置检查.
+	 *
+	 * @param entity 实体
+	 */
+	@SuppressWarnings("EmptyMethod")
+	protected void beforeInsertCheck(E entity) {
+
 	}
 
 	@Log("method.updateById")
@@ -75,6 +86,7 @@ public abstract class BaseManageController<E extends IBaseEntity, SP extends Sea
 		if (id == null) {
 			throw nullPointException();
 		}
+		beforeUpdateCheck(entity);
 		getApi().updateById(entity);
 		V vo = selectById(id, null);
 		if (vo == null) {
@@ -83,17 +95,53 @@ public abstract class BaseManageController<E extends IBaseEntity, SP extends Sea
 		return vo;
 	}
 
+	/**
+	 * 更新前置检查.
+	 *
+	 * @param entity 实体
+	 */
+	@SuppressWarnings("EmptyMethod")
+	protected void beforeUpdateCheck(E entity) {
+
+	}
+
 	@Log("method.deleteById")
 	@DeleteMapping(DeleteById.DELETE_BY_ID_PATH)
 	@Operation(summary = "根据Id删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
 	public void deleteById(@Parameter(description = "ID", required = true) @PathVariable(DeleteById.DELETE_BY_ID_PARAM) Long id) {
+		E entity = getApi().selectById(id);
+		if (entity == null) {
+			throw nullPointException();
+		}
+		beforeDeleteCheck(entity);
 		getApi().deleteById(id);
+	}
+
+	/**
+	 * 删除前置检查.
+	 *
+	 * @param entity 实体
+	 */
+	@SuppressWarnings("EmptyMethod")
+	protected void beforeDeleteCheck(E entity) {
+
 	}
 
 	@Log("method.delete")
 	@DeleteMapping
 	@Operation(summary = "根据搜索参数删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
 	public void delete(@Parameter(description = "搜索参数", required = true) @RequestBody SP searchParams) {
+		beforeDelete(searchParams);
 		getApi().delete(searchParams);
+	}
+
+	/**
+	 * 删除前置处理.
+	 *
+	 * @param searchParams 查询对象
+	 */
+	@SuppressWarnings("EmptyMethod")
+	protected void beforeDelete(SP searchParams) {
+
 	}
 }

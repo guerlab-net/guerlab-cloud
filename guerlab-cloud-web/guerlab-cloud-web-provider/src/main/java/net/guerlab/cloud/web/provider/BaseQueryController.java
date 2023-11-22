@@ -85,6 +85,7 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 		if (entity == null) {
 			throw nullPointException();
 		}
+		entityCheck(entity);
 		V vo = convert(entity);
 		afterFind(Collections.singletonList(vo), searchParams);
 		return vo;
@@ -94,14 +95,30 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 	@PostMapping(SelectOne.SELECT_ONE_PATH)
 	@Operation(summary = "查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
 	public V selectOne(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams) {
-		beforeFind(searchParams);
-		E entity = getApi().selectOne(searchParams);
+		E entity;
+		if (beforeFind(searchParams)) {
+			entity = getApi().selectOne(searchParams);
+		}
+		else {
+			entity = null;
+		}
 		if (entity == null) {
 			throw nullPointException();
 		}
+		entityCheck(entity);
 		V vo = convert(entity);
 		afterFind(Collections.singletonList(vo), searchParams);
 		return vo;
+	}
+
+	/**
+	 * 对象检查.
+	 *
+	 * @param entity 实体
+	 */
+	@SuppressWarnings("EmptyMethod")
+	protected void entityCheck(E entity) {
+
 	}
 
 	/**
@@ -117,7 +134,9 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 	@PostMapping(SelectList.SELECT_LIST_PATH)
 	@Operation(summary = "查询列表", security = @SecurityRequirement(name = Constants.TOKEN))
 	public List<V> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams) {
-		beforeFind(searchParams);
+		if (!beforeFind(searchParams)) {
+			return Collections.emptyList();
+		}
 		List<E> list = getApi().selectList(searchParams);
 		if (list.isEmpty()) {
 			return Collections.emptyList();
@@ -132,7 +151,9 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 	public Pageable<V> selectPage(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams,
 			@Parameter(description = "分页ID") @RequestParam(name = SelectPage.PAGE_ID, defaultValue = SelectPage.PAGE_ID_VALUE, required = false) int pageId,
 			@Parameter(description = "分页尺寸") @RequestParam(name = SelectPage.PAGE_SIZE, defaultValue = SelectPage.PAGE_SIZE_VALUE, required = false) int pageSize) {
-		beforeFind(searchParams);
+		if (!beforeFind(searchParams)) {
+			return Pageable.empty();
+		}
 		Pageable<E> result = getApi().selectPage(searchParams, pageId, pageSize);
 		if (result.getList().isEmpty()) {
 			return Pageable.empty();
@@ -153,18 +174,20 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 	@PostMapping(SelectCount.SELECT_COUNT_PATH)
 	@Operation(summary = "查询总记录数", security = @SecurityRequirement(name = Constants.TOKEN))
 	public long selectCount(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams) {
-		beforeFind(searchParams);
-		return getApi().selectCount(searchParams);
+		if (beforeFind(searchParams)) {
+			return getApi().selectCount(searchParams);
+		}
+		return 0L;
 	}
 
 	/**
 	 * 查询前置环绕.
 	 *
 	 * @param searchParams 搜索参数
+	 * @return 是否继续查询
 	 */
-	@SuppressWarnings("EmptyMethod")
-	protected void beforeFind(SP searchParams) {
-
+	protected boolean beforeFind(SP searchParams) {
+		return true;
 	}
 
 	/**
