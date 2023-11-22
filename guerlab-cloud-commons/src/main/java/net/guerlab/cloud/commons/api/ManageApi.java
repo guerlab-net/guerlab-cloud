@@ -24,4 +24,4 @@ import net.guerlab.cloud.searchparams.SearchParams;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface ManageApi<E extends IBaseEntity, SP extends SearchParams> extends QueryApi<E, SP>, Insert<E>, UpdateById<E>, DeleteById, Delete<SP> { }
+public interface ManageApi<E extends IBaseEntity, SP extends SearchParams> extends QueryApi<E, SP>, Insert<E>, UpdateById<E>, SaveOrUpdate<E>, DeleteById, Delete<SP> { }
