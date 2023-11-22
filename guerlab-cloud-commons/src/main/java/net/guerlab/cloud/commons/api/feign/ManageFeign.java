@@ -14,6 +14,7 @@
 package net.guerlab.cloud.commons.api.feign;
 
 import net.guerlab.cloud.commons.api.ManageApi;
+import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;
 
 /**
@@ -24,4 +25,4 @@ import net.guerlab.cloud.searchparams.SearchParams;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface ManageFeign<E, SP extends SearchParams> extends QueryFeign<E, SP>, ManageApi<E, SP> { }
+public interface ManageFeign<E extends IBaseEntity, SP extends SearchParams> extends QueryFeign<E, SP>, ManageApi<E, SP> { }

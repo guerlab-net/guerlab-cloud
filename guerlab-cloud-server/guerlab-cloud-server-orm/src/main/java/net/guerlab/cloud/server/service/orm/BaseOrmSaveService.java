@@ -13,6 +13,7 @@
 
 package net.guerlab.cloud.server.service.orm;
 
+import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.BaseSaveService;
 
@@ -23,5 +24,5 @@ import net.guerlab.cloud.server.BaseSaveService;
  * @param <SP> 搜索参数类型
  * @author guer
  */
-public interface BaseOrmSaveService<E, SP extends SearchParams> extends BaseSaveService<E>, QueryWrapperGetter<E, SP> {
+public interface BaseOrmSaveService<E extends IBaseEntity, SP extends SearchParams> extends BaseSaveService<E>, QueryWrapperGetter<E, SP> {
 }

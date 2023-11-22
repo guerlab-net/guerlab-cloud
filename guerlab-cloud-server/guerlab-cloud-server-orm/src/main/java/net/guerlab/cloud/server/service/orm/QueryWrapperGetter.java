@@ -17,6 +17,7 @@ import com.baomidou.mybatisplus.core.conditions.interfaces.Join;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
+import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.searchparams.SearchParamsUtils;
 
@@ -28,7 +29,7 @@ import net.guerlab.cloud.searchparams.SearchParamsUtils;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface QueryWrapperGetter<E, SP extends SearchParams> {
+public interface QueryWrapperGetter<E extends IBaseEntity, SP extends SearchParams> {
 
 	/**
 	 * 获取QueryWrapper，并通过searchParams对象对QueryWrapper进行赋值.

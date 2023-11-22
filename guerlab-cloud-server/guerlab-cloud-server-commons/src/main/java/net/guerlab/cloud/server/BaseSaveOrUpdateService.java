@@ -11,17 +11,28 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons.api;
+package net.guerlab.cloud.server;
 
+import java.util.Collection;
+import java.util.List;
+
+import net.guerlab.cloud.commons.api.SaveOrUpdate;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
-import net.guerlab.cloud.searchparams.SearchParams;
 
 /**
- * 管理API定义.
+ * 基本新增或保存服务接口.
  *
- * @param <E>  返回实体类型
- * @param <SP> 搜索参数类型
+ * @param <E> 数据类型
  * @author guer
  */
-@SuppressWarnings("unused")
-public interface ManageApi<E extends IBaseEntity, SP extends SearchParams> extends QueryApi<E, SP>, Insert<E>, UpdateById<E>, DeleteById, Delete<SP> { }
+public interface BaseSaveOrUpdateService<E extends IBaseEntity> extends SaveOrUpdate<E> {
+
+	/**
+	 * 批量新增或保存.
+	 *
+	 * @param list 待保存列表
+	 * @return 已保存列表
+	 */
+	List<E> batchSaveOrUpdate(Collection<? extends E> list);
+
+}

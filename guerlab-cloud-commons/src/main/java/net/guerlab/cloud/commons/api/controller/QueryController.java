@@ -14,6 +14,7 @@
 package net.guerlab.cloud.commons.api.controller;
 
 import net.guerlab.cloud.commons.api.QueryApi;
+import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;
 
 /**
@@ -24,4 +25,4 @@ import net.guerlab.cloud.searchparams.SearchParams;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface QueryController<E, SP extends SearchParams> extends QueryApi<E, SP> { }
+public interface QueryController<E extends IBaseEntity, SP extends SearchParams> extends QueryApi<E, SP> { }

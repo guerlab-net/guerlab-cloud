@@ -13,6 +13,7 @@
 
 package net.guerlab.cloud.commons.api;
 
+import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;
 
 /**
@@ -23,4 +24,4 @@ import net.guerlab.cloud.searchparams.SearchParams;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface QueryApi<E, SP extends SearchParams> extends Api, SelectById<E, SP>, SelectOne<E, SP>, SelectList<E, SP>, SelectPage<E, SP>, SelectCount<SP> { }
+public interface QueryApi<E extends IBaseEntity, SP extends SearchParams> extends Api, SelectById<E, SP>, SelectOne<E, SP>, SelectList<E, SP>, SelectPage<E, SP>, SelectCount<SP> { }

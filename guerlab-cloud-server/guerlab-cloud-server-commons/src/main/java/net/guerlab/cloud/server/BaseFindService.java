@@ -18,6 +18,7 @@ import net.guerlab.cloud.commons.api.SelectCount;
 import net.guerlab.cloud.commons.api.SelectList;
 import net.guerlab.cloud.commons.api.SelectOne;
 import net.guerlab.cloud.commons.api.SelectPage;
+import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;
 
 /**
@@ -28,6 +29,6 @@ import net.guerlab.cloud.searchparams.SearchParams;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface BaseFindService<E, SP extends SearchParams> extends SelectOne<E, SP>, SelectById<E, SP>, SelectList<E, SP>, SelectPage<E, SP>, SelectCount<SP> {
+public interface BaseFindService<E extends IBaseEntity, SP extends SearchParams> extends SelectOne<E, SP>, SelectById<E, SP>, SelectList<E, SP>, SelectPage<E, SP>, SelectCount<SP> {
 
 }

@@ -14,18 +14,14 @@
 package net.guerlab.cloud.server.service.orm;
 
 import net.guerlab.cloud.commons.entity.IBaseEntity;
-import net.guerlab.cloud.searchparams.SearchParams;
-import net.guerlab.cloud.server.BaseService;
+import net.guerlab.cloud.server.BaseSaveOrUpdateService;
 
 /**
- * 基本ORM服务接口.
+ * 基本ORM新增或保存服务接口.
  *
- * @param <E>  数据类型
- * @param <SP> 搜索参数类型
+ * @param <E> 数据类型
  * @author guer
  */
-public interface BaseOrmService<E extends IBaseEntity, SP extends SearchParams>
-		extends BaseOrmFindService<E, SP>, BaseOrmSaveService<E, SP>,
-		BaseOrmUpdateService<E, SP>, BaseOrmSaveOrUpdateService<E>,
-		BaseOrmDeleteService<E, SP>, BaseService<E, SP>,
-		QueryWrapperGetter<E, SP> { }
+public interface BaseOrmSaveOrUpdateService<E extends IBaseEntity> extends BaseSaveOrUpdateService<E> {
+
+}

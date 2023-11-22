@@ -16,6 +16,7 @@ package net.guerlab.cloud.server.service.orm;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
+import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.BaseDeleteService;
 
@@ -27,7 +28,7 @@ import net.guerlab.cloud.server.BaseDeleteService;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface BaseOrmDeleteService<E, SP extends SearchParams> extends BaseDeleteService<SP>, QueryWrapperGetter<E, SP> {
+public interface BaseOrmDeleteService<E extends IBaseEntity, SP extends SearchParams> extends BaseDeleteService<SP>, QueryWrapperGetter<E, SP> {
 
 	/**
 	 * 删除，调用此方法会忽略删除检查逻辑.

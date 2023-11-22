@@ -29,6 +29,7 @@ import com.baomidou.mybatisplus.core.metadata.TableInfo;
  */
 public class AutoLoadMethodLoader extends DefaultSqlInjector {
 
+	@SuppressWarnings("rawtypes")
 	private final List<AbstractAutoLoadMethod> methods;
 
 	/**

@@ -13,13 +13,13 @@
 
 package net.guerlab.cloud.commons.api;
 
+import javax.annotation.Nullable;
+
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
 
 /**
@@ -29,15 +29,21 @@ import net.guerlab.cloud.commons.entity.IBaseEntity;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface Insert<E extends IBaseEntity> {
+public interface SaveOrUpdate<E extends IBaseEntity> {
 
 	/**
-	 * 新增实体.
+	 * 请求路径.
+	 */
+	String UPDATE_BY_ID_PATH = "/saveOrUpdate";
+
+	/**
+	 * 新增或保存.
 	 *
 	 * @param entity 实体
-	 * @return 保存后的实体
+	 * @return 实体
 	 */
-	@PostMapping
-	@Operation(summary = "新增实体", security = @SecurityRequirement(name = Constants.TOKEN))
-	E insert(@RequestBody E entity);
+	@Nullable
+	@PostMapping(UPDATE_BY_ID_PATH)
+	@Operation(summary = "新增或保存")
+	E saveOrUpdate(@RequestBody E entity);
 }

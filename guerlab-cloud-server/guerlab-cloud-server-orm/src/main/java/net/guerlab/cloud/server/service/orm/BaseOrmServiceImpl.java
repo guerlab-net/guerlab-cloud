@@ -13,9 +13,14 @@
 
 package net.guerlab.cloud.server.service.orm;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -50,7 +55,7 @@ import net.guerlab.commons.collection.CollectionUtil;
 @SuppressWarnings("unused")
 @Slf4j
 @Transactional(rollbackFor = Exception.class)
-public abstract class BaseOrmServiceImpl<E, M extends BaseMapper<E>, SP extends SearchParams>
+public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMapper<E>, SP extends SearchParams>
 		implements BaseOrmService<E, SP> {
 
 	/**
@@ -130,9 +135,7 @@ public abstract class BaseOrmServiceImpl<E, M extends BaseMapper<E>, SP extends 
 
 	@Override
 	public E insert(E entity) {
-		if (entity instanceof IBaseEntity tempEntity) {
-			tempEntity.id(null);
-		}
+		entity.id(null);
 		insertBefore(entity);
 		getBaseMapper().insert(entity);
 		insertAfter(entity);
@@ -194,7 +197,7 @@ public abstract class BaseOrmServiceImpl<E, M extends BaseMapper<E>, SP extends 
 	 */
 	@SuppressWarnings("SameParameterValue")
 	protected final void saveBatch(Collection<E> entities, int batchSize) {
-		String sqlStatement = SqlHelper.getSqlStatement(this.mapperClass, SqlMethod.INSERT_ONE);
+		String sqlStatement = SqlHelper.getSqlStatement(this.mapperClass, SqlMethod.UPDATE_BY_ID);
 		this.executeBatch(entities, batchSize, (sqlSession, entity) -> sqlSession.insert(sqlStatement, entity));
 	}
 
@@ -238,6 +241,80 @@ public abstract class BaseOrmServiceImpl<E, M extends BaseMapper<E>, SP extends 
 	 */
 	protected void updateAfter(E entity) {
 		/* 默认空实现 */
+	}
+
+	@Override
+	public List<E> batchUpdateById(Collection<? extends E> collection) {
+		List<E> list = BatchSaveUtils.filter(collection, this::batchUpdateBefore);
+
+		if (CollectionUtil.isNotEmpty(list)) {
+			updateBatch(list, DEFAULT_BATCH_SIZE);
+		}
+
+		return list;
+	}
+
+	/**
+	 * 更新检查.
+	 *
+	 * @param entity 实体
+	 * @return 如果返回null则不保存该对象，否则保存该对象
+	 */
+	@Nullable
+	protected E batchUpdateBefore(E entity) {
+		try {
+			updateBefore(entity);
+			return entity;
+		}
+		catch (Exception e) {
+			log.debug(e.getMessage(), e);
+			return null;
+		}
+	}
+
+	/**
+	 * 批量更新.
+	 *
+	 * @param entities  实体列表
+	 * @param batchSize 单次操作数量
+	 */
+	@SuppressWarnings("SameParameterValue")
+	protected final void updateBatch(Collection<E> entities, int batchSize) {
+		String sqlStatement = SqlHelper.getSqlStatement(this.mapperClass, SqlMethod.UPDATE_BY_ID);
+		this.executeBatch(entities, batchSize, (sqlSession, entity) -> sqlSession.update(sqlStatement, entity));
+	}
+
+	@Override
+	public E saveOrUpdate(E entity) {
+		Long id = entity.id();
+		if (id == null) {
+			return insert(entity);
+		}
+
+		updateById(entity);
+		return selectById(id);
+	}
+
+	@Override
+	public List<E> batchSaveOrUpdate(Collection<? extends E> list) {
+		list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
+		if (list.isEmpty()) {
+			return Collections.emptyList();
+		}
+
+		List<E> result = new ArrayList<>(list.size());
+		Map<Boolean, List<E>> groupMap = list.stream().collect(Collectors.groupingBy(entity -> entity.id() == null));
+		List<E> needAdds = groupMap.getOrDefault(true, Collections.emptyList());
+		List<E> needUpdates = groupMap.getOrDefault(false, Collections.emptyList());
+
+		if (!needAdds.isEmpty()) {
+			result.addAll(batchInsert(needAdds));
+		}
+		if (!needUpdates.isEmpty()) {
+			result.addAll(batchUpdateById(needUpdates));
+		}
+
+		return result;
 	}
 
 	@Override

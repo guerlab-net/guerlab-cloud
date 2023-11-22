@@ -14,7 +14,6 @@
 package net.guerlab.cloud.commons.entity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 import javax.annotation.Nullable;
 
@@ -39,60 +38,4 @@ public interface IBaseEntity extends Serializable {
 	 * @param id ID
 	 */
 	void id(@Nullable Long id);
-
-	/**
-	 * 获取创建时间.
-	 *
-	 * @return 创建时间
-	 */
-	LocalDateTime createdTime();
-
-	/**
-	 * 设置创建时间.
-	 *
-	 * @param createdTime 创建时间
-	 */
-	void createdTime(LocalDateTime createdTime);
-
-	/**
-	 * 获取最后修改时间.
-	 *
-	 * @return 最后修改时间
-	 */
-	LocalDateTime lastUpdatedTime();
-
-	/**
-	 * 设置最后修改时间.
-	 *
-	 * @param lastUpdatedTime 最后修改时间
-	 */
-	void lastUpdatedTime(LocalDateTime lastUpdatedTime);
-
-	/**
-	 * 获取创建人.
-	 *
-	 * @return 创建人
-	 */
-	String createdBy();
-
-	/**
-	 * 设置创建人.
-	 *
-	 * @param createdBy 创建人
-	 */
-	void createdBy(String createdBy);
-
-	/**
-	 * 获取修改人.
-	 *
-	 * @return 修改人
-	 */
-	String modifiedBy();
-
-	/**
-	 * 设置修改人.
-	 *
-	 * @param modifiedBy 修改人
-	 */
-	void modifiedBy(String modifiedBy);
 }
