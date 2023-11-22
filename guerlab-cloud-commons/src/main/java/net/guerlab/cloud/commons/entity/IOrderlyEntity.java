@@ -33,7 +33,7 @@ public interface IOrderlyEntity<E extends IOrderlyEntity<E>> extends Comparable<
 	 * @return 排序方法
 	 */
 	static Comparator<IOrderlyEntity<?>> comparator() {
-		return Comparator.comparing(IOrderlyEntity::getOrderNum, Comparator.nullsFirst(Comparator.naturalOrder()));
+		return Comparator.comparing(IOrderlyEntity::orderNum, Comparator.nullsFirst(Comparator.naturalOrder()));
 	}
 
 	/**
@@ -55,14 +55,14 @@ public interface IOrderlyEntity<E extends IOrderlyEntity<E>> extends Comparable<
 	 * @return 排序值
 	 */
 	@Nullable
-	Long getOrderNum();
+	Long orderNum();
 
 	/**
 	 * 设置排序值.
 	 *
 	 * @param orderNum 排序值
 	 */
-	void setOrderNum(@Nullable Long orderNum);
+	void orderNum(@Nullable Long orderNum);
 
 	/**
 	 * 根据排序值返回排序顺序.
@@ -81,8 +81,8 @@ public interface IOrderlyEntity<E extends IOrderlyEntity<E>> extends Comparable<
 	 * 排序值默认处理.
 	 */
 	default void orderNumDefaultHandler() {
-		if (getOrderNum() == null) {
-			setOrderNum(Constants.DEFAULT_ORDER_NUM);
+		if (orderNum() == null) {
+			orderNum(Constants.DEFAULT_ORDER_NUM);
 		}
 	}
 }
