@@ -29,6 +29,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
@@ -281,7 +282,11 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	@SuppressWarnings("SameParameterValue")
 	protected final void updateBatch(Collection<E> entities, int batchSize) {
 		String sqlStatement = SqlHelper.getSqlStatement(this.mapperClass, SqlMethod.UPDATE_BY_ID);
-		this.executeBatch(entities, batchSize, (sqlSession, entity) -> sqlSession.update(sqlStatement, entity));
+		this.executeBatch(entities, batchSize, (sqlSession, entity) -> {
+			MapperMethod.ParamMap<E> param = new MapperMethod.ParamMap<>();
+			param.put("et", entity);
+			sqlSession.update(sqlStatement, param);
+		});
 	}
 
 	@Override
