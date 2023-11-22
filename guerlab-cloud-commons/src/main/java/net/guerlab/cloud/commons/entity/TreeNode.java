@@ -27,11 +27,11 @@ import org.springframework.lang.Nullable;
 public interface TreeNode<PK> {
 
 	/**
-	 * 获取ID.
+	 * 获取节点ID.
 	 *
-	 * @return id
+	 * @return 节点ID
 	 */
-	PK id();
+	PK nodeId();
 
 	/**
 	 * 获取上级ID.

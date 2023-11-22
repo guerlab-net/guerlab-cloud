@@ -101,7 +101,7 @@ public final class TreeUtils {
 	 */
 	private static <E extends TreeNode<PK>, PK> TreeEntity<E, PK> buildTreeEntity(E entity) {
 		TreeEntity<E, PK> treeEntity = new TreeEntity<>();
-		treeEntity.setId(entity.id());
+		treeEntity.setId(entity.nodeId());
 		treeEntity.setParentId(entity.parentId());
 		treeEntity.setLabel(entity.label());
 		treeEntity.setObject(entity);

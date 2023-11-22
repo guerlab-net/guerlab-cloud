@@ -21,6 +21,8 @@ import lombok.Data;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import org.springframework.lang.Nullable;
+
 import net.guerlab.cloud.commons.entity.IOrderlyEntity;
 import net.guerlab.cloud.commons.entity.TreeEntity;
 import net.guerlab.cloud.commons.entity.TreeNode;
@@ -100,7 +102,7 @@ class TreeUtilsTests {
 		}
 
 		@Override
-		public Long id() {
+		public Long nodeId() {
 			return id;
 		}
 
@@ -112,6 +114,17 @@ class TreeUtilsTests {
 		@Override
 		public String label() {
 			return null;
+		}
+
+		@Nullable
+		@Override
+		public Long orderNum() {
+			return orderNum;
+		}
+
+		@Override
+		public void orderNum(@Nullable Long orderNum) {
+			this.orderNum = orderNum;
 		}
 	}
 
@@ -128,7 +141,7 @@ class TreeUtilsTests {
 		}
 
 		@Override
-		public String id() {
+		public String nodeId() {
 			return id;
 		}
 
