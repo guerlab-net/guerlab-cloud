@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 import net.guerlab.cloud.commons.api.Insert;
+import net.guerlab.cloud.commons.entity.IBaseEntity;
 
 /**
  * 基本保存服务接口.
@@ -24,13 +25,13 @@ import net.guerlab.cloud.commons.api.Insert;
  * @param <E> 数据类型
  * @author guer
  */
-public interface BaseSaveService<E> extends Insert<E> {
+public interface BaseSaveService<E extends IBaseEntity> extends Insert<E> {
 
 	/**
 	 * 批量保存.
 	 *
 	 * @param collection 待保存列表
-	 * @return 已保存列表W
+	 * @return 已保存列表
 	 */
 	List<E> batchInsert(Collection<? extends E> collection);
 

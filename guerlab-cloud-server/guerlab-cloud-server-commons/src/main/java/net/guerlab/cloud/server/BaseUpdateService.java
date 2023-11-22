@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.List;
 
 import net.guerlab.cloud.commons.api.UpdateById;
+import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;
 
 /**
@@ -27,7 +28,7 @@ import net.guerlab.cloud.searchparams.SearchParams;
  * @author guer
  */
 @SuppressWarnings({"UnusedReturnValue", "unused"})
-public interface BaseUpdateService<E, SP extends SearchParams> extends UpdateById<E> {
+public interface BaseUpdateService<E extends IBaseEntity, SP extends SearchParams> extends UpdateById<E> {
 
 	/**
 	 * 根据条件更新.

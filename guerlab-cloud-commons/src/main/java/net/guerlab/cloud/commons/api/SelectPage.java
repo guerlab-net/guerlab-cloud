@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.SearchParams;
 
@@ -33,7 +34,7 @@ import net.guerlab.cloud.searchparams.SearchParams;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface SelectPage<E, SP extends SearchParams> {
+public interface SelectPage<E extends IBaseEntity, SP extends SearchParams> {
 
 	/**
 	 * 请求路径.

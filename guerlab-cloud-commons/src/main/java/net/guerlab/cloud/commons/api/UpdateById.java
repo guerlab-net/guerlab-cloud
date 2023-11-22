@@ -18,6 +18,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import net.guerlab.cloud.commons.entity.IBaseEntity;
+
 /**
  * APi定义.
  *
@@ -25,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface UpdateById<E> {
+public interface UpdateById<E extends IBaseEntity> {
 
 	/**
 	 * 请求路径.

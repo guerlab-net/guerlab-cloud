@@ -17,6 +17,7 @@ import java.util.Optional;
 
 import org.springframework.lang.Nullable;
 
+import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.BaseFindService;
 
@@ -28,7 +29,7 @@ import net.guerlab.cloud.server.BaseFindService;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface BaseOrmFindService<E, SP extends SearchParams> extends BaseFindService<E, SP>, QueryWrapperGetter<E, SP> {
+public interface BaseOrmFindService<E extends IBaseEntity, SP extends SearchParams> extends BaseFindService<E, SP>, QueryWrapperGetter<E, SP> {
 
 	/**
 	 * 查询单一结果，根据实体内非null字段按照值相等方式查询.

@@ -37,6 +37,7 @@ import net.guerlab.cloud.commons.api.SelectCount;
 import net.guerlab.cloud.commons.api.SelectList;
 import net.guerlab.cloud.commons.api.SelectOne;
 import net.guerlab.cloud.commons.api.SelectPage;
+import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.SearchParams;
 
@@ -52,7 +53,7 @@ import net.guerlab.cloud.searchparams.SearchParams;
 @SuppressWarnings("unused")
 @Slf4j
 @Getter
-public abstract class BaseQueryController<E, SP extends SearchParams, A extends QueryApi<E, SP>, V> {
+public abstract class BaseQueryController<E extends IBaseEntity, SP extends SearchParams, A extends QueryApi<E, SP>, V> {
 
 	/**
 	 * api.

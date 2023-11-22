@@ -14,7 +14,6 @@
 package net.guerlab.cloud.server.autoconfigure;
 
 import com.baomidou.mybatisplus.autoconfigure.IdentifierGeneratorAutoConfiguration;
-import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.core.incrementer.IdentifierGenerator;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
@@ -23,9 +22,10 @@ import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerIntercept
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 
 import net.guerlab.cloud.core.sequence.Sequence;
-import net.guerlab.cloud.server.mybatis.plus.metadata.BaseEntityMetaObjectHandler;
+import net.guerlab.cloud.server.mybatis.plus.metadata.MetaObjectHandlerChain;
 import net.guerlab.cloud.server.mybatis.plus.methods.AutoLoadMethodLoader;
 
 /**
@@ -50,13 +50,14 @@ public class MybatisPlusAutoConfigure {
 	}
 
 	/**
-	 * 构造基础对象元信息处理.
+	 * 构造元数据处理链.
 	 *
-	 * @return 基础对象元信息处理
+	 * @return 元数据处理链
 	 */
+	@Primary
 	@Bean
-	public MetaObjectHandler baseEntityMetaObjectHandler() {
-		return new BaseEntityMetaObjectHandler();
+	public MetaObjectHandlerChain metaObjectHandlerChain() {
+		return new MetaObjectHandlerChain();
 	}
 
 	/**

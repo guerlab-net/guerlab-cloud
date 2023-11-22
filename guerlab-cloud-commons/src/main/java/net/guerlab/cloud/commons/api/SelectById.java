@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;
 
 /**
@@ -34,7 +35,7 @@ import net.guerlab.cloud.searchparams.SearchParams;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface SelectById<E, SP extends SearchParams> {
+public interface SelectById<E extends IBaseEntity, SP extends SearchParams> {
 
 	/**
 	 * 请求路径.
