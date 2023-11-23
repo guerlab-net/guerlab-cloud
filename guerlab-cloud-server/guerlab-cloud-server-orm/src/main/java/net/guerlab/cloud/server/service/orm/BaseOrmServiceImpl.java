@@ -198,7 +198,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	 */
 	@SuppressWarnings("SameParameterValue")
 	protected final void saveBatch(Collection<E> entities, int batchSize) {
-		String sqlStatement = SqlHelper.getSqlStatement(this.mapperClass, SqlMethod.UPDATE_BY_ID);
+		String sqlStatement = SqlHelper.getSqlStatement(this.mapperClass, SqlMethod.INSERT_ONE);
 		this.executeBatch(entities, batchSize, (sqlSession, entity) -> sqlSession.insert(sqlStatement, entity));
 	}
 
