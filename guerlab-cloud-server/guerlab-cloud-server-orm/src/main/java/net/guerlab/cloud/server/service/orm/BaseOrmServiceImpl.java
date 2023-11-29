@@ -154,12 +154,13 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 		return result;
 	}
 
-	private boolean afterSelect(SP searchParams) {
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
+	protected boolean afterSelect(SP searchParams) {
 		return true;
 	}
 
 
-	private void afterSelect(Collection<E> items, @Nullable SP searchParams) {
+	protected void afterSelect(Collection<E> items, @Nullable SP searchParams) {
 
 	}
 
