@@ -104,28 +104,63 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	public E selectOne(E entity) {
 		QueryWrapper<E> queryWrapper = getQueryWrapper();
 		queryWrapper.setEntity(entity);
-		return getBaseMapper().selectOne(queryWrapper);
+		E result = getBaseMapper().selectOne(queryWrapper);
+		if (result != null) {
+			afterSelect(Collections.singleton(result), null);
+		}
+		return result;
 	}
 
 	@Override
 	public E selectOne(SP searchParams) {
-		return getBaseMapper().selectOne(getQueryWrapperWithSelectMethod(searchParams));
+		E result = getBaseMapper().selectOne(getQueryWrapperWithSelectMethod(searchParams));
+		if (result != null) {
+			afterSelect(Collections.singleton(result), null);
+		}
+		return result;
 	}
 
 	@Override
 	public E selectById(Long id) {
-		return getBaseMapper().selectById(id);
+		E result = getBaseMapper().selectById(id);
+		if (result != null) {
+			afterSelect(Collections.singleton(result), null);
+		}
+		return result;
 	}
 
 	@Override
 	public List<E> selectList(SP searchParams) {
+		if (!afterSelect(searchParams)) {
+			return Collections.emptyList();
+		}
 		QueryWrapper<E> queryWrapper = getQueryWrapperWithSelectMethod(searchParams);
-		return getBaseMapper().selectList(queryWrapper);
+		List<E> list = getBaseMapper().selectList(queryWrapper);
+		if (!list.isEmpty()) {
+			afterSelect(list, searchParams);
+		}
+		return list;
 	}
 
 	@Override
 	public Pageable<E> selectPage(SP searchParams, int pageId, int pageSize) {
-		return PageUtils.selectPage(this, searchParams, pageId, pageSize, getBaseMapper());
+		if (!afterSelect(searchParams)) {
+			return Pageable.empty();
+		}
+		Pageable<E> result = PageUtils.selectPage(this, searchParams, pageId, pageSize, getBaseMapper());
+		if (result.getList() != null && !result.getList().isEmpty()) {
+			afterSelect(result.getList(), searchParams);
+		}
+		return result;
+	}
+
+	private boolean afterSelect(SP searchParams) {
+		return true;
+	}
+
+
+	private void afterSelect(Collection<E> items, @Nullable SP searchParams) {
+
 	}
 
 	@Override
