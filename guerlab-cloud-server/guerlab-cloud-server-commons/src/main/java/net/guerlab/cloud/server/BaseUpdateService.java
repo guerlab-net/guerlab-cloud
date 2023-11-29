@@ -45,6 +45,17 @@ public interface BaseUpdateService<E extends IBaseEntity, SP extends SearchParam
 	 * @param collection 待更新列表
 	 * @return 已更新列表
 	 */
-	List<E> batchUpdateById(Collection<? extends E> collection);
+	default List<E> batchUpdateById(Collection<? extends E> collection) {
+		return batchUpdateById(collection, false);
+	}
+
+	/**
+	 * 批量更新.
+	 *
+	 * @param collection                 待更新列表
+	 * @param ignoreBeforeCheckException 是否忽略前置检查异常
+	 * @return 已更新列表
+	 */
+	List<E> batchUpdateById(Collection<? extends E> collection, boolean ignoreBeforeCheckException);
 
 }

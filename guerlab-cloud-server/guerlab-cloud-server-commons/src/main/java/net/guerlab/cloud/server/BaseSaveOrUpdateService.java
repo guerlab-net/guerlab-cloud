@@ -33,6 +33,17 @@ public interface BaseSaveOrUpdateService<E extends IBaseEntity> extends SaveOrUp
 	 * @param list 待保存列表
 	 * @return 已保存列表
 	 */
-	List<E> batchSaveOrUpdate(Collection<? extends E> list);
+	default List<E> batchSaveOrUpdate(Collection<? extends E> list) {
+		return batchSaveOrUpdate(list, false);
+	}
+
+	/**
+	 * 批量新增或保存.
+	 *
+	 * @param list                       待保存列表
+	 * @param ignoreBeforeCheckException 是否忽略前置检查异常
+	 * @return 已保存列表
+	 */
+	List<E> batchSaveOrUpdate(Collection<? extends E> list, boolean ignoreBeforeCheckException);
 
 }

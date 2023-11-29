@@ -284,8 +284,8 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
-	public List<E> batchUpdateById(Collection<? extends E> collection) {
-		List<E> list = BatchSaveUtils.filter(collection, this::batchUpdateBefore);
+	public List<E> batchUpdateById(Collection<? extends E> collection, boolean ignoreBeforeCheckException) {
+		List<E> list = BatchSaveUtils.filter(collection, item -> batchUpdateBefore(item, ignoreBeforeCheckException));
 
 		if (CollectionUtil.isNotEmpty(list)) {
 			updateBatch(list, DEFAULT_BATCH_SIZE);
@@ -297,18 +297,22 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	/**
 	 * 更新检查.
 	 *
-	 * @param entity 实体
+	 * @param entity                     实体
+	 * @param ignoreBeforeCheckException 是否忽略前置检查异常
 	 * @return 如果返回null则不保存该对象，否则保存该对象
 	 */
 	@Nullable
-	protected E batchUpdateBefore(E entity) {
+	protected E batchUpdateBefore(E entity, boolean ignoreBeforeCheckException) {
 		try {
 			updateBefore(entity);
 			return entity;
 		}
 		catch (Exception e) {
 			log.debug(e.getMessage(), e);
-			return null;
+			if (ignoreBeforeCheckException) {
+				return null;
+			}
+			throw e;
 		}
 	}
 
@@ -340,7 +344,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
-	public List<E> batchSaveOrUpdate(Collection<? extends E> list) {
+	public List<E> batchSaveOrUpdate(Collection<? extends E> list, boolean ignoreBeforeCheckException) {
 		list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
 		if (list.isEmpty()) {
 			return Collections.emptyList();
@@ -352,10 +356,10 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 		List<E> needUpdates = groupMap.getOrDefault(false, Collections.emptyList());
 
 		if (!needAdds.isEmpty()) {
-			result.addAll(batchInsert(needAdds));
+			result.addAll(batchInsert(needAdds, ignoreBeforeCheckException));
 		}
 		if (!needUpdates.isEmpty()) {
-			result.addAll(batchUpdateById(needUpdates));
+			result.addAll(batchUpdateById(needUpdates, ignoreBeforeCheckException));
 		}
 
 		return result;
