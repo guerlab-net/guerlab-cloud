@@ -39,6 +39,7 @@ import net.guerlab.cloud.commons.api.SelectOne;
 import net.guerlab.cloud.commons.api.SelectPage;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.core.result.Pageable;
+import net.guerlab.cloud.core.util.SpringUtils;
 import net.guerlab.cloud.searchparams.SearchParams;
 
 /**
@@ -137,6 +138,7 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 		if (!beforeFind(searchParams)) {
 			return Collections.emptyList();
 		}
+		invokeGlobalBeforeFindHook(searchParams);
 		List<E> list = getApi().selectList(searchParams);
 		if (list.isEmpty()) {
 			return Collections.emptyList();
@@ -154,6 +156,7 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 		if (!beforeFind(searchParams)) {
 			return Pageable.empty();
 		}
+		invokeGlobalBeforeFindHook(searchParams);
 		Pageable<E> result = getApi().selectPage(searchParams, pageId, pageSize);
 		if (result.getList().isEmpty()) {
 			return Pageable.empty();
@@ -174,10 +177,24 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 	@PostMapping(SelectCount.SELECT_COUNT_PATH)
 	@Operation(summary = "查询总记录数", security = @SecurityRequirement(name = Constants.TOKEN))
 	public long selectCount(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams) {
-		if (beforeFind(searchParams)) {
-			return getApi().selectCount(searchParams);
+		if (!beforeFind(searchParams)) {
+			return 0L;
 		}
-		return 0L;
+		invokeGlobalBeforeFindHook(searchParams);
+		return getApi().selectCount(searchParams);
+	}
+
+	/**
+	 * 全局搜索参数钩子.
+	 *
+	 * @param searchParams 搜索参数
+	 */
+	private void invokeGlobalBeforeFindHook(SP searchParams) {
+		for (GlobalBeforeFindHook handler : SpringUtils.getBeans(GlobalBeforeFindHook.class)) {
+			if (handler.accept(searchParams)) {
+				handler.handler(searchParams);
+			}
+		}
 	}
 
 	/**

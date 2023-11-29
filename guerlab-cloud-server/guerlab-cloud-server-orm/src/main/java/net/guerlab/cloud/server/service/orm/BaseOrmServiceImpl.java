@@ -104,28 +104,63 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	public E selectOne(E entity) {
 		QueryWrapper<E> queryWrapper = getQueryWrapper();
 		queryWrapper.setEntity(entity);
-		return getBaseMapper().selectOne(queryWrapper);
+		E result = getBaseMapper().selectOne(queryWrapper);
+		if (result != null) {
+			afterSelect(Collections.singleton(result), null);
+		}
+		return result;
 	}
 
 	@Override
 	public E selectOne(SP searchParams) {
-		return getBaseMapper().selectOne(getQueryWrapperWithSelectMethod(searchParams));
+		E result = getBaseMapper().selectOne(getQueryWrapperWithSelectMethod(searchParams));
+		if (result != null) {
+			afterSelect(Collections.singleton(result), null);
+		}
+		return result;
 	}
 
 	@Override
 	public E selectById(Long id) {
-		return getBaseMapper().selectById(id);
+		E result = getBaseMapper().selectById(id);
+		if (result != null) {
+			afterSelect(Collections.singleton(result), null);
+		}
+		return result;
 	}
 
 	@Override
 	public List<E> selectList(SP searchParams) {
+		if (!afterSelect(searchParams)) {
+			return Collections.emptyList();
+		}
 		QueryWrapper<E> queryWrapper = getQueryWrapperWithSelectMethod(searchParams);
-		return getBaseMapper().selectList(queryWrapper);
+		List<E> list = getBaseMapper().selectList(queryWrapper);
+		if (!list.isEmpty()) {
+			afterSelect(list, searchParams);
+		}
+		return list;
 	}
 
 	@Override
 	public Pageable<E> selectPage(SP searchParams, int pageId, int pageSize) {
-		return PageUtils.selectPage(this, searchParams, pageId, pageSize, getBaseMapper());
+		if (!afterSelect(searchParams)) {
+			return Pageable.empty();
+		}
+		Pageable<E> result = PageUtils.selectPage(this, searchParams, pageId, pageSize, getBaseMapper());
+		if (result.getList() != null && !result.getList().isEmpty()) {
+			afterSelect(result.getList(), searchParams);
+		}
+		return result;
+	}
+
+	private boolean afterSelect(SP searchParams) {
+		return true;
+	}
+
+
+	private void afterSelect(Collection<E> items, @Nullable SP searchParams) {
+
 	}
 
 	@Override
@@ -162,8 +197,8 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
-	public List<E> batchInsert(Collection<? extends E> collection) {
-		List<E> list = BatchSaveUtils.filter(collection, this::batchSaveBefore);
+	public List<E> batchInsert(Collection<? extends E> collection, boolean ignoreBeforeCheckException) {
+		List<E> list = BatchSaveUtils.filter(collection, item -> batchSaveBefore(item, ignoreBeforeCheckException));
 
 		if (CollectionUtil.isNotEmpty(list)) {
 			saveBatch(list, DEFAULT_BATCH_SIZE);
@@ -175,18 +210,22 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	/**
 	 * 保存检查.
 	 *
-	 * @param entity 实体
+	 * @param entity                     实体
+	 * @param ignoreBeforeCheckException 是否忽略前置检查异常
 	 * @return 如果返回null则不保存该对象，否则保存该对象
 	 */
 	@Nullable
-	protected E batchSaveBefore(E entity) {
+	protected E batchSaveBefore(E entity, boolean ignoreBeforeCheckException) {
 		try {
 			insertBefore(entity);
 			return entity;
 		}
 		catch (Exception e) {
 			log.debug(e.getMessage(), e);
-			return null;
+			if (ignoreBeforeCheckException) {
+				return null;
+			}
+			throw e;
 		}
 	}
 
@@ -245,8 +284,8 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
-	public List<E> batchUpdateById(Collection<? extends E> collection) {
-		List<E> list = BatchSaveUtils.filter(collection, this::batchUpdateBefore);
+	public List<E> batchUpdateById(Collection<? extends E> collection, boolean ignoreBeforeCheckException) {
+		List<E> list = BatchSaveUtils.filter(collection, item -> batchUpdateBefore(item, ignoreBeforeCheckException));
 
 		if (CollectionUtil.isNotEmpty(list)) {
 			updateBatch(list, DEFAULT_BATCH_SIZE);
@@ -258,18 +297,22 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	/**
 	 * 更新检查.
 	 *
-	 * @param entity 实体
+	 * @param entity                     实体
+	 * @param ignoreBeforeCheckException 是否忽略前置检查异常
 	 * @return 如果返回null则不保存该对象，否则保存该对象
 	 */
 	@Nullable
-	protected E batchUpdateBefore(E entity) {
+	protected E batchUpdateBefore(E entity, boolean ignoreBeforeCheckException) {
 		try {
 			updateBefore(entity);
 			return entity;
 		}
 		catch (Exception e) {
 			log.debug(e.getMessage(), e);
-			return null;
+			if (ignoreBeforeCheckException) {
+				return null;
+			}
+			throw e;
 		}
 	}
 
@@ -301,7 +344,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
-	public List<E> batchSaveOrUpdate(Collection<? extends E> list) {
+	public List<E> batchSaveOrUpdate(Collection<? extends E> list, boolean ignoreBeforeCheckException) {
 		list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
 		if (list.isEmpty()) {
 			return Collections.emptyList();
@@ -313,10 +356,10 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 		List<E> needUpdates = groupMap.getOrDefault(false, Collections.emptyList());
 
 		if (!needAdds.isEmpty()) {
-			result.addAll(batchInsert(needAdds));
+			result.addAll(batchInsert(needAdds, ignoreBeforeCheckException));
 		}
 		if (!needUpdates.isEmpty()) {
-			result.addAll(batchUpdateById(needUpdates));
+			result.addAll(batchUpdateById(needUpdates, ignoreBeforeCheckException));
 		}
 
 		return result;

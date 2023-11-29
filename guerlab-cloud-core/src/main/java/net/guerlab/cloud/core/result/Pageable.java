@@ -13,8 +13,8 @@
 
 package net.guerlab.cloud.core.result;
 
-import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import lombok.Data;
 
@@ -39,7 +39,7 @@ public class Pageable<T> {
 	/**
 	 * 数据列表.
 	 */
-	private Collection<T> list = Collections.emptyList();
+	private List<T> list = Collections.emptyList();
 
 	/**
 	 * 数据总数.
@@ -97,7 +97,7 @@ public class Pageable<T> {
 	 * @param count    数据总数
 	 * @param dataList 数据列表
 	 */
-	public Pageable(long pageSize, long count, @Nullable Collection<T> dataList) {
+	public Pageable(long pageSize, long count, @Nullable List<T> dataList) {
 		this(pageSize, count);
 
 		if (dataList != null) {
@@ -119,7 +119,7 @@ public class Pageable<T> {
 	private static class EmptyPageable<E> extends Pageable<E> {
 
 		@Override
-		public void setList(Collection<E> list) {
+		public void setList(List<E> list) {
 			throw new UnsupportedOperationException();
 		}
 

@@ -13,7 +13,7 @@
 
 package net.guerlab.cloud.server.utils;
 
-import java.util.Collection;
+import java.util.List;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -55,7 +55,7 @@ public final class PageUtils {
 		QueryWrapper<E> queryWrapper = wrapperGetter.getQueryWrapperWithSelectMethod(searchParams);
 
 		Page<E> result = mapper.selectPage(new Page<>(pageId, pageSize), queryWrapper);
-		Collection<E> list = result.getRecords();
+		List<E> list = result.getRecords();
 
 		long total = result.getTotal();
 
