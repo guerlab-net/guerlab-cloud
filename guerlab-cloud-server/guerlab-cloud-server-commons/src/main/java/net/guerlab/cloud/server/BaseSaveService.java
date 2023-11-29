@@ -33,6 +33,17 @@ public interface BaseSaveService<E extends IBaseEntity> extends Insert<E> {
 	 * @param collection 待保存列表
 	 * @return 已保存列表
 	 */
-	List<E> batchInsert(Collection<? extends E> collection);
+	default List<E> batchInsert(Collection<? extends E> collection) {
+		return batchInsert(collection, false);
+	}
+
+	/**
+	 * 批量保存.
+	 *
+	 * @param collection                 待保存列表
+	 * @param ignoreBeforeCheckException 是否忽略前置检查异常
+	 * @return 已保存列表
+	 */
+	List<E> batchInsert(Collection<? extends E> collection, boolean ignoreBeforeCheckException);
 
 }

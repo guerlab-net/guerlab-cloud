@@ -185,7 +185,7 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 	}
 
 	/**
-	 * 全局搜索参数钩子
+	 * 全局搜索参数钩子.
 	 *
 	 * @param searchParams 搜索参数
 	 */
