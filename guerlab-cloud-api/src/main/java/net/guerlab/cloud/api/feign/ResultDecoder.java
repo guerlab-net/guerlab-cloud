@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -69,24 +70,33 @@ public class ResultDecoder implements Decoder {
 		};
 
 		String resultBody = Util.toString(response.body().asReader(StandardCharsets.UTF_8));
-		JsonNode rootNode = objectMapper.readTree(resultBody);
 		try {
-			if (type instanceof Class && Result.class.isAssignableFrom((Class<?>) type)) {
-				return objectMapper.readValue(resultBody, typeReference);
-			}
-			else if (rootNode.has(Constants.FIELD_STATUS) && rootNode.has(Constants.FIELD_ERROR_CODE)) {
-				if (!getStatus(rootNode)) {
-					throw FailParser.parse(rootNode);
+			try {
+				JsonNode rootNode = objectMapper.readTree(resultBody);
+				if (type instanceof Class && Result.class.isAssignableFrom((Class<?>) type)) {
+					return objectMapper.readValue(resultBody, typeReference);
 				}
-				else if (!rootNode.has(Constants.FIELD_DATA)) {
-					log.debug("rootNode not has {} field, json is : {}", Constants.FIELD_DATA, resultBody);
-					return null;
+				else if (rootNode.has(Constants.FIELD_STATUS) && rootNode.has(Constants.FIELD_ERROR_CODE)) {
+					if (!getStatus(rootNode)) {
+						throw FailParser.parse(rootNode);
+					}
+					else if (!rootNode.has(Constants.FIELD_DATA)) {
+						log.debug("rootNode not has {} field, json is : {}", Constants.FIELD_DATA, resultBody);
+						return null;
+					}
+
+					return objectMapper.convertValue(rootNode.get(Constants.FIELD_DATA), typeReference);
+				}
+				else {
+					return objectMapper.readValue(resultBody, typeReference);
+				}
+			}
+			catch (JsonParseException e) {
+				if (type.getTypeName().equals(String.class.getTypeName())) {
+					return resultBody;
 				}
 
-				return objectMapper.convertValue(rootNode.get(Constants.FIELD_DATA), typeReference);
-			}
-			else {
-				return objectMapper.readValue(resultBody, typeReference);
+				throw e;
 			}
 		}
 		catch (ApplicationException e) {
