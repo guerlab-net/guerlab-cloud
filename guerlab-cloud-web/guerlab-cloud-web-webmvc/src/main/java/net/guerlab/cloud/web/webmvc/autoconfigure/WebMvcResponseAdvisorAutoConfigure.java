@@ -14,6 +14,7 @@
 package net.guerlab.cloud.web.webmvc.autoconfigure;
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -73,8 +74,13 @@ public class WebMvcResponseAdvisorAutoConfigure {
 		public Object beforeBodyWrite(@Nullable Object body, MethodParameter returnType, MediaType selectedContentType,
 				Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
 				ServerHttpResponse response) {
-			if (body == null) {
-				log.debug("wrapper with null body");
+			if (body instanceof String || Objects.equals(Objects.requireNonNull(returnType.getMethod())
+					.getReturnType(), String.class)) {
+				log.debug("wrapper with string type");
+				return new Succeed<>().toString();
+			}
+			else if (body == null) {
+				log.debug("wrapper with null body and not string type");
 				return new Succeed<>();
 			}
 			else if (support.noConvertObject(body, returnType)) {
