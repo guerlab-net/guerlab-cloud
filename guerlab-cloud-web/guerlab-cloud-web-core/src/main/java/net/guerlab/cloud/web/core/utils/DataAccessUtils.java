@@ -15,11 +15,14 @@ package net.guerlab.cloud.web.core.utils;
 
 import java.lang.reflect.Field;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.lang.Nullable;
 import org.springframework.util.ReflectionUtils;
 
+import net.guerlab.cloud.core.result.Pageable;
+import net.guerlab.cloud.core.result.Result;
 import net.guerlab.cloud.web.core.data.DataHandler;
 
 /**
@@ -59,6 +62,20 @@ public final class DataAccessUtils {
 		else if (object.getClass().isArray()) {
 			Object[] objects = (Object[]) object;
 			for (Object obj : objects) {
+				objectHandler(filedName, obj, dataHandler);
+			}
+		}
+		else if (object instanceof Pageable pageable) {
+			List<?> list = pageable.getList();
+			if (list != null && !list.isEmpty()) {
+				for (Object obj : list) {
+					objectHandler(filedName, obj, dataHandler);
+				}
+			}
+		}
+		else if (object instanceof Result result) {
+			Object obj = result.getData();
+			if (obj != null) {
 				objectHandler(filedName, obj, dataHandler);
 			}
 		}
