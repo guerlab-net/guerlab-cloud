@@ -14,6 +14,9 @@
 package org.springframework.boot.autoconfigure.data.redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.redisson.api.RedissonClient;
+import org.redisson.spring.data.connection.RedissonConnectionFactory;
+import org.redisson.spring.starter.RedissonAutoConfiguration;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -24,7 +27,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 
 /**
  * RedisTemplate自动配置.
@@ -32,9 +37,22 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
  * @author guer
  */
 @ConditionalOnClass(RedisOperations.class)
-@AutoConfiguration(before = RedisAutoConfiguration.class)
+@AutoConfiguration(before = {
+		RedisAutoConfiguration.class,
+		RedissonAutoConfiguration.class
+})
 @Import({LettuceConnectionConfiguration.class, JedisConnectionConfiguration.class})
 public class RedisTemplateAutoConfigure {
+
+	/**
+	 * view to {@link org.redisson.spring.starter.RedissonAutoConfiguration#redissonConnectionFactory}
+	 */
+	@Bean
+	@ConditionalOnMissingBean(RedisConnectionFactory.class)
+	@ConditionalOnClass(RedissonClient.class)
+	public RedissonConnectionFactory redissonConnectionFactory(RedissonClient redisson) {
+		return new RedissonConnectionFactory(redisson);
+	}
 
 	/**
 	 * create RedisTemplate.
@@ -53,6 +71,28 @@ public class RedisTemplateAutoConfigure {
 		RedisTemplate<?, ?> template = new RedisTemplate<>();
 		template.setConnectionFactory(factory);
 		template.setKeySerializer(new GenericJackson2JsonRedisSerializer(mapper));
+		template.setValueSerializer(new GenericJackson2JsonRedisSerializer(mapper));
+
+		return template;
+	}
+
+	/**
+	 * create StringRedisTemplate.
+	 *
+	 * @param factory      RedisConnectionFactory
+	 * @param objectMapper objectMapper
+	 * @return StringRedisTemplate
+	 */
+	@Bean
+	@ConditionalOnMissingBean(name = "stringRedisTemplate")
+	@ConditionalOnSingleCandidate(RedisConnectionFactory.class)
+	public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory factory, ObjectMapper objectMapper) {
+		ObjectMapper mapper = objectMapper.copy();
+		mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL);
+
+		StringRedisTemplate template = new StringRedisTemplate();
+		template.setConnectionFactory(factory);
+		template.setKeySerializer(RedisSerializer.string());
 		template.setValueSerializer(new GenericJackson2JsonRedisSerializer(mapper));
 
 		return template;
