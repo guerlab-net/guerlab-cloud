@@ -15,6 +15,7 @@ package net.guerlab.cloud.web.webflux.response;
 
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Objects;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
@@ -114,11 +115,16 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
 	public Mono<Void> handleResult(ServerWebExchange exchange, HandlerResult result) {
 		Object body = result.getReturnValue();
 		MethodParameter bodyTypeParameter = result.getReturnTypeSource();
-		if (body == null) {
+		if (body instanceof String || Objects.equals(Objects.requireNonNull(bodyTypeParameter.getMethod())
+				.getReturnType(), String.class)) {
+			log.debug("wrapper with string type");
+			return writeBody(new Succeed<>().toString(), METHOD_PARAMETER_WITH_MONO_RESULT, exchange);
+		}
+		else if (body == null) {
 			log.debug("wrapper with null body");
 			return writeBody(new Succeed<>(), METHOD_PARAMETER_WITH_MONO_RESULT, exchange);
 		}
-		else if (support.noConvertObject(body, result.getReturnTypeSource())) {
+		else if (support.noConvertObject(body, bodyTypeParameter)) {
 			log.debug("un wrapper with noConvertObject, body class is {}", body.getClass());
 			return super.handleResult(exchange, result);
 		}

@@ -63,4 +63,22 @@ public class Succeed<T> extends Result<T> {
 	public Succeed(@Nullable String message, @Nullable T data) {
 		super(true, message, data);
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append("{");
+		builder.append("\"status\":true");
+		if (getMessage() != null) {
+			builder.append(", \"message\":").append("\"").append(getMessage()).append("\"");
+		}
+		if (getData() != null) {
+			builder.append(", \"data\":").append(getData());
+		}
+		builder.append(", \"errorCode\":").append(getErrorCode());
+		builder.append("}");
+
+		return builder.toString();
+	}
 }
