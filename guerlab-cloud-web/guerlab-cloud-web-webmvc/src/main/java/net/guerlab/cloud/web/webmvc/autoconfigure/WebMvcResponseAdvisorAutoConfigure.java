@@ -74,12 +74,11 @@ public class WebMvcResponseAdvisorAutoConfigure {
 		public Object beforeBodyWrite(@Nullable Object body, MethodParameter returnType, MediaType selectedContentType,
 				Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
 				ServerHttpResponse response) {
-			if (body instanceof String || Objects.equals(Objects.requireNonNull(returnType.getMethod())
-					.getReturnType(), String.class)) {
-				log.debug("wrapper with string type");
-				return new Succeed<>().toString();
-			}
-			else if (body == null) {
+			if (body == null) {
+				if (Objects.equals(Objects.requireNonNull(returnType.getMethod()).getReturnType(), String.class)) {
+					log.debug("wrapper with string type");
+					return new Succeed<>().toString();
+				}
 				log.debug("wrapper with null body and not string type");
 				return new Succeed<>();
 			}
