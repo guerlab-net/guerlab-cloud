@@ -115,12 +115,12 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
 	public Mono<Void> handleResult(ServerWebExchange exchange, HandlerResult result) {
 		Object body = result.getReturnValue();
 		MethodParameter bodyTypeParameter = result.getReturnTypeSource();
-		if (body instanceof String || Objects.equals(Objects.requireNonNull(bodyTypeParameter.getMethod())
-				.getReturnType(), String.class)) {
-			log.debug("wrapper with string type");
-			return writeBody(new Succeed<>().toString(), METHOD_PARAMETER_WITH_MONO_RESULT, exchange);
-		}
-		else if (body == null) {
+		if (body == null) {
+			if (Objects.equals(Objects.requireNonNull(bodyTypeParameter.getMethod()).getReturnType(), String.class)) {
+				log.debug("wrapper with string type");
+				return writeBody(new Succeed<>().toString(), METHOD_PARAMETER_WITH_MONO_RESULT, exchange);
+			}
+
 			log.debug("wrapper with null body");
 			return writeBody(new Succeed<>(), METHOD_PARAMETER_WITH_MONO_RESULT, exchange);
 		}
