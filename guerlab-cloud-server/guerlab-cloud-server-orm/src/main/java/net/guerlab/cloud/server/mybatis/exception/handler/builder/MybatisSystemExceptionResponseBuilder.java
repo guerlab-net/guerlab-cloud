@@ -42,11 +42,15 @@ public class MybatisSystemExceptionResponseBuilder extends AbstractResponseBuild
 
 			return builder.build(cause);
 		}
-		else {
-			Fail<Void> fail = new Fail<>(exception.getMessage());
-			stackTracesHandler.setStackTrace(fail, e);
-			return fail;
+
+		String message = exception.getMessage();
+		if (message == null) {
+			message = cause.getMessage();
 		}
+
+		Fail<Void> fail = new Fail<>(message);
+		stackTracesHandler.setStackTrace(fail, e);
+		return fail;
 	}
 }
 

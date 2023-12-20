@@ -17,6 +17,7 @@ import java.util.Collections;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springdoc.core.customizers.GlobalOpenApiCustomizer;
 import org.springdoc.core.properties.SpringDocConfigProperties;
 import org.springdoc.core.utils.SpringDocAnnotationsUtils;
 
@@ -25,6 +26,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
+import net.guerlab.cloud.openapi.core.CustomerHeaderGlobalOpenApiCustomizer;
 import net.guerlab.cloud.openapi.core.properties.OpenApiProperties;
 import net.guerlab.cloud.security.core.AuthorizePathProvider;
 import net.guerlab.cloud.security.core.SimpleAuthorizePathProvider;
@@ -58,5 +60,10 @@ public class OpenApiAutoConfigure {
 	public AuthorizePathProvider openApiAuthorizePathProvider(SpringDocConfigProperties properties) {
 		String path = StringUtils.trimToEmpty(properties.getApiDocs().getPath()) + "/**";
 		return new SimpleAuthorizePathProvider(Collections.singletonList(path));
+	}
+
+	@Bean
+	public GlobalOpenApiCustomizer globalOpenApiCustomizer(OpenApiProperties properties) {
+		return new CustomerHeaderGlobalOpenApiCustomizer(properties);
 	}
 }
