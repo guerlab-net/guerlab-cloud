@@ -27,11 +27,12 @@ public class AuthContextHandlerTaskDecorator implements TaskDecorator {
 
 	@Override
 	public Runnable decorate(Runnable runnable) {
-		ContextAttributes contextAttributes = ContextAttributesHolder.get();
+		// 切换线程后，主线程退出会导致上下文被清理
+		ContextAttributes newContextAttributes = ContextAttributesHolder.get().copy();
 
 		return () -> {
 			try {
-				ContextAttributesHolder.set(contextAttributes);
+				ContextAttributesHolder.set(newContextAttributes);
 				runnable.run();
 			}
 			finally {
