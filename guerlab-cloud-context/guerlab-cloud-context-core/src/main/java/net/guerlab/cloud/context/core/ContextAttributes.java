@@ -37,8 +37,24 @@ public class ContextAttributes extends HashMap<Object, Object> {
 	 */
 	public static final String RESPONSE_KEY = KEY + ".response";
 
+	public ContextAttributes() {
+	}
+
+	public ContextAttributes(ContextAttributes parent) {
+		putAll(parent);
+	}
+
 	@Override
 	public String toString() {
 		return "ContextAttributes: " + super.toString();
+	}
+
+	/**
+	 * 拷贝当前上下文内容属性到新的上下文属性中.
+	 *
+	 * @return 新上下文属性
+	 */
+	public ContextAttributes copy() {
+		return new ContextAttributes(this);
 	}
 }

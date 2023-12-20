@@ -45,7 +45,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 public class RedisTemplateAutoConfigure {
 
 	/**
-	 * view to {@link org.redisson.spring.starter.RedissonAutoConfiguration#redissonConnectionFactory}
+	 * view to {@link org.redisson.spring.starter.RedissonAutoConfiguration#redissonConnectionFactory}.
 	 */
 	@Bean
 	@ConditionalOnMissingBean(RedisConnectionFactory.class)
