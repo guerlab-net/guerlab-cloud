@@ -65,12 +65,12 @@ public abstract class AbstractMysqlBatchInsertMethod<E extends IBaseEntity> exte
 	 * @return 值列表字段sql
 	 */
 	protected String prepareValuesSqlForMysqlBatch(TableInfo tableInfo) {
-		String keyColumn = StringUtils.trimToNull(tableInfo.getKeyColumn());
+		String keyProperty = StringUtils.trimToNull(tableInfo.getKeyProperty());
 		StringBuilder valueSql = new StringBuilder();
 		valueSql.append(
 				"<foreach collection=\"list\" item=\"item\" index=\"index\" open=\"(\" separator=\"),(\" close=\")\">");
-		if (keyColumn != null) {
-			valueSql.append("#{item.").append(keyColumn).append("},");
+		if (keyProperty != null) {
+			valueSql.append("#{item.").append(keyProperty).append("},");
 		}
 		getFieldStream(tableInfo).forEach(x -> valueSql.append("#{item.").append(x.getProperty()).append("},"));
 		valueSql.delete(valueSql.length() - 1, valueSql.length());

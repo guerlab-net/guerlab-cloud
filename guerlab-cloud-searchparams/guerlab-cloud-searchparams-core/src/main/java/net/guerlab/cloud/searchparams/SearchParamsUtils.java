@@ -17,8 +17,10 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -26,10 +28,12 @@ import java.util.ServiceLoader;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.lang.Nullable;
 
+import net.guerlab.cloud.core.util.SpringUtils;
 import net.guerlab.commons.reflection.FieldUtil;
 
 /**
@@ -38,6 +42,7 @@ import net.guerlab.commons.reflection.FieldUtil;
  * @author guer
  */
 @SuppressWarnings("unused")
+@Slf4j
 public final class SearchParamsUtils {
 
 	private static final Predicate<Field> STATIC_FILTER = e -> e != null && !Modifier.isStatic(e.getModifiers());
@@ -47,7 +52,7 @@ public final class SearchParamsUtils {
 
 	private static final HashMap<Class<? extends AbstractSearchParamsUtilInstance>, AbstractSearchParamsUtilInstance> INSTANCES_CACHE = new HashMap<>();
 
-	private static final HashMap<Class<? extends SqlProvider>, SqlProvider> SQL_PROVIDER_CACHE = new HashMap<>();
+	private static final HashMap<Class<? extends SqlProvider>, List<SqlProvider>> SQL_PROVIDER_CACHE = new HashMap<>();
 
 	static {
 		ServiceLoader.load(AbstractSearchParamsUtilInstance.class)
@@ -250,22 +255,88 @@ public final class SearchParamsUtils {
 		}
 
 		return Stream.of(providerClassArray)
-				.map(SearchParamsUtils::createSqlProviderInstance)
+				.map(SearchParamsUtils::loadSqlProviders)
+				.flatMap(Collection::stream)
 				.filter(Objects::nonNull);
 	}
 
-	@Nullable
-	private static SqlProvider createSqlProviderInstance(Class<? extends SqlProvider> providerClass) {
-		SqlProvider provider = SQL_PROVIDER_CACHE.get(providerClass);
-		if (provider != null) {
-			return provider;
+	/**
+	 * 清理自定义sql提供器实例缓存.
+	 *
+	 * @param providerClass 自定义sql提供器类型
+	 */
+	public static void cleanSqlProviderCache(Class<? extends SqlProvider> providerClass) {
+		SQL_PROVIDER_CACHE.remove(providerClass);
+	}
+
+	/**
+	 * 获取自定义sql提供器实例列表.
+	 *
+	 * @param providerClass 自定义sql提供器类型
+	 * @return 自定义sql提供器实例列表
+	 */
+	public static List<SqlProvider> loadSqlProviders(Class<? extends SqlProvider> providerClass) {
+		List<SqlProvider> providers = SQL_PROVIDER_CACHE.get(providerClass);
+		if (providers != null) {
+			return providers;
 		}
+
+		if (providerClass.isInterface()) {
+			providers = loadSqlProvidersByInterface(providerClass);
+		}
+		else {
+			providers = loadSqlProvidersByClassConstructorMethod(providerClass);
+		}
+
+		providers = providers.stream().sorted(Comparator.comparingInt(SqlProvider::getOrder)).toList();
+
+		if (!providers.isEmpty()) {
+			SQL_PROVIDER_CACHE.put(providerClass, providers);
+		}
+
+		return providers;
+	}
+
+	private static List<SqlProvider> loadSqlProvidersByInterface(Class<? extends SqlProvider> providerClass) {
+		List<SqlProvider> providers = new ArrayList<>();
+		providers.addAll(loadSqlProvidersByInterfaceWithSpringApplicationContext(providerClass));
+		providers.addAll(loadSqlProvidersByInterfaceWithJavaServiceLoader(providerClass));
+		return providers;
+	}
+
+	private static List<SqlProvider> loadSqlProvidersByInterfaceWithSpringApplicationContext(Class<? extends SqlProvider> providerClass) {
+		List<SqlProvider> result = new ArrayList<>();
 		try {
-			provider = providerClass.getConstructor().newInstance();
-			SQL_PROVIDER_CACHE.put(providerClass, provider);
+			result.addAll(SpringUtils.getBeans(providerClass));
+			log.debug("load SqlProvider by Spring, {} -> {}", providerClass.getName(), result.size());
 		}
 		catch (Exception ignored) {
 		}
-		return provider;
+		return result;
+
+	}
+
+	private static List<SqlProvider> loadSqlProvidersByInterfaceWithJavaServiceLoader(Class<? extends SqlProvider> providerClass) {
+		List<SqlProvider> result = new ArrayList<>();
+		try {
+			ServiceLoader<? extends SqlProvider> serviceLoader = ServiceLoader.load(providerClass);
+			serviceLoader.stream().map(ServiceLoader.Provider::get).forEach(result::add);
+			log.debug("load SqlProvider by ServiceLoader, {} -> {}", providerClass.getName(), result.size());
+		}
+		catch (Exception ignored) {
+		}
+		return result;
+	}
+
+	private static List<SqlProvider> loadSqlProvidersByClassConstructorMethod(Class<? extends SqlProvider> providerClass) {
+		List<SqlProvider> result = new ArrayList<>();
+		try {
+			SqlProvider provider = providerClass.getConstructor().newInstance();
+			result.add(provider);
+			log.debug("load SqlProvider by Class Constructor Method, {} -> {}", providerClass.getName(), result.size());
+		}
+		catch (Exception ignored) {
+		}
+		return result;
 	}
 }

@@ -13,34 +13,10 @@
 
 package net.guerlab.cloud.searchparams;
 
-import org.springframework.core.Ordered;
-
 /**
- * 自定义sql提供器.
+ * 测试自定义sql提供器.
  *
  * @author guer
  */
-public interface SqlProvider extends Ordered {
-
-	/**
-	 * 判断是否允许处理.
-	 *
-	 * @param object 处理对象
-	 * @param value  参数值
-	 * @return 是否处理
-	 */
-	boolean accept(Object object, Object value);
-
-	/**
-	 * 处理.
-	 *
-	 * @param object 处理对象
-	 * @param value  参数值
-	 */
-	void apply(Object object, Object value);
-
-	@Override
-	default int getOrder() {
-		return 0;
-	}
+public interface TestSqlProvider extends SqlProvider {
 }
