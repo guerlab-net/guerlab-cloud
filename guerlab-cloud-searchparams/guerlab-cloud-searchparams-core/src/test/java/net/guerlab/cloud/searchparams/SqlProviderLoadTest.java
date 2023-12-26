@@ -48,7 +48,6 @@ public class SqlProviderLoadTest {
 
 	@Test
 	public void byClass() {
-		log.debug("byClass");
 		List<SqlProvider> providers = SearchParamsUtils.loadSqlProviders(ClassTestSqlProvider.class);
 		Assertions.assertTrue(providers.stream()
 				.anyMatch(provider -> provider.getClass().isAssignableFrom(ClassTestSqlProvider.class)));
@@ -56,7 +55,6 @@ public class SqlProviderLoadTest {
 
 	@Test
 	public void byServiceLoad() {
-		log.debug("byServiceLoad");
 		List<SqlProvider> providers = SearchParamsUtils.loadSqlProviders(TestSqlProvider.class);
 		Assertions.assertTrue(providers.stream()
 				.anyMatch(provider -> provider.getClass().isAssignableFrom(ServiceLoadTestSqlProvider.class)));
@@ -64,7 +62,6 @@ public class SqlProviderLoadTest {
 
 	@Test
 	public void bySpring() {
-		log.debug("bySpring");
 		List<SqlProvider> providers = SearchParamsUtils.loadSqlProviders(TestSqlProvider.class);
 		Assertions.assertTrue(providers.stream()
 				.anyMatch(provider -> provider.getClass().isAssignableFrom(BeanTestSqlProvider.class)));

@@ -23,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.reflect.MethodSignature;
 
-import org.springframework.beans.BeansException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.expression.EvaluationContext;
@@ -33,7 +32,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.http.HttpStatus;
 
 import net.guerlab.cloud.commons.enums.TimeUnitMessageKey;
-import net.guerlab.cloud.core.util.SpringUtils;
+import net.guerlab.cloud.core.util.ServiceLoader;
 import net.guerlab.cloud.lock.core.fallback.FallbackFactory;
 import net.guerlab.cloud.lock.core.fallback.NoopFallbackFactory;
 import net.guerlab.commons.exception.ApplicationException;
@@ -152,6 +151,7 @@ public abstract class AbstractLockAspect {
 				return new ApplicationException(message, HttpStatus.TOO_MANY_REQUESTS.value());
 			}
 			catch (NoSuchMessageException ignore) {
+				return new ApplicationException(messageKey, HttpStatus.TOO_MANY_REQUESTS.value());
 			}
 		}
 		return null;
@@ -182,14 +182,16 @@ public abstract class AbstractLockAspect {
 	 */
 	@Nullable
 	protected <C extends FallbackFactory> Object getFallback(Class<C> fallbackFactoryClass, Object[] args) {
-		if (!NoopFallbackFactory.class.isAssignableFrom(fallbackFactoryClass)) {
-			try {
-				return SpringUtils.getBean(fallbackFactoryClass).create(args);
-			}
-			catch (BeansException ignore) {
-				log.debug("get fallbackFactoryClass bean fail, {}", fallbackFactoryClass);
-			}
+		if (NoopFallbackFactory.class.isAssignableFrom(fallbackFactoryClass)) {
+			return null;
 		}
-		return null;
+
+		ServiceLoader<C> serviceLoader = ServiceLoader.load(fallbackFactoryClass);
+		FallbackFactory factory = serviceLoader.stream().findFirst().orElse(null);
+
+		if (factory == null) {
+			return null;
+		}
+		return factory.create(args);
 	}
 }
