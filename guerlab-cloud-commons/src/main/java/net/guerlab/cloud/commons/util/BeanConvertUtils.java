@@ -111,7 +111,7 @@ public final class BeanConvertUtils {
 	 * @return 目标列表对象
 	 */
 	public static <T, E extends Convert<T>> Pageable<T> toPageable(@Nullable Pageable<E> list) {
-		if (list == null || CollectionUtil.isEmpty(list.getList())) {
+		if (list == null) {
 			return Pageable.empty();
 		}
 
@@ -132,7 +132,7 @@ public final class BeanConvertUtils {
 	 * @return 目标列表对象
 	 */
 	public static <T, E> Pageable<T> toPageable(@Nullable Pageable<E> list, Class<T> dtoClass) {
-		if (list == null || CollectionUtil.isEmpty(list.getList())) {
+		if (list == null) {
 			return Pageable.empty();
 		}
 
@@ -153,7 +153,7 @@ public final class BeanConvertUtils {
 	 * @return 目标列表对象
 	 */
 	public static <T, E> Pageable<T> toPageable(@Nullable Pageable<E> list, Function<E, T> convertFunction) {
-		if (list == null || CollectionUtil.isEmpty(list.getList())) {
+		if (list == null) {
 			return Pageable.empty();
 		}
 

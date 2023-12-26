@@ -158,11 +158,9 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 		}
 		invokeGlobalBeforeFindHook(searchParams);
 		Pageable<E> result = getApi().selectPage(searchParams, pageId, pageSize);
-		if (result.getList().isEmpty()) {
-			return Pageable.empty();
-		}
 
-		List<V> list = result.getList().stream().map(this::convert).toList();
+		List<V> list = result.getList() != null ? result.getList().stream().map(this::convert)
+				.toList() : Collections.emptyList();
 		afterFind(list, searchParams);
 
 		Pageable<V> voResult = new Pageable<>();
