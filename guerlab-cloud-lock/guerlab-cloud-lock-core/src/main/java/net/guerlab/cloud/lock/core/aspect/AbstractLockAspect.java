@@ -152,6 +152,7 @@ public abstract class AbstractLockAspect {
 				return new ApplicationException(message, HttpStatus.TOO_MANY_REQUESTS.value());
 			}
 			catch (NoSuchMessageException ignore) {
+				return new ApplicationException(messageKey, HttpStatus.TOO_MANY_REQUESTS.value());
 			}
 		}
 		return null;
