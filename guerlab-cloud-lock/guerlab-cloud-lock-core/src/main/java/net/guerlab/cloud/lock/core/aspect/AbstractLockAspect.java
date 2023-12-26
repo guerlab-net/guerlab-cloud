@@ -183,14 +183,28 @@ public abstract class AbstractLockAspect {
 	 */
 	@Nullable
 	protected <C extends FallbackFactory> Object getFallback(Class<C> fallbackFactoryClass, Object[] args) {
-		if (!NoopFallbackFactory.class.isAssignableFrom(fallbackFactoryClass)) {
+		if (NoopFallbackFactory.class.isAssignableFrom(fallbackFactoryClass)) {
+			return null;
+		}
+
+		FallbackFactory factory = null;
+		try {
+			factory = SpringUtils.getBean(fallbackFactoryClass);
+		}
+		catch (BeansException ignore) {
+		}
+
+		if (factory == null && !fallbackFactoryClass.isInterface()) {
 			try {
-				return SpringUtils.getBean(fallbackFactoryClass).create(args);
+				factory = fallbackFactoryClass.getConstructor().newInstance();
 			}
-			catch (BeansException ignore) {
-				log.debug("get fallbackFactoryClass bean fail, {}", fallbackFactoryClass);
+			catch (Exception ignored) {
 			}
 		}
-		return null;
+
+		if (factory == null) {
+			return null;
+		}
+		return factory.create(args);
 	}
 }
