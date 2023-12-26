@@ -23,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.reflect.MethodSignature;
 
-import org.springframework.beans.BeansException;
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.expression.EvaluationContext;
@@ -33,7 +32,7 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.http.HttpStatus;
 
 import net.guerlab.cloud.commons.enums.TimeUnitMessageKey;
-import net.guerlab.cloud.core.util.SpringUtils;
+import net.guerlab.cloud.core.util.ServiceLoader;
 import net.guerlab.cloud.lock.core.fallback.FallbackFactory;
 import net.guerlab.cloud.lock.core.fallback.NoopFallbackFactory;
 import net.guerlab.commons.exception.ApplicationException;
@@ -187,20 +186,8 @@ public abstract class AbstractLockAspect {
 			return null;
 		}
 
-		FallbackFactory factory = null;
-		try {
-			factory = SpringUtils.getBean(fallbackFactoryClass);
-		}
-		catch (BeansException ignore) {
-		}
-
-		if (factory == null && !fallbackFactoryClass.isInterface()) {
-			try {
-				factory = fallbackFactoryClass.getConstructor().newInstance();
-			}
-			catch (Exception ignored) {
-			}
-		}
+		ServiceLoader<C> serviceLoader = ServiceLoader.load(fallbackFactoryClass);
+		FallbackFactory factory = serviceLoader.stream().findFirst().orElse(null);
 
 		if (factory == null) {
 			return null;

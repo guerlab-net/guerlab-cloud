@@ -24,7 +24,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import java.util.ServiceLoader;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -33,7 +32,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.lang.Nullable;
 
-import net.guerlab.cloud.core.util.SpringUtils;
+import net.guerlab.cloud.core.util.ServiceLoader;
 import net.guerlab.commons.reflection.FieldUtil;
 
 /**
@@ -281,13 +280,8 @@ public final class SearchParamsUtils {
 			return providers;
 		}
 
-		if (providerClass.isInterface()) {
-			providers = loadSqlProvidersByInterface(providerClass);
-		}
-		else {
-			providers = loadSqlProvidersByClassConstructorMethod(providerClass);
-		}
-
+		providers = new ArrayList<>();
+		ServiceLoader.load(providerClass).forEach(providers::add);
 		providers = providers.stream().sorted(Comparator.comparingInt(SqlProvider::getOrder)).toList();
 
 		if (!providers.isEmpty()) {
@@ -295,48 +289,5 @@ public final class SearchParamsUtils {
 		}
 
 		return providers;
-	}
-
-	private static List<SqlProvider> loadSqlProvidersByInterface(Class<? extends SqlProvider> providerClass) {
-		List<SqlProvider> providers = new ArrayList<>();
-		providers.addAll(loadSqlProvidersByInterfaceWithSpringApplicationContext(providerClass));
-		providers.addAll(loadSqlProvidersByInterfaceWithJavaServiceLoader(providerClass));
-		return providers;
-	}
-
-	private static List<SqlProvider> loadSqlProvidersByInterfaceWithSpringApplicationContext(Class<? extends SqlProvider> providerClass) {
-		List<SqlProvider> result = new ArrayList<>();
-		try {
-			result.addAll(SpringUtils.getBeans(providerClass));
-			log.debug("load SqlProvider by Spring, {} -> {}", providerClass.getName(), result.size());
-		}
-		catch (Exception ignored) {
-		}
-		return result;
-
-	}
-
-	private static List<SqlProvider> loadSqlProvidersByInterfaceWithJavaServiceLoader(Class<? extends SqlProvider> providerClass) {
-		List<SqlProvider> result = new ArrayList<>();
-		try {
-			ServiceLoader<? extends SqlProvider> serviceLoader = ServiceLoader.load(providerClass);
-			serviceLoader.stream().map(ServiceLoader.Provider::get).forEach(result::add);
-			log.debug("load SqlProvider by ServiceLoader, {} -> {}", providerClass.getName(), result.size());
-		}
-		catch (Exception ignored) {
-		}
-		return result;
-	}
-
-	private static List<SqlProvider> loadSqlProvidersByClassConstructorMethod(Class<? extends SqlProvider> providerClass) {
-		List<SqlProvider> result = new ArrayList<>();
-		try {
-			SqlProvider provider = providerClass.getConstructor().newInstance();
-			result.add(provider);
-			log.debug("load SqlProvider by Class Constructor Method, {} -> {}", providerClass.getName(), result.size());
-		}
-		catch (Exception ignored) {
-		}
-		return result;
 	}
 }
