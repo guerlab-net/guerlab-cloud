@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Spliterator;
 import java.util.Spliterators;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -50,6 +51,7 @@ public class ServiceLoader<T> implements Iterable<T> {
 	 * @param targetClass 目标类
 	 */
 	public ServiceLoader(Class<T> targetClass) {
+		Objects.requireNonNull(targetClass);
 		this.targetClass = targetClass;
 	}
 
@@ -61,6 +63,7 @@ public class ServiceLoader<T> implements Iterable<T> {
 	 * @return 服务加载器
 	 */
 	public static <T> ServiceLoader<T> load(Class<T> targetClass) {
+		Objects.requireNonNull(targetClass);
 		return new ServiceLoader<>(targetClass);
 	}
 
@@ -71,41 +74,31 @@ public class ServiceLoader<T> implements Iterable<T> {
 	 */
 	public List<T> load() {
 		if (cache.isEmpty()) {
-			List<T> list;
+			List<T> list = new ArrayList<>();
 
-			if (targetClass.isInterface()) {
-				list = loadByInterface(targetClass);
-			}
-			else {
-				list = loadByClassConstructorMethod(targetClass);
-			}
+			list.addAll(loadByInterfaceWithSpringApplicationContext(targetClass));
+			list.addAll(loadByInterfaceWithJavaServiceLoader(targetClass));
+			list.addAll(loadByClassConstructorMethod(targetClass));
 
 			cache.addAll(list);
 		}
 		return Collections.unmodifiableList(cache);
 	}
 
-	private List<T> loadByInterface(Class<T> providerClass) {
-		List<T> providers = new ArrayList<>();
-		providers.addAll(loadByInterfaceWithSpringApplicationContext(providerClass));
-		providers.addAll(loadByInterfaceWithJavaServiceLoader(providerClass));
-		return providers;
-	}
-
-	private List<T> loadByInterfaceWithSpringApplicationContext(Class<? extends T> providerClass) {
+	private List<T> loadByInterfaceWithSpringApplicationContext(Class<? extends T> targetClass) {
 		List<T> result = new ArrayList<>();
 		try {
-			result.addAll(SpringUtils.getBeans(providerClass));
+			result.addAll(SpringUtils.getBeans(targetClass));
 		}
 		catch (Exception ignored) {
 		}
 		return result;
 	}
 
-	private List<T> loadByInterfaceWithJavaServiceLoader(Class<T> providerClass) {
+	private List<T> loadByInterfaceWithJavaServiceLoader(Class<T> targetClass) {
 		List<T> result = new ArrayList<>();
 		try {
-			java.util.ServiceLoader<? extends T> serviceLoader = java.util.ServiceLoader.load(providerClass);
+			java.util.ServiceLoader<? extends T> serviceLoader = java.util.ServiceLoader.load(targetClass);
 			serviceLoader.stream().map(java.util.ServiceLoader.Provider::get).forEach(result::add);
 		}
 		catch (Exception ignored) {
@@ -113,10 +106,10 @@ public class ServiceLoader<T> implements Iterable<T> {
 		return result;
 	}
 
-	private List<T> loadByClassConstructorMethod(Class<T> providerClass) {
+	private List<T> loadByClassConstructorMethod(Class<T> targetClass) {
 		List<T> result = new ArrayList<>();
 		try {
-			T provider = providerClass.getConstructor().newInstance();
+			T provider = targetClass.getConstructor().newInstance();
 			result.add(provider);
 		}
 		catch (Exception ignored) {
