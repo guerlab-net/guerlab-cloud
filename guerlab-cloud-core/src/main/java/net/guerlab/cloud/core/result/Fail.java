@@ -15,6 +15,8 @@ package net.guerlab.cloud.core.result;
 
 import org.springframework.lang.Nullable;
 
+import net.guerlab.cloud.core.util.EnvUtils;
+
 /**
  * 通用失败JSON返回结果集.
  *
@@ -23,7 +25,10 @@ import org.springframework.lang.Nullable;
  */
 public class Fail<T> extends Result<T> {
 
-	private static final String MSG = "fail";
+	/**
+	 * 默认消息.
+	 */
+	public static final String MSG = EnvUtils.getEnv("GUERLAB_CLOUD_RESULT_MESSAGE_FAIL", "fail");
 
 	/**
 	 * 无参构造.
