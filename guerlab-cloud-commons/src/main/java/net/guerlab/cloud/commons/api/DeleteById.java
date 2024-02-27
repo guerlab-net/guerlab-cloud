@@ -33,7 +33,7 @@ public interface DeleteById {
 	/**
 	 * 请求路径.
 	 */
-	String DELETE_BY_ID_PATH = "/{id}";
+	String DELETE_BY_ID_PATH = "/{id:\\d+}";
 
 	/**
 	 * 路径参数名.

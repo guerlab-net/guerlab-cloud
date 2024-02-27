@@ -40,7 +40,7 @@ public interface SelectById<E extends IBaseEntity, SP extends SearchParams> {
 	/**
 	 * 请求路径.
 	 */
-	String SELECT_BY_ID_PATH = "/{id}";
+	String SELECT_BY_ID_PATH = "/{id:\\d+}";
 
 	/**
 	 * 路径参数名.
