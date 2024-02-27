@@ -14,10 +14,57 @@
 package net.guerlab.cloud.commons.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import org.springframework.lang.Nullable;
 
 /**
  * ID集合.
  *
  * @author guer
  */
-public class MultiId extends ArrayList<Long> { }
+@SuppressWarnings("unused")
+public class MultiId extends ArrayList<Long> {
+
+	/**
+	 * 创建ID集合.
+	 */
+	public MultiId() {
+	}
+
+	/**
+	 * 通过指定ID列表创建ID集合.
+	 *
+	 * @param ids ID列表
+	 */
+	public MultiId(Collection<Long> ids) {
+		super(ids);
+	}
+
+	/**
+	 * 通过ID列表创建ID集合.
+	 *
+	 * @param ids ID列表
+	 * @return ID集合
+	 */
+	public static MultiId of(Long... ids) {
+		return new MultiId(Arrays.asList(ids));
+	}
+
+	/**
+	 * 通过ID列表创建ID集合.
+	 *
+	 * @param ids ID列表
+	 * @return ID集合
+	 */
+	public static MultiId filterNull(@Nullable Collection<Long> ids) {
+		if (ids == null || ids.isEmpty()) {
+			return new MultiId();
+		}
+
+		return ids.stream().filter(Objects::nonNull).collect(Collectors.toCollection(MultiId::new));
+	}
+}

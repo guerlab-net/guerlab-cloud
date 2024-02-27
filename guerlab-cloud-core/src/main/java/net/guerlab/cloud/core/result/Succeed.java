@@ -15,6 +15,8 @@ package net.guerlab.cloud.core.result;
 
 import org.springframework.lang.Nullable;
 
+import net.guerlab.cloud.core.util.EnvUtils;
+
 /**
  * 通用成功JSON返回结果集.
  *
@@ -27,7 +29,7 @@ public class Succeed<T> extends Result<T> {
 	/**
 	 * 默认消息.
 	 */
-	public static final String MSG = "success";
+	public static final String MSG = EnvUtils.getEnv("GUERLAB_CLOUD_RESULT_MESSAGE_SUCCEED", "success");
 
 	/**
 	 * 无参构造.

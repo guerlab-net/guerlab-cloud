@@ -26,6 +26,10 @@ import net.guerlab.cloud.core.result.Fail;
  */
 public class TooManyResultsExceptionResponseBuilder extends AbstractResponseBuilder {
 
+	static {
+		MybatisSystemExceptionResponseBuilder.addBuilder(TooManyResultsException.class, TooManyResultsExceptionResponseBuilder.class);
+	}
+
 	@Override
 	public boolean accept(Throwable e) {
 		return e instanceof TooManyResultsException;

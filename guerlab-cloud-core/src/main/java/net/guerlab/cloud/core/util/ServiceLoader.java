@@ -46,7 +46,7 @@ public class ServiceLoader<T> implements Iterable<T> {
 	private final Class<T> targetClass;
 
 	/**
-	 * 根据目标类创建服务加载器。
+	 * 根据目标类创建服务加载器.
 	 *
 	 * @param targetClass 目标类
 	 */
