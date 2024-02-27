@@ -15,8 +15,7 @@ package net.guerlab.cloud.web.core.properties;
 
 import java.util.Locale;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -26,8 +25,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
  *
  * @author guer
  */
-@Setter
-@Getter
+@Data
 @RefreshScope
 @ConfigurationProperties("spring.i18n")
 public class I18nProperties {

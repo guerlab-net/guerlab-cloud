@@ -13,7 +13,7 @@
 
 package net.guerlab.cloud.core.properties;
 
-import lombok.Getter;
+import lombok.Data;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -23,7 +23,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
  *
  * @author guer
  */
-@Getter
+@Data
 @RefreshScope
 @ConfigurationProperties("sequence")
 public class SequenceProperties {
@@ -37,22 +37,4 @@ public class SequenceProperties {
 	 * 数据中心ID.
 	 */
 	private long dataCenterId;
-
-	/**
-	 * 设置工作节点ID.
-	 *
-	 * @param workerId 工作节点ID
-	 */
-	public void setWorkerId(long workerId) {
-		this.workerId = workerId;
-	}
-
-	/**
-	 * 设置数据中心ID.
-	 *
-	 * @param dataCenterId 数据中心ID
-	 */
-	public void setDataCenterId(long dataCenterId) {
-		this.dataCenterId = dataCenterId;
-	}
 }
