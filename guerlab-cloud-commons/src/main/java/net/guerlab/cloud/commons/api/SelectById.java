@@ -25,17 +25,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
-import net.guerlab.cloud.searchparams.SearchParams;
 
 /**
  * APi定义.
  *
- * @param <E>  返回实体类型
- * @param <SP> 搜索参数类型
+ * @param <E> 返回实体类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface SelectById<E extends IBaseEntity, SP extends SearchParams> {
+public interface SelectById<E extends IBaseEntity> {
 
 	/**
 	 * 请求路径.

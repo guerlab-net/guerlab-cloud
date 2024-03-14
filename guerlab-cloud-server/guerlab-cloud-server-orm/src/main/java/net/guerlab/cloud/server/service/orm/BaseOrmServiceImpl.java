@@ -120,6 +120,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 		return result;
 	}
 
+	@Nullable
 	@Override
 	public E selectById(Long id) {
 		E result = getBaseMapper().selectById(id);
@@ -127,6 +128,19 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 			afterSelect(Collections.singleton(result), null);
 		}
 		return result;
+	}
+
+	@Override
+	public List<E> selectById(List<Long> ids) {
+		ids = ids.stream().filter(Objects::nonNull).distinct().toList();
+		if (ids.isEmpty()) {
+			return Collections.emptyList();
+		}
+		List<E> list = getBaseMapper().selectBatchIds(ids);
+		if (!list.isEmpty()) {
+			afterSelect(list, null);
+		}
+		return list;
 	}
 
 	@Override
