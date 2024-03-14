@@ -131,7 +131,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 
 	@Override
 	public List<E> selectList(SP searchParams) {
-		if (!afterSelect(searchParams)) {
+		if (!beforeSelect(searchParams)) {
 			return Collections.emptyList();
 		}
 		QueryWrapper<E> queryWrapper = getQueryWrapperWithSelectMethod(searchParams);
@@ -144,7 +144,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 
 	@Override
 	public Pageable<E> selectPage(SP searchParams, int pageId, int pageSize) {
-		if (!afterSelect(searchParams)) {
+		if (!beforeSelect(searchParams)) {
 			return Pageable.empty();
 		}
 		Pageable<E> result = PageUtils.selectPage(this, searchParams, pageId, pageSize, getBaseMapper());
@@ -155,7 +155,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
-	protected boolean afterSelect(SP searchParams) {
+	protected boolean beforeSelect(SP searchParams) {
 		return true;
 	}
 
