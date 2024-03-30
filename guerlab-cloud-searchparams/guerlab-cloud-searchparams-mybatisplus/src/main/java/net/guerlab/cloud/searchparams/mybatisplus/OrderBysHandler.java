@@ -14,7 +14,6 @@
 package net.guerlab.cloud.searchparams.mybatisplus;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang3.StringUtils;
@@ -43,7 +42,7 @@ public class OrderBysHandler extends AbstractMyBatisPlusSearchParamsHandler {
 			SearchModelType searchModelType, @Nullable String customSql, @Nullable JsonField jsonField) {
 		QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
 		List<OrderBy> orderBys = (OrderBys) value;
-		orderBys = orderBys.stream().filter(this::orderByFilter).collect(Collectors.toList());
+		orderBys = orderBys.stream().filter(this::orderByFilter).toList();
 
 		Class<?> entityClass = wrapper.getEntityClass();
 

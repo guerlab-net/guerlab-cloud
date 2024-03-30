@@ -201,6 +201,7 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 	 * @param searchParams 搜索参数
 	 * @return 是否继续查询
 	 */
+	@SuppressWarnings("SameReturnValue")
 	protected boolean beforeFind(SP searchParams) {
 		return true;
 	}

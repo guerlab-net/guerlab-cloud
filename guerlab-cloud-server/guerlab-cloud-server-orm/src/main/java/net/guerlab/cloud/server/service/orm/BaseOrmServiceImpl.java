@@ -53,7 +53,7 @@ import net.guerlab.commons.collection.CollectionUtil;
  * @param <SP> 搜索参数类型
  * @author guer
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "EmptyMethod"})
 @Slf4j
 @Transactional(rollbackFor = Exception.class)
 public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMapper<E>, SP extends SearchParams>
@@ -168,7 +168,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 		return result;
 	}
 
-	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
+	@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "SameReturnValue"})
 	protected boolean beforeSelect(SP searchParams) {
 		return true;
 	}

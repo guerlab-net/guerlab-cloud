@@ -66,15 +66,18 @@ public class WebFluxSecurityAutoConfigure {
 	 */
 	@Bean
 	public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-		http.httpBasic().and().formLogin();
-		http.csrf().disable();
-		http.cors().configurationSource(request -> configProvider.getIfAvailable(DefaultCorsConfiguration::new));
+		http.httpBasic(c -> {
+		});
+		http.formLogin(c -> {
+		});
+		http.csrf(ServerHttpSecurity.CsrfSpec::disable);
+		http.cors(c -> c.configurationSource(request -> configProvider.getIfAvailable(DefaultCorsConfiguration::new)));
 
 		for (AuthorizePathProvider provider : authorizePathProviders) {
 			authorizePathConfig(http, provider.httpMethod(), provider.paths());
 		}
 
-		http.authorizeExchange().anyExchange().permitAll();
+		http.authorizeExchange(c -> c.anyExchange().permitAll());
 
 		return http.build();
 	}
@@ -87,10 +90,10 @@ public class WebFluxSecurityAutoConfigure {
 		log.debug("authorizePathConfig[method: {}, paths: {}]", httpMethod, paths);
 
 		if (httpMethod == null) {
-			http.authorizeExchange().pathMatchers(paths.toArray(new String[0])).authenticated();
+			http.authorizeExchange(c -> c.pathMatchers(paths.toArray(new String[0])).authenticated());
 		}
 		else {
-			http.authorizeExchange().pathMatchers(httpMethod, paths.toArray(new String[0])).authenticated();
+			http.authorizeExchange(c -> c.pathMatchers(httpMethod, paths.toArray(new String[0])).authenticated());
 		}
 	}
 

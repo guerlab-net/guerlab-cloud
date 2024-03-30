@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import lombok.Setter;
+
 import org.springframework.lang.Nullable;
 
 /**
@@ -36,6 +38,7 @@ public abstract class AbstractSearchParamsUtilInstance {
 	/**
 	 * 默认处理器.
 	 */
+	@Setter
 	private SearchParamsHandler defaultHandler;
 
 	/**
@@ -45,15 +48,6 @@ public abstract class AbstractSearchParamsUtilInstance {
 	 * @return 返回true表示进行处理，否则不进行处理
 	 */
 	public abstract boolean accept(Object object);
-
-	/**
-	 * 设置默认处理器对象.
-	 *
-	 * @param handler 处理器
-	 */
-	public void setDefaultHandler(SearchParamsHandler handler) {
-		defaultHandler = handler;
-	}
 
 	/**
 	 * 添加处理器对象.

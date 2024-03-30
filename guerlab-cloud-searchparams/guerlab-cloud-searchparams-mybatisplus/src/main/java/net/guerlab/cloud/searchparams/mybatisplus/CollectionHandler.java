@@ -135,7 +135,13 @@ public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 					}
 
 					sql = sql.replaceAll(CustomerSqlInfo.MATCH_REG, "{0}");
-					wrapper.apply(sql, list.toArray());
+
+					if (info.batch) {
+						wrapper.apply(sql, list.toArray());
+					}
+					else {
+						wrapper.apply(sql, list.get(0));
+					}
 				}
 				else {
 					wrapper.apply(sql);

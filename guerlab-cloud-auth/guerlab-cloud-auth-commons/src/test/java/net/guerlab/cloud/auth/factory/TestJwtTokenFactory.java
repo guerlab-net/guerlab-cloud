@@ -39,7 +39,7 @@ public class TestJwtTokenFactory extends AbstractJwtTokenFactory<ITestTokenInfo,
 
 	@Override
 	protected void generateToken0(JwtBuilder builder, ITestTokenInfo user) {
-		builder.setSubject(user.getUsername());
+		builder.subject(user.getUsername());
 		builder.claim(TestConstants.USER_ID, user.getUserId());
 	}
 

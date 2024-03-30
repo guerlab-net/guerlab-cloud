@@ -14,7 +14,6 @@
 package net.guerlab.cloud.searchparams.elasticsearch;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import co.elastic.clients.elasticsearch._types.SortOrder;
 import org.apache.commons.lang3.StringUtils;
@@ -45,7 +44,7 @@ public class SortOptionsBuilderDefaultHandler implements SearchParamsHandler {
 		NativeQueryBuilder builder = (NativeQueryBuilder) object;
 
 		List<OrderBy> orderBys = (OrderBys) value;
-		orderBys = orderBys.stream().filter(this::orderByFilter).collect(Collectors.toList());
+		orderBys = orderBys.stream().filter(this::orderByFilter).toList();
 
 		for (OrderBy orderBy : orderBys) {
 			builder.withSort(s -> s.field(b -> b.field(orderBy.getColumnName())
