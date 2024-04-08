@@ -55,7 +55,6 @@ import net.guerlab.commons.collection.CollectionUtil;
  */
 @SuppressWarnings({"unused", "EmptyMethod"})
 @Slf4j
-@Transactional(rollbackFor = Exception.class)
 public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMapper<E>, SP extends SearchParams>
 		implements BaseOrmService<E, SP> {
 
@@ -185,6 +184,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public E insert(E entity) {
 		entity.id(null);
 		insertBefore(entity);
@@ -212,6 +212,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public List<E> batchInsert(Collection<? extends E> collection, boolean ignoreBeforeCheckException) {
 		List<E> list = BatchSaveUtils.filter(collection, item -> batchSaveBefore(item, ignoreBeforeCheckException));
 
@@ -268,6 +269,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public boolean updateById(E entity) {
 		updateBefore(entity);
 		int result = getBaseMapper().updateById(entity);
@@ -276,6 +278,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public boolean update(E entity, SP searchParams) {
 		return getBaseMapper().update(entity, getQueryWrapper(searchParams)) > 0;
 	}
@@ -299,6 +302,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public List<E> batchUpdateById(Collection<? extends E> collection, boolean ignoreBeforeCheckException) {
 		List<E> list = BatchSaveUtils.filter(collection, item -> batchUpdateBefore(item, ignoreBeforeCheckException));
 
@@ -348,6 +352,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public E saveOrUpdate(E entity) {
 		Long id = entity.id();
 		if (id == null) {
@@ -359,6 +364,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public List<E> batchSaveOrUpdate(Collection<? extends E> list, boolean ignoreBeforeCheckException) {
 		list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
 		if (list.isEmpty()) {
@@ -381,6 +387,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void delete(SP searchParams) {
 		deleteBefore(searchParams);
 		QueryWrapper<E> queryWrapper = getQueryWrapper(searchParams);
@@ -407,6 +414,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void deleteById(Long id) {
 		deleteByIdBefore(id);
 		getBaseMapper().deleteById(id);
@@ -432,11 +440,13 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void delete(LambdaQueryWrapper<E> queryWrapper) {
 		getBaseMapper().delete(queryWrapper);
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void delete(QueryWrapper<E> queryWrapper) {
 		getBaseMapper().delete(queryWrapper);
 	}
