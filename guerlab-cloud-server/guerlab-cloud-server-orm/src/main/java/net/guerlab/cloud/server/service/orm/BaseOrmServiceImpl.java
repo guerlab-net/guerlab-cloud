@@ -132,7 +132,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
-	public List<E> selectById(List<Long> ids) {
+	public List<E> selectByIds(List<Long> ids) {
 		ids = ids.stream().filter(Objects::nonNull).distinct().toList();
 		if (ids.isEmpty()) {
 			return Collections.emptyList();

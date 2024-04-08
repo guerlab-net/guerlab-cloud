@@ -46,5 +46,5 @@ public interface SelectByIds<E extends IBaseEntity> {
 	 */
 	@PostMapping(SELECT_BY_IDS_PATH)
 	@Operation(summary = "根据主键ID列表查询对象列表", security = @SecurityRequirement(name = Constants.TOKEN))
-	List<E> selectById(@RequestBody List<Long> ids);
+	List<E> selectByIds(@RequestBody List<Long> ids);
 }
