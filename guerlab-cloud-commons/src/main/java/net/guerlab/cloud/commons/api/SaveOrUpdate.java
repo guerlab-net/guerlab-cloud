@@ -16,6 +16,7 @@ package net.guerlab.cloud.commons.api;
 import javax.annotation.Nullable;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,5 +46,5 @@ public interface SaveOrUpdate<E extends IBaseEntity> {
 	@Nullable
 	@PostMapping(UPDATE_BY_ID_PATH)
 	@Operation(summary = "新增或保存")
-	E saveOrUpdate(@RequestBody E entity);
+	E saveOrUpdate(@Valid @RequestBody E entity);
 }

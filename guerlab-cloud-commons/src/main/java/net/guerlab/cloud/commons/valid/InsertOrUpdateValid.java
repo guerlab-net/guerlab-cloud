@@ -11,20 +11,12 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.server.service.orm;
-
-import org.springframework.validation.annotation.Validated;
-
-import net.guerlab.cloud.commons.entity.IBaseEntity;
-import net.guerlab.cloud.server.BaseSaveOrUpdateService;
+package net.guerlab.cloud.commons.valid;
 
 /**
- * 基本ORM新增或保存服务接口.
+ * 插入或更新校验.
  *
- * @param <E> 数据类型
  * @author guer
  */
-@Validated
-public interface BaseOrmSaveOrUpdateService<E extends IBaseEntity> extends BaseSaveOrUpdateService<E> {
-
+public interface InsertOrUpdateValid extends InsertValid, UpdateValid {
 }

@@ -13,6 +13,8 @@
 
 package net.guerlab.cloud.server;
 
+import org.springframework.validation.annotation.Validated;
+
 import net.guerlab.cloud.commons.api.SelectById;
 import net.guerlab.cloud.commons.api.SelectByIds;
 import net.guerlab.cloud.commons.api.SelectCount;
@@ -30,6 +32,7 @@ import net.guerlab.cloud.searchparams.SearchParams;
  * @author guer
  */
 @SuppressWarnings("unused")
+@Validated
 public interface BaseFindService<E extends IBaseEntity, SP extends SearchParams> extends SelectOne<E, SP>, SelectById<E>, SelectByIds<E>, SelectList<E, SP>, SelectPage<E, SP>, SelectCount<SP> {
 
 }

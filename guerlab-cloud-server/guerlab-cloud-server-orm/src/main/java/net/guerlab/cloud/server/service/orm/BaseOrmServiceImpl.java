@@ -36,6 +36,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.core.result.Pageable;
@@ -55,6 +56,7 @@ import net.guerlab.commons.collection.CollectionUtil;
  */
 @SuppressWarnings({"unused", "EmptyMethod"})
 @Slf4j
+@Validated
 public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMapper<E>, SP extends SearchParams>
 		implements BaseOrmService<E, SP> {
 

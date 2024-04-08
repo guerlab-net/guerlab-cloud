@@ -13,6 +13,8 @@
 
 package net.guerlab.cloud.server;
 
+import org.springframework.validation.annotation.Validated;
+
 import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;
 
@@ -23,6 +25,7 @@ import net.guerlab.cloud.searchparams.SearchParams;
  * @param <SP> 搜索参数类型
  * @author guer
  */
+@Validated
 public interface BaseService<E extends IBaseEntity, SP extends SearchParams>
 		extends BaseFindService<E, SP>, BaseSaveService<E>,
 		BaseUpdateService<E, SP>, BaseSaveOrUpdateService<E>,

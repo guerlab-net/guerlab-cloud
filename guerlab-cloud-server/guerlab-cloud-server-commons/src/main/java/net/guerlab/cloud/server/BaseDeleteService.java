@@ -13,6 +13,8 @@
 
 package net.guerlab.cloud.server;
 
+import org.springframework.validation.annotation.Validated;
+
 import net.guerlab.cloud.commons.api.Delete;
 import net.guerlab.cloud.commons.api.DeleteById;
 import net.guerlab.cloud.searchparams.SearchParams;
@@ -24,5 +26,6 @@ import net.guerlab.cloud.searchparams.SearchParams;
  * @author guer
  */
 @SuppressWarnings("unused")
+@Validated
 public interface BaseDeleteService<SP extends SearchParams> extends Delete<SP>, DeleteById {
 }

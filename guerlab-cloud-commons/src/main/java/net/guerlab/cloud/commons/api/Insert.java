@@ -15,6 +15,7 @@ package net.guerlab.cloud.commons.api;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,5 +40,5 @@ public interface Insert<E extends IBaseEntity> {
 	 */
 	@PostMapping
 	@Operation(summary = "新增实体", security = @SecurityRequirement(name = Constants.TOKEN))
-	E insert(@RequestBody E entity);
+	E insert(@Valid @RequestBody E entity);
 }

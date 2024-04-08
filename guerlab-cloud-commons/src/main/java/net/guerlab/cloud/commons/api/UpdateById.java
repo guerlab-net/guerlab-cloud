@@ -14,6 +14,7 @@
 package net.guerlab.cloud.commons.api;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,5 +43,5 @@ public interface UpdateById<E extends IBaseEntity> {
 	 */
 	@PostMapping(UPDATE_BY_ID_PATH)
 	@Operation(summary = "根据Id编辑数据")
-	boolean updateById(@RequestBody E entity);
+	boolean updateById(@Valid @RequestBody E entity);
 }

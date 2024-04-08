@@ -16,6 +16,8 @@ package net.guerlab.cloud.server;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.validation.annotation.Validated;
+
 import net.guerlab.cloud.commons.api.UpdateById;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;
@@ -28,6 +30,7 @@ import net.guerlab.cloud.searchparams.SearchParams;
  * @author guer
  */
 @SuppressWarnings({"UnusedReturnValue", "unused"})
+@Validated
 public interface BaseUpdateService<E extends IBaseEntity, SP extends SearchParams> extends UpdateById<E> {
 
 	/**
