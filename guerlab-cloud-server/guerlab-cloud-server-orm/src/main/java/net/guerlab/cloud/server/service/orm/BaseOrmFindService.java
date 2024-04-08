@@ -16,7 +16,6 @@ package net.guerlab.cloud.server.service.orm;
 import java.util.Optional;
 
 import org.springframework.lang.Nullable;
-import org.springframework.validation.annotation.Validated;
 
 import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;
@@ -30,7 +29,6 @@ import net.guerlab.cloud.server.BaseFindService;
  * @author guer
  */
 @SuppressWarnings("unused")
-@Validated
 public interface BaseOrmFindService<E extends IBaseEntity, SP extends SearchParams> extends BaseFindService<E, SP>, QueryWrapperGetter<E, SP> {
 
 	/**

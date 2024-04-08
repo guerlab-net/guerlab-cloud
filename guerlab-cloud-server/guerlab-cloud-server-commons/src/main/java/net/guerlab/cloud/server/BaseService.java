@@ -25,7 +25,6 @@ import net.guerlab.cloud.searchparams.SearchParams;
  * @param <SP> 搜索参数类型
  * @author guer
  */
-@Validated
 public interface BaseService<E extends IBaseEntity, SP extends SearchParams>
 		extends BaseFindService<E, SP>, BaseSaveService<E>,
 		BaseUpdateService<E, SP>, BaseSaveOrUpdateService<E>,

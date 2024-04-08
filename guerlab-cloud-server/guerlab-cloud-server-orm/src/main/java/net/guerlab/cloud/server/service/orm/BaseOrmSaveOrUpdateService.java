@@ -13,8 +13,6 @@
 
 package net.guerlab.cloud.server.service.orm;
 
-import org.springframework.validation.annotation.Validated;
-
 import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.server.BaseSaveOrUpdateService;
 
@@ -24,7 +22,6 @@ import net.guerlab.cloud.server.BaseSaveOrUpdateService;
  * @param <E> 数据类型
  * @author guer
  */
-@Validated
 public interface BaseOrmSaveOrUpdateService<E extends IBaseEntity> extends BaseSaveOrUpdateService<E> {
 
 }

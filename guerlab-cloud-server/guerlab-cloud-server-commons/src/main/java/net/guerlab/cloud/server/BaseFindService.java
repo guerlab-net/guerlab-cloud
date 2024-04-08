@@ -32,7 +32,5 @@ import net.guerlab.cloud.searchparams.SearchParams;
  * @author guer
  */
 @SuppressWarnings("unused")
-@Validated
 public interface BaseFindService<E extends IBaseEntity, SP extends SearchParams> extends SelectOne<E, SP>, SelectById<E>, SelectByIds<E>, SelectList<E, SP>, SelectPage<E, SP>, SelectCount<SP> {
-
 }

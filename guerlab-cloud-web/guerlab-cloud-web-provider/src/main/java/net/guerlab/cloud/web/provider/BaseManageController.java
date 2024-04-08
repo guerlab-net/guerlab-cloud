@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,8 @@ import net.guerlab.cloud.commons.api.DeleteById;
 import net.guerlab.cloud.commons.api.ManageApi;
 import net.guerlab.cloud.commons.api.UpdateById;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
+import net.guerlab.cloud.commons.valid.InsertValid;
+import net.guerlab.cloud.commons.valid.UpdateValid;
 import net.guerlab.cloud.log.annotation.Log;
 import net.guerlab.cloud.searchparams.SearchParams;
 
@@ -60,7 +63,7 @@ public abstract class BaseManageController<E extends IBaseEntity, SP extends Sea
 	@Log("method.insert")
 	@PostMapping
 	@Operation(summary = "新增实体", security = @SecurityRequirement(name = Constants.TOKEN))
-	public V insert(@RequestBody E entity) {
+	public V insert(@Validated(InsertValid.class) @RequestBody E entity) {
 		beforeInsertCheck(entity);
 		entity = getApi().insert(entity);
 		V vo = convert(entity);
@@ -81,7 +84,7 @@ public abstract class BaseManageController<E extends IBaseEntity, SP extends Sea
 	@Log("method.updateById")
 	@PostMapping(UpdateById.UPDATE_BY_ID_PATH)
 	@Operation(summary = "根据Id编辑数据", security = @SecurityRequirement(name = Constants.TOKEN))
-	public V updateById(@RequestBody E entity) {
+	public V updateById(@Validated(UpdateValid.class) @RequestBody E entity) {
 		Long id = entity.id();
 		if (id == null) {
 			throw nullPointException();

@@ -16,8 +16,6 @@ package net.guerlab.cloud.server.service.orm;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
-import org.springframework.validation.annotation.Validated;
-
 import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.BaseDeleteService;
@@ -30,7 +28,6 @@ import net.guerlab.cloud.server.BaseDeleteService;
  * @author guer
  */
 @SuppressWarnings("unused")
-@Validated
 public interface BaseOrmDeleteService<E extends IBaseEntity, SP extends SearchParams> extends BaseDeleteService<SP>, QueryWrapperGetter<E, SP> {
 
 	/**

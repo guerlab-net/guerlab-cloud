@@ -13,8 +13,6 @@
 
 package net.guerlab.cloud.server.service.orm;
 
-import org.springframework.validation.annotation.Validated;
-
 import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.server.BaseUpdateService;
@@ -27,5 +25,4 @@ import net.guerlab.cloud.server.BaseUpdateService;
  * @author guer
  */
 @SuppressWarnings({"UnusedReturnValue", "unused"})
-@Validated
 public interface BaseOrmUpdateService<E extends IBaseEntity, SP extends SearchParams> extends BaseUpdateService<E, SP>, QueryWrapperGetter<E, SP> { }

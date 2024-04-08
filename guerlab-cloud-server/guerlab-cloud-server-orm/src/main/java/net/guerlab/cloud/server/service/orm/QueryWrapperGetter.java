@@ -17,8 +17,6 @@ import com.baomidou.mybatisplus.core.conditions.interfaces.Join;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
-import org.springframework.validation.annotation.Validated;
-
 import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;
 import net.guerlab.cloud.searchparams.SearchParamsUtils;
@@ -31,7 +29,6 @@ import net.guerlab.cloud.searchparams.SearchParamsUtils;
  * @author guer
  */
 @SuppressWarnings("unused")
-@Validated
 public interface QueryWrapperGetter<E extends IBaseEntity, SP extends SearchParams> {
 
 	/**

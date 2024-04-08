@@ -16,12 +16,15 @@ package net.guerlab.cloud.commons.api;
 import javax.annotation.Nullable;
 
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.validation.Valid;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import net.guerlab.cloud.commons.entity.IBaseEntity;
+import net.guerlab.cloud.commons.valid.InsertOrUpdateValid;
+import net.guerlab.cloud.commons.valid.InsertValid;
+import net.guerlab.cloud.commons.valid.UpdateValid;
 
 /**
  * APi定义.
@@ -46,5 +49,5 @@ public interface SaveOrUpdate<E extends IBaseEntity> {
 	@Nullable
 	@PostMapping(UPDATE_BY_ID_PATH)
 	@Operation(summary = "新增或保存")
-	E saveOrUpdate(@Valid @RequestBody E entity);
+	E saveOrUpdate(@Validated({InsertValid.class, UpdateValid.class, InsertOrUpdateValid.class}) @RequestBody E entity);
 }

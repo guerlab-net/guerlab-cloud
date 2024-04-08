@@ -27,7 +27,6 @@ import net.guerlab.cloud.commons.entity.IBaseEntity;
  * @param <E> 数据类型
  * @author guer
  */
-@Validated
 public interface BaseSaveService<E extends IBaseEntity> extends Insert<E> {
 
 	/**
