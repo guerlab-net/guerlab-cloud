@@ -13,8 +13,6 @@
 
 package net.guerlab.cloud.server;
 
-import org.springframework.validation.annotation.Validated;
-
 import net.guerlab.cloud.commons.api.SelectById;
 import net.guerlab.cloud.commons.api.SelectByIds;
 import net.guerlab.cloud.commons.api.SelectCount;

@@ -16,8 +16,6 @@ package net.guerlab.cloud.server;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.validation.annotation.Validated;
-
 import net.guerlab.cloud.commons.api.Insert;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
 
