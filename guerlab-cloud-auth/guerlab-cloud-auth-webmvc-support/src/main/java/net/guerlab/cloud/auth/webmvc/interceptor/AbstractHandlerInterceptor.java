@@ -15,6 +15,8 @@ package net.guerlab.cloud.auth.webmvc.interceptor;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import jakarta.servlet.http.Cookie;
@@ -28,6 +30,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import net.guerlab.cloud.auth.annotation.AuthType;
 import net.guerlab.cloud.auth.annotation.IgnoreLogin;
 import net.guerlab.cloud.auth.context.AbstractContextHandler;
 import net.guerlab.cloud.commons.Constants;
@@ -110,13 +113,18 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 				parseRequestUri(request));
 
 		boolean needLogin = getAnnotation(handlerMethod, IgnoreLogin.class) == null;
+		AuthType authType = getAnnotation(handlerMethod, AuthType.class);
+		List<Class<?>> targetAuthTypes = Collections.emptyList();
+		if (authType != null) {
+			targetAuthTypes = Arrays.asList(authType.value());
+		}
 
 		log.debug("needLoginCheck[handler = {}, needLogin = {}]", handler, needLogin);
 
 		String token = getToken(request);
 		if (token != null) {
 			try {
-				preHandleWithToken(request, handlerMethod, token);
+				preHandleWithToken(request, handlerMethod, token, targetAuthTypes);
 				AbstractContextHandler.setToken(token);
 			}
 			catch (ApplicationException exception) {
@@ -180,11 +188,12 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 	/**
 	 * 获取令牌成功前置处理.
 	 *
-	 * @param request       请求
-	 * @param handlerMethod 处理方法
-	 * @param token         令牌
+	 * @param request         请求
+	 * @param handlerMethod   处理方法
+	 * @param token           令牌
+	 * @param targetAuthTypes 目标认证类型列表
 	 */
-	protected void preHandleWithToken(HttpServletRequest request, HandlerMethod handlerMethod, String token) {
+	protected void preHandleWithToken(HttpServletRequest request, HandlerMethod handlerMethod, String token, List<Class<?>> targetAuthTypes) {
 
 	}
 
