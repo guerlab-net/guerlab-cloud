@@ -61,6 +61,14 @@ public class ResultDecoder implements Decoder {
 			return new Decoder.Default().decode(response, type);
 		}
 
+		String resultBody = Util.toString(body.asReader(StandardCharsets.UTF_8));
+
+		if (!isJson(resultBody)) {
+			if (type instanceof Class && String.class.isAssignableFrom((Class<?>) type)) {
+				return resultBody;
+			}
+		}
+
 		TypeReference<?> typeReference = new TypeReference<>() {
 
 			@Override
@@ -69,7 +77,6 @@ public class ResultDecoder implements Decoder {
 			}
 		};
 
-		String resultBody = Util.toString(response.body().asReader(StandardCharsets.UTF_8));
 		try {
 			try {
 				JsonNode rootNode = objectMapper.readTree(resultBody);
@@ -106,6 +113,13 @@ public class ResultDecoder implements Decoder {
 			log.debug(e.getLocalizedMessage(), e);
 			throw new ApplicationException(e.getMessage(), e);
 		}
+	}
+
+	private boolean isJson(String resultBody) {
+		if (resultBody.startsWith("[") && resultBody.endsWith("]")) {
+			return true;
+		}
+		return resultBody.startsWith("{") && resultBody.endsWith("}");
 	}
 
 	private boolean getStatus(JsonNode rootNode) {
