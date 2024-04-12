@@ -49,10 +49,14 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
 
 	private static final MethodParameter METHOD_PARAMETER_WITH_MONO_RESULT;
 
+	private static final MethodParameter METHOD_PARAMETER_WITH_MONO_STRING;
+
 	static {
 		try {
 			METHOD_PARAMETER_WITH_MONO_RESULT = new MethodParameter(
-					ResponseBodyResultWrapperHandler.class.getDeclaredMethod("methodForParams"), -1);
+					ResponseBodyResultWrapperHandler.class.getDeclaredMethod("methodForParamsWithResult"), -1);
+			METHOD_PARAMETER_WITH_MONO_STRING = new MethodParameter(
+					ResponseBodyResultWrapperHandler.class.getDeclaredMethod("methodForParamsWithString"), -1);
 		}
 		catch (NoSuchMethodException e) {
 			throw new ApplicationException(e);
@@ -77,7 +81,13 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
 
 	@SuppressWarnings("SameReturnValue")
 	@Nullable
-	private static Mono<Result<?>> methodForParams() {
+	private static Mono<Result<?>> methodForParamsWithResult() {
+		return null;
+	}
+
+	@SuppressWarnings("SameReturnValue")
+	@Nullable
+	private static Mono<String> methodForParamsWithString() {
 		return null;
 	}
 
@@ -115,17 +125,9 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
 	public Mono<Void> handleResult(ServerWebExchange exchange, HandlerResult result) {
 		Object body = result.getReturnValue();
 		MethodParameter bodyTypeParameter = result.getReturnTypeSource();
-		if (body == null) {
-			if (Objects.equals(Objects.requireNonNull(bodyTypeParameter.getMethod()).getReturnType(), String.class)) {
-				log.debug("wrapper with string type");
-				return writeBody(new Succeed<>().toString(), METHOD_PARAMETER_WITH_MONO_RESULT, exchange);
-			}
 
-			log.debug("wrapper with null body");
-			return writeBody(new Succeed<>(), METHOD_PARAMETER_WITH_MONO_RESULT, exchange);
-		}
-		else if (support.noConvertObject(body, bodyTypeParameter)) {
-			log.debug("un wrapper with noConvertObject, body class is {}", body.getClass());
+		if (support.noConvertObject(bodyTypeParameter)) {
+			log.debug("un wrapper with noConvertObject");
 			return super.handleResult(exchange, result);
 		}
 		else if (matchExcluded(exchange, bodyTypeParameter.getMethod())) {
@@ -133,24 +135,43 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
 			return super.handleResult(exchange, result);
 		}
 
-		Mono<?> mono = null;
-		if (body instanceof Mono) {
-			mono = (Mono<?>) body;
-			log.debug("wrapper with Mono");
-		}
-		else if (body instanceof Flux<?> flux) {
-			mono = flux.collectList();
-			log.debug("wrapper with Flux");
-		}
+		boolean returnTypeIsString = Objects.equals(Objects.requireNonNull(bodyTypeParameter.getMethod())
+				.getReturnType(), String.class);
 
-		if (mono != null) {
-			body = mono.map(Succeed::new).defaultIfEmpty(new Succeed<>());
+		if (returnTypeIsString) {
+			if (body == null) {
+				return writeBody(new Succeed<>(), METHOD_PARAMETER_WITH_MONO_RESULT, exchange);
+			}
+			else {
+				return writeBody(body, METHOD_PARAMETER_WITH_MONO_RESULT, METHOD_PARAMETER_WITH_MONO_STRING, exchange);
+			}
 		}
 		else {
-			body = new Succeed<>(body);
-		}
+			if (body == null) {
+				log.debug("wrapper with null body");
+				return writeBody(new Succeed<>(), METHOD_PARAMETER_WITH_MONO_RESULT, exchange);
+			}
+			else {
+				Mono<?> mono = null;
+				if (body instanceof Mono) {
+					mono = (Mono<?>) body;
+					log.debug("wrapper with Mono");
+				}
+				else if (body instanceof Flux<?> flux) {
+					mono = flux.collectList();
+					log.debug("wrapper with Flux");
+				}
 
-		return writeBody(body, METHOD_PARAMETER_WITH_MONO_RESULT, exchange);
+				if (mono != null) {
+					body = mono.map(Succeed::new).defaultIfEmpty(new Succeed<>());
+				}
+				else {
+					body = new Succeed<>(body);
+				}
+
+				return writeBody(body, METHOD_PARAMETER_WITH_MONO_RESULT, exchange);
+			}
+		}
 	}
 
 	private boolean matchExcluded(ServerWebExchange exchange, @Nullable Method method) {

@@ -16,6 +16,8 @@ package net.guerlab.cloud.web.webmvc.autoconfigure;
 import java.lang.reflect.Method;
 import java.util.Objects;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -33,6 +35,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import net.guerlab.cloud.core.result.Succeed;
 import net.guerlab.cloud.web.core.response.ResponseBodyWrapperSupport;
+import net.guerlab.commons.exception.ApplicationException;
 
 /**
  * 响应数据处理自动配置.
@@ -56,13 +59,17 @@ public class WebMvcResponseAdvisorAutoConfigure {
 
 		private final ResponseBodyWrapperSupport support;
 
+		private final ObjectMapper objectMapper;
+
 		/**
 		 * 初始化响应数据处理.
 		 *
-		 * @param support 响应对象包装支持
+		 * @param support      响应对象包装支持
+		 * @param objectMapper objectMapper
 		 */
-		public ResponseAdvice(ResponseBodyWrapperSupport support) {
+		public ResponseAdvice(ResponseBodyWrapperSupport support, ObjectMapper objectMapper) {
 			this.support = support;
+			this.objectMapper = objectMapper;
 		}
 
 		@Override
@@ -74,25 +81,36 @@ public class WebMvcResponseAdvisorAutoConfigure {
 		public Object beforeBodyWrite(@Nullable Object body, MethodParameter returnType, MediaType selectedContentType,
 				Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
 				ServerHttpResponse response) {
-			if (body == null) {
-				if (Objects.equals(Objects.requireNonNull(returnType.getMethod()).getReturnType(), String.class)) {
-					log.debug("wrapper with string type");
-					return new Succeed<>().toString();
-				}
-				log.debug("wrapper with null body and not string type");
-				return new Succeed<>();
-			}
-			else if (support.noConvertObject(body, returnType)) {
-				log.debug("un wrapper with noConvertObject, body class is {}", body.getClass());
+
+			if (support.noConvertObject(returnType)) {
+				log.debug("un wrapper with noConvertObject");
 				return body;
 			}
 			else if (matchExcluded(request, returnType.getMethod())) {
 				log.debug("un wrapper with matchExcluded");
 				return body;
 			}
+
+			boolean returnTypeIsString = Objects.equals(Objects.requireNonNull(returnType.getMethod())
+					.getReturnType(), String.class);
+
+			if (returnTypeIsString) {
+				if (body == null) {
+					return returnString(new Succeed<>(), response);
+				}
+				else {
+					return returnString(body, response);
+				}
+			}
 			else {
-				log.debug("wrap up");
-				return new Succeed<>(body);
+				if (body == null) {
+					log.debug("wrapper with null body and not string type");
+					return new Succeed<>();
+				}
+				else {
+					log.debug("wrap up");
+					return new Succeed<>(body);
+				}
 			}
 		}
 
@@ -112,6 +130,20 @@ public class WebMvcResponseAdvisorAutoConfigure {
 			}
 
 			return requestPath;
+		}
+
+		private Object returnString(Object body, ServerHttpResponse response) {
+			log.debug("wrapper with string type");
+			response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
+
+			Succeed<Object> result = new Succeed<>();
+			result.setData(body);
+			try {
+				return objectMapper.writeValueAsString(result);
+			}
+			catch (JsonProcessingException e) {
+				throw new ApplicationException(e);
+			}
 		}
 	}
 }
