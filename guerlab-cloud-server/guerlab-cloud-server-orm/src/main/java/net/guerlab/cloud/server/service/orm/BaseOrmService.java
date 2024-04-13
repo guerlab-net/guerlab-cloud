@@ -20,12 +20,12 @@ import net.guerlab.cloud.server.BaseService;
 /**
  * 基本ORM服务接口.
  *
- * @param <E>  数据类型
- * @param <SP> 搜索参数类型
+ * @param <E> 数据类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
-public interface BaseOrmService<E extends IBaseEntity, SP extends SearchParams>
-		extends BaseOrmFindService<E, SP>, BaseOrmSaveService<E, SP>,
-		BaseOrmUpdateService<E, SP>, BaseOrmSaveOrUpdateService<E>,
-		BaseOrmDeleteService<E, SP>, BaseService<E, SP>,
-		QueryWrapperGetter<E, SP> { }
+public interface BaseOrmService<E extends IBaseEntity, Q extends SearchParams>
+		extends BaseOrmFindService<E, Q>, BaseOrmSaveService<E, Q>,
+		BaseOrmUpdateService<E, Q>, BaseOrmSaveOrUpdateService<E>,
+		BaseOrmDeleteService<E, Q>, BaseService<E, Q>,
+		QueryWrapperGetter<E, Q> { }

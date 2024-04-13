@@ -58,7 +58,7 @@ public abstract class AbstractStringValueTokenFactory<T, P extends StringValueTo
 	 */
 	protected static final String GROUP_CONNECTORS = "&";
 
-	public AbstractStringValueTokenFactory(P properties) {
+	protected AbstractStringValueTokenFactory(P properties) {
 		super(properties);
 	}
 

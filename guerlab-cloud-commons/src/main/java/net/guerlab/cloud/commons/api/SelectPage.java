@@ -29,12 +29,12 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * APi定义.
  *
- * @param <E>  返回实体类型
- * @param <SP> 搜索参数类型
+ * @param <E> 返回实体类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface SelectPage<E extends IBaseEntity, SP extends SearchParams> {
+public interface SelectPage<E extends IBaseEntity, Q extends SearchParams> {
 
 	/**
 	 * 请求路径.
@@ -68,7 +68,7 @@ public interface SelectPage<E extends IBaseEntity, SP extends SearchParams> {
 	 */
 	@PostMapping(SELECT_PAGE_PATH)
 	@Operation(summary = "查询分页列表", security = @SecurityRequirement(name = Constants.TOKEN))
-	Pageable<E> selectPage(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams,
+	Pageable<E> selectPage(@Parameter(description = "搜索参数对象", required = true) @RequestBody Q searchParams,
 			@Parameter(description = "分页ID") @RequestParam(name = PAGE_ID, defaultValue = PAGE_ID_VALUE, required = false) int pageId,
 			@Parameter(description = "分页尺寸") @RequestParam(name = PAGE_SIZE, defaultValue = PAGE_SIZE_VALUE, required = false) int pageSize);
 

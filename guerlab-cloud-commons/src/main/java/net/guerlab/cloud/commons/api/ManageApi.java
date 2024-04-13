@@ -19,9 +19,9 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * 管理API定义.
  *
- * @param <E>  返回实体类型
- * @param <SP> 搜索参数类型
+ * @param <E> 返回实体类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface ManageApi<E extends IBaseEntity, SP extends SearchParams> extends QueryApi<E, SP>, Insert<E>, UpdateById<E>, SaveOrUpdate<E>, DeleteById, Delete<SP> { }
+public interface ManageApi<E extends IBaseEntity, Q extends SearchParams> extends QueryApi<E, Q>, Insert<E>, UpdateById<E>, SaveOrUpdate<E>, DeleteById, Delete<Q> { }

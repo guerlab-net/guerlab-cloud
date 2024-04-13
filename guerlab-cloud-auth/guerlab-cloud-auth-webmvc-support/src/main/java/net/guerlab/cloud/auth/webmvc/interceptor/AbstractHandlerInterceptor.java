@@ -60,7 +60,7 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 	 */
 	protected final ResponseAdvisorProperties responseAdvisorProperties;
 
-	public AbstractHandlerInterceptor(ResponseAdvisorProperties responseAdvisorProperties) {
+	protected AbstractHandlerInterceptor(ResponseAdvisorProperties responseAdvisorProperties) {
 		this.responseAdvisorProperties = responseAdvisorProperties;
 	}
 
@@ -212,8 +212,8 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 	private String parseRequestUri(HttpServletRequest request) {
 		String realRequestPath = null;
 		Object attribute = request.getAttribute(REAL_REQUEST_PATH);
-		if (attribute instanceof String) {
-			realRequestPath = (String) attribute;
+		if (attribute instanceof String path) {
+			realRequestPath = path;
 		}
 		if (realRequestPath != null) {
 			return realRequestPath;

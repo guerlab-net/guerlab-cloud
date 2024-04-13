@@ -24,12 +24,12 @@ import net.guerlab.cloud.searchparams.SearchParamsUtils;
 /**
  * QueryWrapper获取接口.
  *
- * @param <E>  实体类型
- * @param <SP> 搜索参数类型
+ * @param <E> 实体类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface QueryWrapperGetter<E extends IBaseEntity, SP extends SearchParams> {
+public interface QueryWrapperGetter<E extends IBaseEntity, Q extends SearchParams> {
 
 	/**
 	 * 获取QueryWrapper，并通过searchParams对象对QueryWrapper进行赋值.
@@ -37,7 +37,7 @@ public interface QueryWrapperGetter<E extends IBaseEntity, SP extends SearchPara
 	 * @param searchParams 搜索对象
 	 * @return QueryWrapper
 	 */
-	default QueryWrapper<E> getQueryWrapperWithSelectMethod(SP searchParams) {
+	default QueryWrapper<E> getQueryWrapperWithSelectMethod(Q searchParams) {
 		return getQueryWrapper(searchParams);
 	}
 
@@ -56,7 +56,7 @@ public interface QueryWrapperGetter<E extends IBaseEntity, SP extends SearchPara
 	 * @param searchParams 搜索对象
 	 * @return QueryWrapper
 	 */
-	default QueryWrapper<E> getQueryWrapper(SP searchParams) {
+	default QueryWrapper<E> getQueryWrapper(Q searchParams) {
 		QueryWrapper<E> wrapper = getQueryWrapper();
 
 		SearchParamsUtils.handler(searchParams, wrapper);

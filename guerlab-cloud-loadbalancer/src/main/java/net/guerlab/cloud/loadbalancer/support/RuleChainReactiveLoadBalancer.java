@@ -92,8 +92,8 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
 		ServiceInstanceListSupplier supplier = getSupplier();
 		return supplier.get(request).next().map(instances -> {
 			Response<ServiceInstance> response = buildResponse(instances, request);
-			if (supplier instanceof SelectedInstanceCallback && response.hasServer()) {
-				((SelectedInstanceCallback) supplier).selectedServiceInstance(response.getServer());
+			if (supplier instanceof SelectedInstanceCallback selectedInstanceCallback && response.hasServer()) {
+				selectedInstanceCallback.selectedServiceInstance(response.getServer());
 			}
 			return response;
 		});

@@ -14,7 +14,6 @@
 package net.guerlab.cloud.web.core.exception.handler.builder;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -44,7 +43,7 @@ public class MethodArgumentNotValidExceptionResponseBuilder extends AbstractRequ
 		BindingResult bindingResult = exception.getBindingResult();
 
 		Collection<String> displayMessageList = bindingResult.getAllErrors().stream()
-				.map(this::getMethodArgumentNotValidExceptionDisplayMessage).collect(Collectors.toList());
+				.map(this::getMethodArgumentNotValidExceptionDisplayMessage).toList();
 
 		return build0(new RequestParamsError(exception, displayMessageList));
 	}

@@ -16,7 +16,6 @@ package net.guerlab.cloud.api.feign;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -95,7 +94,7 @@ public final class FailParser {
 		}
 
 		return StreamSupport.stream(stackTraceNode.spliterator(), false).map(FailParser::parseApplicationStackTrace)
-				.filter(Objects::nonNull).collect(Collectors.toList());
+				.filter(Objects::nonNull).toList();
 	}
 
 	/**
@@ -120,8 +119,7 @@ public final class FailParser {
 		}
 		else {
 			applicationStackTrace.setStackTrace(
-					StreamSupport.stream(stackTraceNode.spliterator(), false).map(JsonNode::asText)
-							.collect(Collectors.toList()));
+					StreamSupport.stream(stackTraceNode.spliterator(), false).map(JsonNode::asText).toList());
 		}
 
 		return applicationStackTrace;

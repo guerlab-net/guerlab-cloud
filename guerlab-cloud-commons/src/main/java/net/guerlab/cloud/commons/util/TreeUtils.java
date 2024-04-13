@@ -17,7 +17,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.entity.IOrderlyEntity;
@@ -54,34 +53,34 @@ public final class TreeUtils {
 	 * @param data   数据列表
 	 * @param rootId 根ID
 	 * @param <E>    树节点类型
-	 * @param <PK>   主键类型
+	 * @param <K>    主键类型
 	 * @return 树结构列表
 	 */
-	public static <E extends TreeNode<PK>, PK> List<TreeEntity<E, PK>> tree(Collection<E> data, PK rootId) {
+	public static <E extends TreeNode<K>, K> List<TreeEntity<E, K>> tree(Collection<E> data, K rootId) {
 		if (CollectionUtil.isEmpty(data)) {
 			return Collections.emptyList();
 		}
 
-		List<TreeEntity<E, PK>> treeEntities = data.stream().sorted((o1, o2) -> {
+		List<TreeEntity<E, K>> treeEntities = data.stream().sorted((o1, o2) -> {
 			if (o1 instanceof IOrderlyEntity && o2 instanceof IOrderlyEntity) {
 				return IOrderlyEntity.compareTo((IOrderlyEntity<?>) o1, (IOrderlyEntity<?>) o2);
 			}
 			else {
 				return 0;
 			}
-		}).map(TreeUtils::buildTreeEntity).collect(Collectors.toList());
+		}).map(TreeUtils::buildTreeEntity).toList();
 
-		Map<PK, TreeEntity<E, PK>> map = CollectionUtil.toMap(treeEntities, TreeEntity::getId);
-		Map<PK, List<TreeEntity<E, PK>>> childrenMap = CollectionUtil.group(treeEntities, TreeEntity::getParentId);
+		Map<K, TreeEntity<E, K>> map = CollectionUtil.toMap(treeEntities, TreeEntity::getId);
+		Map<K, List<TreeEntity<E, K>>> childrenMap = CollectionUtil.group(treeEntities, TreeEntity::getParentId);
 
-		List<TreeEntity<E, PK>> roots = childrenMap.get(rootId);
+		List<TreeEntity<E, K>> roots = childrenMap.get(rootId);
 
 		if (CollectionUtil.isEmpty(roots)) {
 			return Collections.emptyList();
 		}
 
 		childrenMap.forEach((parentId, list) -> {
-			TreeEntity<E, PK> parent = map.get(parentId);
+			TreeEntity<E, K> parent = map.get(parentId);
 
 			if (parent != null) {
 				parent.setChildren(list);
@@ -96,11 +95,11 @@ public final class TreeUtils {
 	 *
 	 * @param entity 树节点
 	 * @param <E>    树节点类型
-	 * @param <PK>   主键类型
+	 * @param <K>    主键类型
 	 * @return 树形结构对象
 	 */
-	private static <E extends TreeNode<PK>, PK> TreeEntity<E, PK> buildTreeEntity(E entity) {
-		TreeEntity<E, PK> treeEntity = new TreeEntity<>();
+	private static <E extends TreeNode<K>, K> TreeEntity<E, K> buildTreeEntity(E entity) {
+		TreeEntity<E, K> treeEntity = new TreeEntity<>();
 		treeEntity.setId(entity.nodeId());
 		treeEntity.setParentId(entity.parentId());
 		treeEntity.setLabel(entity.label());

@@ -43,7 +43,7 @@ import net.guerlab.cloud.searchparams.SearchParamsUtils;
 /**
  * @author guer
  */
-public class BaseEntitySearchParamsTest {
+class BaseEntitySearchParamsTest {
 
 	@Test
 	void test1() {

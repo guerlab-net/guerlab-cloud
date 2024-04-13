@@ -36,10 +36,9 @@ public class Chooser<K, T> {
 	}
 
 	public Chooser(K uniqueKey, List<Pair<T>> pairs) {
-		Ref<T> ref = new Ref<>(pairs);
-		ref.refresh();
 		this.uniqueKey = uniqueKey;
-		this.ref = ref;
+		this.ref = new Ref<>(pairs);
+		ref.refresh();
 	}
 
 	/**
@@ -66,7 +65,6 @@ public class Chooser<K, T> {
 	 */
 	@Nullable
 	public T randomWithWeight() {
-		Ref<T> ref = this.ref;
 		double random = ThreadLocalRandom.current().nextDouble(0, 1);
 		double[] weights = ref.getWeights();
 		List<T> items = ref.getItems();
@@ -78,10 +76,8 @@ public class Chooser<K, T> {
 			return items.get(index);
 		}
 
-		if (index < weights.length) {
-			if (random < weights[index]) {
-				return items.get(index);
-			}
+		if (index < weights.length && random < weights[index]) {
+			return items.get(index);
 		}
 
 		/* This should never happen, but it ensures we will return a correct
@@ -136,13 +132,9 @@ public class Chooser<K, T> {
 			}
 		}
 		else {
-			if (otherChooser.getUniqueKey() == null) {
+			if (otherChooser.getUniqueKey() == null || !this.uniqueKey.equals(otherChooser.getUniqueKey())) {
 				return false;
 			}
-			else if (!this.uniqueKey.equals(otherChooser.getUniqueKey())) {
-				return false;
-			}
-
 		}
 
 		if (this.ref == null) {

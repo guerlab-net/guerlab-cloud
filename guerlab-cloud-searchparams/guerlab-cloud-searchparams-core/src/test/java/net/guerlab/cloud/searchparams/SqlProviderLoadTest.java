@@ -39,7 +39,7 @@ import net.guerlab.cloud.core.util.SpringUtils;
 				"logging.level.net.guerlab.cloud.searchparams=DEBUG"
 		}
 )
-public class SqlProviderLoadTest {
+class SqlProviderLoadTest {
 
 	@BeforeEach
 	public void before() {
@@ -47,21 +47,21 @@ public class SqlProviderLoadTest {
 	}
 
 	@Test
-	public void byClass() {
+	void byClass() {
 		List<SqlProvider> providers = SearchParamsUtils.loadSqlProviders(ClassTestSqlProvider.class);
 		Assertions.assertTrue(providers.stream()
 				.anyMatch(provider -> provider.getClass().isAssignableFrom(ClassTestSqlProvider.class)));
 	}
 
 	@Test
-	public void byServiceLoad() {
+	void byServiceLoad() {
 		List<SqlProvider> providers = SearchParamsUtils.loadSqlProviders(TestSqlProvider.class);
 		Assertions.assertTrue(providers.stream()
 				.anyMatch(provider -> provider.getClass().isAssignableFrom(ServiceLoadTestSqlProvider.class)));
 	}
 
 	@Test
-	public void bySpring() {
+	void bySpring() {
 		List<SqlProvider> providers = SearchParamsUtils.loadSqlProviders(TestSqlProvider.class);
 		Assertions.assertTrue(providers.stream()
 				.anyMatch(provider -> provider.getClass().isAssignableFrom(BeanTestSqlProvider.class)));

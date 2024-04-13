@@ -29,7 +29,7 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * @author guer
  */
-public class DynamicProxyFallbackTest {
+class DynamicProxyFallbackTest {
 
 	TestApi proxy;
 

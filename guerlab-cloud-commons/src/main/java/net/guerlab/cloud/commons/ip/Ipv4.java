@@ -94,4 +94,7 @@ public abstract class Ipv4 implements IpAddress {
 	 * 范围IPv4正则表达式.
 	 */
 	public static final String RANGE_END_REG = "^" + RANGE_END_FORMAT + "$";
+
+	protected Ipv4() {
+	}
 }

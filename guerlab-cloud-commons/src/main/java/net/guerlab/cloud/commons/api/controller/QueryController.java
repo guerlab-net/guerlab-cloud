@@ -20,9 +20,9 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * 查询控制器定义.
  *
- * @param <E>  返回实体类型
- * @param <SP> 搜索参数类型
+ * @param <E> 返回实体类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface QueryController<E extends IBaseEntity, SP extends SearchParams> extends QueryApi<E, SP> { }
+public interface QueryController<E extends IBaseEntity, Q extends SearchParams> extends QueryApi<E, Q> { }

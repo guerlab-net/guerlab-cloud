@@ -40,7 +40,7 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebPropertie
 	 */
 	protected final A authProperties;
 
-	public AbstractTokenHandlerInterceptor(ResponseAdvisorProperties responseAdvisorProperties, A authProperties) {
+	protected AbstractTokenHandlerInterceptor(ResponseAdvisorProperties responseAdvisorProperties, A authProperties) {
 		super(responseAdvisorProperties);
 		this.authProperties = authProperties;
 	}

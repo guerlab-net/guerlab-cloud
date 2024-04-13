@@ -14,7 +14,6 @@
 package net.guerlab.cloud.web.core.exception.handler.builder;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -42,7 +41,7 @@ public class ConstraintViolationExceptionResponseBuilder extends AbstractRequest
 		Collection<ConstraintViolation<?>> constraintViolations = exception.getConstraintViolations();
 
 		Collection<String> displayMessageList = constraintViolations.stream().map(ConstraintViolation::getMessage)
-				.collect(Collectors.toList());
+				.toList();
 		return build0(new RequestParamsError(exception, displayMessageList));
 	}
 }

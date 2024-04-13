@@ -20,9 +20,9 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * 基本删除服务接口.
  *
- * @param <SP> 搜索参数类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface BaseDeleteService<SP extends SearchParams> extends Delete<SP>, DeleteById {
+public interface BaseDeleteService<Q extends SearchParams> extends Delete<Q>, DeleteById {
 }

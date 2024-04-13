@@ -16,6 +16,8 @@ package net.guerlab.cloud.geo.domain;
 import java.io.Serial;
 import java.math.BigDecimal;
 
+import javax.annotation.Nullable;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -34,6 +36,7 @@ public class GeoPoint implements IGeoPoint {
 	/**
 	 * 空间引用标识符.
 	 */
+	@Nullable
 	@Schema(description = "空间引用标识符")
 	private Integer srid;
 

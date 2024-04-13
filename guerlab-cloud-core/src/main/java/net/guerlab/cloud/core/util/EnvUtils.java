@@ -52,7 +52,7 @@ public final class EnvUtils {
 	 */
 	@Nullable
 	public static String getEnv(String key) {
-		String val = null;
+		String val = System.getenv(key);
 
 		try {
 			val = System.getenv(key);

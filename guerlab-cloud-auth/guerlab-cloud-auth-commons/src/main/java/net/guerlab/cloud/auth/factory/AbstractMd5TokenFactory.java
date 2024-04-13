@@ -34,7 +34,7 @@ public abstract class AbstractMd5TokenFactory<T, P extends Md5TokenFactoryProper
 
 	private static final String TOKEN_CONNECTORS = ".";
 
-	public AbstractMd5TokenFactory(P properties) {
+	protected AbstractMd5TokenFactory(P properties) {
 		super(properties);
 	}
 

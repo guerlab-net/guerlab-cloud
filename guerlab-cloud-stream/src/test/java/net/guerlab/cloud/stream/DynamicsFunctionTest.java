@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +29,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  *
  * @author guer
  */
-public class DynamicsFunctionTest {
+class DynamicsFunctionTest {
 
 	static AnnotationConfigApplicationContext context;
 
@@ -55,7 +56,7 @@ public class DynamicsFunctionTest {
 
 		Map<String, DynamicsFunction> dynamicsFunctionMap = context.getBeansOfType(DynamicsFunction.class);
 		for (DynamicsFunction dynamicsFunction : dynamicsFunctionMap.values()) {
-			dynamicsFunction.invoke("test");
+			Assertions.assertAll(() -> dynamicsFunction.invoke("test"));
 		}
 	}
 }

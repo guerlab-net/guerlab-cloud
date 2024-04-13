@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * 排序字段列表.
@@ -34,6 +33,6 @@ public class OrderBys extends ArrayList<OrderBy> {
 	}
 
 	public static OrderBys of(OrderBy... orderBys) {
-		return new OrderBys(Arrays.stream(orderBys).filter(Objects::nonNull).collect(Collectors.toList()));
+		return new OrderBys(Arrays.stream(orderBys).filter(Objects::nonNull).toList());
 	}
 }

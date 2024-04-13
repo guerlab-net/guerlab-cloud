@@ -13,6 +13,7 @@
 
 package net.guerlab.cloud.core.result;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.Data;
@@ -23,7 +24,7 @@ import lombok.Data;
  * @author guer
  */
 @Data
-public class ApplicationStackTrace {
+public class ApplicationStackTrace implements Serializable {
 
 	/**
 	 * 应用名称.

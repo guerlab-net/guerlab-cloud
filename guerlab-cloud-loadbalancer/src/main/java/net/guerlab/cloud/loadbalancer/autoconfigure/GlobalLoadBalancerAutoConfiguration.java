@@ -13,8 +13,6 @@
 
 package net.guerlab.cloud.loadbalancer.autoconfigure;
 
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -62,7 +60,7 @@ public class GlobalLoadBalancerAutoConfiguration {
 	@Bean
 	public LoadBalancerClientFactory customerLoadBalancerClientFactory(LoadBalancerClientsProperties properties) {
 		CustomerLoadBalancerClientFactory clientFactory = new CustomerLoadBalancerClientFactory(properties);
-		clientFactory.setConfigurations(configurations.stream().collect(Collectors.toList()));
+		clientFactory.setConfigurations(configurations.stream().toList());
 		return clientFactory;
 	}
 }

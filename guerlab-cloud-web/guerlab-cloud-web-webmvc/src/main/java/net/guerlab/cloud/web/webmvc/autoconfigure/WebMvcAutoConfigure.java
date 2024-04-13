@@ -83,8 +83,8 @@ public class WebMvcAutoConfigure {
 				if (converter instanceof MappingJackson2XmlHttpMessageConverter) {
 					continue;
 				}
-				if (converter instanceof AbstractJackson2HttpMessageConverter) {
-					((AbstractJackson2HttpMessageConverter) converter).setObjectMapper(objectMapper);
+				if (converter instanceof AbstractJackson2HttpMessageConverter messageConverter) {
+					messageConverter.setObjectMapper(objectMapper);
 				}
 			}
 		}

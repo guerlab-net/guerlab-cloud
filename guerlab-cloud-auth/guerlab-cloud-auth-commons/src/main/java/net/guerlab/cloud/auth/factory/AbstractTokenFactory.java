@@ -36,7 +36,7 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
 	 */
 	protected final P properties;
 
-	public AbstractTokenFactory(P properties) {
+	protected AbstractTokenFactory(P properties) {
 		this.properties = properties;
 	}
 

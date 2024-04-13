@@ -93,7 +93,7 @@ public class BoolQueryBuilderDefaultHandler implements SearchParamsHandler {
 				searchModelType == SearchModelType.LESS_THAN_OR_EQUAL_TO) {
 			builder.must(m -> m.range(r -> {
 				r.field(columnName);
-				if (value instanceof Date | value instanceof Temporal) {
+				if (value instanceof Date || value instanceof Temporal) {
 					r.timeZone(getTimeZone().getID());
 				}
 

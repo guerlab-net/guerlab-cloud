@@ -19,11 +19,11 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * 基本服务接口.
  *
- * @param <E>  数据类型
- * @param <SP> 搜索参数类型
+ * @param <E> 数据类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
-public interface BaseService<E extends IBaseEntity, SP extends SearchParams>
-		extends BaseFindService<E, SP>, BaseSaveService<E>,
-		BaseUpdateService<E, SP>, BaseSaveOrUpdateService<E>,
-		BaseDeleteService<SP> { }
+public interface BaseService<E extends IBaseEntity, Q extends SearchParams>
+		extends BaseFindService<E, Q>, BaseSaveService<E>,
+		BaseUpdateService<E, Q>, BaseSaveOrUpdateService<E>,
+		BaseDeleteService<Q> { }

@@ -24,12 +24,12 @@ import net.guerlab.cloud.server.BaseFindService;
 /**
  * 基本ORM查询服务接口.
  *
- * @param <E>  数据类型
- * @param <SP> 搜索参数类型
+ * @param <E> 数据类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface BaseOrmFindService<E extends IBaseEntity, SP extends SearchParams> extends BaseFindService<E, SP>, QueryWrapperGetter<E, SP> {
+public interface BaseOrmFindService<E extends IBaseEntity, Q extends SearchParams> extends BaseFindService<E, Q>, QueryWrapperGetter<E, Q> {
 
 	/**
 	 * 查询单一结果，根据实体内非null字段按照值相等方式查询.

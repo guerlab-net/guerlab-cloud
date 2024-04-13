@@ -40,23 +40,23 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * 基础管理控制器实现.
  *
- * @param <E>  实体类型
- * @param <SP> 搜索参数类型
- * @param <A>  api接口类型
- * @param <V>  返回对象类型
+ * @param <E> 实体类型
+ * @param <Q> 搜索参数类型
+ * @param <A> api接口类型
+ * @param <V> 返回对象类型
  * @author guer
  */
 @SuppressWarnings("unused")
 @Slf4j
 @Getter
-public abstract class BaseManageController<E extends IBaseEntity, SP extends SearchParams, A extends ManageApi<E, SP>, V> extends BaseQueryController<E, SP, A, V> {
+public abstract class BaseManageController<E extends IBaseEntity, Q extends SearchParams, A extends ManageApi<E, Q>, V> extends BaseQueryController<E, Q, A, V> {
 
 	/**
 	 * 根据api实例创建控制器.
 	 *
 	 * @param api api实例
 	 */
-	public BaseManageController(A api) {
+	protected BaseManageController(A api) {
 		super(api);
 	}
 
@@ -133,7 +133,7 @@ public abstract class BaseManageController<E extends IBaseEntity, SP extends Sea
 	@Log("method.delete")
 	@DeleteMapping
 	@Operation(summary = "根据搜索参数删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
-	public void delete(@Parameter(description = "搜索参数", required = true) @RequestBody SP searchParams) {
+	public void delete(@Parameter(description = "搜索参数", required = true) @RequestBody Q searchParams) {
 		beforeDelete(searchParams);
 		getApi().delete(searchParams);
 	}
@@ -144,7 +144,7 @@ public abstract class BaseManageController<E extends IBaseEntity, SP extends Sea
 	 * @param searchParams 查询对象
 	 */
 	@SuppressWarnings("EmptyMethod")
-	protected void beforeDelete(SP searchParams) {
+	protected void beforeDelete(Q searchParams) {
 
 	}
 }

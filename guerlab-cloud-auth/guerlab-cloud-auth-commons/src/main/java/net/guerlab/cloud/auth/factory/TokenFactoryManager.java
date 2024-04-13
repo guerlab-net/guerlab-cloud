@@ -16,7 +16,6 @@ package net.guerlab.cloud.auth.factory;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import net.guerlab.cloud.commons.exception.NotFoundCanUseTokenFactoryException;
@@ -42,7 +41,7 @@ public final class TokenFactoryManager {
 	 * @return token工厂列表
 	 */
 	public static <T> Collection<TokenFactory<T>> getTokenFactories(Class<T> entityClass) {
-		return getTokenFactoriesByEntityClass0(entityClass).collect(Collectors.toList());
+		return getTokenFactoriesByEntityClass0(entityClass).toList();
 	}
 
 	/**

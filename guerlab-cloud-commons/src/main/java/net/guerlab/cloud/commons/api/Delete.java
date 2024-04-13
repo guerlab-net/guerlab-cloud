@@ -26,11 +26,11 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * APi定义.
  *
- * @param <SP> 搜索参数类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface Delete<SP extends SearchParams> {
+public interface Delete<Q extends SearchParams> {
 
 	/**
 	 * 根据搜索参数删除数据.
@@ -39,5 +39,5 @@ public interface Delete<SP extends SearchParams> {
 	 */
 	@DeleteMapping
 	@Operation(summary = "根据搜索参数删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
-	void delete(@Parameter(description = "搜索参数", required = true) @RequestBody SP searchParams);
+	void delete(@Parameter(description = "搜索参数", required = true) @RequestBody Q searchParams);
 }

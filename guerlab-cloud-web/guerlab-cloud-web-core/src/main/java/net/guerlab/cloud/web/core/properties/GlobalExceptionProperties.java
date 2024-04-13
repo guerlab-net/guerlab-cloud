@@ -117,16 +117,16 @@ public class GlobalExceptionProperties implements GlobalExceptionConfig {
 	 * @return 响应码.
 	 */
 	public int getStatusCode(String requestMethod, String requestPath) {
-		int statusCode = getStatusCode();
+		int code = getStatusCode();
 		if (statusCodes != null && !statusCodes.isEmpty()) {
 			UrlResponseCode urlResponseCode = statusCodes.stream()
 					.filter(url -> urlResponseCodeMatch(requestMethod, requestPath, url)).findFirst()
 					.orElse(null);
 			if (urlResponseCode != null) {
-				statusCode = urlResponseCode.getStatusCode();
+				code = urlResponseCode.getStatusCode();
 			}
 		}
-		return statusCode;
+		return code;
 	}
 
 	/**

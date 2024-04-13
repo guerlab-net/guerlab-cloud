@@ -22,6 +22,8 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
+import javax.annotation.Resource;
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
@@ -33,6 +35,7 @@ import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,16 +52,16 @@ import net.guerlab.commons.collection.CollectionUtil;
 /**
  * 基本ORM服务实现.
  *
- * @param <E>  数据类型
- * @param <M>  Mapper类型
- * @param <SP> 搜索参数类型
+ * @param <E> 数据类型
+ * @param <M> Mapper类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings({"unused", "EmptyMethod"})
 @Slf4j
 @Validated
-public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMapper<E>, SP extends SearchParams>
-		implements BaseOrmService<E, SP> {
+public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMapper<E>, Q extends SearchParams>
+		implements BaseOrmService<E, Q> {
 
 	/**
 	 * 默认单次操作数量.
@@ -87,7 +90,10 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	 */
 	protected final M baseMapper;
 
-	public BaseOrmServiceImpl(Sequence sequence, M baseMapper) {
+	@Resource
+	private SqlSessionFactory sqlSessionFactory;
+
+	protected BaseOrmServiceImpl(Sequence sequence, M baseMapper) {
 		this.sequence = sequence;
 		this.baseMapper = baseMapper;
 	}
@@ -113,7 +119,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
-	public E selectOne(SP searchParams) {
+	public E selectOne(Q searchParams) {
 		E result = getBaseMapper().selectOne(getQueryWrapperWithSelectMethod(searchParams));
 		if (result != null) {
 			afterSelect(Collections.singleton(result), null);
@@ -145,7 +151,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
-	public List<E> selectList(SP searchParams) {
+	public List<E> selectList(Q searchParams) {
 		if (!beforeSelect(searchParams)) {
 			return Collections.emptyList();
 		}
@@ -158,29 +164,29 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
-	public Pageable<E> selectPage(SP searchParams, int pageId, int pageSize) {
+	public Pageable<E> selectPage(Q searchParams, int pageId, int pageSize) {
 		if (!beforeSelect(searchParams)) {
 			return Pageable.empty();
 		}
 		Pageable<E> result = PageUtils.selectPage(this, searchParams, pageId, pageSize, getBaseMapper());
-		if (result.getList() != null && !result.getList().isEmpty()) {
+		if (!result.getList().isEmpty()) {
 			afterSelect(result.getList(), searchParams);
 		}
 		return result;
 	}
 
 	@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "SameReturnValue"})
-	protected boolean beforeSelect(SP searchParams) {
+	protected boolean beforeSelect(Q searchParams) {
 		return true;
 	}
 
 
-	protected void afterSelect(Collection<E> items, @Nullable SP searchParams) {
+	protected void afterSelect(Collection<E> items, @Nullable Q searchParams) {
 
 	}
 
 	@Override
-	public long selectCount(SP searchParams) {
+	public long selectCount(Q searchParams) {
 		Long result = getBaseMapper().selectCount(getQueryWrapperWithSelectMethod(searchParams));
 		return result == null ? 0 : result;
 	}
@@ -267,7 +273,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	 * @param consumer  操作内容
 	 */
 	protected void executeBatch(Collection<E> list, int batchSize, BiConsumer<SqlSession, E> consumer) {
-		SqlHelper.executeBatch(this.entityClass, ORM_LOGGER, list, batchSize, consumer);
+		SqlHelper.executeBatch(sqlSessionFactory, ORM_LOGGER, list, batchSize, consumer);
 	}
 
 	@Override
@@ -281,7 +287,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public boolean update(E entity, SP searchParams) {
+	public boolean update(E entity, Q searchParams) {
 		return getBaseMapper().update(entity, getQueryWrapper(searchParams)) > 0;
 	}
 
@@ -368,7 +374,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public List<E> batchSaveOrUpdate(Collection<? extends E> list, boolean ignoreBeforeCheckException) {
-		list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
+		list = list.stream().filter(Objects::nonNull).toList();
 		if (list.isEmpty()) {
 			return Collections.emptyList();
 		}
@@ -390,7 +396,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
-	public void delete(SP searchParams) {
+	public void delete(Q searchParams) {
 		deleteBefore(searchParams);
 		QueryWrapper<E> queryWrapper = getQueryWrapper(searchParams);
 		getBaseMapper().delete(queryWrapper);
@@ -402,7 +408,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	 *
 	 * @param searchParams 搜索参数
 	 */
-	protected void deleteBefore(SP searchParams) {
+	protected void deleteBefore(Q searchParams) {
 		/* 默认空实现 */
 	}
 
@@ -411,7 +417,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	 *
 	 * @param searchParams 搜索参数
 	 */
-	protected void deleteAfter(SP searchParams) {
+	protected void deleteAfter(Q searchParams) {
 		/* 默认空实现 */
 	}
 

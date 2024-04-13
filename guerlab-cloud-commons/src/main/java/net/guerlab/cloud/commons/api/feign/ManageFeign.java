@@ -20,9 +20,9 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * 管理Feign定义.
  *
- * @param <E>  返回实体类型
- * @param <SP> 搜索参数类型
+ * @param <E> 返回实体类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface ManageFeign<E extends IBaseEntity, SP extends SearchParams> extends QueryFeign<E, SP>, ManageApi<E, SP> { }
+public interface ManageFeign<E extends IBaseEntity, Q extends SearchParams> extends QueryFeign<E, Q>, ManageApi<E, Q> { }

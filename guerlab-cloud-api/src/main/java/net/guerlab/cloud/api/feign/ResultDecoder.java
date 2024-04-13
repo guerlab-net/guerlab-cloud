@@ -56,19 +56,27 @@ public class ResultDecoder implements Decoder {
 	@Override
 	public Object decode(Response response, Type type) throws IOException, FeignException {
 		Response.Body body = response.body();
-
 		if (body == null) {
 			return new Decoder.Default().decode(response, type);
 		}
 
 		String resultBody = Util.toString(body.asReader(StandardCharsets.UTF_8));
-
-		if (!isJson(resultBody)) {
-			if (type instanceof Class && String.class.isAssignableFrom((Class<?>) type)) {
-				return resultBody;
-			}
+		if (!isJson(resultBody) && type instanceof Class && String.class.isAssignableFrom((Class<?>) type)) {
+			return resultBody;
 		}
 
+		return parse0(resultBody, type);
+	}
+
+	private boolean isJson(String resultBody) {
+		if (resultBody.startsWith("[") && resultBody.endsWith("]")) {
+			return true;
+		}
+		return resultBody.startsWith("{") && resultBody.endsWith("}");
+	}
+
+	@Nullable
+	private Object parse0(String resultBody, Type type) throws IOException, FeignException {
 		TypeReference<?> typeReference = new TypeReference<>() {
 
 			@Override
@@ -78,33 +86,30 @@ public class ResultDecoder implements Decoder {
 		};
 
 		try {
-			try {
-				JsonNode rootNode = objectMapper.readTree(resultBody);
-				if (type instanceof Class && Result.class.isAssignableFrom((Class<?>) type)) {
-					return objectMapper.readValue(resultBody, typeReference);
-				}
-				else if (rootNode.has(Constants.FIELD_STATUS) && rootNode.has(Constants.FIELD_ERROR_CODE)) {
-					if (!getStatus(rootNode)) {
-						throw FailParser.parse(rootNode);
-					}
-					else if (!rootNode.has(Constants.FIELD_DATA)) {
-						log.debug("rootNode not has {} field, json is : {}", Constants.FIELD_DATA, resultBody);
-						return null;
-					}
-
-					return objectMapper.convertValue(rootNode.get(Constants.FIELD_DATA), typeReference);
-				}
-				else {
-					return objectMapper.readValue(resultBody, typeReference);
-				}
+			JsonNode rootNode = objectMapper.readTree(resultBody);
+			if (type instanceof Class && Result.class.isAssignableFrom((Class<?>) type)) {
+				return objectMapper.readValue(resultBody, typeReference);
 			}
-			catch (JsonParseException e) {
-				if (type.getTypeName().equals(String.class.getTypeName())) {
-					return resultBody;
+			else if (rootNode.has(Constants.FIELD_STATUS) && rootNode.has(Constants.FIELD_ERROR_CODE)) {
+				if (!getStatus(rootNode)) {
+					throw FailParser.parse(rootNode);
+				}
+				else if (!rootNode.has(Constants.FIELD_DATA)) {
+					log.debug("rootNode not has {} field, json is : {}", Constants.FIELD_DATA, resultBody);
+					return null;
 				}
 
-				throw e;
+				return objectMapper.convertValue(rootNode.get(Constants.FIELD_DATA), typeReference);
 			}
+
+			return objectMapper.readValue(resultBody, typeReference);
+		}
+		catch (JsonParseException e) {
+			if (type.getTypeName().equals(String.class.getTypeName())) {
+				return resultBody;
+			}
+
+			throw e;
 		}
 		catch (ApplicationException e) {
 			throw e;
@@ -113,13 +118,6 @@ public class ResultDecoder implements Decoder {
 			log.debug(e.getLocalizedMessage(), e);
 			throw new ApplicationException(e.getMessage(), e);
 		}
-	}
-
-	private boolean isJson(String resultBody) {
-		if (resultBody.startsWith("[") && resultBody.endsWith("]")) {
-			return true;
-		}
-		return resultBody.startsWith("{") && resultBody.endsWith("}");
 	}
 
 	private boolean getStatus(JsonNode rootNode) {

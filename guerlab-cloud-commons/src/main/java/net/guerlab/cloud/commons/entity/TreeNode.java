@@ -20,25 +20,25 @@ import org.springframework.lang.Nullable;
 /**
  * 树节点.
  *
- * @param <PK> 主键类型
+ * @param <K> 主键类型
  * @author guer
  */
 @Schema(name = "TreeNode", description = "TreeNode")
-public interface TreeNode<PK> {
+public interface TreeNode<K> {
 
 	/**
 	 * 获取节点ID.
 	 *
 	 * @return 节点ID
 	 */
-	PK nodeId();
+	K nodeId();
 
 	/**
 	 * 获取上级ID.
 	 *
 	 * @return 上级id
 	 */
-	PK parentId();
+	K parentId();
 
 	/**
 	 * 获取标签.
