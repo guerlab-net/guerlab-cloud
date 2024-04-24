@@ -95,12 +95,7 @@ public class WebMvcResponseAdvisorAutoConfigure {
 					.getReturnType(), String.class);
 
 			if (returnTypeIsString) {
-				if (body == null) {
-					return returnString(new Succeed<>(), response);
-				}
-				else {
-					return returnString(body, response);
-				}
+				return returnString(Objects.requireNonNullElseGet(body, Succeed::new), response);
 			}
 			else {
 				if (body == null) {

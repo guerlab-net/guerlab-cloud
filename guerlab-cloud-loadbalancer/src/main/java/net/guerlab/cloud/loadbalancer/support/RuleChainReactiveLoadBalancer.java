@@ -138,7 +138,7 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
 	 * @return 空响应
 	 */
 	private Response<ServiceInstance> emptyResponse() {
-		log.debug("No servers available for service: " + serviceId);
+		log.debug("No servers available for service: {}", serviceId);
 		return new EmptyResponse();
 	}
 
