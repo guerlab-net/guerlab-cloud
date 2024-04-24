@@ -13,10 +13,10 @@
 
 package net.guerlab.cloud.loadbalancer.utils;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.lang.Nullable;
 
@@ -26,6 +26,8 @@ import org.springframework.lang.Nullable;
  * @author guer
  */
 public class Chooser<K, T> {
+
+	private final SecureRandom secureRandom = new SecureRandom();
 
 	private final K uniqueKey;
 
@@ -55,7 +57,7 @@ public class Chooser<K, T> {
 		if (items.size() == 1) {
 			return items.get(0);
 		}
-		return items.get(ThreadLocalRandom.current().nextInt(items.size()));
+		return items.get(secureRandom.nextInt(items.size()));
 	}
 
 	/**
@@ -65,7 +67,7 @@ public class Chooser<K, T> {
 	 */
 	@Nullable
 	public T randomWithWeight() {
-		double random = ThreadLocalRandom.current().nextDouble(0, 1);
+		double random = secureRandom.nextDouble(0, 1);
 		double[] weights = ref.getWeights();
 		List<T> items = ref.getItems();
 		int index = Arrays.binarySearch(weights, random);

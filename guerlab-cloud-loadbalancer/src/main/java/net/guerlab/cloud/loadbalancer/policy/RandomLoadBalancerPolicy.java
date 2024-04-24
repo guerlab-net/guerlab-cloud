@@ -13,8 +13,8 @@
 
 package net.guerlab.cloud.loadbalancer.policy;
 
+import java.security.SecureRandom;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.cloud.client.ServiceInstance;
 
@@ -25,8 +25,10 @@ import org.springframework.cloud.client.ServiceInstance;
  */
 public class RandomLoadBalancerPolicy extends AbstractLoadBalancerPolicy {
 
+	private final SecureRandom secureRandom = new SecureRandom();
+
 	@Override
 	protected ServiceInstance choose0(List<ServiceInstance> instances) {
-		return instances.get(ThreadLocalRandom.current().nextInt(instances.size()));
+		return instances.get(secureRandom.nextInt(instances.size()));
 	}
 }
