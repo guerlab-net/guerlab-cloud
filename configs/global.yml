@@ -50,6 +50,21 @@ spring:
         enabled: true
       cluster-same:
         enabled: true
+    openfeign:
+      client:
+        config:
+          default:
+            connect-timeout: 60000
+            read-timeout: 60000
+      compression:
+        request:
+          enabled: false
+        response:
+          enabled: false
+      httpclient:
+        connection-timeout: 60000
+        connection-timer-repeat: 60000
+        disable-ssl-validation: true
     debug:
       enable: false
       gateway-proxy-url: http://gateway/proxy/
@@ -80,21 +95,6 @@ spring:
     user:
       name: ##用户名
       password: ##密码
-feign:
-  client:
-    config:
-      default:
-        connect-timeout: 60000
-        read-timeout: 60000
-  compression:
-    request:
-      enabled: true
-    response:
-      enabled: true
-  httpclient:
-    connection-timeout: 60000
-    connection-timer-repeat: 60000
-    disable-ssl-validation: true
 web:
   cors:
     enable: true
