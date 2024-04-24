@@ -20,7 +20,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import feign.Target;
 import lombok.extern.slf4j.Slf4j;
@@ -124,7 +123,7 @@ public class FeignClientEndpoint {
 		}
 
 		return beanMap.entrySet().stream().map(entry -> buildFeignClientInfo(entry.getKey(), entry.getValue()))
-				.filter(Objects::nonNull).collect(Collectors.toList());
+				.filter(Objects::nonNull).toList();
 	}
 
 	/**

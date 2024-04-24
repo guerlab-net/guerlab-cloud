@@ -25,6 +25,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.lang.Nullable;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.cors.CorsConfiguration;
@@ -68,15 +69,20 @@ public class WebMvcSecurityAutoConfigure {
 	 */
 	@Bean
 	public SecurityFilterChain securityWebFilterChain(HttpSecurity http) throws Exception {
-		http.httpBasic().and().formLogin();
-		http.csrf().disable();
-		http.cors().configurationSource(request -> configProvider.getIfAvailable(DefaultCorsConfiguration::new));
+		http.httpBasic(c -> {
+
+		});
+		http.formLogin(c -> {
+
+		});
+		http.csrf(AbstractHttpConfigurer::disable);
+		http.cors(c -> c.configurationSource(request -> configProvider.getIfAvailable(DefaultCorsConfiguration::new)));
 
 		for (AuthorizePathProvider provider : authorizePathProviders) {
 			authorizePathConfig(http, provider.httpMethod(), provider.paths());
 		}
 
-		http.authorizeHttpRequests().anyRequest().permitAll();
+		http.authorizeHttpRequests(c -> c.anyRequest().permitAll());
 
 		return http.build();
 	}
@@ -90,10 +96,11 @@ public class WebMvcSecurityAutoConfigure {
 		log.debug("authorizePathConfig[method: {}, paths: {}]", httpMethod, paths);
 
 		if (httpMethod == null) {
-			http.authorizeHttpRequests().requestMatchers((paths.toArray(new String[0]))).authenticated();
+			http.authorizeHttpRequests(c -> c.requestMatchers((paths.toArray(new String[0]))).authenticated());
 		}
 		else {
-			http.authorizeHttpRequests().requestMatchers(httpMethod, paths.toArray(new String[0])).authenticated();
+			http.authorizeHttpRequests(c -> c.requestMatchers(httpMethod, paths.toArray(new String[0]))
+					.authenticated());
 		}
 	}
 

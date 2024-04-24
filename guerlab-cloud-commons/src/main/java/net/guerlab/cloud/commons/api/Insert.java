@@ -16,11 +16,13 @@ package net.guerlab.cloud.commons.api;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
+import net.guerlab.cloud.commons.valid.InsertValid;
 
 /**
  * APi定义.
@@ -39,5 +41,5 @@ public interface Insert<E extends IBaseEntity> {
 	 */
 	@PostMapping
 	@Operation(summary = "新增实体", security = @SecurityRequirement(name = Constants.TOKEN))
-	E insert(@RequestBody E entity);
+	E insert(@Validated(InsertValid.class) @RequestBody E entity);
 }

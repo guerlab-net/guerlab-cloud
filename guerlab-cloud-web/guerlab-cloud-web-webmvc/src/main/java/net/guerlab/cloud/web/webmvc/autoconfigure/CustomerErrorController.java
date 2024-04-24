@@ -21,9 +21,8 @@ import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorCon
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorViewResolver;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.core.result.Result;
@@ -33,7 +32,7 @@ import net.guerlab.cloud.core.result.Result;
  *
  * @author guer
  */
-@Controller
+@RestController
 @RequestMapping("${server.error.path:${error.path:/error}}")
 public class CustomerErrorController extends AbstractErrorController {
 
@@ -47,7 +46,6 @@ public class CustomerErrorController extends AbstractErrorController {
 		super(errorAttributes, errorViewResolvers);
 	}
 
-	@ResponseBody
 	@RequestMapping
 	public Result<Void> error(HttpServletRequest request) {
 		HttpStatus status = getStatus(request);

@@ -16,7 +16,6 @@ package net.guerlab.cloud.web.core.request;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.ServiceLoader;
-import java.util.stream.Collectors;
 
 import org.springframework.lang.Nullable;
 
@@ -31,8 +30,7 @@ public final class RequestHolder {
 	private static final Collection<RequestContextHolder> HOLDERS;
 
 	static {
-		HOLDERS = ServiceLoader.load(RequestContextHolder.class).stream().map(ServiceLoader.Provider::get)
-				.collect(Collectors.toList());
+		HOLDERS = ServiceLoader.load(RequestContextHolder.class).stream().map(ServiceLoader.Provider::get).toList();
 	}
 
 	private RequestHolder() {

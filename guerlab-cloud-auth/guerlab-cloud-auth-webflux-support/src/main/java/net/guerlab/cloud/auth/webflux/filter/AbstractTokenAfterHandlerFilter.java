@@ -13,6 +13,8 @@
 
 package net.guerlab.cloud.auth.webflux.filter;
 
+import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -46,7 +48,7 @@ public abstract class AbstractTokenAfterHandlerFilter<A extends AuthWebPropertie
 	}
 
 	@Override
-	protected void preHandleWithToken(ServerHttpRequest request, HandlerMethod handlerMethod, String token) {
+	protected void preHandleWithToken(ServerHttpRequest request, HandlerMethod handlerMethod, String token, List<Class<?>> targetAuthTypes) {
 
 	}
 }

@@ -77,6 +77,9 @@ public class WebmvcRequestContextHolder implements net.guerlab.cloud.web.core.re
 			return null;
 		}
 		Object errorStatusCode = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-		return errorStatusCode instanceof Integer ? (Integer) errorStatusCode : null;
+		if (errorStatusCode instanceof Integer code) {
+			return code;
+		}
+		return null;
 	}
 }

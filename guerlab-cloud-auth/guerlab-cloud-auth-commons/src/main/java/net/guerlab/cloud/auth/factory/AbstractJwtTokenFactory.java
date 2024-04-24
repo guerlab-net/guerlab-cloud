@@ -25,7 +25,6 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.SignatureException;
 
@@ -43,7 +42,7 @@ import net.guerlab.cloud.auth.properties.JwtTokenFactoryProperties;
 public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProperties>
 		extends AbstractTokenFactory<T, P> {
 
-	public AbstractJwtTokenFactory(P properties) {
+	protected AbstractJwtTokenFactory(P properties) {
 		super(properties);
 	}
 
@@ -54,7 +53,7 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
 	 */
 	private static JwtBuilder builder() {
 		JwtBuilder builder = Jwts.builder();
-		builder.setHeaderParam("typ", "JWT");
+		builder.header().add("typ", "JWT");
 
 		return builder;
 	}
@@ -78,10 +77,10 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
 		if (expire >= 0) {
 			exp = new Date(nowMillis + expire);
 			expireAt = LocalDateTime.ofInstant(exp.toInstant(), ZoneId.systemDefault());
-			builder.setExpiration(exp).setNotBefore(now);
+			builder.expiration(exp).notBefore(now);
 		}
 
-		builder.signWith(privateKey, SignatureAlgorithm.RS256);
+		builder.signWith(privateKey, Jwts.SIG.RS256);
 
 		TokenInfo tokenInfo = new TokenInfo();
 		tokenInfo.setExpire(exp == null ? -1 : expire);
@@ -103,7 +102,7 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
 	 */
 	private static Jws<Claims> parserToken(String token, PublicKey publicKey, TokenType tokenType) {
 		try {
-			return Jwts.parserBuilder().setSigningKey(publicKey).build().parseClaimsJws(token);
+			return Jwts.parser().verifyWith(publicKey).build().parseSignedClaims(token);
 		}
 		catch (ExpiredJwtException e) {
 			throw tokenType.expiredException();
@@ -135,7 +134,7 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
 	public final T parseByAccessToken(String token) {
 		String accessToken = token.substring(getAccessTokenPrefix().length());
 		Claims body = parserToken(accessToken, properties.getAccessTokenKey().getPublicKeyRef(),
-				TokenType.ACCESS_TOKEN).getBody();
+				TokenType.ACCESS_TOKEN).getPayload();
 		return parse0(body);
 	}
 
@@ -143,7 +142,7 @@ public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProper
 	public final T parseByRefreshToken(String token) {
 		String refreshToken = token.substring(getRefreshTokenPrefix().length());
 		Claims body = parserToken(refreshToken, properties.getRefreshTokenKey().getPublicKeyRef(),
-				TokenType.REFRESH_TOKEN).getBody();
+				TokenType.REFRESH_TOKEN).getPayload();
 		return parse0(body);
 	}
 

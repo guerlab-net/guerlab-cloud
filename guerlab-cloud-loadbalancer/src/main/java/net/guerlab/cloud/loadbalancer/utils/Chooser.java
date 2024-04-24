@@ -13,10 +13,10 @@
 
 package net.guerlab.cloud.loadbalancer.utils;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.lang.Nullable;
 
@@ -27,6 +27,8 @@ import org.springframework.lang.Nullable;
  */
 public class Chooser<K, T> {
 
+	private final SecureRandom secureRandom = new SecureRandom();
+
 	private final K uniqueKey;
 
 	private volatile Ref<T> ref;
@@ -36,10 +38,9 @@ public class Chooser<K, T> {
 	}
 
 	public Chooser(K uniqueKey, List<Pair<T>> pairs) {
-		Ref<T> ref = new Ref<>(pairs);
-		ref.refresh();
 		this.uniqueKey = uniqueKey;
-		this.ref = ref;
+		this.ref = new Ref<>(pairs);
+		ref.refresh();
 	}
 
 	/**
@@ -56,7 +57,7 @@ public class Chooser<K, T> {
 		if (items.size() == 1) {
 			return items.get(0);
 		}
-		return items.get(ThreadLocalRandom.current().nextInt(items.size()));
+		return items.get(secureRandom.nextInt(items.size()));
 	}
 
 	/**
@@ -66,8 +67,7 @@ public class Chooser<K, T> {
 	 */
 	@Nullable
 	public T randomWithWeight() {
-		Ref<T> ref = this.ref;
-		double random = ThreadLocalRandom.current().nextDouble(0, 1);
+		double random = secureRandom.nextDouble(0, 1);
 		double[] weights = ref.getWeights();
 		List<T> items = ref.getItems();
 		int index = Arrays.binarySearch(weights, random);
@@ -78,10 +78,8 @@ public class Chooser<K, T> {
 			return items.get(index);
 		}
 
-		if (index < weights.length) {
-			if (random < weights[index]) {
-				return items.get(index);
-			}
+		if (index < weights.length && random < weights[index]) {
+			return items.get(index);
 		}
 
 		/* This should never happen, but it ensures we will return a correct
@@ -136,13 +134,9 @@ public class Chooser<K, T> {
 			}
 		}
 		else {
-			if (otherChooser.getUniqueKey() == null) {
+			if (otherChooser.getUniqueKey() == null || !this.uniqueKey.equals(otherChooser.getUniqueKey())) {
 				return false;
 			}
-			else if (!this.uniqueKey.equals(otherChooser.getUniqueKey())) {
-				return false;
-			}
-
 		}
 
 		if (this.ref == null) {

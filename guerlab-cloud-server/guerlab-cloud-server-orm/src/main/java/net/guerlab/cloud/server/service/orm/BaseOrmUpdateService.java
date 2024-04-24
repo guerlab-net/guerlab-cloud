@@ -20,9 +20,9 @@ import net.guerlab.cloud.server.BaseUpdateService;
 /**
  * 基本ORM更新服务接口.
  *
- * @param <E>  数据类型
- * @param <SP> 搜索参数类型
+ * @param <E> 数据类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings({"UnusedReturnValue", "unused"})
-public interface BaseOrmUpdateService<E extends IBaseEntity, SP extends SearchParams> extends BaseUpdateService<E, SP>, QueryWrapperGetter<E, SP> { }
+public interface BaseOrmUpdateService<E extends IBaseEntity, Q extends SearchParams> extends BaseUpdateService<E, Q>, QueryWrapperGetter<E, Q> { }

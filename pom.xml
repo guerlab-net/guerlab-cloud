@@ -66,7 +66,7 @@
 	</issueManagement>
 
 	<properties>
-		<revision>2024.6.0</revision>
+		<revision>2024.7.0</revision>
 		<main.basedir>${basedir}</main.basedir>
 
 		<java.version>17</java.version>
@@ -78,26 +78,27 @@
 		<!-- spring -->
 		<spring-boot.version>3.1.4</spring-boot.version>
 		<spring-cloud.version>2022.0.4</spring-cloud.version>
-		<spring-cloud-tencent.version>1.13.0-2022.0.4</spring-cloud-tencent.version>
+		<spring-cloud-tencent.version>1.13.1-2022.0.4</spring-cloud-tencent.version>
 
 		<!-- other -->
-		<mybatis.version>3.5.13</mybatis.version>
-		<mybatis-starter.version>3.0.1</mybatis-starter.version>
+		<mybatis.version>3.5.15</mybatis.version>
+		<mybatis-starter.version>3.0.3</mybatis-starter.version>
 		<mybatis-typehandlers-jsr310.version>1.0.2</mybatis-typehandlers-jsr310.version>
-		<mybatis-plus.version>3.5.3.1</mybatis-plus.version>
-		<swagger.version>2.2.9</swagger.version>
-		<jjwt.version>0.11.5</jjwt.version>
+		<mybatis-plus.version>3.5.6</mybatis-plus.version>
+		<swagger.version>2.2.21</swagger.version>
+		<jjwt.version>0.12.5</jjwt.version>
 		<guava.version>31.1-jre</guava.version>
-		<easyexcel.version>3.2.1</easyexcel.version>
-		<springdoc.version>2.1.0</springdoc.version>
+		<easyexcel.version>3.3.4</easyexcel.version>
+		<springdoc.version>2.4.0</springdoc.version>
 		<findbugs.version>3.0.2</findbugs.version>
-		<redisson.version>3.21.0</redisson.version>
+		<redisson.version>3.28.0</redisson.version>
 
 		<!-- fix loophole version -->
 		<bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
-		<commons-io.version>2.11.0</commons-io.version>
-		<commons-compress.version>1.23.0</commons-compress.version>
+		<commons-io.version>2.16.0</commons-io.version>
+		<commons-compress.version>1.26.1</commons-compress.version>
 		<commons-fileupload.version>1.5</commons-fileupload.version>
+		<logback.version>1.4.14</logback.version>
 	</properties>
 
 	<dependencyManagement>

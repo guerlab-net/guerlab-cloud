@@ -16,7 +16,6 @@ package net.guerlab.cloud.commons.ip;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.ServiceLoader;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -45,8 +44,7 @@ public final class IpUtils {
 	private static final Collection<IpParser> IP_PARSERS;
 
 	static {
-		IP_PARSERS = ServiceLoader.load(IpParser.class).stream().map(ServiceLoader.Provider::get)
-				.collect(Collectors.toList());
+		IP_PARSERS = ServiceLoader.load(IpParser.class).stream().map(ServiceLoader.Provider::get).toList();
 	}
 
 	private IpUtils() {

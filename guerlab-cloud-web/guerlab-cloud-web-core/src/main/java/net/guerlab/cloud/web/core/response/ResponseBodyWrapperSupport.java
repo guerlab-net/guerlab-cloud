@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -56,19 +57,20 @@ public class ResponseBodyWrapperSupport {
 	}
 
 	/**
-	 * 判断响应数据是否为不需要转换对象.
+	 * 判断响应是否为不需要转换对象.
 	 *
-	 * @param body       响应数据
-	 * @param returnType 方法参数对象
+	 * @param bodyTypeParameter 方法参数对象
 	 * @return 是否需要转换
 	 */
-	public boolean noConvertObject(@Nullable Object body, MethodParameter returnType) {
-		ResponseObjectWrapper responseHandlerWrapper = getMethodAnnotation(returnType);
+	public boolean noConvertObject(MethodParameter bodyTypeParameter) {
+		ResponseObjectWrapper responseHandlerWrapper = getMethodAnnotation(bodyTypeParameter);
 		if (responseHandlerWrapper != null && responseHandlerWrapper.force()) {
 			return false;
 		}
 
-		return Arrays.stream(NO_CONVERT_CLASS).anyMatch(clazz -> clazz.isInstance(body));
+		Class<?> returnTypeClass = Objects.requireNonNull(bodyTypeParameter.getMethod()).getReturnType();
+
+		return Arrays.stream(NO_CONVERT_CLASS).anyMatch(clazz -> clazz.isAssignableFrom(returnTypeClass));
 	}
 
 	/**

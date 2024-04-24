@@ -23,12 +23,12 @@ import net.guerlab.cloud.server.BaseDeleteService;
 /**
  * 基本ORM删除服务接口.
  *
- * @param <E>  数据类型
- * @param <SP> 搜索参数类型
+ * @param <E> 数据类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface BaseOrmDeleteService<E extends IBaseEntity, SP extends SearchParams> extends BaseDeleteService<SP>, QueryWrapperGetter<E, SP> {
+public interface BaseOrmDeleteService<E extends IBaseEntity, Q extends SearchParams> extends BaseDeleteService<Q>, QueryWrapperGetter<E, Q> {
 
 	/**
 	 * 删除，调用此方法会忽略删除检查逻辑.

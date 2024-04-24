@@ -14,7 +14,6 @@
 package net.guerlab.cloud.web.webmvc.autoconfigure;
 
 import java.util.ServiceLoader;
-import java.util.stream.Collectors;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -59,8 +58,7 @@ public class WebMvcGlobalExceptionHandlerAutoConfigure {
 	public AbstractErrorController basicErrorController(ErrorAttributes errorAttributes,
 			ObjectProvider<ErrorViewResolver> errorViewResolvers) {
 		log.debug("create CustomerErrorController");
-		return new CustomerErrorController(errorAttributes, errorViewResolvers.orderedStream()
-				.collect(Collectors.toList()));
+		return new CustomerErrorController(errorAttributes, errorViewResolvers.orderedStream().toList());
 	}
 
 	/**
@@ -84,7 +82,7 @@ public class WebMvcGlobalExceptionHandlerAutoConfigure {
 				GlobalExceptionLogger globalExceptionLogger, GlobalExceptionProperties globalExceptionProperties) {
 			super(messageSource, stackTracesHandler, globalExceptionLogger,
 					ServiceLoader.load(ResponseBuilder.class).stream().map(ServiceLoader.Provider::get)
-							.collect(Collectors.toList()), globalExceptionProperties);
+							.toList(), globalExceptionProperties);
 		}
 	}
 }

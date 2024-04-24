@@ -46,7 +46,7 @@ public class VersionMetadataAutoConfigure {
 	private String versionMetadataKey;
 
 	public VersionMetadataAutoConfigure(ObjectProvider<BuildProperties> buildPropertiesProvider) {
-		buildPropertiesProvider.ifAvailable(buildProperties -> this.buildProperties = buildProperties);
+		buildPropertiesProvider.ifAvailable(properties -> this.buildProperties = properties);
 	}
 
 	@EventListener(InstancePreRegisteredEvent.class)

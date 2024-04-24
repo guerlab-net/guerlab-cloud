@@ -29,12 +29,12 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * APi定义.
  *
- * @param <E>  返回实体类型
- * @param <SP> 搜索参数类型
+ * @param <E> 返回实体类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface SelectList<E extends IBaseEntity, SP extends SearchParams> {
+public interface SelectList<E extends IBaseEntity, Q extends SearchParams> {
 
 	/**
 	 * 请求路径.
@@ -49,5 +49,5 @@ public interface SelectList<E extends IBaseEntity, SP extends SearchParams> {
 	 */
 	@PostMapping(SELECT_LIST_PATH)
 	@Operation(summary = "查询列表", security = @SecurityRequirement(name = Constants.TOKEN))
-	List<E> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
+	List<E> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody Q searchParams);
 }

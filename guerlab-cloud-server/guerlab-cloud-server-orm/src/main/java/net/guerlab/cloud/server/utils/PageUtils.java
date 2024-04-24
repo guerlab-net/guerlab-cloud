@@ -44,11 +44,11 @@ public final class PageUtils {
 	 * @param pageSize      分页尺寸
 	 * @param mapper        mapper对象
 	 * @param <E>           实体类型
-	 * @param <SP>          搜索参数对象类型
+	 * @param <Q>           搜索参数对象类型
 	 * @return 分页结果列表
 	 */
-	public static <E extends IBaseEntity, SP extends SearchParams> Pageable<E> selectPage(QueryWrapperGetter<E, SP> wrapperGetter,
-			SP searchParams, int pageId, int pageSize, BaseMapper<E> mapper) {
+	public static <E extends IBaseEntity, Q extends SearchParams> Pageable<E> selectPage(QueryWrapperGetter<E, Q> wrapperGetter,
+			Q searchParams, int pageId, int pageSize, BaseMapper<E> mapper) {
 		pageId = Math.max(pageId, 1);
 		pageSize = pageSize <= 0 ? 10 : pageSize;
 

@@ -24,19 +24,14 @@ import org.springframework.lang.Nullable;
  *
  * @author guer
  */
-public record Version(long value, net.guerlab.cloud.core.domain.Version children) implements Comparable<Version> {
+public record Version(long value, @Nullable Version children) implements Comparable<Version> {
 
 	/**
 	 * 空版本.
 	 */
 	public static final Version EMPTY = new Version(0, null);
 
-	private static final String VERSION_REG = "((\\d+\\.)|(\\d+))+";
-
-	public Version(long value, @Nullable Version children) {
-		this.value = value;
-		this.children = children;
-	}
+	private static final String VERSION_REG = "\\d+(\\.\\d+)*";
 
 	/**
 	 * 解析版本.

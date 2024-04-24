@@ -154,10 +154,7 @@ public abstract class AbstractContextHandler {
 		Map<String, String> result = new HashMap<>();
 
 		for (Map.Entry<Object, Object> entry : ContextAttributesHolder.get().entrySet()) {
-			if (!(entry.getKey() instanceof String key) || !(entry.getValue() instanceof String value)) {
-				continue;
-			}
-			if (!key.startsWith(Constants.ALLOW_TRANSFER_HEADER_PREFIX)) {
+			if (!(entry.getKey() instanceof String key) || !(entry.getValue() instanceof String value) || !key.startsWith(Constants.ALLOW_TRANSFER_HEADER_PREFIX)) {
 				continue;
 			}
 			result.put(key, value);

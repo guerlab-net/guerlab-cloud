@@ -45,16 +45,16 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * 基础查询控制器实现.
  *
- * @param <E>  实体类型
- * @param <SP> 搜索参数类型
- * @param <A>  api接口类型
- * @param <V>  返回对象类型
+ * @param <E> 实体类型
+ * @param <Q> 搜索参数类型
+ * @param <A> api接口类型
+ * @param <V> 返回对象类型
  * @author guer
  */
 @SuppressWarnings("unused")
 @Slf4j
 @Getter
-public abstract class BaseQueryController<E extends IBaseEntity, SP extends SearchParams, A extends QueryApi<E, SP>, V> {
+public abstract class BaseQueryController<E extends IBaseEntity, Q extends SearchParams, A extends QueryApi<E, Q>, V> {
 
 	/**
 	 * api.
@@ -66,7 +66,7 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 	 *
 	 * @param api api实例
 	 */
-	public BaseQueryController(A api) {
+	protected BaseQueryController(A api) {
 		this.api = api;
 	}
 
@@ -81,7 +81,7 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 	@Nullable
 	@GetMapping(SelectById.SELECT_BY_ID_PATH)
 	@Operation(summary = "通过Id查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
-	public V selectById(@Parameter(description = "ID", required = true) @PathVariable(SelectById.SELECT_BY_ID_PARAM) Long id, @Nullable SP searchParams) {
+	public V selectById(@Parameter(description = "ID", required = true) @PathVariable(SelectById.SELECT_BY_ID_PARAM) Long id, @Nullable Q searchParams) {
 		E entity = getApi().selectById(id);
 		if (entity == null) {
 			throw nullPointException();
@@ -95,7 +95,7 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 	@Nullable
 	@PostMapping(SelectOne.SELECT_ONE_PATH)
 	@Operation(summary = "查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
-	public V selectOne(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams) {
+	public V selectOne(@Parameter(description = "搜索参数对象", required = true) @RequestBody Q searchParams) {
 		E entity;
 		if (beforeFind(searchParams)) {
 			entity = getApi().selectOne(searchParams);
@@ -134,7 +134,7 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 
 	@PostMapping(SelectList.SELECT_LIST_PATH)
 	@Operation(summary = "查询列表", security = @SecurityRequirement(name = Constants.TOKEN))
-	public List<V> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams) {
+	public List<V> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody Q searchParams) {
 		if (!beforeFind(searchParams)) {
 			return Collections.emptyList();
 		}
@@ -150,7 +150,7 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 
 	@PostMapping(SelectPage.SELECT_PAGE_PATH)
 	@Operation(summary = "查询分页列表", security = @SecurityRequirement(name = Constants.TOKEN))
-	public Pageable<V> selectPage(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams,
+	public Pageable<V> selectPage(@Parameter(description = "搜索参数对象", required = true) @RequestBody Q searchParams,
 			@Parameter(description = "分页ID") @RequestParam(name = SelectPage.PAGE_ID, defaultValue = SelectPage.PAGE_ID_VALUE, required = false) int pageId,
 			@Parameter(description = "分页尺寸") @RequestParam(name = SelectPage.PAGE_SIZE, defaultValue = SelectPage.PAGE_SIZE_VALUE, required = false) int pageSize) {
 		if (!beforeFind(searchParams)) {
@@ -174,7 +174,7 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 
 	@PostMapping(SelectCount.SELECT_COUNT_PATH)
 	@Operation(summary = "查询总记录数", security = @SecurityRequirement(name = Constants.TOKEN))
-	public long selectCount(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams) {
+	public long selectCount(@Parameter(description = "搜索参数对象", required = true) @RequestBody Q searchParams) {
 		if (!beforeFind(searchParams)) {
 			return 0L;
 		}
@@ -187,7 +187,7 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 	 *
 	 * @param searchParams 搜索参数
 	 */
-	private void invokeGlobalBeforeFindHook(SP searchParams) {
+	private void invokeGlobalBeforeFindHook(Q searchParams) {
 		for (GlobalBeforeFindHook handler : SpringUtils.getBeans(GlobalBeforeFindHook.class)) {
 			if (handler.accept(searchParams)) {
 				handler.handler(searchParams);
@@ -201,7 +201,8 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 	 * @param searchParams 搜索参数
 	 * @return 是否继续查询
 	 */
-	protected boolean beforeFind(SP searchParams) {
+	@SuppressWarnings("SameReturnValue")
+	protected boolean beforeFind(Q searchParams) {
 		return true;
 	}
 
@@ -212,7 +213,7 @@ public abstract class BaseQueryController<E extends IBaseEntity, SP extends Sear
 	 * @param searchParams 搜索参数
 	 */
 	@SuppressWarnings("EmptyMethod")
-	protected void afterFind(Collection<V> list, @Nullable SP searchParams) {
+	protected void afterFind(Collection<V> list, @Nullable Q searchParams) {
 
 	}
 }

@@ -16,7 +16,6 @@ package net.guerlab.cloud.commons.util;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -63,7 +62,7 @@ public final class EnumDescriptionUtils {
 			return Collections.emptyList();
 		}
 
-		return Arrays.stream(enums).map(EnumDescriptionUtils::buildDescription).collect(Collectors.toList());
+		return Arrays.stream(enums).map(EnumDescriptionUtils::buildDescription).toList();
 	}
 
 	private static EnumDescription buildDescription(EnumDescriptionSupport item) {

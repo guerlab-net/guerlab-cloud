@@ -23,12 +23,12 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * 基本更新服务接口.
  *
- * @param <E>  数据类型
- * @param <SP> 搜索参数类型
+ * @param <E> 数据类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings({"UnusedReturnValue", "unused"})
-public interface BaseUpdateService<E extends IBaseEntity, SP extends SearchParams> extends UpdateById<E> {
+public interface BaseUpdateService<E extends IBaseEntity, Q extends SearchParams> extends UpdateById<E> {
 
 	/**
 	 * 根据条件更新.
@@ -37,7 +37,7 @@ public interface BaseUpdateService<E extends IBaseEntity, SP extends SearchParam
 	 * @param searchParams 搜索条件
 	 * @return 是否更新成功
 	 */
-	boolean update(E entity, SP searchParams);
+	boolean update(E entity, Q searchParams);
 
 	/**
 	 * 批量更新.

@@ -35,7 +35,7 @@ public abstract class AbstractMysqlBatchInsertMethod<E extends IBaseEntity> exte
 	 * @param baseClass  基础类
 	 * @param methodName 方法名
 	 */
-	public AbstractMysqlBatchInsertMethod(Class<E> baseClass, String methodName) {
+	protected AbstractMysqlBatchInsertMethod(Class<E> baseClass, String methodName) {
 		super(baseClass, methodName);
 	}
 

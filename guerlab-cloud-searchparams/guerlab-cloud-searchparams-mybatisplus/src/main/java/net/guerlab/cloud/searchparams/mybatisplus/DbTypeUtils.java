@@ -27,10 +27,10 @@ import org.springframework.core.Ordered;
  */
 public final class DbTypeUtils {
 
-	private static List<DbTypeProvider> DB_TYPE_PROVIDERS;
+	private static List<DbTypeProvider> dbTypeProviders;
 
 	static {
-		DB_TYPE_PROVIDERS = ServiceLoader.load(DbTypeProvider.class).stream()
+		dbTypeProviders = ServiceLoader.load(DbTypeProvider.class).stream()
 				.map(ServiceLoader.Provider::get)
 				.sorted(Comparator.comparingInt(Ordered::getOrder)).toList();
 	}
@@ -40,17 +40,17 @@ public final class DbTypeUtils {
 	}
 
 	public static void addProvider(DbTypeProvider provider) {
-		if (DB_TYPE_PROVIDERS.stream().anyMatch(p -> p.getClass().isInstance(provider))) {
+		if (dbTypeProviders.stream().anyMatch(p -> p.getClass().isInstance(provider))) {
 			return;
 		}
 
-		List<DbTypeProvider> providers = new ArrayList<>(DB_TYPE_PROVIDERS);
+		List<DbTypeProvider> providers = new ArrayList<>(dbTypeProviders);
 		providers.add(provider);
-		DB_TYPE_PROVIDERS = providers.stream().sorted(Comparator.comparingInt(Ordered::getOrder)).toList();
+		dbTypeProviders = providers.stream().sorted(Comparator.comparingInt(Ordered::getOrder)).toList();
 	}
 
 	public static void removeProvider(Class<? extends DbTypeProvider> providerClass) {
-		DB_TYPE_PROVIDERS = DB_TYPE_PROVIDERS.stream().filter(p -> !providerClass.isInstance(p))
+		dbTypeProviders = dbTypeProviders.stream().filter(p -> !providerClass.isInstance(p))
 				.sorted(Comparator.comparingInt(Ordered::getOrder)).toList();
 	}
 
@@ -62,7 +62,7 @@ public final class DbTypeUtils {
 	 */
 	public static DbType getDbType(Object object) {
 		DbType dbType;
-		for (DbTypeProvider dbTypeProvider : DB_TYPE_PROVIDERS) {
+		for (DbTypeProvider dbTypeProvider : dbTypeProviders) {
 			dbType = dbTypeProvider.getDbType(object);
 			if (dbType != null) {
 				return dbType;

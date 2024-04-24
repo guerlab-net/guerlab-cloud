@@ -13,14 +13,16 @@
 
 package net.guerlab.cloud.commons.api;
 
-import io.swagger.v3.oas.annotations.Operation;
+import java.util.List;
 
-import org.springframework.validation.annotation.Validated;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
-import net.guerlab.cloud.commons.valid.UpdateValid;
 
 /**
  * APi定义.
@@ -29,20 +31,20 @@ import net.guerlab.cloud.commons.valid.UpdateValid;
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface UpdateById<E extends IBaseEntity> {
+public interface SelectByIds<E extends IBaseEntity> {
 
 	/**
 	 * 请求路径.
 	 */
-	String UPDATE_BY_ID_PATH = "/updateById";
+	String SELECT_BY_IDS_PATH = "/search/byIds";
 
 	/**
-	 * 根据Id编辑数据.
+	 * 根据主键ID列表查询对象列表.
 	 *
-	 * @param entity 实体
-	 * @return 是否更新成功
+	 * @param ids 主键ID列表
+	 * @return 对象列表
 	 */
-	@PostMapping(UPDATE_BY_ID_PATH)
-	@Operation(summary = "根据Id编辑数据")
-	boolean updateById(@Validated(UpdateValid.class) @RequestBody E entity);
+	@PostMapping(SELECT_BY_IDS_PATH)
+	@Operation(summary = "根据主键ID列表查询对象列表", security = @SecurityRequirement(name = Constants.TOKEN))
+	List<E> selectByIds(@RequestBody List<Long> ids);
 }

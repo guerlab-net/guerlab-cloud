@@ -15,12 +15,12 @@ package net.guerlab.cloud.server.mybatis.plus.methods;
 
 import java.util.List;
 import java.util.ServiceLoader;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import com.baomidou.mybatisplus.core.injector.AbstractMethod;
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
+import org.apache.ibatis.session.Configuration;
 
 /**
  * 自动加载注入方法加载器.
@@ -36,13 +36,12 @@ public class AutoLoadMethodLoader extends DefaultSqlInjector {
 	 * 初始化自动加载注入方法加载器.
 	 */
 	public AutoLoadMethodLoader() {
-		methods = StreamSupport.stream(ServiceLoader.load(AbstractAutoLoadMethod.class).spliterator(), false)
-				.collect(Collectors.toList());
+		methods = StreamSupport.stream(ServiceLoader.load(AbstractAutoLoadMethod.class).spliterator(), false).toList();
 	}
 
 	@Override
-	public List<AbstractMethod> getMethodList(Class<?> mapperClass, TableInfo tableInfo) {
-		List<AbstractMethod> methodList = super.getMethodList(mapperClass, tableInfo);
+	public List<AbstractMethod> getMethodList(Configuration configuration, Class<?> mapperClass, TableInfo tableInfo) {
+		List<AbstractMethod> methodList = super.getMethodList(configuration, mapperClass, tableInfo);
 		methodList.addAll(methods);
 		return methodList;
 	}

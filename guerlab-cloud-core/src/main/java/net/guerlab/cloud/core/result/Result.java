@@ -43,6 +43,7 @@ public class Result<T> {
 	/**
 	 * 数据.
 	 */
+	@Nullable
 	protected T data;
 
 	/**

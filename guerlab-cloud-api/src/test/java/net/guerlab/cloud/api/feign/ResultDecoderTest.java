@@ -32,7 +32,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 /**
  * @author guer
  */
-public class ResultDecoderTest {
+class ResultDecoderTest {
 
 	private final ResultDecoder decoder = new ResultDecoder(new ObjectMapper());
 

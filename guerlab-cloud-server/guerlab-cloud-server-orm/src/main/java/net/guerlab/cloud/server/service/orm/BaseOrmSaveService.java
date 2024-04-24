@@ -20,9 +20,9 @@ import net.guerlab.cloud.server.BaseSaveService;
 /**
  * 基本ORM保存服务接口.
  *
- * @param <E>  数据类型
- * @param <SP> 搜索参数类型
+ * @param <E> 数据类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
-public interface BaseOrmSaveService<E extends IBaseEntity, SP extends SearchParams> extends BaseSaveService<E>, QueryWrapperGetter<E, SP> {
+public interface BaseOrmSaveService<E extends IBaseEntity, Q extends SearchParams> extends BaseSaveService<E>, QueryWrapperGetter<E, Q> {
 }

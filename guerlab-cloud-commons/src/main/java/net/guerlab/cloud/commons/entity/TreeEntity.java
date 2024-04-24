@@ -23,23 +23,23 @@ import org.springframework.lang.Nullable;
 /**
  * 树形结构对象.
  *
- * @param <E>  对象类型
- * @param <PK> 主键类型
+ * @param <E> 对象类型
+ * @param <K> 主键类型
  * @author guer
  */
 @Data
 @Schema(name = "TreeEntity", description = "树形结构对象")
-public class TreeEntity<E, PK> {
+public class TreeEntity<E, K> {
 	/**
 	 * 对象ID.
 	 */
 	@Schema(description = "对象ID")
-	private PK id;
+	private K id;
 	/**
 	 * 上级ID.
 	 */
 	@Schema(description = "上级ID")
-	private PK parentId;
+	private K parentId;
 	/**
 	 * 标签.
 	 */
@@ -70,5 +70,5 @@ public class TreeEntity<E, PK> {
 	 */
 	@Nullable
 	@Schema(description = "下级列表")
-	protected Collection<TreeEntity<E, PK>> children;
+	protected Collection<TreeEntity<E, K>> children;
 }

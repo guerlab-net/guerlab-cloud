@@ -55,7 +55,7 @@ public final class SearchParamsUtils {
 
 	static {
 		ServiceLoader.load(AbstractSearchParamsUtilInstance.class)
-				.forEach((instance) -> INSTANCES_CACHE.put(instance.getClass(), instance));
+				.forEach(instance -> INSTANCES_CACHE.put(instance.getClass(), instance));
 	}
 
 	private SearchParamsUtils() {
@@ -193,7 +193,7 @@ public final class SearchParamsUtils {
 			return;
 		}
 
-		List<SqlProvider> sqlProviders = getCustomerSqlProviders(searchModel, field)
+		List<SqlProvider> sqlProviders = getCustomerSqlProviders(searchModel)
 				.filter(provider -> provider.accept(object, value))
 				.toList();
 
@@ -243,7 +243,7 @@ public final class SearchParamsUtils {
 		return null;
 	}
 
-	private static Stream<SqlProvider> getCustomerSqlProviders(@Nullable SearchModel searchModel, Field field) {
+	private static Stream<SqlProvider> getCustomerSqlProviders(@Nullable SearchModel searchModel) {
 		if (searchModel == null) {
 			return Stream.empty();
 		}

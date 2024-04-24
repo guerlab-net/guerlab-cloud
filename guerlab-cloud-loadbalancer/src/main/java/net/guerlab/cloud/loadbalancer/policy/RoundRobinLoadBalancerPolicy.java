@@ -29,7 +29,12 @@ public class RoundRobinLoadBalancerPolicy extends AbstractLoadBalancerPolicy {
 	/**
 	 * 当前偏移量.
 	 */
-	private final AtomicInteger position = new AtomicInteger(new Random().nextInt(1000));
+	private final AtomicInteger position;
+
+	public RoundRobinLoadBalancerPolicy() {
+		Random random = new Random();
+		position = new AtomicInteger(random.nextInt(1000));
+	}
 
 	@Override
 	protected ServiceInstance choose0(List<ServiceInstance> instances) {

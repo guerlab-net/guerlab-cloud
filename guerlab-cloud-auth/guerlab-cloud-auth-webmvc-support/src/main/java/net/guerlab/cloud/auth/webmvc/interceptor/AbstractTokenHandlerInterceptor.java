@@ -13,6 +13,8 @@
 
 package net.guerlab.cloud.auth.webmvc.interceptor;
 
+import java.util.List;
+
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +40,7 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebPropertie
 	 */
 	protected final A authProperties;
 
-	public AbstractTokenHandlerInterceptor(ResponseAdvisorProperties responseAdvisorProperties, A authProperties) {
+	protected AbstractTokenHandlerInterceptor(ResponseAdvisorProperties responseAdvisorProperties, A authProperties) {
 		super(responseAdvisorProperties);
 		this.authProperties = authProperties;
 	}
@@ -49,8 +51,8 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebPropertie
 	}
 
 	@Override
-	protected void preHandleWithToken(HttpServletRequest request, HandlerMethod handlerMethod, String token) {
-		boolean accept = accept(token, request);
+	protected void preHandleWithToken(HttpServletRequest request, HandlerMethod handlerMethod, String token, List<Class<?>> targetAuthTypes) {
+		boolean accept = accept(token, request, targetAuthTypes);
 
 		log.debug("token preHandler[instance = {}, accept = {}, token = {}]", getClass(), accept, token);
 
@@ -62,11 +64,12 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebPropertie
 	/**
 	 * 判断是否处理该token.
 	 *
-	 * @param token   token
-	 * @param request 请求对象
+	 * @param token           token
+	 * @param request         请求对象
+	 * @param targetAuthTypes 目标认证类型列表
 	 * @return 是否处理该token
 	 */
-	protected abstract boolean accept(String token, HttpServletRequest request);
+	protected abstract boolean accept(String token, HttpServletRequest request, List<Class<?>> targetAuthTypes);
 
 	/**
 	 * 设置Token信息.

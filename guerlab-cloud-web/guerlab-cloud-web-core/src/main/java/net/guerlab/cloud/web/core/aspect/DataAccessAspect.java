@@ -70,7 +70,7 @@ public class DataAccessAspect implements ApplicationContextAware {
 				dataHandler = applicationContext.getBean(handlerName, DataHandler.class);
 			}
 			catch (Exception e) {
-				log.debug("get DataHandler fail:" + e.getLocalizedMessage(), e);
+				log.debug("get DataHandler fail:{}", e.getLocalizedMessage(), e);
 			}
 		}
 		if (dataHandler == null) {
@@ -84,7 +84,7 @@ public class DataAccessAspect implements ApplicationContextAware {
 				dataHandler = applicationContext.getBean(dataHandlerClass);
 			}
 			catch (Exception e) {
-				log.debug("get DataHandler fail:" + e.getLocalizedMessage(), e);
+				log.debug("get DataHandler fail:{}", e.getLocalizedMessage(), e);
 			}
 		}
 		return dataHandler;

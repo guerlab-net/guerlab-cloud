@@ -11,18 +11,12 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.server;
-
-import net.guerlab.cloud.commons.api.Delete;
-import net.guerlab.cloud.commons.api.DeleteById;
-import net.guerlab.cloud.searchparams.SearchParams;
+package net.guerlab.cloud.commons.valid;
 
 /**
- * 基本删除服务接口.
+ * 更新校验.
  *
- * @param <Q> 搜索参数类型
  * @author guer
  */
-@SuppressWarnings("unused")
-public interface BaseDeleteService<Q extends SearchParams> extends Delete<Q>, DeleteById {
+public interface UpdateValid {
 }

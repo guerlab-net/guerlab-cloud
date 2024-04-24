@@ -93,5 +93,5 @@ public abstract class AbstractRedisOperationsWrapper<T> implements RedisOperatio
 	 *
 	 * @return 数据对象类型引用
 	 */
-	protected abstract TypeReference<? extends T> getTypeReference();
+	protected abstract TypeReference<T> getTypeReference();
 }

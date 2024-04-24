@@ -13,6 +13,8 @@
 
 package net.guerlab.cloud.auth.webflux.filter;
 
+import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -51,8 +53,8 @@ public abstract class AbstractTokenBeforeHandlerFilter<A extends AuthWebProperti
 	}
 
 	@Override
-	protected void preHandleWithToken(ServerHttpRequest request, HandlerMethod handlerMethod, String token) {
-		boolean accept = accept(token, request);
+	protected void preHandleWithToken(ServerHttpRequest request, HandlerMethod handlerMethod, String token, List<Class<?>> targetAuthTypes) {
+		boolean accept = accept(token, request, targetAuthTypes);
 
 		log.debug("token preHandler[instance = {}, accept = {}, token = {}]", this, accept, token);
 
@@ -69,11 +71,12 @@ public abstract class AbstractTokenBeforeHandlerFilter<A extends AuthWebProperti
 	/**
 	 * 判断是否处理该token.
 	 *
-	 * @param token   token
-	 * @param request 请求对象
+	 * @param token           token
+	 * @param request         请求对象
+	 * @param targetAuthTypes 目标认证类型列表
 	 * @return 是否处理该token
 	 */
-	protected abstract boolean accept(String token, ServerHttpRequest request);
+	protected abstract boolean accept(String token, ServerHttpRequest request, List<Class<?>> targetAuthTypes);
 
 	/**
 	 * 设置Token信息.

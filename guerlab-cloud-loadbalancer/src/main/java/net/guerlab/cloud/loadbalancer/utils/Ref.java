@@ -45,9 +45,9 @@ public class Ref<T> {
 	 */
 	public void refresh() {
 		double originWeightSum = 0;
+		items.clear();
 
 		for (Pair<T> item : itemsWithWeight) {
-
 			double weight = item.weight();
 			//ignore item which weight is zero.see test_randomWithWeight_weight0 in ChooserTest
 			if (weight <= 0) {
@@ -62,6 +62,11 @@ public class Ref<T> {
 				weight = 1.0D;
 			}
 			originWeightSum += weight;
+		}
+
+		if (items.isEmpty() || originWeightSum <= 0) {
+			weights = new double[0];
+			return;
 		}
 
 		double[] exactWeights = new double[items.size()];

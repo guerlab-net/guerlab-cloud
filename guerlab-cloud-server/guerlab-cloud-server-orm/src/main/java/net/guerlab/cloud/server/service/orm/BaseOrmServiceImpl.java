@@ -22,6 +22,8 @@ import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
+import javax.annotation.Resource;
+
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
@@ -33,9 +35,11 @@ import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.core.result.Pageable;
@@ -48,16 +52,16 @@ import net.guerlab.commons.collection.CollectionUtil;
 /**
  * 基本ORM服务实现.
  *
- * @param <E>  数据类型
- * @param <M>  Mapper类型
- * @param <SP> 搜索参数类型
+ * @param <E> 数据类型
+ * @param <M> Mapper类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "EmptyMethod"})
 @Slf4j
-@Transactional(rollbackFor = Exception.class)
-public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMapper<E>, SP extends SearchParams>
-		implements BaseOrmService<E, SP> {
+@Validated
+public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMapper<E>, Q extends SearchParams>
+		implements BaseOrmService<E, Q> {
 
 	/**
 	 * 默认单次操作数量.
@@ -86,7 +90,10 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	 */
 	protected final M baseMapper;
 
-	public BaseOrmServiceImpl(Sequence sequence, M baseMapper) {
+	@Resource
+	private SqlSessionFactory sqlSessionFactory;
+
+	protected BaseOrmServiceImpl(Sequence sequence, M baseMapper) {
 		this.sequence = sequence;
 		this.baseMapper = baseMapper;
 	}
@@ -112,7 +119,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
-	public E selectOne(SP searchParams) {
+	public E selectOne(Q searchParams) {
 		E result = getBaseMapper().selectOne(getQueryWrapperWithSelectMethod(searchParams));
 		if (result != null) {
 			afterSelect(Collections.singleton(result), null);
@@ -120,6 +127,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 		return result;
 	}
 
+	@Nullable
 	@Override
 	public E selectById(Long id) {
 		E result = getBaseMapper().selectById(id);
@@ -130,8 +138,21 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
-	public List<E> selectList(SP searchParams) {
-		if (!afterSelect(searchParams)) {
+	public List<E> selectByIds(List<Long> ids) {
+		ids = ids.stream().filter(Objects::nonNull).distinct().toList();
+		if (ids.isEmpty()) {
+			return Collections.emptyList();
+		}
+		List<E> list = getBaseMapper().selectBatchIds(ids);
+		if (!list.isEmpty()) {
+			afterSelect(list, null);
+		}
+		return list;
+	}
+
+	@Override
+	public List<E> selectList(Q searchParams) {
+		if (!beforeSelect(searchParams)) {
 			return Collections.emptyList();
 		}
 		QueryWrapper<E> queryWrapper = getQueryWrapperWithSelectMethod(searchParams);
@@ -143,34 +164,35 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
-	public Pageable<E> selectPage(SP searchParams, int pageId, int pageSize) {
-		if (!afterSelect(searchParams)) {
+	public Pageable<E> selectPage(Q searchParams, int pageId, int pageSize) {
+		if (!beforeSelect(searchParams)) {
 			return Pageable.empty();
 		}
 		Pageable<E> result = PageUtils.selectPage(this, searchParams, pageId, pageSize, getBaseMapper());
-		if (result.getList() != null && !result.getList().isEmpty()) {
+		if (!result.getList().isEmpty()) {
 			afterSelect(result.getList(), searchParams);
 		}
 		return result;
 	}
 
-	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
-	protected boolean afterSelect(SP searchParams) {
+	@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "SameReturnValue"})
+	protected boolean beforeSelect(Q searchParams) {
 		return true;
 	}
 
 
-	protected void afterSelect(Collection<E> items, @Nullable SP searchParams) {
+	protected void afterSelect(Collection<E> items, @Nullable Q searchParams) {
 
 	}
 
 	@Override
-	public long selectCount(SP searchParams) {
+	public long selectCount(Q searchParams) {
 		Long result = getBaseMapper().selectCount(getQueryWrapperWithSelectMethod(searchParams));
 		return result == null ? 0 : result;
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public E insert(E entity) {
 		entity.id(null);
 		insertBefore(entity);
@@ -198,6 +220,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public List<E> batchInsert(Collection<? extends E> collection, boolean ignoreBeforeCheckException) {
 		List<E> list = BatchSaveUtils.filter(collection, item -> batchSaveBefore(item, ignoreBeforeCheckException));
 
@@ -250,10 +273,11 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	 * @param consumer  操作内容
 	 */
 	protected void executeBatch(Collection<E> list, int batchSize, BiConsumer<SqlSession, E> consumer) {
-		SqlHelper.executeBatch(this.entityClass, ORM_LOGGER, list, batchSize, consumer);
+		SqlHelper.executeBatch(sqlSessionFactory, ORM_LOGGER, list, batchSize, consumer);
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public boolean updateById(E entity) {
 		updateBefore(entity);
 		int result = getBaseMapper().updateById(entity);
@@ -262,7 +286,8 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
-	public boolean update(E entity, SP searchParams) {
+	@Transactional(rollbackFor = Exception.class)
+	public boolean update(E entity, Q searchParams) {
 		return getBaseMapper().update(entity, getQueryWrapper(searchParams)) > 0;
 	}
 
@@ -285,6 +310,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public List<E> batchUpdateById(Collection<? extends E> collection, boolean ignoreBeforeCheckException) {
 		List<E> list = BatchSaveUtils.filter(collection, item -> batchUpdateBefore(item, ignoreBeforeCheckException));
 
@@ -334,6 +360,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public E saveOrUpdate(E entity) {
 		Long id = entity.id();
 		if (id == null) {
@@ -345,8 +372,9 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public List<E> batchSaveOrUpdate(Collection<? extends E> list, boolean ignoreBeforeCheckException) {
-		list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
+		list = list.stream().filter(Objects::nonNull).toList();
 		if (list.isEmpty()) {
 			return Collections.emptyList();
 		}
@@ -367,7 +395,8 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
-	public void delete(SP searchParams) {
+	@Transactional(rollbackFor = Exception.class)
+	public void delete(Q searchParams) {
 		deleteBefore(searchParams);
 		QueryWrapper<E> queryWrapper = getQueryWrapper(searchParams);
 		getBaseMapper().delete(queryWrapper);
@@ -379,7 +408,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	 *
 	 * @param searchParams 搜索参数
 	 */
-	protected void deleteBefore(SP searchParams) {
+	protected void deleteBefore(Q searchParams) {
 		/* 默认空实现 */
 	}
 
@@ -388,11 +417,12 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	 *
 	 * @param searchParams 搜索参数
 	 */
-	protected void deleteAfter(SP searchParams) {
+	protected void deleteAfter(Q searchParams) {
 		/* 默认空实现 */
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void deleteById(Long id) {
 		deleteByIdBefore(id);
 		getBaseMapper().deleteById(id);
@@ -418,11 +448,13 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void delete(LambdaQueryWrapper<E> queryWrapper) {
 		getBaseMapper().delete(queryWrapper);
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public void delete(QueryWrapper<E> queryWrapper) {
 		getBaseMapper().delete(queryWrapper);
 	}

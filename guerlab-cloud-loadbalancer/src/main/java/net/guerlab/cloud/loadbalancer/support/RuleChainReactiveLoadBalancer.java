@@ -92,8 +92,8 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
 		ServiceInstanceListSupplier supplier = getSupplier();
 		return supplier.get(request).next().map(instances -> {
 			Response<ServiceInstance> response = buildResponse(instances, request);
-			if (supplier instanceof SelectedInstanceCallback && response.hasServer()) {
-				((SelectedInstanceCallback) supplier).selectedServiceInstance(response.getServer());
+			if (supplier instanceof SelectedInstanceCallback selectedInstanceCallback && response.hasServer()) {
+				selectedInstanceCallback.selectedServiceInstance(response.getServer());
 			}
 			return response;
 		});
@@ -138,7 +138,7 @@ public class RuleChainReactiveLoadBalancer implements ReactorServiceInstanceLoad
 	 * @return 空响应
 	 */
 	private Response<ServiceInstance> emptyResponse() {
-		log.debug("No servers available for service: " + serviceId);
+		log.debug("No servers available for service: {}", serviceId);
 		return new EmptyResponse();
 	}
 

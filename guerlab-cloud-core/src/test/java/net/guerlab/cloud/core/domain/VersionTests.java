@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Assertions;
@@ -83,7 +82,7 @@ class VersionTests {
 				Version.parse("2022.4"),
 				Version.parse("2022.4.1"),
 				Version.parse("2022.4.0"),
-				Version.parse(null)).filter(Objects::nonNull).sorted().collect(Collectors.toList());
+				Version.parse(null)).filter(Objects::nonNull).sorted().toList();
 
 		List<Version> target = Arrays.asList(Version.parse("2022.4"),
 				Version.parse("2022.4.0"),

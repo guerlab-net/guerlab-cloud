@@ -14,6 +14,7 @@
 package net.guerlab.cloud.server;
 
 import net.guerlab.cloud.commons.api.SelectById;
+import net.guerlab.cloud.commons.api.SelectByIds;
 import net.guerlab.cloud.commons.api.SelectCount;
 import net.guerlab.cloud.commons.api.SelectList;
 import net.guerlab.cloud.commons.api.SelectOne;
@@ -24,11 +25,10 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * 基本查询服务接口.
  *
- * @param <E>  数据类型
- * @param <SP> 搜索参数类型
+ * @param <E> 数据类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface BaseFindService<E extends IBaseEntity, SP extends SearchParams> extends SelectOne<E, SP>, SelectById<E, SP>, SelectList<E, SP>, SelectPage<E, SP>, SelectCount<SP> {
-
+public interface BaseFindService<E extends IBaseEntity, Q extends SearchParams> extends SelectOne<E, Q>, SelectById<E>, SelectByIds<E>, SelectList<E, Q>, SelectPage<E, Q>, SelectCount<Q> {
 }

@@ -36,7 +36,7 @@ public class MyBatisPlusSearchParamsUtilInstance extends AbstractSearchParamsUti
 		setDefaultHandler(new DefaultHandler());
 
 		StreamSupport.stream(ServiceLoader.load(AbstractMyBatisPlusSearchParamsHandler.class).spliterator(), false)
-				.forEach((instance) -> addHandler(instance.acceptClass(), instance));
+				.forEach(instance -> addHandler(instance.acceptClass(), instance));
 	}
 
 	@Override

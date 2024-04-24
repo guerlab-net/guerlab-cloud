@@ -34,7 +34,7 @@ public abstract class AbstractAutoLoadMethod<E extends IBaseEntity> extends Abst
 
 	protected final Class<E> baseClass;
 
-	protected final Collection<Field> baseFields;
+	protected final transient Collection<Field> baseFields;
 
 	/**
 	 * 构造自动加载注入方法.
@@ -42,7 +42,7 @@ public abstract class AbstractAutoLoadMethod<E extends IBaseEntity> extends Abst
 	 * @param baseClass  基础类
 	 * @param methodName 方法名
 	 */
-	public AbstractAutoLoadMethod(Class<E> baseClass, String methodName) {
+	protected AbstractAutoLoadMethod(Class<E> baseClass, String methodName) {
 		super(methodName);
 		this.baseClass = baseClass;
 		baseFields = FieldUtil.getFields(baseClass);

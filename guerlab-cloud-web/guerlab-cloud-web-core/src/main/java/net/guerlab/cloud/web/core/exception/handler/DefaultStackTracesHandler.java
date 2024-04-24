@@ -18,7 +18,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import org.springframework.lang.Nullable;
 
@@ -84,15 +83,15 @@ public class DefaultStackTracesHandler implements StackTracesHandler {
 		}
 		setSubStackTrace(stackTraces, throwable.getCause());
 
-		if (throwable instanceof RemoteException) {
-			stackTraces.add(((RemoteException) throwable).getApplicationStackTrace());
+		if (throwable instanceof RemoteException remoteException) {
+			stackTraces.add(remoteException.getApplicationStackTrace());
 		}
 		else {
 			ApplicationStackTrace applicationStackTrace = new ApplicationStackTrace();
 			applicationStackTrace.setApplicationName(SpringUtils.getApplicationName());
 			applicationStackTrace.setStackTrace(
 					Arrays.stream(throwable.getStackTrace()).map(this::buildStackTraceElementText)
-							.filter(Objects::nonNull).collect(Collectors.toList()));
+							.filter(Objects::nonNull).toList());
 
 			stackTraces.add(applicationStackTrace);
 		}

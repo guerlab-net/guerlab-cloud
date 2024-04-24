@@ -16,7 +16,6 @@ package net.guerlab.cloud.searchparams.mybatisplus;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
@@ -62,7 +61,7 @@ public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 			return;
 		}
 
-		List<Object> list = collection.stream().filter(Objects::nonNull).collect(Collectors.toList());
+		List<Object> list = collection.stream().filter(Objects::nonNull).toList();
 
 		if (list.isEmpty()) {
 			return;
@@ -77,7 +76,7 @@ public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 			DbType dbType = DbTypeUtils.getDbType(object);
 			String jsonPath = getJsonPath(jsonField);
 			if (dbType == DbType.MYSQL) {
-				wrapper.and((w) -> {
+				wrapper.and(w -> {
 					String sqlTemplate;
 					boolean isNotIn = searchModelType == SearchModelType.NOT_IN;
 					if (isNotIn) {
@@ -97,7 +96,7 @@ public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 				});
 			}
 			else if (dbType == DbType.ORACLE) {
-				wrapper.and((w) -> {
+				wrapper.and(w -> {
 					String sqlTemplate;
 					boolean isNotIn = searchModelType == SearchModelType.NOT_IN;
 					if (isNotIn) {
@@ -135,7 +134,13 @@ public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 					}
 
 					sql = sql.replaceAll(CustomerSqlInfo.MATCH_REG, "{0}");
-					wrapper.apply(sql, list.toArray());
+
+					if (info.batch) {
+						wrapper.apply(sql, list.toArray());
+					}
+					else {
+						wrapper.apply(sql, list.get(0));
+					}
 				}
 				else {
 					wrapper.apply(sql);

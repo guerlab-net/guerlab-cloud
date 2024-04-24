@@ -67,7 +67,7 @@ public final class DataAccessUtils {
 		}
 		else if (object instanceof Pageable pageable) {
 			List<?> list = pageable.getList();
-			if (list != null && !list.isEmpty()) {
+			if (!list.isEmpty()) {
 				for (Object obj : list) {
 					objectHandler(filedName, obj, dataHandler);
 				}

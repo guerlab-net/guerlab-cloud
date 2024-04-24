@@ -30,12 +30,12 @@ import net.guerlab.cloud.searchparams.SearchParams;
 /**
  * APi定义.
  *
- * @param <E>  返回实体类型
- * @param <SP> 搜索参数类型
+ * @param <E> 返回实体类型
+ * @param <Q> 搜索参数类型
  * @author guer
  */
 @SuppressWarnings("unused")
-public interface SelectOne<E extends IBaseEntity, SP extends SearchParams> {
+public interface SelectOne<E extends IBaseEntity, Q extends SearchParams> {
 
 	/**
 	 * 请求路径.
@@ -51,7 +51,7 @@ public interface SelectOne<E extends IBaseEntity, SP extends SearchParams> {
 	@Nullable
 	@PostMapping(SELECT_ONE_PATH)
 	@Operation(summary = "查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
-	E selectOne(@Parameter(description = "搜索参数对象", required = true) @RequestBody SP searchParams);
+	E selectOne(@Parameter(description = "搜索参数对象", required = true) @RequestBody Q searchParams);
 
 	/**
 	 * 查询单一结果，根据搜索参数进行筛选.
@@ -59,7 +59,7 @@ public interface SelectOne<E extends IBaseEntity, SP extends SearchParams> {
 	 * @param searchParams 搜索参数对象
 	 * @return Optional
 	 */
-	default Optional<E> selectOneOptional(SP searchParams) {
+	default Optional<E> selectOneOptional(Q searchParams) {
 		return Optional.ofNullable(selectOne(searchParams));
 	}
 }

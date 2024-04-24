@@ -16,7 +16,6 @@ package net.guerlab.cloud.web.webflux.autoconfigure;
 import java.util.Collection;
 import java.util.List;
 import java.util.ServiceLoader;
-import java.util.stream.Collectors;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
@@ -82,7 +81,7 @@ public class WebFluxGlobalExceptionHandlerAutoConfigure {
 	public GlobalExceptionHandler webFluxGlobalExceptionHandler(MessageSource messageSource,
 			StackTracesHandler stackTracesHandler, GlobalExceptionLogger globalExceptionLogger) {
 		Collection<ResponseBuilder> builders = ServiceLoader.load(ResponseBuilder.class).stream()
-				.map(ServiceLoader.Provider::get).collect(Collectors.toList());
+				.map(ServiceLoader.Provider::get).toList();
 		return new GlobalExceptionHandler(messageSource, stackTracesHandler, globalExceptionLogger, builders);
 	}
 
