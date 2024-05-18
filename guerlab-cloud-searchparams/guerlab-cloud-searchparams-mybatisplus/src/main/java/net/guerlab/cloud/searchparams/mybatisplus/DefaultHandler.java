@@ -81,8 +81,32 @@ public class DefaultHandler implements SearchParamsHandler {
 	private void setValueWithoutJsonField(QueryWrapper<?> wrapper, String columnName, Object value,
 			SearchModelType searchModelType, @Nullable String customSql) {
 		switch (searchModelType) {
-		case IS_NULL -> wrapper.isNull(columnName);
-		case IS_NOT_NULL -> wrapper.isNotNull(columnName);
+		case IS_NULL -> {
+			if (value instanceof Boolean bol) {
+				if (bol) {
+					wrapper.isNull(columnName);
+				}
+				else {
+					wrapper.isNotNull(columnName);
+				}
+			}
+			else {
+				wrapper.isNull(columnName);
+			}
+		}
+		case IS_NOT_NULL -> {
+			if (value instanceof Boolean bol) {
+				if (bol) {
+					wrapper.isNotNull(columnName);
+				}
+				else {
+					wrapper.isNull(columnName);
+				}
+			}
+			else {
+				wrapper.isNotNull(columnName);
+			}
+		}
 		case GREATER_THAN -> wrapper.gt(columnName, value);
 		case GREATER_THAN_OR_EQUAL_TO, START_WITH -> wrapper.ge(columnName, value);
 		case LESS_THAN -> wrapper.lt(columnName, value);

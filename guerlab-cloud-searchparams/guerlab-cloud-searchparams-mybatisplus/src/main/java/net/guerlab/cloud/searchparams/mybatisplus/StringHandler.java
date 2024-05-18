@@ -83,8 +83,28 @@ public class StringHandler extends AbstractMyBatisPlusSearchParamsHandler {
 	private void setValueWithoutJsonField(QueryWrapper<?> wrapper, String columnName, String str,
 			SearchModelType searchModelType, @Nullable String customSql) {
 		switch (searchModelType) {
-		case IS_NULL -> wrapper.isNull(columnName);
-		case IS_NOT_NULL -> wrapper.isNotNull(columnName);
+		case IS_NULL -> {
+			if (Boolean.TRUE.toString().equalsIgnoreCase(str)) {
+				wrapper.isNull(columnName);
+			}
+			else if (Boolean.FALSE.toString().equalsIgnoreCase(str)) {
+				wrapper.isNotNull(columnName);
+			}
+			else {
+				wrapper.isNull(columnName);
+			}
+		}
+		case IS_NOT_NULL -> {
+			if (Boolean.TRUE.toString().equalsIgnoreCase(str)) {
+				wrapper.isNotNull(columnName);
+			}
+			else if (Boolean.FALSE.toString().equalsIgnoreCase(str)) {
+				wrapper.isNull(columnName);
+			}
+			else {
+				wrapper.isNotNull(columnName);
+			}
+		}
 		case NOT_EQUAL_TO -> wrapper.ne(columnName, str);
 		case GREATER_THAN -> wrapper.gt(columnName, str);
 		case GREATER_THAN_OR_EQUAL_TO -> wrapper.ge(columnName, str);
