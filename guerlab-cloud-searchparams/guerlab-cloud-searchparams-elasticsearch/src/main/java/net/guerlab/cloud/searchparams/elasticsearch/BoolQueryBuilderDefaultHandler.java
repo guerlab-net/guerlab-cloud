@@ -14,12 +14,9 @@
 package net.guerlab.cloud.searchparams.elasticsearch;
 
 import java.time.temporal.Temporal;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Objects;
 import java.util.TimeZone;
-import java.util.stream.Collectors;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.json.JsonData;
@@ -70,22 +67,22 @@ public class BoolQueryBuilderDefaultHandler implements SearchParamsHandler {
 			builder.mustNot(m -> m.term(t -> t.field(columnName).value(String.valueOf(value))));
 		}
 		else if (searchModelType == SearchModelType.LIKE) {
-			builder.must(m -> m.queryString(q -> q.fields(columnName).query("^.*(" + value + ").*$")));
+			builder.must(m -> m.wildcard(q -> q.field(columnName).value("*" + value + "*")));
 		}
 		else if (searchModelType == SearchModelType.NOT_LIKE) {
-			builder.mustNot(m -> m.queryString(q -> q.fields(columnName).query(".*(" + value + ").*")));
+			builder.mustNot(m -> m.wildcard(q -> q.field(columnName).value("*" + value + "*")));
 		}
 		else if (searchModelType == SearchModelType.START_WITH) {
-			builder.must(m -> m.queryString(q -> q.fields(columnName).query("(" + value + ").*")));
+			builder.must(m -> m.wildcard(q -> q.field(columnName).value(value + "*")));
 		}
 		else if (searchModelType == SearchModelType.START_NOT_WITH) {
-			builder.mustNot(m -> m.queryString(q -> q.fields(columnName).query("(" + value + ").*")));
+			builder.mustNot(m -> m.wildcard(q -> q.field(columnName).value(value + "*")));
 		}
 		else if (searchModelType == SearchModelType.END_WITH) {
-			builder.must(m -> m.queryString(q -> q.fields(columnName).query(".*(" + value + ")")));
+			builder.must(m -> m.wildcard(q -> q.field(columnName).value("*" + value)));
 		}
 		else if (searchModelType == SearchModelType.END_NOT_WITH) {
-			builder.mustNot(m -> m.queryString(q -> q.fields(columnName).query(".*(" + value + ")")));
+			builder.mustNot(m -> m.wildcard(q -> q.field(columnName).value("*" + value)));
 		}
 		else if (searchModelType == SearchModelType.GREATER_THAN ||
 				searchModelType == SearchModelType.GREATER_THAN_OR_EQUAL_TO ||
@@ -113,35 +110,43 @@ public class BoolQueryBuilderDefaultHandler implements SearchParamsHandler {
 			}));
 		}
 		else if (searchModelType == SearchModelType.IN) {
-			if (value instanceof Collection<?> collection) {
-				builder.must(m -> m.queryString(q -> q.fields(columnName)
-						.query("^.*(" + collection.stream().filter(Objects::nonNull).map(Object::toString)
-								.collect(Collectors.joining("|")) + ").*$")));
+			if (value instanceof Iterable<?> collection) {
+				for (Object o : collection) {
+					if (o != null) {
+						builder.must(m -> m.match(q -> q.field(columnName).query(o.toString())));
+					}
+				}
 			}
 			else if (value.getClass().isArray()) {
 				Object[] array = (Object[]) value;
-				builder.must(m -> m.queryString(q -> q.fields(columnName)
-						.query("^.*(" + Arrays.stream(array).filter(Objects::nonNull).map(Object::toString)
-								.collect(Collectors.joining("|")) + ").*$")));
+				for (Object o : array) {
+					if (o != null) {
+						builder.must(m -> m.match(q -> q.field(columnName).query(o.toString())));
+					}
+				}
 			}
 			else {
-				builder.must(m -> m.queryString(q -> q.fields(columnName).query("^.*(" + value + ").*$")));
+				builder.must(m -> m.match(q -> q.field(columnName).query(value.toString())));
 			}
 		}
 		else if (searchModelType == SearchModelType.NOT_IN) {
 			if (value instanceof Collection<?> collection) {
-				builder.mustNot(m -> m.queryString(q -> q.fields(columnName)
-						.query("^.*(" + collection.stream().filter(Objects::nonNull).map(Object::toString)
-								.collect(Collectors.joining("|")) + ").*$")));
+				for (Object o : collection) {
+					if (o != null) {
+						builder.mustNot(m -> m.match(q -> q.field(columnName).query(o.toString())));
+					}
+				}
 			}
 			else if (value.getClass().isArray()) {
 				Object[] array = (Object[]) value;
-				builder.mustNot(m -> m.queryString(q -> q.fields(columnName)
-						.query("^.*(" + Arrays.stream(array).filter(Objects::nonNull).map(Object::toString)
-								.collect(Collectors.joining("|")) + ").*$")));
+				for (Object o : array) {
+					if (o != null) {
+						builder.must(m -> m.match(q -> q.field(columnName).query(o.toString())));
+					}
+				}
 			}
 			else {
-				builder.mustNot(m -> m.queryString(q -> q.fields(columnName).query("^.*(" + value + ").*$")));
+				builder.mustNot(m -> m.match(q -> q.field(columnName).query(value.toString())));
 			}
 		}
 	}
