@@ -66,7 +66,7 @@ public abstract class AbstractContextHandler {
 	 * @return 内容拷贝结果
 	 */
 	public static ContextAttributes getCopyOfContext() {
-		return ContextAttributesHolder.get();
+		return ContextAttributesHolder.get().copy();
 	}
 
 	/**
