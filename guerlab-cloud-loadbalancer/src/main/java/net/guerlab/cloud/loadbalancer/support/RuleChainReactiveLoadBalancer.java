@@ -15,6 +15,7 @@ package net.guerlab.cloud.loadbalancer.support;
 
 import java.util.List;
 
+import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
@@ -28,7 +29,6 @@ import org.springframework.cloud.loadbalancer.core.NoopServiceInstanceListSuppli
 import org.springframework.cloud.loadbalancer.core.ReactorServiceInstanceLoadBalancer;
 import org.springframework.cloud.loadbalancer.core.SelectedInstanceCallback;
 import org.springframework.cloud.loadbalancer.core.ServiceInstanceListSupplier;
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.loadbalancer.policy.LoadBalancerPolicy;
 import net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties;

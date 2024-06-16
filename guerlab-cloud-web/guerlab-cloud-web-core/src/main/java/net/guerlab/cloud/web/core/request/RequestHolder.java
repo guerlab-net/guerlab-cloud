@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.ServiceLoader;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * 请求保持.

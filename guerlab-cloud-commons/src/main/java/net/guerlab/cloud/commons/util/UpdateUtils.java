@@ -15,7 +15,7 @@ package net.guerlab.cloud.commons.util;
 
 import java.util.Objects;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * 更新工具类.

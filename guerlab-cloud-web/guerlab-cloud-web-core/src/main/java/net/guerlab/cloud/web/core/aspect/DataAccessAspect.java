@@ -13,6 +13,7 @@
 
 package net.guerlab.cloud.web.core.aspect;
 
+import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -22,7 +23,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.lang.Nullable;
 import org.springframework.util.ObjectUtils;
 
 import net.guerlab.cloud.web.core.annotation.DataAccess;

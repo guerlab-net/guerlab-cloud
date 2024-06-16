@@ -16,10 +16,10 @@ package net.guerlab.cloud.searchparams.elasticsearch;
 import java.util.List;
 
 import co.elastic.clients.elasticsearch._types.SortOrder;
+import jakarta.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.data.elasticsearch.client.elc.NativeQueryBuilder;
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.searchparams.JsonField;
 import net.guerlab.cloud.searchparams.OrderBy;

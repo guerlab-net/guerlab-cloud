@@ -15,7 +15,7 @@ package net.guerlab.cloud.commons.entity;
 
 import java.time.LocalDateTime;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * 启用时间实体.

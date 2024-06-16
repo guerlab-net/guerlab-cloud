@@ -17,8 +17,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * 地理坐标点接口.

@@ -22,13 +22,13 @@ import java.util.Map;
 import java.util.Objects;
 
 import feign.Target;
+import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.core.util.SpringUtils;
 

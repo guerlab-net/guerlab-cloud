@@ -15,7 +15,7 @@ package net.guerlab.cloud.server.service.orm;
 
 import java.util.Optional;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.searchparams.SearchParams;

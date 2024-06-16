@@ -16,9 +16,8 @@ package net.guerlab.cloud.core.result;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.annotation.Nullable;
 import lombok.Getter;
-
-import org.springframework.lang.Nullable;
 
 import net.guerlab.commons.collection.CollectionUtil;
 

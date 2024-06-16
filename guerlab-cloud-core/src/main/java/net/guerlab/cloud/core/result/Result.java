@@ -16,9 +16,8 @@ package net.guerlab.cloud.core.result;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.annotation.Nullable;
 import lombok.Data;
-
-import org.springframework.lang.Nullable;
 
 /**
  * 通用JSON返回结果集.

@@ -20,11 +20,10 @@ import java.sql.SQLException;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
-
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.core.util.SpringUtils;
 import net.guerlab.commons.exception.ApplicationException;

@@ -13,7 +13,7 @@
 
 package net.guerlab.cloud.core.result;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 import net.guerlab.cloud.core.util.EnvUtils;
 

@@ -16,7 +16,7 @@ package net.guerlab.cloud.searchparams.mybatisplus;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * 数据库类型.

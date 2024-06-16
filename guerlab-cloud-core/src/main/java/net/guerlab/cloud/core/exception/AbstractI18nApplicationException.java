@@ -16,11 +16,11 @@ package net.guerlab.cloud.core.exception;
 import java.io.Serial;
 import java.util.Locale;
 
+import jakarta.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.lang.Nullable;
 
 import net.guerlab.commons.exception.ApplicationException;
 

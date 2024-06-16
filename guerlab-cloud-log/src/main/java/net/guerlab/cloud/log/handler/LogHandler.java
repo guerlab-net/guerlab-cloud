@@ -13,9 +13,8 @@
 
 package net.guerlab.cloud.log.handler;
 
+import jakarta.annotation.Nullable;
 import org.aspectj.lang.reflect.MethodSignature;
-
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.log.annotation.Log;
 import net.guerlab.cloud.log.annotation.LogGroup;

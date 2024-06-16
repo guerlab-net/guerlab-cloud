@@ -13,7 +13,7 @@
 
 package net.guerlab.cloud.commons.entity;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * 可启用对象接口.

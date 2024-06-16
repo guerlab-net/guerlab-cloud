@@ -20,8 +20,7 @@ import java.util.TimeZone;
 
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
 import co.elastic.clients.json.JsonData;
-
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 import net.guerlab.cloud.searchparams.JsonField;
 import net.guerlab.cloud.searchparams.SearchModelType;

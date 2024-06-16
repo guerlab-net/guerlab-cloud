@@ -13,7 +13,7 @@
 
 package net.guerlab.cloud.api;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * API常量.

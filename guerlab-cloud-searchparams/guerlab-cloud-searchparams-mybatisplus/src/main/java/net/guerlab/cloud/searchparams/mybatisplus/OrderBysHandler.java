@@ -16,9 +16,8 @@ package net.guerlab.cloud.searchparams.mybatisplus;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import jakarta.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
-
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.searchparams.JsonField;
 import net.guerlab.cloud.searchparams.OrderBy;

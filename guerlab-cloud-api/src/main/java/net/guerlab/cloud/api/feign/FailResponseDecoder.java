@@ -19,9 +19,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Response;
 import feign.Util;
+import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.lang.Nullable;
 
 /**
  * 失败响应解析.

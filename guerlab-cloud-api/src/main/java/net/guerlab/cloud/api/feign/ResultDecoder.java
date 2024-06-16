@@ -26,9 +26,8 @@ import feign.FeignException;
 import feign.Response;
 import feign.Util;
 import feign.codec.Decoder;
+import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.core.result.Result;
 import net.guerlab.commons.exception.ApplicationException;

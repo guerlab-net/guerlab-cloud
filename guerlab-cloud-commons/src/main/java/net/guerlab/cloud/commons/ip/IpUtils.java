@@ -17,9 +17,8 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.ServiceLoader;
 
+import jakarta.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
-
-import org.springframework.lang.Nullable;
 
 /**
  * IP地址工具类.
