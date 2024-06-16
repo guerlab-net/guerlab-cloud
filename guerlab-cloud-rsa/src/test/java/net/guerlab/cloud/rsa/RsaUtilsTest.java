@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ThreadLocalRandom;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
@@ -33,7 +32,6 @@ import org.junit.jupiter.api.TestMethodOrder;
  *
  * @author guer
  */
-@Slf4j
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class RsaUtilsTest {
 
