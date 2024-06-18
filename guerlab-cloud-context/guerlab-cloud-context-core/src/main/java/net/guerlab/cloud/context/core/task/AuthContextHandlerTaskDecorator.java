@@ -13,6 +13,10 @@
 
 package net.guerlab.cloud.context.core.task;
 
+import java.util.Map;
+
+import org.slf4j.MDC;
+
 import org.springframework.core.task.TaskDecorator;
 
 import net.guerlab.cloud.context.core.ContextAttributes;
@@ -28,15 +32,18 @@ public class AuthContextHandlerTaskDecorator implements TaskDecorator {
 	@Override
 	public Runnable decorate(Runnable runnable) {
 		// 切换线程后，主线程退出会导致上下文被清理
+		Map<String, String> mdcContextMap = MDC.getCopyOfContextMap();
 		ContextAttributes newContextAttributes = ContextAttributesHolder.get().copy();
 
 		return () -> {
 			try {
+				MDC.setContextMap(mdcContextMap);
 				ContextAttributesHolder.set(newContextAttributes);
 				runnable.run();
 			}
 			finally {
 				ContextAttributesHolder.get().clear();
+				MDC.clear();
 			}
 		};
 	}
