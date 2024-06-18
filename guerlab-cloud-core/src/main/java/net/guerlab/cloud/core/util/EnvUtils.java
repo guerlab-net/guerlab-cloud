@@ -15,8 +15,7 @@ package net.guerlab.cloud.core.util;
 
 import java.util.Objects;
 
-import javax.annotation.Nullable;
-
+import jakarta.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 
 /**

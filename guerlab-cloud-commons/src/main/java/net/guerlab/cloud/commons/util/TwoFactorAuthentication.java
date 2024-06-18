@@ -21,10 +21,9 @@ import java.util.Objects;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import jakarta.annotation.Nullable;
 import org.apache.commons.codec.binary.Base32;
 import org.apache.commons.codec.binary.Base64;
-
-import org.springframework.lang.Nullable;
 
 import net.guerlab.commons.random.RandomUtil;
 

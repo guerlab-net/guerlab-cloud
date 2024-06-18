@@ -18,9 +18,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import jakarta.annotation.Nullable;
 import lombok.Setter;
-
-import org.springframework.lang.Nullable;
 
 /**
  * 抽象搜索参数工具实例.

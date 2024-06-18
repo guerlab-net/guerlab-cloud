@@ -13,7 +13,7 @@
 
 package net.guerlab.cloud.auth.redis;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * redis操作包装对象.

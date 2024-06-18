@@ -20,9 +20,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import jakarta.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
-
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.auth.domain.TokenInfo;
 import net.guerlab.cloud.auth.enums.TokenType;

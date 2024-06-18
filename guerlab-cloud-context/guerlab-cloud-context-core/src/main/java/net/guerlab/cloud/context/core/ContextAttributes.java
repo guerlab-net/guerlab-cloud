@@ -15,6 +15,10 @@ package net.guerlab.cloud.context.core;
 
 import java.util.HashMap;
 
+import org.slf4j.MDC;
+
+import net.guerlab.cloud.core.util.EnvUtils;
+
 /**
  * 上下文属性.
  *
@@ -37,6 +41,11 @@ public class ContextAttributes extends HashMap<Object, Object> {
 	 */
 	public static final String RESPONSE_KEY = KEY + ".response";
 
+	/**
+	 * 是否设置到mdc上.
+	 */
+	public static final boolean SET_TO_MDC = Boolean.parseBoolean(EnvUtils.getEnv("GUERLAB_CLOUD_CONTEXT_SET_TO_MDC", "false"));
+
 	public ContextAttributes() {
 	}
 
@@ -56,5 +65,15 @@ public class ContextAttributes extends HashMap<Object, Object> {
 	 */
 	public ContextAttributes copy() {
 		return new ContextAttributes(this);
+	}
+
+	@Override
+	public Object put(Object key, Object value) {
+		if (SET_TO_MDC) {
+			if (key instanceof String && value instanceof String) {
+				MDC.put((String) key, (String) value);
+			}
+		}
+		return super.put(key, value);
 	}
 }

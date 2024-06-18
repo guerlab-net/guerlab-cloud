@@ -13,7 +13,7 @@
 
 package net.guerlab.cloud.searchparams;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * SearchParams参数处理接口.

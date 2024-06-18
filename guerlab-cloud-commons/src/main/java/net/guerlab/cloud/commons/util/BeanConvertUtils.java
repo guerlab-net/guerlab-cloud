@@ -17,8 +17,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
+import jakarta.annotation.Nullable;
+
 import org.springframework.beans.BeanUtils;
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.core.dto.Convert;
 import net.guerlab.cloud.core.result.Pageable;

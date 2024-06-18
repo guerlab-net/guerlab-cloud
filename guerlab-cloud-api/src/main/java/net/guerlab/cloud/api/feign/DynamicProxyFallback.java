@@ -22,9 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.core.result.Pageable;

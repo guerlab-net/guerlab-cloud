@@ -15,7 +15,7 @@ package net.guerlab.cloud.commons.entity;
 
 import java.util.Comparator;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 import net.guerlab.cloud.commons.Constants;
 

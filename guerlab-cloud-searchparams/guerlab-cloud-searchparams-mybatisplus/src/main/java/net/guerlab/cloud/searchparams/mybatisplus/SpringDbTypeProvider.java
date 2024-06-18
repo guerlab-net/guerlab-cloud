@@ -13,11 +13,12 @@
 
 package net.guerlab.cloud.searchparams.mybatisplus;
 
+import jakarta.annotation.Nullable;
+
 import org.springframework.beans.BeansException;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.lang.Nullable;
 
 /**
  * 基于Spring上下文数据库类型提供器.

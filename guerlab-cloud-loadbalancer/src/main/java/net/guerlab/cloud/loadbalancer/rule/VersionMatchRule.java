@@ -16,12 +16,12 @@ package net.guerlab.cloud.loadbalancer.rule;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.Request;
 import org.springframework.cloud.client.loadbalancer.RequestDataContext;
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.core.util.VersionCompareUtils;
 import net.guerlab.cloud.loadbalancer.properties.VersionControlProperties;

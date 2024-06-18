@@ -17,9 +17,9 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.annotation.Nullable;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.lang.Nullable;
 
 import net.guerlab.commons.exception.ApplicationException;
 

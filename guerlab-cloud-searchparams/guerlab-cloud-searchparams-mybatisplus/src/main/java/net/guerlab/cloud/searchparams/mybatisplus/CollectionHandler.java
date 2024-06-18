@@ -18,8 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 import net.guerlab.cloud.searchparams.JsonField;
 import net.guerlab.cloud.searchparams.SearchModelType;

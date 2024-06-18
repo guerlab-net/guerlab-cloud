@@ -16,9 +16,8 @@ package net.guerlab.cloud.commons.entity;
 import java.util.Collection;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.annotation.Nullable;
 import lombok.Data;
-
-import org.springframework.lang.Nullable;
 
 /**
  * 树形结构对象.

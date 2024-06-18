@@ -19,12 +19,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.util.AntPathMatcher;
 
 import net.guerlab.cloud.core.result.Result;

@@ -15,7 +15,8 @@ package net.guerlab.cloud.auth.factory;
 
 import java.util.Collection;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
+
 import org.springframework.util.CollectionUtils;
 
 import net.guerlab.cloud.auth.enums.TokenType;

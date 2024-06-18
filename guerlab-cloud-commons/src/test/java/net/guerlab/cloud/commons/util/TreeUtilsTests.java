@@ -17,11 +17,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import jakarta.annotation.Nullable;
 import lombok.Data;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.commons.entity.IOrderlyEntity;
 import net.guerlab.cloud.commons.entity.TreeEntity;

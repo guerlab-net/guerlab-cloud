@@ -17,9 +17,9 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.Nullable;
 
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.lang.Nullable;
 
 /**
  * redisTemplate操作包装类.

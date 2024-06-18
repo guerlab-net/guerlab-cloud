@@ -17,9 +17,8 @@ import java.lang.reflect.Field;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import jakarta.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
-
-import org.springframework.lang.Nullable;
 
 import net.guerlab.commons.reflection.FieldUtil;
 

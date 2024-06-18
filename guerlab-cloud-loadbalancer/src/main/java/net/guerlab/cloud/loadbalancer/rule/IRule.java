@@ -15,10 +15,11 @@ package net.guerlab.cloud.loadbalancer.rule;
 
 import java.util.List;
 
+import jakarta.annotation.Nullable;
+
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.Request;
 import org.springframework.core.Ordered;
-import org.springframework.lang.Nullable;
 
 /**
  * 规则.

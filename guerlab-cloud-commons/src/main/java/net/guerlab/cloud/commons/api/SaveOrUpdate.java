@@ -13,9 +13,8 @@
 
 package net.guerlab.cloud.commons.api;
 
-import javax.annotation.Nullable;
-
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.annotation.Nullable;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -15,11 +15,11 @@ package net.guerlab.cloud.commons.exception.handler;
 
 import java.util.Locale;
 
+import jakarta.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.lang.Nullable;
 
 /**
  * 抽象异常信息构建者.

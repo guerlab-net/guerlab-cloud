@@ -15,10 +15,11 @@ package net.guerlab.cloud.web.core.endpoints;
 
 import java.util.List;
 
+import jakarta.annotation.Nullable;
+
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
 import net.guerlab.commons.collection.CollectionUtil;

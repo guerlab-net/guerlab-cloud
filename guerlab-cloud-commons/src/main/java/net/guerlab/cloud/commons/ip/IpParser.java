@@ -13,7 +13,7 @@
 
 package net.guerlab.cloud.commons.ip;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * ip地址解析器.

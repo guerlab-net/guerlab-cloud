@@ -13,8 +13,9 @@
 
 package net.guerlab.cloud.auth.factory;
 
+import jakarta.annotation.Nullable;
+
 import org.springframework.core.Ordered;
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.auth.domain.TokenInfo;
 

@@ -17,11 +17,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
+import jakarta.annotation.Nullable;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.SearchParams;

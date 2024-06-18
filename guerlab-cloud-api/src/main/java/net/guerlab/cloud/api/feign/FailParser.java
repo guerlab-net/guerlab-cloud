@@ -19,9 +19,8 @@ import java.util.Objects;
 import java.util.stream.StreamSupport;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import jakarta.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
-
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.core.result.ApplicationStackTrace;
 import net.guerlab.cloud.core.result.RemoteException;

@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 import net.guerlab.cloud.commons.config.GlobalExceptionConfig;
 import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;

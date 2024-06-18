@@ -16,9 +16,8 @@ package net.guerlab.cloud.server.mybatis.plus.methods;
 import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.core.metadata.TableFieldInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
+import jakarta.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
-
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.commons.entity.IBaseEntity;
 
