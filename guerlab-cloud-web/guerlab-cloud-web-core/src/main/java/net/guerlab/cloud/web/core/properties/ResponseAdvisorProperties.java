@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import jakarta.annotation.Nullable;
 import lombok.Getter;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.web.core.annotation.ResponseObjectWrapper;
 

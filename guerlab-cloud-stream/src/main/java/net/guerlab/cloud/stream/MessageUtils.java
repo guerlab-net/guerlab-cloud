@@ -15,7 +15,8 @@ package net.guerlab.cloud.stream;
 
 import java.util.Objects;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
+
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 

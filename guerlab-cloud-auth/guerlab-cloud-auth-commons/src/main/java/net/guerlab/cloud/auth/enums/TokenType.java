@@ -14,9 +14,8 @@
 package net.guerlab.cloud.auth.enums;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
-
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.commons.exception.AccessTokenExpiredException;
 import net.guerlab.cloud.commons.exception.AccessTokenInvalidException;

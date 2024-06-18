@@ -16,9 +16,8 @@ package net.guerlab.cloud.auth.factory;
 import java.util.Base64;
 import java.util.Objects;
 
+import jakarta.annotation.Nullable;
 import org.apache.commons.codec.digest.DigestUtils;
-
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.auth.properties.Md5TokenFactoryProperties;
 

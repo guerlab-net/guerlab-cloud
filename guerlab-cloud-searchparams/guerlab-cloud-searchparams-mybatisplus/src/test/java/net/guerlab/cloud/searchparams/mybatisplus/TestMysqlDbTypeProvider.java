@@ -13,8 +13,9 @@
 
 package net.guerlab.cloud.searchparams.mybatisplus;
 
+import jakarta.annotation.Nullable;
+
 import org.springframework.core.Ordered;
-import org.springframework.lang.Nullable;
 
 /**
  * @author guer

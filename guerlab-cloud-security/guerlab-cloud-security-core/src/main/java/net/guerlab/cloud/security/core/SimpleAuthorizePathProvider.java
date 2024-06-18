@@ -15,8 +15,9 @@ package net.guerlab.cloud.security.core;
 
 import java.util.List;
 
+import jakarta.annotation.Nullable;
+
 import org.springframework.http.HttpMethod;
-import org.springframework.lang.Nullable;
 
 /**
  * 简单授权路径提供者.

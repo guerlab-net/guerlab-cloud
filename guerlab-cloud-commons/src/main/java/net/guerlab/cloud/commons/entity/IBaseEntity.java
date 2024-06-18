@@ -15,7 +15,7 @@ package net.guerlab.cloud.commons.entity;
 
 import java.io.Serializable;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * 基础实体接口.

@@ -15,7 +15,7 @@ package net.guerlab.cloud.searchparams.map;
 
 import java.util.Map;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 import net.guerlab.cloud.searchparams.AbstractSearchParamsUtilInstance;
 import net.guerlab.cloud.searchparams.JsonField;

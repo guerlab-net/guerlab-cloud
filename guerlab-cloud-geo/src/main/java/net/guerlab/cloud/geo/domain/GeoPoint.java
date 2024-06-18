@@ -16,9 +16,8 @@ package net.guerlab.cloud.geo.domain;
 import java.io.Serial;
 import java.math.BigDecimal;
 
-import javax.annotation.Nullable;
-
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.annotation.Nullable;
 import lombok.Data;
 
 /**

@@ -16,7 +16,7 @@ package net.guerlab.cloud.context.core;
 import java.util.List;
 import java.util.ServiceLoader;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * 上下文属性持有器.

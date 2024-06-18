@@ -16,7 +16,7 @@ package net.guerlab.cloud.auth.context;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.context.core.ContextAttributes;
@@ -66,7 +66,7 @@ public abstract class AbstractContextHandler {
 	 * @return 内容拷贝结果
 	 */
 	public static ContextAttributes getCopyOfContext() {
-		return ContextAttributesHolder.get();
+		return ContextAttributesHolder.get().copy();
 	}
 
 	/**

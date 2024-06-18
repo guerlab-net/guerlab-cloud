@@ -13,10 +13,9 @@
 
 package net.guerlab.cloud.web.webmvc.parse;
 
+import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.commons.ip.IpParser;
 

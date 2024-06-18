@@ -15,8 +15,7 @@ package net.guerlab.cloud.auth.redis;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 import net.guerlab.commons.exception.ApplicationException;
 

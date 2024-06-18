@@ -13,10 +13,10 @@
 
 package net.guerlab.cloud.web.webflux.request;
 
+import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.context.core.ContextAttributes;
 import net.guerlab.cloud.context.core.ContextAttributesHolder;

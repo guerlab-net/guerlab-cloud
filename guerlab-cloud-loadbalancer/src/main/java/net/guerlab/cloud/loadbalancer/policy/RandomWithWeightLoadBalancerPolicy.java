@@ -17,10 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 
 import net.guerlab.cloud.loadbalancer.properties.LoadBalancerProperties;

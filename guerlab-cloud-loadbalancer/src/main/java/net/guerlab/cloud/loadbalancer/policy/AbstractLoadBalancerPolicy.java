@@ -15,8 +15,9 @@ package net.guerlab.cloud.loadbalancer.policy;
 
 import java.util.List;
 
+import jakarta.annotation.Nullable;
+
 import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.lang.Nullable;
 
 /**
  * 抽象负载均衡策略.

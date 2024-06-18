@@ -69,6 +69,31 @@ class ElasticSearchSearchParamsTest {
 		Query query = builder.build().getQuery();
 
 		Assertions.assertNotNull(query);
-		Assertions.assertEquals("Query: {\"bool\":{\"must\":[{\"exists\":{\"field\":\"isNotNull\"}},{\"term\":{\"equalTo\":{\"value\":\"equalTo\"}}},{\"range\":{\"greaterThan\":{\"gt\":1}}},{\"range\":{\"greaterThanOrEqualTo\":{\"gte\":\"2023-05-20T12:34:56\",\"time_zone\":\"GMT+08:00\"}}},{\"range\":{\"lessThan\":{\"lt\":\"12:34:56\",\"time_zone\":\"GMT+08:00\"}}},{\"range\":{\"lessThanOrEqualTo\":{\"lte\":\"2023-05-20\",\"time_zone\":\"GMT+08:00\"}}},{\"query_string\":{\"fields\":[\"like\"],\"query\":\"^.*(like).*$\"}},{\"query_string\":{\"fields\":[\"startWith\"],\"query\":\"(startWith).*\"}},{\"query_string\":{\"fields\":[\"endWith\"],\"query\":\".*(endWith)\"}},{\"query_string\":{\"fields\":[\"in\"],\"query\":\"^.*(v1|v2).*$\"}}],\"must_not\":[{\"exists\":{\"field\":\"isNull\"}},{\"term\":{\"notEqualTo\":{\"value\":\"notEqualTo\"}}},{\"query_string\":{\"fields\":[\"notLike\"],\"query\":\".*(notLike).*\"}},{\"query_string\":{\"fields\":[\"startNotWith\"],\"query\":\"(startNotWith).*\"}},{\"query_string\":{\"fields\":[\"endNotWith\"],\"query\":\".*(endNotWith)\"}},{\"query_string\":{\"fields\":[\"notIn\"],\"query\":\"^.*(v1|v2).*$\"}}]}}", query.toString());
+		System.out.println(query);
+		Assertions.assertEquals("Query: {\"bool\":{\"must\":[{\"exists\":{\"field\":\"isNotNull\"}},{\"term\":{\"equalTo.keyword\":{\"value\":\"equalTo\"}}},{\"range\":{\"greaterThan\":{\"gt\":1}}},{\"range\":{\"greaterThanOrEqualTo\":{\"gte\":\"2023-05-20T12:34:56\",\"time_zone\":\"GMT+08:00\"}}},{\"range\":{\"lessThan\":{\"lt\":\"12:34:56\",\"time_zone\":\"GMT+08:00\"}}},{\"range\":{\"lessThanOrEqualTo\":{\"lte\":\"2023-05-20\",\"time_zone\":\"GMT+08:00\"}}},{\"wildcard\":{\"like\":{\"value\":\"*like*\"}}},{\"wildcard\":{\"startWith\":{\"value\":\"startWith*\"}}},{\"wildcard\":{\"endWith\":{\"value\":\"*endWith\"}}},{\"terms\":{\"in\":[\"v1\",\"v2\"]}}],\"must_not\":[{\"exists\":{\"field\":\"isNull\"}},{\"term\":{\"notEqualTo.keyword\":{\"value\":\"notEqualTo\"}}},{\"wildcard\":{\"notLike\":{\"value\":\"*notLike*\"}}},{\"wildcard\":{\"startNotWith\":{\"value\":\"startNotWith*\"}}},{\"wildcard\":{\"endNotWith\":{\"value\":\"*endNotWith\"}}},{\"terms\":{\"notIn\":[\"v1\",\"v2\"]}}]}}", query.toString());
+	}
+
+
+	@Test
+	@Order(1)
+	void nativeQuery2() {
+		BoolQueryBuilderDefaultHandler.setDefaultTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+		TestSearchParams2 searchParams = new TestSearchParams2();
+		searchParams.setVendorCode("V1079531");
+		searchParams.setComplexType("sku");
+		searchParams.setEnable(true);
+
+		BoolQuery.Builder boolQueryBuilder = new BoolQuery.Builder();
+
+		SearchParamsUtils.handler(searchParams, boolQueryBuilder);
+
+		NativeQueryBuilder builder = new NativeQueryBuilder();
+		builder.withQuery(boolQueryBuilder.build()._toQuery());
+
+		Query query = builder.build().getQuery();
+
+		Assertions.assertNotNull(query);
+		System.out.printf("{\"query\": %s}", query.toString().substring(7));
+		Assertions.assertEquals("Query: {\"bool\":{\"must\":[{\"nested\":{\"path\":\"inventories\",\"query\":{\"term\":{\"inventories.vendorCode.keyword\":{\"value\":\"V1079531\"}}},\"score_mode\":\"max\"}},{\"term\":{\"complexType.keyword\":{\"value\":\"sku\"}}},{\"term\":{\"enable\":{\"value\":\"true\"}}}]}}", query.toString());
 	}
 }

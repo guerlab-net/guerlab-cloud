@@ -18,8 +18,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -32,6 +34,21 @@ import org.junit.jupiter.api.TestMethodOrder;
  */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class RsaUtilsTest {
+
+	private static final String SYSTEM_TEMP_DIR = System.getProperty("java.io.tmpdir");
+
+	private static String rsaKeysFilePath = SYSTEM_TEMP_DIR + "/rsaKeys.pem";
+
+	@BeforeAll
+	static void beforeTest() {
+		String dirPath = SYSTEM_TEMP_DIR + "/tmp_" + ThreadLocalRandom.current().nextInt(1, 99999999);
+		File dir = new File(dirPath);
+		if (!dir.isDirectory()) {
+			Assertions.assertTrue(dir.mkdirs());
+		}
+		rsaKeysFilePath = dirPath + "/rsaKeys.pem";
+		System.out.println("rsaKeysFilePath: " + rsaKeysFilePath);
+	}
 
 	@Test
 	@Order(0)
@@ -48,14 +65,15 @@ class RsaUtilsTest {
 	@Order(1)
 	void write() throws IOException {
 		RsaKeys rsaKeys = RsaUtils.buildKeys();
-		RsaUtils.writeTo(rsaKeys, new FileOutputStream("/tmp/rsaKeys.pem"));
-		Assertions.assertTrue(new File("/tmp/rsaKeys.pem").isFile());
+		File file = new File(rsaKeysFilePath);
+		RsaUtils.writeTo(rsaKeys, new FileOutputStream(file));
+		Assertions.assertTrue(file.isFile());
 	}
 
 	@Test
 	@Order(2)
 	void read() throws IOException {
-		RsaKeys rsaKeys = RsaUtils.read(new FileInputStream("/tmp/rsaKeys.pem"));
+		RsaKeys rsaKeys = RsaUtils.read(new FileInputStream(rsaKeysFilePath));
 		Assertions.assertNotNull(rsaKeys);
 		Assertions.assertNotNull(rsaKeys.getPublicKey());
 		Assertions.assertNotNull(rsaKeys.getPrivateKey());
@@ -64,19 +82,17 @@ class RsaUtilsTest {
 	@Test
 	@Order(3)
 	void writeAndRead() throws IOException {
-		String filePath = "/tmp/rsaKeys.pem";
 		RsaKeys rsaKeys = RsaUtils.buildKeys();
-		RsaUtils.writeTo(rsaKeys, new FileOutputStream(filePath));
+		RsaUtils.writeTo(rsaKeys, new FileOutputStream(rsaKeysFilePath));
 
-		Assertions.assertEquals(rsaKeys, RsaUtils.read(new FileInputStream(filePath)));
+		Assertions.assertEquals(rsaKeys, RsaUtils.read(new FileInputStream(rsaKeysFilePath)));
 	}
 
 	@Test
 	@Order(4)
 	void publicKeyEncryptAndPrivateKeyDecrypt() throws Exception {
-		String filePath = "/tmp/rsaKeys.pem";
 		RsaKeys rsaKeys = RsaUtils.buildKeys();
-		RsaUtils.writeTo(rsaKeys, new FileOutputStream(filePath));
+		RsaUtils.writeTo(rsaKeys, new FileOutputStream(rsaKeysFilePath));
 
 		byte[] data = RsaUtils.encryptByPublicKey("test".getBytes(StandardCharsets.UTF_8), rsaKeys.getPublicKeyRef());
 
@@ -86,9 +102,8 @@ class RsaUtilsTest {
 	@Test
 	@Order(5)
 	void privateKeyEncryptAndPublicKeyDecrypt() throws Exception {
-		String filePath = "/tmp/rsaKeys.pem";
 		RsaKeys rsaKeys = RsaUtils.buildKeys();
-		RsaUtils.writeTo(rsaKeys, new FileOutputStream(filePath));
+		RsaUtils.writeTo(rsaKeys, new FileOutputStream(rsaKeysFilePath));
 
 		byte[] data = RsaUtils.encryptByPrivateKey("test".getBytes(StandardCharsets.UTF_8), rsaKeys.getPrivateKeyRef());
 

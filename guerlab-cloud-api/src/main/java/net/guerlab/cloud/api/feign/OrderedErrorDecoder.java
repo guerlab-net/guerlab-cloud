@@ -14,9 +14,9 @@
 package net.guerlab.cloud.api.feign;
 
 import feign.Response;
+import jakarta.annotation.Nullable;
 
 import org.springframework.core.Ordered;
-import org.springframework.lang.Nullable;
 
 /**
  * 可排序错误解析.

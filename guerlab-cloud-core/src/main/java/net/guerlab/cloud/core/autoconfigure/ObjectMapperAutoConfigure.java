@@ -26,12 +26,12 @@ import java.util.Objects;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import jakarta.annotation.Nullable;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.core.properties.NumberJsonStringFormatProperties;
 import net.guerlab.cloud.core.util.SpringUtils;

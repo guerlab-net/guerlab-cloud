@@ -13,7 +13,7 @@
 
 package net.guerlab.cloud.web.core.request;
 
-import org.springframework.lang.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * 请求上下文保持.
