@@ -14,16 +14,25 @@
 package net.guerlab.cloud.searchparams.elasticsearch;
 
 import java.time.temporal.Temporal;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
+import java.util.function.Function;
 
+import co.elastic.clients.elasticsearch._types.FieldValue;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.ChildScoreMode;
+import co.elastic.clients.elasticsearch._types.query_dsl.NestedQuery;
+import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.json.JsonData;
+import co.elastic.clients.util.ObjectBuilder;
 
 import org.springframework.lang.Nullable;
 
 import net.guerlab.cloud.searchparams.JsonField;
+import net.guerlab.cloud.searchparams.OrderBys;
 import net.guerlab.cloud.searchparams.SearchModelType;
 import net.guerlab.cloud.searchparams.SearchParamsHandler;
 
@@ -33,6 +42,15 @@ import net.guerlab.cloud.searchparams.SearchParamsHandler;
  * @author guer
  */
 public class BoolQueryBuilderDefaultHandler implements SearchParamsHandler {
+
+	private static final List<SearchModelType> notTypes = Arrays.asList(
+			SearchModelType.IS_NULL,
+			SearchModelType.NOT_EQUAL_TO,
+			SearchModelType.NOT_LIKE,
+			SearchModelType.START_NOT_WITH,
+			SearchModelType.END_NOT_WITH,
+			SearchModelType.NOT_IN
+	);
 
 	private static TimeZone defaultTimeZone = TimeZone.getDefault();
 
@@ -52,43 +70,37 @@ public class BoolQueryBuilderDefaultHandler implements SearchParamsHandler {
 	@Override
 	public void setValue(Object object, String fieldName, String columnName, Object value, SearchModelType searchModelType,
 			@Nullable String customSql, @Nullable JsonField jsonField) {
+		if (value instanceof OrderBys) {
+			return;
+		}
+
 		BoolQuery.Builder builder = (BoolQuery.Builder) object;
 
-		if (searchModelType == SearchModelType.IS_NULL) {
-			builder.mustNot(m -> m.exists(t -> t.field(columnName)));
+		boolean isNested = columnName.contains(".");
+		List<String> paths = new ArrayList<>();
+		if (isNested) {
+			String[] pathArray = columnName.split("\\.");
+			paths.addAll(Arrays.stream(Arrays.copyOfRange(pathArray, 0, pathArray.length - 1)).toList());
 		}
-		else if (searchModelType == SearchModelType.IS_NOT_NULL) {
-			builder.must(m -> m.exists(t -> t.field(columnName)));
+
+		Function<Query.Builder, ObjectBuilder<Query>> fn;
+		if (searchModelType == SearchModelType.IS_NULL || searchModelType == SearchModelType.IS_NOT_NULL) {
+			fn = m -> m.exists(t -> t.field(columnName));
 		}
-		else if (searchModelType == SearchModelType.EQUAL_TO) {
-			builder.must(m -> m.term(t -> t.field(columnName).value(String.valueOf(value))));
+		else if (searchModelType == SearchModelType.LIKE || searchModelType == SearchModelType.NOT_LIKE) {
+			fn = m -> m.wildcard(q -> q.field(columnName).value("*" + value + "*"));
 		}
-		else if (searchModelType == SearchModelType.NOT_EQUAL_TO) {
-			builder.mustNot(m -> m.term(t -> t.field(columnName).value(String.valueOf(value))));
+		else if (searchModelType == SearchModelType.START_WITH || searchModelType == SearchModelType.START_NOT_WITH) {
+			fn = m -> m.wildcard(q -> q.field(columnName).value(value + "*"));
 		}
-		else if (searchModelType == SearchModelType.LIKE) {
-			builder.must(m -> m.wildcard(q -> q.field(columnName).value("*" + value + "*")));
-		}
-		else if (searchModelType == SearchModelType.NOT_LIKE) {
-			builder.mustNot(m -> m.wildcard(q -> q.field(columnName).value("*" + value + "*")));
-		}
-		else if (searchModelType == SearchModelType.START_WITH) {
-			builder.must(m -> m.wildcard(q -> q.field(columnName).value(value + "*")));
-		}
-		else if (searchModelType == SearchModelType.START_NOT_WITH) {
-			builder.mustNot(m -> m.wildcard(q -> q.field(columnName).value(value + "*")));
-		}
-		else if (searchModelType == SearchModelType.END_WITH) {
-			builder.must(m -> m.wildcard(q -> q.field(columnName).value("*" + value)));
-		}
-		else if (searchModelType == SearchModelType.END_NOT_WITH) {
-			builder.mustNot(m -> m.wildcard(q -> q.field(columnName).value("*" + value)));
+		else if (searchModelType == SearchModelType.END_WITH || searchModelType == SearchModelType.END_NOT_WITH) {
+			fn = m -> m.wildcard(q -> q.field(columnName).value("*" + value));
 		}
 		else if (searchModelType == SearchModelType.GREATER_THAN ||
 				searchModelType == SearchModelType.GREATER_THAN_OR_EQUAL_TO ||
 				searchModelType == SearchModelType.LESS_THAN ||
 				searchModelType == SearchModelType.LESS_THAN_OR_EQUAL_TO) {
-			builder.must(m -> m.range(r -> {
+			fn = m -> m.range(r -> {
 				r.field(columnName);
 				if (value instanceof Date || value instanceof Temporal) {
 					r.timeZone(getTimeZone().getID());
@@ -107,46 +119,76 @@ public class BoolQueryBuilderDefaultHandler implements SearchParamsHandler {
 					r.lte(JsonData.of(value));
 				}
 				return r;
-			}));
+			});
 		}
-		else if (searchModelType == SearchModelType.IN) {
+		else if (searchModelType == SearchModelType.IN || searchModelType == SearchModelType.NOT_IN) {
+			List<FieldValue> fieldValues = new ArrayList<>();
 			if (value instanceof Iterable<?> collection) {
 				for (Object o : collection) {
-					if (o != null) {
-						builder.must(m -> m.match(q -> q.field(columnName).query(o.toString())));
-					}
+					fieldValues.add(FieldValue.of(o.toString()));
 				}
 			}
 			else if (value.getClass().isArray()) {
 				Object[] array = (Object[]) value;
 				for (Object o : array) {
-					if (o != null) {
-						builder.must(m -> m.match(q -> q.field(columnName).query(o.toString())));
-					}
+					fieldValues.add(FieldValue.of(o.toString()));
 				}
 			}
+			if (!fieldValues.isEmpty()) {
+				fn = m -> m.terms(q -> q.field(columnName).terms(b -> b.value(fieldValues)));
+			}
 			else {
-				builder.must(m -> m.match(q -> q.field(columnName).query(value.toString())));
+				fn = m -> m.match(q -> q.field(columnName).query(value.toString()));
 			}
 		}
-		else if (searchModelType == SearchModelType.NOT_IN) {
-			if (value instanceof Collection<?> collection) {
-				for (Object o : collection) {
-					if (o != null) {
-						builder.mustNot(m -> m.match(q -> q.field(columnName).query(o.toString())));
-					}
-				}
-			}
-			else if (value.getClass().isArray()) {
-				Object[] array = (Object[]) value;
-				for (Object o : array) {
-					if (o != null) {
-						builder.must(m -> m.match(q -> q.field(columnName).query(o.toString())));
-					}
-				}
+		else {
+			if (value instanceof String str) {
+				fn = m -> m.term(t -> t.field(columnName + ".keyword").value(str));
 			}
 			else {
-				builder.mustNot(m -> m.match(q -> q.field(columnName).query(value.toString())));
+				fn = m -> m.term(t -> t.field(columnName).value(String.valueOf(value)));
+			}
+		}
+
+		if (!paths.isEmpty()) {
+			List<NestedQuery.Builder> nestedQueryBuilders = new ArrayList<>(paths.size());
+
+			for (int i = 0; i < paths.size(); i++) {
+				String allPath = String.join(".", paths.subList(0, i + 1));
+				NestedQuery.Builder nestedQueryBuilder = new NestedQuery.Builder();
+				nestedQueryBuilder.path(allPath);
+				nestedQueryBuilder.scoreMode(ChildScoreMode.Max);
+				nestedQueryBuilders.add(nestedQueryBuilder);
+			}
+
+			int size = nestedQueryBuilders.size() - 1;
+
+			NestedQuery.Builder firstBuilder = nestedQueryBuilders.get(0);
+			NestedQuery.Builder lastBuilder = nestedQueryBuilders.get(size);
+			lastBuilder.query(fn);
+
+			for (int i = 0; i <= size; i++) {
+				NestedQuery.Builder currentBuilder = nestedQueryBuilders.get(i);
+				NestedQuery.Builder childBuilder = i < size ? nestedQueryBuilders.get(i + 1) : null;
+
+				if (childBuilder != null) {
+					currentBuilder.query(q -> q.nested(n -> childBuilder));
+				}
+			}
+
+			if (notTypes.contains(searchModelType)) {
+				builder.mustNot(q -> q.nested(n -> firstBuilder));
+			}
+			else {
+				builder.must(q -> q.nested(n -> firstBuilder));
+			}
+		}
+		else {
+			if (notTypes.contains(searchModelType)) {
+				builder.mustNot(fn);
+			}
+			else {
+				builder.must(fn);
 			}
 		}
 	}

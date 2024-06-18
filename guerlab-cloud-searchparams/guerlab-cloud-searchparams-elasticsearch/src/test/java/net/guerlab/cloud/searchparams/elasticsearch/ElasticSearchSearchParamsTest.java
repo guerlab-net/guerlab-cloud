@@ -69,6 +69,31 @@ class ElasticSearchSearchParamsTest {
 		Query query = builder.build().getQuery();
 
 		Assertions.assertNotNull(query);
+		System.out.println(query.toString());
 		Assertions.assertEquals("Query: {\"bool\":{\"must\":[{\"exists\":{\"field\":\"isNotNull\"}},{\"term\":{\"equalTo\":{\"value\":\"equalTo\"}}},{\"range\":{\"greaterThan\":{\"gt\":1}}},{\"range\":{\"greaterThanOrEqualTo\":{\"gte\":\"2023-05-20T12:34:56\",\"time_zone\":\"GMT+08:00\"}}},{\"range\":{\"lessThan\":{\"lt\":\"12:34:56\",\"time_zone\":\"GMT+08:00\"}}},{\"range\":{\"lessThanOrEqualTo\":{\"lte\":\"2023-05-20\",\"time_zone\":\"GMT+08:00\"}}},{\"wildcard\":{\"like\":{\"value\":\"*like*\"}}},{\"wildcard\":{\"startWith\":{\"value\":\"startWith*\"}}},{\"wildcard\":{\"endWith\":{\"value\":\"*endWith\"}}},{\"match\":{\"in\":{\"query\":\"v1\"}}},{\"match\":{\"in\":{\"query\":\"v2\"}}}],\"must_not\":[{\"exists\":{\"field\":\"isNull\"}},{\"term\":{\"notEqualTo\":{\"value\":\"notEqualTo\"}}},{\"wildcard\":{\"notLike\":{\"value\":\"*notLike*\"}}},{\"wildcard\":{\"startNotWith\":{\"value\":\"startNotWith*\"}}},{\"wildcard\":{\"endNotWith\":{\"value\":\"*endNotWith\"}}},{\"match\":{\"notIn\":{\"query\":\"v1\"}}},{\"match\":{\"notIn\":{\"query\":\"v2\"}}}]}}", query.toString());
+	}
+
+
+	@Test
+	@Order(1)
+	void nativeQuery2() {
+		BoolQueryBuilderDefaultHandler.setDefaultTimeZone(TimeZone.getTimeZone("GMT+08:00"));
+		TestSearchParams2 searchParams = new TestSearchParams2();
+		searchParams.setVendorCode("V1079531");
+		searchParams.setComplexType("sku");
+		searchParams.setEnable(true);
+
+		BoolQuery.Builder boolQueryBuilder = new BoolQuery.Builder();
+
+		SearchParamsUtils.handler(searchParams, boolQueryBuilder);
+
+		NativeQueryBuilder builder = new NativeQueryBuilder();
+		builder.withQuery(boolQueryBuilder.build()._toQuery());
+
+		Query query = builder.build().getQuery();
+
+		Assertions.assertNotNull(query);
+		System.out.printf("{\"query\": %s}", query.toString().substring(7));
+		Assertions.assertEquals("Query: {\"bool\":{\"must\":[{\"nested\":{\"path\":\"inventories\",\"query\":{\"term\":{\"inventories.vendorCode.keyword\":{\"value\":\"V1079531\"}}},\"score_mode\":\"max\"}},{\"term\":{\"complexType.keyword\":{\"value\":\"sku\"}}},{\"term\":{\"enable\":{\"value\":\"true\"}}}]}}", query.toString());
 	}
 }
