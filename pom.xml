@@ -78,20 +78,20 @@
 		<!-- spring -->
 		<spring-boot.version>3.1.4</spring-boot.version>
 		<spring-cloud.version>2022.0.4</spring-cloud.version>
-		<spring-cloud-tencent.version>1.13.1-2022.0.4</spring-cloud-tencent.version>
+		<spring-cloud-tencent.version>1.13.2-2022.0.4</spring-cloud-tencent.version>
 
 		<!-- other -->
-		<mybatis.version>3.5.15</mybatis.version>
+		<mybatis.version>3.5.16</mybatis.version>
 		<mybatis-starter.version>3.0.3</mybatis-starter.version>
 		<mybatis-typehandlers-jsr310.version>1.0.2</mybatis-typehandlers-jsr310.version>
-		<mybatis-plus.version>3.5.6</mybatis-plus.version>
-		<swagger.version>2.2.21</swagger.version>
+		<mybatis-plus.version>3.5.7</mybatis-plus.version>
+		<swagger.version>2.2.22</swagger.version>
 		<jjwt.version>0.12.5</jjwt.version>
 		<guava.version>31.1-jre</guava.version>
 		<easyexcel.version>3.3.4</easyexcel.version>
 		<springdoc.version>2.4.0</springdoc.version>
 		<findbugs.version>3.0.2</findbugs.version>
-		<redisson.version>3.28.0</redisson.version>
+		<redisson.version>3.31.0</redisson.version>
 
 		<!-- fix loophole version -->
 		<bcprov-jdk15on.version>1.70</bcprov-jdk15on.version>
