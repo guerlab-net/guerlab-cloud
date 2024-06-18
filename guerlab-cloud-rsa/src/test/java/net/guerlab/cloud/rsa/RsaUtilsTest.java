@@ -35,16 +35,19 @@ import org.junit.jupiter.api.TestMethodOrder;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class RsaUtilsTest {
 
-	private static String rsaKeysFilePath = "/tmp/rsaKeys.pem";
+	private static final String SYSTEM_TEMP_DIR = System.getProperty("java.io.tmpdir");
+
+	private static String rsaKeysFilePath = SYSTEM_TEMP_DIR + "/rsaKeys.pem";
 
 	@BeforeAll
 	static void beforeTest() {
-		String dirPath = "/tmp_" + ThreadLocalRandom.current().nextInt(1, 99999999);
+		String dirPath = SYSTEM_TEMP_DIR + "/tmp_" + ThreadLocalRandom.current().nextInt(1, 99999999);
 		File dir = new File(dirPath);
 		if (!dir.isDirectory()) {
 			Assertions.assertTrue(dir.mkdirs());
 		}
 		rsaKeysFilePath = dirPath + "/rsaKeys.pem";
+		System.out.println("rsaKeysFilePath: " + rsaKeysFilePath);
 	}
 
 	@Test
