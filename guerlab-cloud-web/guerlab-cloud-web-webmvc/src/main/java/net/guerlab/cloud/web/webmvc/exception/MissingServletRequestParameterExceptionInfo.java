@@ -13,10 +13,9 @@
 
 package net.guerlab.cloud.web.webmvc.exception;
 
-import java.util.Locale;
-
 import org.springframework.web.bind.MissingServletRequestParameterException;
 
+import net.guerlab.cloud.core.util.EnvUtils;
 import net.guerlab.cloud.web.core.exception.AbstractI18nInfo;
 import net.guerlab.cloud.web.core.exception.Keys;
 
@@ -27,18 +26,7 @@ import net.guerlab.cloud.web.core.exception.Keys;
  */
 public class MissingServletRequestParameterExceptionInfo extends AbstractI18nInfo {
 
-	private static final String DEFAULT_MSG;
-
-	static {
-		Locale locale = Locale.getDefault();
-
-		if (Locale.CHINA.equals(locale)) {
-			DEFAULT_MSG = "请求参数[%s]缺失";
-		}
-		else {
-			DEFAULT_MSG = "Request parameter [%s] missing.";
-		}
-	}
+	private static final String DEFAULT_MSG = EnvUtils.getEnv("GUERLAB_CLOUD_EXCEPTION_MESSAGE_PARAMETER_MISSING", "请求参数[%s]缺失");
 
 	private final String parameterName;
 

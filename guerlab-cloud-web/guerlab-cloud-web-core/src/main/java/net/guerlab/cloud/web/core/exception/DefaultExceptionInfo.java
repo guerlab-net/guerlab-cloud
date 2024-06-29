@@ -13,7 +13,7 @@
 
 package net.guerlab.cloud.web.core.exception;
 
-import java.util.Locale;
+import net.guerlab.cloud.core.util.EnvUtils;
 
 /**
  * 默认错误.
@@ -22,18 +22,7 @@ import java.util.Locale;
  */
 public class DefaultExceptionInfo extends AbstractI18nInfo {
 
-	private static final String DEFAULT_MSG;
-
-	static {
-		Locale locale = Locale.getDefault();
-
-		if (Locale.CHINA.equals(locale)) {
-			DEFAULT_MSG = "系统繁忙,请稍后再试";
-		}
-		else {
-			DEFAULT_MSG = "The system is busy. Please try again later.";
-		}
-	}
+	private static final String DEFAULT_MSG = EnvUtils.getEnv("GUERLAB_CLOUD_EXCEPTION_MESSAGE_DEFAULT", "系统繁忙,请稍后再试");
 
 	/**
 	 * 通过异常信息初始化.

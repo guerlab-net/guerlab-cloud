@@ -13,10 +13,9 @@
 
 package net.guerlab.cloud.web.webmvc.exception;
 
-import java.util.Locale;
-
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 
+import net.guerlab.cloud.core.util.EnvUtils;
 import net.guerlab.cloud.web.core.exception.AbstractI18nInfo;
 import net.guerlab.cloud.web.core.exception.Keys;
 
@@ -27,18 +26,7 @@ import net.guerlab.cloud.web.core.exception.Keys;
  */
 public class HttpRequestMethodNotSupportedExceptionInfo extends AbstractI18nInfo {
 
-	private static final String DEFAULT_MSG;
-
-	static {
-		Locale locale = Locale.getDefault();
-
-		if (Locale.CHINA.equals(locale)) {
-			DEFAULT_MSG = "不支持%s请求方式";
-		}
-		else {
-			DEFAULT_MSG = "No support %s request mode";
-		}
-	}
+	private static final String DEFAULT_MSG = EnvUtils.getEnv("GUERLAB_CLOUD_EXCEPTION_MESSAGE_UN_SUPPORTED_METHOD", "不支持%s请求方式");
 
 	private final String method;
 

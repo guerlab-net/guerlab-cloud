@@ -22,6 +22,7 @@ import java.util.Locale;
 import lombok.Getter;
 
 import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import net.guerlab.cloud.core.util.SpringUtils;
 
@@ -202,7 +203,8 @@ public enum Cycle implements EnumDescriptionSupport {
 	public String getDescription() {
 		try {
 			MessageSource messageSource = SpringUtils.getBean(MessageSource.class);
-			String description = messageSource.getMessage(key, null, name(), Locale.getDefault());
+			Locale locale = LocaleContextHolder.getLocale();
+			String description = messageSource.getMessage(key, null, name(), locale);
 			return description == null ? name() : description;
 		}
 		catch (Exception ignored) {
