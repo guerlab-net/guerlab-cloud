@@ -39,8 +39,10 @@ public class DynamicsFunctionRegistry implements ImportBeanDefinitionRegistrar, 
 	public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 		DynamicsFunctionProperties properties = Binder.get(environment)
 				.bind(DynamicsFunctionProperties.PROPERTIES_PREFIX, DynamicsFunctionProperties.class).get();
-		for (DynamicsFunctionDefinition definition : properties.getDefinitions()) {
-			registerDynamicsFunctionBeanDefinition(definition, registry);
+		if (properties.getDefinitions() != null) {
+			for (DynamicsFunctionDefinition definition : properties.getDefinitions()) {
+				registerDynamicsFunctionBeanDefinition(definition, registry);
+			}
 		}
 	}
 
