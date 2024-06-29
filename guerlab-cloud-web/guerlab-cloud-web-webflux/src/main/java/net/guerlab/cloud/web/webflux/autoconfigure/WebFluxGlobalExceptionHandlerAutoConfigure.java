@@ -34,6 +34,7 @@ import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.web.core.autoconfigure.GlobalExceptionHandlerAutoConfigure;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionHandler;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionLogger;
+import net.guerlab.cloud.web.core.exception.handler.ThrowableResponseBuilder;
 import net.guerlab.cloud.web.core.properties.GlobalExceptionProperties;
 import net.guerlab.cloud.web.webflux.exception.handler.WebFluxErrorWebExceptionHandler;
 
@@ -79,10 +80,11 @@ public class WebFluxGlobalExceptionHandlerAutoConfigure {
 	 */
 	@Bean
 	public GlobalExceptionHandler webFluxGlobalExceptionHandler(MessageSource messageSource,
-			StackTracesHandler stackTracesHandler, GlobalExceptionLogger globalExceptionLogger) {
+			StackTracesHandler stackTracesHandler, GlobalExceptionLogger globalExceptionLogger,
+			ThrowableResponseBuilder defaultBuilder) {
 		Collection<ResponseBuilder> builders = ServiceLoader.load(ResponseBuilder.class).stream()
 				.map(ServiceLoader.Provider::get).toList();
-		return new GlobalExceptionHandler(messageSource, stackTracesHandler, globalExceptionLogger, builders);
+		return new GlobalExceptionHandler(messageSource, stackTracesHandler, globalExceptionLogger, builders, defaultBuilder);
 	}
 
 	/**

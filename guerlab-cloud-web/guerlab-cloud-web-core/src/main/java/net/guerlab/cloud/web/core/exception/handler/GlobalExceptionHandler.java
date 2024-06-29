@@ -65,15 +65,19 @@ public class GlobalExceptionHandler {
 	 * @param stackTracesHandler    堆栈处理
 	 * @param globalExceptionLogger 全局异常处理日志记录器
 	 * @param builders              异常信息构建者列表
+	 * @param defaultBuilder        通用异常处理
 	 */
-	public GlobalExceptionHandler(MessageSource messageSource, StackTracesHandler stackTracesHandler,
-			GlobalExceptionLogger globalExceptionLogger, Collection<ResponseBuilder> builders) {
+	public GlobalExceptionHandler(MessageSource messageSource,
+			StackTracesHandler stackTracesHandler,
+			GlobalExceptionLogger globalExceptionLogger,
+			Collection<ResponseBuilder> builders,
+			ThrowableResponseBuilder defaultBuilder) {
 		this.messageSource = messageSource;
 		this.stackTracesHandler = stackTracesHandler;
 		this.globalExceptionLogger = globalExceptionLogger;
 		this.builders = builders;
+		this.defaultBuilder = defaultBuilder;
 
-		defaultBuilder = new ThrowableResponseBuilder();
 		defaultBuilder.setStackTracesHandler(stackTracesHandler);
 		defaultBuilder.setMessageSource(messageSource);
 

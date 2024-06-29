@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
@@ -60,6 +61,7 @@ public class EndpointResponseAdvisorPropertiesAutoConfigure {
 	 * @return 响应环绕监控端点
 	 */
 	@Bean
+	@ConditionalOnMissingBean
 	public ResponseAdviceEndpoint responseAdviceEndpoint(ResponseAdvisorProperties responseAdvisorProperties) {
 		return new ResponseAdviceEndpoint(responseAdvisorProperties);
 	}

@@ -17,6 +17,18 @@
       "type": "net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties",
       "sourceType": "net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties",
       "description": "响应数据处理配置."
+    },
+    {
+      "name": "management.endpoint.message-sources",
+      "type": "net.guerlab.cloud.web.core.endpoints.MessageSourcesEndpoint",
+      "sourceType": "net.guerlab.cloud.web.core.endpoints.MessageSourcesEndpoint",
+      "description": "消息源监控端点."
+    },
+    {
+      "name": "management.endpoint.response-advice",
+      "type": "net.guerlab.cloud.web.core.endpoints.ResponseAdviceEndpoint",
+      "sourceType": "net.guerlab.cloud.web.core.endpoints.ResponseAdviceEndpoint",
+      "description": "响应环绕监控端点."
     }
   ],
   "properties": [
@@ -67,10 +79,52 @@
       "description": "日志忽略路径列表."
     },
     {
+      "name": "spring.global-exception.rewrite-non-application-exceptions",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
+      "description": "是否重写非应用异常.",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.global-exception.global-exception-logger-level",
+      "type": "org.springframework.boot.logging.LogLevel",
+      "sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
+      "description": "全局异常处理日志记录器日志级别.",
+      "defaultValue": "DEBUG"
+    },
+    {
       "name": "spring.response-advisor.excluded",
       "type": "java.util.List<java.lang.String>",
       "sourceType": "net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties",
       "description": "排除路径."
+    },
+    {
+      "name": "management.endpoint.message-sources.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "net.guerlab.cloud.web.core.endpoints.MessageSourcesEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.message-sources.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable the message-sources endpoint.",
+      "sourceType": "net.guerlab.cloud.web.core.endpoints.MessageSourcesEndpoint",
+      "defaultValue": true
+    },
+    {
+      "name": "management.endpoint.response-advice.cache.time-to-live",
+      "type": "java.time.Duration",
+      "description": "Maximum time that a response can be cached.",
+      "sourceType": "net.guerlab.cloud.web.core.endpoints.ResponseAdviceEndpoint",
+      "defaultValue": "0ms"
+    },
+    {
+      "name": "management.endpoint.response-advice.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Whether to enable the response-advice endpoint.",
+      "sourceType": "net.guerlab.cloud.web.core.endpoints.ResponseAdviceEndpoint",
+      "defaultValue": true
     }
   ]
 }

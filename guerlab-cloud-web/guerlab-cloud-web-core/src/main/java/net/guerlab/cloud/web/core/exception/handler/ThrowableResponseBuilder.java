@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.DefaultExceptionInfo;
+import net.guerlab.cloud.web.core.properties.GlobalExceptionProperties;
 
 /**
  * 通用异常处理.
@@ -28,6 +29,12 @@ import net.guerlab.cloud.web.core.exception.DefaultExceptionInfo;
  * @author guer
  */
 public class ThrowableResponseBuilder extends AbstractI18nResponseBuilder {
+
+	private final GlobalExceptionProperties properties;
+
+	public ThrowableResponseBuilder(GlobalExceptionProperties properties) {
+		this.properties = properties;
+	}
 
 	@Override
 	public boolean accept(Throwable e) {
@@ -46,7 +53,7 @@ public class ThrowableResponseBuilder extends AbstractI18nResponseBuilder {
 			fail = new Fail<>(getMessage(message), errorCode);
 			stackTracesHandler.setStackTrace(fail, e.getCause());
 		}
-		else if (StringUtils.isBlank(e.getMessage())) {
+		else if (StringUtils.isBlank(e.getMessage()) || properties.isRewriteNonApplicationExceptions()) {
 			fail = buildByI18nInfo(new DefaultExceptionInfo(e), e);
 		}
 		else {

@@ -34,6 +34,7 @@ import net.guerlab.cloud.commons.exception.handler.ResponseBuilder;
 import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.web.core.autoconfigure.GlobalExceptionHandlerAutoConfigure;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionLogger;
+import net.guerlab.cloud.web.core.exception.handler.ThrowableResponseBuilder;
 import net.guerlab.cloud.web.core.properties.GlobalExceptionProperties;
 import net.guerlab.cloud.web.webmvc.exception.handler.WebMvcGlobalExceptionHandler;
 
@@ -76,13 +77,17 @@ public class WebMvcGlobalExceptionHandlerAutoConfigure {
 		 * @param messageSource             messageSource
 		 * @param stackTracesHandler        堆栈处理
 		 * @param globalExceptionLogger     全局异常处理日志记录器
+		 * @param defaultBuilder            通用异常处理
 		 * @param globalExceptionProperties 全局异常处理配置
 		 */
-		public DefaultWebMvcGlobalExceptionHandler(MessageSource messageSource, StackTracesHandler stackTracesHandler,
-				GlobalExceptionLogger globalExceptionLogger, GlobalExceptionProperties globalExceptionProperties) {
+		public DefaultWebMvcGlobalExceptionHandler(MessageSource messageSource,
+				StackTracesHandler stackTracesHandler,
+				GlobalExceptionLogger globalExceptionLogger,
+				ThrowableResponseBuilder defaultBuilder,
+				GlobalExceptionProperties globalExceptionProperties) {
 			super(messageSource, stackTracesHandler, globalExceptionLogger,
 					ServiceLoader.load(ResponseBuilder.class).stream().map(ServiceLoader.Provider::get)
-							.toList(), globalExceptionProperties);
+							.toList(), defaultBuilder, globalExceptionProperties);
 		}
 	}
 }

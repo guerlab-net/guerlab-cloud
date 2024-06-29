@@ -14,6 +14,7 @@
 package net.guerlab.cloud.web.core.autoconfigure;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
@@ -36,6 +37,7 @@ public class ResponseBodyWrapperSupportAutoConfigure {
 	 * @return 响应对象包装支持
 	 */
 	@Bean
+	@ConditionalOnMissingBean
 	public ResponseBodyWrapperSupport responseBodyWrapperSupport(ResponseAdvisorProperties properties) {
 		return new ResponseBodyWrapperSupport(properties);
 	}

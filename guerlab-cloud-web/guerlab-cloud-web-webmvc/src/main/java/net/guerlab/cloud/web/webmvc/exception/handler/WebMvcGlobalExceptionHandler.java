@@ -26,6 +26,7 @@ import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionHandler;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionLogger;
+import net.guerlab.cloud.web.core.exception.handler.ThrowableResponseBuilder;
 import net.guerlab.cloud.web.core.properties.GlobalExceptionProperties;
 import net.guerlab.cloud.web.core.request.RequestHolder;
 
@@ -50,8 +51,9 @@ public class WebMvcGlobalExceptionHandler extends GlobalExceptionHandler {
 	 */
 	public WebMvcGlobalExceptionHandler(MessageSource messageSource, StackTracesHandler stackTracesHandler,
 			GlobalExceptionLogger globalExceptionLogger, Collection<ResponseBuilder> builders,
+			ThrowableResponseBuilder defaultBuilder,
 			GlobalExceptionProperties globalExceptionProperties) {
-		super(messageSource, stackTracesHandler, globalExceptionLogger, builders);
+		super(messageSource, stackTracesHandler, globalExceptionLogger, builders, defaultBuilder);
 		this.globalExceptionProperties = globalExceptionProperties;
 	}
 

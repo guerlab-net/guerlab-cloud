@@ -14,6 +14,7 @@
 package net.guerlab.cloud.web.core.autoconfigure;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 
 import net.guerlab.cloud.web.core.aspect.DataAccessAspect;
@@ -32,6 +33,7 @@ public class DataAccessAspectAutoConfigure {
 	 * @return 数据处理切面
 	 */
 	@Bean
+	@ConditionalOnMissingBean
 	public DataAccessAspect dataAccessAspect() {
 		return new DataAccessAspect();
 	}

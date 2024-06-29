@@ -22,6 +22,7 @@ import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.logging.LogLevel;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.AntPathMatcher;
@@ -75,6 +76,16 @@ public class GlobalExceptionProperties implements GlobalExceptionConfig {
 	 * 日志忽略路径列表.
 	 */
 	private List<Url> logIgnorePaths = new ArrayList<>();
+
+	/**
+	 * 是否重写非应用异常.
+	 */
+	private boolean rewriteNonApplicationExceptions;
+
+	/**
+	 * 全局异常处理日志记录器日志级别.
+	 */
+	private LogLevel globalExceptionLoggerLevel = LogLevel.DEBUG;
 
 	/**
 	 * 判断是否在排除列表中匹配.

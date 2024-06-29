@@ -16,6 +16,7 @@ package net.guerlab.cloud.web.core.exception.handler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import org.springframework.boot.logging.LogLevel;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.AntPathMatcher;
 
@@ -60,6 +61,22 @@ public class DefaultGlobalExceptionLogger implements GlobalExceptionLogger {
 			return;
 		}
 
-		log.debug(String.format("request uri[%s %s]", requestMethod, requestPath), e);
+		String message = String.format("request uri[%s %s]", requestMethod, requestPath);
+
+		LogLevel logLevel = properties.getGlobalExceptionLoggerLevel();
+		if (logLevel != null) {
+			switch (logLevel) {
+			case OFF -> {
+			}
+			case TRACE -> log.trace(message, e);
+			case INFO -> log.info(message, e);
+			case WARN -> log.warn(message, e);
+			case ERROR -> log.error(message, e);
+			default -> log.debug(message, e);
+			}
+		}
+		else {
+			log.debug(message, e);
+		}
 	}
 }
