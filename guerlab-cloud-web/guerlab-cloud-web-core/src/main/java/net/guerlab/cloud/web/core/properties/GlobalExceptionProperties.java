@@ -14,7 +14,9 @@
 package net.guerlab.cloud.web.core.properties;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.annotation.Nullable;
 import lombok.Getter;
@@ -86,6 +88,44 @@ public class GlobalExceptionProperties implements GlobalExceptionConfig {
 	 * 全局异常处理日志记录器日志级别.
 	 */
 	private LogLevel globalExceptionLoggerLevel = LogLevel.DEBUG;
+
+	/**
+	 * 重写异常信息.
+	 */
+	private Map<String, String> overrideException = new HashMap<>();
+
+	/**
+	 * 根据异常信息类获取覆写异常模板.
+	 *
+	 * @param throwableClass 异常信息类
+	 * @return 覆写异常模板
+	 */
+	@Nullable
+	public String getOverrideExceptionTemplate(Class<? extends Throwable> throwableClass) {
+		if (overrideException == null || overrideException.isEmpty()) {
+			return null;
+		}
+		return overrideException.get(throwableClass.getName());
+	}
+
+	/**
+	 * 设置覆写异常模板.
+	 *
+	 * @param throwableClass 异常信息类
+	 * @param template       覆写异常模板
+	 */
+	public void addOverrideExceptionTemplate(Class<? extends Throwable> throwableClass, String template) {
+		template = StringUtils.trimToNull(template);
+		if (template == null) {
+			return;
+		}
+
+		if (overrideException == null) {
+			overrideException = new HashMap<>();
+		}
+
+		overrideException.put(throwableClass.getName(), template);
+	}
 
 	/**
 	 * 判断是否在排除列表中匹配.

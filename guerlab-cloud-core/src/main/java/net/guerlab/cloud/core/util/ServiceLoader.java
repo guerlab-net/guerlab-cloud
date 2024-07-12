@@ -74,14 +74,26 @@ public class ServiceLoader<T> implements Iterable<T> {
 	 */
 	public List<T> load() {
 		if (cache.isEmpty()) {
-			List<T> list = new ArrayList<>();
-
-			list.addAll(loadByInterfaceWithSpringApplicationContext(targetClass));
-			list.addAll(loadByInterfaceWithJavaServiceLoader(targetClass));
-			list.addAll(loadByClassConstructorMethod(targetClass));
-
-			cache.addAll(list);
+			return reload();
 		}
+		return Collections.unmodifiableList(cache);
+	}
+
+	/**
+	 * 重新读取实例列表.
+	 *
+	 * @return 实例列表
+	 */
+	public List<T> reload() {
+		List<T> list = new ArrayList<>();
+
+		list.addAll(loadByInterfaceWithSpringApplicationContext(targetClass));
+		list.addAll(loadByInterfaceWithJavaServiceLoader(targetClass));
+		list.addAll(loadByClassConstructorMethod(targetClass));
+
+		cache.clear();
+		cache.addAll(list);
+
 		return Collections.unmodifiableList(cache);
 	}
 

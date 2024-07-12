@@ -22,7 +22,15 @@ import net.guerlab.cloud.core.util.EnvUtils;
  */
 public class DefaultExceptionInfo extends AbstractI18nInfo {
 
-	private static final String DEFAULT_MSG = EnvUtils.getEnv("GUERLAB_CLOUD_EXCEPTION_MESSAGE_DEFAULT", "系统繁忙,请稍后再试");
+	/**
+	 * 默认异常信息.
+	 */
+	public static final String DEFAULT_MSG = EnvUtils.getEnv("GUERLAB_CLOUD_EXCEPTION_MESSAGE_DEFAULT", "系统繁忙,请稍后再试");
+
+	/**
+	 * 默认异常码.
+	 */
+	public static final int DEFAULT_ERROR_CODE = 500;
 
 	/**
 	 * 通过异常信息初始化.
@@ -30,7 +38,7 @@ public class DefaultExceptionInfo extends AbstractI18nInfo {
 	 * @param cause Throwable
 	 */
 	public DefaultExceptionInfo(Throwable cause) {
-		super(cause, 500);
+		super(cause, DEFAULT_ERROR_CODE);
 	}
 
 	@Override
