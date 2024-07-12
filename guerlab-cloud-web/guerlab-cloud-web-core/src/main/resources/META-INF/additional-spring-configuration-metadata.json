@@ -54,6 +54,12 @@
       "defaultValue": 500
     },
     {
+      "name": "spring.global-exception.override-exception",
+      "type": "java.util.Map<java.lang.String, java.lang.String>",
+      "sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",
+      "description": "重写异常信息."
+    },
+    {
       "name": "spring.global-exception.print-stack-trace",
       "type": "java.lang.Boolean",
       "sourceType": "net.guerlab.cloud.web.core.properties.GlobalExceptionProperties",

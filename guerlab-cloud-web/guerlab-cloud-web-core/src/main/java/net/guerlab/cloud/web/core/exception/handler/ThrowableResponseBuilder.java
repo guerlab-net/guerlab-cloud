@@ -45,21 +45,26 @@ public class ThrowableResponseBuilder extends AbstractI18nResponseBuilder {
 	public Fail<Void> build(Throwable e) {
 		ResponseStatus responseStatus = AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class);
 
+		String overrideExceptionTemplate = StringUtils.trimToNull(properties.getOverrideExceptionTemplate(e.getClass()));
+
 		Fail<Void> fail;
 		if (responseStatus != null) {
-			int errorCode = responseStatus.value().value();
-			String message = responseStatus.reason();
-
-			fail = new Fail<>(getMessage(message), errorCode);
-			stackTracesHandler.setStackTrace(fail, e.getCause());
+			fail = new Fail<>(getMessage(responseStatus.reason()), responseStatus.value().value());
+		}
+		else if (overrideExceptionTemplate != null) {
+			fail = new Fail<>(overrideExceptionTemplate.formatted(e.getLocalizedMessage()));
 		}
 		else if (StringUtils.isBlank(e.getMessage()) || properties.isRewriteNonApplicationExceptions()) {
 			fail = buildByI18nInfo(new DefaultExceptionInfo(e), e);
 		}
 		else {
 			fail = new Fail<>(getMessage(e.getLocalizedMessage()));
+		}
+
+		if (fail.getStackTraces().isEmpty()) {
 			stackTracesHandler.setStackTrace(fail, e.getCause());
 		}
+
 		return fail;
 	}
 
