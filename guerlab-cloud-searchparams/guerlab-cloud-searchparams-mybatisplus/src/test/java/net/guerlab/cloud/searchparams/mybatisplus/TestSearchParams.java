@@ -18,6 +18,8 @@ import java.util.Collection;
 import lombok.Getter;
 import lombok.Setter;
 
+import net.guerlab.cloud.searchparams.Between;
+import net.guerlab.cloud.searchparams.Column;
 import net.guerlab.cloud.searchparams.JsonField;
 import net.guerlab.cloud.searchparams.SearchModel;
 import net.guerlab.cloud.searchparams.SearchModelType;
@@ -62,4 +64,8 @@ public class TestSearchParams implements SearchParams {
 	@JsonField(jsonPath = "$.a.b")
 	@SearchModel(SearchModelType.NOT_IN)
 	private String t10;
+
+	@Column(name = "age")
+	@SearchModel(SearchModelType.BETWEEN)
+	private Between<Long> ageBetween;
 }
