@@ -49,7 +49,7 @@ public class Between<E> {
 	}
 
 	/**
-	 * 基于开始值和结束值快速构造范围对象
+	 * 基于开始值和结束值快速构造范围对象.
 	 *
 	 * @param start 开始值
 	 * @param end   结束值
