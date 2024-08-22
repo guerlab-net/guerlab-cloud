@@ -76,8 +76,8 @@
 		<guerlab-commons.version>2.0.1</guerlab-commons.version>
 
 		<!-- spring -->
-		<spring-boot.version>3.2.3</spring-boot.version>
-		<spring-cloud.version>2023.0.0</spring-cloud.version>
+		<spring-boot.version>3.2.7</spring-boot.version>
+		<spring-cloud.version>2023.0.3</spring-cloud.version>
 		<spring-cloud-tencent.version>1.13.2-2023.0.0</spring-cloud-tencent.version>
 
 		<!-- other -->
