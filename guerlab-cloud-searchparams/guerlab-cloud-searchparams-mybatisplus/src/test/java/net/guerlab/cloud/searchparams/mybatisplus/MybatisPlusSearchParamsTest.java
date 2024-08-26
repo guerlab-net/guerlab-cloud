@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import net.guerlab.cloud.searchparams.Between;
 import net.guerlab.cloud.searchparams.SearchParamsUtils;
 
 /**
@@ -262,5 +263,31 @@ class MybatisPlusSearchParamsTest {
 		Assertions.assertEquals(
 				"(json_exists(t10, '$.a.b?(!(@ == \"a\"))'))",
 				queryWrapper.getSqlSegment());
+	}
+
+	@Test
+	@Order(15)
+	void testWithBetweenValid() {
+		TestSearchParams searchParams = new TestSearchParams();
+		searchParams.setAgeBetween(Between.of(1L, 2L));
+
+		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
+
+		SearchParamsUtils.handler(searchParams, queryWrapper);
+
+		Assertions.assertEquals("(age BETWEEN #{ew.paramNameValuePairs.MPGENVAL1} AND #{ew.paramNameValuePairs.MPGENVAL2})", queryWrapper.getSqlSegment());
+	}
+
+	@Test
+	@Order(15)
+	void testWithBetweenInvalid() {
+		TestSearchParams searchParams = new TestSearchParams();
+		searchParams.setAgeBetween(Between.of(null, null));
+
+		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
+
+		SearchParamsUtils.handler(searchParams, queryWrapper);
+
+		Assertions.assertEquals("", queryWrapper.getSqlSegment());
 	}
 }

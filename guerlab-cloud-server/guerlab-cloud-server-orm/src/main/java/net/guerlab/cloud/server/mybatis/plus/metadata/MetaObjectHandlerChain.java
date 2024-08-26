@@ -13,9 +13,8 @@
 
 package net.guerlab.cloud.server.mybatis.plus.metadata;
 
-import javax.annotation.Resource;
-
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 

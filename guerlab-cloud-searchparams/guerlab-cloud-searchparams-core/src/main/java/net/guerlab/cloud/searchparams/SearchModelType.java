@@ -101,6 +101,11 @@ public enum SearchModelType {
 	NOT_IN,
 
 	/**
+	 * 介于两者之间, 搭配{@link net.guerlab.cloud.searchparams.Between}一起使用.
+	 */
+	BETWEEN,
+
+	/**
 	 * 忽略.
 	 */
 	IGNORE,
