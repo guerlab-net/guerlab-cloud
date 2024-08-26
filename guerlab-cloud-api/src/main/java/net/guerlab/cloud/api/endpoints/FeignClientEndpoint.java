@@ -129,20 +129,20 @@ public class FeignClientEndpoint {
 	/**
 	 * 根据名称获取feign客户端实例信息.
 	 *
-	 * @param arg0 bean名称
+	 * @param beanName bean名称
 	 * @return feign客户端实例信息
 	 */
 	@SuppressWarnings("unused")
 	@Nullable
 	@ReadOperation
-	public FeignClientInfo getFeignInstance(@Selector String arg0) {
+	public FeignClientInfo getFeignInstance(@Selector String beanName) {
 		Map<String, Object> beanMap = SpringUtils.getBeanMapWithAnnotation(FeignClient.class);
-		Object obj = beanMap.get(arg0);
+		Object obj = beanMap.get(beanName);
 
 		if (obj == null) {
 			return null;
 		}
 
-		return buildFeignClientInfo(arg0, obj);
+		return buildFeignClientInfo(beanName, obj);
 	}
 }
