@@ -14,3 +14,4 @@
 net.guerlab.cloud.web.webmvc.exception.handler.builder.HttpRequestMethodNotSupportedExceptionResponseBuilder
 net.guerlab.cloud.web.webmvc.exception.handler.builder.MissingServletRequestParameterExceptionResponseBuilder
 net.guerlab.cloud.web.webmvc.exception.handler.builder.NoHandlerFoundExceptionResponseBuilder
+net.guerlab.cloud.web.webmvc.exception.handler.builder.NoResourceFoundExceptionInfoBuilder
