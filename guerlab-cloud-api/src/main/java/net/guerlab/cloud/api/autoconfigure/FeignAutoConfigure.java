@@ -23,6 +23,7 @@ import org.springframework.context.annotation.Bean;
 
 import net.guerlab.cloud.api.feign.ErrorDecoderChain;
 import net.guerlab.cloud.api.feign.FailResponseDecoder;
+import net.guerlab.cloud.api.feign.LoadbalancerNotContainInstanceResponseDecoder;
 import net.guerlab.cloud.api.feign.OrderedErrorDecoder;
 import net.guerlab.cloud.api.feign.ResultDecoder;
 
@@ -44,6 +45,16 @@ public class FeignAutoConfigure {
 	@Bean
 	public ResultDecoder resultDecoder(ObjectMapper objectMapper) {
 		return new ResultDecoder(objectMapper);
+	}
+
+	/**
+	 * 负载均衡未发现实例失败响应解析.
+	 *
+	 * @return 负载均衡未发现实例失败响应解析
+	 */
+	@Bean
+	public LoadbalancerNotContainInstanceResponseDecoder loadbalancerNotContainInstanceResponseDecoder() {
+		return new LoadbalancerNotContainInstanceResponseDecoder();
 	}
 
 	/**
