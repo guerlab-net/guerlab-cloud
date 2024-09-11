@@ -14,6 +14,7 @@
 package net.guerlab.cloud.server.utils;
 
 import java.util.List;
+import java.util.ServiceLoader;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -30,6 +31,13 @@ import net.guerlab.cloud.server.service.orm.QueryWrapperGetter;
  * @author guer
  */
 public final class PageUtils {
+
+	private static final List<SelectPageBeforeHandler> BEFORE_HANDLERS;
+
+	static {
+		BEFORE_HANDLERS = ServiceLoader.load(SelectPageBeforeHandler.class).stream().map(ServiceLoader.Provider::get)
+				.toList();
+	}
 
 	private PageUtils() {
 
@@ -53,8 +61,13 @@ public final class PageUtils {
 		pageSize = pageSize <= 0 ? 10 : pageSize;
 
 		QueryWrapper<E> queryWrapper = wrapperGetter.getQueryWrapperWithSelectMethod(searchParams);
+		Page<E> page = new Page<>(pageId, pageSize);
 
-		Page<E> result = mapper.selectPage(new Page<>(pageId, pageSize), queryWrapper);
+		for (SelectPageBeforeHandler beforeHandler : BEFORE_HANDLERS) {
+			beforeHandler.beforeQuery(queryWrapper, searchParams, page);
+		}
+
+		Page<E> result = mapper.selectPage(page, queryWrapper);
 		List<E> list = result.getRecords();
 
 		long total = result.getTotal();
