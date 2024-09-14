@@ -59,23 +59,25 @@ public class StringHandler extends AbstractMyBatisPlusSearchParamsHandler {
 		if (dbType == DbType.MYSQL) {
 			String sqlTemplate;
 			if (searchModelType == SearchModelType.NOT_IN) {
-				sqlTemplate = "JSON_SEARCH(%s, 'one', '%s', null, '%s') IS NULL";
+				sqlTemplate = "JSON_SEARCH(%s, 'one', '{0}', null, '%s') IS NULL";
 			}
 			else {
-				sqlTemplate = "JSON_SEARCH(%s, 'one', '%s', null, '%s') IS NOT NULL";
+				sqlTemplate = "JSON_SEARCH(%s, 'one', '{0}', null, '%s') IS NOT NULL";
 			}
-			wrapper.apply(String.format(sqlTemplate, columnName, str, jsonPath));
+			wrapper.apply(sqlTemplate.formatted(columnName, jsonPath), str);
 		}
 		else if (dbType == DbType.ORACLE) {
 			String sqlTemplate;
 			if (searchModelType == SearchModelType.NOT_IN) {
-				sqlTemplate = "json_exists(%s, '%s?(!(@ == \"%s\"))')";
+				sqlTemplate = "json_exists(%s, {0})";
+				str = "%s?(!(@ == \"%s\"))".formatted(jsonPath, str);
 			}
 			else {
-				sqlTemplate = "json_exists(%s, '%s?(@ == \"%s\")')";
+				sqlTemplate = "json_exists(%s, {0})";
+				str = "%s?(@ == \"%s\")".formatted(jsonPath, str);
 			}
 
-			wrapper.apply(String.format(sqlTemplate, columnName, jsonPath, str));
+			wrapper.apply(sqlTemplate.formatted(columnName), str);
 		}
 	}
 

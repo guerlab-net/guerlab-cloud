@@ -49,23 +49,26 @@ public class DefaultHandler implements SearchParamsHandler {
 		if (dbType == DbType.MYSQL) {
 			String sqlTemplate;
 			if (searchModelType == SearchModelType.NOT_IN) {
-				sqlTemplate = "JSON_SEARCH(%s, 'one', '%s', null, '%s') IS NULL";
+				sqlTemplate = "JSON_SEARCH(%s, 'one', {0}, null, '%s') IS NULL";
 			}
 			else {
-				sqlTemplate = "JSON_SEARCH(%s, 'one', '%s', null, '%s') IS NOT NULL";
+				sqlTemplate = "JSON_SEARCH(%s, 'one', {0}, null, '%s') IS NOT NULL";
 			}
-			wrapper.apply(String.format(sqlTemplate, columnName, value, jsonPath));
+			wrapper.apply(sqlTemplate.formatted(columnName, jsonPath), value);
 		}
 		else if (dbType == DbType.ORACLE) {
+			String str;
 			String sqlTemplate;
 			if (searchModelType == SearchModelType.NOT_IN) {
-				sqlTemplate = "json_exists(%s, '%s?(!(@ == \"%s\"))')";
+				sqlTemplate = "json_exists(%s, {0})";
+				str = "%s?(!(@ == \"%s\"))".formatted(jsonPath, value);
 			}
 			else {
-				sqlTemplate = "json_exists(%s, '%s?(@ == \"%s\")')";
+				sqlTemplate = "json_exists(%s, {0})";
+				str = "%s?(@ == \"%s\")".formatted(jsonPath, value);
 			}
 
-			wrapper.apply(String.format(sqlTemplate, columnName, jsonPath, value));
+			wrapper.apply(sqlTemplate.formatted(columnName), str);
 		}
 	}
 
