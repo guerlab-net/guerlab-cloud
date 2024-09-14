@@ -11,20 +11,20 @@
  * limitations under the License.
  */
 
-package org.springframework.boot.autoconfigure.data.redis;
+package net.guerlab.cloud.redis.autoconfgure;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
 import org.redisson.spring.data.connection.RedissonConnectionFactory;
 import org.redisson.spring.starter.RedissonAutoConfiguration;
 
-import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
@@ -34,12 +34,12 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
  *
  * @author guer
  */
-@ConditionalOnClass(RedisOperations.class)
-@AutoConfiguration(before = {
+@Slf4j
+@Configuration
+@AutoConfigureBefore({
 		RedisAutoConfiguration.class,
 		RedissonAutoConfiguration.class
 })
-@Import({LettuceConnectionConfiguration.class, JedisConnectionConfiguration.class})
 public class RedisTemplateAutoConfigure {
 
 	/**
@@ -47,8 +47,8 @@ public class RedisTemplateAutoConfigure {
 	 */
 	@Bean
 	@ConditionalOnMissingBean(RedisConnectionFactory.class)
-	@ConditionalOnClass(RedissonClient.class)
 	public RedissonConnectionFactory redissonConnectionFactory(RedissonClient redisson) {
+		log.debug("init redissonConnectionFactory");
 		return new RedissonConnectionFactory(redisson);
 	}
 
@@ -62,6 +62,7 @@ public class RedisTemplateAutoConfigure {
 	@Bean
 	@ConditionalOnMissingBean(name = "redisTemplate")
 	public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory factory, ObjectMapper objectMapper) {
+		log.debug("init redisTemplate");
 		ObjectMapper mapper = objectMapper.copy();
 		mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL);
 
@@ -85,8 +86,10 @@ public class RedisTemplateAutoConfigure {
 	@Bean
 	@ConditionalOnMissingBean(StringRedisTemplate.class)
 	public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory factory) {
+		log.debug("init stringRedisTemplate");
 		StringRedisTemplate template = new StringRedisTemplate();
 		template.setConnectionFactory(factory);
 		return template;
 	}
+
 }

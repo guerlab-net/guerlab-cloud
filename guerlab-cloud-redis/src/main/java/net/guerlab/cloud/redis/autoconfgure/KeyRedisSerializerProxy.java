@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package org.springframework.boot.autoconfigure.data.redis;
+package net.guerlab.cloud.redis.autoconfgure;
 
 import java.util.List;
 import java.util.ServiceLoader;
