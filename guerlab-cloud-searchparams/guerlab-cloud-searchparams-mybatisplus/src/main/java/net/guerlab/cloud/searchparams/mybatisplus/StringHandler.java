@@ -69,13 +69,15 @@ public class StringHandler extends AbstractMyBatisPlusSearchParamsHandler {
 		else if (dbType == DbType.ORACLE) {
 			String sqlTemplate;
 			if (searchModelType == SearchModelType.NOT_IN) {
-				sqlTemplate = "json_exists(%s, '%s?(!(@ == \"{0}\"))')";
+				sqlTemplate = "json_exists(%s, {0})";
+				str = "%s?(!(@ == \"%s\"))".formatted(jsonPath, str);
 			}
 			else {
-				sqlTemplate = "json_exists(%s, '%s?(@ == \"{0}\")')";
+				sqlTemplate = "json_exists(%s, {0})";
+				str = "%s?(@ == \"%s\")".formatted(jsonPath, str);
 			}
 
-			wrapper.apply(sqlTemplate.formatted(columnName, jsonPath), str);
+			wrapper.apply(sqlTemplate.formatted(columnName), str);
 		}
 	}
 

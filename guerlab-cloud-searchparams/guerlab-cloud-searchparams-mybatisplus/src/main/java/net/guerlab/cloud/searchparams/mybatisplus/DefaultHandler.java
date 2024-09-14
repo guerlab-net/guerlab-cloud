@@ -57,15 +57,18 @@ public class DefaultHandler implements SearchParamsHandler {
 			wrapper.apply(sqlTemplate.formatted(columnName, jsonPath), value);
 		}
 		else if (dbType == DbType.ORACLE) {
+			String str;
 			String sqlTemplate;
 			if (searchModelType == SearchModelType.NOT_IN) {
-				sqlTemplate = "json_exists(%s, '%s?(!(@ == \"{0}\"))')";
+				sqlTemplate = "json_exists(%s, {0})";
+				str = "%s?(!(@ == \"%s\"))".formatted(jsonPath, value);
 			}
 			else {
-				sqlTemplate = "json_exists(%s, '%s?(@ == \"{0}\")')";
+				sqlTemplate = "json_exists(%s, {0})";
+				str = "%s?(@ == \"%s\")".formatted(jsonPath, value);
 			}
 
-			wrapper.apply(sqlTemplate.formatted(columnName, jsonPath), value);
+			wrapper.apply(sqlTemplate.formatted(columnName), str);
 		}
 	}
 
