@@ -13,6 +13,9 @@
 
 package org.springframework.boot.autoconfigure.data.redis;
 
+import java.util.List;
+import java.util.ServiceLoader;
+
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationException;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -25,6 +28,8 @@ import org.springframework.lang.Nullable;
  */
 public class KeyRedisSerializerProxy implements RedisSerializer<Object> {
 
+	private static final List<KeyFormat> KEY_FORMATS;
+
 	/**
 	 * 对象序列化处理.
 	 */
@@ -34,6 +39,10 @@ public class KeyRedisSerializerProxy implements RedisSerializer<Object> {
 	 * 字符串序列化处理.
 	 */
 	private final StringRedisSerializer stringSerializer;
+
+	static {
+		KEY_FORMATS = ServiceLoader.load(KeyFormat.class).stream().map(ServiceLoader.Provider::get).toList();
+	}
 
 	/**
 	 * key序列化代理.
@@ -48,6 +57,14 @@ public class KeyRedisSerializerProxy implements RedisSerializer<Object> {
 	@Nullable
 	@Override
 	public byte[] serialize(@Nullable Object value) throws SerializationException {
+		if (!KEY_FORMATS.isEmpty()) {
+			for (KeyFormat keyFormat : KEY_FORMATS) {
+				Class<?> targetClass = keyFormat.targetClass();
+				if (targetClass.isInstance(value)) {
+					value = keyFormat.format(value);
+				}
+			}
+		}
 		if (value instanceof String string) {
 			return stringSerializer.serialize(string);
 		}
