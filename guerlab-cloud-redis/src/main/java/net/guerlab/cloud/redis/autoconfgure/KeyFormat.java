@@ -11,10 +11,27 @@
  * limitations under the License.
  */
 
-/**
- *
- */
-@NonNullApi
-package org.springframework.boot.autoconfigure.data.redis;
+package net.guerlab.cloud.redis.autoconfgure;
 
-import org.springframework.lang.NonNullApi;
+/**
+ * key格式化.
+ *
+ * @author guer
+ */
+public interface KeyFormat {
+
+	/**
+	 * 支持对象类型.
+	 *
+	 * @return 对象类型
+	 */
+	Class<?> targetClass();
+
+	/**
+	 * key格式化.
+	 *
+	 * @param key 源key
+	 * @return 格式化后的key
+	 */
+	Object format(Object key);
+}

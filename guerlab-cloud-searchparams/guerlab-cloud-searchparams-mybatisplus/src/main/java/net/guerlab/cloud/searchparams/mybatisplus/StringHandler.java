@@ -59,10 +59,10 @@ public class StringHandler extends AbstractMyBatisPlusSearchParamsHandler {
 		if (dbType == DbType.MYSQL) {
 			String sqlTemplate;
 			if (searchModelType == SearchModelType.NOT_IN) {
-				sqlTemplate = "JSON_SEARCH(%s, 'one', '{0}', null, '%s') IS NULL";
+				sqlTemplate = "JSON_SEARCH(%s, 'one', {0}, null, '%s') IS NULL";
 			}
 			else {
-				sqlTemplate = "JSON_SEARCH(%s, 'one', '{0}', null, '%s') IS NOT NULL";
+				sqlTemplate = "JSON_SEARCH(%s, 'one', {0}, null, '%s') IS NOT NULL";
 			}
 			wrapper.apply(sqlTemplate.formatted(columnName, jsonPath), str);
 		}

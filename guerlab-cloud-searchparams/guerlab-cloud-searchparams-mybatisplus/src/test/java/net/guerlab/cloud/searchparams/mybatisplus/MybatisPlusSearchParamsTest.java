@@ -207,7 +207,7 @@ class MybatisPlusSearchParamsTest {
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
 		Assertions.assertEquals(
-				"(JSON_SEARCH(t9, 'one', '#{ew.paramNameValuePairs.MPGENVAL1}', null, '$.a.b') IS NOT NULL)",
+				"(JSON_SEARCH(t9, 'one', #{ew.paramNameValuePairs.MPGENVAL1}, null, '$.a.b') IS NOT NULL)",
 				queryWrapper.getSqlSegment());
 	}
 
@@ -243,7 +243,7 @@ class MybatisPlusSearchParamsTest {
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
 		Assertions.assertEquals(
-				"(JSON_SEARCH(t10, 'one', '#{ew.paramNameValuePairs.MPGENVAL1}', null, '$.a.b') IS NULL)",
+				"(JSON_SEARCH(t10, 'one', #{ew.paramNameValuePairs.MPGENVAL1}, null, '$.a.b') IS NULL)",
 				queryWrapper.getSqlSegment());
 	}
 
