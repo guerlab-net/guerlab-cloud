@@ -21,7 +21,6 @@ import org.redisson.spring.starter.RedissonAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -29,7 +28,6 @@ import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializer;
 
 /**
  * RedisTemplate自动配置.
@@ -63,15 +61,17 @@ public class RedisTemplateAutoConfigure {
 	 */
 	@Bean
 	@ConditionalOnMissingBean(name = "redisTemplate")
-	@ConditionalOnSingleCandidate(RedisConnectionFactory.class)
 	public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory factory, ObjectMapper objectMapper) {
 		ObjectMapper mapper = objectMapper.copy();
 		mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL);
 
+		GenericJackson2JsonRedisSerializer objectSerializer = new GenericJackson2JsonRedisSerializer(mapper);
+		KeyRedisSerializerProxy keyRedisSerializerProxy = new KeyRedisSerializerProxy(objectSerializer);
+
 		RedisTemplate<?, ?> template = new RedisTemplate<>();
 		template.setConnectionFactory(factory);
-		template.setKeySerializer(new GenericJackson2JsonRedisSerializer(mapper));
-		template.setValueSerializer(new GenericJackson2JsonRedisSerializer(mapper));
+		template.setKeySerializer(keyRedisSerializerProxy);
+		template.setValueSerializer(objectSerializer);
 
 		return template;
 	}
@@ -79,22 +79,14 @@ public class RedisTemplateAutoConfigure {
 	/**
 	 * create StringRedisTemplate.
 	 *
-	 * @param factory      RedisConnectionFactory
-	 * @param objectMapper objectMapper
+	 * @param factory RedisConnectionFactory
 	 * @return StringRedisTemplate
 	 */
 	@Bean
-	@ConditionalOnMissingBean(name = "stringRedisTemplate")
-	@ConditionalOnSingleCandidate(RedisConnectionFactory.class)
-	public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory factory, ObjectMapper objectMapper) {
-		ObjectMapper mapper = objectMapper.copy();
-		mapper.activateDefaultTyping(mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL);
-
+	@ConditionalOnMissingBean(StringRedisTemplate.class)
+	public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory factory) {
 		StringRedisTemplate template = new StringRedisTemplate();
 		template.setConnectionFactory(factory);
-		template.setKeySerializer(RedisSerializer.string());
-		template.setValueSerializer(new GenericJackson2JsonRedisSerializer(mapper));
-
 		return template;
 	}
 }
