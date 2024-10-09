@@ -36,6 +36,7 @@ public interface IGeoPoint extends Serializable {
 	 *
 	 * @return 空间引用标识符
 	 */
+	@Nullable
 	Integer getSrid();
 
 	/**

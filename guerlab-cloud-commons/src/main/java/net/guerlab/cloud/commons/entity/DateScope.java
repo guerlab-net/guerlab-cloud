@@ -31,7 +31,7 @@ import net.guerlab.cloud.commons.exception.date.StartIsNullException;
  * @author guer
  */
 @Data
-@Schema(name = "BaseEntity", description = "基础实体")
+@Schema(name = "DateScope", description = "日期范围")
 public class DateScope {
 
 	/**
