@@ -13,18 +13,23 @@
 
 package net.guerlab.cloud.searchparams.mybatisplus;
 
+import java.util.List;
+
 import jakarta.annotation.Nullable;
 
 import org.springframework.core.Ordered;
+
+import net.guerlab.cloud.searchparams.mybatisplus.dbtype.Mysql;
 
 /**
  * @author guer
  */
 public class TestMysqlDbTypeProvider implements DbTypeProvider {
+
 	@Nullable
 	@Override
-	public DbType getDbType(Object object) {
-		return DbType.MYSQL;
+	public DbType getDbType(Object object, List<DbType> dbTypes) {
+		return new Mysql();
 	}
 
 	@Override

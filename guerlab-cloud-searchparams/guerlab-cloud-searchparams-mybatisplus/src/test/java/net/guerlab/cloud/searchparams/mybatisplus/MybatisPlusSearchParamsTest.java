@@ -133,9 +133,11 @@ class MybatisPlusSearchParamsTest {
 
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
-		Assertions.assertEquals(
-				"((JSON_SEARCH(t7, 'one', 'a', null, '$.a.b') IS NOT NULL OR JSON_SEARCH(t7, 'one', 'b', null, '$.a.b') IS NOT NULL))",
-				queryWrapper.getSqlSegment());
+		String targetSqlSegment = "(JSON_SEARCH(t7, 'one', #{ew.paramNameValuePairs.MPGENVAL1}, null, '$.a.b') IS NOT NULL OR JSON_SEARCH(t7, 'one', #{ew.paramNameValuePairs.MPGENVAL2}, null, '$.a.b') IS NOT NULL)";
+
+		Assertions.assertEquals(targetSqlSegment, queryWrapper.getSqlSegment());
+		Assertions.assertEquals("a", queryWrapper.getParamNameValuePairs().get("MPGENVAL1"));
+		Assertions.assertEquals("b", queryWrapper.getParamNameValuePairs().get("MPGENVAL2"));
 	}
 
 	@Test
@@ -151,9 +153,11 @@ class MybatisPlusSearchParamsTest {
 
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
-		Assertions.assertEquals(
-				"((json_exists(t7, '$.a.b?(@ == \"a\")') OR json_exists(t7, '$.a.b?(@ == \"b\")')))",
-				queryWrapper.getSqlSegment());
+		String targetSqlSegment = "(json_exists(t7, #{ew.paramNameValuePairs.MPGENVAL1}) OR json_exists(t7, #{ew.paramNameValuePairs.MPGENVAL2}))";
+
+		Assertions.assertEquals(targetSqlSegment, queryWrapper.getSqlSegment());
+		Assertions.assertEquals("$.a.b?(@ == \"a\")", queryWrapper.getParamNameValuePairs().get("MPGENVAL1"));
+		Assertions.assertEquals("$.a.b?(@ == \"b\")", queryWrapper.getParamNameValuePairs().get("MPGENVAL2"));
 	}
 
 	@Test
@@ -169,9 +173,11 @@ class MybatisPlusSearchParamsTest {
 
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
-		Assertions.assertEquals(
-				"((JSON_SEARCH(t8, 'one', 'a', null, '$.a.b') IS NULL AND JSON_SEARCH(t8, 'one', 'b', null, '$.a.b') IS NULL))",
-				queryWrapper.getSqlSegment());
+		String targetSqlSegment = "(JSON_SEARCH(t8, 'one', #{ew.paramNameValuePairs.MPGENVAL1}, null, '$.a.b') IS NULL AND JSON_SEARCH(t8, 'one', #{ew.paramNameValuePairs.MPGENVAL2}, null, '$.a.b') IS NULL)";
+
+		Assertions.assertEquals(targetSqlSegment, queryWrapper.getSqlSegment());
+		Assertions.assertEquals("a", queryWrapper.getParamNameValuePairs().get("MPGENVAL1"));
+		Assertions.assertEquals("b", queryWrapper.getParamNameValuePairs().get("MPGENVAL2"));
 	}
 
 	@Test
@@ -187,9 +193,11 @@ class MybatisPlusSearchParamsTest {
 
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
-		Assertions.assertEquals(
-				"((json_exists(t8, '$.a.b?(!(@ == \"a\"))') AND json_exists(t8, '$.a.b?(!(@ == \"b\"))')))",
-				queryWrapper.getSqlSegment());
+		String targetSqlSegment = "(json_exists(t8, #{ew.paramNameValuePairs.MPGENVAL1}) AND json_exists(t8, #{ew.paramNameValuePairs.MPGENVAL2}))";
+
+		Assertions.assertEquals(targetSqlSegment, queryWrapper.getSqlSegment());
+		Assertions.assertEquals("$.a.b?(!(@ == \"a\"))", queryWrapper.getParamNameValuePairs().get("MPGENVAL1"));
+		Assertions.assertEquals("$.a.b?(!(@ == \"b\"))", queryWrapper.getParamNameValuePairs().get("MPGENVAL2"));
 	}
 
 

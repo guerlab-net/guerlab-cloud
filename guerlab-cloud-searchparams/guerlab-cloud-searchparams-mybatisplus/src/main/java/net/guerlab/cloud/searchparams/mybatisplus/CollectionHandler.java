@@ -69,52 +69,17 @@ public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 		QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
 		columnName = ColumnNameGetter.getColumnName(columnName, wrapper.getEntityClass());
 
-		String finalColumnName = columnName;
-
 		if (jsonField != null) {
 			DbType dbType = DbTypeUtils.getDbType(object);
 			String jsonPath = getJsonPath(jsonField);
-			if (dbType == DbType.MYSQL) {
-				wrapper.and(w -> {
-					String sqlTemplate;
-					boolean isNotIn = searchModelType == SearchModelType.NOT_IN;
-					if (isNotIn) {
-						sqlTemplate = "JSON_SEARCH(%s, 'one', '%s', null, '%s') IS NULL";
-					}
-					else {
-						sqlTemplate = "JSON_SEARCH(%s, 'one', '%s', null, '%s') IS NOT NULL";
-					}
-					for (Object o : list) {
-						if (isNotIn) {
-							w.apply(String.format(sqlTemplate, finalColumnName, o, jsonPath));
-						}
-						else {
-							w.or().apply(String.format(sqlTemplate, finalColumnName, o, jsonPath));
-						}
-					}
-				});
+			String sqlTemplate = dbType.formatJsonQuerySql(columnName, searchModelType, jsonPath, list.size());
+			if (sqlTemplate == null) {
+				return;
 			}
-			else if (dbType == DbType.ORACLE) {
-				wrapper.and(w -> {
-					String sqlTemplate;
-					boolean isNotIn = searchModelType == SearchModelType.NOT_IN;
-					if (isNotIn) {
-						sqlTemplate = "json_exists(%s, '%s?(!(@ == \"%s\"))')";
-					}
-					else {
-						sqlTemplate = "json_exists(%s, '%s?(@ == \"%s\")')";
-					}
 
-					for (Object o : list) {
-						if (isNotIn) {
-							w.apply(String.format(sqlTemplate, finalColumnName, jsonPath, o));
-						}
-						else {
-							w.or().apply(String.format(sqlTemplate, finalColumnName, jsonPath, o));
-						}
-					}
-				});
-			}
+			list = list.stream().map(item -> dbType.jsonQueryValueFormat(item, searchModelType, jsonPath)).toList();
+
+			wrapper.apply(sqlTemplate, list.toArray());
 		}
 		else {
 			switch (searchModelType) {

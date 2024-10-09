@@ -13,6 +13,8 @@
 
 package net.guerlab.cloud.searchparams.mybatisplus;
 
+import java.util.List;
+
 import jakarta.annotation.Nullable;
 
 import org.springframework.core.Ordered;
@@ -27,9 +29,10 @@ public interface DbTypeProvider extends Ordered {
 	/**
 	 * 根据对象获取该对象的数据库类型.
 	 *
-	 * @param object 对象
+	 * @param object  对象
+	 * @param dbTypes 候选数据库类型列表
 	 * @return 数据库类型
 	 */
 	@Nullable
-	DbType getDbType(Object object);
+	DbType getDbType(Object object, List<DbType> dbTypes);
 }

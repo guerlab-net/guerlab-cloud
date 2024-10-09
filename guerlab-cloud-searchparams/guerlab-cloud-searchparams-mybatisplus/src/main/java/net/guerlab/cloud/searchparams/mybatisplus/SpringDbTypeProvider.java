@@ -13,50 +13,49 @@
 
 package net.guerlab.cloud.searchparams.mybatisplus;
 
-import jakarta.annotation.Nullable;
+import java.util.List;
 
-import org.springframework.beans.BeansException;
+import jakarta.annotation.Nullable;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+
+import net.guerlab.cloud.core.util.SpringUtils;
 
 /**
  * 基于Spring上下文数据库类型提供器.
  *
  * @author guer
  */
-public class SpringDbTypeProvider implements DbTypeProvider, ApplicationContextAware {
-
-	private static ApplicationContext context = null;
+@Slf4j
+public class SpringDbTypeProvider implements DbTypeProvider {
 
 	@Nullable
 	@Override
-	public DbType getDbType(Object object) {
-		if (context == null) {
-			return null;
-		}
-
-		DataSourceProperties dataSourceProperties = null;
+	public DbType getDbType(Object object, List<DbType> dbTypes) {
+		DataSourceProperties properties = null;
 		try {
-			dataSourceProperties = context.getBean(DataSourceProperties.class);
+			properties = SpringUtils.getBean(DataSourceProperties.class);
 		}
-		catch (Exception ignored) {
+		catch (Exception e) {
+			log.debug("get DataSourceProperties bean fail: {}", e.getMessage());
 		}
 
-		if (dataSourceProperties == null) {
+		if (properties == null) {
 			return null;
 		}
 
-		return DbType.byDriverClassName(dataSourceProperties.getDriverClassName());
+		for (DbType dbType : dbTypes) {
+			if (dbType.driverClassNames().contains(properties.getDriverClassName())) {
+				return dbType;
+			}
+		}
+
+		return null;
 	}
 
 	@Override
 	public int getOrder() {
 		return 0;
-	}
-
-	@Override
-	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		context = applicationContext;
 	}
 }

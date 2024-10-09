@@ -11,29 +11,38 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.searchparams.mybatisplus;
+package net.guerlab.cloud.searchparams.mybatisplus.dbtype;
 
 import java.util.List;
 
 import jakarta.annotation.Nullable;
 
-import org.springframework.core.Ordered;
-
-import net.guerlab.cloud.searchparams.mybatisplus.dbtype.Oracle;
+import net.guerlab.cloud.searchparams.SearchModelType;
+import net.guerlab.cloud.searchparams.mybatisplus.DbType;
 
 /**
+ * 未知.
+ *
  * @author guer
  */
-public class TestOracleDbTypeProvider implements DbTypeProvider {
+public final class Unknown implements DbType {
 
-	@Nullable
-	@Override
-	public DbType getDbType(Object object, List<DbType> dbTypes) {
-		return new Oracle();
+	/**
+	 * 实例.
+	 */
+	public static final DbType INSTANCE = new Unknown();
+
+	private Unknown() {
 	}
 
 	@Override
-	public int getOrder() {
-		return Ordered.HIGHEST_PRECEDENCE;
+	public List<String> driverClassNames() {
+		return List.of();
+	}
+
+	@Nullable
+	@Override
+	public String formatJsonQuerySql(String columnName, SearchModelType searchModelType, String jsonPath, int size) {
+		return null;
 	}
 }
