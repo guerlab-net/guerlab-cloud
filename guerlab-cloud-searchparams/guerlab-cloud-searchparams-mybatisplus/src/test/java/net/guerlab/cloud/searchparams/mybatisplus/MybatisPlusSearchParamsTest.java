@@ -14,6 +14,7 @@
 package net.guerlab.cloud.searchparams.mybatisplus;
 
 import java.util.Arrays;
+import java.util.List;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.jupiter.api.Assertions;
@@ -287,7 +288,7 @@ class MybatisPlusSearchParamsTest {
 	}
 
 	@Test
-	@Order(15)
+	@Order(16)
 	void testWithBetweenInvalid() {
 		TestSearchParams searchParams = new TestSearchParams();
 		searchParams.setAgeBetween(Between.of(null, null));
@@ -297,5 +298,35 @@ class MybatisPlusSearchParamsTest {
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
 		Assertions.assertEquals("", queryWrapper.getSqlSegment());
+	}
+
+	@Test
+	@Order(17)
+	void testWithBigList() {
+		CollectionHelper.setBatchSize(3);
+
+		TestSearchParams searchParams = new TestSearchParams();
+		searchParams.setBigList(List.of(1, 2, 3, 4));
+
+		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
+
+		SearchParamsUtils.handler(searchParams, queryWrapper);
+
+		Assertions.assertEquals("((ID IN (#{ew.paramNameValuePairs.MPGENVAL1},#{ew.paramNameValuePairs.MPGENVAL2},#{ew.paramNameValuePairs.MPGENVAL3}) OR ID IN (#{ew.paramNameValuePairs.MPGENVAL4})))", queryWrapper.getSqlSegment());
+	}
+
+	@Test
+	@Order(18)
+	void testWithNotBigList() {
+		CollectionHelper.setBatchSize(3);
+
+		TestSearchParams searchParams = new TestSearchParams();
+		searchParams.setNotBigList(List.of(1, 2, 3, 4));
+
+		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
+
+		SearchParamsUtils.handler(searchParams, queryWrapper);
+
+		Assertions.assertEquals("(ID NOT IN (#{ew.paramNameValuePairs.MPGENVAL1},#{ew.paramNameValuePairs.MPGENVAL2},#{ew.paramNameValuePairs.MPGENVAL3}) AND ID NOT IN (#{ew.paramNameValuePairs.MPGENVAL4}))", queryWrapper.getSqlSegment());
 	}
 }

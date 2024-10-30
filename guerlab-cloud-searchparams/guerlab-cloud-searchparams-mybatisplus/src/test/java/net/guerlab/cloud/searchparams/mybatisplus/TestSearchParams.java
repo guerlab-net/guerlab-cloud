@@ -14,6 +14,7 @@
 package net.guerlab.cloud.searchparams.mybatisplus;
 
 import java.util.Collection;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -68,4 +69,12 @@ public class TestSearchParams implements SearchParams {
 	@Column(name = "age")
 	@SearchModel(SearchModelType.BETWEEN)
 	private Between<Long> ageBetween;
+
+	@Column(name = "ID")
+	@SearchModel(SearchModelType.IN)
+	private List<Integer> bigList;
+
+	@Column(name = "ID")
+	@SearchModel(SearchModelType.NOT_IN)
+	private List<Integer> notBigList;
 }

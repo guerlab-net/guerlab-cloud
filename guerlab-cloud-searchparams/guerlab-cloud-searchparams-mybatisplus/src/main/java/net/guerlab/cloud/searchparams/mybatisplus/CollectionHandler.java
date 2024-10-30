@@ -25,8 +25,6 @@ import net.guerlab.cloud.searchparams.SearchModelType;
 
 /**
  * 集合元素处理.
- *
- * @author guer
  */
 public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 
@@ -82,12 +80,11 @@ public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 			wrapper.apply(sqlTemplate, list.toArray());
 		}
 		else {
-			switch (searchModelType) {
-			case NOT_IN -> wrapper.notIn(columnName, list);
-			case CUSTOM_SQL -> {
+			if (searchModelType == SearchModelType.CUSTOM_SQL) {
 				if (customSql == null) {
-					break;
+					return;
 				}
+
 				CustomerSqlInfo info = new CustomerSqlInfo(customSql);
 				String sql = info.sql;
 				if (info.matchFlag) {
@@ -110,7 +107,30 @@ public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 					wrapper.apply(sql);
 				}
 			}
-			default -> wrapper.in(columnName, list);
+			else if (searchModelType == SearchModelType.NOT_IN) {
+				List<List<Object>> splitList = CollectionHelper.split(list);
+				if (splitList.size() > 1) {
+					for (List<Object> subList : splitList) {
+						wrapper.notIn(columnName, subList);
+					}
+				}
+				else {
+					wrapper.notIn(columnName, list);
+				}
+			}
+			else {
+				List<List<Object>> splitList = CollectionHelper.split(list);
+				if (splitList.size() > 1) {
+					String finalColumnName = columnName;
+					wrapper.and(w -> {
+						for (List<Object> subList : splitList) {
+							w.or().in(finalColumnName, subList);
+						}
+					});
+				}
+				else {
+					wrapper.in(columnName, list);
+				}
 			}
 		}
 	}
