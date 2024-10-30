@@ -16,6 +16,7 @@ package net.guerlab.cloud.searchparams.mybatisplus;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.util.Enumeration;
+import java.util.List;
 
 import org.springframework.core.Ordered;
 
@@ -27,17 +28,18 @@ import org.springframework.core.Ordered;
 public class DefaultDbTypeProvider implements DbTypeProvider {
 
 	@Override
-	public DbType getDbType(Object object) {
+	public DbType getDbType(Object object, List<DbType> dbTypes) {
 		Enumeration<Driver> drivers = DriverManager.getDrivers();
-		DbType dbType;
 		while (drivers.hasMoreElements()) {
 			Driver driver = drivers.nextElement();
-			dbType = DbType.byDriverClassName(driver.getClass().getName());
-			if (dbType != null) {
-				return dbType;
+			String className = driver.getClass().getName();
+			for (DbType dbType : dbTypes) {
+				if (dbType.driverClassNames().contains(className)) {
+					return dbType;
+				}
 			}
 		}
-		return DbType.OTHER;
+		return null;
 	}
 
 	@Override

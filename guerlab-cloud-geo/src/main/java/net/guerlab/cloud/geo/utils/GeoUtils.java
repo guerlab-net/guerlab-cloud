@@ -123,7 +123,7 @@ public final class GeoUtils {
 	 * @param bytes byte数组
 	 * @return 地理坐标点
 	 */
-	public static GeoPoint toGeoPoint(byte[] bytes) {
+	public static IGeoPoint toGeoPoint(byte[] bytes) {
 		boolean bigEndian = (bytes[4] == BIG_ENDIAN_BYTE);
 		byte[] wkbTypeBytes = Arrays.copyOfRange(bytes, 5, 9);
 		int wkbType = bytesToInt(wkbTypeBytes, bigEndian);
@@ -151,7 +151,7 @@ public final class GeoUtils {
 	 * @param geoPoint 地理坐标点
 	 * @return byte数组
 	 */
-	public static byte[] toBytes(GeoPoint geoPoint) {
+	public static byte[] toBytes(IGeoPoint geoPoint) {
 		return toBytes(geoPoint, false);
 	}
 
@@ -162,7 +162,7 @@ public final class GeoUtils {
 	 * @param bigEndian 是否采用大端序
 	 * @return byte数组
 	 */
-	public static byte[] toBytes(GeoPoint geoPoint, boolean bigEndian) {
+	public static byte[] toBytes(IGeoPoint geoPoint, boolean bigEndian) {
 		double longitude = Objects.requireNonNull(geoPoint.getLongitude()).doubleValue();
 		double latitude = Objects.requireNonNull(geoPoint.getLatitude()).doubleValue();
 

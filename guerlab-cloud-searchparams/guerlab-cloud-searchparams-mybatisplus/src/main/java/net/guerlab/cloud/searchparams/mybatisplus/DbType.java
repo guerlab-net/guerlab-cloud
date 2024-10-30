@@ -13,46 +13,47 @@
 
 package net.guerlab.cloud.searchparams.mybatisplus;
 
-import java.util.Collections;
 import java.util.List;
 
 import jakarta.annotation.Nullable;
+
+import net.guerlab.cloud.searchparams.SearchModelType;
 
 /**
  * 数据库类型.
  *
  * @author guer
  */
-public enum DbType {
+public interface DbType {
 
 	/**
-	 * mysql.
+	 * 驱动类列表.
+	 *
+	 * @return 驱动类列表
 	 */
-	MYSQL(List.of("com.mysql.cj.jdbc.Driver", "com.mysql.jdbc.Driver")),
+	List<String> driverClassNames();
+
 	/**
-	 * oracle.
+	 * 格式化json查询sql.
+	 *
+	 * @param columnName      字段名称
+	 * @param searchModelType 查询模式
+	 * @param jsonPath        json路径
+	 * @param size            查询数量
+	 * @return 格式化后的sql
 	 */
-	ORACLE(List.of("oracle.jdbc.driver.OracleDriver", "oracle.jdbc.OracleDriver")),
-	/**
-	 * 其他.
-	 */
-	OTHER(Collections.emptyList());
-
-	private final List<String> driverClassNames;
-
-	DbType(List<String> driverClassNames) {
-		this.driverClassNames = driverClassNames;
-	}
-
 	@Nullable
-	public static DbType byDriverClassName(String driverClassName) {
-		for (DbType dbType : DbType.values()) {
-			for (String className : dbType.driverClassNames) {
-				if (className.equalsIgnoreCase(driverClassName)) {
-					return dbType;
-				}
-			}
-		}
-		return null;
+	String formatJsonQuerySql(String columnName, SearchModelType searchModelType, String jsonPath, int size);
+
+	/**
+	 * json查询值格式化.
+	 *
+	 * @param value           待查询值
+	 * @param searchModelType 查询模式
+	 * @param jsonPath        json路径
+	 * @return 格式化后值
+	 */
+	default Object jsonQueryValueFormat(Object value, SearchModelType searchModelType, String jsonPath) {
+		return value;
 	}
 }

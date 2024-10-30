@@ -46,30 +46,12 @@ public class DefaultHandler implements SearchParamsHandler {
 			SearchModelType searchModelType, JsonField jsonField) {
 		DbType dbType = DbTypeUtils.getDbType(wrapper);
 		String jsonPath = getJsonPath(jsonField);
-		if (dbType == DbType.MYSQL) {
-			String sqlTemplate;
-			if (searchModelType == SearchModelType.NOT_IN) {
-				sqlTemplate = "JSON_SEARCH(%s, 'one', {0}, null, '%s') IS NULL";
-			}
-			else {
-				sqlTemplate = "JSON_SEARCH(%s, 'one', {0}, null, '%s') IS NOT NULL";
-			}
-			wrapper.apply(sqlTemplate.formatted(columnName, jsonPath), value);
+		String sqlTemplate = dbType.formatJsonQuerySql(columnName, searchModelType, jsonPath, 1);
+		if (sqlTemplate == null) {
+			return;
 		}
-		else if (dbType == DbType.ORACLE) {
-			String str;
-			String sqlTemplate;
-			if (searchModelType == SearchModelType.NOT_IN) {
-				sqlTemplate = "json_exists(%s, {0})";
-				str = "%s?(!(@ == \"%s\"))".formatted(jsonPath, value);
-			}
-			else {
-				sqlTemplate = "json_exists(%s, {0})";
-				str = "%s?(@ == \"%s\")".formatted(jsonPath, value);
-			}
 
-			wrapper.apply(sqlTemplate.formatted(columnName), str);
-		}
+		wrapper.apply(sqlTemplate, dbType.jsonQueryValueFormat(value, searchModelType, jsonPath));
 	}
 
 	private String getJsonPath(JsonField jsonField) {

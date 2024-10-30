@@ -20,6 +20,8 @@ import java.util.ServiceLoader;
 
 import org.springframework.core.Ordered;
 
+import net.guerlab.cloud.searchparams.mybatisplus.dbtype.Unknown;
+
 /**
  * 数据库类型工具类.
  *
@@ -29,10 +31,15 @@ public final class DbTypeUtils {
 
 	private static List<DbTypeProvider> dbTypeProviders;
 
+	private static final List<DbType> dbTypes;
+
 	static {
 		dbTypeProviders = ServiceLoader.load(DbTypeProvider.class).stream()
 				.map(ServiceLoader.Provider::get)
 				.sorted(Comparator.comparingInt(Ordered::getOrder)).toList();
+
+		dbTypes = ServiceLoader.load(DbType.class).stream()
+				.map(ServiceLoader.Provider::get).toList();
 	}
 
 	private DbTypeUtils() {
@@ -63,11 +70,11 @@ public final class DbTypeUtils {
 	public static DbType getDbType(Object object) {
 		DbType dbType;
 		for (DbTypeProvider dbTypeProvider : dbTypeProviders) {
-			dbType = dbTypeProvider.getDbType(object);
+			dbType = dbTypeProvider.getDbType(object, dbTypes);
 			if (dbType != null) {
 				return dbType;
 			}
 		}
-		return DbType.OTHER;
+		return Unknown.INSTANCE;
 	}
 }

@@ -14,6 +14,7 @@
 package net.guerlab.cloud.searchparams.mybatisplus;
 
 import java.util.Arrays;
+import java.util.List;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.jupiter.api.Assertions;
@@ -133,9 +134,11 @@ class MybatisPlusSearchParamsTest {
 
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
-		Assertions.assertEquals(
-				"((JSON_SEARCH(t7, 'one', 'a', null, '$.a.b') IS NOT NULL OR JSON_SEARCH(t7, 'one', 'b', null, '$.a.b') IS NOT NULL))",
-				queryWrapper.getSqlSegment());
+		String targetSqlSegment = "(JSON_SEARCH(t7, 'one', #{ew.paramNameValuePairs.MPGENVAL1}, null, '$.a.b') IS NOT NULL OR JSON_SEARCH(t7, 'one', #{ew.paramNameValuePairs.MPGENVAL2}, null, '$.a.b') IS NOT NULL)";
+
+		Assertions.assertEquals(targetSqlSegment, queryWrapper.getSqlSegment());
+		Assertions.assertEquals("a", queryWrapper.getParamNameValuePairs().get("MPGENVAL1"));
+		Assertions.assertEquals("b", queryWrapper.getParamNameValuePairs().get("MPGENVAL2"));
 	}
 
 	@Test
@@ -151,9 +154,11 @@ class MybatisPlusSearchParamsTest {
 
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
-		Assertions.assertEquals(
-				"((json_exists(t7, '$.a.b?(@ == \"a\")') OR json_exists(t7, '$.a.b?(@ == \"b\")')))",
-				queryWrapper.getSqlSegment());
+		String targetSqlSegment = "(json_exists(t7, #{ew.paramNameValuePairs.MPGENVAL1}) OR json_exists(t7, #{ew.paramNameValuePairs.MPGENVAL2}))";
+
+		Assertions.assertEquals(targetSqlSegment, queryWrapper.getSqlSegment());
+		Assertions.assertEquals("$.a.b?(@ == \"a\")", queryWrapper.getParamNameValuePairs().get("MPGENVAL1"));
+		Assertions.assertEquals("$.a.b?(@ == \"b\")", queryWrapper.getParamNameValuePairs().get("MPGENVAL2"));
 	}
 
 	@Test
@@ -169,9 +174,11 @@ class MybatisPlusSearchParamsTest {
 
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
-		Assertions.assertEquals(
-				"((JSON_SEARCH(t8, 'one', 'a', null, '$.a.b') IS NULL AND JSON_SEARCH(t8, 'one', 'b', null, '$.a.b') IS NULL))",
-				queryWrapper.getSqlSegment());
+		String targetSqlSegment = "(JSON_SEARCH(t8, 'one', #{ew.paramNameValuePairs.MPGENVAL1}, null, '$.a.b') IS NULL AND JSON_SEARCH(t8, 'one', #{ew.paramNameValuePairs.MPGENVAL2}, null, '$.a.b') IS NULL)";
+
+		Assertions.assertEquals(targetSqlSegment, queryWrapper.getSqlSegment());
+		Assertions.assertEquals("a", queryWrapper.getParamNameValuePairs().get("MPGENVAL1"));
+		Assertions.assertEquals("b", queryWrapper.getParamNameValuePairs().get("MPGENVAL2"));
 	}
 
 	@Test
@@ -187,9 +194,11 @@ class MybatisPlusSearchParamsTest {
 
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
-		Assertions.assertEquals(
-				"((json_exists(t8, '$.a.b?(!(@ == \"a\"))') AND json_exists(t8, '$.a.b?(!(@ == \"b\"))')))",
-				queryWrapper.getSqlSegment());
+		String targetSqlSegment = "(json_exists(t8, #{ew.paramNameValuePairs.MPGENVAL1}) AND json_exists(t8, #{ew.paramNameValuePairs.MPGENVAL2}))";
+
+		Assertions.assertEquals(targetSqlSegment, queryWrapper.getSqlSegment());
+		Assertions.assertEquals("$.a.b?(!(@ == \"a\"))", queryWrapper.getParamNameValuePairs().get("MPGENVAL1"));
+		Assertions.assertEquals("$.a.b?(!(@ == \"b\"))", queryWrapper.getParamNameValuePairs().get("MPGENVAL2"));
 	}
 
 
@@ -279,7 +288,7 @@ class MybatisPlusSearchParamsTest {
 	}
 
 	@Test
-	@Order(15)
+	@Order(16)
 	void testWithBetweenInvalid() {
 		TestSearchParams searchParams = new TestSearchParams();
 		searchParams.setAgeBetween(Between.of(null, null));
@@ -289,5 +298,35 @@ class MybatisPlusSearchParamsTest {
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
 		Assertions.assertEquals("", queryWrapper.getSqlSegment());
+	}
+
+	@Test
+	@Order(17)
+	void testWithBigList() {
+		CollectionHelper.setBatchSize(3);
+
+		TestSearchParams searchParams = new TestSearchParams();
+		searchParams.setBigList(List.of(1, 2, 3, 4));
+
+		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
+
+		SearchParamsUtils.handler(searchParams, queryWrapper);
+
+		Assertions.assertEquals("((ID IN (#{ew.paramNameValuePairs.MPGENVAL1},#{ew.paramNameValuePairs.MPGENVAL2},#{ew.paramNameValuePairs.MPGENVAL3}) OR ID IN (#{ew.paramNameValuePairs.MPGENVAL4})))", queryWrapper.getSqlSegment());
+	}
+
+	@Test
+	@Order(18)
+	void testWithNotBigList() {
+		CollectionHelper.setBatchSize(3);
+
+		TestSearchParams searchParams = new TestSearchParams();
+		searchParams.setNotBigList(List.of(1, 2, 3, 4));
+
+		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
+
+		SearchParamsUtils.handler(searchParams, queryWrapper);
+
+		Assertions.assertEquals("(ID NOT IN (#{ew.paramNameValuePairs.MPGENVAL1},#{ew.paramNameValuePairs.MPGENVAL2},#{ew.paramNameValuePairs.MPGENVAL3}) AND ID NOT IN (#{ew.paramNameValuePairs.MPGENVAL4}))", queryWrapper.getSqlSegment());
 	}
 }

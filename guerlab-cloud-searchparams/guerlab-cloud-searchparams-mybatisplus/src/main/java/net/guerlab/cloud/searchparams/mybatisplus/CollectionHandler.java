@@ -25,8 +25,6 @@ import net.guerlab.cloud.searchparams.SearchModelType;
 
 /**
  * 集合元素处理.
- *
- * @author guer
  */
 public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 
@@ -69,60 +67,24 @@ public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 		QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
 		columnName = ColumnNameGetter.getColumnName(columnName, wrapper.getEntityClass());
 
-		String finalColumnName = columnName;
-
 		if (jsonField != null) {
 			DbType dbType = DbTypeUtils.getDbType(object);
 			String jsonPath = getJsonPath(jsonField);
-			if (dbType == DbType.MYSQL) {
-				wrapper.and(w -> {
-					String sqlTemplate;
-					boolean isNotIn = searchModelType == SearchModelType.NOT_IN;
-					if (isNotIn) {
-						sqlTemplate = "JSON_SEARCH(%s, 'one', '%s', null, '%s') IS NULL";
-					}
-					else {
-						sqlTemplate = "JSON_SEARCH(%s, 'one', '%s', null, '%s') IS NOT NULL";
-					}
-					for (Object o : list) {
-						if (isNotIn) {
-							w.apply(String.format(sqlTemplate, finalColumnName, o, jsonPath));
-						}
-						else {
-							w.or().apply(String.format(sqlTemplate, finalColumnName, o, jsonPath));
-						}
-					}
-				});
+			String sqlTemplate = dbType.formatJsonQuerySql(columnName, searchModelType, jsonPath, list.size());
+			if (sqlTemplate == null) {
+				return;
 			}
-			else if (dbType == DbType.ORACLE) {
-				wrapper.and(w -> {
-					String sqlTemplate;
-					boolean isNotIn = searchModelType == SearchModelType.NOT_IN;
-					if (isNotIn) {
-						sqlTemplate = "json_exists(%s, '%s?(!(@ == \"%s\"))')";
-					}
-					else {
-						sqlTemplate = "json_exists(%s, '%s?(@ == \"%s\")')";
-					}
 
-					for (Object o : list) {
-						if (isNotIn) {
-							w.apply(String.format(sqlTemplate, finalColumnName, jsonPath, o));
-						}
-						else {
-							w.or().apply(String.format(sqlTemplate, finalColumnName, jsonPath, o));
-						}
-					}
-				});
-			}
+			list = list.stream().map(item -> dbType.jsonQueryValueFormat(item, searchModelType, jsonPath)).toList();
+
+			wrapper.apply(sqlTemplate, list.toArray());
 		}
 		else {
-			switch (searchModelType) {
-			case NOT_IN -> wrapper.notIn(columnName, list);
-			case CUSTOM_SQL -> {
+			if (searchModelType == SearchModelType.CUSTOM_SQL) {
 				if (customSql == null) {
-					break;
+					return;
 				}
+
 				CustomerSqlInfo info = new CustomerSqlInfo(customSql);
 				String sql = info.sql;
 				if (info.matchFlag) {
@@ -145,7 +107,30 @@ public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 					wrapper.apply(sql);
 				}
 			}
-			default -> wrapper.in(columnName, list);
+			else if (searchModelType == SearchModelType.NOT_IN) {
+				List<List<Object>> splitList = CollectionHelper.split(list);
+				if (splitList.size() > 1) {
+					for (List<Object> subList : splitList) {
+						wrapper.notIn(columnName, subList);
+					}
+				}
+				else {
+					wrapper.notIn(columnName, list);
+				}
+			}
+			else {
+				List<List<Object>> splitList = CollectionHelper.split(list);
+				if (splitList.size() > 1) {
+					String finalColumnName = columnName;
+					wrapper.and(w -> {
+						for (List<Object> subList : splitList) {
+							w.or().in(finalColumnName, subList);
+						}
+					});
+				}
+				else {
+					wrapper.in(columnName, list);
+				}
 			}
 		}
 	}
