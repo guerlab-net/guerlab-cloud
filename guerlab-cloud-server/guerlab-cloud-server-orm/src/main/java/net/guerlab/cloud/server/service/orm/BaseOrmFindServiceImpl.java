@@ -112,7 +112,7 @@ public abstract class BaseOrmFindServiceImpl<E extends IBaseEntity, M extends Ba
 	public E selectOne(Q searchParams) {
 		E result = getBaseMapper().selectOne(getQueryWrapperWithSelectMethod(searchParams));
 		if (result != null) {
-			afterSelect(Collections.singleton(result), null);
+			afterSelect(Collections.singleton(result), searchParams);
 		}
 		return result;
 	}
