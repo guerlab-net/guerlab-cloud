@@ -128,17 +128,20 @@ class MybatisPlusSearchParamsTest {
 		DbTypeUtils.addProvider(new TestMysqlDbTypeProvider());
 
 		TestSearchParams searchParams = new TestSearchParams();
+		searchParams.setT6(Arrays.asList("a", "b"));
 		searchParams.setT7(Arrays.asList("a", "b"));
 
 		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
 
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
-		String targetSqlSegment = "(JSON_SEARCH(t7, 'one', #{ew.paramNameValuePairs.MPGENVAL1}, null, '$.a.b') IS NOT NULL OR JSON_SEARCH(t7, 'one', #{ew.paramNameValuePairs.MPGENVAL2}, null, '$.a.b') IS NOT NULL)";
+		String targetSqlSegment = "((_v = #{ew.paramNameValuePairs.MPGENVAL1} OR _v = #{ew.paramNameValuePairs.MPGENVAL2}) AND (JSON_SEARCH(t7, 'one', #{ew.paramNameValuePairs.MPGENVAL3}, null, '$.a.b') IS NOT NULL OR JSON_SEARCH(t7, 'one', #{ew.paramNameValuePairs.MPGENVAL4}, null, '$.a.b') IS NOT NULL))";
 
 		Assertions.assertEquals(targetSqlSegment, queryWrapper.getSqlSegment());
 		Assertions.assertEquals("a", queryWrapper.getParamNameValuePairs().get("MPGENVAL1"));
 		Assertions.assertEquals("b", queryWrapper.getParamNameValuePairs().get("MPGENVAL2"));
+		Assertions.assertEquals("a", queryWrapper.getParamNameValuePairs().get("MPGENVAL3"));
+		Assertions.assertEquals("b", queryWrapper.getParamNameValuePairs().get("MPGENVAL4"));
 	}
 
 	@Test
@@ -148,17 +151,20 @@ class MybatisPlusSearchParamsTest {
 		DbTypeUtils.addProvider(new TestOracleDbTypeProvider());
 
 		TestSearchParams searchParams = new TestSearchParams();
+		searchParams.setT6(Arrays.asList("a", "b"));
 		searchParams.setT7(Arrays.asList("a", "b"));
 
 		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
 
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
-		String targetSqlSegment = "(json_exists(t7, #{ew.paramNameValuePairs.MPGENVAL1}) OR json_exists(t7, #{ew.paramNameValuePairs.MPGENVAL2}))";
+		String targetSqlSegment = "((_v = #{ew.paramNameValuePairs.MPGENVAL1} OR _v = #{ew.paramNameValuePairs.MPGENVAL2}) AND (json_exists(t7, #{ew.paramNameValuePairs.MPGENVAL3}) OR json_exists(t7, #{ew.paramNameValuePairs.MPGENVAL4})))";
 
 		Assertions.assertEquals(targetSqlSegment, queryWrapper.getSqlSegment());
-		Assertions.assertEquals("$.a.b?(@ == \"a\")", queryWrapper.getParamNameValuePairs().get("MPGENVAL1"));
-		Assertions.assertEquals("$.a.b?(@ == \"b\")", queryWrapper.getParamNameValuePairs().get("MPGENVAL2"));
+		Assertions.assertEquals("a", queryWrapper.getParamNameValuePairs().get("MPGENVAL1"));
+		Assertions.assertEquals("b", queryWrapper.getParamNameValuePairs().get("MPGENVAL2"));
+		Assertions.assertEquals("$.a.b?(@ == \"a\")", queryWrapper.getParamNameValuePairs().get("MPGENVAL3"));
+		Assertions.assertEquals("$.a.b?(@ == \"b\")", queryWrapper.getParamNameValuePairs().get("MPGENVAL4"));
 	}
 
 	@Test
@@ -168,17 +174,20 @@ class MybatisPlusSearchParamsTest {
 		DbTypeUtils.addProvider(new TestMysqlDbTypeProvider());
 
 		TestSearchParams searchParams = new TestSearchParams();
+		searchParams.setT6(Arrays.asList("a", "b"));
 		searchParams.setT8(Arrays.asList("a", "b"));
 
 		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
 
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
-		String targetSqlSegment = "(JSON_SEARCH(t8, 'one', #{ew.paramNameValuePairs.MPGENVAL1}, null, '$.a.b') IS NULL AND JSON_SEARCH(t8, 'one', #{ew.paramNameValuePairs.MPGENVAL2}, null, '$.a.b') IS NULL)";
+		String targetSqlSegment = "((_v = #{ew.paramNameValuePairs.MPGENVAL1} OR _v = #{ew.paramNameValuePairs.MPGENVAL2}) AND (JSON_SEARCH(t8, 'one', #{ew.paramNameValuePairs.MPGENVAL3}, null, '$.a.b') IS NULL AND JSON_SEARCH(t8, 'one', #{ew.paramNameValuePairs.MPGENVAL4}, null, '$.a.b') IS NULL))";
 
 		Assertions.assertEquals(targetSqlSegment, queryWrapper.getSqlSegment());
 		Assertions.assertEquals("a", queryWrapper.getParamNameValuePairs().get("MPGENVAL1"));
 		Assertions.assertEquals("b", queryWrapper.getParamNameValuePairs().get("MPGENVAL2"));
+		Assertions.assertEquals("a", queryWrapper.getParamNameValuePairs().get("MPGENVAL3"));
+		Assertions.assertEquals("b", queryWrapper.getParamNameValuePairs().get("MPGENVAL4"));
 	}
 
 	@Test
@@ -188,17 +197,20 @@ class MybatisPlusSearchParamsTest {
 		DbTypeUtils.addProvider(new TestOracleDbTypeProvider());
 
 		TestSearchParams searchParams = new TestSearchParams();
+		searchParams.setT6(Arrays.asList("a", "b"));
 		searchParams.setT8(Arrays.asList("a", "b"));
 
 		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
 
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
-		String targetSqlSegment = "(json_exists(t8, #{ew.paramNameValuePairs.MPGENVAL1}) AND json_exists(t8, #{ew.paramNameValuePairs.MPGENVAL2}))";
+		String targetSqlSegment = "((_v = #{ew.paramNameValuePairs.MPGENVAL1} OR _v = #{ew.paramNameValuePairs.MPGENVAL2}) AND (json_exists(t8, #{ew.paramNameValuePairs.MPGENVAL3}) AND json_exists(t8, #{ew.paramNameValuePairs.MPGENVAL4})))";
 
 		Assertions.assertEquals(targetSqlSegment, queryWrapper.getSqlSegment());
-		Assertions.assertEquals("$.a.b?(!(@ == \"a\"))", queryWrapper.getParamNameValuePairs().get("MPGENVAL1"));
-		Assertions.assertEquals("$.a.b?(!(@ == \"b\"))", queryWrapper.getParamNameValuePairs().get("MPGENVAL2"));
+		Assertions.assertEquals("a", queryWrapper.getParamNameValuePairs().get("MPGENVAL1"));
+		Assertions.assertEquals("b", queryWrapper.getParamNameValuePairs().get("MPGENVAL2"));
+		Assertions.assertEquals("$.a.b?(!(@ == \"a\"))", queryWrapper.getParamNameValuePairs().get("MPGENVAL3"));
+		Assertions.assertEquals("$.a.b?(!(@ == \"b\"))", queryWrapper.getParamNameValuePairs().get("MPGENVAL4"));
 	}
 
 

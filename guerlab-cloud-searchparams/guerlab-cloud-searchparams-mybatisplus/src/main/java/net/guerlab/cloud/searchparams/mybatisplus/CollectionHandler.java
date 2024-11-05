@@ -75,9 +75,10 @@ public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 				return;
 			}
 
-			list = list.stream().map(item -> dbType.jsonQueryValueFormat(item, searchModelType, jsonPath)).toList();
+			Object[] params = list.stream().map(item -> dbType.jsonQueryValueFormat(item, searchModelType, jsonPath))
+					.toArray();
 
-			wrapper.apply(sqlTemplate, list.toArray());
+			wrapper.and(w -> w.apply(sqlTemplate, params));
 		}
 		else {
 			if (searchModelType == SearchModelType.CUSTOM_SQL) {
