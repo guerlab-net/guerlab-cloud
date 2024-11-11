@@ -13,31 +13,31 @@
 
 package net.guerlab.cloud.context.webmvc.holder;
 
-import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.context.request.RequestAttributes;
 
 import net.guerlab.cloud.context.core.ContextAttributes;
 import net.guerlab.cloud.context.core.ObjectContextAttributesHolder;
 
 /**
- * webmvc环境下基于对象的上下文属性持有器.
+ * webmvc环境下基于ContextAttributes的上下文属性持有器.
  *
  * @author guer
  */
-public class WebmvcObjectContextAttributesHolder implements ObjectContextAttributesHolder {
+public class WebmvcRequestAttributesObjectContextAttributesHolder implements ObjectContextAttributesHolder {
 
 	@Override
 	public boolean accept(Object object) {
-		return object instanceof HttpServletRequest;
+		return object instanceof RequestAttributes;
 	}
 
 	@Override
 	public ContextAttributes get(Object object) {
-		HttpServletRequest request = (HttpServletRequest) object;
-		ContextAttributes contextAttributes = (ContextAttributes) request.getAttribute(ContextAttributes.KEY);
+		RequestAttributes request = (RequestAttributes) object;
+		ContextAttributes contextAttributes = (ContextAttributes) request.getAttribute(ContextAttributes.KEY, RequestAttributes.SCOPE_REQUEST);
 
 		if (contextAttributes == null) {
-			contextAttributes = new ContextAttributes();
-			request.setAttribute(ContextAttributes.KEY, contextAttributes);
+			contextAttributes = new ContextAttributes("RequestAttributes-" + request);
+			request.setAttribute(ContextAttributes.KEY, contextAttributes, RequestAttributes.SCOPE_REQUEST);
 		}
 
 		return contextAttributes;
@@ -45,7 +45,7 @@ public class WebmvcObjectContextAttributesHolder implements ObjectContextAttribu
 
 	@Override
 	public void set(Object object, ContextAttributes contextAttributes) {
-		HttpServletRequest request = (HttpServletRequest) object;
-		request.setAttribute(ContextAttributes.KEY, contextAttributes);
+		RequestAttributes request = (RequestAttributes) object;
+		request.setAttribute(ContextAttributes.KEY, contextAttributes, RequestAttributes.SCOPE_REQUEST);
 	}
 }

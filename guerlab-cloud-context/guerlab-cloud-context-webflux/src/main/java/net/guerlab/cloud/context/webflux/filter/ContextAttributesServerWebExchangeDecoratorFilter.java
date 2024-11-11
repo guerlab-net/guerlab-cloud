@@ -63,7 +63,7 @@ public class ContextAttributesServerWebExchangeDecoratorFilter implements WebFil
 		 */
 		protected ContextAttributesServerWebExchangeDecorator(ServerWebExchange delegate) {
 			super(delegate);
-			ContextAttributes contextAttributes = new ContextAttributes();
+			ContextAttributes contextAttributes = new ContextAttributes("ServerWebExchange-" + delegate);
 			contextAttributes.put(ContextAttributes.REQUEST_KEY, delegate.getRequest());
 			contextAttributes.put(ContextAttributes.RESPONSE_KEY, delegate.getResponse());
 

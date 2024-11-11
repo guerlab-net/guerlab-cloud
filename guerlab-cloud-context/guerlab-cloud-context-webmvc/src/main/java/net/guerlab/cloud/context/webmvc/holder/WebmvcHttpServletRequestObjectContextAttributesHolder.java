@@ -11,33 +11,33 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.context.webflux.holder;
+package net.guerlab.cloud.context.webmvc.holder;
 
-import org.springframework.web.server.ServerWebExchange;
+import jakarta.servlet.http.HttpServletRequest;
 
 import net.guerlab.cloud.context.core.ContextAttributes;
 import net.guerlab.cloud.context.core.ObjectContextAttributesHolder;
 
 /**
- * webflux环境下基于对象的上下文属性持有器.
+ * webmvc环境下基于HttpServletRequest的上下文属性持有器.
  *
  * @author guer
  */
-public class WebfluxObjectContextAttributesHolder implements ObjectContextAttributesHolder {
+public class WebmvcHttpServletRequestObjectContextAttributesHolder implements ObjectContextAttributesHolder {
 
 	@Override
 	public boolean accept(Object object) {
-		return object instanceof ServerWebExchange;
+		return object instanceof HttpServletRequest;
 	}
 
 	@Override
 	public ContextAttributes get(Object object) {
-		ServerWebExchange exchange = (ServerWebExchange) object;
-		ContextAttributes contextAttributes = (ContextAttributes) exchange.getAttributes().get(ContextAttributes.KEY);
+		HttpServletRequest request = (HttpServletRequest) object;
+		ContextAttributes contextAttributes = (ContextAttributes) request.getAttribute(ContextAttributes.KEY);
 
 		if (contextAttributes == null) {
-			contextAttributes = new ContextAttributes("ServerWebExchange-" + exchange);
-			exchange.getAttributes().put(ContextAttributes.KEY, contextAttributes);
+			contextAttributes = new ContextAttributes("HttpServletRequest-" + request);
+			request.setAttribute(ContextAttributes.KEY, contextAttributes);
 		}
 
 		return contextAttributes;
@@ -45,7 +45,7 @@ public class WebfluxObjectContextAttributesHolder implements ObjectContextAttrib
 
 	@Override
 	public void set(Object object, ContextAttributes contextAttributes) {
-		ServerWebExchange exchange = (ServerWebExchange) object;
-		exchange.getAttributes().put(ContextAttributes.KEY, contextAttributes);
+		HttpServletRequest request = (HttpServletRequest) object;
+		request.setAttribute(ContextAttributes.KEY, contextAttributes);
 	}
 }
