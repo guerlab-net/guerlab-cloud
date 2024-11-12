@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2018-2024 guerlab.net and other contributors.
+  ~ Copyright 2018-2025 guerlab.net and other contributors.
   ~
   ~ Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -66,7 +66,7 @@
 	</issueManagement>
 
 	<properties>
-		<revision>2024.10.9</revision>
+		<revision>2024.11.0</revision>
 		<main.basedir>${basedir}</main.basedir>
 
 		<java.version>17</java.version>

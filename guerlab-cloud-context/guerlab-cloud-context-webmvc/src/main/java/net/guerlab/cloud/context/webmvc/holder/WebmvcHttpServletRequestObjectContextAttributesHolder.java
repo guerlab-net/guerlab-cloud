@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2024 guerlab.net and other contributors.
+ * Copyright 2018-2025 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,11 @@ import net.guerlab.cloud.context.core.ContextAttributes;
 import net.guerlab.cloud.context.core.ObjectContextAttributesHolder;
 
 /**
- * webmvc环境下基于对象的上下文属性持有器.
+ * webmvc环境下基于HttpServletRequest的上下文属性持有器.
  *
  * @author guer
  */
-public class WebmvcObjectContextAttributesHolder implements ObjectContextAttributesHolder {
+public class WebmvcHttpServletRequestObjectContextAttributesHolder implements ObjectContextAttributesHolder {
 
 	@Override
 	public boolean accept(Object object) {
@@ -36,7 +36,7 @@ public class WebmvcObjectContextAttributesHolder implements ObjectContextAttribu
 		ContextAttributes contextAttributes = (ContextAttributes) request.getAttribute(ContextAttributes.KEY);
 
 		if (contextAttributes == null) {
-			contextAttributes = new ContextAttributes();
+			contextAttributes = new ContextAttributes("HttpServletRequest-" + request);
 			request.setAttribute(ContextAttributes.KEY, contextAttributes);
 		}
 

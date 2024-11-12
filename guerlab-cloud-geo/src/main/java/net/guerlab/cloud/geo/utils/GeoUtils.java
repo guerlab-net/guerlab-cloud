@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2024 guerlab.net and other contributors.
+ * Copyright 2018-2025 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -123,7 +123,7 @@ public final class GeoUtils {
 	 * @param bytes byte数组
 	 * @return 地理坐标点
 	 */
-	public static IGeoPoint toGeoPoint(byte[] bytes) {
+	public static GeoPoint toGeoPoint(byte[] bytes) {
 		boolean bigEndian = (bytes[4] == BIG_ENDIAN_BYTE);
 		byte[] wkbTypeBytes = Arrays.copyOfRange(bytes, 5, 9);
 		int wkbType = bytesToInt(wkbTypeBytes, bigEndian);

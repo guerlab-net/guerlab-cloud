@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2024 guerlab.net and other contributors.
+ * Copyright 2018-2025 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@ package net.guerlab.cloud.context.core;
 
 import java.util.HashMap;
 
+import lombok.Getter;
 import org.slf4j.MDC;
 
 import net.guerlab.cloud.core.util.EnvUtils;
@@ -24,6 +25,7 @@ import net.guerlab.cloud.core.util.EnvUtils;
  *
  * @author guer
  */
+@Getter
 public class ContextAttributes extends HashMap<Object, Object> {
 
 	/**
@@ -46,16 +48,23 @@ public class ContextAttributes extends HashMap<Object, Object> {
 	 */
 	public static final boolean SET_TO_MDC = Boolean.parseBoolean(EnvUtils.getEnv("GUERLAB_CLOUD_CONTEXT_SET_TO_MDC", "false"));
 
-	public ContextAttributes() {
+	/**
+	 * 创建源.
+	 */
+	private final String initSource;
+
+	public ContextAttributes(String initSource) {
+		this.initSource = initSource;
 	}
 
 	public ContextAttributes(ContextAttributes parent) {
+		this.initSource = parent.initSource;
 		putAll(parent);
 	}
 
 	@Override
 	public String toString() {
-		return "ContextAttributes: " + super.toString();
+		return "ContextAttributes[" + initSource + "]: " + super.toString();
 	}
 
 	/**

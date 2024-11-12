@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2018-2024 guerlab.net and other contributors.
+  ~ Copyright 2018-2025 guerlab.net and other contributors.
   ~
   ~ Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -43,6 +43,17 @@
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>

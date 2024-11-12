@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2024 guerlab.net and other contributors.
+ * Copyright 2018-2025 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ public class ContextAttributesServerWebExchangeDecoratorFilter implements WebFil
 		 */
 		protected ContextAttributesServerWebExchangeDecorator(ServerWebExchange delegate) {
 			super(delegate);
-			ContextAttributes contextAttributes = new ContextAttributes();
+			ContextAttributes contextAttributes = new ContextAttributes("ServerWebExchange-" + delegate);
 			contextAttributes.put(ContextAttributes.REQUEST_KEY, delegate.getRequest());
 			contextAttributes.put(ContextAttributes.RESPONSE_KEY, delegate.getResponse());
 
