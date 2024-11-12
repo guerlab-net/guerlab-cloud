@@ -123,7 +123,7 @@ public final class GeoUtils {
 	 * @param bytes byte数组
 	 * @return 地理坐标点
 	 */
-	public static IGeoPoint toGeoPoint(byte[] bytes) {
+	public static GeoPoint toGeoPoint(byte[] bytes) {
 		boolean bigEndian = (bytes[4] == BIG_ENDIAN_BYTE);
 		byte[] wkbTypeBytes = Arrays.copyOfRange(bytes, 5, 9);
 		int wkbType = bytesToInt(wkbTypeBytes, bigEndian);
