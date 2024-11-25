@@ -62,7 +62,7 @@ public class ThrowableResponseBuilder extends AbstractI18nResponseBuilder {
 		}
 
 		if (fail.getStackTraces().isEmpty()) {
-			stackTracesHandler.setStackTrace(fail, e.getCause());
+			stackTracesHandler.setStackTrace(fail, e.getCause() == null ? e : e.getCause());
 		}
 
 		return fail;
