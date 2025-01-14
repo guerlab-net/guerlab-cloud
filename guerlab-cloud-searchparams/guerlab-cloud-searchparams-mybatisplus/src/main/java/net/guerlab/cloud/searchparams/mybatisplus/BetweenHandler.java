@@ -13,6 +13,8 @@
 
 package net.guerlab.cloud.searchparams.mybatisplus;
 
+import java.lang.reflect.Field;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +37,7 @@ public class BetweenHandler extends AbstractMyBatisPlusSearchParamsHandler {
 	}
 
 	@Override
-	public void setValue(Object object, String fieldName, String columnName, Object value,
+	public void setValue(Object object, Field field, String columnName, Object value,
 			SearchModelType searchModelType, @Nullable String customSql, @Nullable JsonField jsonField) {
 		Between<?> between = (Between<?>) value;
 		if (between.isInvalid()) {

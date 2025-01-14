@@ -13,6 +13,8 @@
 
 package net.guerlab.cloud.searchparams;
 
+import java.lang.reflect.Field;
+
 /**
  * 测试自定义sql提供器.
  *
@@ -21,12 +23,12 @@ package net.guerlab.cloud.searchparams;
 public class ServiceLoadTestSqlProvider implements TestSqlProvider {
 
 	@Override
-	public boolean accept(Object object, Object value) {
+	public boolean accept(Object object, Object value, Field field) {
 		return false;
 	}
 
 	@Override
-	public void apply(Object object, Object value) {
+	public void apply(Object object, Object value, Field field) {
 
 	}
 }

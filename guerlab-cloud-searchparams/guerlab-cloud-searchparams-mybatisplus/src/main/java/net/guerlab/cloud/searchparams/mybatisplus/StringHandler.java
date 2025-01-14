@@ -13,6 +13,8 @@
 
 package net.guerlab.cloud.searchparams.mybatisplus;
 
+import java.lang.reflect.Field;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jakarta.annotation.Nullable;
 import org.apache.commons.lang3.StringUtils;
@@ -33,7 +35,7 @@ public class StringHandler extends AbstractMyBatisPlusSearchParamsHandler {
 	}
 
 	@Override
-	public void setValue(Object object, String fieldName, String columnName, Object value,
+	public void setValue(Object object, Field field, String columnName, Object value,
 			SearchModelType searchModelType, @Nullable String customSql, @Nullable JsonField jsonField) {
 		String str = StringUtils.trimToNull((String) value);
 

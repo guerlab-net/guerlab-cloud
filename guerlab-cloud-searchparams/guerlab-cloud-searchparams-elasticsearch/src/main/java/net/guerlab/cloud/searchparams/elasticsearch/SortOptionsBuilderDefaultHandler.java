@@ -13,6 +13,7 @@
 
 package net.guerlab.cloud.searchparams.elasticsearch;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import co.elastic.clients.elasticsearch._types.SortOrder;
@@ -35,7 +36,7 @@ import net.guerlab.cloud.searchparams.SearchParamsHandler;
 public class SortOptionsBuilderDefaultHandler implements SearchParamsHandler {
 
 	@Override
-	public void setValue(Object object, String fieldName, String columnName, Object value, SearchModelType searchModelType,
+	public void setValue(Object object, Field field, String columnName, Object value, SearchModelType searchModelType,
 			@Nullable String customSql, @Nullable JsonField jsonField) {
 		if (!(value instanceof OrderBys)) {
 			return;

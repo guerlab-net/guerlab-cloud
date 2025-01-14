@@ -341,4 +341,35 @@ class MybatisPlusSearchParamsTest {
 
 		Assertions.assertEquals("(ID NOT IN (#{ew.paramNameValuePairs.MPGENVAL1},#{ew.paramNameValuePairs.MPGENVAL2},#{ew.paramNameValuePairs.MPGENVAL3}) AND ID NOT IN (#{ew.paramNameValuePairs.MPGENVAL4}))", queryWrapper.getSqlSegment());
 	}
+
+	@Test
+	@Order(19)
+	void testWithSubQueryHasValue() {
+		TestSubSearchParams subSearchParams = new TestSubSearchParams();
+		subSearchParams.setNameLike("abcd");
+
+		TestSearchParams searchParams = new TestSearchParams();
+		searchParams.setT2(List.of("1", "2"));
+		searchParams.setSubSearchParams(subSearchParams);
+
+		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
+
+		SearchParamsUtils.handler(searchParams, queryWrapper);
+
+		Assertions.assertEquals("(('column' in (#{ew.paramNameValuePairs.MPGENVAL1}, #{ew.paramNameValuePairs.MPGENVAL2})) AND ID IN (SELECT ID FROM TEST_SUB_ENTITY WHERE (name LIKE #{ew.paramNameValuePairs.subQuery1_MPGENVAL1})))", queryWrapper.getSqlSegment());
+	}
+
+	@Test
+	@Order(20)
+	void testWithSubQueryNotHasValue() {
+		TestSearchParams searchParams = new TestSearchParams();
+		searchParams.setT2(List.of("1", "2"));
+		searchParams.setSubSearchParams(new TestSubSearchParams());
+
+		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
+
+		SearchParamsUtils.handler(searchParams, queryWrapper);
+
+		Assertions.assertEquals("(('column' in (#{ew.paramNameValuePairs.MPGENVAL1}, #{ew.paramNameValuePairs.MPGENVAL2})) AND ID IN (SELECT ID FROM TEST_SUB_ENTITY))", queryWrapper.getSqlSegment());
+	}
 }

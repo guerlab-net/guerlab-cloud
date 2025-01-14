@@ -13,6 +13,7 @@
 
 package net.guerlab.cloud.searchparams.map;
 
+import java.lang.reflect.Field;
 import java.util.Map;
 
 import jakarta.annotation.Nullable;
@@ -47,9 +48,9 @@ public class MapSearchParamsUtilInstance extends AbstractSearchParamsUtilInstanc
 
 		@SuppressWarnings({"unchecked", "rawtypes"})
 		@Override
-		public void setValue(Object object, String fieldName, String columnName, Object value,
+		public void setValue(Object object, Field field, String columnName, Object value,
 				SearchModelType searchModelType, @Nullable String customSql, @Nullable JsonField jsonField) {
-			((Map) object).put(fieldName, value);
+			((Map) object).put(field.getName(), value);
 		}
 	}
 }

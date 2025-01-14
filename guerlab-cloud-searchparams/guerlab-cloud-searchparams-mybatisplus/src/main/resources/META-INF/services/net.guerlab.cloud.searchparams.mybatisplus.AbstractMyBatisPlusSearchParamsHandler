@@ -15,3 +15,4 @@ net.guerlab.cloud.searchparams.mybatisplus.BetweenHandler
 net.guerlab.cloud.searchparams.mybatisplus.CollectionHandler
 net.guerlab.cloud.searchparams.mybatisplus.OrderBysHandler
 net.guerlab.cloud.searchparams.mybatisplus.StringHandler
+net.guerlab.cloud.searchparams.mybatisplus.SubQueryHandler
