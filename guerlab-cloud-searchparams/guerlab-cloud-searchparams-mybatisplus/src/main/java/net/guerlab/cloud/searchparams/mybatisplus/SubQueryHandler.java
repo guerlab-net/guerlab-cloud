@@ -21,6 +21,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import jakarta.annotation.Nullable;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import net.guerlab.cloud.searchparams.JsonField;
@@ -35,6 +36,7 @@ import net.guerlab.commons.collection.CollectionUtil;
  *
  * @author guer
  */
+@Slf4j
 public class SubQueryHandler extends AbstractMyBatisPlusSearchParamsHandler {
 
 	private static final AtomicInteger SUB_QUERY_ATOMIC = new AtomicInteger();
@@ -66,6 +68,7 @@ public class SubQueryHandler extends AbstractMyBatisPlusSearchParamsHandler {
 			}
 		}
 		if (tableName == null) {
+			log.warn("subQuery miss tableName, entityClass is {}", entityClass.getName());
 			return;
 		}
 

@@ -17,13 +17,15 @@ import java.lang.reflect.Field;
 
 import jakarta.annotation.Nullable;
 
+import org.springframework.core.Ordered;
+
 /**
  * SearchParams参数处理接口.
  *
  * @author guer
  */
 @FunctionalInterface
-public interface SearchParamsHandler {
+public interface SearchParamsHandler extends Ordered, Comparable<SearchParamsHandler> {
 
 	/**
 	 * 设置参数值.
@@ -38,4 +40,14 @@ public interface SearchParamsHandler {
 	 */
 	void setValue(Object object, Field field, String columnName, Object value, SearchModelType searchModelType,
 			@Nullable String customSql, @Nullable JsonField jsonField);
+
+	@Override
+	default int getOrder() {
+		return 0;
+	}
+
+	@Override
+	default int compareTo(SearchParamsHandler o) {
+		return getOrder() - o.getOrder();
+	}
 }

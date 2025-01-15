@@ -52,5 +52,10 @@ public class MapSearchParamsUtilInstance extends AbstractSearchParamsUtilInstanc
 				SearchModelType searchModelType, @Nullable String customSql, @Nullable JsonField jsonField) {
 			((Map) object).put(field.getName(), value);
 		}
+
+		@Override
+		public int getOrder() {
+			return LOWEST_PRECEDENCE;
+		}
 	}
 }

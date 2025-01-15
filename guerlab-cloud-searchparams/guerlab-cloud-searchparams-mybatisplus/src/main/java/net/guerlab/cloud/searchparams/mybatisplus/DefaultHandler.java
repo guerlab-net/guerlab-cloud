@@ -116,4 +116,9 @@ public class DefaultHandler implements SearchParamsHandler {
 		default -> wrapper.eq(columnName, value);
 		}
 	}
+
+	@Override
+	public int getOrder() {
+		return LOWEST_PRECEDENCE;
+	}
 }
