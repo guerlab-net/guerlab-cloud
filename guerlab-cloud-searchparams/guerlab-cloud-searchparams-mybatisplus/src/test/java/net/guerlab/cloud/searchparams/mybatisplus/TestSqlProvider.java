@@ -13,6 +13,7 @@
 
 package net.guerlab.cloud.searchparams.mybatisplus;
 
+import java.lang.reflect.Field;
 import java.util.Collection;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -27,12 +28,12 @@ import net.guerlab.cloud.searchparams.SqlProvider;
 public class TestSqlProvider implements SqlProvider {
 
 	@Override
-	public boolean accept(Object object, Object value) {
+	public boolean accept(Object object, Object value, Field field) {
 		return object instanceof QueryWrapper && value instanceof Collection;
 	}
 
 	@Override
-	public void apply(Object object, Object value) {
+	public void apply(Object object, Object value, Field field) {
 		QueryWrapper<?> queryWrapper = (QueryWrapper<?>) object;
 		Collection<?> values = (Collection<?>) value;
 		queryWrapper.and((sw) -> values.forEach(v -> sw.or().eq("_v", v)));

@@ -11,24 +11,18 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.searchparams;
+package net.guerlab.cloud.searchparams.mybatisplus;
 
-import java.lang.reflect.Field;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
-/**
- * 测试自定义sql提供器.
- *
- * @author guer
- */
-public class BeanTestSqlProvider implements TestSqlProvider {
+@Data
+@TableName("TEST_SUB_ENTITY")
+public class TestSubEntity {
 
-	@Override
-	public boolean accept(Object object, Object value, Field field) {
-		return false;
-	}
+	@TableId
+	private Long id;
 
-	@Override
-	public void apply(Object object, Object value, Field field) {
-
-	}
+	private String name;
 }

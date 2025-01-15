@@ -13,6 +13,7 @@
 
 package net.guerlab.cloud.searchparams.mybatisplus;
 
+import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -50,7 +51,7 @@ public class CollectionHandler extends AbstractMyBatisPlusSearchParamsHandler {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void setValue(Object object, String fieldName, String columnName, Object value,
+	public void setValue(Object object, Field field, String columnName, Object value,
 			SearchModelType searchModelType, @Nullable String customSql, @Nullable JsonField jsonField) {
 		Collection<Object> collection = (Collection<Object>) value;
 

@@ -66,7 +66,7 @@
 	</issueManagement>
 
 	<properties>
-		<revision>2024.11.1</revision>
+		<revision>2025.0.0</revision>
 		<main.basedir>${basedir}</main.basedir>
 
 		<java.version>17</java.version>
@@ -344,11 +344,6 @@
 			<dependency>
 				<groupId>net.guerlab.cloud</groupId>
 				<artifactId>guerlab-cloud-security-core</artifactId>
-				<version>${revision}</version>
-			</dependency>
-			<dependency>
-				<groupId>net.guerlab.cloud</groupId>
-				<artifactId>guerlab-cloud-security-provider</artifactId>
 				<version>${revision}</version>
 			</dependency>
 			<dependency>

@@ -13,6 +13,8 @@
 
 package net.guerlab.cloud.searchparams;
 
+import java.lang.reflect.Field;
+
 import org.springframework.core.Ordered;
 
 /**
@@ -27,17 +29,19 @@ public interface SqlProvider extends Ordered {
 	 *
 	 * @param object 处理对象
 	 * @param value  参数值
+	 * @param field  参数值字段
 	 * @return 是否处理
 	 */
-	boolean accept(Object object, Object value);
+	boolean accept(Object object, Object value, Field field);
 
 	/**
 	 * 处理.
 	 *
 	 * @param object 处理对象
 	 * @param value  参数值
+	 * @param field  参数值字段
 	 */
-	void apply(Object object, Object value);
+	void apply(Object object, Object value, Field field);
 
 	@Override
 	default int getOrder() {

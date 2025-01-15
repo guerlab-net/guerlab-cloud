@@ -13,6 +13,7 @@
 
 package net.guerlab.cloud.searchparams.elasticsearch;
 
+import java.lang.reflect.Field;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,7 +68,7 @@ public class BoolQueryBuilderDefaultHandler implements SearchParamsHandler {
 	}
 
 	@Override
-	public void setValue(Object object, String fieldName, String columnName, Object value, SearchModelType searchModelType,
+	public void setValue(Object object, Field field, String columnName, Object value, SearchModelType searchModelType,
 			@Nullable String customSql, @Nullable JsonField jsonField) {
 		if (value instanceof OrderBys) {
 			return;

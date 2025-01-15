@@ -193,11 +193,11 @@ public final class SearchParamsUtils {
 		}
 
 		List<SqlProvider> sqlProviders = getCustomerSqlProviders(searchModel)
-				.filter(provider -> provider.accept(object, value))
+				.filter(provider -> provider.accept(object, value, field))
 				.toList();
 
 		if (!sqlProviders.isEmpty()) {
-			sqlProviders.forEach(provider -> provider.apply(object, value));
+			sqlProviders.forEach(provider -> provider.apply(object, value, field));
 			return;
 		}
 
@@ -210,7 +210,7 @@ public final class SearchParamsUtils {
 
 		JsonField jsonField = field.getAnnotation(JsonField.class);
 
-		handler.setValue(object, field.getName(), columnName, value, searchModelType,
+		handler.setValue(object, field, columnName, value, searchModelType,
 				StringUtils.trimToNull(getCustomSql(searchModel)), jsonField);
 	}
 

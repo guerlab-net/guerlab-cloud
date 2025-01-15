@@ -25,6 +25,7 @@ import net.guerlab.cloud.searchparams.JsonField;
 import net.guerlab.cloud.searchparams.SearchModel;
 import net.guerlab.cloud.searchparams.SearchModelType;
 import net.guerlab.cloud.searchparams.SearchParams;
+import net.guerlab.cloud.searchparams.SubQuerySupport;
 
 /**
  * @author guer
@@ -77,4 +78,8 @@ public class TestSearchParams implements SearchParams {
 	@Column(name = "ID")
 	@SearchModel(SearchModelType.NOT_IN)
 	private List<Integer> notBigList;
+
+	@Column(name = "ID")
+	@SubQuerySupport(resultFieldName = "ID", entityClass = TestSubEntity.class, tableName = "TEST_SUB_ENTITY")
+	private TestSubSearchParams subSearchParams;
 }

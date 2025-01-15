@@ -16,6 +16,7 @@ package net.guerlab.cloud.api.feign;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -29,6 +30,9 @@ import feign.codec.Decoder;
 import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+
 import net.guerlab.cloud.core.result.Result;
 import net.guerlab.commons.exception.ApplicationException;
 
@@ -39,6 +43,8 @@ import net.guerlab.commons.exception.ApplicationException;
  */
 @Slf4j
 public class ResultDecoder implements Decoder {
+
+	private static final MediaType TEXT_MEDIA_TYPE = MediaType.parseMediaType("text/*");
 
 	private final ObjectMapper objectMapper;
 
@@ -60,8 +66,15 @@ public class ResultDecoder implements Decoder {
 		}
 
 		String resultBody = Util.toString(body.asReader(StandardCharsets.UTF_8));
-		if (!isJson(resultBody) && type instanceof Class && String.class.isAssignableFrom((Class<?>) type)) {
-			return resultBody;
+		if (type instanceof Class && String.class.isAssignableFrom((Class<?>) type)) {
+			if (!isJson(resultBody)) {
+				return resultBody;
+			}
+
+			MediaType contentType = getContentType(response);
+			if (contentType != null && TEXT_MEDIA_TYPE.includes(contentType)) {
+				return resultBody;
+			}
 		}
 
 		return parse0(resultBody, type);
@@ -72,6 +85,26 @@ public class ResultDecoder implements Decoder {
 			return true;
 		}
 		return resultBody.startsWith("{") && resultBody.endsWith("}");
+	}
+
+	@Nullable
+	private MediaType getContentType(Response response) {
+		Collection<String> headerValues = response.headers().get(HttpHeaders.CONTENT_TYPE);
+		if (headerValues == null) {
+			return null;
+		}
+
+		for (String headerValue : headerValues) {
+			if (headerValue != null) {
+				try {
+					return MediaType.parseMediaType(headerValue);
+				}
+				catch (Exception ignored) {
+					// ignore this exception
+				}
+			}
+		}
+		return null;
 	}
 
 	@Nullable

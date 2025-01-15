@@ -13,7 +13,11 @@
 
 package net.guerlab.cloud.searchparams;
 
+import java.lang.reflect.Field;
+
 import jakarta.annotation.Nullable;
+
+import org.springframework.core.Ordered;
 
 /**
  * SearchParams参数处理接口.
@@ -21,19 +25,29 @@ import jakarta.annotation.Nullable;
  * @author guer
  */
 @FunctionalInterface
-public interface SearchParamsHandler {
+public interface SearchParamsHandler extends Ordered, Comparable<SearchParamsHandler> {
 
 	/**
 	 * 设置参数值.
 	 *
 	 * @param object          输出对象
-	 * @param fieldName       类字段名
+	 * @param field           类字段
 	 * @param columnName      数据库字段名
 	 * @param value           参数值
 	 * @param searchModelType 搜索模式类型
 	 * @param customSql       自定义sql
 	 * @param jsonField       json字段信息
 	 */
-	void setValue(Object object, String fieldName, String columnName, Object value, SearchModelType searchModelType,
+	void setValue(Object object, Field field, String columnName, Object value, SearchModelType searchModelType,
 			@Nullable String customSql, @Nullable JsonField jsonField);
+
+	@Override
+	default int getOrder() {
+		return 0;
+	}
+
+	@Override
+	default int compareTo(SearchParamsHandler o) {
+		return getOrder() - o.getOrder();
+	}
 }

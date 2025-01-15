@@ -85,13 +85,15 @@ public abstract class AbstractSearchParamsUtilInstance {
 	@Nullable
 	public SearchParamsHandler getHandler(Class<?> type) {
 		Optional<SearchParamsHandlerWrapper> optional = handlers.stream()
-				.filter(wrapper -> Objects.equals(type, wrapper.type)).findFirst();
+				.filter(wrapper -> Objects.equals(type, wrapper.type))
+				.min(SearchParamsHandlerWrapper::compareTo);
 
 		if (optional.isPresent()) {
 			return optional.get().handler;
 		}
 
-		optional = handlers.stream().filter(wrapper -> wrapper.type.isAssignableFrom(type)).findFirst();
+		optional = handlers.stream().filter(wrapper -> wrapper.type.isAssignableFrom(type))
+				.min(SearchParamsHandlerWrapper::compareTo);
 
 		if (optional.isPresent()) {
 			return optional.get().handler;
@@ -113,7 +115,7 @@ public abstract class AbstractSearchParamsUtilInstance {
 	/**
 	 * 搜索参数处理器包装.
 	 */
-	private static class SearchParamsHandlerWrapper {
+	private static class SearchParamsHandlerWrapper implements Comparable<SearchParamsHandlerWrapper> {
 
 		/**
 		 * 类型.
@@ -140,6 +142,11 @@ public abstract class AbstractSearchParamsUtilInstance {
 		@Override
 		public int hashCode() {
 			return Objects.hash(type, handler);
+		}
+
+		@Override
+		public int compareTo(SearchParamsHandlerWrapper o) {
+			return handler.compareTo(o.handler);
 		}
 	}
 

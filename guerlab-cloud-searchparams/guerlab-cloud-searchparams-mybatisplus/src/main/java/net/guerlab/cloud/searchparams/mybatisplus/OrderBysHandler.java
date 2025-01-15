@@ -13,6 +13,7 @@
 
 package net.guerlab.cloud.searchparams.mybatisplus;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -37,7 +38,7 @@ public class OrderBysHandler extends AbstractMyBatisPlusSearchParamsHandler {
 	}
 
 	@Override
-	public void setValue(Object object, String fieldName, String columnName, Object value,
+	public void setValue(Object object, Field field, String columnName, Object value,
 			SearchModelType searchModelType, @Nullable String customSql, @Nullable JsonField jsonField) {
 		QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
 		List<OrderBy> orderBys = (OrderBys) value;
