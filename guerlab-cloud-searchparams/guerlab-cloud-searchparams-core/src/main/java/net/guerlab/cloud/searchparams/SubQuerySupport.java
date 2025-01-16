@@ -36,7 +36,7 @@ public @interface SubQuerySupport {
 	 *
 	 * @return 结果字段名称
 	 */
-	String resultFieldName() default "";
+	String resultFieldName();
 
 	/**
 	 * 关联类型.
