@@ -15,6 +15,7 @@ package net.guerlab.cloud.context.core;
 
 import java.util.HashMap;
 
+import jakarta.annotation.Nullable;
 import lombok.Getter;
 import org.slf4j.MDC;
 
@@ -76,6 +77,7 @@ public class ContextAttributes extends HashMap<Object, Object> {
 		return new ContextAttributes(this);
 	}
 
+	@Nullable
 	@Override
 	public Object put(Object key, Object value) {
 		if (SET_TO_MDC) {

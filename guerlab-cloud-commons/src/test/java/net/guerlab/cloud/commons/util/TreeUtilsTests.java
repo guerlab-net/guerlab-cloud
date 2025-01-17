@@ -110,6 +110,7 @@ class TreeUtilsTests {
 			return parentId;
 		}
 
+		@Nullable
 		@Override
 		public String label() {
 			return null;
@@ -149,6 +150,7 @@ class TreeUtilsTests {
 			return parentId;
 		}
 
+		@Nullable
 		@Override
 		public String label() {
 			return null;

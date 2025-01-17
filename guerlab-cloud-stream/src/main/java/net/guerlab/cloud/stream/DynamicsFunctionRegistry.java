@@ -13,6 +13,9 @@
 
 package net.guerlab.cloud.stream;
 
+import java.util.List;
+import java.util.function.Function;
+
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.config.ConstructorArgumentValues;
@@ -24,6 +27,8 @@ import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.Assert;
+
+import net.guerlab.commons.collection.CollectionUtil;
 
 /**
  * 动态方法注册.
@@ -39,10 +44,10 @@ public class DynamicsFunctionRegistry implements ImportBeanDefinitionRegistrar, 
 	public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 		DynamicsFunctionProperties properties = Binder.get(environment)
 				.bind(DynamicsFunctionProperties.PROPERTIES_PREFIX, DynamicsFunctionProperties.class).get();
-		if (properties.getDefinitions() != null) {
-			for (DynamicsFunctionDefinition definition : properties.getDefinitions()) {
-				registerDynamicsFunctionBeanDefinition(definition, registry);
-			}
+
+		List<DynamicsFunctionDefinition> definitions = CollectionUtil.toDistinctList(properties.getDefinitions(), Function.identity());
+		for (DynamicsFunctionDefinition definition : definitions) {
+			registerDynamicsFunctionBeanDefinition(definition, registry);
 		}
 	}
 

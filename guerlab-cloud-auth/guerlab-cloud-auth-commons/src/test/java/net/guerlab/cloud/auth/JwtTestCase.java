@@ -82,14 +82,17 @@ class JwtTestCase {
 		TokenInfo accessToken = factory.generateByAccessToken(INFO);
 		log.debug("accessToken: {}", accessToken);
 		ITestTokenInfo parseInfo = factory.parseByAccessToken(accessToken.getToken());
-		log.debug("parseInfo: {}", parseInfo);
-		Assertions.assertEquals(parseInfo.getUserId(), INFO.getUserId());
+		check(parseInfo);
 	}
 
 	private void refreshToken(AbstractTokenFactory<ITestTokenInfo, ?> factory) {
 		TokenInfo refreshToken = factory.generateByRefreshToken(INFO);
 		log.debug("refreshToken: {}", refreshToken);
 		ITestTokenInfo parseInfo = factory.parseByRefreshToken(refreshToken.getToken());
+		check(parseInfo);
+	}
+
+	private void check(ITestTokenInfo parseInfo) {
 		log.debug("parseInfo: {}", parseInfo);
 		Assertions.assertEquals(parseInfo.getUserId(), INFO.getUserId());
 	}

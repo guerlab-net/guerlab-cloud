@@ -25,6 +25,7 @@ import org.springframework.beans.factory.ObjectProvider;
  *
  * @author guer
  */
+@SuppressWarnings("LoggingSimilarMessage")
 @Slf4j
 public class MetaObjectHandlerChain implements MetaObjectHandler {
 

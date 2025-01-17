@@ -49,6 +49,7 @@ public class RandomWithWeightLoadBalancerPolicy extends AbstractLoadBalancerPoli
 		this.properties = properties;
 	}
 
+	@Nullable
 	@Override
 	protected ServiceInstance choose0(List<ServiceInstance> instances) {
 		List<Pair<ServiceInstance>> instancesWithWeight = new ArrayList<>();

@@ -60,7 +60,7 @@ public @interface SubQuerySupport {
 	String tableName() default "";
 
 	/**
-	 * 默认where条件
+	 * 默认where条件.
 	 *
 	 * @return 默认where条件
 	 */

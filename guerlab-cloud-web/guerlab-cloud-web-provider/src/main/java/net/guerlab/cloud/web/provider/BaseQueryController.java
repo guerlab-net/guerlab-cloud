@@ -41,6 +41,7 @@ import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.core.util.SpringUtils;
 import net.guerlab.cloud.searchparams.SearchParams;
+import net.guerlab.commons.collection.CollectionUtil;
 
 /**
  * 基础查询控制器实现.
@@ -159,8 +160,7 @@ public abstract class BaseQueryController<E extends IBaseEntity, Q extends Searc
 		invokeGlobalBeforeFindHook(searchParams);
 		Pageable<E> result = getApi().selectPage(searchParams, pageId, pageSize);
 
-		List<V> list = result.getList() != null ? result.getList().stream().map(this::convert)
-				.toList() : Collections.emptyList();
+		List<V> list = CollectionUtil.toList(result.getList(), this::convert);
 		afterFind(list, searchParams);
 
 		Pageable<V> voResult = new Pageable<>();

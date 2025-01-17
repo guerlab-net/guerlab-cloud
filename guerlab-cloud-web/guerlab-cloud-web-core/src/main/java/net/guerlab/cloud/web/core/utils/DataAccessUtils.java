@@ -82,7 +82,9 @@ public final class DataAccessUtils {
 		}
 		else if (object instanceof Map map) {
 			Object val = map.get(filedName);
-			map.put(filedName, dataHandler.transformation(val));
+			if (val != null) {
+				map.put(filedName, dataHandler.transformation(val));
+			}
 		}
 		else {
 			Field field = ReflectionUtils.findField(object.getClass(), filedName);
