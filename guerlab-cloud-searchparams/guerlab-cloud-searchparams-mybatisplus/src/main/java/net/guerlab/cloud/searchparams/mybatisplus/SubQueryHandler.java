@@ -41,6 +41,13 @@ public class SubQueryHandler extends AbstractMyBatisPlusSearchParamsHandler {
 
 	private static final AtomicInteger SUB_QUERY_ATOMIC = new AtomicInteger();
 
+	/**
+	 * 重置子查询计数.
+	 */
+	public static void resetSubQueryAtomic() {
+		SUB_QUERY_ATOMIC.set(0);
+	}
+
 	@Override
 	public Class<?> acceptClass() {
 		return SearchParams.class;
@@ -72,6 +79,7 @@ public class SubQueryHandler extends AbstractMyBatisPlusSearchParamsHandler {
 			return;
 		}
 
+		String baseWhere = StringUtils.trimToNull(subQuerySupport.baseWhere());
 		String subQuerySql = "SELECT %S FROM %s".formatted(resultFieldName, tableName);
 
 		QueryWrapper<?> wrapper = (QueryWrapper<?>) object;
@@ -86,7 +94,15 @@ public class SubQueryHandler extends AbstractMyBatisPlusSearchParamsHandler {
 
 			valuePairs.forEach((k, v) -> wrapper.getParamNameValuePairs().put(subQueryKind + "_" + k, v));
 
-			subQuerySql += " WHERE " + sqlSegment;
+			if (baseWhere != null) {
+				subQuerySql += " WHERE " + baseWhere + " AND " + sqlSegment;
+			}
+			else {
+				subQuerySql += " WHERE " + sqlSegment;
+			}
+		}
+		else if (baseWhere != null) {
+			subQuerySql += " WHERE " + baseWhere;
 		}
 
 		columnName = ColumnNameGetter.getColumnName(columnName, wrapper.getEntityClass());

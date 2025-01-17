@@ -354,6 +354,7 @@ class MybatisPlusSearchParamsTest {
 
 		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
 
+		SubQueryHandler.resetSubQueryAtomic();
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
 		Assertions.assertEquals("(('column' in (#{ew.paramNameValuePairs.MPGENVAL1}, #{ew.paramNameValuePairs.MPGENVAL2})) AND ID IN (SELECT ID FROM TEST_SUB_ENTITY WHERE (name LIKE #{ew.paramNameValuePairs.subQuery1_MPGENVAL1})))", queryWrapper.getSqlSegment());
@@ -368,8 +369,42 @@ class MybatisPlusSearchParamsTest {
 
 		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
 
+		SubQueryHandler.resetSubQueryAtomic();
 		SearchParamsUtils.handler(searchParams, queryWrapper);
 
 		Assertions.assertEquals("(('column' in (#{ew.paramNameValuePairs.MPGENVAL1}, #{ew.paramNameValuePairs.MPGENVAL2})) AND ID IN (SELECT ID FROM TEST_SUB_ENTITY))", queryWrapper.getSqlSegment());
+	}
+
+	@Test
+	@Order(21)
+	void testWithBaseWhereSubQueryHasValue() {
+		TestSubSearchParams subSearchParams = new TestSubSearchParams();
+		subSearchParams.setNameLike("abcd");
+
+		TestSearchParams searchParams = new TestSearchParams();
+		searchParams.setT2(List.of("1", "2"));
+		searchParams.setSubSearchParamsWithBaseWhere(subSearchParams);
+
+		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
+
+		SubQueryHandler.resetSubQueryAtomic();
+		SearchParamsUtils.handler(searchParams, queryWrapper);
+
+		Assertions.assertEquals("(('column' in (#{ew.paramNameValuePairs.MPGENVAL1}, #{ew.paramNameValuePairs.MPGENVAL2})) AND ID IN (SELECT ID FROM TEST_SUB_ENTITY WHERE NAME = 'ABC' AND (name LIKE #{ew.paramNameValuePairs.subQuery1_MPGENVAL1})))", queryWrapper.getSqlSegment());
+	}
+
+	@Test
+	@Order(22)
+	void testWithBaseWhereSubQueryNotHasValue() {
+		TestSearchParams searchParams = new TestSearchParams();
+		searchParams.setT2(List.of("1", "2"));
+		searchParams.setSubSearchParamsWithBaseWhere(new TestSubSearchParams());
+
+		QueryWrapper<?> queryWrapper = new QueryWrapper<>();
+
+		SubQueryHandler.resetSubQueryAtomic();
+		SearchParamsUtils.handler(searchParams, queryWrapper);
+
+		Assertions.assertEquals("(('column' in (#{ew.paramNameValuePairs.MPGENVAL1}, #{ew.paramNameValuePairs.MPGENVAL2})) AND ID IN (SELECT ID FROM TEST_SUB_ENTITY WHERE NAME = 'ABC'))", queryWrapper.getSqlSegment());
 	}
 }
