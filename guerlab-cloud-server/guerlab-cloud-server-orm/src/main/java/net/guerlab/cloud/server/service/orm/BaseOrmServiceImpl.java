@@ -230,7 +230,7 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 		}
 
 		updateById(entity);
-		return selectById(id);
+		return Objects.requireNonNull(selectById(id));
 	}
 
 	@Override

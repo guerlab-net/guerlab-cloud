@@ -75,8 +75,9 @@ public class TransferHeaderFilter implements WebFilter, Ordered {
 						}
 						String value = headers.getFirst(header);
 						log.debug("transferHeader: {} = {}", header, value);
-
-						contextAttributes.put(header, value);
+						if (value != null) {
+							contextAttributes.put(header, value);
+						}
 					}
 					return chain.filter(exchange).then(Mono.empty());
 				});

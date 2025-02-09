@@ -42,6 +42,7 @@ public class TreeEntity<E, K> {
 	/**
 	 * 标签.
 	 */
+	@Nullable
 	@Schema(description = "标签")
 	private String label;
 	/**

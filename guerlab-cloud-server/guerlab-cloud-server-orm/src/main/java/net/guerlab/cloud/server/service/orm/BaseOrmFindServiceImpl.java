@@ -97,6 +97,7 @@ public abstract class BaseOrmFindServiceImpl<E extends IBaseEntity, M extends Ba
 		return this.baseMapper;
 	}
 
+	@Nullable
 	@Override
 	public E selectOne(E entity) {
 		QueryWrapper<E> queryWrapper = getQueryWrapper();
@@ -108,6 +109,7 @@ public abstract class BaseOrmFindServiceImpl<E extends IBaseEntity, M extends Ba
 		return result;
 	}
 
+	@Nullable
 	@Override
 	public E selectOne(Q searchParams) {
 		E result = getBaseMapper().selectOne(getQueryWrapperWithSelectMethod(searchParams));

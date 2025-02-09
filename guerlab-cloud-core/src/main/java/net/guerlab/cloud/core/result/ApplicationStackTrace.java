@@ -16,6 +16,7 @@ package net.guerlab.cloud.core.result;
 import java.io.Serializable;
 import java.util.List;
 
+import jakarta.annotation.Nullable;
 import lombok.Data;
 
 /**
@@ -34,5 +35,6 @@ public class ApplicationStackTrace implements Serializable {
 	/**
 	 * 堆栈跟踪.
 	 */
+	@Nullable
 	private List<String> stackTrace;
 }

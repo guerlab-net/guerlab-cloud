@@ -77,6 +77,7 @@ public class WebMvcResponseAdvisorAutoConfigure {
 			return support.supports(returnType);
 		}
 
+		@Nullable
 		@Override
 		public Object beforeBodyWrite(@Nullable Object body, MethodParameter returnType, MediaType selectedContentType,
 				Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,

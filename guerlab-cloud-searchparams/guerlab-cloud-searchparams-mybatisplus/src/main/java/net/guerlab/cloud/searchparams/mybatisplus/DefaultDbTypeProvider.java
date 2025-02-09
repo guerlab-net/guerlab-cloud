@@ -18,6 +18,8 @@ import java.sql.DriverManager;
 import java.util.Enumeration;
 import java.util.List;
 
+import jakarta.annotation.Nullable;
+
 import org.springframework.core.Ordered;
 
 /**
@@ -27,6 +29,7 @@ import org.springframework.core.Ordered;
  */
 public class DefaultDbTypeProvider implements DbTypeProvider {
 
+	@Nullable
 	@Override
 	public DbType getDbType(Object object, List<DbType> dbTypes) {
 		Enumeration<Driver> drivers = DriverManager.getDrivers();

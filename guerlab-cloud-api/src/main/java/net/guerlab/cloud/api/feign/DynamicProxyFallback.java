@@ -59,7 +59,7 @@ public final class DynamicProxyFallback {
 		@Nullable
 		@Override
 		public Object invoke(Object proxy, Method method, Object[] args) {
-			log.debug(String.format("%s fall", method.getName()), cause);
+			log.debug("{} fall", method.getName(), cause);
 
 			Class<?> returnType = method.getReturnType();
 

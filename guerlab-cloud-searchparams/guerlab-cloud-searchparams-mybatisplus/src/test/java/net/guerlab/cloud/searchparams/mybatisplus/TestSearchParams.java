@@ -82,4 +82,8 @@ public class TestSearchParams implements SearchParams {
 	@Column(name = "ID")
 	@SubQuerySupport(resultFieldName = "ID", entityClass = TestSubEntity.class, tableName = "TEST_SUB_ENTITY")
 	private TestSubSearchParams subSearchParams;
+
+	@Column(name = "ID")
+	@SubQuerySupport(resultFieldName = "ID", entityClass = TestSubEntity.class, tableName = "TEST_SUB_ENTITY", baseWhere = "NAME = 'ABC'")
+	private TestSubSearchParams subSearchParamsWithBaseWhere;
 }

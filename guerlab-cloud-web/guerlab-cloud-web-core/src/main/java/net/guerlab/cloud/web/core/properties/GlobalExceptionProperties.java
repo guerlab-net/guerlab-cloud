@@ -87,6 +87,7 @@ public class GlobalExceptionProperties implements GlobalExceptionConfig {
 	/**
 	 * 全局异常处理日志记录器日志级别.
 	 */
+	@Nullable
 	private LogLevel globalExceptionLoggerLevel = LogLevel.DEBUG;
 
 	/**

@@ -106,7 +106,7 @@ public final class ContextAttributesHolder {
 	 */
 	@Nullable
 	private static Object getOriginalContext() {
-		Object originalContext = null;
+		Object originalContext;
 		for (OriginalContextProvider provider : ORIGINAL_CONTEXT_PROVIDERS) {
 			originalContext = provider.get();
 			if (originalContext != null) {
@@ -114,6 +114,6 @@ public final class ContextAttributesHolder {
 			}
 		}
 
-		return originalContext;
+		return null;
 	}
 }

@@ -36,7 +36,7 @@ public @interface SubQuerySupport {
 	 *
 	 * @return 结果字段名称
 	 */
-	String resultFieldName() default "";
+	String resultFieldName();
 
 	/**
 	 * 关联类型.
@@ -58,4 +58,11 @@ public @interface SubQuerySupport {
 	 * @return 表名称
 	 */
 	String tableName() default "";
+
+	/**
+	 * 默认where条件.
+	 *
+	 * @return 默认where条件
+	 */
+	String baseWhere() default "";
 }
