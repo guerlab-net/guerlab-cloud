@@ -1,2 +1,4 @@
 net.guerlab.cloud.server.autoconfigure.MyBatisAutoConfigure
 net.guerlab.cloud.server.autoconfigure.MybatisPlusAutoConfigure
+net.guerlab.cloud.server.mybatis.jdbc.MultiDataSourceAutoConfigure
+net.guerlab.cloud.server.mybatis.jdbc.MultiDataSourceAdvisorAutoConfigure
