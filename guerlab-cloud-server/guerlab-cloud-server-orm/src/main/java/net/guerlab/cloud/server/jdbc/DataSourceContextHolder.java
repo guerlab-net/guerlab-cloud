@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.server.mybatis.jdbc;
+package net.guerlab.cloud.server.jdbc;
 
 import lombok.extern.slf4j.Slf4j;
 

@@ -11,10 +11,25 @@
  * limitations under the License.
  */
 
-/**
- *
- */
-@NonNullApi
-package net.guerlab.cloud.server.mybatis.jdbc;
+package net.guerlab.cloud.server.jdbc;
 
-import org.springframework.lang.NonNullApi;
+import lombok.Data;
+
+/**
+ * 动态数据源切面配置.
+ *
+ * @author guer
+ */
+@Data
+public class PointcutProperties {
+
+	/**
+	 * 切入点表达式.
+	 */
+	private String pointcut;
+
+	/**
+	 * 数据源.
+	 */
+	private String dataSource;
+}
