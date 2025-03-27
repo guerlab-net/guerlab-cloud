@@ -11,27 +11,10 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.server.jdbc;
-
-import java.util.List;
-
-import lombok.Data;
-
 /**
- * 切面配置.
  *
- * @author guer
  */
-@Data
-public class MultiDataSourceAdvisorProperties {
+@NonNullApi
+package net.guerlab.cloud.server.mybatis.plus.interceptor;
 
-	/**
-	 * 基础包路径列表.
-	 */
-	private List<String> basePackages;
-
-	/**
-	 * 切入点配置列表.
-	 */
-	private List<PointcutProperties> pointcuts;
-}
+import org.springframework.lang.NonNullApi;

@@ -13,13 +13,13 @@
 
 package net.guerlab.cloud.server.jdbc;
 
+import java.util.List;
 import java.util.Map;
 
 import lombok.Data;
 
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 /**
  * 多数据源配置.
@@ -51,9 +51,8 @@ public class MultiDataSourceProperties {
 	private Map<String, DataSourceProperties> sources;
 
 	/**
-	 * 切面配置.
+	 * 切入点配置列表.
 	 */
-	@NestedConfigurationProperty
-	private MultiDataSourceAdvisorProperties advisors = new MultiDataSourceAdvisorProperties();
+	private List<PointcutProperties> pointcuts;
 
 }

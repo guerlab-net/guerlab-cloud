@@ -60,6 +60,12 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 
 	private static final Log ORM_LOGGER = LogFactory.getLog(BaseOrmServiceImpl.class);
 
+	/**
+	 * 创建基本ORM服务实现.
+	 *
+	 * @param sequence   序列
+	 * @param baseMapper mapper
+	 */
 	protected BaseOrmServiceImpl(Sequence sequence, M baseMapper) {
 		super(sequence, baseMapper);
 	}

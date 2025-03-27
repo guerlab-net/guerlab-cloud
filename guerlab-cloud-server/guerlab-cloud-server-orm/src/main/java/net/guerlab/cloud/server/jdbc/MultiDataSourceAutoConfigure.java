@@ -61,16 +61,33 @@ public class MultiDataSourceAutoConfigure {
 	 */
 	private final MultiDataSourceProperties multiDataSourceProperties;
 
+	/**
+	 * 创建多数据源自动配置.
+	 *
+	 * @param dataSourceProperties      数据源配置
+	 * @param multiDataSourceProperties 多数据源配置
+	 */
 	public MultiDataSourceAutoConfigure(DataSourceProperties dataSourceProperties, MultiDataSourceProperties multiDataSourceProperties) {
 		this.dataSourceProperties = dataSourceProperties;
 		this.multiDataSourceProperties = multiDataSourceProperties;
 	}
 
+	/**
+	 * 创建数据源上下文保持.
+	 *
+	 * @return 数据源上下文保持
+	 */
 	@Bean
 	public DataSourceContextHolder dataSourceContextHolder() {
 		return new DataSourceContextHolder(multiDataSourceProperties.getDefaultDataSource());
 	}
 
+	/**
+	 * 创建动态数据源.
+	 *
+	 * @param dataSourceContextHolder 数据源上下文保持
+	 * @return 动态数据源
+	 */
 	@Primary
 	@Bean(name = "dynamicDataSource")
 	public DataSource dynamicDataSource(DataSourceContextHolder dataSourceContextHolder) {

@@ -1,0 +1,38 @@
+{
+  "groups": [
+    {
+      "name": "spring.multi-datasource",
+      "type": "net.guerlab.cloud.server.jdbc.MultiDataSourceProperties",
+      "sourceType": "net.guerlab.cloud.server.jdbc.MultiDataSourceProperties",
+      "description": "多数据源配置."
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.multi-datasource.default-data-source",
+      "type": "java.lang.String",
+      "description": "默认数据源.",
+      "sourceType": "net.guerlab.cloud.server.jdbc.MultiDataSourceProperties"
+    },
+    {
+      "name": "spring.multi-datasource.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用多数据源支持.",
+      "sourceType": "net.guerlab.cloud.server.jdbc.MultiDataSourceProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.multi-datasource.pointcuts",
+      "type": "java.util.List<net.guerlab.cloud.server.jdbc.PointcutProperties>",
+      "description": "切入点配置列表.",
+      "sourceType": "net.guerlab.cloud.server.jdbc.MultiDataSourceProperties"
+    },
+    {
+      "name": "spring.multi-datasource.sources",
+      "type": "java.util.Map<java.lang.String,org.springframework.boot.autoconfigure.jdbc.DataSourceProperties>",
+      "description": "数据源表.",
+      "sourceType": "net.guerlab.cloud.server.jdbc.MultiDataSourceProperties"
+    }
+  ],
+  "hints": []
+}

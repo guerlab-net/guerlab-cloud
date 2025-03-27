@@ -83,6 +83,12 @@ public abstract class BaseOrmFindServiceImpl<E extends IBaseEntity, M extends Ba
 	@Resource
 	private SqlSessionFactory sqlSessionFactory;
 
+	/**
+	 * 创建基本ORM查询服务实现.
+	 *
+	 * @param sequence   序列
+	 * @param baseMapper mapper
+	 */
 	protected BaseOrmFindServiceImpl(Sequence sequence, M baseMapper) {
 		this.sequence = sequence;
 		this.baseMapper = baseMapper;
