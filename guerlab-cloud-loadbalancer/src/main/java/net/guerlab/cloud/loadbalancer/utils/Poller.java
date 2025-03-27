@@ -16,7 +16,7 @@ package net.guerlab.cloud.loadbalancer.utils;
 import java.util.List;
 
 /**
- * Poller.
+ * 轮询器.
  *
  * @author guer
  */

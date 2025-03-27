@@ -66,6 +66,7 @@ public class WebMvcSecurityAutoConfigure {
 	 *
 	 * @param http HttpSecurity
 	 * @return SecurityFilterChain
+	 * @throws Exception 配置异常时抛出错误
 	 */
 	@Bean
 	public SecurityFilterChain securityWebFilterChain(HttpSecurity http) throws Exception {

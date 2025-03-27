@@ -14,7 +14,7 @@
 package net.guerlab.cloud.loadbalancer.utils;
 
 /**
- * Pair.
+ * 带权重对象.
  *
  * @author guer
  */

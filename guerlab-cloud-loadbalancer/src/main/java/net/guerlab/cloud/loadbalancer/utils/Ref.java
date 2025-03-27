@@ -20,7 +20,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Ref.
+ * 引用包裹对象.
  *
  * @author guer
  */
@@ -36,12 +36,17 @@ public class Ref<T> {
 
 	private double[] weights;
 
+	/**
+	 * 创建引用包裹对象.
+	 *
+	 * @param itemsWithWeight 带权重对象列表
+	 */
 	public Ref(List<Pair<T>> itemsWithWeight) {
 		this.itemsWithWeight = itemsWithWeight;
 	}
 
 	/**
-	 * Refresh.
+	 * 刷新列表.
 	 */
 	public void refresh() {
 		double originWeightSum = 0;

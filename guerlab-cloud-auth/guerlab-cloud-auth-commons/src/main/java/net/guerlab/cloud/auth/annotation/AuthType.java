@@ -33,6 +33,8 @@ public @interface AuthType {
 
 	/**
 	 * 指定的认证类型列表.
+	 *
+	 * @return 指定的认证类型列表
 	 */
 	Class<?>[] value();
 }

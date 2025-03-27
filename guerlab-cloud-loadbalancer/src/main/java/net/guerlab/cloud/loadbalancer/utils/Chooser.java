@@ -21,7 +21,7 @@ import java.util.List;
 import jakarta.annotation.Nullable;
 
 /**
- * Chooser.
+ * 选择器.
  *
  * @author guer
  */
@@ -29,14 +29,31 @@ public class Chooser<K, T> {
 
 	private final SecureRandom secureRandom = new SecureRandom();
 
+	/**
+	 * 唯一key.
+	 */
 	private final K uniqueKey;
 
+	/**
+	 * 对象引用.
+	 */
 	private volatile Ref<T> ref;
 
+	/**
+	 * 创建选择器.
+	 *
+	 * @param uniqueKey 唯一key
+	 */
 	public Chooser(K uniqueKey) {
 		this(uniqueKey, new ArrayList<>());
 	}
 
+	/**
+	 * 创建选择器.
+	 *
+	 * @param uniqueKey 唯一key
+	 * @param pairs     带权重对象列表
+	 */
 	public Chooser(K uniqueKey, List<Pair<T>> pairs) {
 		this.uniqueKey = uniqueKey;
 		this.ref = new Ref<>(pairs);
@@ -88,11 +105,21 @@ public class Chooser<K, T> {
 		return items.get(items.size() - 1);
 	}
 
+	/**
+	 * 获取唯一key.
+	 *
+	 * @return 唯一key
+	 */
 	@Nullable
 	public K getUniqueKey() {
 		return uniqueKey;
 	}
 
+	/**
+	 * 获取对象引用.
+	 *
+	 * @return 对象引用
+	 */
 	@Nullable
 	public Ref<T> getRef() {
 		return ref;

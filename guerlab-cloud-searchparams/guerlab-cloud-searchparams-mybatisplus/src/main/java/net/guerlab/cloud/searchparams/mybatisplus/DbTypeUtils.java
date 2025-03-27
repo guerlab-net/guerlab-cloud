@@ -46,6 +46,11 @@ public final class DbTypeUtils {
 
 	}
 
+	/**
+	 * 添加数据库类型提供器.
+	 *
+	 * @param provider 数据库类型提供器
+	 */
 	public static void addProvider(DbTypeProvider provider) {
 		if (dbTypeProviders.stream().anyMatch(p -> p.getClass().isInstance(provider))) {
 			return;
@@ -56,6 +61,11 @@ public final class DbTypeUtils {
 		dbTypeProviders = providers.stream().sorted(Comparator.comparingInt(Ordered::getOrder)).toList();
 	}
 
+	/**
+	 * 移除数据库类型提供器.
+	 *
+	 * @param providerClass 数据库类型提供器类型
+	 */
 	public static void removeProvider(Class<? extends DbTypeProvider> providerClass) {
 		dbTypeProviders = dbTypeProviders.stream().filter(p -> !providerClass.isInstance(p))
 				.sorted(Comparator.comparingInt(Ordered::getOrder)).toList();

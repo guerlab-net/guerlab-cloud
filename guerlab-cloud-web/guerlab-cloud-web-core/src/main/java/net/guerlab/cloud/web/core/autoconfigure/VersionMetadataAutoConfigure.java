@@ -45,10 +45,20 @@ public class VersionMetadataAutoConfigure {
 	@Value("${spring.cloud.discovery.version-metadata-key:version}")
 	private String versionMetadataKey;
 
+	/**
+	 * 创建版本号元信息自动配置.
+	 *
+	 * @param buildPropertiesProvider BuildProperties提供
+	 */
 	public VersionMetadataAutoConfigure(ObjectProvider<BuildProperties> buildPropertiesProvider) {
 		buildPropertiesProvider.ifAvailable(properties -> this.buildProperties = properties);
 	}
 
+	/**
+	 * 服务实例注册监听.
+	 *
+	 * @param event 服务实例注册前置事件
+	 */
 	@EventListener(InstancePreRegisteredEvent.class)
 	public void instancePreRegistered(InstancePreRegisteredEvent event) {
 		if (buildProperties == null) {

@@ -26,6 +26,9 @@ public class NativeQuerySortOptionsSearchParamsUtilInstance extends AbstractSear
 
 	private static final Class<?> CLAZZ = NativeQueryBuilder.class;
 
+	/**
+	 * 创建原生查询排序选项处理实例.
+	 */
 	public NativeQuerySortOptionsSearchParamsUtilInstance() {
 		setDefaultHandler(new SortOptionsBuilderDefaultHandler());
 	}

@@ -33,6 +33,11 @@ public abstract class AbstractMd5TokenFactory<T, P extends Md5TokenFactoryProper
 
 	private static final String TOKEN_CONNECTORS = ".";
 
+	/**
+	 * 创建token工厂.
+	 *
+	 * @param properties 配置
+	 */
 	protected AbstractMd5TokenFactory(P properties) {
 		super(properties);
 	}

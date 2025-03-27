@@ -173,12 +173,23 @@ public abstract class BaseOrmFindServiceImpl<E extends IBaseEntity, M extends Ba
 		return result;
 	}
 
+	/**
+	 * 搜索前置操作.
+	 *
+	 * @param searchParams 搜索参数
+	 * @return 是否允许搜索
+	 */
 	@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "SameReturnValue"})
 	protected boolean beforeSelect(Q searchParams) {
 		return true;
 	}
 
-
+	/**
+	 * 搜索后置操作.
+	 *
+	 * @param items        对象列表
+	 * @param searchParams 搜索参数
+	 */
 	protected void afterSelect(Collection<E> items, @Nullable Q searchParams) {
 
 	}

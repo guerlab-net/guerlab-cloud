@@ -43,7 +43,11 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 public class RedisTemplateAutoConfigure {
 
 	/**
+	 * 创建RedissonConnectionFactory.
 	 * view to {@link org.redisson.spring.starter.RedissonAutoConfiguration#redissonConnectionFactory}.
+	 *
+	 * @param redisson redisson
+	 * @return RedissonConnectionFactory
 	 */
 	@Bean
 	@ConditionalOnMissingBean(RedisConnectionFactory.class)

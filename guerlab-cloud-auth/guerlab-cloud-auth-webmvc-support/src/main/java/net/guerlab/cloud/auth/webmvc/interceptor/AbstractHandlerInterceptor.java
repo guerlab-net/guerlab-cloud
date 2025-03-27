@@ -60,6 +60,11 @@ public abstract class AbstractHandlerInterceptor implements HandlerInterceptor, 
 	 */
 	protected final ResponseAdvisorProperties responseAdvisorProperties;
 
+	/**
+	 * 创建拦截器处理.
+	 *
+	 * @param responseAdvisorProperties http响应数据处理配置参数
+	 */
 	protected AbstractHandlerInterceptor(ResponseAdvisorProperties responseAdvisorProperties) {
 		this.responseAdvisorProperties = responseAdvisorProperties;
 	}

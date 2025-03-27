@@ -54,10 +54,20 @@ public class ContextAttributes extends HashMap<Object, Object> {
 	 */
 	private final String initSource;
 
+	/**
+	 * 创建上下文属性.
+	 *
+	 * @param initSource 创建源
+	 */
 	public ContextAttributes(String initSource) {
 		this.initSource = initSource;
 	}
 
+	/**
+	 * 创建上下文属性.
+	 *
+	 * @param parent 上级上下文属性
+	 */
 	public ContextAttributes(ContextAttributes parent) {
 		this.initSource = parent.initSource;
 		putAll(parent);

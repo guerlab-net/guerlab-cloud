@@ -42,15 +42,29 @@ public class OrderBy {
 	@Builder.Default
 	private boolean asc = true;
 
+	/**
+	 * 创建排序字段.
+	 */
 	@SuppressWarnings("unused")
 	public OrderBy() {
 		this(null, true);
 	}
 
+	/**
+	 * 排序字段.
+	 *
+	 * @param columnName 字段名
+	 */
 	public OrderBy(String columnName) {
 		this(columnName, true);
 	}
 
+	/**
+	 * 排序字段.
+	 *
+	 * @param columnName 字段名
+	 * @param asc        是否升序
+	 */
 	public OrderBy(String columnName, boolean asc) {
 		this.columnName = columnName;
 		this.asc = asc;

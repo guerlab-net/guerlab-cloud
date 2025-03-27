@@ -25,13 +25,27 @@ import java.util.Objects;
  */
 public class OrderBys extends ArrayList<OrderBy> {
 
+	/**
+	 * 创建排序字段列表.
+	 */
 	public OrderBys() {
 	}
 
+	/**
+	 * 根据排序列表创建排序字段列表.
+	 *
+	 * @param c 排序列表
+	 */
 	public OrderBys(Collection<OrderBy> c) {
 		super(c);
 	}
 
+	/**
+	 * 根据排序列表创建排序字段列表.
+	 *
+	 * @param orderBys 排序列表
+	 * @return 排序字段列表
+	 */
 	public static OrderBys of(OrderBy... orderBys) {
 		return new OrderBys(Arrays.stream(orderBys).filter(Objects::nonNull).toList());
 	}

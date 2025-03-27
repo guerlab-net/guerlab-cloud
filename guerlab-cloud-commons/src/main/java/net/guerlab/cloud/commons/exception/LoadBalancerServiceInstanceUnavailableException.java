@@ -29,8 +29,16 @@ public class LoadBalancerServiceInstanceUnavailableException extends AbstractI18
 
 	private static final String MESSAGE_KEY = "message.exception.commons.serviceInstanceUnavailable";
 
+	/**
+	 * 服务ID.
+	 */
 	private final String serviceId;
 
+	/**
+	 * 创建负载均衡服务无有效实例异常.
+	 *
+	 * @param serviceId 服务ID
+	 */
 	public LoadBalancerServiceInstanceUnavailableException(String serviceId) {
 		this.serviceId = serviceId;
 	}

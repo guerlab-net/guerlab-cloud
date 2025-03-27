@@ -42,6 +42,11 @@ import net.guerlab.cloud.auth.properties.JwtTokenFactoryProperties;
 public abstract class AbstractJwtTokenFactory<T, P extends JwtTokenFactoryProperties>
 		extends AbstractTokenFactory<T, P> {
 
+	/**
+	 * 创建jwt token工厂.
+	 *
+	 * @param properties 配置
+	 */
 	protected AbstractJwtTokenFactory(P properties) {
 		super(properties);
 	}

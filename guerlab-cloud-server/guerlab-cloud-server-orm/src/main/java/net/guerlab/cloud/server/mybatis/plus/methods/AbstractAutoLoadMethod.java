@@ -32,8 +32,14 @@ import net.guerlab.commons.reflection.FieldUtil;
  */
 public abstract class AbstractAutoLoadMethod<E extends IBaseEntity> extends AbstractMethod {
 
+	/**
+	 * 基础类类型.
+	 */
 	protected final Class<E> baseClass;
 
+	/**
+	 * 基础字段列表.
+	 */
 	protected final transient Collection<Field> baseFields;
 
 	/**

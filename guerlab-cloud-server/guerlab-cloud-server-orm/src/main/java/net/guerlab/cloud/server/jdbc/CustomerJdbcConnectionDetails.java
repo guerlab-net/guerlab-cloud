@@ -23,8 +23,16 @@ import org.springframework.boot.autoconfigure.jdbc.JdbcConnectionDetails;
  */
 public class CustomerJdbcConnectionDetails implements JdbcConnectionDetails {
 
+	/**
+	 * jdbc链接信息.
+	 */
 	private final DataSourceProperties properties;
 
+	/**
+	 * 创建jdbc链接信息.
+	 *
+	 * @param properties jdbc链接信息
+	 */
 	public CustomerJdbcConnectionDetails(DataSourceProperties properties) {
 		this.properties = properties;
 	}
