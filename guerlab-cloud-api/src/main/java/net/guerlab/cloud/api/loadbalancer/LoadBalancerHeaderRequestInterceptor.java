@@ -53,6 +53,11 @@ public class LoadBalancerHeaderRequestInterceptor implements RequestInterceptor 
 		this.properties = properties;
 	}
 
+	/**
+	 * 服务注册前置处理.
+	 *
+	 * @param instancePreRegisteredEvent 服务注册前置事件
+	 */
 	@EventListener(InstancePreRegisteredEvent.class)
 	public void onInstancePreRegisteredEvent(
 			InstancePreRegisteredEvent instancePreRegisteredEvent) {

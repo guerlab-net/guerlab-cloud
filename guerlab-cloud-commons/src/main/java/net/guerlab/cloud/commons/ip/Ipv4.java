@@ -95,6 +95,9 @@ public abstract class Ipv4 implements IpAddress {
 	 */
 	public static final String RANGE_END_REG = "^" + RANGE_END_FORMAT + "$";
 
+	/**
+	 * 创建ipv4对象.
+	 */
 	protected Ipv4() {
 	}
 }

@@ -76,6 +76,7 @@ public class WebFluxGlobalExceptionHandlerAutoConfigure {
 	 * @param messageSource         消息源
 	 * @param stackTracesHandler    堆栈处理
 	 * @param globalExceptionLogger 默认全局异常处理日志记录器
+	 * @param defaultBuilder        默认处理
 	 * @return 异常统一处理配置
 	 */
 	@Bean

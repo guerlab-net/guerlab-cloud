@@ -31,7 +31,7 @@ public class MybatisSystemExceptionResponseBuilder extends AbstractResponseBuild
 	private static final Map<Class<? extends Throwable>, Class<? extends AbstractResponseBuilder>> BUILDER_MAP = new HashMap<>();
 
 	/**
-	 * 添加异常对应的异常信息构建器
+	 * 添加异常对应的异常信息构建器.
 	 *
 	 * @param causeClass   异常类型
 	 * @param builderClass 异常信息构建器类型

@@ -11,13 +11,32 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.loadbalancer.utils;
+package net.guerlab.cloud.server.jdbc;
+
+import java.util.List;
+
+import lombok.Data;
 
 /**
- * 带权重对象.
+ * 动态数据源切面配置.
  *
  * @author guer
  */
-public record Pair<T>(T item, double weight) {
+@Data
+public class PointcutProperties {
 
+	/**
+	 * 数据源.
+	 */
+	private String dataSource;
+
+	/**
+	 * 类名称匹配列表.
+	 */
+	private List<String> classNameMatch;
+
+	/**
+	 * 方法名称匹配列表.
+	 */
+	private List<String> methodNameMatch;
 }

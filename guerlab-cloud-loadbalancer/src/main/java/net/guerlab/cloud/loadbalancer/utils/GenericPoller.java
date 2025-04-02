@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Generic Poller.
+ * 通用轮询器.
  *
  * @author guer
  */
@@ -27,6 +27,11 @@ public class GenericPoller<T> implements Poller<T> {
 
 	private final List<T> items;
 
+	/**
+	 * 创建通用轮询器.
+	 *
+	 * @param items 待轮询对象列表
+	 */
 	public GenericPoller(List<T> items) {
 		this.items = items;
 	}

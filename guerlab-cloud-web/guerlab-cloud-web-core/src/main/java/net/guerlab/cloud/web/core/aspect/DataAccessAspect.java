@@ -46,6 +46,14 @@ public class DataAccessAspect implements ApplicationContextAware {
 		this.applicationContext = applicationContext;
 	}
 
+	/**
+	 * 数据处理切面.
+	 *
+	 * @param point      切入点
+	 * @param dataAccess 数据处理注解信息
+	 * @return 源方法处理结果
+	 * @throws Throwable 执行异常
+	 */
 	@Around("@annotation(dataAccess)")
 	public Object dataAccess(ProceedingJoinPoint point, DataAccess dataAccess) throws Throwable {
 		Object result = point.proceed();

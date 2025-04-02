@@ -46,6 +46,12 @@ public class CustomerErrorController extends AbstractErrorController {
 		super(errorAttributes, errorViewResolvers);
 	}
 
+	/**
+	 * 错误信息处理.
+	 *
+	 * @param request 请求对象
+	 * @return 错误信息
+	 */
 	@RequestMapping
 	public Result<Void> error(HttpServletRequest request) {
 		HttpStatus status = getStatus(request);

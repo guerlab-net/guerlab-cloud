@@ -30,8 +30,16 @@ import net.guerlab.cloud.web.core.properties.GlobalExceptionProperties;
  */
 public class ThrowableResponseBuilder extends AbstractI18nResponseBuilder {
 
+	/**
+	 * 全局异常处理配置.
+	 */
 	private final GlobalExceptionProperties properties;
 
+	/**
+	 * 创建通用异常处理.
+	 *
+	 * @param properties 全局异常处理配置
+	 */
 	public ThrowableResponseBuilder(GlobalExceptionProperties properties) {
 		this.properties = properties;
 	}

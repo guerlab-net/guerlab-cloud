@@ -45,6 +45,11 @@ public class RandomWithWeightLoadBalancerPolicy extends AbstractLoadBalancerPoli
 	 */
 	private final LoadBalancerProperties properties;
 
+	/**
+	 * 创建加权随机负载均衡策略.
+	 *
+	 * @param properties 负载均衡配置
+	 */
 	public RandomWithWeightLoadBalancerPolicy(LoadBalancerProperties properties) {
 		this.properties = properties;
 	}

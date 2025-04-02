@@ -31,6 +31,9 @@ public class RoundRobinLoadBalancerPolicy extends AbstractLoadBalancerPolicy {
 	 */
 	private final AtomicInteger position;
 
+	/**
+	 * 创建轮询负载均衡策略.
+	 */
 	public RoundRobinLoadBalancerPolicy() {
 		Random random = new Random();
 		position = new AtomicInteger(random.nextInt(1000));

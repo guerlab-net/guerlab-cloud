@@ -60,6 +60,12 @@ public abstract class BaseManageController<E extends IBaseEntity, Q extends Sear
 		super(api);
 	}
 
+	/**
+	 * 新增实体.
+	 *
+	 * @param entity 实体数据
+	 * @return 实体数据
+	 */
 	@Log("method.insert")
 	@PostMapping
 	@Operation(summary = "新增实体", security = @SecurityRequirement(name = Constants.TOKEN))
@@ -81,6 +87,12 @@ public abstract class BaseManageController<E extends IBaseEntity, Q extends Sear
 
 	}
 
+	/**
+	 * 根据Id编辑数据.
+	 *
+	 * @param entity 实体数据
+	 * @return 实体数据
+	 */
 	@Log("method.updateById")
 	@PostMapping(UpdateById.UPDATE_BY_ID_PATH)
 	@Operation(summary = "根据Id编辑数据", security = @SecurityRequirement(name = Constants.TOKEN))
@@ -108,6 +120,11 @@ public abstract class BaseManageController<E extends IBaseEntity, Q extends Sear
 
 	}
 
+	/**
+	 * 根据Id删除数据.
+	 *
+	 * @param id ID
+	 */
 	@Log("method.deleteById")
 	@DeleteMapping(DeleteById.DELETE_BY_ID_PATH)
 	@Operation(summary = "根据Id删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
@@ -130,6 +147,11 @@ public abstract class BaseManageController<E extends IBaseEntity, Q extends Sear
 
 	}
 
+	/**
+	 * 根据搜索参数删除数据.
+	 *
+	 * @param searchParams 搜索参数
+	 */
 	@Log("method.delete")
 	@DeleteMapping
 	@Operation(summary = "根据搜索参数删除数据", security = @SecurityRequirement(name = Constants.TOKEN))

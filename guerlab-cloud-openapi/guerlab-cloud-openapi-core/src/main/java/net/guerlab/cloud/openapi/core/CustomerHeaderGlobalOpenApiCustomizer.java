@@ -33,8 +33,16 @@ import net.guerlab.cloud.openapi.core.properties.OpenApiProperties;
  */
 public class CustomerHeaderGlobalOpenApiCustomizer implements GlobalOpenApiCustomizer {
 
+	/**
+	 * 开放接口配置.
+	 */
 	private final OpenApiProperties properties;
 
+	/**
+	 * 创建自定义头信息处理.
+	 *
+	 * @param properties 开放接口配置
+	 */
 	public CustomerHeaderGlobalOpenApiCustomizer(OpenApiProperties properties) {
 		this.properties = properties;
 	}

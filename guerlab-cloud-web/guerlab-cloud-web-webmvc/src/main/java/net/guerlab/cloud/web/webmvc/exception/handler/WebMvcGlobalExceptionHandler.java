@@ -47,6 +47,7 @@ public class WebMvcGlobalExceptionHandler extends GlobalExceptionHandler {
 	 * @param stackTracesHandler        堆栈处理
 	 * @param globalExceptionLogger     全局异常处理日志记录器
 	 * @param builders                  异常信息构建者列表
+	 * @param defaultBuilder            默认处理
 	 * @param globalExceptionProperties 全局异常处理配置
 	 */
 	public WebMvcGlobalExceptionHandler(MessageSource messageSource, StackTracesHandler stackTracesHandler,

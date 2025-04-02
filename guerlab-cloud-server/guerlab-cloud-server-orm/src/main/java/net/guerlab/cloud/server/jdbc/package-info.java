@@ -11,13 +11,10 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.loadbalancer.utils;
-
 /**
- * 带权重对象.
  *
- * @author guer
  */
-public record Pair<T>(T item, double weight) {
+@NonNullApi
+package net.guerlab.cloud.server.jdbc;
 
-}
+import org.springframework.lang.NonNullApi;

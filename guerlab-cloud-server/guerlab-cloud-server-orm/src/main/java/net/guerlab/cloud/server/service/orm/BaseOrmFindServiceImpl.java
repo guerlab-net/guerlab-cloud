@@ -83,6 +83,12 @@ public abstract class BaseOrmFindServiceImpl<E extends IBaseEntity, M extends Ba
 	@Resource
 	private SqlSessionFactory sqlSessionFactory;
 
+	/**
+	 * 创建基本ORM查询服务实现.
+	 *
+	 * @param sequence   序列
+	 * @param baseMapper mapper
+	 */
 	protected BaseOrmFindServiceImpl(Sequence sequence, M baseMapper) {
 		this.sequence = sequence;
 		this.baseMapper = baseMapper;
@@ -167,12 +173,23 @@ public abstract class BaseOrmFindServiceImpl<E extends IBaseEntity, M extends Ba
 		return result;
 	}
 
+	/**
+	 * 搜索前置操作.
+	 *
+	 * @param searchParams 搜索参数
+	 * @return 是否允许搜索
+	 */
 	@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "SameReturnValue"})
 	protected boolean beforeSelect(Q searchParams) {
 		return true;
 	}
 
-
+	/**
+	 * 搜索后置操作.
+	 *
+	 * @param items        对象列表
+	 * @param searchParams 搜索参数
+	 */
 	protected void afterSelect(Collection<E> items, @Nullable Q searchParams) {
 
 	}

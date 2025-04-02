@@ -54,6 +54,11 @@ public class BoolQueryBuilderDefaultHandler implements SearchParamsHandler {
 
 	private static TimeZone defaultTimeZone = TimeZone.getDefault();
 
+	/**
+	 * 设置默认时区.
+	 *
+	 * @param val 默认时区
+	 */
 	public static void setDefaultTimeZone(@Nullable TimeZone val) {
 		if (val == null) {
 			defaultTimeZone = TimeZone.getDefault();
@@ -63,6 +68,11 @@ public class BoolQueryBuilderDefaultHandler implements SearchParamsHandler {
 		}
 	}
 
+	/**
+	 * 获取时区信息.
+	 *
+	 * @return 时区信息
+	 */
 	public static TimeZone getTimeZone() {
 		return defaultTimeZone;
 	}

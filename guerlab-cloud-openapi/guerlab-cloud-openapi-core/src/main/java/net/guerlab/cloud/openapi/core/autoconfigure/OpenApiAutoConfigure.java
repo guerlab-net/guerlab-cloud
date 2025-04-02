@@ -62,6 +62,12 @@ public class OpenApiAutoConfigure {
 		return new SimpleAuthorizePathProvider(Collections.singletonList(path));
 	}
 
+	/**
+	 * 创建GlobalOpenApiCustomizer.
+	 *
+	 * @param properties 开放接口配置
+	 * @return GlobalOpenApiCustomizer
+	 */
 	@Bean
 	public GlobalOpenApiCustomizer globalOpenApiCustomizer(OpenApiProperties properties) {
 		return new CustomerHeaderGlobalOpenApiCustomizer(properties);

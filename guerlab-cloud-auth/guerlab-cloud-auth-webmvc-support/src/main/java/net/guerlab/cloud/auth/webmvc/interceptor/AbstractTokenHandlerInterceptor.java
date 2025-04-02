@@ -40,6 +40,12 @@ public abstract class AbstractTokenHandlerInterceptor<A extends AuthWebPropertie
 	 */
 	protected final A authProperties;
 
+	/**
+	 * 创建.
+	 *
+	 * @param responseAdvisorProperties http响应数据处理配置参数
+	 * @param authProperties            授权配置
+	 */
 	protected AbstractTokenHandlerInterceptor(ResponseAdvisorProperties responseAdvisorProperties, A authProperties) {
 		super(responseAdvisorProperties);
 		this.authProperties = authProperties;

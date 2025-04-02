@@ -26,6 +26,11 @@ import net.guerlab.commons.encrypt.AuthCodeHelper;
 public abstract class AbstractRc4TokenFactory<T, P extends Rc4TokenFactoryProperties>
 		extends AbstractStringValueTokenFactory<T, P> {
 
+	/**
+	 * 创建token工厂.
+	 *
+	 * @param properties 配置
+	 */
 	protected AbstractRc4TokenFactory(P properties) {
 		super(properties);
 	}

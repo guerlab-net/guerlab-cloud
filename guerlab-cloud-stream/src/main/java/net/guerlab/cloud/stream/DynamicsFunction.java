@@ -40,6 +40,13 @@ public class DynamicsFunction implements IDynamicsFunction, ApplicationContextAw
 
 	private ApplicationContext applicationContext;
 
+	/**
+	 * 创建动态方法.
+	 *
+	 * @param functionName 方法名.
+	 * @param inputClass   输入类型
+	 * @param eventClass   事件类型
+	 */
 	public DynamicsFunction(String functionName, Class<?> inputClass, Class<? extends ApplicationEvent> eventClass) {
 		Assert.hasText(functionName, () -> "functionName cannot be empty");
 

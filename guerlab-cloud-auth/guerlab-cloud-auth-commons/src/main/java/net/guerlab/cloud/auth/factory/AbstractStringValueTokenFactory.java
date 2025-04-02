@@ -57,6 +57,11 @@ public abstract class AbstractStringValueTokenFactory<T, P extends StringValueTo
 	 */
 	protected static final String GROUP_CONNECTORS = "&";
 
+	/**
+	 * 创建token工厂.
+	 *
+	 * @param properties 配置
+	 */
 	protected AbstractStringValueTokenFactory(P properties) {
 		super(properties);
 	}

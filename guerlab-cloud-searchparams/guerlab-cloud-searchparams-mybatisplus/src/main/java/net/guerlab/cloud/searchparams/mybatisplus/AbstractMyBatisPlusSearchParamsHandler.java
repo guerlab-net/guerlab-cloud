@@ -32,6 +32,12 @@ public abstract class AbstractMyBatisPlusSearchParamsHandler implements SearchPa
 	 */
 	public abstract Class<?> acceptClass();
 
+	/**
+	 * 获取json路径.
+	 *
+	 * @param jsonField json字段信息
+	 * @return json路径
+	 */
 	protected String getJsonPath(JsonField jsonField) {
 		String jsonPath = StringUtils.trimToEmpty(jsonField.jsonPath());
 		if (jsonPath == null) {

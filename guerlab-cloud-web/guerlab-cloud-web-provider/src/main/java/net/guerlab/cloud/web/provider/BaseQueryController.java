@@ -79,10 +79,17 @@ public abstract class BaseQueryController<E extends IBaseEntity, Q extends Searc
 	 */
 	protected abstract V convert(E entity);
 
+	/**
+	 * 通过Id查询单一结果.
+	 *
+	 * @param id           ID
+	 * @param searchParams 搜索参数
+	 * @return 实体数据
+	 */
 	@Nullable
 	@GetMapping(SelectById.SELECT_BY_ID_PATH)
 	@Operation(summary = "通过Id查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
-	public V selectById(@Parameter(description = "ID", required = true) @PathVariable(SelectById.SELECT_BY_ID_PARAM) Long id, @Nullable Q searchParams) {
+	public V selectById(@Parameter(description = "ID", required = true) @PathVariable(SelectById.SELECT_BY_ID_PARAM) Long id, @Parameter(description = "搜索参数") @Nullable Q searchParams) {
 		E entity = getApi().selectById(id);
 		if (entity == null) {
 			throw nullPointException();
@@ -93,6 +100,12 @@ public abstract class BaseQueryController<E extends IBaseEntity, Q extends Searc
 		return vo;
 	}
 
+	/**
+	 * 查询单一结果.
+	 *
+	 * @param searchParams 搜索参数对象
+	 * @return 实体数据
+	 */
 	@Nullable
 	@PostMapping(SelectOne.SELECT_ONE_PATH)
 	@Operation(summary = "查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
@@ -133,6 +146,12 @@ public abstract class BaseQueryController<E extends IBaseEntity, Q extends Searc
 		return new NullPointerException();
 	}
 
+	/**
+	 * 查询列表.
+	 *
+	 * @param searchParams 搜索参数对象
+	 * @return 列表
+	 */
 	@PostMapping(SelectList.SELECT_LIST_PATH)
 	@Operation(summary = "查询列表", security = @SecurityRequirement(name = Constants.TOKEN))
 	public List<V> selectList(@Parameter(description = "搜索参数对象", required = true) @RequestBody Q searchParams) {
@@ -149,6 +168,14 @@ public abstract class BaseQueryController<E extends IBaseEntity, Q extends Searc
 		return result;
 	}
 
+	/**
+	 * 查询分页列表.
+	 *
+	 * @param searchParams 搜索参数对象
+	 * @param pageId       分页ID
+	 * @param pageSize     分页尺寸
+	 * @return 分页结果
+	 */
 	@PostMapping(SelectPage.SELECT_PAGE_PATH)
 	@Operation(summary = "查询分页列表", security = @SecurityRequirement(name = Constants.TOKEN))
 	public Pageable<V> selectPage(@Parameter(description = "搜索参数对象", required = true) @RequestBody Q searchParams,
@@ -172,6 +199,12 @@ public abstract class BaseQueryController<E extends IBaseEntity, Q extends Searc
 		return voResult;
 	}
 
+	/**
+	 * 查询总记录数.
+	 *
+	 * @param searchParams 搜索参数对象
+	 * @return 总记录数
+	 */
 	@PostMapping(SelectCount.SELECT_COUNT_PATH)
 	@Operation(summary = "查询总记录数", security = @SecurityRequirement(name = Constants.TOKEN))
 	public long selectCount(@Parameter(description = "搜索参数对象", required = true) @RequestBody Q searchParams) {

@@ -37,6 +37,11 @@ public abstract class AbstractTokenFactory<T, P extends TokenFactoryProperties> 
 	 */
 	protected final P properties;
 
+	/**
+	 * 创建token工厂.
+	 *
+	 * @param properties 配置
+	 */
 	protected AbstractTokenFactory(P properties) {
 		this.properties = properties;
 	}
