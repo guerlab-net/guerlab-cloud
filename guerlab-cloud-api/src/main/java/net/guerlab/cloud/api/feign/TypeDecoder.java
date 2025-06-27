@@ -25,7 +25,7 @@ import org.springframework.http.MediaType;
 public interface TypeDecoder extends Decoder {
 
 	/**
-	 * 判断当前类型是否支持
+	 * 判断当前类型是否支持.
 	 *
 	 * @param mediaType 媒体类型
 	 * @return 是否支持
