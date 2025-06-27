@@ -90,6 +90,11 @@ public final class Constants {
 	 */
 	public static final String ALLOW_TRANSFER_HEADER_PREFIX = "X-Transfer-Inside-";
 
+	/**
+	 * 请求头-是否包装响应.
+	 */
+	public static final String HTTP_HEADER_RESPONSE_WRAPPED = "X-Response-Wrapped";
+
 	private Constants() {
 	}
 }

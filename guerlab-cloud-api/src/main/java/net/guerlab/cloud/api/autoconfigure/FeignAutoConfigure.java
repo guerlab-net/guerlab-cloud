@@ -13,19 +13,31 @@
 
 package net.guerlab.cloud.api.autoconfigure;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feign.codec.Decoder;
+import feign.optionals.OptionalDecoder;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.cloud.openfeign.support.HttpMessageConverterCustomizer;
+import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
+import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.context.annotation.Bean;
 
+import net.guerlab.cloud.api.feign.DecoderWrapper;
 import net.guerlab.cloud.api.feign.ErrorDecoderChain;
 import net.guerlab.cloud.api.feign.FailResponseDecoder;
+import net.guerlab.cloud.api.feign.JsonDecoder;
 import net.guerlab.cloud.api.feign.LoadbalancerNotContainInstanceResponseDecoder;
 import net.guerlab.cloud.api.feign.OrderedErrorDecoder;
-import net.guerlab.cloud.api.feign.ResultDecoder;
+import net.guerlab.cloud.api.feign.TypeDecoder;
 
 /**
  * feign自动配置.
@@ -36,15 +48,25 @@ import net.guerlab.cloud.api.feign.ResultDecoder;
 @AutoConfiguration
 public class FeignAutoConfigure {
 
-	/**
-	 * 构造结果解析.
-	 *
-	 * @param objectMapper objectMapper
-	 * @return 结果解析
-	 */
+	@Autowired
+	private ObjectFactory<HttpMessageConverters> messageConverters;
+
 	@Bean
-	public ResultDecoder resultDecoder(ObjectMapper objectMapper) {
-		return new ResultDecoder(objectMapper);
+	public DecoderWrapper decoderWrapper(
+			ObjectMapper objectMapper,
+			ObjectProvider<TypeDecoder> typeDecoderObjectProvider,
+			ObjectProvider<HttpMessageConverterCustomizer> customizers
+	) {
+		Decoder defaultDecoder = new OptionalDecoder(new ResponseEntityDecoder(new SpringDecoder(messageConverters, customizers)));
+
+		List<TypeDecoder> typeDecoders = new ArrayList<>();
+
+		typeDecoders.add(new JsonDecoder(objectMapper));
+		for (TypeDecoder typeDecoder : typeDecoderObjectProvider) {
+			typeDecoders.add(typeDecoder);
+		}
+
+		return new DecoderWrapper(defaultDecoder, typeDecoders);
 	}
 
 	/**

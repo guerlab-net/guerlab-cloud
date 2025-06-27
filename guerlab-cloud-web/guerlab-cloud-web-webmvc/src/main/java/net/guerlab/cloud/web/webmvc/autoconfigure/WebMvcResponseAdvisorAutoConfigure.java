@@ -33,6 +33,7 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.core.result.Succeed;
 import net.guerlab.cloud.web.core.response.ResponseBodyWrapperSupport;
 import net.guerlab.commons.exception.ApplicationException;
@@ -94,6 +95,8 @@ public class WebMvcResponseAdvisorAutoConfigure {
 
 			boolean returnTypeIsString = Objects.equals(Objects.requireNonNull(returnType.getMethod())
 					.getReturnType(), String.class);
+
+			response.getHeaders().set(Constants.HTTP_HEADER_RESPONSE_WRAPPED, "true");
 
 			if (returnTypeIsString) {
 				return returnString(Objects.requireNonNullElseGet(body, Succeed::new), response);

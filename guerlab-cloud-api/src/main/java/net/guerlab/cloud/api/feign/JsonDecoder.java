@@ -14,9 +14,12 @@
 package net.guerlab.cloud.api.feign;
 
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -26,25 +29,26 @@ import com.fasterxml.jackson.databind.node.BooleanNode;
 import feign.FeignException;
 import feign.Response;
 import feign.Util;
-import feign.codec.Decoder;
 import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
+import net.guerlab.cloud.core.result.ApplicationStackTrace;
+import net.guerlab.cloud.core.result.RemoteException;
 import net.guerlab.cloud.core.result.Result;
 import net.guerlab.commons.exception.ApplicationException;
 
 /**
- * 结果解析.
+ * json结果解析.
  *
  * @author guer
  */
 @Slf4j
-public class ResultDecoder implements Decoder {
+public class JsonDecoder implements TypeDecoder {
 
-	private static final MediaType TEXT_MEDIA_TYPE = MediaType.parseMediaType("text/*");
+	private static final MediaType MEDIA_TYPE = MediaType.APPLICATION_JSON;
 
 	private final ObjectMapper objectMapper;
 
@@ -53,8 +57,13 @@ public class ResultDecoder implements Decoder {
 	 *
 	 * @param objectMapper objectMapper
 	 */
-	public ResultDecoder(ObjectMapper objectMapper) {
+	public JsonDecoder(ObjectMapper objectMapper) {
 		this.objectMapper = objectMapper;
+	}
+
+	@Override
+	public boolean isSupport(MediaType mediaType) {
+		return MEDIA_TYPE.includes(mediaType);
 	}
 
 	@Nullable
@@ -62,53 +71,10 @@ public class ResultDecoder implements Decoder {
 	public Object decode(Response response, Type type) throws IOException, FeignException {
 		Response.Body body = response.body();
 		if (body == null) {
-			return new Decoder.Default().decode(response, type);
+			return new Default().decode(response, type);
 		}
 
 		String resultBody = Util.toString(body.asReader(StandardCharsets.UTF_8));
-		if (type instanceof Class && String.class.isAssignableFrom((Class<?>) type)) {
-			if (!isJson(resultBody)) {
-				return resultBody;
-			}
-
-			MediaType contentType = getContentType(response);
-			if (contentType != null && TEXT_MEDIA_TYPE.includes(contentType)) {
-				return resultBody;
-			}
-		}
-
-		return parse0(resultBody, type);
-	}
-
-	private boolean isJson(String resultBody) {
-		if (resultBody.startsWith("[") && resultBody.endsWith("]")) {
-			return true;
-		}
-		return resultBody.startsWith("{") && resultBody.endsWith("}");
-	}
-
-	@Nullable
-	private MediaType getContentType(Response response) {
-		Collection<String> headerValues = response.headers().get(HttpHeaders.CONTENT_TYPE);
-		if (headerValues == null) {
-			return null;
-		}
-
-		for (String headerValue : headerValues) {
-			if (headerValue != null) {
-				try {
-					return MediaType.parseMediaType(headerValue);
-				}
-				catch (Exception ignored) {
-					// ignore this exception
-				}
-			}
-		}
-		return null;
-	}
-
-	@Nullable
-	private Object parse0(String resultBody, Type type) throws IOException, FeignException {
 		TypeReference<?> typeReference = new TypeReference<>() {
 
 			@Override
@@ -118,11 +84,26 @@ public class ResultDecoder implements Decoder {
 		};
 
 		try {
-			JsonNode rootNode = objectMapper.readTree(resultBody);
-			if (type instanceof Class && Result.class.isAssignableFrom((Class<?>) type)) {
+			if (isResultType(type)) {
+				Result<?> result = (Result<?>) objectMapper.readValue(resultBody, typeReference);
+				if (!result.isStatus()) {
+					String message = result.getMessage();
+					List<ApplicationStackTrace> stackTraces = result.getStackTraces();
+					int errorCode = result.getErrorCode();
+					RemoteException remoteException = RemoteException.build(message, stackTraces);
+					throw new ApplicationException(message, remoteException, errorCode);
+				}
+				return result;
+			}
+
+			boolean bodyIsWrapped = getBodyIsWrapped(response);
+			if (!bodyIsWrapped) {
 				return objectMapper.readValue(resultBody, typeReference);
 			}
-			else if (rootNode.has(Constants.FIELD_STATUS) && rootNode.has(Constants.FIELD_ERROR_CODE)) {
+
+			JsonNode rootNode = objectMapper.readTree(resultBody);
+
+			if (rootNode.has(Constants.FIELD_STATUS) && rootNode.has(Constants.FIELD_ERROR_CODE)) {
 				if (!getStatus(rootNode)) {
 					throw FailParser.parse(rootNode);
 				}
@@ -150,6 +131,26 @@ public class ResultDecoder implements Decoder {
 			log.debug(e.getLocalizedMessage(), e);
 			throw new ApplicationException(e.getMessage(), e);
 		}
+	}
+
+	private boolean isResultType(Type type) {
+		if (type instanceof Class<?>) {
+			return Result.class.isAssignableFrom((Class<?>) type);
+		}
+		if (type instanceof ParameterizedType parameterizedType) {
+			return Result.class.isAssignableFrom((Class<?>) parameterizedType.getRawType());
+		}
+
+		return false;
+	}
+
+	private boolean getBodyIsWrapped(Response response) {
+		Collection<String> values = response.headers()
+				.get(net.guerlab.cloud.commons.Constants.HTTP_HEADER_RESPONSE_WRAPPED);
+		if (values == null) {
+			return false;
+		}
+		return values.stream().map(StringUtils::trimToNull).anyMatch(Objects::nonNull);
 	}
 
 	private boolean getStatus(JsonNode rootNode) {
