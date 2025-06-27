@@ -16,7 +16,6 @@ package net.guerlab.cloud.api.feign;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Collection;
-import java.util.List;
 
 import feign.FeignException;
 import feign.Response;
@@ -50,11 +49,18 @@ public class DecoderWrapper implements Decoder {
 		MediaType mediaType = getContentType(response);
 
 		if (mediaType != null) {
+			log.debug("feign response mediaType: {}", mediaType);
 			for (TypeDecoder typeDecoder : typeDecoders) {
 				if (typeDecoder.isSupport(mediaType)) {
+					log.debug("use typeDecoder: {}", typeDecoder);
 					return typeDecoder.decode(response, type);
 				}
 			}
+
+			log.debug("not found any typeDecoder can support mediaType: {}", mediaType);
+		}
+		else {
+			log.debug("not found feign response mediaType");
 		}
 
 		return defaultDecoder.decode(response, type);
