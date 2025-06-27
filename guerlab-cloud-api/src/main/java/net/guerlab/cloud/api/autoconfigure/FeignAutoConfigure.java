@@ -13,7 +13,6 @@
 
 package net.guerlab.cloud.api.autoconfigure;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,6 +29,7 @@ import org.springframework.cloud.openfeign.support.HttpMessageConverterCustomize
 import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
 import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 
 import net.guerlab.cloud.api.feign.DecoderWrapper;
 import net.guerlab.cloud.api.feign.ErrorDecoderChain;
@@ -51,22 +51,32 @@ public class FeignAutoConfigure {
 	@Autowired
 	private ObjectFactory<HttpMessageConverters> messageConverters;
 
+	/**
+	 * 构建解析包装器.
+	 *
+	 * @param typeDecoderObjectProvider typeDecoderObjectProvider
+	 * @param customizers               customizers
+	 * @return 解析包装器
+	 */
 	@Bean
+	@Primary
 	public DecoderWrapper decoderWrapper(
-			ObjectMapper objectMapper,
 			ObjectProvider<TypeDecoder> typeDecoderObjectProvider,
 			ObjectProvider<HttpMessageConverterCustomizer> customizers
 	) {
 		Decoder defaultDecoder = new OptionalDecoder(new ResponseEntityDecoder(new SpringDecoder(messageConverters, customizers)));
+		return new DecoderWrapper(defaultDecoder, typeDecoderObjectProvider);
+	}
 
-		List<TypeDecoder> typeDecoders = new ArrayList<>();
-
-		typeDecoders.add(new JsonDecoder(objectMapper));
-		for (TypeDecoder typeDecoder : typeDecoderObjectProvider) {
-			typeDecoders.add(typeDecoder);
-		}
-
-		return new DecoderWrapper(defaultDecoder, typeDecoders);
+	/**
+	 * 构建json类型解析器.
+	 *
+	 * @param objectMapper objectMapper
+	 * @return json类型解析器
+	 */
+	@Bean
+	public JsonDecoder jsonDecoder(ObjectMapper objectMapper) {
+		return new JsonDecoder(objectMapper);
 	}
 
 	/**

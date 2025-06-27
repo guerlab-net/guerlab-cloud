@@ -35,7 +35,6 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -75,16 +74,6 @@ class DecoderTest {
 
 	@Resource
 	private Decoder decoder;
-
-	@Resource
-	private ObjectProvider<Decoder> decoders;
-
-	@Test
-	void test() {
-		for (Decoder decoder : decoders) {
-			System.out.println(decoder);
-		}
-	}
 
 	@Test
 	@Order(0)

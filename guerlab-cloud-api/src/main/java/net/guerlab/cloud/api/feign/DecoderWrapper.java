@@ -24,11 +24,12 @@ import feign.codec.Decoder;
 import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
 /**
- * 解析包装器..
+ * 解析包装器.
  *
  * @author guer
  */
@@ -37,9 +38,9 @@ public class DecoderWrapper implements Decoder {
 
 	private final Decoder defaultDecoder;
 
-	private final List<TypeDecoder> typeDecoders;
+	private final ObjectProvider<TypeDecoder> typeDecoders;
 
-	public DecoderWrapper(Decoder defaultDecoder, List<TypeDecoder> typeDecoders) {
+	public DecoderWrapper(Decoder defaultDecoder, ObjectProvider<TypeDecoder> typeDecoders) {
 		this.defaultDecoder = defaultDecoder;
 		this.typeDecoders = typeDecoders;
 	}
