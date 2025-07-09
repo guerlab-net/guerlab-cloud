@@ -16,19 +16,17 @@ package net.guerlab.cloud.api.feign;
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.BooleanNode;
 import feign.FeignException;
 import feign.Response;
-import feign.Util;
 import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -71,64 +69,33 @@ public class JsonDecoder implements TypeDecoder {
 	public Object decode(Response response, Type type) throws IOException, FeignException {
 		Response.Body body = response.body();
 		if (body == null) {
-			return new Default().decode(response, type);
+			return null;
 		}
 
-		String resultBody = Util.toString(body.asReader(StandardCharsets.UTF_8));
-		TypeReference<?> typeReference = new TypeReference<>() {
-
-			@Override
-			public Type getType() {
-				return type;
-			}
-		};
+		byte[] bodyBytes = body.asInputStream().readAllBytes();
+		JavaType javaType = objectMapper.getTypeFactory().constructType(type);
 
 		try {
 			if (isResultType(type)) {
-				Result<?> result = (Result<?>) objectMapper.readValue(resultBody, typeReference);
-				if (!result.isStatus()) {
-					String message = result.getMessage();
-					List<ApplicationStackTrace> stackTraces = result.getStackTraces();
-					int errorCode = result.getErrorCode();
-					RemoteException remoteException = RemoteException.build(message, stackTraces);
-					throw new ApplicationException(message, remoteException, errorCode);
-				}
-				return result;
+				return decodeResultType(bodyBytes, javaType);
 			}
-
-			boolean bodyIsWrapped = getBodyIsWrapped(response);
-			if (!bodyIsWrapped) {
-				return objectMapper.readValue(resultBody, typeReference);
+			else if (!getBodyIsWrapped(response)) {
+				return objectMapper.readValue(bodyBytes, javaType);
 			}
-
-			JsonNode rootNode = objectMapper.readTree(resultBody);
-
-			if (rootNode.has(Constants.FIELD_STATUS) && rootNode.has(Constants.FIELD_ERROR_CODE)) {
-				if (!getStatus(rootNode)) {
-					throw FailParser.parse(rootNode);
-				}
-				else if (!rootNode.has(Constants.FIELD_DATA)) {
-					log.debug("rootNode not has {} field, json is : {}", Constants.FIELD_DATA, resultBody);
-					return null;
-				}
-
-				return objectMapper.convertValue(rootNode.get(Constants.FIELD_DATA), typeReference);
-			}
-
-			return objectMapper.readValue(resultBody, typeReference);
+			return decodeWithWrapped(bodyBytes, javaType);
 		}
 		catch (JsonParseException e) {
 			if (type.getTypeName().equals(String.class.getTypeName())) {
-				return resultBody;
+				return new String(bodyBytes);
 			}
 
-			throw e;
-		}
-		catch (ApplicationException e) {
 			throw e;
 		}
 		catch (Exception e) {
 			log.debug(e.getLocalizedMessage(), e);
+			if (e instanceof RuntimeException re) {
+				throw re;
+			}
 			throw new ApplicationException(e.getMessage(), e);
 		}
 	}
@@ -144,6 +111,19 @@ public class JsonDecoder implements TypeDecoder {
 		return false;
 	}
 
+	private Object decodeResultType(byte[] bodyBytes, JavaType javaType) throws IOException {
+		Result<?> result = objectMapper.readValue(bodyBytes, javaType);
+		if (result.isStatus()) {
+			return result;
+		}
+
+		String message = result.getMessage();
+		List<ApplicationStackTrace> stackTraces = result.getStackTraces();
+		int errorCode = result.getErrorCode();
+		RemoteException remoteException = RemoteException.build(message, stackTraces);
+		throw new ApplicationException(message, remoteException, errorCode);
+	}
+
 	private boolean getBodyIsWrapped(Response response) {
 		Collection<String> values = response.headers()
 				.get(net.guerlab.cloud.commons.Constants.HTTP_HEADER_RESPONSE_WRAPPED);
@@ -151,6 +131,25 @@ public class JsonDecoder implements TypeDecoder {
 			return false;
 		}
 		return values.stream().map(StringUtils::trimToNull).anyMatch(Objects::nonNull);
+	}
+
+	@Nullable
+	private Object decodeWithWrapped(byte[] bodyBytes, JavaType javaType) throws IOException {
+		JsonNode rootNode = objectMapper.readTree(bodyBytes);
+
+		if (rootNode.has(Constants.FIELD_STATUS) && rootNode.has(Constants.FIELD_ERROR_CODE)) {
+			if (!getStatus(rootNode)) {
+				throw FailParser.parse(rootNode);
+			}
+			else if (!rootNode.has(Constants.FIELD_DATA)) {
+				log.debug("rootNode not has {} field", Constants.FIELD_DATA);
+				return null;
+			}
+
+			return objectMapper.convertValue(rootNode.get(Constants.FIELD_DATA), javaType);
+		}
+
+		return objectMapper.readValue(bodyBytes, javaType);
 	}
 
 	private boolean getStatus(JsonNode rootNode) {
