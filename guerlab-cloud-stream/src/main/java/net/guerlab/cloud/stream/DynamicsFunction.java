@@ -13,7 +13,6 @@
 
 package net.guerlab.cloud.stream;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +23,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.util.Assert;
 
-import net.guerlab.commons.exception.ApplicationException;
-
 /**
  * 动态方法.
  *
@@ -34,7 +31,7 @@ import net.guerlab.commons.exception.ApplicationException;
 @Slf4j
 public class DynamicsFunction implements IDynamicsFunction, ApplicationContextAware {
 
-	private final Constructor<? extends ApplicationEvent> constructor;
+	private final DynamicsFunctionEventBuilder builder;
 
 	private final String functionName;
 
@@ -49,27 +46,16 @@ public class DynamicsFunction implements IDynamicsFunction, ApplicationContextAw
 	 */
 	public DynamicsFunction(String functionName, Class<?> inputClass, Class<? extends ApplicationEvent> eventClass) {
 		Assert.hasText(functionName, () -> "functionName cannot be empty");
-
-		try {
-			constructor = eventClass.getConstructor(Object.class, inputClass);
-		}
-		catch (NoSuchMethodException e) {
-			throw new IllegalArgumentException(String.format("not found constructor with[object, %s]", inputClass.getName()), e);
-		}
-
 		this.functionName = functionName;
+		this.builder = BuilderParser.parse(inputClass, eventClass);
 	}
 
 	@Override
-	public void invoke(Object input) {
+	public void invoke(Object input) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		log.debug("invoke[functionName={}, input={}]", functionName, input);
-		try {
-			ApplicationEvent event = constructor.newInstance(this, input);
-			applicationContext.publishEvent(event);
-		}
-		catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-			throw new ApplicationException(String.format("can not constructor with[object, %s]", input), e);
-		}
+
+		ApplicationEvent event = builder.buildEvent(this, input);
+		applicationContext.publishEvent(event);
 	}
 
 	@Override

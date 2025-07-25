@@ -13,22 +13,21 @@
 
 package net.guerlab.cloud.stream;
 
-import org.springframework.context.ApplicationEvent;
+import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.context.event.EventListener;
+import org.springframework.stereotype.Component;
 
 /**
  * @author guer
  */
-public class SimpleEvent extends ApplicationEvent {
+@Slf4j
+@Component
+public class SingleParameterEventListener {
 
-	private final String input;
-
-	public SimpleEvent(Object source, String input) {
-		super(source);
-		this.input = input;
-	}
-
-	@Override
-	public String toString() {
-		return "SimpleEvent{input='" + input + "'}";
+	@EventListener(SingleParameterEvent.class)
+	public void onEvent(SingleParameterEvent event) {
+		log.debug("onEvent: {}", event);
+		throw new DynamicsFunctionTestException();
 	}
 }

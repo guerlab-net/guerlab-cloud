@@ -13,20 +13,22 @@
 
 package net.guerlab.cloud.stream;
 
-import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.context.event.EventListener;
-import org.springframework.stereotype.Component;
+import org.springframework.context.ApplicationEvent;
 
 /**
  * @author guer
  */
-@Slf4j
-@Component
-public class SimpleEventListener {
+public class DoubleParameterEvent extends ApplicationEvent {
 
-	@EventListener(SimpleEvent.class)
-	public void onEvent(SimpleEvent event) {
-		log.debug("onEvent: {}", event);
+	private final String input;
+
+	public DoubleParameterEvent(Object source, String input) {
+		super(source);
+		this.input = input;
+	}
+
+	@Override
+	public String toString() {
+		return "DoubleParameterEvent{input='" + input + "'}";
 	}
 }
