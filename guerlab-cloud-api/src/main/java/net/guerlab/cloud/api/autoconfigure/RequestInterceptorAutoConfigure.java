@@ -21,6 +21,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 import net.guerlab.cloud.api.debug.DebugProxyRequestInterceptor;
+import net.guerlab.cloud.api.interceptor.RequestSourceRequestInterceptor;
 import net.guerlab.cloud.api.loadbalancer.LoadBalancerHeaderRequestInterceptor;
 import net.guerlab.cloud.api.properties.DebugProperties;
 import net.guerlab.cloud.loadbalancer.autoconfigure.GlobalLoadBalancerAutoConfiguration;
@@ -56,6 +57,16 @@ public class RequestInterceptorAutoConfigure {
 	@Bean
 	public RequestInterceptor debugProxyRequestInterceptor(DebugProperties properties) {
 		return new DebugProxyRequestInterceptor(properties);
+	}
+
+	/**
+	 * 构建请求源请求拦截器.
+	 *
+	 * @return 请求源请求拦截器
+	 */
+	@Bean
+	public RequestInterceptor requestSourceRequestInterceptor() {
+		return new RequestSourceRequestInterceptor();
 	}
 
 }

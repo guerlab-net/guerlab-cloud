@@ -15,22 +15,27 @@ package net.guerlab.cloud.stream;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.springframework.context.ApplicationEvent;
+
 /**
- * 动态方法接口.
+ * 动态方法事件构建者.
  *
  * @author guer
  */
-public interface IDynamicsFunction {
+public abstract class DynamicsFunctionEventBuilder {
 
 	/**
-	 * 调用.
+	 * 根据输入值构建ApplicationEvent.
 	 *
-	 * @param input 输入
+	 * @param source 调用源
+	 * @param input  输入值
+	 * @return ApplicationEvent
 	 * @throws InstantiationException      如果声明底层构造函数的类是一个抽象类.
 	 * @throws IllegalAccessException      如果内部指向的构造函数对象正在执行Java语言的访问控制，且底层构造函数不可访问.
 	 * @throws IllegalArgumentException    如果实际参数和形式参数的数量不同；如果基本类型参数的拆包转换失败；或者，在可能的拆包之后，参数值无法通过方法调用转换转换为相应的形式参数类型；或者，此构造函数与枚举类相关.
 	 * @throws InvocationTargetException   如果底层构造函数抛出异常.
 	 * @throws ExceptionInInitializerError 如果此方法触发的初始化失败.
 	 */
-	void invoke(Object input) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;
+	public abstract ApplicationEvent buildEvent(DynamicsFunction source, Object input)
+			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;
 }

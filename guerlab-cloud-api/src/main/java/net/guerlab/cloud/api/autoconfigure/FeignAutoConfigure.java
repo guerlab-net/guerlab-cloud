@@ -16,16 +16,28 @@ package net.guerlab.cloud.api.autoconfigure;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feign.codec.Decoder;
+import feign.optionals.OptionalDecoder;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.cloud.openfeign.support.HttpMessageConverterCustomizer;
+import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
+import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 
+import net.guerlab.cloud.api.feign.DecoderWrapper;
 import net.guerlab.cloud.api.feign.ErrorDecoderChain;
 import net.guerlab.cloud.api.feign.FailResponseDecoder;
+import net.guerlab.cloud.api.feign.JsonDecoder;
 import net.guerlab.cloud.api.feign.LoadbalancerNotContainInstanceResponseDecoder;
 import net.guerlab.cloud.api.feign.OrderedErrorDecoder;
-import net.guerlab.cloud.api.feign.ResultDecoder;
+import net.guerlab.cloud.api.feign.TypeDecoder;
 
 /**
  * feign自动配置.
@@ -36,15 +48,35 @@ import net.guerlab.cloud.api.feign.ResultDecoder;
 @AutoConfiguration
 public class FeignAutoConfigure {
 
+	@Autowired
+	private ObjectFactory<HttpMessageConverters> messageConverters;
+
 	/**
-	 * 构造结果解析.
+	 * 构建解析包装器.
 	 *
-	 * @param objectMapper objectMapper
-	 * @return 结果解析
+	 * @param typeDecoderObjectProvider typeDecoderObjectProvider
+	 * @param customizers               customizers
+	 * @return 解析包装器
 	 */
 	@Bean
-	public ResultDecoder resultDecoder(ObjectMapper objectMapper) {
-		return new ResultDecoder(objectMapper);
+	@Primary
+	public DecoderWrapper decoderWrapper(
+			ObjectProvider<TypeDecoder> typeDecoderObjectProvider,
+			ObjectProvider<HttpMessageConverterCustomizer> customizers
+	) {
+		Decoder defaultDecoder = new OptionalDecoder(new ResponseEntityDecoder(new SpringDecoder(messageConverters, customizers)));
+		return new DecoderWrapper(defaultDecoder, typeDecoderObjectProvider);
+	}
+
+	/**
+	 * 构建json类型解析器.
+	 *
+	 * @param objectMapper objectMapper
+	 * @return json类型解析器
+	 */
+	@Bean
+	public JsonDecoder jsonDecoder(ObjectMapper objectMapper) {
+		return new JsonDecoder(objectMapper);
 	}
 
 	/**

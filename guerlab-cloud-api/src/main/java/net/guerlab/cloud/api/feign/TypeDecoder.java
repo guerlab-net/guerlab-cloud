@@ -11,24 +11,24 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.stream;
+package net.guerlab.cloud.api.feign;
 
-import org.springframework.context.ApplicationEvent;
+import feign.codec.Decoder;
+
+import org.springframework.http.MediaType;
 
 /**
+ * 指定类型解析器.
+ *
  * @author guer
  */
-public class SimpleEvent extends ApplicationEvent {
+public interface TypeDecoder extends Decoder {
 
-	private final String input;
-
-	public SimpleEvent(Object source, String input) {
-		super(source);
-		this.input = input;
-	}
-
-	@Override
-	public String toString() {
-		return "SimpleEvent{input='" + input + "'}";
-	}
+	/**
+	 * 判断当前类型是否支持.
+	 *
+	 * @param mediaType 媒体类型
+	 * @return 是否支持
+	 */
+	boolean isSupport(MediaType mediaType);
 }

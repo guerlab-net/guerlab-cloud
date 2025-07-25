@@ -16,9 +16,9 @@ package net.guerlab.cloud.stream;
 import java.util.Map;
 import java.util.Optional;
 
-import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -31,32 +31,41 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 class DynamicsFunctionTest {
 
-	static AnnotationConfigApplicationContext context;
+	AnnotationConfigApplicationContext context;
 
-	@BeforeAll
-	static void init() {
+	@BeforeEach
+	void init() {
 		context = new AnnotationConfigApplicationContext();
 	}
 
-	@AfterAll
-	static void close() {
+	@AfterEach
+	void close() {
 		Optional.ofNullable(context).ifPresent(AnnotationConfigApplicationContext::close);
 	}
 
 	@Test
-	void test() {
+	void singleParameterTest() {
+		test0("net.guerlab.cloud.stream.SingleParameterEvent", SingleParameterEventListener.class);
+	}
+
+	@Test
+	void doubleParameterTest() {
+		test0("net.guerlab.cloud.stream.DoubleParameterEvent", DoubleParameterEventListener.class);
+	}
+
+	void test0(String eventClass, Class<?> listenerClass) {
 		TestPropertyValues.of("spring.cloud.function.dynamics.definitions[0].function-name=test").applyTo(context);
 		TestPropertyValues.of("spring.cloud.function.dynamics.definitions[0].input-class=java.lang.String")
 				.applyTo(context);
-		TestPropertyValues.of("spring.cloud.function.dynamics.definitions[0].event-class=net.guerlab.cloud.stream.SimpleEvent")
+		TestPropertyValues.of("spring.cloud.function.dynamics.definitions[0].event-class=" + eventClass)
 				.applyTo(context);
-		context.registerBean("SimpleEventListener", SimpleEventListener.class);
+		context.registerBean(listenerClass.getSimpleName(), listenerClass);
 		context.register(DynamicsFunctionAutoConfigure.class);
 		context.refresh();
 
 		Map<String, DynamicsFunction> dynamicsFunctionMap = context.getBeansOfType(DynamicsFunction.class);
 		for (DynamicsFunction dynamicsFunction : dynamicsFunctionMap.values()) {
-			Assertions.assertAll(() -> dynamicsFunction.invoke("test"));
+			Assertions.assertThrowsExactly(DynamicsFunctionTestException.class, () -> dynamicsFunction.invoke("inputTest"));
 		}
 	}
 }

@@ -33,6 +33,7 @@ import org.springframework.web.reactive.accept.RequestedContentTypeResolver;
 import org.springframework.web.reactive.result.method.annotation.ResponseBodyResultHandler;
 import org.springframework.web.server.ServerWebExchange;
 
+import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.core.result.Result;
 import net.guerlab.cloud.core.result.Succeed;
 import net.guerlab.cloud.web.core.response.ResponseBodyWrapperSupport;
@@ -137,6 +138,8 @@ public class ResponseBodyResultWrapperHandler extends ResponseBodyResultHandler 
 
 		boolean returnTypeIsString = Objects.equals(Objects.requireNonNull(bodyTypeParameter.getMethod())
 				.getReturnType(), String.class);
+
+		exchange.getResponse().getHeaders().set(Constants.HTTP_HEADER_RESPONSE_WRAPPED, "true");
 
 		if (returnTypeIsString) {
 			if (body == null) {
