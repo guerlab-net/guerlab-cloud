@@ -39,6 +39,12 @@ public class DecoderWrapper implements Decoder {
 
 	private final ObjectProvider<TypeDecoder> typeDecoders;
 
+	/**
+	 * 创建解析包装器.
+	 *
+	 * @param defaultDecoder 默认解析器
+	 * @param typeDecoders   类型处理器ObjectProvider
+	 */
 	public DecoderWrapper(Decoder defaultDecoder, ObjectProvider<TypeDecoder> typeDecoders) {
 		this.defaultDecoder = defaultDecoder;
 		this.typeDecoders = typeDecoders;
