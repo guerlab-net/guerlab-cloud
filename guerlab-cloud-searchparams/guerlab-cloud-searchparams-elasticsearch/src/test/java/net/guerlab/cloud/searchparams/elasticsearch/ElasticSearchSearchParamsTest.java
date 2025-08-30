@@ -70,7 +70,11 @@ class ElasticSearchSearchParamsTest {
 
 		Assertions.assertNotNull(query);
 		System.out.println(query);
-		Assertions.assertEquals("Query: {\"bool\":{\"must\":[{\"exists\":{\"field\":\"isNotNull\"}},{\"term\":{\"equalTo.keyword\":{\"value\":\"equalTo\"}}},{\"range\":{\"greaterThan\":{\"gt\":1}}},{\"range\":{\"greaterThanOrEqualTo\":{\"gte\":\"2023-05-20T12:34:56\",\"time_zone\":\"GMT+08:00\"}}},{\"range\":{\"lessThan\":{\"lt\":\"12:34:56\",\"time_zone\":\"GMT+08:00\"}}},{\"range\":{\"lessThanOrEqualTo\":{\"lte\":\"2023-05-20\",\"time_zone\":\"GMT+08:00\"}}},{\"wildcard\":{\"like\":{\"value\":\"*like*\"}}},{\"wildcard\":{\"startWith\":{\"value\":\"startWith*\"}}},{\"wildcard\":{\"endWith\":{\"value\":\"*endWith\"}}},{\"terms\":{\"in\":[\"v1\",\"v2\"]}}],\"must_not\":[{\"exists\":{\"field\":\"isNull\"}},{\"term\":{\"notEqualTo.keyword\":{\"value\":\"notEqualTo\"}}},{\"wildcard\":{\"notLike\":{\"value\":\"*notLike*\"}}},{\"wildcard\":{\"startNotWith\":{\"value\":\"startNotWith*\"}}},{\"wildcard\":{\"endNotWith\":{\"value\":\"*endNotWith\"}}},{\"terms\":{\"notIn\":[\"v1\",\"v2\"]}}]}}", query.toString());
+
+		String result = """
+				Query: {"bool":{"must":[{"exists":{"field":"IS_NOT_NULL"}},{"term":{"EQUAL_TO.keyword":{"value":"equalTo"}}},{"range":{"GREATER_THAN":{"gt":1}}},{"range":{"GREATER_THAN_OR_EQUAL_TO":{"gte":"2023-05-20 12:34:56","format":"yyyy-MM-dd HH:mm:ss","time_zone":"GMT+08:00"}}},{"range":{"LESS_THAN":{"lt":"12:34:56","time_zone":"GMT+08:00"}}},{"range":{"LESS_THAN_OR_EQUAL_TO":{"lte":"2023-05-20","format":"yyyy-MM-dd","time_zone":"GMT+08:00"}}},{"wildcard":{"LIKE.keyword":{"value":"*like*"}}},{"wildcard":{"START_WITH.keyword":{"value":"startWith*"}}},{"wildcard":{"END_WITH.keyword":{"value":"*endWith"}}},{"terms":{"IN.keyword":["v1","v2"]}}],"must_not":[{"exists":{"field":"IS_NULL"}},{"term":{"NOT_EQUAL_TO.keyword":{"value":"notEqualTo"}}},{"wildcard":{"NOT_LIKE.keyword":{"value":"*notLike*"}}},{"wildcard":{"START_NOT_WITH.keyword":{"value":"startNotWith*"}}},{"wildcard":{"END_NOT_WITH.keyword":{"value":"*endNotWith"}}},{"terms":{"NOT_IN.keyword":["v1","v2"]}}]}}""";
+
+		Assertions.assertEquals(result, query.toString());
 	}
 
 
