@@ -98,6 +98,6 @@ class ElasticSearchSearchParamsTest {
 
 		Assertions.assertNotNull(query);
 		System.out.printf("{\"query\": %s}", query.toString().substring(7));
-		Assertions.assertEquals("Query: {\"bool\":{\"must\":[{\"nested\":{\"path\":\"inventories\",\"query\":{\"term\":{\"inventories.vendorCode.keyword\":{\"value\":\"V1079531\"}}},\"score_mode\":\"max\"}},{\"term\":{\"complexType.keyword\":{\"value\":\"sku\"}}},{\"term\":{\"enable\":{\"value\":\"true\"}}}]}}", query.toString());
+		Assertions.assertEquals("Query: {\"bool\":{\"must\":[{\"nested\":{\"path\":\"inventories\",\"query\":{\"term\":{\"inventories.vendorCode.keyword\":{\"value\":\"V1079531\"}}},\"score_mode\":\"max\"}},{\"term\":{\"complexType.keyword\":{\"value\":\"sku\"}}},{\"term\":{\"enable\":{\"value\":true}}}]}}", query.toString());
 	}
 }
