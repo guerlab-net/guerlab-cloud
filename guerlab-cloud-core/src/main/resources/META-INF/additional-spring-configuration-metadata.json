@@ -15,6 +15,12 @@
   ],
   "properties": [
     {
+      "name": "sequence.start-time",
+      "type": "java.lang.Long",
+      "sourceType": "net.guerlab.cloud.core.properties.SequenceProperties",
+      "description": "起始时间毫秒时间戳."
+    },
+    {
       "name": "sequence.worker-id",
       "type": "java.lang.Long",
       "sourceType": "net.guerlab.cloud.core.properties.SequenceProperties",
@@ -27,6 +33,13 @@
       "sourceType": "net.guerlab.cloud.core.properties.SequenceProperties",
       "description": "数据中心ID.",
       "defaultValue": "0"
+    },
+    {
+      "name": "sequence.use-clock",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.core.properties.SequenceProperties",
+      "description": "是否适用时钟.",
+      "defaultValue": "false"
     },
     {
       "name": "spring.jackson.format.format-all-number",
