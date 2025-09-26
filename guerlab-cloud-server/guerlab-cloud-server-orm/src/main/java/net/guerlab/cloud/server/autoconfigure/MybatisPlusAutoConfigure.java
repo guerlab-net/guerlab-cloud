@@ -14,12 +14,12 @@
 package net.guerlab.cloud.server.autoconfigure;
 
 import com.baomidou.mybatisplus.autoconfigure.IdentifierGeneratorAutoConfiguration;
+import com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 
@@ -33,7 +33,10 @@ import net.guerlab.cloud.server.mybatis.plus.methods.AutoLoadMethodLoader;
  *
  * @author guer
  */
-@AutoConfiguration(before = IdentifierGeneratorAutoConfiguration.class)
+@AutoConfiguration(before = {
+		IdentifierGeneratorAutoConfiguration.class,
+		MybatisPlusAutoConfiguration.class
+})
 public class MybatisPlusAutoConfigure {
 
 	/**
@@ -77,7 +80,6 @@ public class MybatisPlusAutoConfigure {
 	 * @return 雪花ID生成器
 	 */
 	@Bean
-	@ConditionalOnBean(Sequence.class)
 	public SnowflakeIdGenerator snowflakeIdGenerator(Sequence sequence) {
 		return new SnowflakeIdGenerator(sequence);
 	}

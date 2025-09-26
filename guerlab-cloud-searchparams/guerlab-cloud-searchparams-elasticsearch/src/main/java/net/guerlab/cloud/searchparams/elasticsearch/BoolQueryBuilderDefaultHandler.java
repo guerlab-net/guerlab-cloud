@@ -14,6 +14,9 @@
 package net.guerlab.cloud.searchparams.elasticsearch;
 
 import java.lang.reflect.Field;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,6 +54,10 @@ public class BoolQueryBuilderDefaultHandler implements SearchParamsHandler {
 			SearchModelType.END_NOT_WITH,
 			SearchModelType.NOT_IN
 	);
+
+	private static final String DATE_TIME_FORMATTER = "yyyy-MM-dd HH:mm:ss";
+
+	private static final String DATE_FORMATTER = "yyyy-MM-dd";
 
 	private static TimeZone defaultTimeZone = TimeZone.getDefault();
 
@@ -93,40 +100,57 @@ public class BoolQueryBuilderDefaultHandler implements SearchParamsHandler {
 			paths.addAll(Arrays.stream(Arrays.copyOfRange(pathArray, 0, pathArray.length - 1)).toList());
 		}
 
+		String queryColumnName = ColumnUtils.getQueryColumnName(field, columnName);
+
 		Function<Query.Builder, ObjectBuilder<Query>> fn;
 		if (searchModelType == SearchModelType.IS_NULL || searchModelType == SearchModelType.IS_NOT_NULL) {
-			fn = m -> m.exists(t -> t.field(columnName));
+			fn = m -> m.exists(t -> t.field(ColumnUtils.getColumnName(field, columnName)));
 		}
 		else if (searchModelType == SearchModelType.LIKE || searchModelType == SearchModelType.NOT_LIKE) {
-			fn = m -> m.wildcard(q -> q.field(columnName).value("*" + value + "*"));
+			fn = m -> m.wildcard(q -> q.field(queryColumnName).value("*" + value + "*"));
 		}
 		else if (searchModelType == SearchModelType.START_WITH || searchModelType == SearchModelType.START_NOT_WITH) {
-			fn = m -> m.wildcard(q -> q.field(columnName).value(value + "*"));
+			fn = m -> m.wildcard(q -> q.field(queryColumnName).value(value + "*"));
 		}
 		else if (searchModelType == SearchModelType.END_WITH || searchModelType == SearchModelType.END_NOT_WITH) {
-			fn = m -> m.wildcard(q -> q.field(columnName).value("*" + value));
+			fn = m -> m.wildcard(q -> q.field(queryColumnName).value("*" + value));
 		}
 		else if (searchModelType == SearchModelType.GREATER_THAN ||
 				searchModelType == SearchModelType.GREATER_THAN_OR_EQUAL_TO ||
 				searchModelType == SearchModelType.LESS_THAN ||
 				searchModelType == SearchModelType.LESS_THAN_OR_EQUAL_TO) {
 			fn = m -> m.range(r -> {
-				r.field(columnName);
+				r.field(queryColumnName);
+				JsonData jsonData = JsonData.of(value);
+
 				if (value instanceof Date || value instanceof Temporal) {
 					r.timeZone(getTimeZone().getID());
+					if (value instanceof Date date) {
+						r.format(DATE_TIME_FORMATTER);
+						jsonData = JsonData.of(DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER)
+								.format(date.toInstant()));
+					}
+					else if (value instanceof LocalDateTime dateTime) {
+						r.format(DATE_TIME_FORMATTER);
+						jsonData = JsonData.of(DateTimeFormatter.ofPattern(DATE_TIME_FORMATTER).format(dateTime));
+					}
+					else if (value instanceof LocalDate date) {
+						r.format(DATE_FORMATTER);
+						jsonData = JsonData.of(DateTimeFormatter.ofPattern(DATE_FORMATTER).format(date));
+					}
 				}
 
 				if (searchModelType == SearchModelType.GREATER_THAN) {
-					r.gt(JsonData.of(value));
+					r.gt(jsonData);
 				}
 				if (searchModelType == SearchModelType.GREATER_THAN_OR_EQUAL_TO) {
-					r.gte(JsonData.of(value));
+					r.gte(jsonData);
 				}
 				else if (searchModelType == SearchModelType.LESS_THAN) {
-					r.lt(JsonData.of(value));
+					r.lt(jsonData);
 				}
 				else if (searchModelType == SearchModelType.LESS_THAN_OR_EQUAL_TO) {
-					r.lte(JsonData.of(value));
+					r.lte(jsonData);
 				}
 				return r;
 			});
@@ -144,19 +168,30 @@ public class BoolQueryBuilderDefaultHandler implements SearchParamsHandler {
 					fieldValues.add(FieldValue.of(o.toString()));
 				}
 			}
+
 			if (!fieldValues.isEmpty()) {
-				fn = m -> m.terms(q -> q.field(columnName).terms(b -> b.value(fieldValues)));
+				fn = m -> m.terms(q -> q.field(queryColumnName).terms(b -> b.value(fieldValues)));
 			}
 			else {
-				fn = m -> m.match(q -> q.field(columnName).query(value.toString()));
+				fn = m -> m.match(q -> q.field(queryColumnName).query(value.toString()));
 			}
 		}
 		else {
 			if (value instanceof String str) {
-				fn = m -> m.term(t -> t.field(columnName + ".keyword").value(str));
+				fn = m -> m.term(t -> t.field(queryColumnName).value(str));
+			}
+			else if (value instanceof Long val) {
+				fn = m -> m.term(t -> t.field(queryColumnName).value(val));
+			}
+			else if (value instanceof Boolean val) {
+				fn = m -> m.term(t -> t.field(queryColumnName).value(val));
+			}
+			else if (value instanceof Double val) {
+				fn = m -> m.term(t -> t.field(queryColumnName).value(val));
 			}
 			else {
-				fn = m -> m.term(t -> t.field(columnName).value(String.valueOf(value)));
+				FieldValue fieldValue = FieldValue.of(JsonData.of(value));
+				fn = m -> m.term(t -> t.field(queryColumnName).value(fieldValue));
 			}
 		}
 

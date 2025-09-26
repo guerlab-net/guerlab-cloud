@@ -13,6 +13,7 @@
 
 package net.guerlab.cloud.core.properties;
 
+import jakarta.annotation.Nullable;
 import lombok.Data;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -29,6 +30,12 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 public class SequenceProperties {
 
 	/**
+	 * 起始时间毫秒时间戳.
+	 */
+	@Nullable
+	private Long startTime;
+
+	/**
 	 * 工作节点ID.
 	 */
 	private long workerId;
@@ -37,4 +44,9 @@ public class SequenceProperties {
 	 * 数据中心ID.
 	 */
 	private long dataCenterId;
+
+	/**
+	 * 是否适用时钟.
+	 */
+	private boolean useClock;
 }

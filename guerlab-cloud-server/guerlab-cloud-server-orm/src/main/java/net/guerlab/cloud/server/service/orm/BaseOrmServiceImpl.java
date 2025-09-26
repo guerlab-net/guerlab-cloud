@@ -105,6 +105,10 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 
 		if (CollectionUtil.isNotEmpty(list)) {
 			saveBatch(list, DEFAULT_BATCH_SIZE);
+
+			for (E item : list) {
+				insertAfter(item);
+			}
 		}
 
 		return list;
@@ -184,6 +188,10 @@ public abstract class BaseOrmServiceImpl<E extends IBaseEntity, M extends BaseMa
 
 		if (CollectionUtil.isNotEmpty(list)) {
 			updateBatch(list, DEFAULT_BATCH_SIZE);
+
+			for (E item : list) {
+				updateAfter(item);
+			}
 		}
 
 		return list;
