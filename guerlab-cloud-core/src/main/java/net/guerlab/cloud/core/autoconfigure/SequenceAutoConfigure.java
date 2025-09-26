@@ -15,7 +15,6 @@ package net.guerlab.cloud.core.autoconfigure;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 
 import net.guerlab.cloud.core.properties.SequenceProperties;
@@ -37,8 +36,12 @@ public class SequenceAutoConfigure {
 	 * @return 分布式序列
 	 */
 	@Bean
-	@RefreshScope
 	public Sequence sequence(SequenceProperties properties) {
-		return new Sequence(properties.getWorkerId(), properties.getDataCenterId());
+		if (properties.getStartTime() == null) {
+			return new Sequence(properties.getWorkerId(), properties.getDataCenterId(), properties.isUseClock());
+		}
+		else {
+			return new Sequence(properties.getStartTime(), properties.getWorkerId(), properties.getDataCenterId(), properties.isUseClock());
+		}
 	}
 }

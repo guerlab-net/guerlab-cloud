@@ -13,6 +13,9 @@
 
 package net.guerlab.cloud.core.sequence;
 
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
 import net.guerlab.commons.exception.ApplicationException;
 
 /**
@@ -21,12 +24,13 @@ import net.guerlab.commons.exception.ApplicationException;
  * @author guer
  */
 @SuppressWarnings("unused")
+@Slf4j
 public class Sequence {
 
 	/**
-	 * 起始时间戳，用于用当前时间戳减去这个时间戳，算出偏移量.
+	 * 默认起始时间(2010-01-01 00:00:00).
 	 */
-	private static final long START_TIME = 1519740777809L;
+	public static final long DEFAULT_START_TIME = 1262304000000L;
 
 	/**
 	 * workerId占用的位数5（表示只允许workId的范围为：0-1023）.
@@ -64,6 +68,11 @@ public class Sequence {
 	 */
 	private static final long SEQUENCE_MASK = ~(-1L << SEQUENCE_BITS);
 
+	/**
+	 * 起始时间毫秒时间戳，用于用当前时间戳减去这个时间戳，算出偏移量.
+	 */
+	private final long startTime;
+
 	private final long workerId;
 
 	private final long dataCenterId;
@@ -72,17 +81,56 @@ public class Sequence {
 
 	private long lastTimestamp = -1L;
 
-	private boolean isClock = false;
+	/**
+	 * 设置是否使用时钟.
+	 */
+	@Setter
+	private boolean useClock;
 
 	/**
 	 * 基于Snowflake创建分布式ID生成器.
-	 * <p>
-	 * 注：sequence
 	 *
 	 * @param workerId     工作机器ID,数据范围为0~31
 	 * @param dataCenterId 数据中心ID,数据范围为0~31
 	 */
 	public Sequence(long workerId, long dataCenterId) {
+		this(DEFAULT_START_TIME, workerId, dataCenterId);
+	}
+
+	/**
+	 * 基于Snowflake创建分布式ID生成器.
+	 *
+	 * @param startTime    起始时间毫秒时间戳
+	 * @param workerId     工作机器ID,数据范围为0~31
+	 * @param dataCenterId 数据中心ID,数据范围为0~31
+	 */
+	public Sequence(long startTime, long workerId, long dataCenterId) {
+		this(startTime, workerId, dataCenterId, false);
+	}
+
+	/**
+	 * 基于Snowflake创建分布式ID生成器.
+	 *
+	 * @param workerId     工作机器ID,数据范围为0~31
+	 * @param dataCenterId 数据中心ID,数据范围为0~31
+	 * @param useClock     是否适用时钟
+	 */
+	public Sequence(long workerId, long dataCenterId, boolean useClock) {
+		this(DEFAULT_START_TIME, workerId, dataCenterId, false);
+	}
+
+	/**
+	 * 基于Snowflake创建分布式ID生成器.
+	 *
+	 * @param startTime    起始时间毫秒时间戳
+	 * @param workerId     工作机器ID,数据范围为0~31
+	 * @param dataCenterId 数据中心ID,数据范围为0~31
+	 * @param useClock     是否适用时钟
+	 */
+	public Sequence(long startTime, long workerId, long dataCenterId, boolean useClock) {
+		if (startTime < 0L) {
+			log.warn("the startTime is too short");
+		}
 		if (workerId > MAX_WORKER_ID || workerId < 0) {
 			throw new IllegalArgumentException(
 					String.format("worker Id can't be greater than %d or less than 0", MAX_WORKER_ID));
@@ -92,17 +140,10 @@ public class Sequence {
 					String.format("dataCenter Id can't be greater than %d or less than 0", MAX_DATA_CENTER_ID));
 		}
 
+		this.useClock = useClock;
+		this.startTime = startTime;
 		this.workerId = workerId;
 		this.dataCenterId = dataCenterId;
-	}
-
-	/**
-	 * 设置是否使用时钟.
-	 *
-	 * @param clock 是否使用时钟
-	 */
-	public void setClock(boolean clock) {
-		isClock = clock;
 	}
 
 	/**
@@ -157,7 +198,7 @@ public class Sequence {
 		 * 2.然后对每个左移后的值(la、lb、lc、sequence)做位或运算，是为了把各个短的数据合并起来，合并成一个二进制数
 		 * 3.最后转换成10进制，就是最终生成的id
 		 */
-		return timestamp - START_TIME << TIMESTAMP_LEFT_SHIFT | dataCenterId << DATA_CENTER_ID_SHIFT
+		return timestamp - startTime << TIMESTAMP_LEFT_SHIFT | dataCenterId << DATA_CENTER_ID_SHIFT
 				| workerId << WORKER_ID_SHIFT | nowSequence;
 	}
 
@@ -182,7 +223,7 @@ public class Sequence {
 	 * @return timestamp
 	 */
 	private long timeGen() {
-		if (isClock) {
+		if (useClock) {
 			// 解决高并发下获取时间戳的性能问题
 			return SystemClock.now();
 		}
