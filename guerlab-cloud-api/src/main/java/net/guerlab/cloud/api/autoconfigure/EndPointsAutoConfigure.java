@@ -13,7 +13,9 @@
 
 package net.guerlab.cloud.api.autoconfigure;
 
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 
 import net.guerlab.cloud.api.endpoints.FeignClientEndpoint;
@@ -24,6 +26,7 @@ import net.guerlab.cloud.api.endpoints.FeignClientEndpoint;
  * @author guer
  */
 @AutoConfiguration
+@ConditionalOnClass(Endpoint.class)
 public class EndPointsAutoConfigure {
 
 	/**
