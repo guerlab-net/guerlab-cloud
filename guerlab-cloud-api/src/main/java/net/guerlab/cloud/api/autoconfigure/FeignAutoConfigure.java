@@ -34,6 +34,7 @@ import org.springframework.context.annotation.Primary;
 import net.guerlab.cloud.api.feign.DecoderWrapper;
 import net.guerlab.cloud.api.feign.ErrorDecoderChain;
 import net.guerlab.cloud.api.feign.FailResponseDecoder;
+import net.guerlab.cloud.api.feign.FeignBuilderInterceptor;
 import net.guerlab.cloud.api.feign.JsonDecoder;
 import net.guerlab.cloud.api.feign.LoadbalancerNotContainInstanceResponseDecoder;
 import net.guerlab.cloud.api.feign.OrderedErrorDecoder;
@@ -50,6 +51,16 @@ public class FeignAutoConfigure {
 
 	@Autowired
 	private ObjectFactory<HttpMessageConverters> messageConverters;
+
+	/**
+	 * 构建Feign.Builder构建拦截器.
+	 *
+	 * @return Feign.Builder构建拦截器.
+	 */
+	@Bean
+	public FeignBuilderInterceptor feignBuilderInterceptor() {
+		return new FeignBuilderInterceptor();
+	}
 
 	/**
 	 * 构建解析包装器.
