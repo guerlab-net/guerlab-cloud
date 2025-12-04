@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2018-2025 guerlab.net and other contributors.
+  ~ Copyright 2018-2026 guerlab.net and other contributors.
   ~
   ~ Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -66,14 +66,11 @@
 	</issueManagement>
 
 	<properties>
-		<revision>2025.3.0</revision>
+		<revision>2026.0.0</revision>
 		<main.basedir>${basedir}</main.basedir>
 
 		<java.version>17</java.version>
 		<project.encoding>UTF-8</project.encoding>
-
-		<!-- guerlab -->
-		<guerlab-commons.version>2.0.1</guerlab-commons.version>
 
 		<!-- spring -->
 		<spring-boot.version>3.2.12</spring-boot.version>
@@ -81,6 +78,9 @@
 		<spring-cloud-tencent.version>2.0.2.0-2023.0.5</spring-cloud-tencent.version>
 
 		<!-- other -->
+		<slf4j.version>2.0.16</slf4j.version>
+		<lang3.version>3.9</lang3.version>
+		<codec.version>1.15</codec.version>
 		<mybatis.version>3.5.16</mybatis.version>
 		<mybatis-starter.version>3.0.3</mybatis-starter.version>
 		<mybatis-typehandlers-jsr310.version>1.0.2</mybatis-typehandlers-jsr310.version>
@@ -227,6 +227,13 @@
 			<dependency>
 				<groupId>net.guerlab.cloud</groupId>
 				<artifactId>guerlab-cloud-excel</artifactId>
+				<version>${revision}</version>
+			</dependency>
+
+			<!-- guerlab-cloud gateway -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-gateway</artifactId>
 				<version>${revision}</version>
 			</dependency>
 
@@ -418,11 +425,21 @@
 				<version>${revision}</version>
 			</dependency>
 
-			<!-- guerlab -->
+			<!-- other -->
 			<dependency>
-				<groupId>net.guerlab</groupId>
-				<artifactId>guerlab-commons</artifactId>
-				<version>${guerlab-commons.version}</version>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${lang3.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>${codec.version}</version>
 			</dependency>
 
 			<!-- mybatis -->
@@ -586,6 +603,7 @@
 		<module>guerlab-cloud-context</module>
 		<module>guerlab-cloud-core</module>
 		<module>guerlab-cloud-excel</module>
+		<module>guerlab-cloud-gateway</module>
 		<module>guerlab-cloud-geo</module>
 		<module>guerlab-cloud-loadbalancer</module>
 		<module>guerlab-cloud-lock</module>

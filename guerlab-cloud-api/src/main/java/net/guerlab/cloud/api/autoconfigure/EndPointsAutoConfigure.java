@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2025 guerlab.net and other contributors.
+ * Copyright 2018-2026 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,9 @@
 
 package net.guerlab.cloud.api.autoconfigure;
 
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Bean;
 
 import net.guerlab.cloud.api.endpoints.FeignClientEndpoint;
@@ -24,6 +26,7 @@ import net.guerlab.cloud.api.endpoints.FeignClientEndpoint;
  * @author guer
  */
 @AutoConfiguration
+@ConditionalOnClass(Endpoint.class)
 public class EndPointsAutoConfigure {
 
 	/**

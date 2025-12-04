@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2025 guerlab.net and other contributors.
+ * Copyright 2018-2026 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 import net.guerlab.cloud.auth.properties.TestJwtTokenFactoryProperties;
 import net.guerlab.cloud.auth.properties.TestMd5TokenFactoryProperties;
-import net.guerlab.cloud.auth.properties.TestRc4TokenFactoryProperties;
 
 /**
  * 授权配置.
@@ -26,6 +25,5 @@ import net.guerlab.cloud.auth.properties.TestRc4TokenFactoryProperties;
  * @author guer
  */
 @AutoConfiguration
-@EnableConfigurationProperties({TestJwtTokenFactoryProperties.class, TestMd5TokenFactoryProperties.class,
-		TestRc4TokenFactoryProperties.class})
+@EnableConfigurationProperties({TestJwtTokenFactoryProperties.class, TestMd5TokenFactoryProperties.class})
 public class TestAuthAutoConfigure { }

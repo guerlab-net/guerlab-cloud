@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright 2018-2025 guerlab.net and other contributors.
+  ~ Copyright 2018-2026 guerlab.net and other contributors.
   ~
   ~ Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -45,11 +45,18 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 		<dependency>
 			<groupId>net.guerlab.cloud</groupId>
 			<artifactId>guerlab-cloud-auth-commons</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>net.guerlab.cloud</groupId>
+			<artifactId>guerlab-cloud-app</artifactId>
+			<type>pom</type>
 			<optional>true</optional>
 		</dependency>
 
@@ -67,12 +74,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.guerlab.cloud</groupId>
-			<artifactId>guerlab-cloud-app</artifactId>
-			<type>pom</type>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018-2025 guerlab.net and other contributors.
+ * Copyright 2018-2026 guerlab.net and other contributors.
  *
  * Licensed under the GNU LESSER GENERAL PUBLIC LICENSE, Version 3 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ import org.springframework.context.annotation.Primary;
 import net.guerlab.cloud.api.feign.DecoderWrapper;
 import net.guerlab.cloud.api.feign.ErrorDecoderChain;
 import net.guerlab.cloud.api.feign.FailResponseDecoder;
+import net.guerlab.cloud.api.feign.FeignBuilderInterceptor;
 import net.guerlab.cloud.api.feign.JsonDecoder;
 import net.guerlab.cloud.api.feign.LoadbalancerNotContainInstanceResponseDecoder;
 import net.guerlab.cloud.api.feign.OrderedErrorDecoder;
@@ -50,6 +51,16 @@ public class FeignAutoConfigure {
 
 	@Autowired
 	private ObjectFactory<HttpMessageConverters> messageConverters;
+
+	/**
+	 * 构建Feign.Builder构建拦截器.
+	 *
+	 * @return Feign.Builder构建拦截器.
+	 */
+	@Bean
+	public FeignBuilderInterceptor feignBuilderInterceptor() {
+		return new FeignBuilderInterceptor();
+	}
 
 	/**
 	 * 构建解析包装器.
