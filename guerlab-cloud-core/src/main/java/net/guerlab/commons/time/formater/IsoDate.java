@@ -11,22 +11,26 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.auth.properties;
+package net.guerlab.commons.time.formater;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
+import java.time.format.DateTimeFormatter;
+
+import net.guerlab.commons.time.FormatSupplier;
 
 /**
- * rc4 token 配置.
+ * iso日期格式.
  *
  * @author guer
  */
-@RefreshScope
-@ConfigurationProperties(prefix = TestRc4TokenFactoryProperties.PREFIX)
-public class TestRc4TokenFactoryProperties extends Rc4TokenFactoryProperties {
+public class IsoDate implements FormatSupplier {
 
 	/**
-	 * 配置前缀.
+	 * 实例.
 	 */
-	public final static String PREFIX = "auth.test.token-factory.rc4";
+	public static final IsoDate INSTANCE = new IsoDate();
+
+	@Override
+	public DateTimeFormatter get() {
+		return DateTimeFormatter.ISO_DATE;
+	}
 }

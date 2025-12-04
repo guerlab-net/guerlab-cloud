@@ -11,16 +11,10 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.auth.properties;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
 /**
- * rc4 token 工厂配置.
  *
- * @author guer
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
-public class Rc4TokenFactoryProperties extends StringValueTokenFactoryProperties { }
+@NonNullApi
+package net.guerlab.commons.reflection;
+
+import org.springframework.lang.NonNullApi;

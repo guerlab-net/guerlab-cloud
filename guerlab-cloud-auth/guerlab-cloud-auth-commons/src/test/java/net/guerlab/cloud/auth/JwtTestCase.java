@@ -30,8 +30,6 @@ import net.guerlab.cloud.auth.domain.TestTokenInfo;
 import net.guerlab.cloud.auth.domain.TokenInfo;
 import net.guerlab.cloud.auth.factory.AbstractTokenFactory;
 import net.guerlab.cloud.auth.factory.TestJwtTokenFactory;
-import net.guerlab.cloud.auth.factory.TestMd5TokenFactory;
-import net.guerlab.cloud.auth.factory.TestRc4TokenFactory;
 import net.guerlab.cloud.rsa.RsaKeys;
 import net.guerlab.cloud.rsa.RsaUtils;
 
@@ -52,8 +50,7 @@ class JwtTestCase {
 		RsaKeys rsaKeys = RsaUtils.buildKeys();
 
 		context = new AnnotationConfigApplicationContext();
-		context.register(TestAuthAutoConfigure.class, TestJwtTokenFactory.class, TestMd5TokenFactory.class,
-				TestRc4TokenFactory.class);
+		context.register(TestAuthAutoConfigure.class, TestJwtTokenFactory.class);
 		TestPropertyValues.of(
 						"auth.test.token-factory.jwt.access-token-key.public-key=" + rsaKeys.getPublicKeyFormattedContent())
 				.applyTo(context);

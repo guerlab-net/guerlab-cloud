@@ -29,9 +29,7 @@ import net.guerlab.cloud.auth.domain.ITestTokenInfo;
 import net.guerlab.cloud.auth.domain.TestTokenInfo;
 import net.guerlab.cloud.auth.domain.TokenInfo;
 import net.guerlab.cloud.auth.factory.AbstractTokenFactory;
-import net.guerlab.cloud.auth.factory.TestJwtTokenFactory;
 import net.guerlab.cloud.auth.factory.TestMd5TokenFactory;
-import net.guerlab.cloud.auth.factory.TestRc4TokenFactory;
 
 /**
  * 测试类.
@@ -48,8 +46,7 @@ class Md5TestCase {
 	@BeforeAll
 	static void setUp() {
 		context = new AnnotationConfigApplicationContext();
-		context.register(TestAuthAutoConfigure.class, TestJwtTokenFactory.class, TestMd5TokenFactory.class,
-				TestRc4TokenFactory.class);
+		context.register(TestAuthAutoConfigure.class, TestMd5TokenFactory.class);
 		TestPropertyValues.of("auth.test.token-factory.md5.access-token-key=test-access-md5").applyTo(context);
 		TestPropertyValues.of("auth.test.token-factory.md5.refresh-token-key=test-refresh-md5").applyTo(context);
 		context.refresh();
