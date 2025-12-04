@@ -1,0 +1,125 @@
+{
+  "groups": [
+    {
+      "name": "spring.cloud.gateway.body-security",
+      "type": "net.guerlab.cloud.gateway.bodysecurity.BodySecurityProperties",
+      "description": "请求体安全配置.",
+      "sourceType": "net.guerlab.cloud.gateway.bodysecurity.BodySecurityProperties"
+    },
+    {
+      "name": "spring.cloud.gateway.body-security.request",
+      "type": "net.guerlab.cloud.gateway.bodysecurity.BodySecurityConfig",
+      "description": "请求内容安全设置.",
+      "sourceType": "net.guerlab.cloud.gateway.bodysecurity.BodySecurityConfig"
+    },
+    {
+      "name": "spring.cloud.gateway.body-security.response",
+      "type": "net.guerlab.cloud.gateway.bodysecurity.BodySecurityConfig",
+      "description": "响应内容安全设置.",
+      "sourceType": "net.guerlab.cloud.gateway.bodysecurity.BodySecurityConfig"
+    },
+    {
+      "name": "spring.cloud.gateway.body-security.rsa-keys",
+      "type": "net.guerlab.cloud.rsa.RsaKeys",
+      "description": "RSA公\/私钥对配置.",
+      "sourceType": "net.guerlab.cloud.rsa.RsaKeys"
+    },
+    {
+      "name": "spring.cloud.gateway.cors",
+      "type": "net.guerlab.cloud.gateway.base.CorsProperties",
+      "description": "cors配置.",
+      "sourceType": "net.guerlab.cloud.gateway.base.CorsProperties"
+    },
+    {
+      "name": "spring.cloud.gateway.logger",
+      "type": "net.guerlab.cloud.gateway.logger.LoggerProperties",
+      "description": "日志配置.",
+      "sourceType": "net.guerlab.cloud.gateway.logger.LoggerProperties"
+    },
+    {
+      "name": "spring.cloud.gateway.protect",
+      "type": "net.guerlab.cloud.gateway.protect.ProtectProperties",
+      "description": "接口保护配置.",
+      "sourceType": "net.guerlab.cloud.gateway.protect.ProtectProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.cloud.gateway.body-security.configs",
+      "type": "java.util.List<net.guerlab.cloud.gateway.bodysecurity.PathSecurityConfig>",
+      "description": "路径安全设置列表.",
+      "sourceType": "net.guerlab.cloud.gateway.bodysecurity.BodySecurityProperties"
+    },
+    {
+      "name": "spring.cloud.gateway.body-security.enabled-global-request-security",
+      "type": "java.lang.Boolean",
+      "description": "是否启用全局请求加密.",
+      "sourceType": "net.guerlab.cloud.gateway.bodysecurity.BodySecurityProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.cloud.gateway.body-security.enabled-global-response-security",
+      "type": "java.lang.Boolean",
+      "description": "是否启用全局响应加密.",
+      "sourceType": "net.guerlab.cloud.gateway.bodysecurity.BodySecurityProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.cloud.gateway.body-security.rsa-keys",
+      "type": "net.guerlab.cloud.rsa.RsaKeys",
+      "description": "RSA公\/私钥对配置.",
+      "sourceType": "net.guerlab.cloud.gateway.bodysecurity.BodySecurityProperties"
+    },
+    {
+      "name": "spring.cloud.gateway.body-security.rsa-keys.private-key",
+      "type": "java.lang.String",
+      "description": "私钥.",
+      "sourceType": "net.guerlab.cloud.rsa.RsaKeys"
+    },
+    {
+      "name": "spring.cloud.gateway.body-security.rsa-keys.public-key",
+      "type": "java.lang.String",
+      "description": "公钥.",
+      "sourceType": "net.guerlab.cloud.rsa.RsaKeys"
+    },
+    {
+      "name": "spring.cloud.gateway.cors.access-control-expose-headers",
+      "type": "java.util.List<java.lang.String>",
+      "description": "允许暴露头部列表.",
+      "sourceType": "net.guerlab.cloud.gateway.base.CorsProperties"
+    },
+    {
+      "name": "spring.cloud.gateway.logger.enable-record-request-time",
+      "type": "java.lang.Boolean",
+      "description": "是否允许记录请求时间.",
+      "sourceType": "net.guerlab.cloud.gateway.logger.LoggerProperties",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.cloud.gateway.protect.enable",
+      "type": "java.lang.Boolean",
+      "description": "是否启用接口保护.",
+      "sourceType": "net.guerlab.cloud.gateway.protect.ProtectProperties",
+      "defaultValue": "false"
+    },
+    {
+      "name": "spring.cloud.gateway.protect.release-header-name",
+      "type": "java.lang.String",
+      "description": "放行请求-请求头名称.",
+      "sourceType": "net.guerlab.cloud.gateway.protect.ProtectProperties"
+    },
+    {
+      "name": "spring.cloud.gateway.protect.release-header-value",
+      "type": "java.lang.String",
+      "description": "放行请求-请求头值.",
+      "sourceType": "net.guerlab.cloud.gateway.protect.ProtectProperties"
+    },
+    {
+      "name": "spring.cloud.gateway.protect.urls",
+      "type": "java.util.List<net.guerlab.cloud.gateway.UrlDefinition>",
+      "description": "待保护路径列表.",
+      "sourceType": "net.guerlab.cloud.gateway.protect.ProtectProperties"
+    }
+  ],
+  "hints": []
+}

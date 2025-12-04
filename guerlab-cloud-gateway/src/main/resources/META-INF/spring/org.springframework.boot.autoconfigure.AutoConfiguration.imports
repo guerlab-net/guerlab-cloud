@@ -1,0 +1,6 @@
+net.guerlab.cloud.gateway.base.BaseAutoConfigure
+net.guerlab.cloud.gateway.bodysecurity.BodySecurityAutoConfigure
+net.guerlab.cloud.gateway.download.DownloadFilterAutoConfigure
+net.guerlab.cloud.gateway.exception.ErrorWebExceptionHandlerAutoConfiguration
+net.guerlab.cloud.gateway.logger.LoggerAutoConfigure
+net.guerlab.cloud.gateway.protect.ProtectAutoConfigure

@@ -230,6 +230,13 @@
 				<version>${revision}</version>
 			</dependency>
 
+			<!-- guerlab-cloud gateway -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-gateway</artifactId>
+				<version>${revision}</version>
+			</dependency>
+
 			<!-- guerlab-cloud geo -->
 			<dependency>
 				<groupId>net.guerlab.cloud</groupId>
@@ -586,6 +593,7 @@
 		<module>guerlab-cloud-context</module>
 		<module>guerlab-cloud-core</module>
 		<module>guerlab-cloud-excel</module>
+		<module>guerlab-cloud-gateway</module>
 		<module>guerlab-cloud-geo</module>
 		<module>guerlab-cloud-loadbalancer</module>
 		<module>guerlab-cloud-lock</module>
