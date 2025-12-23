@@ -395,6 +395,14 @@
 				<version>${revision}</version>
 			</dependency>
 
+			<!-- guerlab-cloud alibaba -->
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-alibaba-import</artifactId>
+				<version>${revision}</version>
+				<type>pom</type>
+			</dependency>
+
 			<!-- guerlab-cloud tencent -->
 			<dependency>
 				<groupId>net.guerlab.cloud</groupId>
@@ -601,6 +609,7 @@
 	</build>
 
 	<modules>
+		<module>guerlab-cloud-alibabab-import</module>
 		<module>guerlab-cloud-api</module>
 		<module>guerlab-cloud-app</module>
 		<module>guerlab-cloud-auth</module>
