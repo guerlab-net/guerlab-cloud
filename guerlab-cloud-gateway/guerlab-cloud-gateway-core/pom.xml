@@ -16,13 +16,12 @@
 		 xmlns="http://maven.apache.org/POM/4.0.0"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>guerlab-cloud-gateway</artifactId>
-	<name>Guerlab Cloud Gateway</name>
-	<packaging>pom</packaging>
+	<artifactId>guerlab-cloud-gateway-core</artifactId>
+	<name>Guerlab Cloud Gateway Core</name>
 
 	<parent>
 		<groupId>net.guerlab.cloud</groupId>
-		<artifactId>guerlab-cloud</artifactId>
+		<artifactId>guerlab-cloud-gateway</artifactId>
 		<version>${revision}</version>
 	</parent>
 
@@ -30,8 +29,23 @@
 		<main.basedir>${basedir}/..</main.basedir>
 	</properties>
 
-	<modules>
-		<module>guerlab-cloud-gateway-core</module>
-		<module>guerlab-clooud-gateway-tencent</module>
-	</modules>
+	<dependencies>
+		<dependency>
+			<groupId>net.guerlab.cloud</groupId>
+			<artifactId>guerlab-cloud-loadbalancer</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.guerlab.cloud</groupId>
+			<artifactId>guerlab-cloud-rsa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.guerlab.cloud</groupId>
+			<artifactId>guerlab-cloud-security-webflux</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
+	</dependencies>
 </project>
