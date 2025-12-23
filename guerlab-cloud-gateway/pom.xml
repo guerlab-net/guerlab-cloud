@@ -32,6 +32,6 @@
 
 	<modules>
 		<module>guerlab-cloud-gateway-core</module>
-		<module>guerlab-clooud-gateway-tencent</module>
+		<module>guerlab-cloud-gateway-tencent</module>
 	</modules>
 </project>
