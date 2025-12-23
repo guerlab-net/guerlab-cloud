@@ -15,7 +15,7 @@ package net.guerlab.cloud.server.mybatis.plus.interceptor;
 
 import java.util.Objects;
 
-import org.jetbrains.annotations.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import net.guerlab.cloud.server.jdbc.PointcutProperties;
 
