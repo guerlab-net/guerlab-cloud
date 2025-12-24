@@ -18,7 +18,7 @@ import java.time.LocalDate;
 import net.guerlab.cloud.commons.entity.EnableDateEntity;
 import net.guerlab.cloud.commons.exception.StartDateIsAfterEndDateException;
 
-import static net.guerlab.cloud.commons.Constants.MAX_DATE;
+import static net.guerlab.cloud.core.Constants.MAX_DATE;
 
 /**
  * 启用日期实体工具类.

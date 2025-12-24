@@ -20,9 +20,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.commons.valid.InsertValid;
+import net.guerlab.cloud.core.Constants;
 
 /**
  * APi定义.

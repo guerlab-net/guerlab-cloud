@@ -21,8 +21,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
+import net.guerlab.cloud.core.Constants;
 
 /**
  * APi定义.

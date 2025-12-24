@@ -17,7 +17,7 @@ import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
 
-import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.core.Constants;
 import net.guerlab.cloud.core.util.SpringUtils;
 
 /**

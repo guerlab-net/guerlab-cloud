@@ -18,9 +18,9 @@ import java.util.Map;
 
 import jakarta.annotation.Nullable;
 
-import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.context.core.ContextAttributes;
 import net.guerlab.cloud.context.core.ContextAttributesHolder;
+import net.guerlab.cloud.core.Constants;
 
 /**
  * 抽象上下文处理器.

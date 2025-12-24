@@ -33,7 +33,7 @@ import org.springframework.web.reactive.accept.RequestedContentTypeResolver;
 import org.springframework.web.reactive.result.method.annotation.ResponseBodyResultHandler;
 import org.springframework.web.server.ServerWebExchange;
 
-import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.core.Constants;
 import net.guerlab.cloud.core.result.Result;
 import net.guerlab.cloud.core.result.Succeed;
 import net.guerlab.cloud.web.core.response.ResponseBodyWrapperSupport;

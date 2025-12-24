@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.commons;
+package net.guerlab.cloud.core;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

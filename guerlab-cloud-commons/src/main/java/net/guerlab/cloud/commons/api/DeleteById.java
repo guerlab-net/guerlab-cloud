@@ -20,7 +20,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.core.Constants;
 
 /**
  * APi定义.

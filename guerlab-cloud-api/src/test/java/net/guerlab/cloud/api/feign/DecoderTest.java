@@ -45,7 +45,7 @@ import org.springframework.http.MediaType;
 import org.springframework.util.StreamUtils;
 
 import net.guerlab.cloud.api.autoconfigure.FeignAutoConfigure;
-import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.core.Constants;
 import net.guerlab.cloud.core.autoconfigure.ObjectMapperAutoConfigure;
 import net.guerlab.cloud.core.result.Result;
 import net.guerlab.commons.exception.ApplicationException;

@@ -38,6 +38,8 @@ import net.guerlab.cloud.core.result.RemoteException;
 import net.guerlab.cloud.core.result.Result;
 import net.guerlab.commons.exception.ApplicationException;
 
+import static net.guerlab.cloud.core.Constants.HTTP_HEADER_RESPONSE_WRAPPED;
+
 /**
  * json结果解析.
  *
@@ -125,8 +127,7 @@ public class JsonDecoder implements TypeDecoder {
 	}
 
 	private boolean getBodyIsWrapped(Response response) {
-		Collection<String> values = response.headers()
-				.get(net.guerlab.cloud.commons.Constants.HTTP_HEADER_RESPONSE_WRAPPED);
+		Collection<String> values = response.headers().get(HTTP_HEADER_RESPONSE_WRAPPED);
 		if (values == null) {
 			return false;
 		}

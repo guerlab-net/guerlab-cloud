@@ -33,7 +33,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import net.guerlab.cloud.auth.annotation.AuthType;
 import net.guerlab.cloud.auth.annotation.IgnoreLogin;
 import net.guerlab.cloud.auth.context.AbstractContextHandler;
-import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.core.Constants;
 import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
 import net.guerlab.commons.exception.ApplicationException;
 

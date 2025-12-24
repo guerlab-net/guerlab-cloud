@@ -23,8 +23,8 @@ import jakarta.annotation.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
+import net.guerlab.cloud.core.Constants;
 
 /**
  * APi定义.

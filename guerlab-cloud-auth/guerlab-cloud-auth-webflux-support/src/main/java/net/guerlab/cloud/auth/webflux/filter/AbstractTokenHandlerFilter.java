@@ -37,8 +37,8 @@ import net.guerlab.cloud.auth.annotation.AuthType;
 import net.guerlab.cloud.auth.annotation.IgnoreLogin;
 import net.guerlab.cloud.auth.context.AbstractContextHandler;
 import net.guerlab.cloud.auth.web.properties.AuthWebProperties;
-import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.context.core.ContextAttributes;
+import net.guerlab.cloud.core.Constants;
 import net.guerlab.cloud.web.core.properties.ResponseAdvisorProperties;
 import net.guerlab.commons.exception.ApplicationException;
 

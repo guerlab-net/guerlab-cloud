@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 import net.guerlab.cloud.commons.entity.EnableTimeEntity;
 import net.guerlab.cloud.commons.exception.StartTimeIsAfterEndTimeException;
 
-import static net.guerlab.cloud.commons.Constants.MAX_DATETIME;
+import static net.guerlab.cloud.core.Constants.MAX_DATETIME;
 
 /**
  * 启用时间实体工具类.

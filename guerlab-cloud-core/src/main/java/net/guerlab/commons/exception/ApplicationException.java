@@ -16,6 +16,7 @@ package net.guerlab.commons.exception;
 import java.io.Serial;
 import java.util.Locale;
 
+import jakarta.annotation.Nullable;
 import lombok.Getter;
 
 /**
@@ -75,7 +76,7 @@ public class ApplicationException extends RuntimeException {
 	 * @param enableSuppression  启用抑制
 	 * @param writableStackTrace 写入异常栈
 	 */
-	public ApplicationException(String message, Throwable cause, boolean enableSuppression,
+	public ApplicationException(String message, @Nullable Throwable cause, boolean enableSuppression,
 			boolean writableStackTrace) {
 		this(message, cause, enableSuppression, writableStackTrace, 0);
 	}
@@ -89,7 +90,7 @@ public class ApplicationException extends RuntimeException {
 	 * @param writableStackTrace 写入异常栈
 	 * @param errorCode          错误码
 	 */
-	public ApplicationException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace,
+	public ApplicationException(String message, @Nullable Throwable cause, boolean enableSuppression, boolean writableStackTrace,
 			int errorCode) {
 		super(message, cause, enableSuppression, writableStackTrace);
 		this.errorCode = errorCode;
@@ -101,7 +102,7 @@ public class ApplicationException extends RuntimeException {
 	 * @param message 异常信息
 	 * @param cause   导致的原因
 	 */
-	public ApplicationException(String message, Throwable cause) {
+	public ApplicationException(String message, @Nullable Throwable cause) {
 		this(message, cause, 0);
 	}
 
@@ -112,7 +113,7 @@ public class ApplicationException extends RuntimeException {
 	 * @param cause     导致的原因
 	 * @param errorCode 错误码
 	 */
-	public ApplicationException(String message, Throwable cause, int errorCode) {
+	public ApplicationException(String message, @Nullable Throwable cause, int errorCode) {
 		super(message, cause);
 		this.errorCode = errorCode;
 	}
@@ -142,7 +143,7 @@ public class ApplicationException extends RuntimeException {
 	 *
 	 * @param cause 导致的原因
 	 */
-	public ApplicationException(Throwable cause) {
+	public ApplicationException(@Nullable Throwable cause) {
 		this(cause, 0);
 	}
 
@@ -152,7 +153,7 @@ public class ApplicationException extends RuntimeException {
 	 * @param cause     导致的原因
 	 * @param errorCode 错误码
 	 */
-	public ApplicationException(Throwable cause, int errorCode) {
+	public ApplicationException(@Nullable Throwable cause, int errorCode) {
 		super(cause);
 		this.errorCode = errorCode;
 	}
