@@ -13,25 +13,27 @@
 
 package net.guerlab.cloud.loadbalancer.properties;
 
-import jakarta.annotation.Nullable;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+
+import net.guerlab.cloud.loadbalancer.Constants;
 
 /**
- * 基础规则配置.
+ * 染色配置.
  *
  * @author guer
  */
 @Data
-public class BaseRuleProperties {
+@EqualsAndHashCode(callSuper = true)
+@RefreshScope
+@ConfigurationProperties(prefix = StainingProperties.PROPERTIES_PREFIX)
+public class StainingProperties extends BaseRuleProperties {
 
 	/**
-	 * 是否启用.
+	 * 配置前缀.
 	 */
-	private boolean enabled = false;
-
-	/**
-	 * 排序.
-	 */
-	@Nullable
-	private Integer order;
+	public static final String PROPERTIES_PREFIX = Constants.PROPERTIES_PREFIX + ".staining";
 }

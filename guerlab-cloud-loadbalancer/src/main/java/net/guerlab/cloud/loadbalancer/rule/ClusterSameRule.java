@@ -39,6 +39,11 @@ public class ClusterSameRule extends BaseRule<ClusterSameProperties> {
 	}
 
 	@Override
+	protected int defaultOrder() {
+		return 1;
+	}
+
+	@Override
 	public List<ServiceInstance> choose(List<ServiceInstance> instances, Request<?> request) {
 		String clusterName = StringUtils.trimToNull(properties.getClusterName());
 
@@ -46,9 +51,15 @@ public class ClusterSameRule extends BaseRule<ClusterSameProperties> {
 			return instances;
 		}
 
-		return instances.stream()
+		List<ServiceInstance> result = instances.stream()
 				.filter(instance -> clusterName.equalsIgnoreCase(getInstanceClusterName(instance)))
 				.toList();
+
+		if (result.isEmpty() && properties.isAllowRollback()) {
+			return instances;
+		}
+
+		return result;
 	}
 
 	private String getInstanceClusterName(ServiceInstance instance) {

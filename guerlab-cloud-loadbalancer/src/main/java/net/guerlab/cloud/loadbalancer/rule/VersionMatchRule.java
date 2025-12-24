@@ -44,6 +44,11 @@ public class VersionMatchRule extends BaseRule<VersionControlProperties> {
 	}
 
 	@Override
+	protected int defaultOrder() {
+		return 0;
+	}
+
+	@Override
 	public List<ServiceInstance> choose(List<ServiceInstance> instances, Request<?> request) {
 		String requestKey = StringUtils.trimToNull(properties.getRequestKey());
 		String metadataKey = StringUtils.trimToNull(properties.getMetadataKey());

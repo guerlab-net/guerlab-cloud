@@ -13,6 +13,12 @@
       "description": "相同集群配置."
     },
     {
+      "name": "spring.cloud.loadbalancer.staining",
+      "type": "net.guerlab.cloud.loadbalancer.properties.StainingProperties",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.StainingProperties",
+      "description": "染色配置."
+    },
+    {
       "name": "spring.cloud.loadbalancer.version-control",
       "type": "net.guerlab.cloud.loadbalancer.properties.VersionControlProperties",
       "sourceType": "net.guerlab.cloud.loadbalancer.properties.VersionControlProperties",
@@ -59,8 +65,39 @@
       "name": "spring.cloud.loadbalancer.cluster-same.order",
       "type": "java.lang.Integer",
       "sourceType": "net.guerlab.cloud.loadbalancer.properties.ClusterSameProperties",
-      "description": "排序.",
-      "defaultValue": "0"
+      "description": "排序."
+    },
+    {
+      "name": "spring.cloud.loadbalancer.cluster-same.cluster-name",
+      "type": "java.lang.String",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.ClusterSameProperties",
+      "description": "集群名称."
+    },
+    {
+      "name": "spring.cloud.loadbalancer.cluster-same.metadata-key",
+      "type": "java.lang.String",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.ClusterSameProperties",
+      "description": "集群元信息字段."
+    },
+    {
+      "name": "spring.cloud.loadbalancer.cluster-same.allow-rollback",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.ClusterSameProperties",
+      "description": "是否允许结果回退. <p>true: 当前集群结果为空的情况下返回全部数据<\/p> <p>false: 当前集群结果为空的情况下返回空实例列表<\/p>",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.cloud.loadbalancer.staining.enabled",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.StainingProperties",
+      "description": "是否启用.",
+      "defaultValue": false
+    },
+    {
+      "name": "spring.cloud.loadbalancer.staining.order",
+      "type": "java.lang.Integer",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.StainingProperties",
+      "description": "排序."
     },
     {
       "name": "spring.cloud.loadbalancer.version-control.enabled",
@@ -73,8 +110,7 @@
       "name": "spring.cloud.loadbalancer.version-control.order",
       "type": "java.lang.Integer",
       "sourceType": "net.guerlab.cloud.loadbalancer.properties.VersionControlProperties",
-      "description": "排序.",
-      "defaultValue": "0"
+      "description": "排序."
     },
     {
       "name": "spring.cloud.loadbalancer.version-control.request-key",

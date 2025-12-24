@@ -17,8 +17,8 @@ import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
 
-import net.guerlab.cloud.context.core.ContextAttributesHolder;
 import net.guerlab.cloud.context.core.HeaderSafetyFilter;
+import net.guerlab.cloud.context.core.TransferContext;
 
 /**
  * 请求头处理请求拦截器.
@@ -30,7 +30,7 @@ public class HeadersRequestInterceptor implements RequestInterceptor {
 
 	@Override
 	public void apply(RequestTemplate requestTemplate) {
-		ContextAttributesHolder.getAllTransfer().forEach((header, value) -> addHeader(header, value, requestTemplate));
+		TransferContext.getAllTransfer().forEach((header, value) -> addHeader(header, value, requestTemplate));
 		HeadersContextHandler.forEach((header, value) -> addHeader(header, value, requestTemplate));
 	}
 

@@ -46,4 +46,11 @@ public class ClusterSameProperties extends BaseRuleProperties {
 	 * 集群元信息字段.
 	 */
 	private String metadataKey = "cluster";
+
+	/**
+	 * 是否允许结果回退.
+	 * <p>true: 当前集群结果为空的情况下返回全部数据</p>
+	 * <p>false: 当前集群结果为空的情况下返回空实例列表</p>
+	 */
+	private boolean allowRollback;
 }

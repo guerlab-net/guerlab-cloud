@@ -91,6 +91,16 @@ public final class Constants {
 	public static final String ALLOW_TRANSFER_HEADER_PREFIX = "X-Transfer-Inside-";
 
 	/**
+	 * 染色key.
+	 */
+	public static final String STAINING_KEY = "Staining-";
+
+	/**
+	 * 染色header前缀.
+	 */
+	public static final String STAINING_HEADER_PREFIX = ALLOW_TRANSFER_HEADER_PREFIX + STAINING_KEY;
+
+	/**
 	 * 请求头-是否包装响应.
 	 */
 	public static final String HTTP_HEADER_RESPONSE_WRAPPED = "X-Response-Wrapped";

@@ -18,9 +18,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 import net.guerlab.cloud.loadbalancer.properties.ClusterSameProperties;
+import net.guerlab.cloud.loadbalancer.properties.StainingProperties;
 import net.guerlab.cloud.loadbalancer.properties.VersionControlProperties;
 import net.guerlab.cloud.loadbalancer.rule.ClusterSameRule;
 import net.guerlab.cloud.loadbalancer.rule.IRule;
+import net.guerlab.cloud.loadbalancer.rule.StainingRule;
 import net.guerlab.cloud.loadbalancer.rule.VersionMatchRule;
 
 /**
@@ -29,7 +31,11 @@ import net.guerlab.cloud.loadbalancer.rule.VersionMatchRule;
  * @author guer
  */
 @AutoConfiguration
-@EnableConfigurationProperties({VersionControlProperties.class, ClusterSameProperties.class})
+@EnableConfigurationProperties({
+		VersionControlProperties.class,
+		ClusterSameProperties.class,
+		StainingProperties.class
+})
 public class RuleAutoConfigure {
 
 	/**
@@ -52,5 +58,16 @@ public class RuleAutoConfigure {
 	@Bean
 	public IRule clusterSameRule(ClusterSameProperties properties) {
 		return new ClusterSameRule(properties);
+	}
+
+	/**
+	 * 构造染色规则.
+	 *
+	 * @param properties 配置
+	 * @return 染色规则
+	 */
+	@Bean
+	public IRule stainingRule(StainingProperties properties) {
+		return new StainingRule(properties);
 	}
 }
