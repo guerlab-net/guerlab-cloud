@@ -184,6 +184,28 @@ class DecoderTest {
 		Assertions.assertInstanceOf(ApplicationException.class, exception);
 	}
 
+	@Test
+	@Order(9)
+	void resultToVoid() throws Exception {
+		Object result = getResult("""
+				{"status":true,"errorCode":0}""".getBytes(), Void.class, Map.of(
+				Constants.HTTP_HEADER_RESPONSE_WRAPPED, List.of("true"),
+				HttpHeaders.CONTENT_TYPE, List.of(MediaType.APPLICATION_JSON_VALUE)
+		));
+		Assertions.assertNull(result);
+	}
+
+	@Test
+	@Order(10)
+	void voidWithException() {
+		Exception exception = Assertions.assertThrows(ApplicationException.class, () -> getResult("""
+				{"status":false,"errorCode":0,"message":"error_message"}""".getBytes(), Void.class, Map.of(
+				Constants.HTTP_HEADER_RESPONSE_WRAPPED, List.of("true"),
+				HttpHeaders.CONTENT_TYPE, List.of(MediaType.APPLICATION_JSON_VALUE)
+		)));
+		Assertions.assertInstanceOf(ApplicationException.class, exception);
+	}
+
 	@SuppressWarnings("unchecked")
 	<T> T getResult(byte[] bodyBytes, Type type, Map<String, Collection<String>> headers) throws Exception {
 		Response response = Response.builder().body(bodyBytes).request(request()).headers(headers)
