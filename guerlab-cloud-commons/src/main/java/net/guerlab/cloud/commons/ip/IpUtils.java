@@ -13,7 +13,9 @@
 
 package net.guerlab.cloud.commons.ip;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.ServiceLoader;
 
@@ -37,13 +39,27 @@ public final class IpUtils {
 	 */
 	public static final char SPLIT = ',';
 
-	private static final String[] HEADERS = new String[] {"X-Forwarded-For", "Cdn-Src-Ip", "Proxy-Client-IP",
-			"WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR", "X-Real-IP"};
+	private static final List<String> DEFAULT_HEADERS = List.of("X-Forwarded-For", "Cdn-Src-Ip", "Proxy-Client-IP",
+			"WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR", "X-Real-IP");
+
+	private static final List<String> HEADERS;
 
 	private static final Collection<IpParser> IP_PARSERS;
 
 	static {
 		IP_PARSERS = ServiceLoader.load(IpParser.class).stream().map(ServiceLoader.Provider::get).toList();
+
+		List<String> headers = new ArrayList<>(DEFAULT_HEADERS);
+
+		ServiceLoader.load(IpHeaderProvider.class).stream()
+				.map(ServiceLoader.Provider::get)
+				.map(IpHeaderProvider::get)
+				.flatMap(Collection::stream)
+				.forEach(headers::add);
+
+		HEADERS = headers.stream().map(StringUtils::trimToNull)
+				.filter(Objects::nonNull)
+				.distinct().toList();
 	}
 
 	private IpUtils() {
