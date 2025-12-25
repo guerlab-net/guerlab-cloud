@@ -54,7 +54,7 @@ class StainingRuleTest {
 
 		List<ServiceInstance> target = new ArrayList<>();
 		target.add(new MockServiceInstance("mock-v1", Map.of("env", "v1")));
-		Assertions.assertIterableEquals(result, target);
+		Assertions.assertIterableEquals(target, result);
 	}
 
 	@Test
@@ -84,7 +84,7 @@ class StainingRuleTest {
 
 		List<ServiceInstance> target = new ArrayList<>();
 		target.add(new MockServiceInstance("mock-test-v2", Map.of("env", "test", "version", "v2")));
-		Assertions.assertIterableEquals(result, target);
+		Assertions.assertIterableEquals(target, result);
 	}
 
 	@Test

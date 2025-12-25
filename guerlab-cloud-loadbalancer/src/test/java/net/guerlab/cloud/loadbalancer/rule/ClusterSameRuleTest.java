@@ -49,7 +49,7 @@ class ClusterSameRuleTest {
 
 		List<ServiceInstance> target = new ArrayList<>();
 		target.add(new MockServiceInstance("mock-local", Map.of(METADATA_KEY, "local")));
-		Assertions.assertIterableEquals(result, target);
+		Assertions.assertIterableEquals(target, result);
 	}
 
 	@Test

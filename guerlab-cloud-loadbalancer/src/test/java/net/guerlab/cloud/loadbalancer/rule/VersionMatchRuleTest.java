@@ -83,7 +83,7 @@ class VersionMatchRuleTest {
 
 		List<ServiceInstance> target = new ArrayList<>();
 		target.add(new MockServiceInstance("mock-v1", Map.of(metadataKey, "[1.0, 2.0)")));
-		Assertions.assertIterableEquals(result, target);
+		Assertions.assertIterableEquals(target, result);
 	}
 
 	@Test
@@ -98,7 +98,7 @@ class VersionMatchRuleTest {
 		List<ServiceInstance> target = new ArrayList<>();
 		target.add(new MockServiceInstance("mock-v1", Map.of(metadataKey, "[1.0, 2.0)")));
 		target.add(new MockServiceInstance("mock-v3", Map.of(metadataKey, "[1.0, 3.0)")));
-		Assertions.assertIterableEquals(result, target);
+		Assertions.assertIterableEquals(target, result);
 	}
 
 	@Test
