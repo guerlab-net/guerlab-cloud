@@ -54,7 +54,7 @@ public interface SelectById<E extends IBaseEntity> {
 	@Nullable
 	@GetMapping(SELECT_BY_ID_PATH)
 	@Operation(summary = "通过Id查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
-	E selectById(@Parameter(description = "ID", required = true) @PathVariable(SELECT_BY_ID_PARAM) Long id);
+	E selectById(@Parameter(description = "ID", required = true) @PathVariable Long id);
 
 	/**
 	 * 通过Id查询单一结果.

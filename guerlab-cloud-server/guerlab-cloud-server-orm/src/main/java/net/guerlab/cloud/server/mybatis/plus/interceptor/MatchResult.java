@@ -22,38 +22,13 @@ import net.guerlab.cloud.server.jdbc.PointcutProperties;
 /**
  * 匹配结果.
  *
+ * @param classNameMatch  是否类名匹配.
+ * @param methodNameMatch 是否方法匹配.
+ * @param properties      配置项.
  * @author guer
  */
-final class MatchResult implements Comparable<MatchResult> {
-
-	/**
-	 * 是否类名匹配.
-	 */
-	private final boolean classNameMatch;
-
-	/**
-	 * 是否方法匹配.
-	 */
-	private final boolean methodNameMatch;
-
-	/**
-	 * 配置项.
-	 */
-	private final PointcutProperties properties;
-
-	/**
-	 * 创建匹配结果.
-	 *
-	 * @param classNameMatch  是否类名匹配
-	 * @param methodNameMatch 是否方法匹配
-	 * @param properties      配置项
-	 */
-	MatchResult(boolean classNameMatch, boolean methodNameMatch,
-			PointcutProperties properties) {
-		this.classNameMatch = classNameMatch;
-		this.methodNameMatch = methodNameMatch;
-		this.properties = properties;
-	}
+record MatchResult(boolean classNameMatch, boolean methodNameMatch, PointcutProperties properties
+) implements Comparable<MatchResult> {
 
 	/**
 	 * 是否有任意匹配.
@@ -81,6 +56,11 @@ final class MatchResult implements Comparable<MatchResult> {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(classNameMatch, methodNameMatch, properties);
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
 			return false;
@@ -95,22 +75,6 @@ final class MatchResult implements Comparable<MatchResult> {
 				Objects.equals(properties, m.properties);
 	}
 
-	public boolean classNameMatch() {
-		return classNameMatch;
-	}
-
-	public boolean methodNameMatch() {
-		return methodNameMatch;
-	}
-
-	public PointcutProperties properties() {
-		return properties;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(classNameMatch, methodNameMatch, properties);
-	}
 
 	@Override
 	public String toString() {

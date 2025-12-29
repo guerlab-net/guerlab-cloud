@@ -11,25 +11,10 @@
  * limitations under the License.
  */
 
-package net.guerlab.cloud.core.converter;
-
-import java.util.Date;
-
-import jakarta.annotation.Nullable;
-
-import net.guerlab.commons.time.TimeHelper;
-
 /**
- * 日期转换.
  *
- * @author guer
  */
-public class DateConverter implements AutoLoadConverter<String, Date> {
+@NonNullApi
+package net.guerlab.cloud.web.core.utils;
 
-	@Nullable
-	@Override
-	public Date convert(String source) {
-		return TimeHelper.parse(source);
-	}
-
-}
+import org.springframework.lang.NonNullApi;

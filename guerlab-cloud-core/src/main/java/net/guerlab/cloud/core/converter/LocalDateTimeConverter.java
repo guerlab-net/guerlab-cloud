@@ -15,6 +15,8 @@ package net.guerlab.cloud.core.converter;
 
 import java.time.LocalDateTime;
 
+import jakarta.annotation.Nullable;
+
 import net.guerlab.commons.time.TimeHelper;
 
 /**
@@ -24,6 +26,7 @@ import net.guerlab.commons.time.TimeHelper;
  */
 public class LocalDateTimeConverter implements AutoLoadConverter<String, LocalDateTime> {
 
+	@Nullable
 	@Override
 	public LocalDateTime convert(String source) {
 		return TimeHelper.parseLocalDateTime(source);

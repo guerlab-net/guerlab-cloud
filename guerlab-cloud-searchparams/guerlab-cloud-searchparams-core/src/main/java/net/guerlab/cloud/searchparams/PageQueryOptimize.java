@@ -29,6 +29,7 @@ public interface PageQueryOptimize extends SearchParams {
 	 *
 	 * @return 允许查询总数
 	 */
+	@SuppressWarnings("SameReturnValue")
 	@Nullable
 	default Boolean allowSelectCount() {
 		return null;

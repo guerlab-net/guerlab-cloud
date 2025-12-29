@@ -83,7 +83,7 @@
       "name": "spring.cloud.loadbalancer.cluster-same.allow-rollback",
       "type": "java.lang.Boolean",
       "sourceType": "net.guerlab.cloud.loadbalancer.properties.ClusterSameProperties",
-      "description": "是否允许结果回退. <p>true: 当前集群结果为空的情况下返回全部数据<\/p> <p>false: 当前集群结果为空的情况下返回空实例列表<\/p>",
+      "description": "是否允许结果回退.",
       "defaultValue": false
     },
     {
@@ -125,6 +125,21 @@
       "sourceType": "net.guerlab.cloud.loadbalancer.properties.VersionControlProperties",
       "description": "服务元信息关键字.",
       "defaultValue": "request-version-control"
+    }
+  ],
+  "hints": [
+    {
+      "name": "spring.cloud.loadbalancer.cluster-same.allow-rollback",
+      "values": [
+        {
+          "value": true,
+          "description": "当前集群结果为空的情况下返回全部数据."
+        },
+        {
+          "value": false,
+          "description": "当前集群结果为空的情况下返回空实例列表."
+        }
+      ]
     }
   ]
 }

@@ -47,5 +47,5 @@ public interface DeleteById {
 	 */
 	@DeleteMapping(DELETE_BY_ID_PATH)
 	@Operation(summary = "根据Id删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
-	void deleteById(@Parameter(description = "ID", required = true) @PathVariable(DELETE_BY_ID_PARAM) Long id);
+	void deleteById(@Parameter(description = "ID", required = true) @PathVariable Long id);
 }

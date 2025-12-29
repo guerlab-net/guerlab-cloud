@@ -128,7 +128,7 @@ public abstract class BaseManageController<E extends IBaseEntity, Q extends Sear
 	@Log("method.deleteById")
 	@DeleteMapping(DeleteById.DELETE_BY_ID_PATH)
 	@Operation(summary = "根据Id删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
-	public void deleteById(@Parameter(description = "ID", required = true) @PathVariable(DeleteById.DELETE_BY_ID_PARAM) Long id) {
+	public void deleteById(@Parameter(description = "ID", required = true) @PathVariable Long id) {
 		E entity = getApi().selectById(id);
 		if (entity == null) {
 			throw nullPointException();

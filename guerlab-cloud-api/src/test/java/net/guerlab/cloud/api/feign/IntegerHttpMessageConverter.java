@@ -19,6 +19,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.Setter;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
@@ -39,6 +41,7 @@ public class IntegerHttpMessageConverter extends AbstractHttpMessageConverter<In
 	@Nullable
 	private volatile List<Charset> availableCharsets;
 
+	@Setter
 	private boolean writeAcceptCharset = false;
 
 	public IntegerHttpMessageConverter() {

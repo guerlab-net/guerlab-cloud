@@ -22,7 +22,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.cloud.openfeign.support.HttpMessageConverterCustomizer;
@@ -49,8 +48,11 @@ import net.guerlab.cloud.api.feign.TypeDecoder;
 @AutoConfiguration
 public class FeignAutoConfigure {
 
-	@Autowired
-	private ObjectFactory<HttpMessageConverters> messageConverters;
+	private final ObjectFactory<HttpMessageConverters> messageConverters;
+
+	public FeignAutoConfigure(ObjectFactory<HttpMessageConverters> messageConverters) {
+		this.messageConverters = messageConverters;
+	}
 
 	/**
 	 * 构建Feign.Builder构建拦截器.

@@ -41,9 +41,9 @@ import net.guerlab.cloud.loadbalancer.properties.VersionControlProperties;
  */
 class VersionMatchRuleTest {
 
-	static String requestKey = "version";
+	static final String requestKey = "version";
 
-	static String metadataKey = "request-version-control";
+	static final String metadataKey = "request-version-control";
 
 	static VersionMatchRule rule;
 

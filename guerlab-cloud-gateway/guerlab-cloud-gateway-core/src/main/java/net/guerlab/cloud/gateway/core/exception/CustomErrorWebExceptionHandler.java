@@ -30,7 +30,6 @@ import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
-import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -125,7 +124,6 @@ class CustomErrorWebExceptionHandler extends DefaultErrorWebExceptionHandler {
 		return RouterFunctions.route(RequestPredicates.all(), this::renderErrorResponse);
 	}
 
-	@NonNull
 	@Override
 	protected Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
 		return super.renderErrorResponse(request);

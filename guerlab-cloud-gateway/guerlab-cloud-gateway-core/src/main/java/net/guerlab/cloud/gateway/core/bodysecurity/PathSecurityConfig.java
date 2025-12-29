@@ -16,6 +16,7 @@ package net.guerlab.cloud.gateway.core.bodysecurity;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.annotation.Nullable;
 import lombok.Data;
 
 import net.guerlab.cloud.gateway.core.UrlDefinition;
@@ -42,6 +43,7 @@ public class PathSecurityConfig {
 	/**
 	 * RSA公/私钥对配置.
 	 */
+	@Nullable
 	private RsaKeys rsaKeys;
 
 	/**

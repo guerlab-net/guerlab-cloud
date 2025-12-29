@@ -89,7 +89,7 @@ public abstract class BaseQueryController<E extends IBaseEntity, Q extends Searc
 	@Nullable
 	@GetMapping(SelectById.SELECT_BY_ID_PATH)
 	@Operation(summary = "通过Id查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
-	public V selectById(@Parameter(description = "ID", required = true) @PathVariable(SelectById.SELECT_BY_ID_PARAM) Long id, @Parameter(description = "搜索参数") @Nullable Q searchParams) {
+	public V selectById(@Parameter(description = "ID", required = true) @PathVariable Long id, @Parameter(description = "搜索参数") @Nullable Q searchParams) {
 		E entity = getApi().selectById(id);
 		if (entity == null) {
 			throw nullPointException();

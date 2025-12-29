@@ -27,6 +27,7 @@ import feign.Request;
 import feign.RequestTemplate;
 import feign.Response;
 import feign.codec.Decoder;
+import jakarta.annotation.Nullable;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -63,10 +64,7 @@ import net.guerlab.commons.exception.ApplicationException;
 				ObjectMapperAutoConfigure.class,
 				TestAutoConfigure.class
 		},
-		webEnvironment = SpringBootTest.WebEnvironment.NONE,
-		properties = {
-				"spring.cloud.polaris.config.enabled=false"
-		}
+		webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @Slf4j
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -207,6 +205,7 @@ class DecoderTest {
 	}
 
 	@SuppressWarnings("unchecked")
+	@Nullable
 	<T> T getResult(byte[] bodyBytes, Type type, Map<String, Collection<String>> headers) throws Exception {
 		Response response = Response.builder().body(bodyBytes).request(request()).headers(headers)
 				.status(200).build();
