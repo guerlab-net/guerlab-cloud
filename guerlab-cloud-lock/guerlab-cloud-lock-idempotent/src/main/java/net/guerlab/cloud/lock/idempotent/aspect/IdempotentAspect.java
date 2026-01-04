@@ -15,6 +15,7 @@ package net.guerlab.cloud.lock.idempotent.aspect;
 
 import java.util.Objects;
 
+import jakarta.annotation.Nullable;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -87,11 +88,19 @@ public class IdempotentAspect extends AbstractLockAspect {
 
 		log.debug("lock success[lockKey={}, lockTime={}, lockTimeUnit={}]", lockKey, idempotent.lockTime(),
 				idempotent.lockTimeUnit());
+
+		boolean unlockWithThrowException = false;
 		try {
 			return point.proceed();
 		}
+		catch (Throwable e) {
+			log.debug("invoke method throw exception: {}", e.getMessage(), e);
+			Class<?>[] unlockExceptions = idempotent.unlockExceptions();
+			unlockWithThrowException = isUnlockException(e, unlockExceptions);
+			throw e;
+		}
 		finally {
-			if (idempotent.unlockWhenEndOfOperation()) {
+			if (unlockWithThrowException || idempotent.unlockWhenEndOfOperation()) {
 				log.debug("operation end, unlock[lockKey={}]", lockKey);
 				redisTemplate.delete(lockKey);
 			}
@@ -108,5 +117,19 @@ public class IdempotentAspect extends AbstractLockAspect {
 		}
 
 		return new IdempotentBlockException(idempotent.lockTime(), getTimeUnitName(idempotent.lockTimeUnit()));
+	}
+
+	private boolean isUnlockException(Throwable e, @Nullable Class<?>[] unlockExceptions) {
+		if (unlockExceptions == null) {
+			return false;
+		}
+
+		for (Class<?> exceptionClass : unlockExceptions) {
+			if (exceptionClass != null && exceptionClass.isInstance(e)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

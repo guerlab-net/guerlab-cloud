@@ -76,4 +76,11 @@ public @interface Idempotent {
 	 * @return 快速失败工厂类型
 	 */
 	Class<? extends IdempotentFallbackFactory> fallBackFactory() default NoopIdempotentFallbackFactory.class;
+
+	/**
+	 * 解锁异常列表.
+	 *
+	 * @return 解锁异常列表
+	 */
+	Class<?>[] unlockExceptions() default {};
 }
