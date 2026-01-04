@@ -71,8 +71,10 @@ public class IdempotentAspect extends AbstractLockAspect {
 
 		String lockKey = buildLockKey(methodSignature, args, idempotent.lockKey());
 		log.debug("lockKey[lockKey={}]", lockKey);
-		boolean lockSuccess = Objects.equals(true, redisTemplate.opsForValue()
-				.setIfAbsent(lockKey, "1", idempotent.lockTime(), idempotent.lockTimeUnit()));
+		Boolean lockResult = redisTemplate.opsForValue()
+				.setIfAbsent(lockKey, Thread.currentThread().getName(),
+						idempotent.lockTime(), idempotent.lockTimeUnit());
+		boolean lockSuccess = Objects.equals(true, lockResult);
 
 		if (!lockSuccess) {
 			Object fallbackObject = getFallback(idempotent.fallBackFactory(), args);
