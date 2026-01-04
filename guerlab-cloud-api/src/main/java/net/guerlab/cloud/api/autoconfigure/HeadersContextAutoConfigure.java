@@ -21,7 +21,6 @@ import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.core.type.AnnotatedTypeMetadata;
-import org.springframework.lang.NonNull;
 
 import net.guerlab.cloud.api.headers.HeadersContextCleanHandlerInterceptor;
 import net.guerlab.cloud.api.headers.HeadersRequestInterceptor;
@@ -60,7 +59,7 @@ public class HeadersContextAutoConfigure {
 	static class WrapperCondition implements Condition {
 
 		@Override
-		public boolean matches(@NonNull ConditionContext context, @NonNull AnnotatedTypeMetadata metadata) {
+		public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
 			try {
 				return WrapperCondition.class.getClassLoader()
 						.loadClass("org.springframework.web.servlet.HandlerInterceptor") != null;

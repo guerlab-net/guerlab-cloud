@@ -48,7 +48,7 @@ public class EnumDescriptionController {
 	@Operation(summary = "根据类路径获取枚举说明列表")
 	@GetMapping("/{path}")
 	public List<EnumDescription> get(
-			@Parameter(description = "路径", required = true) @PathVariable("path") String path) {
+			@Parameter(description = "路径", required = true) @PathVariable String path) {
 		return EnumDescriptionUtils.getDescriptions(path);
 	}
 }

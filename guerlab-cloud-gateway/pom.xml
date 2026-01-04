@@ -18,6 +18,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>guerlab-cloud-gateway</artifactId>
 	<name>Guerlab Cloud Gateway</name>
+	<packaging>pom</packaging>
 
 	<parent>
 		<groupId>net.guerlab.cloud</groupId>
@@ -29,34 +30,9 @@
 		<main.basedir>${basedir}/..</main.basedir>
 	</properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>net.guerlab.cloud</groupId>
-			<artifactId>guerlab-cloud-loadbalancer</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.guerlab.cloud</groupId>
-			<artifactId>guerlab-cloud-rsa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.guerlab.cloud</groupId>
-			<artifactId>guerlab-cloud-security-webflux</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.guerlab.cloud</groupId>
-			<artifactId>guerlab-cloud-tencent-import</artifactId>
-			<type>pom</type>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-gateway</artifactId>
-		</dependency>
-
-		<!-- spring cloud tencent -->
-		<dependency>
-			<groupId>com.tencent.cloud</groupId>
-			<artifactId>spring-cloud-starter-tencent-gateway-plugin</artifactId>
-		</dependency>
-	</dependencies>
+	<modules>
+		<module>guerlab-cloud-gateway-alibaba</module>
+		<module>guerlab-cloud-gateway-core</module>
+		<module>guerlab-cloud-gateway-tencent</module>
+	</modules>
 </project>

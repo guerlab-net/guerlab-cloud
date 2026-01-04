@@ -25,6 +25,7 @@ import org.springframework.core.NamedInheritableThreadLocal;
  *
  * @author guer
  */
+@SuppressWarnings("unused")
 public final class ContextAttributesHolder {
 
 	private static final InheritableThreadLocal<ContextAttributes> THREAD_LOCAL = new NamedInheritableThreadLocal<>("ContextAttributes");

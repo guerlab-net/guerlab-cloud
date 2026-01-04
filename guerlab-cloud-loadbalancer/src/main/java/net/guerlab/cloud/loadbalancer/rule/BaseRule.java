@@ -43,6 +43,14 @@ public abstract class BaseRule<P extends BaseRuleProperties> implements IRule {
 
 	@Override
 	public int getOrder() {
-		return properties.getOrder();
+		Integer order = properties.getOrder();
+		return order == null ? defaultOrder() : order;
 	}
+
+	/**
+	 * 获取默认排序.
+	 *
+	 * @return 默认排序
+	 */
+	protected abstract int defaultOrder();
 }

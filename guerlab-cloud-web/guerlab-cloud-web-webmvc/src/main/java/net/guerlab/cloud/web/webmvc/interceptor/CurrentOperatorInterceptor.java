@@ -19,8 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.context.core.ContextAttributesHolder;
+import net.guerlab.cloud.core.Constants;
 
 /**
  * 当前操作者信息处理请求拦截器.

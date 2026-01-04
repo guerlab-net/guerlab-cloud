@@ -15,6 +15,8 @@ package net.guerlab.cloud.core.converter;
 
 import java.util.Date;
 
+import jakarta.annotation.Nullable;
+
 import net.guerlab.commons.time.TimeHelper;
 
 /**
@@ -24,6 +26,7 @@ import net.guerlab.commons.time.TimeHelper;
  */
 public class DateConverter implements AutoLoadConverter<String, Date> {
 
+	@Nullable
 	@Override
 	public Date convert(String source) {
 		return TimeHelper.parse(source);

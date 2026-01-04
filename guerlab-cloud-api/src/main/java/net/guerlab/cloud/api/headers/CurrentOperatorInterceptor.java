@@ -17,7 +17,7 @@ import feign.RequestInterceptor;
 import feign.RequestTemplate;
 
 import net.guerlab.cloud.auth.context.AbstractContextHandler;
-import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.core.Constants;
 
 /**
  * 当前操作者信息处理请求拦截器.

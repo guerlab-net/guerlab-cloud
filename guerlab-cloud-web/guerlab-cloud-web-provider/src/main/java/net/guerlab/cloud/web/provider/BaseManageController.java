@@ -27,13 +27,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.api.DeleteById;
 import net.guerlab.cloud.commons.api.ManageApi;
 import net.guerlab.cloud.commons.api.UpdateById;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
 import net.guerlab.cloud.commons.valid.InsertValid;
 import net.guerlab.cloud.commons.valid.UpdateValid;
+import net.guerlab.cloud.core.Constants;
 import net.guerlab.cloud.log.annotation.Log;
 import net.guerlab.cloud.searchparams.SearchParams;
 
@@ -128,7 +128,7 @@ public abstract class BaseManageController<E extends IBaseEntity, Q extends Sear
 	@Log("method.deleteById")
 	@DeleteMapping(DeleteById.DELETE_BY_ID_PATH)
 	@Operation(summary = "根据Id删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
-	public void deleteById(@Parameter(description = "ID", required = true) @PathVariable(DeleteById.DELETE_BY_ID_PARAM) Long id) {
+	public void deleteById(@Parameter(description = "ID", required = true) @PathVariable Long id) {
 		E entity = getApi().selectById(id);
 		if (entity == null) {
 			throw nullPointException();

@@ -30,6 +30,18 @@
 		<main.basedir>${basedir}/..</main.basedir>
 	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.tencent.cloud</groupId>
+				<artifactId>spring-cloud-tencent-dependencies</artifactId>
+				<version>${spring-cloud-tencent.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.tencent.cloud</groupId>

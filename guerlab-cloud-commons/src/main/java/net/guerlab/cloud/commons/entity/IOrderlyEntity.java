@@ -17,7 +17,7 @@ import java.util.Comparator;
 
 import jakarta.annotation.Nullable;
 
-import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.core.Constants;
 
 /**
  * 可排序对象接口.

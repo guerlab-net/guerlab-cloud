@@ -20,7 +20,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.core.Constants;
 
 /**
  * APi定义.
@@ -47,5 +47,5 @@ public interface DeleteById {
 	 */
 	@DeleteMapping(DELETE_BY_ID_PATH)
 	@Operation(summary = "根据Id删除数据", security = @SecurityRequirement(name = Constants.TOKEN))
-	void deleteById(@Parameter(description = "ID", required = true) @PathVariable(DELETE_BY_ID_PARAM) Long id);
+	void deleteById(@Parameter(description = "ID", required = true) @PathVariable Long id);
 }

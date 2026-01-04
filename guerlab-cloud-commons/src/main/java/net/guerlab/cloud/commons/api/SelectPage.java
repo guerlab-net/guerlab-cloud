@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
+import net.guerlab.cloud.core.Constants;
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.searchparams.SearchParams;
 

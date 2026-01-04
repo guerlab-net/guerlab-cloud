@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.api.QueryApi;
 import net.guerlab.cloud.commons.api.SelectById;
 import net.guerlab.cloud.commons.api.SelectCount;
@@ -38,6 +37,7 @@ import net.guerlab.cloud.commons.api.SelectList;
 import net.guerlab.cloud.commons.api.SelectOne;
 import net.guerlab.cloud.commons.api.SelectPage;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
+import net.guerlab.cloud.core.Constants;
 import net.guerlab.cloud.core.result.Pageable;
 import net.guerlab.cloud.core.util.SpringUtils;
 import net.guerlab.cloud.searchparams.SearchParams;
@@ -89,7 +89,7 @@ public abstract class BaseQueryController<E extends IBaseEntity, Q extends Searc
 	@Nullable
 	@GetMapping(SelectById.SELECT_BY_ID_PATH)
 	@Operation(summary = "通过Id查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
-	public V selectById(@Parameter(description = "ID", required = true) @PathVariable(SelectById.SELECT_BY_ID_PARAM) Long id, @Parameter(description = "搜索参数") @Nullable Q searchParams) {
+	public V selectById(@Parameter(description = "ID", required = true) @PathVariable Long id, @Parameter(description = "搜索参数") @Nullable Q searchParams) {
 		E entity = getApi().selectById(id);
 		if (entity == null) {
 			throw nullPointException();

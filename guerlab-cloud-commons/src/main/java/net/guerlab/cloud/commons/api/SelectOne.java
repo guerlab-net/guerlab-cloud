@@ -23,8 +23,8 @@ import jakarta.annotation.Nullable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
+import net.guerlab.cloud.core.Constants;
 import net.guerlab.cloud.searchparams.SearchParams;
 
 /**

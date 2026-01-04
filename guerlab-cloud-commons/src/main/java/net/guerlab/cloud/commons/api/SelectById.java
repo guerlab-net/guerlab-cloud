@@ -23,8 +23,8 @@ import jakarta.annotation.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import net.guerlab.cloud.commons.Constants;
 import net.guerlab.cloud.commons.entity.IBaseEntity;
+import net.guerlab.cloud.core.Constants;
 
 /**
  * APi定义.
@@ -54,7 +54,7 @@ public interface SelectById<E extends IBaseEntity> {
 	@Nullable
 	@GetMapping(SELECT_BY_ID_PATH)
 	@Operation(summary = "通过Id查询单一结果", security = @SecurityRequirement(name = Constants.TOKEN))
-	E selectById(@Parameter(description = "ID", required = true) @PathVariable(SELECT_BY_ID_PARAM) Long id);
+	E selectById(@Parameter(description = "ID", required = true) @PathVariable Long id);
 
 	/**
 	 * 通过Id查询单一结果.

@@ -32,7 +32,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>net.guerlab.cloud</groupId>
-			<artifactId>guerlab-cloud-commons</artifactId>
+			<artifactId>guerlab-cloud-core</artifactId>
 		</dependency>
 	</dependencies>
 </project>

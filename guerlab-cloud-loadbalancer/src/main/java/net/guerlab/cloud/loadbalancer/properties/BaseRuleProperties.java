@@ -13,6 +13,7 @@
 
 package net.guerlab.cloud.loadbalancer.properties;
 
+import jakarta.annotation.Nullable;
 import lombok.Data;
 
 /**
@@ -31,5 +32,6 @@ public class BaseRuleProperties {
 	/**
 	 * 排序.
 	 */
-	private int order = 0;
+	@Nullable
+	private Integer order;
 }

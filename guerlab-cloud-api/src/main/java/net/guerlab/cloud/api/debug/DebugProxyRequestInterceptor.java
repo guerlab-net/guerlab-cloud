@@ -35,6 +35,7 @@ public class DebugProxyRequestInterceptor implements RequestInterceptor {
 	/**
 	 * http scheme.
 	 */
+	@SuppressWarnings("HttpUrlsUsage")
 	private static final String SCHEME_HTTP = "http://";
 
 	/**

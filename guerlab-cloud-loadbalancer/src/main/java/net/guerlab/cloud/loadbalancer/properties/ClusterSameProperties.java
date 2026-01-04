@@ -46,4 +46,9 @@ public class ClusterSameProperties extends BaseRuleProperties {
 	 * 集群元信息字段.
 	 */
 	private String metadataKey = "cluster";
+
+	/**
+	 * 是否允许结果回退.
+	 */
+	private boolean allowRollback;
 }

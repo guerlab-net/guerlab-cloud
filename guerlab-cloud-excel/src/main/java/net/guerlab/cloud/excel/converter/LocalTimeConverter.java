@@ -22,6 +22,7 @@ import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.data.ReadCellData;
 import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
+import jakarta.annotation.Nullable;
 
 import net.guerlab.commons.time.TimeHelper;
 
@@ -43,6 +44,7 @@ public class LocalTimeConverter implements Converter<LocalTime> {
 		return CellDataTypeEnum.STRING;
 	}
 
+	@Nullable
 	@Override
 	public LocalTime convertToJavaData(ReadCellData<?> cellData, ExcelContentProperty contentProperty,
 			GlobalConfiguration globalConfiguration) {

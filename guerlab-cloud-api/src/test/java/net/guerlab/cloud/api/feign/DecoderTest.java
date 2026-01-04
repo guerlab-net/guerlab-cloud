@@ -27,6 +27,7 @@ import feign.Request;
 import feign.RequestTemplate;
 import feign.Response;
 import feign.codec.Decoder;
+import jakarta.annotation.Nullable;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -45,7 +46,7 @@ import org.springframework.http.MediaType;
 import org.springframework.util.StreamUtils;
 
 import net.guerlab.cloud.api.autoconfigure.FeignAutoConfigure;
-import net.guerlab.cloud.commons.Constants;
+import net.guerlab.cloud.core.Constants;
 import net.guerlab.cloud.core.autoconfigure.ObjectMapperAutoConfigure;
 import net.guerlab.cloud.core.result.Result;
 import net.guerlab.commons.exception.ApplicationException;
@@ -63,10 +64,7 @@ import net.guerlab.commons.exception.ApplicationException;
 				ObjectMapperAutoConfigure.class,
 				TestAutoConfigure.class
 		},
-		webEnvironment = SpringBootTest.WebEnvironment.NONE,
-		properties = {
-				"spring.cloud.polaris.config.enabled=false"
-		}
+		webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @Slf4j
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -184,7 +182,30 @@ class DecoderTest {
 		Assertions.assertInstanceOf(ApplicationException.class, exception);
 	}
 
+	@Test
+	@Order(9)
+	void resultToVoid() throws Exception {
+		Object result = getResult("""
+				{"status":true,"errorCode":0}""".getBytes(), Void.class, Map.of(
+				Constants.HTTP_HEADER_RESPONSE_WRAPPED, List.of("true"),
+				HttpHeaders.CONTENT_TYPE, List.of(MediaType.APPLICATION_JSON_VALUE)
+		));
+		Assertions.assertNull(result);
+	}
+
+	@Test
+	@Order(10)
+	void voidWithException() {
+		Exception exception = Assertions.assertThrows(ApplicationException.class, () -> getResult("""
+				{"status":false,"errorCode":0,"message":"error_message"}""".getBytes(), Void.class, Map.of(
+				Constants.HTTP_HEADER_RESPONSE_WRAPPED, List.of("true"),
+				HttpHeaders.CONTENT_TYPE, List.of(MediaType.APPLICATION_JSON_VALUE)
+		)));
+		Assertions.assertInstanceOf(ApplicationException.class, exception);
+	}
+
 	@SuppressWarnings("unchecked")
+	@Nullable
 	<T> T getResult(byte[] bodyBytes, Type type, Map<String, Collection<String>> headers) throws Exception {
 		Response response = Response.builder().body(bodyBytes).request(request()).headers(headers)
 				.status(200).build();
