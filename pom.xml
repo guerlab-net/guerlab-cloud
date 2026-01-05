@@ -66,7 +66,7 @@
 	</issueManagement>
 
 	<properties>
-		<revision>2026.1.0</revision>
+		<revision>2026.1.1</revision>
 		<main.basedir>${basedir}</main.basedir>
 
 		<java.version>17</java.version>
@@ -74,8 +74,8 @@
 
 		<!-- spring -->
 		<spring-boot.version>3.2.12</spring-boot.version>
-		<spring-cloud.version>2023.0.5</spring-cloud.version>
-		<spring-cloud-tencent.version>2.0.2.0-2023.0.5</spring-cloud-tencent.version>
+		<spring-cloud.version>2023.0.6</spring-cloud.version>
+		<spring-cloud-tencent.version>2.1.0.0-2023.0.6</spring-cloud-tencent.version>
 		<spring-cloud-alibaba.version>2023.0.3.4</spring-cloud-alibaba.version>
 
 		<!-- other -->
@@ -228,6 +228,12 @@
 			<dependency>
 				<groupId>net.guerlab.cloud</groupId>
 				<artifactId>guerlab-cloud-gateway</artifactId>
+				<type>pom</type>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.guerlab.cloud</groupId>
+				<artifactId>guerlab-cloud-gateway-alibaba</artifactId>
 				<type>pom</type>
 				<version>${revision}</version>
 			</dependency>
@@ -609,7 +615,7 @@
 	</build>
 
 	<modules>
-		<module>guerlab-cloud-alibabab-import</module>
+		<module>guerlab-cloud-alibaba-import</module>
 		<module>guerlab-cloud-api</module>
 		<module>guerlab-cloud-app</module>
 		<module>guerlab-cloud-auth</module>
