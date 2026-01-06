@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import net.guerlab.cloud.commons.exception.handler.ResponseBuilder;
 import net.guerlab.cloud.commons.exception.handler.StackTracesHandler;
+import net.guerlab.cloud.core.Constants;
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionHandler;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionLogger;
@@ -72,7 +73,10 @@ public class WebMvcGlobalExceptionHandler extends GlobalExceptionHandler {
 		globalExceptionLogger.debug(e, requestMethod, requestPath);
 
 		int statusCode = responseStatusCode != null ? responseStatusCode : globalExceptionProperties.getStatusCode(requestMethod, requestPath);
-		return ResponseEntity.status(statusCode).body(build(e));
+		return ResponseEntity
+				.status(statusCode)
+				.header(Constants.HTTP_HEADER_RESPONSE_WRAPPED, "true").
+				body(build(e));
 	}
 
 }

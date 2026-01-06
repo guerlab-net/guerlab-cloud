@@ -29,6 +29,7 @@ import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+import net.guerlab.cloud.core.Constants;
 import net.guerlab.cloud.core.result.Fail;
 import net.guerlab.cloud.web.core.exception.handler.GlobalExceptionHandler;
 import net.guerlab.cloud.web.core.properties.GlobalExceptionProperties;
@@ -79,7 +80,10 @@ public class WebFluxErrorWebExceptionHandler extends DefaultErrorWebExceptionHan
 		Fail<?> fail = globalExceptionHandler.build(error);
 
 		int statusCode = globalExceptionProperties.getStatusCode(requestMethod, requestPath);
-		return ServerResponse.status(statusCode).contentType(MediaType.APPLICATION_JSON)
+		return ServerResponse
+				.status(statusCode)
+				.contentType(MediaType.APPLICATION_JSON)
+				.header(Constants.HTTP_HEADER_RESPONSE_WRAPPED, "true")
 				.body(BodyInserters.fromValue(fail));
 	}
 }
