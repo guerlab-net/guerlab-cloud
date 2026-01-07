@@ -33,6 +33,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.http.MediaType;
 
+import net.guerlab.cloud.api.properties.JsonDecoderProperties;
 import net.guerlab.cloud.core.result.ApplicationStackTrace;
 import net.guerlab.cloud.core.result.RemoteException;
 import net.guerlab.cloud.core.result.Result;
@@ -52,13 +53,17 @@ public class JsonDecoder implements TypeDecoder {
 
 	private final ObjectMapper objectMapper;
 
+	private final JsonDecoderProperties properties;
+
 	/**
 	 * 初始化结果解析.
 	 *
 	 * @param objectMapper objectMapper
+	 * @param properties   json解析配置
 	 */
-	public JsonDecoder(ObjectMapper objectMapper) {
+	public JsonDecoder(ObjectMapper objectMapper, JsonDecoderProperties properties) {
 		this.objectMapper = objectMapper;
+		this.properties = properties;
 	}
 
 	@Override
@@ -81,7 +86,7 @@ public class JsonDecoder implements TypeDecoder {
 			if (isResultType(type)) {
 				return decodeResultType(bodyBytes, javaType);
 			}
-			else if (!getBodyIsWrapped(response)) {
+			else if (!properties.isForceDecodeWithWrapped() && !getBodyIsWrapped(response)) {
 				return objectMapper.readValue(bodyBytes, javaType);
 			}
 			return decodeWithWrapped(bodyBytes, javaType);

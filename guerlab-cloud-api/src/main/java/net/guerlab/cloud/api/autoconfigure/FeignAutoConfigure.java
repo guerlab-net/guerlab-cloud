@@ -24,6 +24,7 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.openfeign.support.HttpMessageConverterCustomizer;
 import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
 import org.springframework.cloud.openfeign.support.SpringDecoder;
@@ -38,6 +39,7 @@ import net.guerlab.cloud.api.feign.JsonDecoder;
 import net.guerlab.cloud.api.feign.LoadbalancerNotContainInstanceResponseDecoder;
 import net.guerlab.cloud.api.feign.OrderedErrorDecoder;
 import net.guerlab.cloud.api.feign.TypeDecoder;
+import net.guerlab.cloud.api.properties.JsonDecoderProperties;
 
 /**
  * feign自动配置.
@@ -46,6 +48,9 @@ import net.guerlab.cloud.api.feign.TypeDecoder;
  */
 @Slf4j
 @AutoConfiguration
+@EnableConfigurationProperties({
+		JsonDecoderProperties.class
+})
 public class FeignAutoConfigure {
 
 	private final ObjectFactory<HttpMessageConverters> messageConverters;
@@ -85,11 +90,12 @@ public class FeignAutoConfigure {
 	 * 构建json类型解析器.
 	 *
 	 * @param objectMapper objectMapper
+	 * @param properties   json解析配置
 	 * @return json类型解析器
 	 */
 	@Bean
-	public JsonDecoder jsonDecoder(ObjectMapper objectMapper) {
-		return new JsonDecoder(objectMapper);
+	public JsonDecoder jsonDecoder(ObjectMapper objectMapper, JsonDecoderProperties properties) {
+		return new JsonDecoder(objectMapper, properties);
 	}
 
 	/**
