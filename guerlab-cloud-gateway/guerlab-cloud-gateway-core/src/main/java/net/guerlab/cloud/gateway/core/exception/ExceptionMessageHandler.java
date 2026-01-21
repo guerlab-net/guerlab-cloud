@@ -56,6 +56,6 @@ public interface ExceptionMessageHandler extends Ordered, Comparable<ExceptionMe
 	 */
 	@Override
 	default int compareTo(ExceptionMessageHandler o) {
-		return this.getOrder() - o.getOrder();
+		return Integer.compare(this.getOrder(), o.getOrder());
 	}
 }
