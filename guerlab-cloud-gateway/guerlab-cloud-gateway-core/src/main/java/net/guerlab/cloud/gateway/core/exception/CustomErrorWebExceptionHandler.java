@@ -15,6 +15,7 @@ package net.guerlab.cloud.gateway.core.exception;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,8 +75,12 @@ class CustomErrorWebExceptionHandler extends DefaultErrorWebExceptionHandler {
 			log.debug(error.getLocalizedMessage(), error);
 		}
 
-		ExceptionMessageHandler handler = handlers.stream().filter(provider -> provider.accept(error)).sorted()
-				.findFirst().orElse(defaultHandler);
+		ExceptionMessageHandler handler = handlers.stream()
+				.filter(provider -> provider.accept(error))
+				.min(Comparator.comparing(ExceptionMessageHandler::getOrder))
+				.orElse(defaultHandler);
+
+		log.debug("use ExceptionMessageHandler: {}", handler);
 
 		Map<String, Object> errorAttributes = new HashMap<>(4);
 		errorAttributes.put("status", false);
@@ -104,15 +109,17 @@ class CustomErrorWebExceptionHandler extends DefaultErrorWebExceptionHandler {
 
 		if (throwable instanceof RemoteException remoteException) {
 			stackTraces.add(remoteException.getApplicationStackTrace());
+			return;
 		}
-		else {
-			ApplicationStackTrace applicationStackTrace = new ApplicationStackTrace();
-			applicationStackTrace.setApplicationName(SpringUtils.getApplicationName());
-			applicationStackTrace.setStackTrace(
-					Arrays.stream(throwable.getStackTrace()).map(this::buildStackTraceElementText).toList());
 
-			stackTraces.add(applicationStackTrace);
-		}
+		List<String> stackTrace = Arrays.stream(throwable.getStackTrace()).map(this::buildStackTraceElementText)
+				.toList();
+
+		ApplicationStackTrace applicationStackTrace = new ApplicationStackTrace();
+		applicationStackTrace.setApplicationName(SpringUtils.getApplicationName());
+		applicationStackTrace.setStackTrace(stackTrace);
+
+		stackTraces.add(applicationStackTrace);
 	}
 
 	private String buildStackTraceElementText(StackTraceElement element) {
