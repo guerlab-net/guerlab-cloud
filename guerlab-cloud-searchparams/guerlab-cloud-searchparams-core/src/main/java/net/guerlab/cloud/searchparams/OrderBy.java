@@ -13,10 +13,14 @@
 
 package net.guerlab.cloud.searchparams;
 
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 排序字段.
@@ -28,6 +32,12 @@ import lombok.experimental.Accessors;
 @Builder
 @Schema(description = "排序字段")
 public class OrderBy {
+
+	private static final String COLUMN_NAME_REGEX = "^(?:[a-zA-Z0-9_]+|'[a-zA-Z0-9_]+')$";
+
+	private static final String QUOTATION_MARKS = "'";
+
+	private static final List<String> ALLOWS = new CopyOnWriteArrayList<>();
 
 	/**
 	 * 字段名.
@@ -68,5 +78,41 @@ public class OrderBy {
 	public OrderBy(String columnName, boolean asc) {
 		this.columnName = columnName;
 		this.asc = asc;
+	}
+
+	/**
+	 * 添加白名单字段.
+	 *
+	 * @param columnName 字段名称
+	 */
+	public static void addAllow(String columnName) {
+		columnName = StringUtils.trimToNull(columnName);
+		if (columnName == null || ALLOWS.contains(columnName)) {
+			return;
+		}
+		ALLOWS.add(columnName);
+	}
+
+	/**
+	 * 是否通过检查.
+	 * @return 是否通过检查
+	 */
+	public boolean accept() {
+		columnName = StringUtils.trimToNull(columnName);
+		if (columnName == null) {
+			return false;
+		}
+
+		if (ALLOWS.contains(columnName)) {
+			return true;
+		}
+
+		if (columnName.contains(QUOTATION_MARKS)) {
+			if (!columnName.startsWith(QUOTATION_MARKS) || !columnName.endsWith(QUOTATION_MARKS)) {
+				return false;
+			}
+		}
+
+		return columnName.matches(COLUMN_NAME_REGEX);
 	}
 }

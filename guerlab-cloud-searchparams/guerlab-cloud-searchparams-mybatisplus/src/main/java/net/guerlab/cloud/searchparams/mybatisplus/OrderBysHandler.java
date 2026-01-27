@@ -18,7 +18,6 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import jakarta.annotation.Nullable;
-import org.apache.commons.lang3.StringUtils;
 
 import net.guerlab.cloud.searchparams.JsonField;
 import net.guerlab.cloud.searchparams.OrderBy;
@@ -63,12 +62,6 @@ public class OrderBysHandler extends AbstractMyBatisPlusSearchParamsHandler {
 			return false;
 		}
 
-		String columnName = StringUtils.trimToNull(orderBy.getColumnName());
-		if (columnName == null) {
-			return false;
-		}
-
-		orderBy.setColumnName(columnName);
-		return true;
+		return orderBy.accept();
 	}
 }

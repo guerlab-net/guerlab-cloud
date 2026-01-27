@@ -18,7 +18,6 @@ import java.util.List;
 
 import co.elastic.clients.elasticsearch._types.SortOrder;
 import jakarta.annotation.Nullable;
-import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.data.elasticsearch.client.elc.NativeQueryBuilder;
 
@@ -64,12 +63,6 @@ public class SortOptionsBuilderDefaultHandler implements SearchParamsHandler {
 			return false;
 		}
 
-		String columnName = StringUtils.trimToNull(orderBy.getColumnName());
-		if (columnName == null) {
-			return false;
-		}
-
-		orderBy.setColumnName(columnName);
-		return true;
+		return orderBy.accept();
 	}
 }
