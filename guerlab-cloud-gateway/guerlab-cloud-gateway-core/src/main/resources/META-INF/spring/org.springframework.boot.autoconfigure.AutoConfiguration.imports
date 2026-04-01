@@ -4,3 +4,4 @@ net.guerlab.cloud.gateway.core.download.DownloadFilterAutoConfigure
 net.guerlab.cloud.gateway.core.exception.ErrorWebExceptionHandlerAutoConfiguration
 net.guerlab.cloud.gateway.core.logger.LoggerAutoConfigure
 net.guerlab.cloud.gateway.core.protect.ProtectAutoConfigure
+net.guerlab.cloud.gateway.core.trace.TraceAutoConfigure

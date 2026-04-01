@@ -64,6 +64,7 @@ class ClusterSameRuleTest {
 		instances.add(new MockServiceInstance("mock-remote", Map.of(METADATA_KEY, "remote")));
 
 		List<ServiceInstance> result = rule.choose(instances, new DefaultRequest<>());
+		Assertions.assertNotNull(result);
 		Assertions.assertEquals(0, result.size());
 	}
 
@@ -80,6 +81,7 @@ class ClusterSameRuleTest {
 		instances.add(new MockServiceInstance("mock-remote", Map.of(METADATA_KEY, "remote")));
 
 		List<ServiceInstance> result = rule.choose(instances, new DefaultRequest<>());
+		Assertions.assertNotNull(result);
 		Assertions.assertEquals(2, result.size());
 	}
 }

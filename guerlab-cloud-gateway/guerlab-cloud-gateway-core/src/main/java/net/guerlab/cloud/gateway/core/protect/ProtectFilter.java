@@ -28,6 +28,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 
+import net.guerlab.cloud.gateway.core.GatewayConstants;
 import net.guerlab.cloud.gateway.core.UrlDefinition;
 import net.guerlab.commons.collection.CollectionUtil;
 
@@ -77,10 +78,11 @@ public class ProtectFilter implements GatewayFilter, GlobalFilter, Ordered {
 
 		String requestMethod = exchange.getRequest().getMethod().name();
 		String requestPath = exchange.getRequest().getURI().getPath();
+		String traceId = exchange.getAttribute(GatewayConstants.TRACE_ID_KEY);
 
 		for (UrlDefinition url : urls) {
 			if (url.match(requestMethod, requestPath)) {
-				log.debug("intercept protect uri, requestInfo=[{} {}], protectUri=[{}]", requestMethod, requestPath,
+				log.debug("[traceId={}]intercept protect uri, requestInfo=[{} {}], protectUri=[{}]", traceId, requestMethod, requestPath,
 						url);
 				return createNotFoundError();
 			}
@@ -98,6 +100,6 @@ public class ProtectFilter implements GatewayFilter, GlobalFilter, Ordered {
 
 	@Override
 	public int getOrder() {
-		return Ordered.HIGHEST_PRECEDENCE;
+		return Ordered.HIGHEST_PRECEDENCE + 20;
 	}
 }

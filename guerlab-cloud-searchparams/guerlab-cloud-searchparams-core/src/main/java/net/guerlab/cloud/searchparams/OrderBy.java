@@ -33,9 +33,9 @@ import org.apache.commons.lang3.StringUtils;
 @Schema(description = "排序字段")
 public class OrderBy {
 
-	private static final String COLUMN_NAME_REGEX = "^(?:[a-zA-Z0-9_]+|'[a-zA-Z0-9_]+')$";
+	private static final String COLUMN_NAME_REGEX = "^(?:[a-zA-Z0-9_]+|'[a-zA-Z0-9_]+'|`[a-zA-Z0-9_]+`)$";
 
-	private static final String QUOTATION_MARKS = "'";
+	private static final List<String> QUOTATION_MARKS = List.of("'", "`");
 
 	private static final List<String> ALLOWS = new CopyOnWriteArrayList<>();
 
@@ -95,6 +95,7 @@ public class OrderBy {
 
 	/**
 	 * 是否通过检查.
+	 *
 	 * @return 是否通过检查
 	 */
 	public boolean accept() {
@@ -107,9 +108,11 @@ public class OrderBy {
 			return true;
 		}
 
-		if (columnName.contains(QUOTATION_MARKS)) {
-			if (!columnName.startsWith(QUOTATION_MARKS) || !columnName.endsWith(QUOTATION_MARKS)) {
-				return false;
+		for (String mark : QUOTATION_MARKS) {
+			if (columnName.contains(mark)) {
+				if (!columnName.startsWith(mark) || !columnName.endsWith(mark)) {
+					return false;
+				}
 			}
 		}
 

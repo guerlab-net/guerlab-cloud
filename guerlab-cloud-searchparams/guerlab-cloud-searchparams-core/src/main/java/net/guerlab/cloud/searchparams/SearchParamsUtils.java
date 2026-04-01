@@ -113,8 +113,11 @@ public final class SearchParamsUtils {
 	 * @param object       输出对象
 	 */
 	public static void handler(SearchParams searchParams, Object object) {
-		INSTANCES_CACHE.values().stream().filter(instance -> instance.accept(object))
-				.forEach(instance -> handler(searchParams, object, instance));
+		for (AbstractSearchParamsUtilInstance instance : INSTANCES_CACHE.values()) {
+			if (instance.accept(object)) {
+				handler(searchParams, object, instance);
+			}
+		}
 	}
 
 	/**
@@ -125,7 +128,10 @@ public final class SearchParamsUtils {
 	 * @param instance     处理实例
 	 */
 	public static void handler(SearchParams searchParams, Object object, AbstractSearchParamsUtilInstance instance) {
-		getFields(searchParams).forEach(field -> setValue(field, object, searchParams, instance));
+		List<Field> fields = getFields(searchParams);
+		for (Field field : fields) {
+			setValue(field, object, searchParams, instance);
+		}
 		instance.afterHandler(searchParams, object);
 	}
 
@@ -197,7 +203,9 @@ public final class SearchParamsUtils {
 				.toList();
 
 		if (!sqlProviders.isEmpty()) {
-			sqlProviders.forEach(provider -> provider.apply(object, value, field));
+			for (SqlProvider provider : sqlProviders) {
+				provider.apply(object, value, field);
+			}
 			return;
 		}
 
