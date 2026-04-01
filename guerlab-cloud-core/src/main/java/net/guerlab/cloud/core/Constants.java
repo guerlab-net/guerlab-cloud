@@ -106,6 +106,11 @@ public final class Constants {
 	public static final String TRACE_ID_KEY = "Trace-Id";
 
 	/**
+	 * mdc-跟踪ID-key.
+	 */
+	public static final String MDC_TRACE_ID_KEY = "traceId";
+
+	/**
 	 * 跟踪ID-header.
 	 */
 	public static final String REQUEST_TRACE_ID_HEADER = ALLOW_TRANSFER_HEADER_PREFIX + TRACE_ID_KEY;

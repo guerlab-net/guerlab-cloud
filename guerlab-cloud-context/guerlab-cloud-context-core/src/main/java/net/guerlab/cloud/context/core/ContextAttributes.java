@@ -104,7 +104,7 @@ public class ContextAttributes extends HashMap<Object, Object> {
 			MDC.put(k, v);
 
 			if (Constants.REQUEST_TRACE_ID_HEADER.equals(k)) {
-				MDC.put(Constants.TRACE_ID_KEY, v);
+				MDC.put(Constants.MDC_TRACE_ID_KEY, v);
 			}
 		}
 	}
