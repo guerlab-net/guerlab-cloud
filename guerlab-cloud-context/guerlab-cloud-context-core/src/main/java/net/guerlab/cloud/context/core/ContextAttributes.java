@@ -14,12 +14,13 @@
 package net.guerlab.cloud.context.core;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import jakarta.annotation.Nullable;
 import lombok.Getter;
 import org.slf4j.MDC;
 
-import net.guerlab.cloud.core.util.EnvUtils;
+import net.guerlab.cloud.core.Constants;
 
 /**
  * 上下文属性.
@@ -43,11 +44,6 @@ public class ContextAttributes extends HashMap<Object, Object> {
 	 * 响应保存KEY.
 	 */
 	public static final String RESPONSE_KEY = KEY + ".response";
-
-	/**
-	 * 是否设置到mdc上.
-	 */
-	public static final boolean SET_TO_MDC = Boolean.parseBoolean(EnvUtils.getEnv("GUERLAB_CLOUD_CONTEXT_SET_TO_MDC", "false"));
 
 	/**
 	 * 创建源.
@@ -90,11 +86,26 @@ public class ContextAttributes extends HashMap<Object, Object> {
 	@Nullable
 	@Override
 	public Object put(Object key, Object value) {
-		if (SET_TO_MDC) {
-			if (key instanceof String && value instanceof String) {
-				MDC.put((String) key, (String) value);
+		putToMdc(key, value);
+		return super.put(key, value);
+	}
+
+	@Override
+	public void putAll(Map<?, ?> m) {
+		super.putAll(m);
+
+		for (Entry<?, ?> entry : m.entrySet()) {
+			putToMdc(entry.getKey(), entry.getValue());
+		}
+	}
+
+	private void putToMdc(Object key, Object value) {
+		if (key instanceof String k && value instanceof String v) {
+			MDC.put(k, v);
+
+			if (Constants.REQUEST_TRACE_ID_HEADER.equals(k)) {
+				MDC.put(Constants.TRACE_ID_KEY, v);
 			}
 		}
-		return super.put(key, value);
 	}
 }

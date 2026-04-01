@@ -23,9 +23,10 @@ import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.web.server.ServerWebExchange;
+
+import net.guerlab.cloud.gateway.core.GatewayConstants;
 
 /**
  * 请求时间记录.
@@ -33,8 +34,7 @@ import org.springframework.web.server.ServerWebExchange;
  * @author guer
  */
 @Slf4j
-@Order(Ordered.HIGHEST_PRECEDENCE)
-public class RequestTimeFilter implements GlobalFilter {
+public class RequestTimeFilter implements GlobalFilter, Ordered {
 
 	private static final String REQUEST_TIME = RequestTimeFilter.class.getName() + ".requestTimeStartWith";
 
@@ -65,7 +65,8 @@ public class RequestTimeFilter implements GlobalFilter {
 			String url = getRequestUrl(exchange);
 			HttpMethod method = exchange.getRequest().getMethod();
 			long usedTime = System.currentTimeMillis() - startTime;
-			log.debug("request [{} {}] used: {} milliseconds", method, url, usedTime);
+			String traceId = exchange.getAttribute(GatewayConstants.TRACE_ID_KEY);
+			log.debug("[traceId={}]request [{} {}] used: {} milliseconds", traceId, method, url, usedTime);
 			return null;
 		}));
 	}
@@ -83,6 +84,11 @@ public class RequestTimeFilter implements GlobalFilter {
 		}
 
 		return originalRequestUrls.stream().findFirst().orElse(exchange.getRequest().getURI()).toString();
+	}
+
+	@Override
+	public int getOrder() {
+		return Ordered.HIGHEST_PRECEDENCE + 10;
 	}
 }
 

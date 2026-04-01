@@ -108,6 +108,7 @@ class VersionMatchRuleTest {
 		instances.add(new MockServiceInstance("mock-v1", Map.of(metadataKey, "[2.0, 3.0)")));
 
 		List<ServiceInstance> result = rule.choose(instances, buildRequest("3.0"));
+		Assertions.assertNotNull(result);
 		Assertions.assertEquals(2, result.size());
 	}
 }

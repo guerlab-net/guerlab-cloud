@@ -66,6 +66,7 @@ class StainingRuleTest {
 		TransferContext.setTransfer(Constants.STAINING_KEY + "env", "v3");
 
 		List<ServiceInstance> result = rule.choose(instances, new DefaultRequest<>());
+		Assertions.assertNotNull(result);
 		Assertions.assertEquals(2, result.size());
 	}
 
@@ -99,6 +100,7 @@ class StainingRuleTest {
 		TransferContext.setTransfer(Constants.STAINING_KEY + "version", "v3");
 
 		List<ServiceInstance> result = rule.choose(instances, new DefaultRequest<>());
+		Assertions.assertNotNull(result);
 		Assertions.assertEquals(4, result.size());
 	}
 
@@ -114,6 +116,7 @@ class StainingRuleTest {
 		TransferContext.setTransfer(Constants.STAINING_KEY + "version", "v3");
 
 		List<ServiceInstance> result = rule.choose(instances, new DefaultRequest<>());
+		Assertions.assertNotNull(result);
 		Assertions.assertEquals(2, result.size());
 	}
 }

@@ -101,6 +101,21 @@ public final class Constants {
 	public static final String STAINING_HEADER_PREFIX = ALLOW_TRANSFER_HEADER_PREFIX + STAINING_KEY;
 
 	/**
+	 * 跟踪ID-key.
+	 */
+	public static final String TRACE_ID_KEY = "Trace-Id";
+
+	/**
+	 * 跟踪ID-header.
+	 */
+	public static final String REQUEST_TRACE_ID_HEADER = ALLOW_TRANSFER_HEADER_PREFIX + TRACE_ID_KEY;
+
+	/**
+	 * 跨度ID-key.
+	 */
+	public static final String REQUEST_SPAN_ID_KEY = "Span-Id";
+
+	/**
 	 * 请求头-是否包装响应.
 	 */
 	public static final String HTTP_HEADER_RESPONSE_WRAPPED = "X-Response-Wrapped";

@@ -41,6 +41,12 @@
       "type": "net.guerlab.cloud.gateway.core.protect.ProtectProperties",
       "description": "接口保护配置.",
       "sourceType": "net.guerlab.cloud.gateway.core.protect.ProtectProperties"
+    },
+    {
+      "name": "spring.cloud.gateway.trace",
+      "type": "net.guerlab.cloud.gateway.core.trace.TraceProperties",
+      "description": "链路追踪配置.",
+      "sourceType": "net.guerlab.cloud.gateway.core.trace.TraceProperties"
     }
   ],
   "properties": [
@@ -119,6 +125,13 @@
       "type": "java.util.List<net.guerlab.cloud.gateway.core.UrlDefinition>",
       "description": "待保护路径列表.",
       "sourceType": "net.guerlab.cloud.gateway.core.protect.ProtectProperties"
+    },
+    {
+      "name": "spring.cloud.gateway.trace.upstream-header-key",
+      "type": "java.lang.String",
+      "description": "上游Header的key.",
+      "sourceType": "net.guerlab.cloud.gateway.core.trace.TraceProperties",
+      "defaultValue": "Trace-Id"
     }
   ],
   "hints": []
