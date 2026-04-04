@@ -16,13 +16,16 @@ package net.guerlab.cloud.gateway.core.trace;
 import java.util.UUID;
 
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import reactor.core.publisher.Mono;
 
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;
 
+import net.guerlab.cloud.core.Constants;
 import net.guerlab.cloud.gateway.core.GatewayConstants;
 
 /**
@@ -46,14 +49,29 @@ public class TraceFilter implements GlobalFilter, Ordered {
 
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-		String upstreamTraceId = exchange.getRequest().getHeaders().getFirst(properties.getUpstreamHeaderKey());
+		ServerHttpRequest request = exchange.getRequest();
+		String upstreamTraceId = request.getHeaders().getFirst(properties.getUpstreamHeaderKey());
 		if (upstreamTraceId == null) {
 			upstreamTraceId = UUID.randomUUID().toString();
 		}
 
-		exchange.getAttributes().put(GatewayConstants.TRACE_ID_KEY, upstreamTraceId);
-		log.debug("set tractId: {}", upstreamTraceId);
-		return chain.filter(exchange);
+		ServerHttpRequest newRequest = request.mutate().header(Constants.REQUEST_TRACE_ID_HEADER, upstreamTraceId)
+				.build();
+		ServerWebExchange newExchange = exchange.mutate().request(newRequest).build();
+
+		newExchange.getAttributes().put(GatewayConstants.TRACE_ID_KEY, upstreamTraceId);
+
+		log.debug("set traceId: {}", upstreamTraceId);
+
+		MDC.put(Constants.MDC_TRACE_ID_KEY, upstreamTraceId);
+
+		try {
+			return chain.filter(newExchange).doFinally(signal -> MDC.remove(Constants.MDC_TRACE_ID_KEY));
+		}
+		catch (Exception e) {
+			MDC.remove(Constants.MDC_TRACE_ID_KEY);
+			throw e;
+		}
 	}
 
 	@Override
