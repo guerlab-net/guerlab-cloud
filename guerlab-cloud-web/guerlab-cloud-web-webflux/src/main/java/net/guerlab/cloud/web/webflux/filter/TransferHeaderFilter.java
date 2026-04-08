@@ -70,7 +70,10 @@ public class TransferHeaderFilter implements WebFilter, Ordered {
 							.get(ContextAttributes.KEY);
 
 					for (String header : headers.keySet()) {
+						// https://httpwg.org/specs/rfc7540.html#HttpHeaders 中要求请求头必须小写
+						header = header.toLowerCase();
 						if (!header.startsWith(Constants.ALLOW_TRANSFER_HEADER_PREFIX)) {
+							log.debug("ignore transferHeader: {}", header);
 							continue;
 						}
 						String value = headers.getFirst(header);

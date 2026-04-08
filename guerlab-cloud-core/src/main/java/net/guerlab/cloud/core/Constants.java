@@ -41,31 +41,6 @@ public final class Constants {
 	public static final String TOKEN = "Authorization";
 
 	/**
-	 * 空ID.
-	 */
-	public static final Long EMPTY_ID = 0L;
-
-	/**
-	 * 空名称.
-	 */
-	public static final String EMPTY_NAME = "";
-
-	/**
-	 * 请求方法.
-	 */
-	public static final String REQUEST_METHOD = "Request-Method";
-
-	/**
-	 * 请求URI.
-	 */
-	public static final String REQUEST_URI = "Request-Uri";
-
-	/**
-	 * 完整请求路径.
-	 */
-	public static final String COMPLETE_REQUEST_URI = "Complete-Request-Uri";
-
-	/**
 	 * 当前操作者.
 	 */
 	public static final String CURRENT_OPERATOR = "currentOperator";
@@ -85,15 +60,16 @@ public final class Constants {
 	 */
 	public static final LocalDateTime MAX_DATETIME = LocalDateTime.of(MAX_DATE, LocalTime.MAX);
 
+	// https://httpwg.org/specs/rfc7540.html#HttpHeaders 中要求请求头必须小写
 	/**
 	 * 允许传递的header前缀.
 	 */
-	public static final String ALLOW_TRANSFER_HEADER_PREFIX = "X-Transfer-Inside-";
+	public static final String ALLOW_TRANSFER_HEADER_PREFIX = "x-transfer-inside-";
 
 	/**
 	 * 染色key.
 	 */
-	public static final String STAINING_KEY = "Staining-";
+	public static final String STAINING_KEY = "staining-";
 
 	/**
 	 * 染色header前缀.
@@ -103,7 +79,7 @@ public final class Constants {
 	/**
 	 * 跟踪ID-key.
 	 */
-	public static final String TRACE_ID_KEY = "Trace-Id";
+	public static final String TRACE_ID_KEY = "trace-id";
 
 	/**
 	 * mdc-跟踪ID-key.
@@ -118,7 +94,7 @@ public final class Constants {
 	/**
 	 * 跨度ID-key.
 	 */
-	public static final String REQUEST_SPAN_ID_KEY = "Span-Id";
+	public static final String REQUEST_SPAN_ID_KEY = "span-id";
 
 	/**
 	 * 请求头-是否包装响应.

@@ -42,7 +42,7 @@ class MDCTest {
 
 		PatternLayoutEncoder encoder = new PatternLayoutEncoder();
 		encoder.setContext(loggerContext);
-		encoder.setPattern("%d{HH:mm:ss.SSS} [%thread] [traceId=%X{traceId}] [X-Transfer-Inside-Trace-Id=%X{X-Transfer-Inside-Trace-Id}]  %-5level %logger{36} - %msg%n");
+		encoder.setPattern("%d{HH:mm:ss.SSS} [%thread] [traceId=%X{traceId}] [x-transfer-inside-trace-id=%X{x-transfer-inside-trace-id}]  %-5level %logger{36} - %msg%n");
 		encoder.start();
 
 		ConsoleAppender<ILoggingEvent> consoleAppender = new ConsoleAppender<>();

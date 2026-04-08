@@ -39,7 +39,7 @@ public final class TransferContext {
 	 */
 	@SuppressWarnings("SameParameterValue")
 	public static void setTransfer(String key, String value) {
-		String header = Constants.ALLOW_TRANSFER_HEADER_PREFIX + key;
+		String header = Constants.ALLOW_TRANSFER_HEADER_PREFIX + key.toLowerCase();
 		if (HeaderSafetyFilter.accept(header, value)) {
 			ContextAttributesHolder.get().put(header, value);
 		}
@@ -53,7 +53,7 @@ public final class TransferContext {
 	 */
 	@Nullable
 	public static String getTransfer(String key) {
-		Object value = ContextAttributesHolder.get().get(Constants.ALLOW_TRANSFER_HEADER_PREFIX + key);
+		Object value = ContextAttributesHolder.get().get(Constants.ALLOW_TRANSFER_HEADER_PREFIX + key.toLowerCase());
 		if (value instanceof String v) {
 			return v;
 		}
