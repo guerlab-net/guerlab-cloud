@@ -15,9 +15,12 @@ package net.guerlab.cloud.context.core;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import jakarta.annotation.Nullable;
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 
 import net.guerlab.cloud.core.Constants;
@@ -83,20 +86,112 @@ public class ContextAttributes extends HashMap<Object, Object> {
 		return new ContextAttributes(this);
 	}
 
+	/**
+	 * 格式化key.
+	 *
+	 * @param key 原始key
+	 * @return 格式化后的key
+	 */
+	private Object formatKey(Object key) {
+		if (key instanceof String k) {
+			key = StringUtils.lowerCase(k);
+		}
+		return key;
+	}
+
+	@Override
+	public boolean containsKey(Object key) {
+		key = formatKey(key);
+		return super.containsKey(key);
+	}
+
+	@Nullable
+	@Override
+	public Object get(Object key) {
+		key = formatKey(key);
+		return super.get(key);
+	}
+
+	@Nullable
+	@Override
+	public Object getOrDefault(Object key, Object defaultValue) {
+		key = formatKey(key);
+		return super.getOrDefault(key, defaultValue);
+	}
+
 	@Nullable
 	@Override
 	public Object put(Object key, Object value) {
+		key = formatKey(key);
 		putToMdc(key, value);
 		return super.put(key, value);
 	}
 
+	@Nullable
+	@Override
+	public Object putIfAbsent(Object key, Object value) {
+		key = formatKey(key);
+		return super.putIfAbsent(key, value);
+	}
+
 	@Override
 	public void putAll(Map<?, ?> m) {
-		super.putAll(m);
-
 		for (Entry<?, ?> entry : m.entrySet()) {
-			putToMdc(entry.getKey(), entry.getValue());
+			put(entry.getKey(), entry.getValue());
 		}
+	}
+
+	@Override
+	public Object remove(Object key) {
+		key = formatKey(key);
+		return super.remove(key);
+	}
+
+	@Override
+	public boolean remove(Object key, Object value) {
+		key = formatKey(key);
+		return super.remove(key, value);
+	}
+
+	@Override
+	public boolean replace(Object key, Object oldValue, Object newValue) {
+		key = formatKey(key);
+		return super.replace(key, oldValue, newValue);
+	}
+
+	@Nullable
+	@Override
+	public Object replace(Object key, Object value) {
+		key = formatKey(key);
+		return super.replace(key, value);
+	}
+
+	@Nullable
+	@Override
+	public Object computeIfAbsent(Object key, Function<? super Object, ?> mappingFunction) {
+		key = formatKey(key);
+		return super.computeIfAbsent(key, mappingFunction);
+	}
+
+	@Nullable
+	@Override
+	public Object computeIfPresent(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
+		key = formatKey(key);
+		return super.computeIfPresent(key, remappingFunction);
+	}
+
+	@Nullable
+	@Override
+	public Object compute(Object key, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
+		key = formatKey(key);
+		return super.compute(key, remappingFunction);
+	}
+
+	@Nullable
+	@Override
+	public Object merge(Object key, Object value, BiFunction<? super Object, ? super Object, ?> remappingFunction) {
+		key = formatKey(key);
+		return super.merge(key, value, remappingFunction);
 	}
 
 	private void putToMdc(Object key, Object value) {
