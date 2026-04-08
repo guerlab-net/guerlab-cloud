@@ -26,7 +26,7 @@ class StringCaseTest {
 
 	@Test
 	void caseTest() {
-		ContextAttributes attributes = ContextAttributesHolder.get();
+		ContextAttributes attributes = new ContextAttributes("test");
 		attributes.put("UPPERCASE", "value");
 		attributes.put("lowercase", "value");
 
