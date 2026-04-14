@@ -16,8 +16,6 @@ package net.guerlab.cloud.loadbalancer.rule;
 import java.net.URI;
 import java.util.Map;
 
-import lombok.Data;
-
 import org.springframework.cloud.client.ServiceInstance;
 
 /**
@@ -25,17 +23,10 @@ import org.springframework.cloud.client.ServiceInstance;
  *
  * @author guer
  */
-@Data
-public class MockServiceInstance implements ServiceInstance {
-
-	private final String serviceId;
-
-	private final Map<String, String> metadata;
-
-	public MockServiceInstance(String serviceId, Map<String, String> metadata) {
-		this.serviceId = serviceId;
-		this.metadata = metadata;
-	}
+public record MockServiceInstance(
+		String serviceId,
+		Map<String, String> metadata
+) implements ServiceInstance {
 
 	@Override
 	public String getServiceId() {
