@@ -39,6 +39,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.cloud.openfeign.FeignClientsConfiguration;
 import org.springframework.http.HttpHeaders;
@@ -62,7 +63,8 @@ import net.guerlab.commons.exception.ApplicationException;
 				FeignAutoConfiguration.class,
 				FeignClientsConfiguration.class,
 				ObjectMapperAutoConfigure.class,
-				TestAutoConfigure.class
+				TestAutoConfigure.class,
+				RefreshAutoConfiguration.class
 		},
 		webEnvironment = SpringBootTest.WebEnvironment.NONE
 )

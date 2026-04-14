@@ -281,6 +281,8 @@ public final class TimeHelper {
 	 * 通过时间字符串解析生成日期对象.
 	 *
 	 * @param string 时间字符串
+	 * @param query  查询处理
+	 * @param <R>    数据类型
 	 * @return 日期对象
 	 */
 	@Nullable

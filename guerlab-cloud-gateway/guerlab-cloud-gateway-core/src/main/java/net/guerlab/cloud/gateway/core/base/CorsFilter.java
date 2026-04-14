@@ -38,6 +38,11 @@ public class CorsFilter implements WebFilter {
 
 	private final CorsProperties properties;
 
+	/**
+	 * 通过Cors配置初始化Cors处理拦截器.
+	 *
+	 * @param properties Cors配置
+	 */
 	public CorsFilter(CorsProperties properties) {
 		this.properties = properties;
 	}

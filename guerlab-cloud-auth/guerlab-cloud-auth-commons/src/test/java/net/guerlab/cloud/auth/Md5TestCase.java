@@ -13,22 +13,20 @@
 
 package net.guerlab.cloud.auth;
 
-import java.util.Optional;
-
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.test.util.TestPropertyValues;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 
 import net.guerlab.cloud.auth.autoconfigure.TestAuthAutoConfigure;
 import net.guerlab.cloud.auth.domain.ITestTokenInfo;
 import net.guerlab.cloud.auth.domain.TestTokenInfo;
 import net.guerlab.cloud.auth.domain.TokenInfo;
-import net.guerlab.cloud.auth.factory.AbstractTokenFactory;
 import net.guerlab.cloud.auth.factory.TestMd5TokenFactory;
 
 /**
@@ -37,35 +35,31 @@ import net.guerlab.cloud.auth.factory.TestMd5TokenFactory;
  * @author guer
  */
 @Slf4j
+@SpringBootTest(
+		classes = {
+				TestAuthAutoConfigure.class,
+				TestMd5TokenFactory.class,
+				RefreshAutoConfiguration.class
+		}
+)
 class Md5TestCase {
 
 	private static final TestTokenInfo INFO = new TestTokenInfo(1L, "tester");
 
-	private static AnnotationConfigApplicationContext context;
+	@Resource
+	private TestMd5TokenFactory tokenFactory;
 
-	@BeforeAll
-	static void setUp() {
-		context = new AnnotationConfigApplicationContext();
-		context.register(TestAuthAutoConfigure.class, TestMd5TokenFactory.class);
-		TestPropertyValues.of("auth.test.token-factory.md5.access-token-key=test-access-md5").applyTo(context);
-		TestPropertyValues.of("auth.test.token-factory.md5.refresh-token-key=test-refresh-md5").applyTo(context);
-		context.refresh();
-	}
-
-	@AfterAll
-	static void tearDown() {
-		Optional.ofNullable(context).ifPresent(AnnotationConfigApplicationContext::close);
+	@DynamicPropertySource
+	static void rsaProperties(DynamicPropertyRegistry registry) {
+		registry.add("auth.test.token-factory.md5.access-token-key", () -> "test-access-md5");
+		registry.add("auth.test.token-factory.md5.refresh-token-key", () -> "test-refresh-md5");
 	}
 
 	@Test
 	void md5() {
-		test(context.getBean(TestMd5TokenFactory.class));
-	}
-
-	private void test(AbstractTokenFactory<ITestTokenInfo, ?> factory) {
-		TokenInfo accessToken = factory.generateByAccessToken(INFO);
+		TokenInfo accessToken = tokenFactory.generateByAccessToken(INFO);
 		log.debug("accessToken: {}", accessToken);
-		ITestTokenInfo parseInfo = factory.parseByAccessToken(accessToken.getToken());
+		ITestTokenInfo parseInfo = tokenFactory.parseByAccessToken(accessToken.getToken());
 		log.debug("parseInfo: {}", parseInfo);
 		Assertions.assertEquals(parseInfo.getUserId(), INFO.getUserId());
 	}
