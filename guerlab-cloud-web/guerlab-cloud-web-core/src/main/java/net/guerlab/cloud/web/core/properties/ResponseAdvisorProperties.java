@@ -23,14 +23,12 @@ import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 
-import net.guerlab.cloud.web.core.annotation.ResponseObjectWrapper;
-
 /**
  * http响应数据处理配置参数.<br>
  * 符合以下条件之一将不会被包装成{@link net.guerlab.cloud.core.result.Result}类型<br>
  * <ul>
  * <li>请求路径符合排除列表前缀</li>
- * <li>使用了{@link ResponseObjectWrapper}注解且ignore为true</li>
+ * <li>使用了{@link net.guerlab.cloud.web.core.annotation.ResponseObjectWrapper}注解且ignore为true</li>
  * </ul>
  *
  * @author guer
