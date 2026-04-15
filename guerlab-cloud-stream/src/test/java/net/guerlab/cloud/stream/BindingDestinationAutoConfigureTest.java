@@ -14,7 +14,9 @@
 package net.guerlab.cloud.stream;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,8 +50,13 @@ class BindingDestinationAutoConfigureTest {
 		InputBindingDestinationAutoConfigure configure = new InputBindingDestinationAutoConfigure(bindingDestinations);
 		configure.initBindingDestination(bindingServiceProperties);
 
-		Assertions.assertArrayEquals(new String[] {"onTestAdd-in-0", "onTestDelete-in-0", "onTestUpdate-in-0"},
-				bindingServiceProperties.getBindings().keySet().toArray(new String[] {}));
+		Set<String> result = bindingServiceProperties.getBindings().keySet();
+
+		List<String> target = List.of("onTestAdd-in-0", "onTestDelete-in-0", "onTestUpdate-in-0");
+
+		Assertions.assertEquals(target.size(), result.size());
+		Assertions.assertTrue(target.containsAll(result));
+		Assertions.assertTrue(result.containsAll(target));
 	}
 
 	@Test
@@ -58,7 +65,12 @@ class BindingDestinationAutoConfigureTest {
 				bindingDestinations);
 		configure.initBindingDestination(bindingServiceProperties);
 
-		Assertions.assertArrayEquals(new String[] {"testAdd-out-0", "testDelete-out-0", "testUpdate-out-0"},
-				bindingServiceProperties.getBindings().keySet().toArray(new String[] {}));
+		Set<String> result = bindingServiceProperties.getBindings().keySet();
+
+		List<String> target = List.of("testAdd-out-0", "testDelete-out-0", "testUpdate-out-0");
+
+		Assertions.assertEquals(target.size(), result.size());
+		Assertions.assertTrue(target.containsAll(result));
+		Assertions.assertTrue(result.containsAll(target));
 	}
 }

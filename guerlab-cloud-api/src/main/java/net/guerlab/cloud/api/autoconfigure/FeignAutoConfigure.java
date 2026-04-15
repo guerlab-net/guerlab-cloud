@@ -55,6 +55,11 @@ public class FeignAutoConfigure {
 
 	private final ObjectFactory<HttpMessageConverters> messageConverters;
 
+	/**
+	 * 通过HttpMessageConverters实例列表初始化feign自动配置.
+	 *
+	 * @param messageConverters messageConverters
+	 */
 	public FeignAutoConfigure(ObjectFactory<HttpMessageConverters> messageConverters) {
 		this.messageConverters = messageConverters;
 	}

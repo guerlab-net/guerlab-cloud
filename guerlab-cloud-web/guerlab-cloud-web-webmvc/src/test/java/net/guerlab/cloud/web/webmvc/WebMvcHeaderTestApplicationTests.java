@@ -37,6 +37,7 @@ import net.guerlab.cloud.core.result.Result;
 /**
  * @author guer
  */
+@SuppressWarnings("UastIncorrectHttpHeaderInspection")
 @SpringBootTest(
 		classes = TestApplication.class,
 		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT

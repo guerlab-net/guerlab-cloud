@@ -41,6 +41,11 @@ public class DownloadFilter implements GatewayFilter, GlobalFilter, Ordered {
 
 	private final CorsProperties properties;
 
+	/**
+	 * 通过Cors配置初始化下载扩展支持.
+	 *
+	 * @param properties Cors配置
+	 */
 	public DownloadFilter(CorsProperties properties) {
 		this.properties = properties;
 	}

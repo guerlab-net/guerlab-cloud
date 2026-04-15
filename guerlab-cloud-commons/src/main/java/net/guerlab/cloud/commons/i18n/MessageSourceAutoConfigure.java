@@ -14,6 +14,10 @@
 package net.guerlab.cloud.commons.i18n;
 
 import java.time.Duration;
+import java.util.List;
+import java.util.Objects;
+
+import org.apache.commons.lang3.StringUtils;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
@@ -26,7 +30,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.Ordered;
-import org.springframework.util.StringUtils;
+
+import net.guerlab.commons.collection.CollectionUtil;
 
 /**
  * 消息源自动配置.
@@ -58,9 +63,12 @@ public class MessageSourceAutoConfigure {
 	@Bean(name = AbstractApplicationContext.MESSAGE_SOURCE_BEAN_NAME)
 	public MessageSource messageSource(MessageSourceProperties properties) {
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-		if (StringUtils.hasText(properties.getBasename())) {
-			messageSource.setBasenames(StringUtils.commaDelimitedListToStringArray(
-					StringUtils.trimAllWhitespace(properties.getBasename())));
+		List<String> basename = properties.getBasename();
+		if (!CollectionUtil.isEmpty(basename)) {
+			basename.stream()
+					.map(StringUtils::trimToNull)
+					.filter(Objects::nonNull)
+					.forEach(messageSource::addBasenames);
 		}
 		if (properties.getEncoding() != null) {
 			messageSource.setDefaultEncoding(properties.getEncoding().name());

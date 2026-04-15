@@ -13,22 +13,20 @@
 
 package net.guerlab.cloud.auth;
 
-import java.util.Optional;
-
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.test.util.TestPropertyValues;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.autoconfigure.RefreshAutoConfiguration;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 
 import net.guerlab.cloud.auth.autoconfigure.TestAuthAutoConfigure;
 import net.guerlab.cloud.auth.domain.ITestTokenInfo;
 import net.guerlab.cloud.auth.domain.TestTokenInfo;
 import net.guerlab.cloud.auth.domain.TokenInfo;
-import net.guerlab.cloud.auth.factory.AbstractTokenFactory;
 import net.guerlab.cloud.auth.factory.TestJwtTokenFactory;
 import net.guerlab.cloud.rsa.RsaKeys;
 import net.guerlab.cloud.rsa.RsaUtils;
@@ -39,53 +37,47 @@ import net.guerlab.cloud.rsa.RsaUtils;
  * @author guer
  */
 @Slf4j
+@SpringBootTest(
+		classes = {
+				TestAuthAutoConfigure.class,
+				TestJwtTokenFactory.class,
+				RefreshAutoConfiguration.class
+		}
+)
 class JwtTestCase {
 
 	private static final TestTokenInfo INFO = new TestTokenInfo(1L, "tester");
 
-	private static AnnotationConfigApplicationContext context;
+	@Resource
+	private TestJwtTokenFactory tokenFactory;
 
-	@BeforeAll
-	static void setUp() {
+	@DynamicPropertySource
+	static void rsaProperties(DynamicPropertyRegistry registry) {
 		RsaKeys rsaKeys = RsaUtils.buildKeys();
+		registry.add("auth.test.token-factory.jwt.access-token-key.public-key", rsaKeys::getPublicKeyFormattedContent);
+		registry.add("auth.test.token-factory.jwt.access-token-key.private-key", rsaKeys::getPrivateKey);
 
-		context = new AnnotationConfigApplicationContext();
-		context.register(TestAuthAutoConfigure.class, TestJwtTokenFactory.class);
-		TestPropertyValues.of(
-						"auth.test.token-factory.jwt.access-token-key.public-key=" + rsaKeys.getPublicKeyFormattedContent())
-				.applyTo(context);
-		TestPropertyValues.of("auth.test.token-factory.jwt.access-token-key.private-key=" + rsaKeys.getPrivateKey())
-				.applyTo(context);
-		TestPropertyValues.of(
-						"auth.test.token-factory.jwt.refresh-token-key.public-key=" + rsaKeys.getPublicKeyFormattedContent())
-				.applyTo(context);
-		TestPropertyValues.of("auth.test.token-factory.jwt.refresh-token-key.private-key=" + rsaKeys.getPrivateKey())
-				.applyTo(context);
-		context.refresh();
-	}
-
-	@AfterAll
-	static void tearDown() {
-		Optional.ofNullable(context).ifPresent(AnnotationConfigApplicationContext::close);
+		registry.add("auth.test.token-factory.jwt.refresh-token-key.public-key", rsaKeys::getPublicKeyFormattedContent);
+		registry.add("auth.test.token-factory.jwt.refresh-token-key.private-key", rsaKeys::getPrivateKey);
 	}
 
 	@Test
 	void jwt() {
-		accessToken(context.getBean(TestJwtTokenFactory.class));
-		refreshToken(context.getBean(TestJwtTokenFactory.class));
+		accessToken();
+		refreshToken();
 	}
 
-	private void accessToken(AbstractTokenFactory<ITestTokenInfo, ?> factory) {
-		TokenInfo accessToken = factory.generateByAccessToken(INFO);
+	private void accessToken() {
+		TokenInfo accessToken = tokenFactory.generateByAccessToken(INFO);
 		log.debug("accessToken: {}", accessToken);
-		ITestTokenInfo parseInfo = factory.parseByAccessToken(accessToken.getToken());
+		ITestTokenInfo parseInfo = tokenFactory.parseByAccessToken(accessToken.getToken());
 		check(parseInfo);
 	}
 
-	private void refreshToken(AbstractTokenFactory<ITestTokenInfo, ?> factory) {
-		TokenInfo refreshToken = factory.generateByRefreshToken(INFO);
+	private void refreshToken() {
+		TokenInfo refreshToken = tokenFactory.generateByRefreshToken(INFO);
 		log.debug("refreshToken: {}", refreshToken);
-		ITestTokenInfo parseInfo = factory.parseByRefreshToken(refreshToken.getToken());
+		ITestTokenInfo parseInfo = tokenFactory.parseByRefreshToken(refreshToken.getToken());
 		check(parseInfo);
 	}
 
