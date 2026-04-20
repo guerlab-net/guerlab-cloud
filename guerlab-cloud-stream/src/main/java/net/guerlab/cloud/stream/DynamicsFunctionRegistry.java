@@ -43,7 +43,7 @@ public class DynamicsFunctionRegistry implements ImportBeanDefinitionRegistrar, 
 	@Override
 	public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 		DynamicsFunctionProperties properties = Binder.get(environment)
-				.bind(DynamicsFunctionProperties.PROPERTIES_PREFIX, DynamicsFunctionProperties.class).orElseGet(null);
+				.bind(DynamicsFunctionProperties.PROPERTIES_PREFIX, DynamicsFunctionProperties.class).orElse(null);
 		if (properties == null) {
 			log.debug("not found spring.cloud.function.dynamics properties");
 			return;

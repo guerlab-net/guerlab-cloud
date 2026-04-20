@@ -44,6 +44,12 @@ class DynamicsFunctionTest {
 	}
 
 	@Test
+	void emptyConfigTest() {
+		context.register(DynamicsFunctionAutoConfigure.class);
+		context.refresh();
+	}
+
+	@Test
 	void singleParameterTest() {
 		test0("net.guerlab.cloud.stream.SingleParameterEvent", SingleParameterEventListener.class);
 	}
