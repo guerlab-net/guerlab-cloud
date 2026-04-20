@@ -57,6 +57,13 @@ public class StainingRule extends BaseRule<StainingProperties> {
 		Map<String, String> headerMap = TransferContext.getAllTransfer();
 
 		if (headerMap.isEmpty()) {
+			if (properties.isFilerStainingInstance()) {
+				List<ServiceInstance> baselines = instances.stream().filter(this::isBaseLineInstance).toList();
+				log.debug("baseline size: {}", baselines.size());
+				if (!baselines.isEmpty()) {
+					return baselines;
+				}
+			}
 			return instances;
 		}
 
@@ -80,6 +87,15 @@ public class StainingRule extends BaseRule<StainingProperties> {
 		}
 
 		return result;
+	}
+
+	private boolean isBaseLineInstance(ServiceInstance instance) {
+		Map<String, String> metadata = instance.getMetadata();
+		if (CollectionUtil.isEmpty(metadata)) {
+			return true;
+		}
+
+		return metadata.keySet().stream().noneMatch(key -> key.startsWith(Constants.STAINING_HEADER_PREFIX));
 	}
 
 	@Nullable

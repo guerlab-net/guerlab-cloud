@@ -36,4 +36,9 @@ public class StainingProperties extends BaseRuleProperties {
 	 * 配置前缀.
 	 */
 	public static final String PROPERTIES_PREFIX = Constants.PROPERTIES_PREFIX + ".staining";
+
+	/**
+	 * 是否过滤染色实例.
+	 */
+	private boolean filerStainingInstance = true;
 }
