@@ -100,6 +100,13 @@
       "description": "排序."
     },
     {
+      "name": "spring.cloud.loadbalancer.staining.filer-staining-instance",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.loadbalancer.properties.StainingProperties",
+      "description": "是否过滤染色实例.",
+      "defaultValue": true
+    },
+    {
       "name": "spring.cloud.loadbalancer.version-control.enabled",
       "type": "java.lang.Boolean",
       "sourceType": "net.guerlab.cloud.loadbalancer.properties.VersionControlProperties",
