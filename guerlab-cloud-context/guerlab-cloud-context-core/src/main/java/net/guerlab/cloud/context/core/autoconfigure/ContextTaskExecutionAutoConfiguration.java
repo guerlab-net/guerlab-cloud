@@ -14,26 +14,28 @@
 package net.guerlab.cloud.context.core.autoconfigure;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
+import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.task.TaskDecorator;
 
-import net.guerlab.cloud.context.core.task.AuthContextHandlerTaskDecorator;
+import net.guerlab.cloud.context.core.task.ContextHandlerTaskDecorator;
 
 /**
- * 授权上下文处理异步任务装饰器自动配置.
+ * 上下文任务执行器自动配置.
  *
  * @author guer
  */
-@AutoConfiguration
-public class AuthContextHandlerTaskDecoratorAutoConfigure {
+@AutoConfiguration(
+		before = TaskExecutionAutoConfiguration.class
+)
+public class ContextTaskExecutionAutoConfiguration {
 
 	/**
-	 * 创建授权上下文处理异步任务装饰器.
+	 * 创建上下文处理异步任务装饰器.
 	 *
-	 * @return 授权上下文处理异步任务装饰器
+	 * @return 上下文处理异步任务装饰器
 	 */
 	@Bean
-	public TaskDecorator authContextHandlerTaskDecorator() {
-		return new AuthContextHandlerTaskDecorator();
+	public ContextHandlerTaskDecorator contextHandlerTaskDecorator() {
+		return new ContextHandlerTaskDecorator();
 	}
 }
