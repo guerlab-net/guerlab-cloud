@@ -23,11 +23,11 @@ import net.guerlab.cloud.context.core.ContextAttributes;
 import net.guerlab.cloud.context.core.ContextAttributesHolder;
 
 /**
- * 授权上下文处理异步任务装饰器.
+ * 上下文处理异步任务装饰器.
  *
  * @author guer
  */
-public class AuthContextHandlerTaskDecorator implements TaskDecorator {
+public class ContextHandlerTaskDecorator implements TaskDecorator {
 
 	@Override
 	public Runnable decorate(Runnable runnable) {
