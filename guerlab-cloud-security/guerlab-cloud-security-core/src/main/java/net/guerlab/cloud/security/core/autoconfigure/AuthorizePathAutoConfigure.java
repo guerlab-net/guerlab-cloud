@@ -26,6 +26,7 @@ import org.springframework.http.HttpMethod;
 
 import net.guerlab.cloud.security.core.AuthorizePathProvider;
 import net.guerlab.cloud.security.core.SimpleAuthorizePathProvider;
+import net.guerlab.cloud.security.core.properties.AuthenticationTypeProperties;
 import net.guerlab.cloud.security.core.properties.AuthorizePathProperties;
 import net.guerlab.cloud.security.core.properties.CorsProperties;
 
@@ -35,7 +36,11 @@ import net.guerlab.cloud.security.core.properties.CorsProperties;
  * @author guer
  */
 @AutoConfiguration
-@EnableConfigurationProperties({AuthorizePathProperties.class, CorsProperties.class})
+@EnableConfigurationProperties({
+		AuthorizePathProperties.class,
+		CorsProperties.class,
+		AuthenticationTypeProperties.class
+})
 public class AuthorizePathAutoConfigure {
 
 	/**

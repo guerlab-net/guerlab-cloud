@@ -1,6 +1,12 @@
 {
   "groups": [
     {
+      "name": "spring.security.authentication-type",
+      "type": "net.guerlab.cloud.security.core.properties.AuthenticationTypeProperties",
+      "sourceType": "net.guerlab.cloud.security.core.properties.AuthenticationTypeProperties",
+      "description": "Http安全认证方式配置."
+    },
+    {
       "name": "spring.security.paths",
       "type": "net.guerlab.cloud.security.core.properties.AuthorizePathProperties",
       "sourceType": "net.guerlab.cloud.security.core.properties.AuthorizePathProperties",
@@ -14,6 +20,18 @@
     }
   ],
   "properties": [
+    {
+      "name": "spring.security.authentication-type.enable-http-basic",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.security.core.properties.AuthenticationTypeProperties",
+      "description": "是否启用http-basic认证."
+    },
+    {
+      "name": "spring.security.authentication-type.enable-form-login",
+      "type": "java.lang.Boolean",
+      "sourceType": "net.guerlab.cloud.security.core.properties.AuthenticationTypeProperties",
+      "description": "是否启用登录表单认证."
+    },
     {
       "name": "spring.security.actuator.enabled",
       "type": "java.lang.Boolean",

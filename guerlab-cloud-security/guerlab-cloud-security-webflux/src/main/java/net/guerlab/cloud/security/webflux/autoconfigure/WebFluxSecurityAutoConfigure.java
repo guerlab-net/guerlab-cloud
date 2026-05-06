@@ -22,6 +22,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
@@ -30,6 +31,7 @@ import org.springframework.web.cors.CorsConfiguration;
 
 import net.guerlab.cloud.security.core.AuthorizePathProvider;
 import net.guerlab.cloud.security.core.autoconfigure.AuthorizePathAutoConfigure;
+import net.guerlab.cloud.security.core.properties.AuthenticationTypeProperties;
 import net.guerlab.cloud.security.core.properties.DefaultCorsConfiguration;
 
 /**
@@ -61,15 +63,47 @@ public class WebFluxSecurityAutoConfigure {
 	/**
 	 * 构造SecurityWebFilterChain.
 	 *
-	 * @param http ServerHttpSecurity
+	 * @param http                           ServerHttpSecurity
+	 * @param authenticationTypeProperties   Http安全认证方式配置
+	 * @param httpBasicConfigurerCustomizers httpBasic认证方式配置监听器列表
+	 * @param formLoginConfigurerCustomizers 登录表单认证方式配置监听器列表
 	 * @return SecurityWebFilterChain
 	 */
 	@Bean
-	public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
-		http.httpBasic(c -> {
-		});
-		http.formLogin(c -> {
-		});
+	public SecurityWebFilterChain securityWebFilterChain(
+			ServerHttpSecurity http,
+			AuthenticationTypeProperties authenticationTypeProperties,
+			ObjectProvider<Customizer<ServerHttpSecurity.HttpBasicSpec>> httpBasicConfigurerCustomizers,
+			ObjectProvider<Customizer<ServerHttpSecurity.FormLoginSpec>> formLoginConfigurerCustomizers
+	) {
+		if (authenticationTypeProperties.isEnableHttpBasic()) {
+			http.httpBasic(Customizer.withDefaults());
+			log.info("enabled httpBasic");
+			for (Customizer<ServerHttpSecurity.HttpBasicSpec> customizer : httpBasicConfigurerCustomizers.stream()
+					.toList()) {
+				log.info("add httpBasic Configurer customizer: {}", customizer);
+				http.httpBasic(customizer);
+			}
+		}
+		else {
+			http.httpBasic(ServerHttpSecurity.HttpBasicSpec::disable);
+			log.info("disabled httpBasic");
+		}
+
+		if (authenticationTypeProperties.isEnableFormLogin()) {
+			http.formLogin(Customizer.withDefaults());
+			log.info("enabled formLogin");
+			for (Customizer<ServerHttpSecurity.FormLoginSpec> customizer : formLoginConfigurerCustomizers.stream()
+					.toList()) {
+				log.info("add formLogin Configurer customizer: {}", customizer);
+				http.formLogin(customizer);
+			}
+		}
+		else {
+			http.formLogin(ServerHttpSecurity.FormLoginSpec::disable);
+			log.info("disabled formLogin");
+		}
+
 		http.csrf(ServerHttpSecurity.CsrfSpec::disable);
 		http.cors(c -> c.configurationSource(request -> configProvider.getIfAvailable(DefaultCorsConfiguration::new)));
 
