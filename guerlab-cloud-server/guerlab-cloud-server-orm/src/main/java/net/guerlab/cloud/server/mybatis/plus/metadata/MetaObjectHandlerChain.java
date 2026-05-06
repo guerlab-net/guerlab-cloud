@@ -30,24 +30,22 @@ import org.springframework.beans.factory.ObjectProvider;
 public class MetaObjectHandlerChain implements MetaObjectHandler {
 
 	@Resource
-	private ObjectProvider<MetaObjectHandler> handlers;
+	private ObjectProvider<MetadataHandler> handlers;
 
 	@Override
 	public void insertFill(MetaObject metaObject) {
-		handlers.stream().filter(this::canUse).filter(MetaObjectHandler::openInsertFill)
-				.forEach(handler -> {
-					log.debug("use MetaObjectHandler: {}", handler);
-					handler.insertFill(metaObject);
-				});
+		for (MetadataHandler handler : handlers) {
+			log.debug("use MetadataHandler with insertFill: {}", handler);
+			handler.insertFill(metaObject);
+		}
 	}
 
 	@Override
 	public void updateFill(MetaObject metaObject) {
-		handlers.stream().filter(this::canUse).filter(MetaObjectHandler::openUpdateFill)
-				.forEach(handler -> {
-					log.debug("use MetaObjectHandler: {}", handler);
-					handler.updateFill(metaObject);
-				});
+		for (MetadataHandler handler : handlers) {
+			log.debug("use MetadataHandler with updateFill: {}", handler);
+			handler.updateFill(metaObject);
+		}
 	}
 
 	private boolean canUse(MetaObjectHandler handler) {

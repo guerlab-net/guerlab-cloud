@@ -141,7 +141,7 @@ public abstract class BaseOrmFindServiceImpl<E extends IBaseEntity, M extends Ba
 		if (ids.isEmpty()) {
 			return Collections.emptyList();
 		}
-		List<E> list = getBaseMapper().selectBatchIds(ids);
+		List<E> list = getBaseMapper().selectByIds(ids);
 		if (!list.isEmpty()) {
 			afterSelect(list, null);
 		}

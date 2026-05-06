@@ -23,15 +23,19 @@ import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.FormLoginConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.cors.CorsConfiguration;
 
 import net.guerlab.cloud.security.core.AuthorizePathProvider;
 import net.guerlab.cloud.security.core.autoconfigure.AuthorizePathAutoConfigure;
+import net.guerlab.cloud.security.core.properties.AuthenticationTypeProperties;
 import net.guerlab.cloud.security.core.properties.DefaultCorsConfiguration;
 
 /**
@@ -64,18 +68,48 @@ public class WebMvcSecurityAutoConfigure {
 	/**
 	 * 构造SecurityFilterChain.
 	 *
-	 * @param http HttpSecurity
+	 * @param http                           HttpSecurity
+	 * @param authenticationTypeProperties   Http安全认证方式配置
+	 * @param httpBasicConfigurerCustomizers httpBasic认证方式配置监听器列表
+	 * @param formLoginConfigurerCustomizers 登录表单认证方式配置监听器列表
 	 * @return SecurityFilterChain
 	 * @throws Exception 配置异常时抛出错误
 	 */
 	@Bean
-	public SecurityFilterChain securityWebFilterChain(HttpSecurity http) throws Exception {
-		http.httpBasic(c -> {
+	public SecurityFilterChain securityWebFilterChain(
+			HttpSecurity http,
+			AuthenticationTypeProperties authenticationTypeProperties,
+			ObjectProvider<Customizer<HttpBasicConfigurer<HttpSecurity>>> httpBasicConfigurerCustomizers,
+			ObjectProvider<Customizer<FormLoginConfigurer<HttpSecurity>>> formLoginConfigurerCustomizers
+	) throws Exception {
+		if (authenticationTypeProperties.isEnableHttpBasic()) {
+			http.httpBasic(Customizer.withDefaults());
+			log.info("enabled httpBasic");
+			for (Customizer<HttpBasicConfigurer<HttpSecurity>> customizer : httpBasicConfigurerCustomizers.stream()
+					.toList()) {
+				log.info("add httpBasic Configurer customizer: {}", customizer);
+				http.httpBasic(customizer);
+			}
+		}
+		else {
+			http.httpBasic(AbstractHttpConfigurer::disable);
+			log.info("disabled httpBasic");
+		}
 
-		});
-		http.formLogin(c -> {
+		if (authenticationTypeProperties.isEnableFormLogin()) {
+			http.formLogin(Customizer.withDefaults());
+			log.info("enabled formLogin");
+			for (Customizer<FormLoginConfigurer<HttpSecurity>> customizer : formLoginConfigurerCustomizers.stream()
+					.toList()) {
+				log.info("add formLogin Configurer customizer: {}", customizer);
+				http.formLogin(customizer);
+			}
+		}
+		else {
+			http.formLogin(AbstractHttpConfigurer::disable);
+			log.info("disabled formLogin");
+		}
 
-		});
 		http.csrf(AbstractHttpConfigurer::disable);
 		http.cors(c -> c.configurationSource(request -> configProvider.getIfAvailable(DefaultCorsConfiguration::new)));
 
