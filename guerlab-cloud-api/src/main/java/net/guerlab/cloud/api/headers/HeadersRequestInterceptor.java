@@ -31,7 +31,7 @@ import net.guerlab.cloud.context.core.TransferContext;
 public class HeadersRequestInterceptor implements RequestInterceptor, Ordered {
 
 	/**
-	 * 排序值
+	 * 排序值.
 	 */
 	public static final int ORDER = -100;
 
