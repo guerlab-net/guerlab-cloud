@@ -17,6 +17,8 @@ import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.core.Ordered;
+
 import net.guerlab.cloud.core.Constants;
 import net.guerlab.cloud.core.util.SpringUtils;
 
@@ -26,10 +28,15 @@ import net.guerlab.cloud.core.util.SpringUtils;
  * @author guer
  */
 @Slf4j
-public class RequestSourceRequestInterceptor implements RequestInterceptor {
+public class RequestSourceRequestInterceptor implements RequestInterceptor, Ordered {
 
 	@Override
 	public void apply(RequestTemplate requestTemplate) {
 		requestTemplate.header(Constants.HTTP_HEADER_REQUEST_SOURCE, SpringUtils.getApplicationName());
+	}
+
+	@Override
+	public int getOrder() {
+		return 0;
 	}
 }

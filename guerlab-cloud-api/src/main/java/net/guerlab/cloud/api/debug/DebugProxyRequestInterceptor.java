@@ -20,6 +20,7 @@ import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import org.springframework.core.Ordered;
 import org.springframework.util.CollectionUtils;
 
 import net.guerlab.cloud.api.properties.DebugProperties;
@@ -30,7 +31,7 @@ import net.guerlab.cloud.api.properties.DebugProperties;
  * @author guer
  */
 @Slf4j
-public class DebugProxyRequestInterceptor implements RequestInterceptor {
+public class DebugProxyRequestInterceptor implements RequestInterceptor, Ordered {
 
 	/**
 	 * http scheme.
@@ -106,5 +107,10 @@ public class DebugProxyRequestInterceptor implements RequestInterceptor {
 
 		return properties.getLocalServices().stream().map(StringUtils::trimToNull).filter(Objects::nonNull)
 				.anyMatch(service -> service.equalsIgnoreCase(serviceName));
+	}
+
+	@Override
+	public int getOrder() {
+		return Ordered.HIGHEST_PRECEDENCE;
 	}
 }

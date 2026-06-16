@@ -16,6 +16,8 @@ package net.guerlab.cloud.api.headers;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 
+import org.springframework.core.Ordered;
+
 import net.guerlab.cloud.auth.context.AbstractContextHandler;
 import net.guerlab.cloud.core.Constants;
 
@@ -24,7 +26,7 @@ import net.guerlab.cloud.core.Constants;
  *
  * @author guer
  */
-public class CurrentOperatorInterceptor implements RequestInterceptor {
+public class CurrentOperatorInterceptor implements RequestInterceptor, Ordered {
 
 	@Override
 	public void apply(RequestTemplate template) {
@@ -32,5 +34,10 @@ public class CurrentOperatorInterceptor implements RequestInterceptor {
 		if (currentOperator != null) {
 			template.header(Constants.CURRENT_OPERATOR_HEADER, currentOperator);
 		}
+	}
+
+	@Override
+	public int getOrder() {
+		return 0;
 	}
 }

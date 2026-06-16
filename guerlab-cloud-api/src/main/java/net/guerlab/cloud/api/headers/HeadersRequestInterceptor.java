@@ -17,6 +17,8 @@ import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.core.Ordered;
+
 import net.guerlab.cloud.context.core.HeaderSafetyFilter;
 import net.guerlab.cloud.context.core.TransferContext;
 
@@ -26,7 +28,12 @@ import net.guerlab.cloud.context.core.TransferContext;
  * @author guer
  */
 @Slf4j
-public class HeadersRequestInterceptor implements RequestInterceptor {
+public class HeadersRequestInterceptor implements RequestInterceptor, Ordered {
+
+	/**
+	 * 排序值
+	 */
+	public static final int ORDER = -100;
 
 	@Override
 	public void apply(RequestTemplate requestTemplate) {
@@ -39,5 +46,10 @@ public class HeadersRequestInterceptor implements RequestInterceptor {
 			log.debug("add header: {} = {}", header, value);
 			requestTemplate.header(header, value);
 		}
+	}
+
+	@Override
+	public int getOrder() {
+		return ORDER;
 	}
 }

@@ -23,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.cloud.client.discovery.event.InstancePreRegisteredEvent;
 import org.springframework.cloud.client.serviceregistry.Registration;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.Ordered;
 
 import net.guerlab.cloud.loadbalancer.properties.VersionControlProperties;
 
@@ -32,7 +33,7 @@ import net.guerlab.cloud.loadbalancer.properties.VersionControlProperties;
  * @author guer
  */
 @Slf4j
-public class LoadBalancerHeaderRequestInterceptor implements RequestInterceptor {
+public class LoadBalancerHeaderRequestInterceptor implements RequestInterceptor, Ordered {
 
 	/**
 	 * 版本控制配置.
@@ -92,5 +93,10 @@ public class LoadBalancerHeaderRequestInterceptor implements RequestInterceptor 
 
 		template.header(requestKey, version);
 		log.debug("add header[{}: {}]", requestKey, version);
+	}
+
+	@Override
+	public int getOrder() {
+		return 0;
 	}
 }
