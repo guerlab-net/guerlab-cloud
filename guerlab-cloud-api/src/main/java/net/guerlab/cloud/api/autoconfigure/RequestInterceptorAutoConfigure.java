@@ -13,7 +13,6 @@
 
 package net.guerlab.cloud.api.autoconfigure;
 
-import feign.RequestInterceptor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.boot.autoconfigure.AutoConfiguration;
@@ -44,7 +43,7 @@ public class RequestInterceptorAutoConfigure {
 	 * @return 负载均衡版本控制请求头注入拦截器
 	 */
 	@Bean
-	public RequestInterceptor loadBalancerHeaderRequestInterceptor(VersionControlProperties properties) {
+	public LoadBalancerHeaderRequestInterceptor loadBalancerHeaderRequestInterceptor(VersionControlProperties properties) {
 		return new LoadBalancerHeaderRequestInterceptor(properties);
 	}
 
@@ -55,7 +54,7 @@ public class RequestInterceptorAutoConfigure {
 	 * @return 开发代理请求拦截器
 	 */
 	@Bean
-	public RequestInterceptor debugProxyRequestInterceptor(DebugProperties properties) {
+	public DebugProxyRequestInterceptor debugProxyRequestInterceptor(DebugProperties properties) {
 		return new DebugProxyRequestInterceptor(properties);
 	}
 
@@ -65,7 +64,7 @@ public class RequestInterceptorAutoConfigure {
 	 * @return 请求源请求拦截器
 	 */
 	@Bean
-	public RequestInterceptor requestSourceRequestInterceptor() {
+	public RequestSourceRequestInterceptor requestSourceRequestInterceptor() {
 		return new RequestSourceRequestInterceptor();
 	}
 
